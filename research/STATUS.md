@@ -111,9 +111,12 @@ See `research/toolchains/windows-amd64-20260725.json`.
   overfull boxes.
 - Poppler rendering and page-by-page visual inspection: PASS (4 pages; no
   clipping, overlap, malformed mathematics, broken citations, or unreadable text).
-- Remote: `origin` is configured; GitHub CLI is not authenticated.
-- Blockers: see `research/BLOCKERS.md`.
-- M1 commit: pending final diff review.
+- M1 implementation commit: `a138e4a5f4ec326ca6983b2ca420eb13f75492e6`.
+- Remote: branch `research/20260725-m0-foundation` is pushed and tracks
+  `origin/research/20260725-m0-foundation`.
+- Draft pull request: `https://github.com/whitespaca/MOSEF/pull/1`.
+- Unresolved blocker: optional pytest/Ruff/mypy gates are unavailable; see
+  BLK-003. BLK-001 and BLK-002 are resolved.
 - Next action: formalize M2 square-free and prime-power branches, prove the basic
   separator lemma, and build its bounded counterexample harness.
 

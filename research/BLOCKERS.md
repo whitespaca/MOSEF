@@ -13,15 +13,17 @@
 - Impact: none remaining. Re-run the same escalated gate after manuscript changes
   until the TeX binaries are also visible in the default sandbox.
 
-## BLK-002 — Draft pull request authentication unavailable
+## BLK-002 — Draft pull request authentication unavailable (resolved)
 
 - First observed: 2026-07-25
+- Resolved: 2026-07-25
 - Scope: GitHub pull-request creation.
 - Evidence: `gh auth status` reports that no GitHub host is authenticated.
-- Impact: local research and commits can proceed. Push will be attempted
-  independently because Git may have a separate credential helper.
-- Required resolution: authenticate GitHub CLI with repository-authorized
-  credentials before creating a draft pull request.
+- Resolution evidence: Git credentials successfully pushed the research branch,
+  and the connected GitHub app created draft pull request
+  `https://github.com/whitespaca/MOSEF/pull/1`.
+- Impact: none for the current delivery. The local `gh` CLI remains
+  unauthenticated and should not be treated as the source of PR credentials.
 
 ## BLK-003 — Optional Python quality tools unavailable
 
