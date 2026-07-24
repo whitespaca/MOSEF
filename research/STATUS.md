@@ -6,6 +6,8 @@
 - Branch: `research/20260725-m2-formal-spec`
 - Starting commit: `fdd9489cd5655782d6990a5c9593d047976493c4`
 - M2 core commit: `7691b61dfef292d0da8af5eb022d62cc52383634`
+- M2 manuscript and evidence commit:
+  `e296443b0605e785c87e6b5e6bf1f9bee100aaf6`
 - Completed milestone: M2 - formal multiplicative-channel specification
 - Active milestone: M3 - restricted semismooth-order theorem search
 - Working-tree policy: the run started clean; existing repository and user files
@@ -84,10 +86,12 @@ constructor questions remain open.
 ## Remote state, blockers, and next action
 
 - Existing draft PR for M0/M1: `https://github.com/whitespaca/MOSEF/pull/1`.
-- M2 branch delivery and draft PR creation are pending the final gate run and
-  delivery commit.
+- M2 branch push was rejected by the environment safety reviewer because
+  remote content egress requires explicit user approval. The branch remains
+  local and no M2 draft PR exists; see BLK-004.
 - Unresolved blocker: optional pytest/Ruff/mypy tools are unavailable; see
-  BLK-003. No M2 correctness gate is otherwise blocked.
+  BLK-003. Remote delivery additionally awaits explicit approval under BLK-004.
+  No M2 correctness gate is blocked.
 - Next action: M3 should state the strongest noncircular multiplicative-channel
   semismooth-order promise class, distinguish promise from recognition, and
   attack its boundary cases before promoting any theorem.
