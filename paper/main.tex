@@ -1,0 +1,120 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+
+\newcommand{\claimstatus}[2]{\textbf{#1 [#2]}}
+
+\title{Order-Separating Exponent Families for Classical Integer
+Factorization: Algorithms, Barriers, and Reproducible Evaluation}
+\author{MOSEF Research Program}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This initial manuscript defines an evidence-driven program for evaluating
+order-separating exponent families in classical integer factorization. It
+introduces no new factoring theorem. In particular, the existence of a
+universally constructible polynomial order-separating family remains open.
+The present contribution is a reproducibility and claim-tracking foundation
+for later algorithms, counterexamples, restricted theorems, and barriers.
+\end{abstract}
+
+\section{Introduction}
+
+Let \(N\) be a positive integer represented in binary. The project asks whether
+order information from one or more algebraic groups can expose a nontrivial
+factor without circular access to the factorization. General classical
+polynomial-time factorization is a research target, not a premise.
+
+The immediate objective is methodological: every mathematical statement is
+linked to a status and evidence record, finite experiments are not promoted to
+universal theorems, and complexity is measured in binary input length.
+
+\section{Model and definitions}
+
+\claimstatus{DEF-001}{DEFINITION}. The input length is
+\[
+  m=\left\lceil\log_2 N\right\rceil.
+\]
+Thus a running time polynomial in \(N\) is not, merely for that reason,
+polynomial in the input length.
+
+\claimstatus{DEF-002}{DEFINITION}. Let \(P(N)\) be the set of distinct prime
+divisors of \(N\). For \(\gcd(g,N)=1\) and \(d>0\), define
+\[
+  D_N(g,d)=\{p\in P(N):\operatorname{ord}_p(g)\mid d\}.
+\]
+The pair \((g,d)\) is an order separator when \(D_N(g,d)\) is nonempty and is
+not all of \(P(N)\).
+
+A polynomial order-separating family must bound not only the number of bases
+and exponents, but also construction cost, exponent bit lengths, evaluation
+cost, and recursive factor extraction in \(\operatorname{poly}(m)\) bit
+operations.
+
+\section{Inspected baseline evidence}
+
+\claimstatus{EXT-001}{PROVED, IMPORTED}. Agrawal, Kayal, and Saxena give an
+unconditional deterministic polynomial-time primality test
+\cite{agrawal2004primes}. This decision result must not be restated as a
+factor-finding algorithm.
+
+\claimstatus{EXT-002}{PROVED, IMPORTED}. Lenstra and Pomerance prove a
+probabilistic complete-factorization algorithm with expected running time
+\(L_N[1/2,1+o(1)]\) \cite{lenstra1992rigorous}. This is a rigorous
+subexponential bound, not a polynomial bound in \(m\).
+
+Lenstra's elliptic-curve method motivates varying the group channel, while the
+expected-time expression highlighted in the inspected abstract is explicitly
+conjectural \cite{lenstra1987elliptic}. It therefore supplies motivation, not a
+separation theorem for MOSEF.
+
+\section{Open research target}
+
+\claimstatus{OPEN-001}{OPEN}. No proof in this repository establishes that
+every composite \(N\) admits a factorization-independent, polynomial-time
+constructible order-separating family satisfying all size, exponent-length,
+evaluation, and separation requirements.
+
+The research program will first build trusted reference algorithms and exact
+test vectors, then formalize all MOSEF failure branches and search for small
+counterexamples before attempting a restricted theorem.
+
+\section{Reproducibility}
+
+The versioned result envelope is
+\texttt{schemas/experiment-result-v1.schema.json}. It requires the repository
+commit, UTC timestamp, host and toolchain metadata, deterministic seed, input
+and output hashes, timing fields, memory metadata, and explicit status. Raw
+records are immutable; corrections must supersede rather than edit them.
+
+The dependency-free foundation gates are:
+\begin{verbatim}
+python scripts/validate_foundation.py
+python -m unittest discover -s tests -v
+\end{verbatim}
+
+\section{Limitations}
+
+No POSF construction, restricted-class theorem, counterexample corpus, or
+performance experiment is claimed here. The baseline literature set is not a
+current-state-of-the-art survey. The manuscript has not passed the PDF quality
+gate in the initialization environment because no XeLaTeX-compatible toolchain
+is installed.
+
+\section{Conclusion}
+
+The M0 foundation makes claim status, source inspection, and experiment
+metadata explicit. The next milestone is a trusted baseline factorization suite;
+novel MOSEF claims remain downstream of its differential and adversarial tests.
+
+\bibliographystyle{plain}
+\bibliography{paper/references}
+
+\end{document}

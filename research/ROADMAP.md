@@ -1,0 +1,14 @@
+# Research Roadmap
+
+Only one milestone is active in this worktree. Status values are `DONE`,
+`ACTIVE`, `PLANNED`, and `BLOCKED`.
+
+| ID | Research question | Status | Prerequisites | Acceptance criteria | Validation | Expected artifact | Priority | Next action |
+|---|---|---|---|---|---|---|---:|---|
+| M0 | Can the project establish a traceable evidence and reproducibility foundation without making a factoring claim? | DONE | Repository constitution | State ledgers, source policy, inspected baseline sources, minimal manuscript, versioned experiment schema, toolchain record, validation commands | Structural checker and 5 tests pass; independent JSON parse passes; PDF gate is externally blocked by BLK-001 | `research/`, `paper/`, `schemas/`, validation harness | 0 | Re-run XeLaTeX gate when BLK-001 is resolved |
+| M1 | Can a small trusted baseline suite provide exact factorization oracles and canonical vectors? | ACTIVE | M0 | Trial division, perfect powers, deterministic validation primality test, Pollard rho, Pollard p-1, scoped p+1 equivalent, batch GCD, modular exponentiation, adversarial vectors | Python tests, then Rust format/clippy/tests and differential checks | Python reference and Rust workspace | 1 | Specify canonical vectors and implement the Python semantic oracle |
+| M2 | What is the exact MOSEF/POSF algorithmic specification for all composite inputs? | PLANNED | M1 | Definitions, separator lemma, failure branches, bit-complexity ledger, open universal claims, bounded counterexample harness | Proof review, exact search, differential tests | Proof file, pseudocode, search harness, paper section | 2 | Start only after trusted M1 oracle |
+| M3 | Which explicit semismooth-order input classes admit a complete restricted theorem? | PLANNED | M2 | Promise condition, algorithm, correctness, recognition status, bit complexity | Adversarial proof review and counterexample search | Restricted theorem or negative result | 3 | Refine after M2 |
+| M4 | Does divisor coverage imply prime-factor separation for any natural difference-cover family? | PLANNED | M2 | Primary-source reconstruction and exact separator-cover analysis | Proof audit and finite falsification | Positive construction or barrier | 4 | Refine after M2 |
+| M5 | Do two rigorously defined group channels reduce correlated separation failures? | PLANNED | M1, M2 | Two exact channels, failure handling, preregistered experiment, theorem search | Differential tests and immutable experiment records | Experiment and claim updates | 5 | Refine after M2 |
+| M6 | What is the strongest fully supported publishable contribution? | PLANNED | M0-M5 evidence | Self-contained manuscript whose claims match the ledger | Full quality gates and PDF inspection | First publishable manuscript | 6 | Continuously synchronize paper |

@@ -1,0 +1,14 @@
+[project]
+name = "mosef-research"
+version = "0.0.0"
+description = "Reference tooling for the MOSEF classical factoring research program"
+requires-python = ">=3.12"
+license = { text = "Research repository; see individual source licenses" }
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
