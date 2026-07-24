@@ -1,0 +1,337 @@
+//! Correctness-first `u64` factorization primitives.
+//!
+//! Multiplications modulo a `u64` modulus are widened to `u128`. These routines
+//! are finite-range research baselines and make no polynomial-time claim in the
+//! binary input length.
+
+/// Return `base^exponent mod modulus` using widened multiplication.
+pub fn mod_pow(base: u64, mut exponent: u64, modulus: u64) -> Option<u64> {
+    if modulus == 0 {
+        return None;
+    }
+    let mut result = 1 % modulus;
+    let mut factor = base % modulus;
+    while exponent > 0 {
+        if exponent & 1 == 1 {
+            result = mul_mod(result, factor, modulus);
+        }
+        factor = mul_mod(factor, factor, modulus);
+        exponent >>= 1;
+    }
+    Some(result)
+}
+
+fn mul_mod(left: u64, right: u64, modulus: u64) -> u64 {
+    ((left as u128 * right as u128) % modulus as u128) as u64
+}
+
+fn add_mod(left: u64, right: u64, modulus: u64) -> u64 {
+    ((left as u128 + right as u128) % modulus as u128) as u64
+}
+
+/// Return the least prime factor of composite `n`, or `None`.
+pub fn trial_division(n: u64) -> Option<u64> {
+    if n < 2 {
+        return None;
+    }
+    if n % 2 == 0 {
+        return (n != 2).then_some(2);
+    }
+    let mut divisor = 3;
+    while divisor <= n / divisor {
+        if n % divisor == 0 {
+            return Some(divisor);
+        }
+        divisor += 2;
+    }
+    None
+}
+
+/// Deterministically decide primality by trial division.
+pub fn is_prime(n: u64) -> bool {
+    n >= 2 && trial_division(n).is_none()
+}
+
+fn power_compare(base: u64, exponent: u32, limit: u64) -> std::cmp::Ordering {
+    let mut value = 1_u64;
+    for _ in 0..exponent {
+        if value > limit / base {
+            return std::cmp::Ordering::Greater;
+        }
+        value *= base;
+    }
+    value.cmp(&limit)
+}
+
+fn integer_nth_root(n: u64, exponent: u32) -> u64 {
+    let mut low = 1_u64;
+    let mut high = n;
+    while low <= high {
+        let middle = low + (high - low) / 2;
+        match power_compare(middle, exponent, n) {
+            std::cmp::Ordering::Greater => high = middle - 1,
+            _ => low = middle + 1,
+        }
+    }
+    high
+}
+
+/// Return `(base, maximal exponent)` when `n` is a perfect power.
+pub fn perfect_power(n: u64) -> Option<(u64, u32)> {
+    if n < 4 {
+        return None;
+    }
+    for exponent in (2..=n.ilog2() + 1).rev() {
+        let root = integer_nth_root(n, exponent);
+        if root >= 2 && power_compare(root, exponent, n) == std::cmp::Ordering::Equal {
+            return Some((root, exponent));
+        }
+    }
+    None
+}
+
+fn gcd(mut left: u64, mut right: u64) -> u64 {
+    while right != 0 {
+        (left, right) = (right, left % right);
+    }
+    left
+}
+
+fn primes_up_to(bound: u64) -> Vec<u64> {
+    let mut primes = Vec::new();
+    for candidate in 2..=bound {
+        if primes
+            .iter()
+            .take_while(|prime| **prime <= candidate / **prime)
+            .all(|prime| candidate % prime != 0)
+        {
+            primes.push(candidate);
+        }
+    }
+    primes
+}
+
+fn prime_power_at_most(prime: u64, bound: u64) -> u64 {
+    let mut power = prime;
+    while power <= bound / prime {
+        power *= prime;
+    }
+    power
+}
+
+fn stage_one_exponent(bound: u64) -> Option<u64> {
+    primes_up_to(bound)
+        .into_iter()
+        .try_fold(1_u64, |value, prime| {
+            value.checked_mul(prime_power_at_most(prime, bound))
+        })
+}
+
+/// Run deterministic Pollard p-1 stage 1.
+pub fn pollard_p_minus_one(n: u64, bound: u64, base: u64) -> Option<u64> {
+    if n < 4 || bound < 2 {
+        return None;
+    }
+    let initial_gcd = gcd(base, n);
+    if initial_gcd > 1 && initial_gcd < n {
+        return Some(initial_gcd);
+    }
+    if initial_gcd == n {
+        return None;
+    }
+    let mut residue = base % n;
+    for prime in primes_up_to(bound) {
+        residue = mod_pow(residue, prime_power_at_most(prime, bound), n)?;
+    }
+    let difference = residue.abs_diff(1);
+    let factor = gcd(difference, n);
+    (factor > 1 && factor < n).then_some(factor)
+}
+
+type Matrix2 = [[u64; 2]; 2];
+
+fn matrix_multiply(left: Matrix2, right: Matrix2, modulus: u64) -> Matrix2 {
+    let entry = |row: usize, column: usize| {
+        let first = left[row][0] as u128 * right[0][column] as u128;
+        let second = left[row][1] as u128 * right[1][column] as u128;
+        (((first % modulus as u128) + (second % modulus as u128)) % modulus as u128) as u64
+    };
+    [[entry(0, 0), entry(0, 1)], [entry(1, 0), entry(1, 1)]]
+}
+
+/// Return `V_index(parameter, 1) mod modulus`.
+pub fn lucas_v(index: u64, parameter: u64, modulus: u64) -> Option<u64> {
+    if modulus == 0 {
+        return None;
+    }
+    let mut result = [[1 % modulus, 0], [0, 1 % modulus]];
+    let mut factor = [
+        [parameter % modulus, modulus.wrapping_sub(1) % modulus],
+        [1 % modulus, 0],
+    ];
+    let mut remaining = index;
+    while remaining > 0 {
+        if remaining & 1 == 1 {
+            result = matrix_multiply(result, factor, modulus);
+        }
+        factor = matrix_multiply(factor, factor, modulus);
+        remaining >>= 1;
+    }
+    Some(add_mod(result[0][0], result[1][1], modulus))
+}
+
+/// Run a scoped Williams-style p+1 stage 1 with `Q = 1`.
+pub fn pollard_p_plus_one(n: u64, bound: u64, parameter: u64) -> Option<u64> {
+    if n < 4 || bound < 2 {
+        return None;
+    }
+    let square = parameter as u128 * parameter as u128;
+    let discriminant = square.abs_diff(4) % n as u128;
+    let discriminant_gcd = gcd(discriminant as u64, n);
+    if discriminant_gcd > 1 && discriminant_gcd < n {
+        return Some(discriminant_gcd);
+    }
+    if discriminant_gcd == n {
+        return None;
+    }
+    let exponent = stage_one_exponent(bound)?;
+    let value = lucas_v(exponent, parameter, n)?;
+    let factor = gcd(value.abs_diff(2), n);
+    (factor > 1 && factor < n).then_some(factor)
+}
+
+/// Run a deterministic, bounded Pollard-rho search.
+pub fn pollard_rho(n: u64, seed: u64, max_steps: u64) -> Option<u64> {
+    if n < 4 || max_steps == 0 {
+        return None;
+    }
+    if n % 2 == 0 {
+        return Some(2);
+    }
+    if is_prime(n) {
+        return None;
+    }
+    for attempt in 0_u64..8 {
+        let offset = seed.wrapping_add(attempt);
+        let value = 2 + offset % (n - 3);
+        let mut tortoise = value;
+        let mut hare = value;
+        let constant = 1 + ((2_u128 * offset as u128 + 1) % (n - 1) as u128) as u64;
+        for _ in 0..max_steps {
+            tortoise = add_mod(mul_mod(tortoise, tortoise, n), constant, n);
+            hare = add_mod(mul_mod(hare, hare, n), constant, n);
+            hare = add_mod(mul_mod(hare, hare, n), constant, n);
+            let difference = tortoise.abs_diff(hare);
+            let factor = gcd(difference, n);
+            if factor > 1 && factor < n {
+                return Some(factor);
+            }
+            if factor == n {
+                break;
+            }
+        }
+    }
+    None
+}
+
+/// Return exact per-value GCDs for a research batch.
+pub fn batch_gcd(values: &[u64], modulus: u64) -> Option<Vec<u64>> {
+    (modulus > 0).then(|| values.iter().map(|value| gcd(*value, modulus)).collect())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn modular_power_handles_wide_products() {
+        assert_eq!(mod_pow(u64::MAX - 1, 2, u64::MAX - 58), Some(3249));
+    }
+
+    #[test]
+    fn perfect_power_uses_maximal_exponent() {
+        assert_eq!(perfect_power(64), Some((2, 6)));
+        assert_eq!(perfect_power(72), None);
+    }
+
+    #[test]
+    fn trial_primality_rejects_carmichael_number() {
+        assert!(!is_prime(561));
+        assert_eq!(trial_division(561), Some(3));
+    }
+
+    #[test]
+    fn batch_gcd_preserves_per_item_results() {
+        assert_eq!(batch_gcd(&[2, 6, 35, 11], 105), Some(vec![1, 3, 35, 1]));
+    }
+
+    #[test]
+    fn invalid_moduli_are_rejected() {
+        assert_eq!(mod_pow(2, 10, 0), None);
+        assert_eq!(lucas_v(5, 4, 0), None);
+        assert_eq!(batch_gcd(&[1], 0), None);
+    }
+
+    #[test]
+    fn lucas_matrix_matches_recurrence() {
+        let parameter = 4_u64;
+        let modulus = 667_u64;
+        let mut recurrence = vec![2, parameter];
+        for index in 2..20 {
+            let value =
+                (parameter * recurrence[index - 1] + modulus - recurrence[index - 2]) % modulus;
+            recurrence.push(value);
+        }
+        let matrix_values = (0..20)
+            .map(|index| lucas_v(index, parameter, modulus).expect("positive modulus"))
+            .collect::<Vec<_>>();
+        assert_eq!(matrix_values, recurrence);
+    }
+
+    #[test]
+    fn bounded_rho_has_success_and_failure_vectors() {
+        assert_eq!(pollard_rho(8051, 0, 10_000), Some(83));
+        assert_eq!(pollard_rho(97, 0, 1_000), None);
+        assert_eq!(pollard_rho(8051, 0, 1), None);
+    }
+
+    #[test]
+    fn stage_one_methods_separate_and_collide_as_expected() {
+        assert_eq!(pollard_p_minus_one(10_807, 25, 2), Some(101));
+        assert_eq!(pollard_p_minus_one(10_403, 25, 2), None);
+        assert_eq!(pollard_p_plus_one(667, 5, 4), Some(29));
+        assert_eq!(pollard_p_plus_one(667, 2, 4), None);
+    }
+
+    #[test]
+    fn deterministic_modular_power_property() {
+        let mut state = 0x004d_4f53_4546_u64;
+        for _ in 0..500 {
+            state = state
+                .wrapping_mul(6_364_136_223_846_793_005)
+                .wrapping_add(1);
+            let base = state;
+            state = state
+                .wrapping_mul(6_364_136_223_846_793_005)
+                .wrapping_add(1);
+            let exponent = state % 64;
+            state = state
+                .wrapping_mul(6_364_136_223_846_793_005)
+                .wrapping_add(1);
+            let modulus = state % 10_000 + 1;
+            let mut expected = 1 % modulus;
+            for _ in 0..exponent {
+                expected = ((expected as u128 * base as u128) % modulus as u128) as u64;
+            }
+            assert_eq!(mod_pow(base, exponent, modulus), Some(expected));
+        }
+    }
+
+    #[test]
+    fn trial_division_matches_exhaustive_small_oracle() {
+        for n in 2_u64..5_000 {
+            let expected = (2..n).find(|candidate| n % candidate == 0);
+            assert_eq!(trial_division(n), expected, "n={n}");
+        }
+    }
+}

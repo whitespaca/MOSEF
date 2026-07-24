@@ -1,18 +1,17 @@
 # Blockers
 
-## BLK-001 — TeX quality gate unavailable
+## BLK-001 — TeX quality gate unavailable (resolved)
 
 - First observed: 2026-07-25
+- Resolved: 2026-07-25
 - Scope: M0 paper compilation and PDF visual inspection.
-- Evidence: preflight found no `latexmk`, `xelatex`, `lualatex`, `pdflatex`,
-  `tectonic`, or `bibtex` executable.
-- Impact: the manuscript source and citation keys can be validated structurally,
-  but Gate Q4 cannot be completed in this environment.
-- Required resolution: provide an approved XeLaTeX-compatible toolchain, then run
-  `latexmk -xelatex -interaction=nonstopmode -halt-on-error paper/main.tex` and
-  inspect the generated PDF.
-- Workaround status: none; absence of a compiler is not treated as proof of a
-  manuscript build failure.
+- Initial evidence: the sandboxed preflight could not resolve `latexmk`,
+  `xelatex`, or `bibtex`.
+- Resolution evidence: the approved escalated environment exposed MiKTeX 25.4
+  and latexmk 4.87. The manuscript compiled through BibTeX with citations
+  resolved; the final PDF was rendered to PNG for visual inspection.
+- Impact: none remaining. Re-run the same escalated gate after manuscript changes
+  until the TeX binaries are also visible in the default sandbox.
 
 ## BLK-002 — Draft pull request authentication unavailable
 
@@ -23,3 +22,16 @@
   independently because Git may have a separate credential helper.
 - Required resolution: authenticate GitHub CLI with repository-authorized
   credentials before creating a draft pull request.
+
+## BLK-003 — Optional Python quality tools unavailable
+
+- First observed: 2026-07-25
+- Scope: the repository-default `pytest`, Ruff, and mypy gates.
+- Evidence: `python -m pytest`, `python -m ruff check python tests scripts`, and
+  `python -m mypy python` each report that the requested module is not installed;
+  the active Python 3.12 interpreter also has no `pip` module.
+- Impact: dependency-free `unittest` coverage and bytecode compilation pass, but
+  the optional third-party lint/type gates have not run.
+- Required resolution: provide an approved environment containing pinned
+  versions of pytest, Ruff, and mypy. Do not add or download them merely to hide
+  this environmental limitation.

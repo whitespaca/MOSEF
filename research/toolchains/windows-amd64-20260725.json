@@ -17,17 +17,20 @@
     "cmake": "4.0.1",
     "dotnet_sdk": "8.0.420",
     "java": "19.0.2",
-    "github_cli": "2.96.0"
+    "github_cli": "2.96.0",
+    "latexmk": "4.87 (approved escalated environment)",
+    "xelatex": "XeTeX 3.141592653-2.6-0.999997, MiKTeX 25.4",
+    "bibtex": "0.99d, MiKTeX 25.4"
   },
   "unavailable": [
-    "latexmk",
-    "xelatex",
     "lualatex",
     "pdflatex",
     "tectonic",
-    "bibtex",
     "Rscript",
-    "python-pip"
+    "python-pip",
+    "pytest",
+    "ruff",
+    "mypy"
   ],
   "notes": [
     "npm.ps1 is blocked by local PowerShell policy; npm.cmd works.",

@@ -77,42 +77,76 @@ separation theorem for MOSEF.
 
 \section{Open research target}
 
-\claimstatus{OPEN-001}{OPEN}. No proof in this repository establishes that
-every composite \(N\) admits a factorization-independent, polynomial-time
-constructible order-separating family satisfying all size, exponent-length,
-evaluation, and separation requirements.
+\claimstatus{OPEN-001}{OPEN}.
+
+No proof in this repository establishes a factorization-independent
+construction for every composite \(N\). In
+particular, no construction is known here that satisfies every family-size,
+exponent-length, evaluation, separation, and polynomial-time requirement.
 
 The research program will first build trusted reference algorithms and exact
 test vectors, then formalize all MOSEF failure branches and search for small
 counterexamples before attempting a restricted theorem.
 
+\section{Baseline algorithm suite}
+
+The M1 suite contains exact modular exponentiation, trial division,
+perfect-power detection, exact trial-division primality for validation,
+bounded Pollard rho, Pollard \(p-1\) stage 1, a scoped Williams-style
+\(p+1\) stage 1 using the Lucas sequence \(V_k(P,1)\), and per-item batch
+GCD semantics.
+
+Python supplies the arbitrary-precision reference behavior. Rust supplies the
+authoritative implementation only on its documented \texttt{u64} domain, with
+\texttt{u128} products preventing modular-multiplication overflow. An
+independent C\# \texttt{BigInteger} program verifies selected operations. The
+current batch-GCD function is a semantic baseline and is not a product-tree
+performance claim.
+
+\claimstatus{EMP-001}{EMPIRICAL}. On the finite canonical corpus in
+\path{schemas/baseline-vectors-v1.json}, 58 cross-language comparisons
+passed. Rust agreed with Python for every registered operation; C\# also agreed
+for modular exponentiation, validation primality, trial factors, and per-item
+batch GCDs. This finite agreement neither proves asymptotic complexity nor
+establishes correctness outside the specified domains.
+
 \section{Reproducibility}
 
-The versioned result envelope is
-\texttt{schemas/experiment-result-v1.schema.json}. It requires the repository
-commit, UTC timestamp, host and toolchain metadata, deterministic seed, input
-and output hashes, timing fields, memory metadata, and explicit status. Raw
-records are immutable; corrections must supersede rather than edit them.
+The result envelope is versioned by a JSON schema stored in the repository's
+\texttt{schemas} directory. Each record contains the repository commit, UTC
+timestamp, host and toolchain metadata, deterministic seed, input and output
+hashes, timing fields, memory metadata, and explicit status. Raw records are
+immutable; corrections must supersede rather than edit them.
 
 The dependency-free foundation gates are:
 \begin{verbatim}
 python scripts/validate_foundation.py
 python -m unittest discover -s tests -v
+cargo fmt --all --check
+cargo clippy --workspace --all-targets --all-features -- `
+  -D warnings
+cargo test --workspace --all-features
+dotnet build verification/csharp/MosefVerifier.csproj
+python scripts/check_baseline_differential.py
 \end{verbatim}
 
 \section{Limitations}
 
 No POSF construction, restricted-class theorem, counterexample corpus, or
-performance experiment is claimed here. The baseline literature set is not a
-current-state-of-the-art survey. The manuscript has not passed the PDF quality
-gate in the initialization environment because no XeLaTeX-compatible toolchain
-is installed.
+performance experiment is claimed here. Trial-division primality is intentionally
+not polynomial in binary input length, the Rust algorithms are bounded to
+\texttt{u64}, and finite differential tests are not proofs for untested inputs.
+The baseline literature set is not a current-state-of-the-art survey. The
+current four-page manuscript is an initialization artifact, not a
+publication-ready contribution; it has passed XeLaTeX compilation, citation
+resolution, warning scanning, and page-by-page visual inspection.
 
 \section{Conclusion}
 
 The M0 foundation makes claim status, source inspection, and experiment
-metadata explicit. The next milestone is a trusted baseline factorization suite;
-novel MOSEF claims remain downstream of its differential and adversarial tests.
+metadata explicit, and M1 provides a differentially checked small-input
+baseline. The next milestone formalizes all MOSEF/POSF branches and the basic
+separator lemma; universal POSF existence remains open.
 
 \bibliographystyle{plain}
 \bibliography{paper/references}

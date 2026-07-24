@@ -5,8 +5,10 @@
 - Date: 2026-07-25
 - Branch: `research/20260725-m0-foundation`
 - Starting commit: `e1b747655eb26055a577198df51ea0112a1ba443`
+- M0 foundation commit: `6e3631c`
 - Completed milestone: M0 — repository and evidence foundation
-- Active milestone: M1 — trusted baseline algorithm suite
+- Completed milestone: M1 — trusted baseline algorithm suite
+- Active milestone: M2 — formal MOSEF/POSF specification
 - Working-tree policy: the starting tree was clean; the three existing user files
   (`AGENTS.md`, `CODEX.md`, and `PROMPT.md`) are preserved unchanged.
 
@@ -29,12 +31,38 @@
 - Paper sections affected: all sections are initialized conservatively; no novel
   theorem or experimental result is claimed.
 
-## Current plan
+## M1 evidence target
 
-1. Complete the M0 artifacts and source ledger.
-2. Run structural and negative-path validation.
-3. Attempt the paper gate and record the unavailable TeX engine precisely.
-4. Review the complete diff, commit, and attempt remote delivery.
+- Research question: can a small, deterministic baseline suite serve as a trusted
+  semantic oracle for later MOSEF/POSF counterexample work?
+- Expected artifacts: canonical vectors; arbitrary-precision Python reference
+  functions; overflow-safe Rust `u64` implementations and CLI; an independent
+  C# `BigInteger` verifier for selected operations; differential runner.
+- Acceptance criteria: exact modular exponentiation, trial division, perfect-power
+  detection, validation primality, Pollard rho, Pollard p-1 stage 1, a scoped
+  Williams-style p+1 stage 1, and batch GCD are implemented and tested. Rust
+  agrees with Python on all canonical vectors, and C# independently agrees on
+  modular exponentiation, primality, trial factors, and batch GCD.
+- Falsification tests: include 0/1, primes, repeated prime powers, Carmichael
+  numbers, products of three primes, nontrivial factors, method failure, and
+  invalid modulus paths; use deterministic seeds and iteration bounds.
+- Validation commands:
+  - `python -m unittest discover -s tests -v`
+  - `cargo fmt --all --check`
+  - `cargo clippy --workspace --all-targets --all-features -- -D warnings`
+  - `cargo test --workspace --all-features`
+  - `dotnet build verification/csharp/MosefVerifier.csproj`
+  - `python scripts/check_baseline_differential.py`
+- Paper section affected: add a baseline algorithms and validation section, with
+  explicit `u64` and finite-test limitations.
+
+## Execution plan
+
+1. Preserve the committed M0 evidence foundation.
+2. Complete M1 reference, authoritative, and independent implementations.
+3. Run unit, lint, build, and differential gates.
+4. Synchronize claims, decisions, roadmap, status, and manuscript.
+5. Commit M1, attempt remote delivery, and leave M2 as the next active target.
 
 ## Completed work and results
 
@@ -48,6 +76,14 @@
   `research/literature/BASELINE.md`.
 - An adversarial wording scan found no assertion that general classical
   polynomial-time factorization or universal POSF existence has been proved.
+- M1 implements exact modular exponentiation, trial division, perfect-power
+  detection, validation primality, bounded Pollard rho, Pollard p-1 stage 1, a
+  scoped `Q=1` Williams-style p+1 stage 1, and per-item batch GCD.
+- Python supplies arbitrary-precision reference semantics, Rust supplies the
+  overflow-audited `u64` implementation and CLI, and C# independently verifies
+  selected operations with `BigInteger`.
+- `EMP-001` records only finite agreement on the canonical vector corpus; it is
+  not a complexity or universal factoring claim.
 
 ## Toolchain snapshot
 
@@ -56,21 +92,35 @@ See `research/toolchains/windows-amd64-20260725.json`.
 ## Validation, remote state, blockers, and next action
 
 - `python scripts/validate_foundation.py`: PASS.
-- `python -m unittest discover -s tests -v`: PASS (5 tests).
-- `python -m compileall -q scripts tests`: PASS.
+- `python -m unittest discover -s tests -v`: PASS (20 tests).
+- `python -m compileall -q python scripts tests`: PASS.
+- `python -m pytest`: BLOCKED because pytest is not installed.
+- `python -m ruff check python tests scripts`: BLOCKED because Ruff is not installed.
+- `python -m mypy python`: BLOCKED because mypy is not installed; see BLK-003.
 - Independent Node.js parsing of the schema, example, and toolchain JSON: PASS.
+- `cargo fmt --all --check`: PASS.
+- `cargo clippy --workspace --all-targets --all-features -- -D warnings`: PASS.
+- `cargo test --workspace --all-features`: PASS (10 Rust unit tests).
+- `dotnet build verification/csharp/MosefVerifier.csproj --nologo --no-restore`:
+  PASS with 0 warnings and 0 errors.
+- `python scripts/check_baseline_differential.py`: PASS (58 checks).
 - `git diff --check`: PASS.
-- `latexmk -xelatex -interaction=nonstopmode -halt-on-error paper/main.tex`:
-  BLOCKED because `latexmk` is not installed; see BLK-001.
+- `latexmk -xelatex -outdir=tmp/pdfs -interaction=nonstopmode -halt-on-error
+  paper/main.tex`: PASS in the approved MiKTeX environment; citations resolve
+  and the final log contains no LaTeX warnings, undefined references, or
+  overfull boxes.
+- Poppler rendering and page-by-page visual inspection: PASS (4 pages; no
+  clipping, overlap, malformed mathematics, broken citations, or unreadable text).
 - Remote: `origin` is configured; GitHub CLI is not authenticated.
 - Blockers: see `research/BLOCKERS.md`.
-- M0 commit: pending final diff review.
-- Next action: specify M1 canonical vectors and implement dependency-free Python
-  reference algorithms before the authoritative Rust implementation.
+- M1 commit: pending final diff review.
+- Next action: formalize M2 square-free and prime-power branches, prove the basic
+  separator lemma, and build its bounded counterexample harness.
 
 ## 한국어 요약
 
-M0 연구 기반의 구조 검증과 테스트 5개가 통과했다. TeX 도구 부재로 PDF
-컴파일만 외부 차단 상태다. 일반 고전 다항시간 소인수분해 또는 보편적
-POSF의 존재를 증명했다는 주장은 하지 않는다. 다음 단계는 M1 기준
-알고리즘과 정답 벡터 구축이다.
+M0 기반에 이어 M1 기준 알고리즘을 Python, Rust, C#으로 구축했다. Python
+테스트 20개, Rust 테스트 10개, 교차언어 검사 58개가 통과했다. 이는 유한
+벡터의 구현 일치 결과일 뿐 일반 고전 다항시간 소인수분해 증명이 아니다.
+논문은 XeLaTeX 컴파일과 4쪽 시각 검사를 통과했다. 다음 단계는 M2의 정확한
+분기와 기본 분리자 보조정리 형식화다.

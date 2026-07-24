@@ -1,0 +1,237 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "Exact nonnegative integers; authoritative Rust operations are limited to u64.",
+  "mod_pow": [
+    {
+      "base": "2",
+      "exponent": "10",
+      "modulus": "1000",
+      "result": "24"
+    },
+    {
+      "base": "123456789",
+      "exponent": "12345",
+      "modulus": "1000000007",
+      "result": "614455772"
+    },
+    {
+      "base": "18446744073709551614",
+      "exponent": "2",
+      "modulus": "18446744073709551557",
+      "result": "3249"
+    },
+    {
+      "base": "999",
+      "exponent": "0",
+      "modulus": "1",
+      "result": "0"
+    }
+  ],
+  "primality": [
+    {
+      "n": "0",
+      "result": false
+    },
+    {
+      "n": "1",
+      "result": false
+    },
+    {
+      "n": "2",
+      "result": true
+    },
+    {
+      "n": "3",
+      "result": true
+    },
+    {
+      "n": "4",
+      "result": false
+    },
+    {
+      "n": "97",
+      "result": true
+    },
+    {
+      "n": "561",
+      "result": false
+    },
+    {
+      "n": "1105",
+      "result": false
+    },
+    {
+      "n": "4294967291",
+      "result": true
+    }
+  ],
+  "trial_division": [
+    {
+      "n": "15",
+      "factor": "3"
+    },
+    {
+      "n": "49",
+      "factor": "7"
+    },
+    {
+      "n": "97",
+      "factor": null
+    },
+    {
+      "n": "10403",
+      "factor": "101"
+    },
+    {
+      "n": "105",
+      "factor": "3"
+    }
+  ],
+  "perfect_power": [
+    {
+      "n": "4",
+      "base": "2",
+      "exponent": 2
+    },
+    {
+      "n": "8",
+      "base": "2",
+      "exponent": 3
+    },
+    {
+      "n": "64",
+      "base": "2",
+      "exponent": 6
+    },
+    {
+      "n": "81",
+      "base": "3",
+      "exponent": 4
+    },
+    {
+      "n": "216",
+      "base": "6",
+      "exponent": 3
+    },
+    {
+      "n": "72",
+      "base": null,
+      "exponent": null
+    },
+    {
+      "n": "97",
+      "base": null,
+      "exponent": null
+    }
+  ],
+  "pollard_rho": [
+    {
+      "n": "8051",
+      "seed": "0",
+      "max_steps": "10000",
+      "factor": "83"
+    },
+    {
+      "n": "10403",
+      "seed": "1",
+      "max_steps": "10000",
+      "factor": "103"
+    },
+    {
+      "n": "561",
+      "seed": "7",
+      "max_steps": "1000",
+      "factor": "11"
+    },
+    {
+      "n": "97",
+      "seed": "0",
+      "max_steps": "1000",
+      "factor": null
+    },
+    {
+      "n": "8051",
+      "seed": "0",
+      "max_steps": "1",
+      "factor": null
+    }
+  ],
+  "pollard_p_minus_one": [
+    {
+      "n": "10807",
+      "bound": "25",
+      "base": "2",
+      "factor": "101",
+      "note": "101 - 1 is 25-smooth while 107 - 1 contains 53."
+    },
+    {
+      "n": "10403",
+      "bound": "25",
+      "base": "2",
+      "factor": null,
+      "note": "The stage simultaneously hits both factors and returns gcd n."
+    },
+    {
+      "n": "97",
+      "bound": "25",
+      "base": "2",
+      "factor": null,
+      "note": "Prime input is an ordinary non-factor result."
+    }
+  ],
+  "pollard_p_plus_one": [
+    {
+      "n": "667",
+      "bound": "5",
+      "parameter": "4",
+      "factor": "29",
+      "note": "Scoped Q=1 Lucas stage separates 29 from 23."
+    },
+    {
+      "n": "667",
+      "bound": "2",
+      "parameter": "4",
+      "factor": null,
+      "note": "Insufficient bound is an ordinary method failure."
+    },
+    {
+      "n": "97",
+      "bound": "7",
+      "parameter": "4",
+      "factor": null,
+      "note": "Prime input is an ordinary non-factor result."
+    }
+  ],
+  "batch_gcd": [
+    {
+      "modulus": "105",
+      "values": [
+        "2",
+        "6",
+        "35",
+        "11"
+      ],
+      "results": [
+        "1",
+        "3",
+        "35",
+        "1"
+      ]
+    },
+    {
+      "modulus": "49",
+      "values": [
+        "0",
+        "7",
+        "14",
+        "48"
+      ],
+      "results": [
+        "49",
+        "7",
+        "7",
+        "1"
+      ]
+    }
+  ]
+}

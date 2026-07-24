@@ -2,6 +2,8 @@ __pycache__/
 *.py[cod]
 .pytest_cache/
 target/
+verification/**/bin/
+verification/**/obj/
 
 # LaTeX build products
 paper/*.aux
@@ -13,6 +15,21 @@ paper/*.log
 paper/*.out
 paper/*.pdf
 paper/*.toc
+
+# Root-level products from compiling paper/main.tex from the repository root.
+/main.aux
+/main.bbl
+/main.blg
+/main.fdb_latexmk
+/main.fls
+/main.log
+/main.out
+/main.pdf
+/main.xdv
+
+# Rendered paper inspection artifacts.
+tmp/pdfs/
+output/pdf/
 
 # Large or raw experiment output is stored outside Git.
 artifacts/results/

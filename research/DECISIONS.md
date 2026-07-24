@@ -21,14 +21,16 @@
 
 - Date: 2026-07-25
 - Status: accepted
-- Context: no novel theorem or experiment exists yet, and no TeX engine is
-  installed in the execution environment.
+- Context: no novel theorem or experiment exists yet, and the sandboxed
+  preflight could not see a TeX engine.
 - Alternatives: postpone the paper; create an aspirational paper with unsupported
   claims; create a minimal claim-linked manuscript and record the compile blocker.
 - Decision: initialize a conservative manuscript that states definitions, imported
   baseline results, the open POSF target, and limitations. Do not claim novelty.
-- Consequences: source and bibliography integrity can be checked now; PDF
-  compilation remains a documented external gate.
+- Consequences: source and bibliography integrity are checked structurally. The
+  approved escalated environment later exposed MiKTeX, so the PDF also passed
+  compilation, warning scanning, and visual inspection without changing the
+  conservative claim policy.
 - Rollback condition: revise the structure only when verified evidence supports a
   stronger contribution.
 
@@ -45,3 +47,24 @@
   formatting, and sources can be rechecked without changing claim IDs.
 - Rollback condition: migrate identifiers only through an explicit mapping if a
   future reference manager becomes authoritative.
+
+## ADR-004 — Three-layer M1 baseline scope
+
+- Date: 2026-07-25
+- Status: accepted
+- Context: later counterexample searches need clear semantics, overflow-safe
+  execution, and at least one independently implemented verifier.
+- Alternatives: begin with external big-integer dependencies; use Python alone;
+  use a small exact reference plus bounded authoritative and independent layers.
+- Decision: Python supplies arbitrary-precision semantics; Rust is authoritative
+  for documented `u64` inputs and uses `u128` modular products; C# `BigInteger`
+  independently verifies selected canonical operations. All randomness-like rho
+  choices are explicit deterministic inputs.
+- Consequences: M1 is dependency-free and reproducible with installed toolchains.
+  Rust stage-one exponent construction returns method failure if its `u64`
+  exponent product overflows. Validation primality uses exact trial division and
+  is not claimed polynomial in input length. The current batch-GCD routine is a
+  per-item semantic baseline, not a product-tree optimization.
+- Rollback condition: introduce arbitrary-precision Rust only when M2/M3 input
+  ranges require it and the dependency, license, and differential plan are
+  recorded.
