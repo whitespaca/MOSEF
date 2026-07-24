@@ -97,6 +97,43 @@ fn gcd(mut left: u64, mut right: u64) -> u64 {
     left
 }
 
+/// Exhaustive terminal outcomes for one multiplicative separator candidate.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum SeparatorOutcome {
+    DirectFactor(u64),
+    InvalidBase,
+    Miss { residue: u64 },
+    Factor { factor: u64, residue: u64 },
+    SimultaneousCollision { residue: u64 },
+}
+
+/// Evaluate one `gcd(g^d - 1, n)` candidate with explicit base-GCD branches.
+pub fn evaluate_separator_candidate(n: u64, g: u64, d: u64) -> Option<SeparatorOutcome> {
+    if n < 2 || d == 0 {
+        return None;
+    }
+    let reduced_base = g % n;
+    let base_gcd = gcd(reduced_base, n);
+    if base_gcd > 1 && base_gcd < n {
+        return Some(SeparatorOutcome::DirectFactor(base_gcd));
+    }
+    if base_gcd == n {
+        return Some(SeparatorOutcome::InvalidBase);
+    }
+    let residue = mod_pow(reduced_base, d, n)?;
+    let candidate_gcd = gcd(residue - 1, n);
+    if candidate_gcd == 1 {
+        Some(SeparatorOutcome::Miss { residue })
+    } else if candidate_gcd == n {
+        Some(SeparatorOutcome::SimultaneousCollision { residue })
+    } else {
+        Some(SeparatorOutcome::Factor {
+            factor: candidate_gcd,
+            residue,
+        })
+    }
+}
+
 fn primes_up_to(bound: u64) -> Vec<u64> {
     let mut primes = Vec::new();
     for candidate in 2..=bound {
@@ -301,6 +338,35 @@ mod tests {
         assert_eq!(pollard_p_minus_one(10_403, 25, 2), None);
         assert_eq!(pollard_p_plus_one(667, 5, 4), Some(29));
         assert_eq!(pollard_p_plus_one(667, 2, 4), None);
+    }
+
+    #[test]
+    fn separator_candidate_reports_every_branch() {
+        assert_eq!(
+            evaluate_separator_candidate(15, 3, 1),
+            Some(SeparatorOutcome::DirectFactor(3))
+        );
+        assert_eq!(
+            evaluate_separator_candidate(15, 0, 1),
+            Some(SeparatorOutcome::InvalidBase)
+        );
+        assert_eq!(
+            evaluate_separator_candidate(15, 2, 1),
+            Some(SeparatorOutcome::Miss { residue: 2 })
+        );
+        assert_eq!(
+            evaluate_separator_candidate(15, 2, 2),
+            Some(SeparatorOutcome::Factor {
+                factor: 3,
+                residue: 4
+            })
+        );
+        assert_eq!(
+            evaluate_separator_candidate(15, 4, 2),
+            Some(SeparatorOutcome::SimultaneousCollision { residue: 1 })
+        );
+        assert_eq!(evaluate_separator_candidate(1, 2, 1), None);
+        assert_eq!(evaluate_separator_candidate(15, 2, 0), None);
     }
 
     #[test]

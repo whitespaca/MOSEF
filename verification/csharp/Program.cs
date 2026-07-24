@@ -58,6 +58,7 @@ internal static class Program
             "trial-factor" when args.Length == 2 => TrialFactor(Parse(args, 1, "n"))
                 ?.ToString() ?? "none",
             "batch-gcd" when args.Length == 3 => RunBatchGcd(args),
+            "separator" when args.Length == 4 => RunSeparator(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
         };
     }
@@ -88,6 +89,42 @@ internal static class Program
             ",",
             args[2].Split(',').Select(value => Gcd(BigInteger.Parse(value), modulus))
         );
+    }
+
+    private static string RunSeparator(string[] args)
+    {
+        BigInteger n = Parse(args, 1, "n");
+        BigInteger g = Parse(args, 2, "base");
+        BigInteger exponent = Parse(args, 3, "exponent");
+        if (n < 2 || exponent <= 0 || exponent > int.MaxValue)
+        {
+            throw new ArgumentException(
+                "n must be at least 2 and exponent must fit a positive Int32"
+            );
+        }
+
+        BigInteger reducedBase = ((g % n) + n) % n;
+        BigInteger baseGcd = Gcd(reducedBase, n);
+        if (baseGcd > 1 && baseGcd < n)
+        {
+            return $"direct_factor|{baseGcd}|none";
+        }
+        if (baseGcd == n)
+        {
+            return "invalid_base|none|none";
+        }
+
+        BigInteger residue = BigInteger.ModPow(reducedBase, (int)exponent, n);
+        BigInteger factor = Gcd(residue - 1, n);
+        if (factor == 1)
+        {
+            return $"miss|none|{residue}";
+        }
+        if (factor == n)
+        {
+            return $"simultaneous_collision|none|{residue}";
+        }
+        return $"factor|{factor}|{residue}";
     }
 
     public static int Main(string[] args)
