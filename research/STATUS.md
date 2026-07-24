@@ -3,127 +3,101 @@
 ## Execution snapshot
 
 - Date: 2026-07-25
-- Branch: `research/20260725-m0-foundation`
-- Starting commit: `e1b747655eb26055a577198df51ea0112a1ba443`
-- M0 foundation commit: `6e3631c`
-- Completed milestone: M0 — repository and evidence foundation
-- Completed milestone: M1 — trusted baseline algorithm suite
-- Active milestone: M2 — formal MOSEF/POSF specification
-- Working-tree policy: the starting tree was clean; the three existing user files
-  (`AGENTS.md`, `CODEX.md`, and `PROMPT.md`) are preserved unchanged.
+- Branch: `research/20260725-m2-formal-spec`
+- Starting commit: `fdd9489cd5655782d6990a5c9593d047976493c4`
+- M2 core commit: `7691b61dfef292d0da8af5eb022d62cc52383634`
+- Completed milestone: M2 - formal multiplicative-channel specification
+- Active milestone: M3 - restricted semismooth-order theorem search
+- Working-tree policy: the run started clean; existing repository and user files
+  were preserved, and generated build/PDF artifacts remain ignored.
 
-## Evidence target
+## M2 result
 
-- Research question: can the repository establish a reproducible, claim-safe
-  foundation without asserting progress on general polynomial-time factoring?
-- Expected artifacts: state ledgers, source-quality protocol, inspected baseline
-  notes, minimal manuscript and bibliography, versioned experiment-result schema,
-  toolchain record, and an offline validation harness.
-- Acceptance criteria: all M0 files exist; claim labels are valid; the example
-  record satisfies the executable schema contract; malformed records are rejected;
-  manuscript citations resolve to bibliography keys; validation is dependency-free.
-- Falsification test: delete a required field, corrupt a hash/status/citation, or
-  omit a required foundation file and confirm that validation fails.
-- Validation commands:
-  - `python scripts/validate_foundation.py`
-  - `python -m unittest discover -s tests -v`
-  - `latexmk -xelatex -interaction=nonstopmode -halt-on-error paper/main.tex`
-- Paper sections affected: all sections are initialized conservatively; no novel
-  theorem or experimental result is claimed.
+M2 now gives exact square-free and repeated-prime semantics for one
+multiplicative order candidate:
 
-## M1 evidence target
+- `LEM-001` proves that a nonempty proper order support yields a nontrivial GCD.
+- `LEM-002` gives the exact capped-valuation formula for every \(N\), including
+  prime powers and mixed repeated-prime inputs.
+- Candidate pseudocode covers direct factors, invalid bases, misses,
+  nontrivial factors, and simultaneous collisions.
+- Complete-factorization pseudocode covers primality, exact perfect powers,
+  validated recursive splits, constructor failure, unresolved leaves, and
+  multiplicities.
+- The complexity ledger charges construction, Cartesian-product size, canonical
+  base representation, exponent bit length, modular evaluation, GCD, and fewer
+  than \(2m\) recursive factor-tree nodes.
 
-- Research question: can a small, deterministic baseline suite serve as a trusted
-  semantic oracle for later MOSEF/POSF counterexample work?
-- Expected artifacts: canonical vectors; arbitrary-precision Python reference
-  functions; overflow-safe Rust `u64` implementations and CLI; an independent
-  C# `BigInteger` verifier for selected operations; differential runner.
-- Acceptance criteria: exact modular exponentiation, trial division, perfect-power
-  detection, validation primality, Pollard rho, Pollard p-1 stage 1, a scoped
-  Williams-style p+1 stage 1, and batch GCD are implemented and tested. Rust
-  agrees with Python on all canonical vectors, and C# independently agrees on
-  modular exponentiation, primality, trial factors, and batch GCD.
-- Falsification tests: include 0/1, primes, repeated prime powers, Carmichael
-  numbers, products of three primes, nontrivial factors, method failure, and
-  invalid modulus paths; use deterministic seeds and iteration bounds.
-- Validation commands:
-  - `python -m unittest discover -s tests -v`
-  - `cargo fmt --all --check`
-  - `cargo clippy --workspace --all-targets --all-features -- -D warnings`
-  - `cargo test --workspace --all-features`
-  - `dotnet build verification/csharp/MosefVerifier.csproj`
-  - `python scripts/check_baseline_differential.py`
-- Paper section affected: add a baseline algorithms and validation section, with
-  explicit `u64` and finite-test limitations.
+The independent adversarial review found no counterexample or missing
+hypothesis in either lemma. It did identify a definitional obstruction:
+support-only POSF coverage cannot include prime powers because their
+distinct-prime support is a singleton. `OPEN-001` is therefore `REFUTED`.
+`OPEN-002` repairs the support target by preprocessing perfect powers, while
+`OPEN-003` asks for an all-input valuation-separating family. Both repaired
+constructor questions remain open.
 
-## Execution plan
+## Reproducible evidence
 
-1. Preserve the committed M0 evidence foundation.
-2. Complete M1 reference, authoritative, and independent implementations.
-3. Run unit, lint, build, and differential gates.
-4. Synchronize claims, decisions, roadmap, status, and manuscript.
-5. Commit M1, attempt remote delivery, and leave M2 as the next active target.
+- Proof and algorithm specification:
+  `research/proofs/M2-formal-specification.md`.
+- Negative result: `research/NEGATIVE_RESULTS.md` NR-001.
+- Registered experiment: `research/experiments/EXP-0002-m2-separator-search.md`.
+- Python oracle: `python/mosef_reference/separator.py`.
+- Rust and C# selected-outcome verifiers:
+  `crates/mosef-arithmetic` and `verification/csharp`.
+- Selected vectors: `schemas/m2-separator-vectors-v1.json`.
+- Deterministic search bounds: composite \(4\le N\le500\), unit bases
+  \(2\le g\le20\), and \(1\le d\le20\); no seed.
+- Search result: 78,860 candidates, 46,140 square-free candidates, and 5,672
+  nonsquarefree support-only false negatives.
+- Smallest witnesses: \((4,3,1)\) overall and \((9,2,2)\) for odd \(N\).
+- Canonical summary SHA-256:
+  `89bda0d3ea8054542151fda07d00c1e2711536b7339952618aea692c1d74cc59`.
 
-## Completed work and results
-
-- M0 state ledgers, source policy, inspected baseline notes, minimal manuscript,
-  bibliography, versioned experiment schema, example record, toolchain record,
-  and dependency-free validation harness are present.
-- No mathematical claim has been promoted, weakened, or refuted in this execution.
-- `OPEN-001` records that universal POSF existence and polynomial-time
-  constructibility remain open project targets.
-- Three primary journal sources were inspected for baseline orientation; see
-  `research/literature/BASELINE.md`.
-- An adversarial wording scan found no assertion that general classical
-  polynomial-time factorization or universal POSF existence has been proved.
-- M1 implements exact modular exponentiation, trial division, perfect-power
-  detection, validation primality, bounded Pollard rho, Pollard p-1 stage 1, a
-  scoped `Q=1` Williams-style p+1 stage 1, and per-item batch GCD.
-- Python supplies arbitrary-precision reference semantics, Rust supplies the
-  overflow-audited `u64` implementation and CLI, and C# independently verifies
-  selected operations with `BigInteger`.
-- `EMP-001` records only finite agreement on the canonical vector corpus; it is
-  not a complexity or universal factoring claim.
-
-## Toolchain snapshot
-
-See `research/toolchains/windows-amd64-20260725.json`.
-
-## Validation, remote state, blockers, and next action
+## Validation
 
 - `python scripts/validate_foundation.py`: PASS.
-- `python -m unittest discover -s tests -v`: PASS (20 tests).
+- `python -m unittest discover -s tests -v`: PASS (28 tests).
 - `python -m compileall -q python scripts tests`: PASS.
-- `python -m pytest`: BLOCKED because pytest is not installed.
-- `python -m ruff check python tests scripts`: BLOCKED because Ruff is not installed.
-- `python -m mypy python`: BLOCKED because mypy is not installed; see BLK-003.
-- Independent Node.js parsing of the schema, example, and toolchain JSON: PASS.
+- `python -m pytest`, Ruff, and mypy: unavailable under BLK-003; no dependency
+  was added merely to hide the environment limitation.
 - `cargo fmt --all --check`: PASS.
 - `cargo clippy --workspace --all-targets --all-features -- -D warnings`: PASS.
-- `cargo test --workspace --all-features`: PASS (10 Rust unit tests).
-- `dotnet build verification/csharp/MosefVerifier.csproj --nologo --no-restore`:
-  PASS with 0 warnings and 0 errors.
-- `python scripts/check_baseline_differential.py`: PASS (58 checks).
-- `git diff --check`: PASS.
+- `cargo test --workspace --all-features`: PASS (11 Rust tests).
+- Repository-local no-source NuGet restore and
+  `dotnet build verification/csharp/MosefVerifier.csproj --nologo --no-restore`:
+  PASS with zero warnings and errors.
+- `python scripts/check_baseline_differential.py`: PASS (58 comparisons).
+- `python scripts/run_m2_separator_search.py --n-max 500 --base-max 20
+  --exponent-max 20`: PASS (78,860 candidates).
+- `python scripts/check_m2_separator_differential.py`: PASS (24 comparisons).
+- Independent clean-room review enumeration: PASS (193,200 cases, including
+  73,632 mixed repeated-prime and 3,672 order-one cases).
 - `latexmk -xelatex -outdir=tmp/pdfs -interaction=nonstopmode -halt-on-error
-  paper/main.tex`: PASS in the approved MiKTeX environment; citations resolve
-  and the final log contains no LaTeX warnings, undefined references, or
-  overfull boxes.
-- Poppler rendering and page-by-page visual inspection: PASS (4 pages; no
-  clipping, overlap, malformed mathematics, broken citations, or unreadable text).
-- M1 implementation commit: `a138e4a5f4ec326ca6983b2ca420eb13f75492e6`.
-- Remote: branch `research/20260725-m0-foundation` is pushed and tracks
-  `origin/research/20260725-m0-foundation`.
-- Draft pull request: `https://github.com/whitespaca/MOSEF/pull/1`.
-- Unresolved blocker: optional pytest/Ruff/mypy gates are unavailable; see
-  BLK-003. BLK-001 and BLK-002 are resolved.
-- Next action: formalize M2 square-free and prime-power branches, prove the basic
-  separator lemma, and build its bounded counterexample harness.
+  paper/main.tex`: PASS; the final log has no LaTeX warnings, undefined
+  references, or overfull/underfull boxes.
+- Poppler render and visual inspection: PASS (6 pages; no clipping, overlap,
+  orphaned claim labels, malformed mathematics, or broken references).
+- Final PDF: `output/pdf/mosef-paper.pdf`, SHA-256
+  `2cf029694b6978a9e7c020076a77e92483520f8f8e5b4d1be82e0e30831054cf`.
+
+## Remote state, blockers, and next action
+
+- Existing draft PR for M0/M1: `https://github.com/whitespaca/MOSEF/pull/1`.
+- M2 branch delivery and draft PR creation are pending the final gate run and
+  delivery commit.
+- Unresolved blocker: optional pytest/Ruff/mypy tools are unavailable; see
+  BLK-003. No M2 correctness gate is otherwise blocked.
+- Next action: M3 should state the strongest noncircular multiplicative-channel
+  semismooth-order promise class, distinguish promise from recognition, and
+  attack its boundary cases before promoting any theorem.
 
 ## 한국어 요약
 
-M0 기반에 이어 M1 기준 알고리즘을 Python, Rust, C#으로 구축했다. Python
-테스트 20개, Rust 테스트 10개, 교차언어 검사 58개가 통과했다. 이는 유한
-벡터의 구현 일치 결과일 뿐 일반 고전 다항시간 소인수분해 증명이 아니다.
-논문은 XeLaTeX 컴파일과 4쪽 시각 검사를 통과했다. 다음 단계는 M2의 정확한
-분기와 기본 분리자 보조정리 형식화다.
+M2에서 제곱인수 없는 입력과 중복 소인수 입력을 구분하는 정확한 조건을
+정리했습니다. 기본 분리 보조정리와 소인수 지수값을 이용한 정확한 GCD
+조건을 증명했고, 모든 실패 분기와 재귀 복잡도를 명시했습니다. 소수 거듭제곱은
+지지집합 방식의 분리 조건을 만족할 수 없으므로 기존의 모든 합성수 대상
+주장은 반박되었습니다. 완전거듭제곱 전처리 방식과 지수값 분리 방식은 각각
+새로운 열린 문제로 남습니다. 다음 단계 M3에서는 비순환적인 준매끄러운 차수
+입력 클래스에 대한 제한 정리를 탐색합니다.

@@ -17,12 +17,15 @@ Factorization: Algorithms, Barriers, and Reproducible Evaluation}
 \maketitle
 
 \begin{abstract}
-This initial manuscript defines an evidence-driven program for evaluating
+This manuscript defines an evidence-driven program for evaluating
 order-separating exponent families in classical integer factorization. It
-introduces no new factoring theorem. In particular, the existence of a
-universally constructible polynomial order-separating family remains open.
-The present contribution is a reproducibility and claim-tracking foundation
-for later algorithms, counterexamples, restricted theorems, and barriers.
+proves the elementary support-separator implication and an exact
+valuation-aware criterion for repeated prime factors. The original
+support-only requirement cannot cover prime powers and is refuted as an
+all-composite target. Perfect-power preprocessing and an all-input
+valuation-separating family give two repaired formulations, but neither has a
+known universal polynomial-time constructor. No general factoring theorem is
+claimed.
 \end{abstract}
 
 \section{Introduction}
@@ -53,6 +56,14 @@ divisors of \(N\). For \(\gcd(g,N)=1\) and \(d>0\), define
 The pair \((g,d)\) is an order separator when \(D_N(g,d)\) is nonempty and is
 not all of \(P(N)\).
 
+\claimstatus{DEF-003}{DEFINITION}. If
+\(N=\prod_{p\in P(N)}p^{e_p}\), define
+\[
+  a_p(N,g,d)=\min\{e_p,\nu_p(g^d-1)\},
+\]
+where \(\nu_p(0)=+\infty\). A valuation separator has at least one
+\(a_p>0\) and at least one \(a_q<e_q\), where \(p=q\) is allowed.
+
 A polynomial order-separating family must bound not only the number of bases
 and exponents, but also construction cost, exponent bit lengths, evaluation
 cost, and recursive factor extraction in \(\operatorname{poly}(m)\) bit
@@ -77,16 +88,90 @@ separation theorem for MOSEF.
 
 \section{Open research target}
 
-\claimstatus{OPEN-001}{OPEN}.
+\claimstatus{OPEN-001}{REFUTED}. A support-defined family cannot guarantee an
+order separator for every composite input. If \(N=p^e\), then
+\(P(N)=\{p\}\), so \(D_N(g,d)\) is either empty or all of \(P(N)\), never
+nonempty and proper.
 
-No proof in this repository establishes a factorization-independent
-construction for every composite \(N\). In
-particular, no construction is known here that satisfies every family-size,
-exponent-length, evaluation, separation, and polynomial-time requirement.
+\noindent\begin{minipage}{\linewidth}
+\claimstatus{OPEN-002}{OPEN}.
 
-The research program will first build trusted reference algorithms and exact
-test vectors, then formalize all MOSEF failure branches and search for small
-counterexamples before attempting a restricted theorem.
+It remains unknown here whether exact polynomial time primality and
+perfect-power preprocessing can be followed by a support-POSF constructor,
+independent of the factorization, that succeeds on every residual composite
+cofactor within all polynomial representation, construction, evaluation, and
+recursion bounds.
+\end{minipage}
+
+\claimstatus{OPEN-003}{OPEN}. It also remains unknown whether an all-input
+valuation-separating family satisfying the same bounds can be constructed
+without access to the factorization.
+
+\section{Separator criteria and algorithmic framework}
+
+\claimstatus{LEM-001}{PROVED}. If \(D_N(g,d)\) is nonempty and proper, choose
+\(p\in D_N(g,d)\) and \(q\in P(N)\setminus D_N(g,d)\). Then \(p\) divides
+\(\gcd(g^d-1,N)\), while \(q\) does not. Hence
+\[
+  1<\gcd(g^d-1,N)<N.
+\]
+The argument is unchanged when \(N\) has repeated prime factors.
+
+\claimstatus{LEM-002}{PROVED}. Prime valuations give the exact identity
+\[
+  \gcd(g^d-1,N)=
+  \prod_{p\in P(N)}p^{\min\{e_p,\nu_p(g^d-1)\}}.
+\]
+Thus the GCD is nontrivial exactly when the capped profile is neither all zero
+nor the full profile \((e_p)\). For square-free \(N\), this is equivalent to
+the support condition. For \(N=p^e\), it instead reduces to
+\(0<\nu_p(g^d-1)<e\).
+
+One candidate first computes \(\gcd(g,N)\), returning any direct factor and
+rejecting a base divisible by \(N\). For a unit base it computes
+\(r=g^d\bmod N\) and classifies \(\gcd(r-1,N)\) as a miss, a nontrivial
+factor, or a simultaneous collision equal to \(N\). A family failure is
+reported as unresolved, never prime.
+
+The complete wrapper validates primality, recursively expands exact perfect
+powers, invokes a constructor only on residual composites, validates every
+reported split, and propagates construction or unresolved failures. The full
+pseudocode and proof are in:
+\begin{center}
+\small\path{research/proofs/M2-formal-specification.md}.
+\end{center}
+
+Let \(C(m)\) bound explicit construction, let \(B(m)\) and \(E(m)\) bound the
+numbers of canonical residue bases and exponents, and let \(L(m)\) bound
+exponent bit length. With multiplication cost \(M(m)\) and GCD cost \(G(m)\),
+one Cartesian-product pass costs
+\[
+  O\!\left(C(m)+B(m)E(m)
+  \left(M(m)L(m)+G(m)\right)\right).
+\]
+The factor tree has fewer than \(2m\) nodes. This gives a polynomial framework
+only conditionally on polynomial \(C,B,E,L\), polynomial preprocessing, and a
+success guarantee on every recursive cofactor; no such universal constructor
+is supplied.
+
+\section{Prime-power obstruction and finite falsification}
+
+The smallest valuation-only witness is
+\[
+  (N,g,d)=(4,3,1),\qquad
+  D_4(3,1)=P(4),\qquad
+  \gcd(3-1,4)=2.
+\]
+The smallest odd witness is \((9,2,2)\). These examples do not refute
+LEM-001; they refute the converse outside the square-free domain and expose
+the impossible scope of the original all-composite support-POSF target.
+
+\claimstatus{EMP-002}{EMPIRICAL}. A deterministic search over composite
+\(4\le N\le500\), unit bases \(2\le g\le20\), and \(1\le d\le20\)
+evaluated 78,860 candidates. The registered box produced no counterexample to
+LEM-001, LEM-002, or square-free equivalence, and found 5,672
+nonsquarefree valuation-only splits. Twenty-four selected Python, Rust, and
+C\# comparisons also passed. This finite agreement is an audit, not a proof.
 
 \section{Baseline algorithm suite}
 
@@ -123,21 +208,28 @@ The dependency-free foundation gates are:
 python scripts/validate_foundation.py
 python -m unittest discover -s tests -v
 cargo fmt --all --check
-cargo clippy --workspace --all-targets --all-features -- `
-  -D warnings
+cargo clippy --workspace --all-targets `
+  --all-features -- -D warnings
 cargo test --workspace --all-features
-dotnet build verification/csharp/MosefVerifier.csproj
+dotnet restore verification/csharp/MosefVerifier.csproj
+  --configfile verification/csharp/NuGet.Config
+dotnet build verification/csharp/MosefVerifier.csproj `
+  --no-restore
 python scripts/check_baseline_differential.py
+python scripts/run_m2_separator_search.py
+  --n-max 500 --base-max 20 --exponent-max 20
+python scripts/check_m2_separator_differential.py
 \end{verbatim}
 
 \section{Limitations}
 
-No POSF construction, restricted-class theorem, counterexample corpus, or
-performance experiment is claimed here. Trial-division primality is intentionally
+No support-POSF or valuation-family constructor and no restricted-class
+factoring theorem is claimed here. Trial-division primality is intentionally
 not polynomial in binary input length, the Rust algorithms are bounded to
-\texttt{u64}, and finite differential tests are not proofs for untested inputs.
-The baseline literature set is not a current-state-of-the-art survey. The
-current four-page manuscript is an initialization artifact, not a
+\texttt{u64}, and finite searches are not proofs for untested inputs. The
+valuation profile is used by the analysis oracle and is not available to a
+constructor without knowing the factorization. The baseline literature set is
+not a current-state-of-the-art survey. The manuscript is not yet a
 publication-ready contribution; it has passed XeLaTeX compilation, citation
 resolution, warning scanning, and page-by-page visual inspection.
 
@@ -145,8 +237,11 @@ resolution, warning scanning, and page-by-page visual inspection.
 
 The M0 foundation makes claim status, source inspection, and experiment
 metadata explicit, and M1 provides a differentially checked small-input
-baseline. The next milestone formalizes all MOSEF/POSF branches and the basic
-separator lemma; universal POSF existence remains open.
+baseline. M2 proves the support and valuation criteria, specifies all
+candidate and recursive failure branches, and replaces an impossible
+all-composite support target with two explicit open formulations. M3 will seek
+the strongest noncircular restricted theorem for a semismooth-order input
+class.
 
 \bibliographystyle{plain}
 \bibliography{paper/references}

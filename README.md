@@ -7,6 +7,11 @@ is an open research target, not an established result.
 The project constitution is in `CODEX.md`. Current research state and claim
 statuses are maintained under `research/`.
 
+M0 through M2 are complete. M2 proves the elementary support and valuation
+criteria, records the prime-power obstruction to an all-composite support-POSF,
+and leaves two repaired universal constructor questions open. M3 is the active
+restricted semismooth-order theorem search.
+
 ## Foundation validation
 
 The M0 foundation has no third-party runtime dependencies:
