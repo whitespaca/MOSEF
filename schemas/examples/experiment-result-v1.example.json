@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "EXP-0001",
+  "git_commit": "e1b747655eb26055a577198df51ea0112a1ba443",
+  "timestamp_utc": "2026-07-25T00:00:00Z",
+  "host": {
+    "os": "Windows 11",
+    "arch": "AMD64",
+    "cpu": "example-cpu",
+    "logical_cores": 1,
+    "memory_bytes": 1
+  },
+  "toolchains": {
+    "python": "3.12.8"
+  },
+  "algorithm": "foundation-schema-smoke-test",
+  "parameters": {
+    "note": "No mathematical experiment is represented by this example."
+  },
+  "seed": "0",
+  "input_manifest_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "result": {
+    "validated": true
+  },
+  "timing": {
+    "wall_seconds": 0.0,
+    "cpu_seconds": 0.0
+  },
+  "peak_memory_bytes": null,
+  "stdout_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "status": "PASS"
+}

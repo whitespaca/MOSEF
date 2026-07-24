@@ -1,0 +1,14 @@
+[package]
+name = "mosef-arithmetic"
+version = "0.1.0"
+edition = "2021"
+description = "Correctness-first u64 arithmetic baselines for MOSEF research"
+publish = false
+
+[lib]
+name = "mosef_arithmetic"
+path = "src/lib.rs"
+
+[[bin]]
+name = "mosef-baseline"
+path = "src/main.rs"

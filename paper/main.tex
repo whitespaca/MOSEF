@@ -1,0 +1,154 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage[hidelinks]{hyperref}
+
+\newcommand{\claimstatus}[2]{\textbf{#1 [#2]}}
+
+\title{Order-Separating Exponent Families for Classical Integer
+Factorization: Algorithms, Barriers, and Reproducible Evaluation}
+\author{MOSEF Research Program}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This initial manuscript defines an evidence-driven program for evaluating
+order-separating exponent families in classical integer factorization. It
+introduces no new factoring theorem. In particular, the existence of a
+universally constructible polynomial order-separating family remains open.
+The present contribution is a reproducibility and claim-tracking foundation
+for later algorithms, counterexamples, restricted theorems, and barriers.
+\end{abstract}
+
+\section{Introduction}
+
+Let \(N\) be a positive integer represented in binary. The project asks whether
+order information from one or more algebraic groups can expose a nontrivial
+factor without circular access to the factorization. General classical
+polynomial-time factorization is a research target, not a premise.
+
+The immediate objective is methodological: every mathematical statement is
+linked to a status and evidence record, finite experiments are not promoted to
+universal theorems, and complexity is measured in binary input length.
+
+\section{Model and definitions}
+
+\claimstatus{DEF-001}{DEFINITION}. The input length is
+\[
+  m=\left\lceil\log_2 N\right\rceil.
+\]
+Thus a running time polynomial in \(N\) is not, merely for that reason,
+polynomial in the input length.
+
+\claimstatus{DEF-002}{DEFINITION}. Let \(P(N)\) be the set of distinct prime
+divisors of \(N\). For \(\gcd(g,N)=1\) and \(d>0\), define
+\[
+  D_N(g,d)=\{p\in P(N):\operatorname{ord}_p(g)\mid d\}.
+\]
+The pair \((g,d)\) is an order separator when \(D_N(g,d)\) is nonempty and is
+not all of \(P(N)\).
+
+A polynomial order-separating family must bound not only the number of bases
+and exponents, but also construction cost, exponent bit lengths, evaluation
+cost, and recursive factor extraction in \(\operatorname{poly}(m)\) bit
+operations.
+
+\section{Inspected baseline evidence}
+
+\claimstatus{EXT-001}{PROVED, IMPORTED}. Agrawal, Kayal, and Saxena give an
+unconditional deterministic polynomial-time primality test
+\cite{agrawal2004primes}. This decision result must not be restated as a
+factor-finding algorithm.
+
+\claimstatus{EXT-002}{PROVED, IMPORTED}. Lenstra and Pomerance prove a
+probabilistic complete-factorization algorithm with expected running time
+\(L_N[1/2,1+o(1)]\) \cite{lenstra1992rigorous}. This is a rigorous
+subexponential bound, not a polynomial bound in \(m\).
+
+Lenstra's elliptic-curve method motivates varying the group channel, while the
+expected-time expression highlighted in the inspected abstract is explicitly
+conjectural \cite{lenstra1987elliptic}. It therefore supplies motivation, not a
+separation theorem for MOSEF.
+
+\section{Open research target}
+
+\claimstatus{OPEN-001}{OPEN}.
+
+No proof in this repository establishes a factorization-independent
+construction for every composite \(N\). In
+particular, no construction is known here that satisfies every family-size,
+exponent-length, evaluation, separation, and polynomial-time requirement.
+
+The research program will first build trusted reference algorithms and exact
+test vectors, then formalize all MOSEF failure branches and search for small
+counterexamples before attempting a restricted theorem.
+
+\section{Baseline algorithm suite}
+
+The M1 suite contains exact modular exponentiation, trial division,
+perfect-power detection, exact trial-division primality for validation,
+bounded Pollard rho, Pollard \(p-1\) stage 1, a scoped Williams-style
+\(p+1\) stage 1 using the Lucas sequence \(V_k(P,1)\), and per-item batch
+GCD semantics.
+
+Python supplies the arbitrary-precision reference behavior. Rust supplies the
+authoritative implementation only on its documented \texttt{u64} domain, with
+\texttt{u128} products preventing modular-multiplication overflow. An
+independent C\# \texttt{BigInteger} program verifies selected operations. The
+current batch-GCD function is a semantic baseline and is not a product-tree
+performance claim.
+
+\claimstatus{EMP-001}{EMPIRICAL}. On the finite canonical corpus in
+\path{schemas/baseline-vectors-v1.json}, 58 cross-language comparisons
+passed. Rust agreed with Python for every registered operation; C\# also agreed
+for modular exponentiation, validation primality, trial factors, and per-item
+batch GCDs. This finite agreement neither proves asymptotic complexity nor
+establishes correctness outside the specified domains.
+
+\section{Reproducibility}
+
+The result envelope is versioned by a JSON schema stored in the repository's
+\texttt{schemas} directory. Each record contains the repository commit, UTC
+timestamp, host and toolchain metadata, deterministic seed, input and output
+hashes, timing fields, memory metadata, and explicit status. Raw records are
+immutable; corrections must supersede rather than edit them.
+
+The dependency-free foundation gates are:
+\begin{verbatim}
+python scripts/validate_foundation.py
+python -m unittest discover -s tests -v
+cargo fmt --all --check
+cargo clippy --workspace --all-targets --all-features -- `
+  -D warnings
+cargo test --workspace --all-features
+dotnet build verification/csharp/MosefVerifier.csproj
+python scripts/check_baseline_differential.py
+\end{verbatim}
+
+\section{Limitations}
+
+No POSF construction, restricted-class theorem, counterexample corpus, or
+performance experiment is claimed here. Trial-division primality is intentionally
+not polynomial in binary input length, the Rust algorithms are bounded to
+\texttt{u64}, and finite differential tests are not proofs for untested inputs.
+The baseline literature set is not a current-state-of-the-art survey. The
+current four-page manuscript is an initialization artifact, not a
+publication-ready contribution; it has passed XeLaTeX compilation, citation
+resolution, warning scanning, and page-by-page visual inspection.
+
+\section{Conclusion}
+
+The M0 foundation makes claim status, source inspection, and experiment
+metadata explicit, and M1 provides a differentially checked small-input
+baseline. The next milestone formalizes all MOSEF/POSF branches and the basic
+separator lemma; universal POSF existence remains open.
+
+\bibliographystyle{plain}
+\bibliography{paper/references}
+
+\end{document}
