@@ -32,7 +32,7 @@ def load_vectors() -> dict[str, Any]:
     return value
 
 
-def run(command: list[str]) -> str:
+def run(command: list[str], environment: dict[str, str] | None = None) -> str:
     completed = subprocess.run(
         command,
         cwd=ROOT,
@@ -40,6 +40,7 @@ def run(command: list[str]) -> str:
         capture_output=True,
         text=True,
         encoding="utf-8",
+        env=environment,
     )
     return completed.stdout.strip()
 
@@ -60,8 +61,35 @@ def check_equal(label: str, expected: str, actual: str) -> None:
 
 def main() -> int:
     vectors = load_vectors()
+    dotnet_environment = os.environ.copy()
+    dotnet_appdata = ROOT / "verification" / "csharp" / "obj" / "sandbox-appdata"
+    dotnet_appdata.mkdir(parents=True, exist_ok=True)
+    dotnet_environment["APPDATA"] = str(dotnet_appdata)
     run(["cargo", "build", "--quiet", "-p", "mosef-arithmetic", "--bin", "mosef-baseline"])
-    run(["dotnet", "build", "verification/csharp/MosefVerifier.csproj", "--nologo", "--verbosity", "quiet"])
+    run(
+        [
+            "dotnet",
+            "restore",
+            "verification/csharp/MosefVerifier.csproj",
+            "--configfile",
+            "verification/csharp/NuGet.Config",
+            "--verbosity",
+            "quiet",
+        ],
+        dotnet_environment,
+    )
+    run(
+        [
+            "dotnet",
+            "build",
+            "verification/csharp/MosefVerifier.csproj",
+            "--nologo",
+            "--no-restore",
+            "--verbosity",
+            "quiet",
+        ],
+        dotnet_environment,
+    )
 
     rust = executable("mosef-baseline")
     csharp = [
@@ -74,21 +102,33 @@ def main() -> int:
         arguments = [vector["base"], vector["exponent"], vector["modulus"]]
         expected = str(mod_pow(*(int(value) for value in arguments)))
         check_equal("Rust mod-pow", expected, run([rust, "mod-pow", *arguments]))
-        check_equal("C# mod-pow", expected, run([*csharp, "mod-pow", *arguments]))
+        check_equal(
+            "C# mod-pow",
+            expected,
+            run([*csharp, "mod-pow", *arguments], dotnet_environment),
+        )
         checks += 2
 
     for vector in vectors["primality"]:
         n = vector["n"]
         expected = str(is_prime(int(n))).lower()
         check_equal("Rust is-prime", expected, run([rust, "is-prime", n]))
-        check_equal("C# is-prime", expected, run([*csharp, "is-prime", n]))
+        check_equal(
+            "C# is-prime",
+            expected,
+            run([*csharp, "is-prime", n], dotnet_environment),
+        )
         checks += 2
 
     for vector in vectors["trial_division"]:
         n = vector["n"]
         expected = optional_text(trial_division(int(n)))
         check_equal("Rust trial-factor", expected, run([rust, "trial-factor", n]))
-        check_equal("C# trial-factor", expected, run([*csharp, "trial-factor", n]))
+        check_equal(
+            "C# trial-factor",
+            expected,
+            run([*csharp, "trial-factor", n], dotnet_environment),
+        )
         checks += 2
 
     for vector in vectors["perfect_power"]:
@@ -124,7 +164,11 @@ def main() -> int:
             int(modulus),
         ))
         check_equal("Rust batch-gcd", expected, run([rust, "batch-gcd", modulus, values]))
-        check_equal("C# batch-gcd", expected, run([*csharp, "batch-gcd", modulus, values]))
+        check_equal(
+            "C# batch-gcd",
+            expected,
+            run([*csharp, "batch-gcd", modulus, values], dotnet_environment),
+        )
         checks += 2
 
     print(f"Baseline differential validation: PASS ({checks} cross-language checks)")

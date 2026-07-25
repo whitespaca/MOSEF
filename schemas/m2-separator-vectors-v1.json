@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "Selected exact M2 candidate outcomes within the Rust u64 and C# BigInteger overlap.",
+  "vectors": [
+    {
+      "n": "15",
+      "g": "3",
+      "d": "1",
+      "kind": "direct_factor",
+      "factor": "3",
+      "residue": null
+    },
+    {
+      "n": "15",
+      "g": "0",
+      "d": "1",
+      "kind": "invalid_base",
+      "factor": null,
+      "residue": null
+    },
+    {
+      "n": "15",
+      "g": "2",
+      "d": "1",
+      "kind": "miss",
+      "factor": null,
+      "residue": "2"
+    },
+    {
+      "n": "15",
+      "g": "2",
+      "d": "2",
+      "kind": "factor",
+      "factor": "3",
+      "residue": "4"
+    },
+    {
+      "n": "15",
+      "g": "4",
+      "d": "2",
+      "kind": "simultaneous_collision",
+      "factor": null,
+      "residue": "1"
+    },
+    {
+      "n": "4",
+      "g": "3",
+      "d": "1",
+      "kind": "factor",
+      "factor": "2",
+      "residue": "3"
+    },
+    {
+      "n": "9",
+      "g": "2",
+      "d": "2",
+      "kind": "factor",
+      "factor": "3",
+      "residue": "4"
+    },
+    {
+      "n": "12",
+      "g": "5",
+      "d": "1",
+      "kind": "factor",
+      "factor": "4",
+      "residue": "5"
+    },
+    {
+      "n": "12",
+      "g": "7",
+      "d": "1",
+      "kind": "factor",
+      "factor": "6",
+      "residue": "7"
+    },
+    {
+      "n": "15",
+      "g": "1",
+      "d": "1",
+      "kind": "simultaneous_collision",
+      "factor": null,
+      "residue": "1"
+    },
+    {
+      "n": "15",
+      "g": "14",
+      "d": "2",
+      "kind": "simultaneous_collision",
+      "factor": null,
+      "residue": "1"
+    },
+    {
+      "n": "561",
+      "g": "2",
+      "d": "80",
+      "kind": "simultaneous_collision",
+      "factor": null,
+      "residue": "1"
+    }
+  ]
+}

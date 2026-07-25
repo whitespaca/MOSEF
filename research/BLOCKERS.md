@@ -37,3 +37,19 @@
 - Required resolution: provide an approved environment containing pinned
   versions of pytest, Ruff, and mypy. Do not add or download them merely to hide
   this environmental limitation.
+
+## BLK-004 - M2 remote delivery requires explicit approval
+
+- First observed: 2026-07-25
+- Scope: push `research/20260725-m2-formal-spec` and create its draft pull
+  request.
+- Evidence: the environment safety reviewer rejected
+  `git push -u origin research/20260725-m2-formal-spec` because sending the new
+  research content to the configured GitHub remote requires explicit user
+  authorization for that payload.
+- Impact: M2 is validated and committed locally, but its branch is not on the
+  remote and no M2 pull request exists.
+- Required resolution: the repository owner must explicitly authorize pushing
+  this branch to `origin`. After a successful push, create a stacked draft pull
+  request against `research/20260725-m0-foundation` and mark this blocker
+  resolved.

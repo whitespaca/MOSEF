@@ -68,3 +68,24 @@
 - Rollback condition: introduce arbitrary-precision Rust only when M2/M3 input
   ranges require it and the dependency, license, and differential plan are
   recorded.
+
+## ADR-005 - Separate support-POSF and valuation-family domains
+
+- Date: 2026-07-25
+- Status: accepted
+- Context: DEF-002 cannot hold on a prime power because its distinct-prime
+  support is a singleton, while LEM-002 shows that partial prime-power
+  valuations can still yield a nontrivial GCD.
+- Alternatives: retain an impossible all-composite support-POSF target; redefine
+  order support silently; preprocess perfect powers; introduce a separate exact
+  valuation success condition.
+- Decision: refute the original all-composite support-POSF target. Scope a
+  repaired support-POSF to cofactors remaining after exact primality and
+  perfect-power preprocessing, and track an all-input valuation-separating
+  family as a second open target.
+- Consequences: LEM-001 remains a general sufficient lemma, LEM-002 is the exact
+  nonsquarefree criterion, and neither repaired open target is treated as an
+  available constructor. Family semantics use the explicit Cartesian product
+  \(G_m(N)\times\Delta_m(N)\) with canonical residue bases.
+- Rollback condition: change this split only if a later definition preserves
+  exact prime-power semantics and passes the same claim and proof review.
