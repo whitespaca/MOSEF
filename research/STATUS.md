@@ -1,5 +1,39 @@
 # Research Status
 
+## M12 active
+
+- Date: 2026-07-26.
+- Branch: `research/20260726-m12-prime-yield`.
+- Active milestone: M12, the critical/supercritical primorial prime-yield
+  question after common-input-length population normalization.
+- Baseline validation passed before edits: foundation and publication
+  consistency (47 claims and nine experiment hashes), 86 Python tests and
+  bytecode compilation, Rust format/Clippy/19 tests, and a clean converged
+  28-page XeLaTeX build.
+- Provisional claim target: `BAR-007`. For first-primes primorial indices
+  \(r(k)=O(k)\), count only divisors \(d\le2^{\beta k}+1\), because a hit on
+  an \(O(k)\)-bit target prime must have \(d=q\pm1\) in that range. The
+  factorial lower bound on a square-free divisor's support should force
+  \(\omega(d)=O(k/\log k)\), leaving only
+  \(2^{O(k\log\log k/\log k)}=2^{o(k)}\) relevant divisors despite
+  \(\tau(P_{r(k)})=2^{\Theta(k)}\) overall.
+- Expected consequence: every stipulated exponentially large
+  common-input-length population of \(O(k)\)-bit primes has vanishing
+  primorial-schedule promised-pair fraction, for every fixed boundary
+  coefficient. This would refute the transfer from total divisor capacity to
+  factor-scale prime yield without making a primality-distribution claim.
+- Falsification plan: exhaustively compare the exact factorial/binomial bound
+  with all divisors of bounded primorials; independently test actual
+  \(d\pm1\) prime hits and exact three-signature population fractions on
+  balanced finite prime intervals.
+- Literature plan: audit primary shifted-smooth-prime results only to delimit
+  scope. No external distribution theorem will be used in the elementary
+  barrier proof.
+- Planned deliverables: proof and negative-result record, deterministic
+  EXP-0011, selected Python/Rust/C# checks, claims and manuscript
+  synchronization, independent adversarial/source review, full gates, and a
+  local commit.
+
 ## M11 outcome
 
 - Date: 2026-07-26.

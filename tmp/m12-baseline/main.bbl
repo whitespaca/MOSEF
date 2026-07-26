@@ -1,0 +1,35 @@
+\begin{thebibliography}{1}
+
+\bibitem{agrawal2004primes}
+Manindra Agrawal, Neeraj Kayal, and Nitin Saxena.
+\newblock {PRIMES} is in {P}.
+\newblock {\em Annals of Mathematics}, 160(2):781--793, 2004.
+
+\bibitem{lenstra1992rigorous}
+Jr. Lenstra, H.~W. and Carl Pomerance.
+\newblock A rigorous time bound for factoring integers.
+\newblock {\em Journal of the American Mathematical Society}, 5(3):483--516,
+  1992.
+
+\bibitem{lenstra1987elliptic}
+Jr. Lenstra, Hendrik~W.
+\newblock Factoring integers with elliptic curves.
+\newblock {\em Annals of Mathematics}, 126(3):649--673, 1987.
+
+\bibitem{rosser1962approximate}
+J.~Barkley Rosser and Lowell Schoenfeld.
+\newblock Approximate formulas for some functions of prime numbers.
+\newblock {\em Illinois Journal of Mathematics}, 6(1):64--94, 1962.
+
+\bibitem{umans2025numbertheoretic}
+Chris Umans and Siki Wang.
+\newblock A number-theoretic conjecture implying faster algorithms for
+  polynomial factorization and integer factorization, 2025.
+\newblock Version 1, submitted 13 November 2025.
+
+\bibitem{williams1982pplusone}
+Hugh~C. Williams.
+\newblock A {$p+1$} method of factoring.
+\newblock {\em Mathematics of Computation}, 39(159):225--234, 1982.
+
+\end{thebibliography}
