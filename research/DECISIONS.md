@@ -160,3 +160,28 @@
 - Rollback condition: revise the separation only if a proposed parameter map
   is proved not to satisfy the conjugate identity and its exact failure
   distribution survives source, proof, and bounded counterexample review.
+
+## ADR-009 - Make publication consistency executable
+
+- Date: 2026-07-26
+- Status: accepted
+- Context: M6 must synthesize one restricted theorem, two barriers, imported
+  results, and four experiment records without silently changing a status,
+  hypothesis, count, or reproduction anchor.
+- Alternatives: preserve the incremental manuscript unchanged; summarize only
+  the positive theorem; make every ledger claim explicit in one self-contained
+  paper and enforce the mapping mechanically.
+- Decision: center the first publishable manuscript on THM-001, BAR-001, and
+  BAR-002; include full proofs and explicit limitations; maintain
+  `research/PUBLICATION_CLAIMS.md`; and gate the paper with
+  `scripts/check_publication.py`. The release gate requires every claim exactly
+  once with its ledger status, every registered experiment hash, all five full
+  proofs, and a real 40-hex M6 core commit.
+- Consequences: the paper remains honest about the factor-dependent promise,
+  the map-specific nature of BAR-002, and OPEN-002/OPEN-003. A bootstrap-only
+  `--allow-placeholder` mode exists solely to create the core commit; the
+  normal publication check rejects the placeholder. Exact PowerShell
+  reproduction commands use a repository-scoped .NET application-data path.
+- Rollback condition: replace the checker or matrix only with a stricter
+  mechanism that preserves claim, proof, experiment-hash, and commit
+  traceability.

@@ -95,18 +95,34 @@
   this M4 branch to `origin`. After a successful push, create a draft pull
   request targeting `main` and mark this blocker resolved.
 
-## BLK-007 - M5 remote delivery requires explicit approval
+## BLK-007 - M5 draft pull request lacks GitHub CLI authentication
 
 - First observed: 2026-07-26.
 - Scope: push `research/20260726-m5-multigroup-correlation` and create its draft
   pull request.
-- Evidence: the environment safety reviewer rejected
-  `git push -u origin research/20260726-m5-multigroup-correlation` because
-  publishing the new proof, source audit, implementations, experiment, and
-  manuscript to the configured GitHub remote is content egress and this
-  payload lacks explicit user authorization.
-- Impact: M5 is validated and committed locally at `22e213b`, but the branch
-  has not been pushed and no M5 pull request exists.
-- Required resolution: the repository owner must explicitly authorize pushing
-  this M5 branch to `origin`. After a successful push, create a draft pull
+- Evidence: the first policy-reviewed push attempt was rejected, but the
+  remote-tracking branch was later observed at
+  `origin/research/20260726-m5-multigroup-correlation`, containing the reviewed
+  M5 completion commit `ccc3a9368a015f9d4f1d840dda79d7a3c9a28ecf`.
+  `gh pr list` cannot run because `gh` has no authenticated account or
+  `GH_TOKEN`.
+- Impact: the M5 branch is remotely visible, but no M5 pull request was
+  verified or created in this environment.
+- Required resolution: authenticate `gh`, then create or verify a draft pull
   request targeting `main` and mark this blocker resolved.
+
+## BLK-008 - M6 remote delivery requires explicit approval
+
+- First observed: 2026-07-26.
+- Scope: push `research/20260726-m6-publishable-manuscript` and create its
+  draft pull request.
+- Evidence: the environment safety reviewer rejected
+  `git push -u origin research/20260726-m6-publishable-manuscript` because the
+  branch contains newly created repository content and the user has not
+  explicitly authorized sending that payload to the configured external
+  GitHub remote.
+- Impact: M6 is validated and committed locally, but its branch is not pushed
+  and no M6 pull request exists.
+- Required resolution: the repository owner must explicitly authorize pushing
+  this branch to `origin`. After a successful push, authenticate `gh` and
+  create a draft pull request targeting `main`.

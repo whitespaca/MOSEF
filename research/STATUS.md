@@ -1,17 +1,38 @@
 # Research Status
 
+## M6 outcome
+
+- Branch: `research/20260726-m6-publishable-manuscript`.
+- Completed milestone: M6, the first claim-complete publishable manuscript.
+- Manuscript core commit:
+  `9aac77921421fd69a4ab83e879cf50084f3024f3`.
+- Validated milestone completion commit:
+  `72f969df01555730cf2a27e96530444fdfa39b81`.
+- The paper centers one restricted positive result (`THM-001`) and two
+  structural barriers (`BAR-001`, `BAR-002`) without enlarging any hypothesis;
+  `OPEN-002` and `OPEN-003` remain explicit.
+- `research/PUBLICATION_CLAIMS.md` maps all 26 ledger claims into the paper.
+  `scripts/check_publication.py` enforces unique claim IDs and matching
+  statuses, all five full proofs, four registered experiment hashes, required
+  sections, overclaim exclusions, and a real 40-hex M6 core commit.
+- The reproduction appendix records exact PowerShell commands, workspace-local
+  .NET state, experiment core commits, hashes, and the stable PDF path.
+- Independent adversarial review reconstructed LEM-001, LEM-002, THM-001,
+  BAR-001, and BAR-002; reproduced all experiment hashes and differential
+  suites; and found no remaining theorem, source, hash, complexity, command, or
+  publication-checker blocker after repairs.
+- General classical polynomial-time integer factoring remains open. M6 is a
+  restricted theorem plus two scoped barriers, not a universal algorithm or a
+  general lower bound.
+
 ## Execution snapshot
 
 - Date: 2026-07-26.
-- Branch: `research/20260726-m5-multigroup-correlation`.
-- Completed milestone: M5, exact correlation across multiplicative and Lucas
-  channels.
-- Active milestone: M6, strongest fully supported publishable contribution.
-- Reviewed M5 core commit:
-  `7ca79de49c404b10c1b1b355ff10b8a8d7d59635`.
-- General classical polynomial-time integer factoring remains open. M5 proves
-  a barrier for one natural parameter map, not a factoring algorithm or a
-  general two-channel lower bound.
+- Branch: `research/20260726-m6-publishable-manuscript`.
+- Completed milestone: M6.
+- Next selected milestone: M7, a factorization-independent nonsplit Lucas
+  parameter model with an exact joint-failure event and either a proved
+  restricted guarantee or a reproducible negative result.
 
 ## M5 outcome
 
@@ -60,7 +81,7 @@
 - Registered bounds: composite moduli through 700, unit bases through 32,
   Lucas parameters through 32, and exponents through 12; deterministic
   exhaustive enumeration with no seed.
-- Result: 9,773 conjugate families, 117,276 identities, 45,821 pointwise
+- Result: 9,773 conjugate families, 117,276 identities, 36,048 pointwise
   success implications, 69,192 square-free GCD equalities, and zero
   derived-Lucas-only family successes.
 - Multiplicative and combined success counts were both 9,037. Independently
@@ -91,14 +112,17 @@
   pair-profile checks, and 12 cross-language checks).
 - M5 registered search: PASS (9,773 families and 117,276 identity checks).
 - M5 Python/Rust/C# differential validation: PASS (18 checks).
-- Independent M5 theorem review: PASS; no remaining promotion blocker.
+- `python scripts/check_publication.py`: PASS (26 claims and 4 registered
+  experiment hashes).
+- Independent M6 manuscript, proof, source, and reproducibility review: PASS;
+  no remaining release blocker.
 - `latexmk -xelatex -outdir=tmp/pdfs -interaction=nonstopmode -halt-on-error
-  paper/main.tex`: PASS; the converged log has no LaTeX warnings, undefined
-  references, citations, or overfull/underfull boxes.
-- Poppler render and page-by-page visual inspection: PASS (12 pages; no
+  paper/main.tex`: PASS; the clean converged log has no warnings, undefined
+  references or citations, and no overfull or underfull boxes.
+- Poppler render and page-by-page visual inspection: PASS (14 pages; no
   clipping, overlap, malformed mathematics, or broken claim labels).
 - Final PDF: `output/pdf/mosef-paper.pdf`, SHA-256
-  `0fc846829ae080cc60cd7052936392f438ec15a75fa3c554b3214a06ede62369`.
+  `c8b18cadede70968e783bdd1e44f1d27d213c7938b1da547838fa08889169c98`.
 
 ## Remote state, blockers, and next action
 
@@ -107,12 +131,15 @@
 - M3 and M4 remote delivery remain blocked by explicit content-egress
   authorization requirements under BLK-005 and BLK-006.
 - Optional pytest/Ruff/mypy tools remain unavailable under BLK-003.
-- M5 local delivery is complete at `22e213b`. The policy-required push attempt
-  was rejected because this exact branch payload lacks explicit authorization;
-  see BLK-007. No M5 pull request exists.
-- Next action: M6 should synthesize the restricted theorem and two barrier
-  results into the strongest claim-complete manuscript, without enlarging any
-  theorem beyond its reviewed hypotheses.
+- The M5 remote branch is now visible at
+  `origin/research/20260726-m5-multigroup-correlation`; `gh` is not
+  authenticated, so no M5 pull request was verified or created.
+- M6 local delivery is complete. The policy-required push attempt was rejected
+  because this exact new branch payload lacks explicit user authorization; see
+  BLK-008. No M6 pull request exists.
+- Next action: M7 should first define a factorization-independent nonsplit
+  Lucas parameter sampler and its exact joint-failure event, before any
+  bounded experiment is interpreted.
 
 ## 한국어 요약
 
