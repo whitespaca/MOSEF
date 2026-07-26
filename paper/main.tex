@@ -26,8 +26,13 @@ support-only requirement cannot cover prime powers and is refuted as an
 all-composite target. On an explicit hereditary semismooth-order promise
 class, we prove a Las Vegas complete-factorization theorem with polynomial
 expected bit complexity. The promise is factor dependent and is not
-recognized by the algorithm; no general polynomial-time factoring theorem is
-claimed.
+recognized by the algorithm. We also prove that divisor coverage, even by a
+positive difference family, does not imply multiplicative-order separation:
+the missing condition is injectivity of divisibility signatures. Finally, a
+natural conjugate pairing with a Lucas channel is proved algebraically
+correlated with the multiplicative channel and cannot enlarge its success
+domain; independently selected Lucas parameters remain outside that barrier.
+No general polynomial-time factoring theorem is claimed.
 \end{abstract}
 
 \section{Introduction}
@@ -252,6 +257,181 @@ probability was \(268/493\), above the proved \(5/12\) bound. Twenty-two
 selected Python, Rust, and C\# comparisons passed. These finite checks
 falsify implementations, not prove the theorem.
 
+\section{Difference coverage versus order separation}
+
+For a finite positive candidate family \(\Delta\), define
+\[
+  \Sigma_\Delta(r)=\{d\in\Delta:r\mid d\}.
+\]
+\claimstatus{DEF-005}{DEFINITION}. The family has the \(n\)-divisor property
+when every signature for \(1\le r\le n\) is nonempty. It separates an order
+profile \((r_1,\ldots,r_k)\) when some \(d\in\Delta\) is divisible by at least
+one but not all of the profile orders.
+
+Umans and Wang conjecture structured difference sets \(S-T\) having the
+\(n\)-divisor property, with magnitude, cardinality, and
+generalized-arithmetic-progression bounds \cite{umans2025numbertheoretic}.
+Their integer algorithm uses divisibility of actual small prime factors into
+prefactored differences and does not use multiplicative orders.
+\claimstatus{EXT-003}{CONDITIONAL, IMPORTED}. Their Theorem~5.5 states,
+assuming the Strong Prefactored Divisor Conjecture, a deterministic
+\[
+  N^{\max(\alpha,\beta)/2+o(1)}
+\]
+integer-factorization running time. This remains exponential in
+\(m=\lceil\log_2N\rceil\). The inspected version also leaves uniformity,
+modulus-range, and sign/zero conventions insufficiently explicit; the source
+note records these textual gaps. We therefore neither treat the construction
+as available nor restate the bound as unconditional.
+
+\claimstatus{BAR-001}{PROVED}. Divisor coverage does not imply order
+separation, including for positive difference families. A candidate \(d\)
+separates a profile if and only if its signatures are not all equal: a hit
+and a miss distinguish two signatures, and any element of the symmetric
+difference of two signatures supplies a hit and a miss. Consequently a family
+separates every profile containing distinct orders from \(\{1,\ldots,n\}\)
+if and only if \(r\mapsto\Sigma_\Delta(r)\) is injective on that interval.
+Coverage requires only nonempty signatures.
+
+The minimal difference-family counterexample is
+\[
+  S=\{3\},\qquad T=\{1\},\qquad
+  \Delta^+(S,T)=\{2\}.
+\]
+Both 1 and 2 divide the sole difference, but
+\(\Sigma_\Delta(1)=\Sigma_\Delta(2)\). This occurs in the multiplicative-order
+mechanism itself:
+\[
+  \operatorname{ord}_2(5)=1,\quad
+  \operatorname{ord}_3(5)=2,\quad
+  \gcd(5^2-1,6)=6.
+\]
+Thus the covered candidate is a simultaneous collision, not a factor. The
+smallest odd example is \(N=15,g=4,d=2\).
+
+If a family has both coverage and injective signatures on
+\(\{1,\ldots,n\}\), its \(n\) signatures are distinct nonempty subsets of
+\(\Delta\). Hence
+\[
+  n\le2^{|\Delta|}-1,\qquad
+  |\Delta|\ge\lceil\log_2(n+1)\rceil.
+\]
+For \(\Delta=\Delta^+(S,T)\), also
+\(|S||T|\ge|\Delta|\). This is only an explicit-candidate counting bound; it
+does not exclude compact batch evaluation.
+
+A control construction shows sufficiency without efficiency. Put
+\(h=\lceil\sqrt n\rceil\),
+\[
+  S=\{1+ih:1\le i\le h\},\qquad
+  T=\{1+j:0\le j<h\}.
+\]
+Its positive differences are exactly \(\{1,\ldots,h^2\}\), so for distinct
+\(r<s\le n\), candidate \(d=r\) separates the two. The construction uses
+\(h^2=\Theta(n)\) pairs, exponential when \(n\) has magnitude exponential in
+the input bit length. It is a correctness control, not a polynomial-time
+POSF.
+
+\claimstatus{REF-002}{REFUTED}. The attempted implication
+``\(n\)-divisor difference cover \(\Rightarrow\) distinct-order separator''
+is false. This does not refute the conditional Umans--Wang algorithms, whose
+collision-resolution mechanism is different.
+
+\claimstatus{EMP-004}{EMPIRICAL}. Exhaustive enumeration checked all 4,095
+nonempty candidate subsets of \(\{1,\ldots,12\}\) against orders through 8,
+including 114,660 two-order profiles. Among 576 divisor covers, 240 had
+noninjective signatures; 336 were injective. The signature characterization,
+counting bound, and square construction through \(n=200\) passed, as did
+twelve selected Python, Rust, and C\# comparisons. The canonical summary hash
+and exact commands are recorded in
+\path{research/experiments/EXP-0004-m4-difference-cover-search.md}.
+
+\section{A two-channel correlation barrier}
+
+\claimstatus{DEF-006}{DEFINITION}. For \(N\ge2\), a unit \(a\bmod N\), an
+arbitrary parameter \(P\), and \(d>0\), define
+\[
+ G_M(N,a,d)=\gcd(a^d-1,N),\qquad
+ G_\Delta(N,P)=\gcd(P^2-4,N),
+\]
+and
+\[
+ G_L(N,P,d)=\gcd(V_d(P,1)-2,N),
+\]
+where \(V_0=2\), \(V_1=P\), and \(V_{j+1}=PV_j-V_{j-1}\). Every GCD is
+classified exactly as a miss, proper factor, or full collision. When
+\(G_\Delta=N\), the later sequence GCD is still evaluated and separately
+classified; for example \(N=15,P=8,d=1\) has a full discriminant GCD but a
+sequence factor \(3\).
+
+Williams's \(p+1\) method uses the nonsplit
+\((\Delta/p)=-1\) branch of Lucas sequences and a smooth multiple of \(p+1\)
+\cite{williams1982pplusone}. The split \((\Delta/p)=+1\) branch has
+\(p-1\) behavior. The source calls the method analogous to Pollard \(p-1\)
+and reports using both empirically; it does not assert that their failures are
+independent.
+
+Consider the factorization-independent conjugate pairing
+\[
+ P(a)=a+a^{-1}\pmod N.
+\]
+\claimstatus{BAR-002}{PROVED}. For every \(d\ge0\),
+\[
+ V_d(P(a),1)=a^d+a^{-d},
+\]
+because both sides have initial values \(2,P(a)\) and satisfy the same Lucas
+recurrence. Hence
+\[
+ V_d(P(a),1)-2=a^{-d}(a^d-1)^2,                 \tag{1}
+\]
+and
+\[
+ P(a)^2-4=a^{-2}(a^2-1)^2.                     \tag{2}
+\]
+For every \(p^e\Vert N\), equation (1) gives
+\[
+ \min\{e,\nu_p(V_d(P(a),1)-2)\}
+ =\min\{e,2\nu_p(a^d-1)\}.
+\]
+Thus the two residues have identical prime support, and their raw GCDs are
+equal when \(N\) is square-free.
+
+Let a finite exponent family \(\Delta\) contain \(2\). If a derived Lucas
+sequence GCD is proper, the undoubled multiplicative valuation profile at the
+same exponent is also proper. If the discriminant GCD is proper, equation
+(2) makes the multiplicative exponent-2 GCD proper. Therefore adding all
+conjugately derived Lucas candidates does not enlarge the multiplicative
+family's success domain.
+
+The channel may strictly degrade a prime-power split:
+\[
+ (N,a,P,d)=(25,2,15,4),\qquad
+ G_\Delta=1,\quad G_M=5,\quad G_L=25.
+\]
+Moreover \(P(a)^2-4\) is a square, so at every nondegenerate odd prime this
+pairing forces Williams's split branch instead of constructing a nonsplit
+\(p+1\) channel.
+
+\claimstatus{REF-003}{REFUTED}. The conjugate pairing does not create an
+independent separator. This statement is deliberately map-specific.
+Independently choosing \(P\) can complement a miss: with
+\[
+ (N,a,P,d)=(15,2,9,3)
+\]
+the multiplicative GCD and discriminant GCD are \(1\), while the Lucas
+sequence GCD is \(5\). The example proves possibility, not an independent
+failure distribution or a universal construction.
+
+\claimstatus{EMP-005}{EMPIRICAL}. The registered finite search checked 9,773
+conjugate families, 117,276 exact identities, 45,821 pointwise success
+implications, and 69,192 square-free raw-GCD equalities. Multiplication
+succeeded on 9,037 families; the combined family succeeded on exactly the
+same 9,037, with zero derived-Lucas-only successes. Eighteen selected Python,
+Rust, and C\# comparisons covered every exact branch.
+The bounds, independent-parameter search, and canonical summary hash are
+recorded in
+\path{research/experiments/EXP-0005-m5-multigroup-correlation.md}.
+
 \section{Baseline algorithm suite}
 
 The M1 suite contains exact modular exponentiation, trial division,
@@ -302,6 +482,10 @@ python scripts/run_m3_semismooth_search.py
   --n-max 500 --base-bound 5 --smooth-bound 8
   --cofactor-bound 3 --collision-bound-max 20
 python scripts/check_m3_semismooth_differential.py
+python scripts/run_m4_difference_cover_search.py
+python scripts/check_m4_difference_cover_differential.py
+python scripts/run_m5_multigroup_search.py
+python scripts/check_m5_multigroup_differential.py
 \end{verbatim}
 
 \section{Limitations}
@@ -309,10 +493,17 @@ python scripts/check_m3_semismooth_differential.py
 No universal support-POSF or valuation-family constructor is claimed. THM-001
 applies only on an explicitly factor-dependent hereditary promise and gives no
 membership recognizer or density result. Outside that promise its unbounded
-randomized splitter may not terminate. Trial-division validation primality is
-intentionally not polynomial in binary input length, the Rust algorithms are
-bounded to \texttt{u64}, and finite searches are not proofs for untested
-inputs. The baseline literature set is not a current-state-of-the-art survey.
+randomized splitter may not terminate. BAR-001 is not a lower bound for all
+compressed or algebraic candidate evaluators, and the factor-dependent order
+profile is not an algorithmic input. The imported difference-cover conjecture
+is neither proved nor a polynomial-bit-complexity result.
+BAR-002 applies only to the conjugate parameter map and is not a lower bound
+for independently sampled Lucas parameters, other algebraic groups, adaptive
+selection, or compact batch evaluation. Trial-division
+validation primality is intentionally not polynomial in binary input length,
+the Rust algorithms are bounded to \texttt{u64}, and finite searches are not
+proofs for untested inputs. The literature set is not a
+current-state-of-the-art survey.
 
 \section{Conclusion}
 
@@ -323,8 +514,15 @@ candidate and recursive failure branches, and replaces an impossible
 all-composite support target with two explicit open formulations. M3 supplies
 a noncircular Las Vegas theorem for a hereditary semismooth-order promise
 class while preserving the minimal fixed-base collision that blocks a
-deterministic shortcut. M4 will test whether natural divisor-cover
-constructions actually imply prime-factor separation.
+deterministic shortcut. M4 proves that divisor coverage and order separation
+are different combinatorial requirements: injective divisibility signatures
+are necessary and sufficient for distinct-order profiles, and the smallest
+covered difference family already fails them. This barrier narrows the next
+search without resolving general classical factoring. M5 then proves that the
+natural conjugate Lucas pairing merely squares the multiplicative residue:
+its prime support is unchanged, it can worsen prime-power valuations, and it
+cannot add a family success when exponent 2 is retained. Arbitrary nonsplit
+Lucas parameters remain a separate channel and an open design problem.
 
 \bibliographystyle{plain}
 \small

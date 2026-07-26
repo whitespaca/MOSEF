@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "Selected exact M5 Lucas V_d(P,1)-2 outcomes in the Python, Rust, and C# overlap.",
+  "vectors": [
+    {
+      "n": 15,
+      "parameter": 5,
+      "exponent": 3,
+      "kind": "discriminant_factor",
+      "factor": 3,
+      "residue": null
+    },
+    {
+      "n": 15,
+      "parameter": 13,
+      "exponent": 1,
+      "kind": "degenerate_miss",
+      "factor": null,
+      "residue": 13
+    },
+    {
+      "n": 15,
+      "parameter": 8,
+      "exponent": 1,
+      "kind": "degenerate_factor",
+      "factor": 3,
+      "residue": 8
+    },
+    {
+      "n": 15,
+      "parameter": 2,
+      "exponent": 3,
+      "kind": "degenerate_collision",
+      "factor": null,
+      "residue": 2
+    },
+    {
+      "n": 15,
+      "parameter": 6,
+      "exponent": 1,
+      "kind": "miss",
+      "factor": null,
+      "residue": 6
+    },
+    {
+      "n": 35,
+      "parameter": 20,
+      "exponent": 3,
+      "kind": "factor",
+      "factor": 7,
+      "residue": 30
+    },
+    {
+      "n": 6,
+      "parameter": 3,
+      "exponent": 12,
+      "kind": "simultaneous_collision",
+      "factor": null,
+      "residue": 2
+    },
+    {
+      "n": 49,
+      "parameter": 27,
+      "exponent": 3,
+      "kind": "simultaneous_collision",
+      "factor": null,
+      "residue": 2
+    },
+    {
+      "n": 15,
+      "parameter": 9,
+      "exponent": 3,
+      "kind": "factor",
+      "factor": 5,
+      "residue": 12
+    }
+  ]
+}

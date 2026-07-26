@@ -78,3 +78,35 @@
 - Required resolution: the repository owner must explicitly authorize pushing
   this M3 branch to `origin`. After a successful push, create a draft pull
   request targeting `main` and mark this blocker resolved.
+
+## BLK-006 - M4 remote delivery requires explicit approval
+
+- First observed: 2026-07-26.
+- Scope: push `research/20260726-m4-difference-cover` and create its draft pull
+  request.
+- Evidence: the environment safety reviewer rejected
+  `git push -u origin research/20260726-m4-difference-cover` because publishing
+  the new barrier proof, source audit, code, experiment, and manuscript to the
+  configured GitHub remote is content egress and this payload lacks explicit
+  user authorization.
+- Impact: M4 is validated and committed locally at `8c874d8`, but the branch
+  has not been pushed and no M4 pull request exists.
+- Required resolution: the repository owner must explicitly authorize pushing
+  this M4 branch to `origin`. After a successful push, create a draft pull
+  request targeting `main` and mark this blocker resolved.
+
+## BLK-007 - M5 remote delivery requires explicit approval
+
+- First observed: 2026-07-26.
+- Scope: push `research/20260726-m5-multigroup-correlation` and create its draft
+  pull request.
+- Evidence: the environment safety reviewer rejected
+  `git push -u origin research/20260726-m5-multigroup-correlation` because
+  publishing the new proof, source audit, implementations, experiment, and
+  manuscript to the configured GitHub remote is content egress and this
+  payload lacks explicit user authorization.
+- Impact: M5 is validated and committed locally at `22e213b`, but the branch
+  has not been pushed and no M5 pull request exists.
+- Required resolution: the repository owner must explicitly authorize pushing
+  this M5 branch to `origin`. After a successful push, create a draft pull
+  request targeting `main` and mark this blocker resolved.

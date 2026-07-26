@@ -59,11 +59,57 @@ internal static class Program
                 ?.ToString() ?? "none",
             "batch-gcd" when args.Length == 3 => RunBatchGcd(args),
             "separator" when args.Length == 4 => RunSeparator(args),
+            "lucas-separator" when args.Length == 4 => RunLucasSeparator(args),
             "semismooth" when args.Length == 5 => RunSemismooth(args),
             "semismooth-success-count" when args.Length == 3 =>
                 RunSemismoothSuccessCount(args),
+            "cover-profile" when args.Length == 3 => RunCoverProfile(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
         };
+    }
+
+    private static int[] ParsePositiveCsv(string raw, string name)
+    {
+        if (string.IsNullOrEmpty(raw))
+        {
+            throw new ArgumentException($"{name} must be nonempty");
+        }
+        int[] values = raw.Split(',').Select(value => int.Parse(value)).ToArray();
+        if (values.Any(value => value <= 0))
+        {
+            throw new ArgumentException($"{name} values must be positive");
+        }
+        return values;
+    }
+
+    private static string RunCoverProfile(string[] args)
+    {
+        int[] candidates = ParsePositiveCsv(args[1], "candidates");
+        int[] orders = ParsePositiveCsv(args[2], "orders");
+        if (orders.Length < 2)
+        {
+            throw new ArgumentException("orders must contain at least two values");
+        }
+        int[][] signatures = orders
+            .Select(order => candidates
+                .Select((candidate, index) => (candidate, index))
+                .Where(item => item.candidate % order == 0)
+                .Select(item => item.index)
+                .ToArray())
+            .ToArray();
+        bool cover = signatures.All(signature => signature.Length > 0);
+        bool separates = candidates.Any(candidate =>
+        {
+            int hits = orders.Count(order => candidate % order == 0);
+            return hits > 0 && hits < orders.Length;
+        });
+        bool distinct = signatures
+            .Select(signature => string.Join(",", signature))
+            .Distinct()
+            .Count() == signatures.Length;
+        return $"cover:{cover.ToString().ToLowerInvariant()}|"
+            + $"separates:{separates.ToString().ToLowerInvariant()}|"
+            + $"distinct:{distinct.ToString().ToLowerInvariant()}";
     }
 
     private static string RunModPow(string[] args)
@@ -128,6 +174,66 @@ internal static class Program
             return $"simultaneous_collision|none|{residue}";
         }
         return $"factor|{factor}|{residue}";
+    }
+
+    private static string RunLucasSeparator(string[] args)
+    {
+        BigInteger n = Parse(args, 1, "n");
+        BigInteger parameter = Parse(args, 2, "parameter");
+        BigInteger exponent = Parse(args, 3, "exponent");
+        if (n < 2 || exponent <= 0 || exponent > int.MaxValue)
+        {
+            throw new ArgumentException(
+                "n must be at least 2 and exponent must fit a positive Int32"
+            );
+        }
+
+        parameter = ((parameter % n) + n) % n;
+        BigInteger discriminantGcd = Gcd(parameter * parameter - 4, n);
+        if (discriminantGcd > 1 && discriminantGcd < n)
+        {
+            return $"discriminant_factor|{discriminantGcd}|none";
+        }
+        BigInteger residue = LucasV((int)exponent, parameter, n);
+        BigInteger factor = Gcd(residue - 2, n);
+        if (discriminantGcd == n && factor == 1)
+        {
+            return $"degenerate_miss|none|{residue}";
+        }
+        if (discriminantGcd == n && factor == n)
+        {
+            return $"degenerate_collision|none|{residue}";
+        }
+        if (discriminantGcd == n)
+        {
+            return $"degenerate_factor|{factor}|{residue}";
+        }
+        if (factor == 1)
+        {
+            return $"miss|none|{residue}";
+        }
+        if (factor == n)
+        {
+            return $"simultaneous_collision|none|{residue}";
+        }
+        return $"factor|{factor}|{residue}";
+    }
+
+    private static BigInteger LucasV(int index, BigInteger parameter, BigInteger modulus)
+    {
+        BigInteger previous = 2 % modulus;
+        if (index == 0)
+        {
+            return previous;
+        }
+        BigInteger current = parameter % modulus;
+        for (int value = 1; value < index; value++)
+        {
+            BigInteger next = (parameter * current - previous) % modulus;
+            previous = current;
+            current = next < 0 ? next + modulus : next;
+        }
+        return current;
     }
 
     private static int ParsePositiveInt(string[] args, int index, string name)

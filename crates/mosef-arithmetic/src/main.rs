@@ -1,7 +1,8 @@
 use mosef_arithmetic::{
-    batch_gcd, evaluate_separator_candidate, is_prime, mod_pow, perfect_power, pollard_p_minus_one,
+    analyze_divisor_cover, batch_gcd, evaluate_lucas_separator_candidate,
+    evaluate_separator_candidate, is_prime, mod_pow, perfect_power, pollard_p_minus_one,
     pollard_p_plus_one, pollard_rho, semismooth_factor, semismooth_successful_residue_count,
-    trial_division, SemismoothOutcome, SeparatorOutcome,
+    trial_division, CoverAnalysis, LucasSeparatorOutcome, SemismoothOutcome, SeparatorOutcome,
 };
 use std::env;
 use std::process::ExitCode;
@@ -40,6 +41,50 @@ fn display_semismooth(outcome: SemismoothOutcome) -> String {
         SemismoothOutcome::InvalidParameters => "invalid_parameters".to_owned(),
         SemismoothOutcome::ExponentOverflow => "exponent_overflow".to_owned(),
     }
+}
+
+fn display_lucas_separator(outcome: LucasSeparatorOutcome) -> String {
+    match outcome {
+        LucasSeparatorOutcome::DiscriminantFactor(factor) => {
+            format!("discriminant_factor|{factor}|none")
+        }
+        LucasSeparatorOutcome::DegenerateMiss { residue } => {
+            format!("degenerate_miss|none|{residue}")
+        }
+        LucasSeparatorOutcome::DegenerateFactor { factor, residue } => {
+            format!("degenerate_factor|{factor}|{residue}")
+        }
+        LucasSeparatorOutcome::DegenerateCollision { residue } => {
+            format!("degenerate_collision|none|{residue}")
+        }
+        LucasSeparatorOutcome::Miss { residue } => format!("miss|none|{residue}"),
+        LucasSeparatorOutcome::Factor { factor, residue } => {
+            format!("factor|{factor}|{residue}")
+        }
+        LucasSeparatorOutcome::SimultaneousCollision { residue } => {
+            format!("simultaneous_collision|none|{residue}")
+        }
+    }
+}
+
+fn parse_csv_u64(raw: String, name: &str) -> Result<Vec<u64>, String> {
+    if raw.is_empty() {
+        return Err(format!("{name} must be nonempty"));
+    }
+    raw.split(',')
+        .map(|value| {
+            value
+                .parse::<u64>()
+                .map_err(|error| format!("invalid {name} value: {error}"))
+        })
+        .collect()
+}
+
+fn display_cover(analysis: CoverAnalysis) -> String {
+    format!(
+        "cover:{}|separates:{}|distinct:{}",
+        analysis.divisor_cover, analysis.separates_profile, analysis.distinct_signatures
+    )
 }
 
 fn run() -> Result<(), String> {
@@ -119,6 +164,16 @@ fn run() -> Result<(), String> {
                 })?,
             )
         }
+        "lucas-separator" => {
+            let n = parse_u64(arguments.next(), "n")?;
+            let parameter = parse_u64(arguments.next(), "parameter")?;
+            let exponent = parse_u64(arguments.next(), "exponent")?;
+            display_lucas_separator(
+                evaluate_lucas_separator_candidate(n, parameter, exponent).ok_or_else(|| {
+                    "n must be at least 2 and exponent must be positive".to_owned()
+                })?,
+            )
+        }
         "semismooth" => {
             let n = parse_u64(arguments.next(), "n")?;
             let base_bound = parse_u64(arguments.next(), "base_bound")?;
@@ -137,6 +192,23 @@ fn run() -> Result<(), String> {
             semismooth_successful_residue_count(n, exponent)
                 .map(|value| value.to_string())
                 .ok_or_else(|| "n must be at least 2 and exponent must be positive".to_owned())?
+        }
+        "cover-profile" => {
+            let candidates = parse_csv_u64(
+                arguments
+                    .next()
+                    .ok_or_else(|| "missing candidates".to_owned())?,
+                "candidates",
+            )?;
+            let orders = parse_csv_u64(
+                arguments
+                    .next()
+                    .ok_or_else(|| "missing orders".to_owned())?,
+                "orders",
+            )?;
+            display_cover(analyze_divisor_cover(&candidates, &orders).ok_or_else(|| {
+                "candidates must be positive and orders must contain two positive values".to_owned()
+            })?)
         }
         _ => return Err(format!("unknown operation: {operation}")),
     };

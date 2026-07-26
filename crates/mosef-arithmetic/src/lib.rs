@@ -134,6 +134,60 @@ pub fn evaluate_separator_candidate(n: u64, g: u64, d: u64) -> Option<SeparatorO
     }
 }
 
+/// Exhaustive terminal outcomes for one Lucas `V_d(P, 1) - 2` candidate.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum LucasSeparatorOutcome {
+    DiscriminantFactor(u64),
+    DegenerateMiss { residue: u64 },
+    DegenerateFactor { factor: u64, residue: u64 },
+    DegenerateCollision { residue: u64 },
+    Miss { residue: u64 },
+    Factor { factor: u64, residue: u64 },
+    SimultaneousCollision { residue: u64 },
+}
+
+/// Evaluate one Lucas candidate after checking `gcd(P^2 - 4, n)`.
+pub fn evaluate_lucas_separator_candidate(
+    n: u64,
+    parameter: u64,
+    exponent: u64,
+) -> Option<LucasSeparatorOutcome> {
+    if n < 2 || exponent == 0 {
+        return None;
+    }
+    let reduced_parameter = parameter % n;
+    let square = mul_mod(reduced_parameter, reduced_parameter, n);
+    let four = 4 % n;
+    let discriminant = ((square as u128 + n as u128 - four as u128) % n as u128) as u64;
+    let discriminant_gcd = gcd(discriminant, n);
+    if discriminant_gcd > 1 && discriminant_gcd < n {
+        return Some(LucasSeparatorOutcome::DiscriminantFactor(discriminant_gcd));
+    }
+    let residue = lucas_v(exponent, reduced_parameter, n)?;
+    let two = 2 % n;
+    let difference = ((residue as u128 + n as u128 - two as u128) % n as u128) as u64;
+    let candidate_gcd = gcd(difference, n);
+    if discriminant_gcd == n && candidate_gcd == 1 {
+        Some(LucasSeparatorOutcome::DegenerateMiss { residue })
+    } else if discriminant_gcd == n && candidate_gcd == n {
+        Some(LucasSeparatorOutcome::DegenerateCollision { residue })
+    } else if discriminant_gcd == n {
+        Some(LucasSeparatorOutcome::DegenerateFactor {
+            factor: candidate_gcd,
+            residue,
+        })
+    } else if candidate_gcd == 1 {
+        Some(LucasSeparatorOutcome::Miss { residue })
+    } else if candidate_gcd == n {
+        Some(LucasSeparatorOutcome::SimultaneousCollision { residue })
+    } else {
+        Some(LucasSeparatorOutcome::Factor {
+            factor: candidate_gcd,
+            residue,
+        })
+    }
+}
+
 fn primes_up_to(bound: u64) -> Vec<u64> {
     let mut primes = Vec::new();
     for candidate in 2..=bound {
@@ -348,6 +402,47 @@ pub fn batch_gcd(values: &[u64], modulus: u64) -> Option<Vec<u64>> {
     (modulus > 0).then(|| values.iter().map(|value| gcd(*value, modulus)).collect())
 }
 
+/// Exact divisibility-cover analysis for an explicit candidate family.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct CoverAnalysis {
+    pub divisor_cover: bool,
+    pub separates_profile: bool,
+    pub distinct_signatures: bool,
+}
+
+/// Compare the divisibility signatures induced by `candidates` on `orders`.
+pub fn analyze_divisor_cover(candidates: &[u64], orders: &[u64]) -> Option<CoverAnalysis> {
+    if candidates.is_empty() || candidates.contains(&0) || orders.len() < 2 || orders.contains(&0) {
+        return None;
+    }
+    let signatures = orders
+        .iter()
+        .map(|order| {
+            candidates
+                .iter()
+                .enumerate()
+                .filter_map(|(index, candidate)| (candidate % order == 0).then_some(index))
+                .collect::<Vec<_>>()
+        })
+        .collect::<Vec<_>>();
+    let separates_profile = candidates.iter().any(|candidate| {
+        let hits = orders
+            .iter()
+            .filter(|order| candidate % **order == 0)
+            .count();
+        hits > 0 && hits < orders.len()
+    });
+    let distinct_signatures = signatures
+        .iter()
+        .enumerate()
+        .all(|(index, signature)| !signatures[..index].contains(signature));
+    Some(CoverAnalysis {
+        divisor_cover: signatures.iter().all(|signature| !signature.is_empty()),
+        separates_profile,
+        distinct_signatures,
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -372,6 +467,27 @@ mod tests {
     #[test]
     fn batch_gcd_preserves_per_item_results() {
         assert_eq!(batch_gcd(&[2, 6, 35, 11], 105), Some(vec![1, 3, 35, 1]));
+    }
+
+    #[test]
+    fn divisor_cover_does_not_imply_profile_separation() {
+        assert_eq!(
+            analyze_divisor_cover(&[2], &[1, 2]),
+            Some(CoverAnalysis {
+                divisor_cover: true,
+                separates_profile: false,
+                distinct_signatures: false,
+            })
+        );
+        assert_eq!(
+            analyze_divisor_cover(&[1, 2], &[1, 2]),
+            Some(CoverAnalysis {
+                divisor_cover: true,
+                separates_profile: true,
+                distinct_signatures: true,
+            })
+        );
+        assert_eq!(analyze_divisor_cover(&[], &[1, 2]), None);
     }
 
     #[test]
@@ -439,6 +555,44 @@ mod tests {
         );
         assert_eq!(evaluate_separator_candidate(1, 2, 1), None);
         assert_eq!(evaluate_separator_candidate(15, 2, 0), None);
+    }
+
+    #[test]
+    fn lucas_candidate_reports_every_branch() {
+        assert_eq!(
+            evaluate_lucas_separator_candidate(15, 5, 3),
+            Some(LucasSeparatorOutcome::DiscriminantFactor(3))
+        );
+        assert_eq!(
+            evaluate_lucas_separator_candidate(15, 13, 1),
+            Some(LucasSeparatorOutcome::DegenerateMiss { residue: 13 })
+        );
+        assert_eq!(
+            evaluate_lucas_separator_candidate(15, 8, 1),
+            Some(LucasSeparatorOutcome::DegenerateFactor {
+                factor: 3,
+                residue: 8,
+            })
+        );
+        assert_eq!(
+            evaluate_lucas_separator_candidate(15, 2, 3),
+            Some(LucasSeparatorOutcome::DegenerateCollision { residue: 2 })
+        );
+        assert_eq!(
+            evaluate_lucas_separator_candidate(15, 6, 1),
+            Some(LucasSeparatorOutcome::Miss { residue: 6 })
+        );
+        assert_eq!(
+            evaluate_lucas_separator_candidate(35, 20, 3),
+            Some(LucasSeparatorOutcome::Factor {
+                factor: 7,
+                residue: 30,
+            })
+        );
+        assert_eq!(
+            evaluate_lucas_separator_candidate(6, 3, 12),
+            Some(LucasSeparatorOutcome::SimultaneousCollision { residue: 2 })
+        );
     }
 
     #[test]
