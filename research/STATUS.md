@@ -54,6 +54,10 @@
   `6880cfc1740496123ea8aa9f8d8ad029de8adbfad4f29996b4750e9960989023`.
 - Local milestone implementation/proof/paper commit:
   `0728628b5ffe5387b926080de8674f22d1c8dadf`.
+- Remote publication is blocked under BLK-018: the safety reviewer rejected
+  the M16 branch push because this specific external payload has not been
+  explicitly authorized. GitHub CLI is also unauthenticated, so no pull
+  request was created.
 - Next action: M17 should formalize a richer rational or compositional
   circuit, beginning with the dyadic telescoping identity, and charge failed
   division, formal output, residue evaluation, and factor extraction.
