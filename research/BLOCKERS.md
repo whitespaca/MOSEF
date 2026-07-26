@@ -349,3 +349,21 @@
   `origin/research/20260727-m17-rational-circuit` both at
   `cba39565ffa5d2a5ecf9cd8571bde19ec2e0bbb7`. No M17 pull request was
   created or verified.
+
+## BLK-020 - M18 status follow-up requires explicit publication authorization
+
+- Date: 2026-07-27.
+- Scope: push the M18 status/cleanup follow-up commit on
+  `research/20260727-m18-geometric-sum`.
+- Evidence: the environment safety reviewer rejected
+  `git push origin research/20260727-m18-geometric-sum` before execution
+  because publishing this specific new status and cleanup payload to the
+  external GitHub remote was not explicitly authorized.
+- Impact: the validated M18 core is synchronized to `origin` at
+  `9f36ee9c75d8f13d2883301da63404747e358bcc`, while the local branch also
+  contains status/cleanup commit `c6f4dc3`. No pull request was created or
+  verified.
+- Required resolution: the repository owner must explicitly authorize
+  publishing the M18 follow-up commit; then push the existing branch without
+  rewriting history and create or update a draft pull request if authenticated
+  GitHub tooling is available.

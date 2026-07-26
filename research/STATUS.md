@@ -57,7 +57,10 @@
   `9f36ee9c75d8f13d2883301da63404747e358bcc`.
 - The core commit is synchronized to
   `origin/research/20260727-m18-geometric-sum`. No pull request was created
-  or verified because GitHub CLI remains unauthenticated.
+  or verified because GitHub CLI remains unauthenticated. The local
+  status/cleanup follow-up is commit `c6f4dc3`; its push is blocked under
+  BLK-020 because this specific external payload was not explicitly
+  authorized.
 - Next action: M19 should formalize the cancellation-obscured two-stage
   identity \(S_{AB}(X)/S_A(X)=S_B(X^A)\), including total intermediate
   denominator semantics and a division-free composed path.
