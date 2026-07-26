@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0.0",
+  "scale_bound_vectors": [
+    {"exponent": 11664, "target_max": 127, "threshold": 3, "small_choice_count": 35, "large_multiplicity": 0, "large_selection_limit": 0, "divisor_candidate_bound": 35, "prime_candidate_bound": 70},
+    {"exponent": 1048576, "target_max": 1023, "threshold": 5, "small_choice_count": 21, "large_multiplicity": 0, "large_selection_limit": 0, "divisor_candidate_bound": 21, "prime_candidate_bound": 42},
+    {"exponent": 247110827, "target_max": 16383, "threshold": 11, "small_choice_count": 1, "large_multiplicity": 6, "large_selection_limit": 3, "divisor_candidate_bound": 42, "prime_candidate_bound": 84},
+    {"exponent": 55440, "target_max": 4095, "threshold": 5, "small_choice_count": 30, "large_multiplicity": 2, "large_selection_limit": 2, "divisor_candidate_bound": 120, "prime_candidate_bound": 240}
+  ],
+  "primorial_vectors": [
+    {"prime_count": 1, "exponent": 2, "bit_length": 2, "divisor_count": 2, "binary_multiplication_nodes": 1},
+    {"prime_count": 4, "exponent": 210, "bit_length": 8, "divisor_count": 16, "binary_multiplication_nodes": 10},
+    {"prime_count": 6, "exponent": 30030, "bit_length": 15, "divisor_count": 64, "binary_multiplication_nodes": 22},
+    {"prime_count": 8, "exponent": 9699690, "bit_length": 24, "divisor_count": 256, "binary_multiplication_nodes": 30},
+    {"prime_count": 10, "exponent": 6469693230, "bit_length": 33, "divisor_count": 1024, "binary_multiplication_nodes": 50},
+    {"prime_count": 12, "exponent": 7420738134810, "bit_length": 43, "divisor_count": 4096, "binary_multiplication_nodes": 67}
+  ],
+  "signature_vectors": [
+    {"prime": 3, "exponents": [30], "signature": "10"},
+    {"prime": 5, "exponents": [30], "signature": "01"},
+    {"prime": 17, "exponents": [30], "signature": "00"},
+    {"prime": 31, "exponents": [9699690], "signature": "10"},
+    {"prime": 37, "exponents": [9699690], "signature": "01"},
+    {"prime": 53, "exponents": [9699690], "signature": "00"}
+  ],
+  "asymmetry_vectors": [
+    {"left_prime": 31, "right_prime": 37, "exponents": [9699690], "asymmetry": true},
+    {"left_prime": 31, "right_prime": 43, "exponents": [9699690], "asymmetry": false}
+  ],
+  "hit_count_vectors": [
+    {"primes": [3, 5, 17], "exponents": [30], "hit_count": 2},
+    {"primes": [31, 37, 43, 53], "exponents": [9699690], "hit_count": 3}
+  ]
+}

@@ -7,6 +7,7 @@ from itertools import combinations
 from math import comb, isqrt
 
 from .baseline import is_prime
+from .separator import prime_factorization
 
 
 @dataclass(frozen=True)
@@ -65,6 +66,21 @@ class PrimorialScaleBound:
     prime_count: int
     target_max: int
     support_limit: int
+    divisor_candidate_bound: int
+    prime_candidate_bound: int
+
+
+@dataclass(frozen=True)
+class FactorScaleDivisorBound:
+    """Exact small/large-prime split bound for one arbitrary exponent."""
+
+    exponent: int
+    target_max: int
+    threshold: int
+    small_choice_count: int
+    large_multiplicity: int
+    large_selection_limit: int
+    large_choice_bound: int
     divisor_candidate_bound: int
     prime_candidate_bound: int
 
@@ -306,6 +322,61 @@ def primorial_factor_scale_bound(
         prime_count=prime_count,
         target_max=target_max,
         support_limit=support_limit,
+        divisor_candidate_bound=divisor_candidate_bound,
+        prime_candidate_bound=2 * divisor_candidate_bound,
+    )
+
+
+def factor_scale_threshold(input_bits: int) -> int:
+    """Return the exact threshold used by DEF-013."""
+    if isinstance(input_bits, bool) or input_bits <= 0:
+        raise ValueError("input_bits must be positive")
+    logarithm_scale = input_bits.bit_length()
+    return max(2, input_bits // (logarithm_scale * logarithm_scale))
+
+
+def factor_scale_divisor_bound(
+    exponent: int,
+    target_max: int,
+    threshold: int,
+) -> FactorScaleDivisorBound:
+    """Bound divisors of ``exponent`` no larger than ``target_max + 1``."""
+    if isinstance(exponent, bool) or exponent < 2:
+        raise ValueError("exponent must be at least 2")
+    if isinstance(target_max, bool) or target_max < 3:
+        raise ValueError("target_max must be at least 3")
+    if isinstance(threshold, bool) or threshold < 2:
+        raise ValueError("threshold must be at least 2")
+    small_choice_count = 1
+    large_multiplicity = 0
+    for prime, multiplicity in prime_factorization(exponent):
+        if prime <= threshold:
+            small_choice_count *= multiplicity + 1
+        else:
+            large_multiplicity += multiplicity
+    divisor_max = target_max + 1
+    large_selection_limit = 0
+    power = 1
+    large_base = threshold + 1
+    while (
+        large_selection_limit < large_multiplicity
+        and power * large_base <= divisor_max
+    ):
+        power *= large_base
+        large_selection_limit += 1
+    large_choice_bound = sum(
+        comb(large_multiplicity, selected)
+        for selected in range(large_selection_limit + 1)
+    )
+    divisor_candidate_bound = small_choice_count * large_choice_bound
+    return FactorScaleDivisorBound(
+        exponent=exponent,
+        target_max=target_max,
+        threshold=threshold,
+        small_choice_count=small_choice_count,
+        large_multiplicity=large_multiplicity,
+        large_selection_limit=large_selection_limit,
+        large_choice_bound=large_choice_bound,
         divisor_candidate_bound=divisor_candidate_bound,
         prime_candidate_bound=2 * divisor_candidate_bound,
     )
