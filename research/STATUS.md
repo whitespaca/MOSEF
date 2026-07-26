@@ -49,6 +49,11 @@
   overfull/underfull boxes. All 50 pages were rendered and visually
   inspected. Stable PDF: `output/pdf/mosef-paper.pdf`, SHA-256
   `6cd6eaef92fda55c6eec886c65340a5a9150d4b3c09add6d281ef60cbb37fbe7`.
+- The validated M20 milestone commit is
+  `11255cca8a3186249f19d8f018270b575b05cc92`. Publication is blocked by
+  BLK-022: the remote branch remains at `2978f613255e7ef22cc051f485900c5a4fefd4eb`,
+  GitHub CLI is unauthenticated, and no M20 pull request was created or
+  verified.
 - Next action: M21 should define the smallest factorization-independent
   signed linear-combination grammar over explicit certified quotient stages
   and test whether cross-stage cancellation invalidates component-to-
