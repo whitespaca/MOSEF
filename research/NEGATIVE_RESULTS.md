@@ -104,3 +104,31 @@
 - Source boundary: Williams's \(p+1\) method requires the nonsplit
   Legendre-symbol branch. The conjugate discriminant is a square and forces
   the split branch; Williams does not claim independence for this pairing.
+
+## NR-005 - Small-magnitude combined schedules miss balanced semiprimes
+
+- Date: 2026-07-26
+- Affected claim: `REF-004`, status `REFUTED`.
+- Exact hypothesis: a common finite \(p-1/p+1\) exponent schedule can cover
+  every balanced semiprime through a divisibility asymmetry while its largest
+  exponent remains below each prime factor minus one.
+- Proof of failure: if \(D=\max\Delta\) and \(p>D+1\), neither \(p-1\) nor
+  \(p+1\) divides any \(d\in\Delta\), so the combined signature of \(p\) is
+  zero. Two such primes have equal signatures and no \(p-1\) or \(p+1\)
+  asymmetry in either orientation.
+- Smallest unrestricted witness: \(\Delta=\{1\}\) and
+  \(N=15=3\cdot5\). This witness is not asserted to lie in the balanced
+  interval used by BAR-003.
+- Balanced consequence: for
+  \(S_n=\{p:2^n<p<2^{n+1/2}\}\), all pair products have bit length
+  \(2n+1\). If \(\max\Delta(2n+1)+1<2^n\), the exact promised-pair density on
+  this explicitly defined finite distribution is zero.
+- Deterministic search:
+  `python scripts/run_m8_promise_density_search.py --prime-max 101
+  --candidate-max 18 --family-size-max 3 --balanced-n-max 6` checked 987
+  exponent families, 296,100 prime pairs, and 184,994 magnitude-zero pair
+  cases with no seed. Summary hash:
+  `fb2f861f1670c3e4f68a0e8b461f430e7e10eeb966d9f5bec48886c810dd6cd3`.
+- Surviving boundary: the argument does not exclude an exponent with
+  \(\Theta(k)\) bits whose value exceeds the balanced factors, nor does it
+  prove a recognition or general factoring lower bound.

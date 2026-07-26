@@ -66,6 +66,9 @@ internal static class Program
             "semismooth-success-count" when args.Length == 3 =>
                 RunSemismoothSuccessCount(args),
             "cover-profile" when args.Length == 3 => RunCoverProfile(args),
+            "combined-signature" when args.Length == 3 => RunCombinedSignature(args),
+            "combined-asymmetry" when args.Length == 4 => RunCombinedAsymmetry(args),
+            "combined-hit-count" when args.Length == 3 => RunCombinedHitCount(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
         };
     }
@@ -112,6 +115,55 @@ internal static class Program
         return $"cover:{cover.ToString().ToLowerInvariant()}|"
             + $"separates:{separates.ToString().ToLowerInvariant()}|"
             + $"distinct:{distinct.ToString().ToLowerInvariant()}";
+    }
+
+    private static (bool Minus, bool Plus)[] CombinedSignature(
+        int prime,
+        int[] exponents
+    )
+    {
+        if (prime < 3 || prime % 2 == 0 || !IsPrime(prime))
+        {
+            throw new ArgumentException("prime must be odd prime");
+        }
+        return exponents
+            .Select(exponent => (exponent % (prime - 1) == 0, exponent % (prime + 1) == 0))
+            .ToArray();
+    }
+
+    private static string RunCombinedSignature(string[] args)
+    {
+        int prime = ParsePositiveInt(args, 1, "prime");
+        int[] exponents = ParsePositiveCsv(args[2], "exponents");
+        return string.Join(
+            ",",
+            CombinedSignature(prime, exponents)
+                .Select(bits => $"{(bits.Minus ? 1 : 0)}{(bits.Plus ? 1 : 0)}")
+        );
+    }
+
+    private static string RunCombinedAsymmetry(string[] args)
+    {
+        int leftPrime = ParsePositiveInt(args, 1, "left_prime");
+        int rightPrime = ParsePositiveInt(args, 2, "right_prime");
+        if (leftPrime == rightPrime)
+        {
+            throw new ArgumentException("primes must be distinct");
+        }
+        int[] exponents = ParsePositiveCsv(args[3], "exponents");
+        bool result = !CombinedSignature(leftPrime, exponents)
+            .SequenceEqual(CombinedSignature(rightPrime, exponents));
+        return result.ToString().ToLowerInvariant();
+    }
+
+    private static string RunCombinedHitCount(string[] args)
+    {
+        int[] primes = ParsePositiveCsv(args[1], "primes");
+        int[] exponents = ParsePositiveCsv(args[2], "exponents");
+        int count = primes.Count(prime =>
+            CombinedSignature(prime, exponents).Any(bits => bits.Minus || bits.Plus)
+        );
+        return count.ToString();
     }
 
     private static string RunModPow(string[] args)

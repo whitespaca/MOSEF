@@ -1,5 +1,48 @@
 # Research Status
 
+## M8 outcome
+
+- Branch: `research/20260726-m8-promise-recognition`.
+- Completed milestone: M8, a self-contained common-schedule
+  finite-distribution and magnitude barrier for the union of the local
+  \(p-1\) and \(p+1\) semiprime promises.
+- `DEF-008` defines the combined prime signature
+  \[
+  \sigma_\Delta(p)=
+  ((\mathbf1_{p-1\mid d},\mathbf1_{p+1\mid d}))_{d\in\Delta}.
+  \]
+  It is evaluated at an unknown factor for analysis and is not an
+  \(N\)-only recognizer.
+- `BAR-003` is `PROVED`: a distinct-prime semiprime is in the local, hence
+  hereditary, promise union exactly when its two signatures differ. For a
+  finite \(s\)-prime set with \(h\) nonzero signatures, the promised fraction
+  is at most \(h(2s-h-1)/(s(s-1))\), with
+  \(h\le2\sum_{d\in\Delta}\tau(d)\le4|\Delta|\sqrt{\max\Delta}\).
+- Every prime above \(\max\Delta+1\) has zero signature. Thus the explicitly
+  defined balanced-semiprime distribution has exact zero density under the
+  stated strict magnitude hypothesis and an asymptotically vanishing upper
+  bound under the stated sparsity hypothesis.
+- `REF-004` is `REFUTED`; NR-005 records the smallest unrestricted witness
+  \((\Delta,N)=(\{1\},15)\). This witness is not labeled as a member of the
+  balanced interval.
+- EXP-0007 checked 987 exponent families, 296,100 direct/signature pairs,
+  184,994 magnitude-zero pairs, 2,443 balanced zero-density cases, and 28
+  cross-language comparisons. Its summary SHA-256 is
+  `fb2f861f1670c3e4f68a0e8b461f430e7e10eeb966d9f5bec48886c810dd6cd3`.
+- Independent adversarial review reconstructed the proof and additionally
+  checked 1,920,600 pairs, 1,940 finite bounds, 20,000 divisor bounds, and
+  27,284 balanced bit-length pairs. Independent source-scope review found no
+  external citation dependency and approved the no-novelty framing.
+- Full validation passed: foundation and publication consistency (34 claims,
+  six experiment hashes), 66 Python tests, Python bytecode compilation, Rust
+  format/Clippy/16 tests, C# Release restore/build with zero warnings or
+  errors, all registered M1--M8 searches and differential suites, and a clean
+  converged 19-page XeLaTeX build. Every PDF page was rendered and visually
+  inspected; the stable PDF SHA-256 is
+  `70c926a864636f11206936ba13887f5847f5742f93a3f9e54d4ba4a1174e57a9`.
+- General classical factoring remains open. M8 proves no recognizer, natural
+  density theorem, universal schedule barrier, or general lower bound.
+
 ## M7 outcome
 
 - Branch: `research/20260726-m7-nonsplit-lucas`.
@@ -59,16 +102,19 @@
 ## Execution snapshot
 
 - Date: 2026-07-26.
-- Branch: `research/20260726-m7-nonsplit-lucas`.
-- Completed milestone: M7.
+- Branch: `research/20260726-m8-promise-recognition`.
+- Completed milestone: M8.
 - Core implementation/proof commit:
-  `171a3058c8a26b7d2e25641e8c35a9373c19bc06`.
+  `bc8b25222823e06830530eac3962271c6d14a7ca`.
 - Registered experiment commit:
-  `66040fb`.
+  `a4895df3c0cf4de54b59932acf9f2e4ecbef2463`.
 - Validated milestone completion commit:
-  `0bf86f7d1668c2b60cccde69d398ef5e74c8af55`.
-- Next selected milestone: M8, recognition or a rigorous density/barrier
-  result for the union of the hereditary \(p-1\) and \(p+1\) promise classes.
+  `3e2018616e6ac63e8f8632e42f65d34c22c00f90`.
+- Remote delivery: blocked by `BLK-010`; the policy-reviewed push attempt was
+  rejected because this new M8 payload lacks explicit authorization for
+  external GitHub egress.
+- Next selected milestone: M9, explicit divisor-rich schedules with
+  polynomial-bit-length exponent values outside BAR-003's magnitude regime.
 
 ## M5 outcome
 
