@@ -39,6 +39,7 @@ REQUIRED_SECTIONS = (
     "An addition-subtraction compression barrier",
     "A leaf-materialized implicit-batch barrier",
     "A non-materializing explicit-atom product-DAG barrier",
+    "A dyadic exact-division and composition barrier",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -63,6 +64,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-009}",
     r"\label{proof:BAR-010}",
     r"\label{proof:BAR-011}",
+    r"\label{proof:BAR-012}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -80,6 +82,7 @@ EXPERIMENT_RECORDS = (
     ROOT / "research" / "experiments" / "EXP-0013-m14-addition-subtraction.md",
     ROOT / "research" / "experiments" / "EXP-0014-m15-implicit-batch.md",
     ROOT / "research" / "experiments" / "EXP-0015-m16-product-dag.md",
+    ROOT / "research" / "experiments" / "EXP-0016-m17-dyadic-telescope.md",
 )
 
 

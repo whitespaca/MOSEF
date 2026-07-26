@@ -75,3 +75,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-011 | PROVED | Explicit-atom product-DAG sharing barrier | `research/proofs/BAR-011-product-dag.md` |
 | REF-012 | REFUTED | DAG sharing as distinct exponential exponent coverage | `research/NEGATIVE_RESULTS.md` NR-013 |
 | EMP-015 | EMPIRICAL | Bounded non-materializing product-DAG audit | `research/experiments/EXP-0015-m16-product-dag.md` |
+| DEF-017 | DEFINITION | Charged dyadic exact-division/composition model | `research/proofs/BAR-012-dyadic-telescope.md` |
+| BAR-012 | PROVED | Dyadic telescope extraction barrier | `research/proofs/BAR-012-dyadic-telescope.md` |
+| REF-013 | REFUTED | Dyadic monomial compression as an exponential test family | `research/NEGATIVE_RESULTS.md` NR-014 |
+| EMP-016 | EMPIRICAL | Bounded dyadic telescope audit | `research/experiments/EXP-0016-m17-dyadic-telescope.md` |

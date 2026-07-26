@@ -15,7 +15,7 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
-Two Restricted Theorems and Eleven Structural Barriers}
+Two Restricted Theorems and Twelve Structural Barriers}
 \author{MOSEF Research Program}
 \date{27 July 2026}
 
@@ -34,7 +34,7 @@ each complete schedule cycle at a promised residual node. We also prove an
 exact Lucas root-count formula and use fresh uniform, independently
 parameterized Lucas values to obtain a second Las Vegas theorem on a
 hereditary \(p+1\)-asymmetry promise, with at least \(1/12\) split probability
-at a witness trial. We prove eleven structural barriers. Divisor
+at a witness trial. We prove twelve structural barriers. Divisor
 coverage does not imply multiplicative-order separation; the exact missing
 condition is injectivity of divisibility signatures. A natural Lucas
 parameter map \(P=a+a^{-1}\) is also not an independent group channel:
@@ -78,7 +78,11 @@ aggregate GCD has an exact sum-of-valuations formula, cannot reveal a proper
 factor absent from every leaf, and may mask individual separators as a full
 collision. A product-only DAG can then share subproducts and describe
 \(2^t\) repeated formal occurrences, but every proper node GCD still implies
-a proper used explicit atom GCD. Neither statement is a lower bound for richer
+a proper used explicit atom GCD. A dyadic exact-division circuit compactly
+represents a geometric quotient with \(2^t\) monomials, but every proper
+extraction success implies a proper denominator or explicit dyadic-factor
+GCD. Nonunit denominators receive total factor, collision, or unit semantics.
+Neither result is a lower bound for general rational, compositional, or
 arithmetic circuits.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
@@ -142,25 +146,30 @@ algorithm. Its contributions are:
   success, and aggregation may hide individual separators;
 \item an explicit-atom product-DAG barrier: sharing can encode \(2^t\)
   repeated formal occurrences but cannot synthesize a distinct exponent test
-  or proper success absent from its used atoms; and
+  or proper success absent from its used atoms;
+\item a dyadic telescope barrier: exact formal division and repeated
+  composition compact one \(2^t\)-monomial geometric quotient, while every
+  proper extraction success implies a proper denominator or dyadic-factor
+  GCD; and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
 
 The positive theorems are restricted: membership in their promise classes can
 depend on the unknown factorization and is not recognized by the algorithms.
-The eleven barriers are also scoped: one concerns explicit order signatures,
+The twelve barriers are also scoped: one concerns explicit order signatures,
 one concerns only \(P=a+a^{-1}\), and two concern a common explicit finite
 schedule under separate magnitude or encoding hypotheses. One concerns only
 formal exponents in a factor-oblivious multiplication-only DAG, and another
 exposes a coefficient threshold for stipulated populations but is silent at
 and above the critical coefficient before factor scale is imposed. Two
 factor-scale barriers retain the stated explicit-schedule hypotheses. The
-remaining three concern, respectively, charged same-base
+remaining four concern, respectively, charged same-base
 addition-subtraction programs, selector-described standard product trees
-that materialize every leaf, and product-only DAGs over explicitly charged
-atoms. Richer arithmetic circuits remain outside. These boundaries are part
-of the results.
+that materialize every leaf, product-only DAGs over explicitly charged atoms,
+and one dyadic exact-division/composition identity. General rational,
+compositional, and arithmetic circuits remain outside. These boundaries are
+part of the results.
 
 Section 2 records the imported complexity landscape. Sections 3 and 4 define
 candidate semantics and the recursive framework. Section 5 gives the first
@@ -172,7 +181,7 @@ exact boundary coefficient. Sections 13 and 14 give the primorial-specific
 and general factor-scale barriers. Section 15 treats charged same-base
 addition-subtraction programs, and Section 16 treats leaf-materialized
 standard product trees. Section 17 treats the explicit-atom product DAG.
-Later sections separate algorithms,
+Section 18 treats the dyadic telescope. Later sections separate algorithms,
 experiments, and observations. Complete proofs and reproduction details appear in the
 appendices.
 
@@ -1142,6 +1151,59 @@ subtraction, division, composition, closed-form atom synthesis,
 modulus-specific identities, adaptive factor-dependent branches, unrelated
 bases, other groups, and general arithmetic circuits remain outside it.
 
+\section{A dyadic exact-division and composition barrier}
+
+We next add repeated composition, addition, subtraction, multiplication, and
+one exact formal division through the dyadic geometric identity.
+
+\claimstatus{DEF-017}{DEFINITION}. After the direct base-GCD precheck, for a
+public nonnegative level \(t\), compute
+\[
+x_0=g,\quad x_{j+1}=x_j^2,\quad F_j=x_j+1,\quad
+D=g-1,\quad E=x_t-1,\quad Q=\prod_{j=0}^{t-1}F_j
+\pmod N.
+\]
+The empty product is one. The formal identity is
+\[
+\frac{X^{2^t}-1}{X-1}
+=\sum_{i=0}^{2^t-1}X^i
+=\prod_{j=0}^{t-1}(X^{2^j}+1).
+\]
+If \(\gcd(D,N)=1\), extended-GCD inversion evaluates \(ED^{-1}\).
+A proper denominator GCD is returned as a factor. A full denominator GCD is
+recorded as a collision. In both nonunit cases the division-free product
+\(Q\) remains defined. Construction, the \(t\) squarings, factor additions,
+\(\max(0,t-1)\) product multiplications, division attempt, outputs, GCDs, and
+extraction are charged. Expanding the coefficient list is also charged.
+
+\claimstatus{BAR-012}{PROVED}. The unit-division output equals \(Q\). If
+\(\gcd(Q,N)\) is proper, some explicit \(F_j\) has a proper, not necessarily
+identical, GCD. If \(\gcd(E,N)\) is proper, \(D\) or some \(F_j\) has a proper
+GCD. Thus every proper extraction success from these paths implies a proper
+success among the \(t+1\) explicit components
+\(\{D,F_0,\ldots,F_{t-1}\}\).
+
+The compact circuit uses \(O(t+1)\) modular operations and
+\(O((t+1)\poly(\log N))\) bit operations. Its formal degree and monomial
+count need \(O(t+1)\) metadata bits, but a complete expanded output has
+\(2^t\) coefficients. Those coefficients are terms of one polynomial value,
+not \(2^t\) independently extracted residues. Aggregation can change a
+proper factor value: for \(N=8,g=1,t=2\), the two factor GCDs are \(2,2\)
+while the quotient GCD is \(4\). It can also mask complementary successes:
+for \(N=15,g=4,t=1\), denominator and factor GCDs \(3,5\) aggregate to full
+numerator GCD \(15\).
+
+\claimstatus{REF-013}{REFUTED}. The \(2^t\) formal monomials or exact division
+do not supply \(2^t\) separately extractable exponent tests at \(O(t)\)
+charged cost, nor a proper success when every explicit component GCD is
+trivial or full.
+
+Appendix \ref{proof:BAR-012} gives the proof. This theorem concerns only the
+dyadic identity in DEF-017. Arbitrary rational straight-line programs,
+cancellation-obscured denominators, general polynomial composition, adaptive
+factor dependence, other bases or groups, and general arithmetic circuits
+remain outside it.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -1180,6 +1242,12 @@ Exact formal multiplicities, shared subproducts, and node-versus-atom
 success semantics &
 \(a\) charged atom exponentiations and \(t\) product gates; unfolded
 occurrences can reach \(2^t\), but richer arithmetic circuits remain outside \\
+\addlinespace
+Dyadic exact-division circuit &
+Total denominator semantics and compact geometric-quotient evaluation &
+\(t\) squarings, \(t\) explicit factors, and \(\max(0,t-1)\) products;
+expanded formal output has \(2^t\) coefficients, and general rational
+circuits remain outside \\
 \addlinespace
 Semismooth randomized splitter &
 Complete Las Vegas factorization on the hereditary promise class &
@@ -1237,7 +1305,7 @@ semantics. The batch routine is not presented as a product-tree optimization.
 \section{Results}
 
 \begin{center}
-\small
+\footnotesize
 \begin{tabular}{L{0.12\linewidth}L{0.28\linewidth}L{0.49\linewidth}}
 \toprule
 Record & Finite scope & Registered observation \\
@@ -1303,6 +1371,10 @@ EXP-0015 & Product DAGs through five syntax gates; moduli/bases/exponents
 through \(128/16/4\) &
 611,572 syntax checks; 517,020 residue circuits; 856,512 proper-node
 implications; 10 differential checks \\
+\addlinespace
+EXP-0016 & Dyadic levels through 10; moduli/bases through \(256/32\) &
+2,047 coefficient checks; 55,154 circuits; 275,770 recurrence checks;
+zero unexplained proper successes; 12 differential checks \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1412,6 +1484,17 @@ Python/Rust/C\# comparisons agreed. These finite observations do not prove the
 asymptotic or support a richer-circuit, population, density, recognition,
 novelty, factoring, or general lower-bound claim.
 
+\claimstatus{EMP-016}{EMPIRICAL}. EXP-0016 completed 11 exact symbolic
+identities, 2,047 coefficient checks, 55,154 modular circuits, 275,770
+repeated-squaring recurrence checks, and 55,154 telescoping product
+identities. It classified 28,666 unit divisions, 23,078 proper denominator
+factor exits, and 3,410 full denominator collisions. All 22,757 proper
+quotient and 25,430 proper numerator implications held; 3,073 quotient
+aggregates masked an explicit success as a full collision. All 12 selected
+Python/Rust/C\# comparisons agreed. These finite observations do not prove
+the asymptotic theorem or support a general rational/compositional-circuit,
+population, density, recognition, novelty, factoring, or lower-bound claim.
+
 These observations audit implementations and minimize counterexamples. The
 universal statements in this paper are supplied by proofs, not extrapolation
 from the table.
@@ -1498,6 +1581,15 @@ adaptive factor-dependent computation, unrelated bases, other groups, or a
 general arithmetic-circuit model. Its BAR-008 transfer again needs a common
 factorization-independent atom list with \(O(k\log k)\)-bit exponents.
 
+BAR-012 closes only the dyadic identity
+\((X^{2^t}-1)/(X-1)=\prod_{j<t}(X^{2^j}+1)\). It gives total semantics to
+unit, proper, and full denominator GCDs and separates compact monomial
+metadata from expanded output. It preserves the existence of a proper
+component success, not the exact factor value returned by aggregation.
+Arbitrary exact divisions, cancellation-obscured rational programs, general
+composition, adaptive factor dependence, and general arithmetic-circuit
+lower bounds remain open.
+
 The authoritative Rust layer is bounded to \texttt{u64}; validation primality
 uses trial division and is not itself the polynomial-time procedure imported
 in EXT-001. The literature set is sufficient for the technical statements
@@ -1510,7 +1602,9 @@ outside BAR-008's explicit-list model has a proved factor-scale
 \(d\pm1\) yield guarantee, and whether a precisely defined specialized
 arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
 evaluate a sufficiently rich formal batch at polynomial total construction,
-evaluation, and extraction cost.
+evaluation, and extraction cost. The next bounded case is an
+arbitrary-exponent binary geometric-sum circuit, including its full
+denominator reduction \(S_M(1)\equiv M\pmod N\).
 
 \section{Conclusion}
 
@@ -1548,6 +1642,10 @@ only full collisions. A compact selector also does not compress a standard
 leaf-materialized product tree: \(n\) leaves still require \(n-1\) internal
 multiplications, and a root GCD can mask but cannot create individual
 proper-factor success.
+Dyadic exact division also fails to turn one compressed geometric quotient
+into an exponential test family: its \(2^t\) monomials have only one
+aggregate value, and every proper extraction success implies a proper
+denominator or one of \(t\) dyadic-factor GCDs.
 
 These results do not resolve general classical factoring. They replace
 plausible shortcuts with exact obligations: recognizable or explicitly
@@ -1563,8 +1661,10 @@ addition-subtraction unit branch. BAR-010 closes the standard
 leaf-materialized product-tree case. BAR-011 then permits shared product
 subcircuits and exponential unfolded repetition, but proves that repetition
 does not synthesize a distinct exponent test or a proper factor absent from
-the explicit atoms. Richer non-materializing arithmetic circuits and other
-models remain research targets, not claimed factoring breakthroughs.
+the explicit atoms. BAR-012 then adds one exact division and dyadic
+composition pattern while retaining only \(t+1\) explicit success
+components. General rational/compositional circuits and other models remain
+research targets, not claimed factoring breakthroughs.
 
 \appendix
 
@@ -2549,6 +2649,65 @@ hypotheses, the explicit atom list satisfies BAR-008, and the
 proper-node-to-atom implication prevents the DAG from enlarging its hit set.
 \(\square\)
 
+\section{Full proof of the dyadic telescope barrier}
+
+\subsection{Proof of BAR-012}\label{proof:BAR-012}
+
+For \(t=0\), the empty product and geometric sum both equal one. If the
+factorization identity holds at \(t\), multiplication by
+\(X^{2^t}+1\) gives
+\[
+\frac{(X^{2^t}-1)(X^{2^t}+1)}{X-1}
+=\frac{X^{2^{t+1}}-1}{X-1}.
+\]
+Induction proves
+\[
+\prod_{j=0}^{t-1}(X^{2^j}+1)
+=\frac{X^{2^t}-1}{X-1}
+=\sum_{i=0}^{2^t-1}X^i.
+\]
+The recurrence gives \(x_j\equiv g^{2^j}\pmod N\), so
+\[
+E\equiv DQ\pmod N.
+\]
+When \(D\) is a unit, multiplying by its unique inverse proves that the
+division and product paths agree. A proper denominator GCD is already a
+factor, while a full denominator GCD is recorded without attempting an
+inverse.
+
+For extraction, use the unreduced integer lifts
+\[
+\widetilde D=g-1,\qquad
+\widetilde F_j=g^{2^j}+1,\qquad
+\widetilde E=g^{2^t}-1.
+\]
+They satisfy
+\(\widetilde E=\widetilde D\prod_j\widetilde F_j\) exactly, and reduction
+modulo \(N\) preserves each GCD with \(N\). Write
+\(N=\prod_{p\mid N}p^{e_p}\), with \(\nu_p(0)=+\infty\). Then
+\[
+\gcd(Q,N)=
+\prod_{p\mid N}
+p^{\min\{e_p,\sum_{j<t}\nu_p(\widetilde F_j)\}}.
+\]
+If this GCD is proper, some lifted factor contributes a positive valuation.
+Its individual GCD cannot be \(N\), because then the product GCD would be
+full. Hence some \(F_j\) has a proper GCD. Applying the same argument to the
+exact lifted numerator identity, with the valuation of \(\widetilde D\)
+included, proves that a proper numerator GCD implies a proper denominator or
+dyadic-factor GCD. The returned proper value need not be identical: at
+\((N,g,t)=(8,1,2)\), the factor GCDs are \(2,2\) while the quotient GCD is
+\(4\).
+
+There are exactly \(t\) squarings, \(t\) factor additions, and
+\(\max(0,t-1)\) product multiplications. Including denominator and output
+work gives \(O((t+1)\poly(\log N))\) bit operations. Degree and monomial
+metadata need \(O(t+1)\) bits, while an expanded coefficient list has
+\(2^t\) entries. Those entries are terms of one quotient evaluation and do
+not provide separate GCD paths. Thus every proper success has a proper
+explicit component success, and the compact dyadic telescope is not an
+exponential test batch. \(\square\)
+
 \section{Reproduction appendix}
 
 The evidence implementation state preceding M6 is commit
@@ -2614,6 +2773,9 @@ The registered experiment cores and canonical summary hashes are:
 \item EXP-0015, M16 milestone commit recorded in \path{research/STATUS.md},
   hash
   \texttt{\seqsplit{431faf3c71fc0f13c3152bffd06faa5e7eb96382164e40611979c8573e41a12d}}.
+\item EXP-0016, M17 milestone commit recorded in \path{research/STATUS.md},
+  hash
+  \texttt{\seqsplit{1db5968e635901bc00eda0fdaa211aefe16af630741459eb9eb7f51ab50fc219}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -2685,6 +2847,9 @@ python scripts/run_m16_product_dag_search.py `
   --exponent-bound 4 --program-step-max 5 `
   --residue-step-max 2 --modulus-max 128 --base-max 16
 python scripts/check_m16_product_dag_differential.py
+python scripts/run_m17_dyadic_telescope_search.py `
+  --level-max 10 --modulus-max 256 --base-max 32
+python scripts/check_m17_dyadic_telescope_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -2692,7 +2857,7 @@ latexmk -xelatex -outdir=tmp/pdfs `
 The searches use no random seed. The randomized theorems are validated by
 exact successful-residue enumeration in EXP-0003 and exact parameter
 enumeration in EXP-0006 rather than by unrecorded random runs. EXP-0007
-through EXP-0015 are deterministic combinatorial or syntax
+through EXP-0016 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. The
