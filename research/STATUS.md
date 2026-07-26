@@ -1,18 +1,61 @@
 # Research Status
 
-## M22 execution snapshot
+## M22 outcome
 
 - Date: 2026-07-27.
-- Branch: `research/20260727-m22-cancellation-criterion`.
-- Active question: can the signed quotient-stage cancellation exposed by M21
-  yield a factorization-independent restricted-class theorem rather than
-  isolated witnesses?
-- Provisional evidence target: an exact local prime-power congruence and
-  valuation criterion, a public family with explicit recognition status, and
-  either a restricted theorem or a reproducible obstruction.
-- First action: derive the local success criterion for one prime-power
-  component before proposing a coefficient or factor schedule.
-- No M22 theorem or empirical conclusion is claimed at this start point.
+- Branch: `research/20260727-m22-symmetric-difference`.
+- Completed milestone: M22, the symmetric depth-two factor list \((A,A)\)
+  with coefficients \((-1,1)\).
+- `DEF-022` retains both quotient stages, their difference, endpoint
+  \(E_A(g)=g^{A-1}-1\), cofactor
+  \(H_A(g)=\sum_{j=1}^{A-1}g^{j-1}S_j(g^{A-1})\), total endpoint semantics,
+  every GCD, construction, extraction, and requested formal output.
+- `BAR-017` is `PROVED`:
+  \[
+  S_A(X^A)-S_A(X)=X(X^{A-1}-1)H_A(X).
+  \]
+  At every \(p^e\mid N\), the capped difference valuation is the capped sum
+  of endpoint and cofactor valuations. A unit endpoint preserves the
+  cofactor GCD, a proper endpoint already factors \(N\), and a full endpoint
+  forces a full difference.
+- The M21 witness is an endpoint case:
+  \(\gcd(2^4-1,9)=3\). A distinct cofactor case exists at
+  \(N=55,g=2,A=3\), where both stages and endpoint are units but
+  \(H_3(2)=11\). Thus BAR-017 classifies rather than eliminates signed
+  extraction.
+- A fixed \(3\times3\) recurrence evaluates the cofactor in \(O(\log A)\)
+  modular operations. Its exact sparse output has \(A(A-1)/2\) monomials
+  and degree \(A(A-2)\); any requested expansion is charged.
+- `REF-018` is `REFUTED`, and NR-019 preserves the failed claim that the
+  symmetric mechanism has no compact algebraic classification.
+- EXP-0021 checked 23 polynomial identities, 27,209 modular and expanded
+  cofactor evaluations, and 43,148 prime-power valuations. All 10,238 proper
+  differences followed the endpoint or unit-endpoint cofactor path, with
+  zero unexplained failures and 12 selected Python/Rust/C# agreements.
+  Canonical summary SHA-256:
+  `637cfa34b777126206b269d16c5a3afb027b9d893a2bea00881e85efea8d4fe6`.
+- Exact adversarial review passed. No universal schedule, recognition,
+  density, probability, or general factoring result is claimed.
+- Full gates passed: foundation and publication consistency (92 claims and 20
+  experiment hashes), 159 Python tests and bytecode compilation, Rust
+  formatting/Clippy/28 tests, C# Release build with zero warnings or errors,
+  58 baseline comparisons, the registered EXP-0021 rerun, and the 12-check
+  M22 differential validator.
+- XeLaTeX converged with no warnings, undefined references or citations, or
+  overfull/underfull boxes. All 56 pages were rendered and visually inspected.
+  Stable PDF: `output/pdf/mosef-paper.pdf`, SHA-256
+  `e7fe6d3d7c82b92a9c9cdbe5291295f9e019b22f63b75cf7bbc092f1a726d7b7`.
+- Commit and publication state are recorded after the validated core commit.
+- Next action: M23 computes formal polynomial GCD patterns for unequal
+  depth-two factors and general public coefficient pairs.
+
+### M22 Korean summary
+
+M22는 M21의 대칭 차이를 endpoint와 cofactor의 정확한 곱으로
+분해했습니다. 기존 \(N=9\) 반례는 endpoint가 이미 인수 3을
+드러내지만, \(N=55\)에서는 endpoint가 단위이고 cofactor가 인수
+11을 드러냅니다. 따라서 이 메커니즘은 사라지는 것이 아니라 두
+경로로 정확히 분류됩니다.
 
 ## M21 outcome
 

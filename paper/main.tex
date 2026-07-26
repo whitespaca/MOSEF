@@ -103,7 +103,11 @@ its actual size. This closes product-only aggregation of this exact chain,
 but not cross-stage addition: at \(N=9\), subtracting two unit quotient
 stages produces residue \(3\) and a proper GCD absent from every charged
 component. This exact separation is not a universal schedule or a result for
-general arithmetic circuits.
+general arithmetic circuits. For the symmetric repeated-factor family, the
+signed difference factors exactly into an endpoint and a positive-coefficient
+cofactor. This yields a prime-power valuation sum and a total endpoint/cofactor
+GCD trichotomy; the first counterexample is an endpoint success, while a
+separate \(N=55\) example shows that the cofactor branch is genuine.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -185,7 +189,11 @@ algorithm. Its contributions are:
 \item a signed-aggregation separation: two unit quotient stages can combine
   to expose a proper factor absent from every charged component, with an
   exact repeated-prime-power counterexample and fully charged polynomial
-  output; and
+  output;
+\item an exact symmetric-difference reduction: repeated public factor \(A\)
+  and coefficients \((-1,1)\) factor into the endpoint
+  \(X^{A-1}-1\) and a positive cofactor, with a local valuation sum, a total
+  extraction trichotomy, and an \(O(\log A)\) compact cofactor evaluator; and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
@@ -206,9 +214,10 @@ one dyadic exact-division/composition identity, one arbitrary-exponent
 geometric sum, one two-stage nested geometric quotient, and one product-only
 iterated public quotient chain. The signed-aggregation counterexample
 separately shows that the last product implication cannot be extended to
-addition. Adaptive or multiple aggregates and general rational,
-compositional, and arithmetic circuits remain outside. These boundaries are
-part of the results.
+addition. The symmetric reduction then classifies only the repeated-factor,
+coefficient-\((-1,1)\) subfamily; unequal factors, other coefficients,
+adaptive or multiple aggregates, and general rational, compositional, and
+arithmetic circuits remain outside. These boundaries are part of the results.
 
 Section 2 records the imported complexity landscape. Sections 3 and 4 define
 candidate semantics and the recursive framework. Section 5 gives the first
@@ -223,7 +232,8 @@ standard product trees. Section 17 treats the explicit-atom product DAG.
 Section 18 treats the dyadic telescope, Section 19 treats the arbitrary
 geometric sum, Section 20 treats the nested quotient, and Section 21 treats
 the iterated quotient chain. Section 22 gives the signed-aggregation
-separation. Later sections separate algorithms,
+separation, and Section 23 gives the symmetric-difference reduction. Later
+sections separate algorithms,
 experiments, and observations. Complete proofs and reproduction details appear in the
 appendices.
 
@@ -1484,6 +1494,69 @@ is not a universal schedule, success-rate theorem, or lower bound for
 adaptive, multiple-aggregate, or general arithmetic circuits.
 Appendix \ref{proof:BAR-016} gives the complete exact audit.
 
+\section{A symmetric signed-difference reduction}
+
+\claimstatus{DEF-022}{DEFINITION}. Restrict DEF-021 to depth two with
+\((A_1,A_2)=(A,A)\), \(A\ge2\), and coefficients \((-1,1)\). Its exact
+polynomial and modular value are
+\[
+D_A(X)=S_A(X^A)-S_A(X),\qquad D_A(g)\bmod N.
+\]
+Charge the endpoint \(g^{A-1}-1\), the cofactor defined below, their GCDs,
+and any requested expanded output in addition to the retained DEF-021 paths.
+
+\claimstatus{BAR-017}{PROVED}. The exact factorization
+\[
+D_A(X)=X\bigl(X^{A-1}-1\bigr)H_A(X)
+\]
+holds, where
+\[
+H_A(X)=\sum_{j=1}^{A-1}X^{j-1}S_j(X^{A-1})
+      =\sum_{j=1}^{A-1}\sum_{k=0}^{j-1}
+        X^{j-1+(A-1)k}.
+\]
+The cofactor has \(A(A-1)/2\) distinct positive monomials and degree
+\(A(A-2)\). If \(p^e\mid N\) and \(p\nmid g\), put
+\[
+\alpha=\min\{e,v_p(g^{A-1}-1)\},\qquad
+\beta=\min\{e,v_p(H_A(g))\}.
+\]
+Then
+\[
+\min\{e,v_p(D_A(g))\}=\min\{e,\alpha+\beta\}.
+\]
+Consequently, if the endpoint GCD is one, the difference and cofactor GCDs
+are equal and unit division recovers the cofactor residue; if the endpoint
+GCD is proper, the endpoint already factors \(N\); and if it is \(N\), the
+difference GCD is also \(N\).
+
+The cofactor itself is compactly evaluable. With \(x=g\bmod N\),
+\(y=x^{A-1}\bmod N\), \(t_j=x^{j-1}S_j(y)\), and
+\(h_j=\sum_{i=1}^{j}t_i\), the state
+\((t_j,z_j,h_j)^\mathsf{T}\), \(z_j=(xy)^j\), starts at
+\((1,xy,1)^\mathsf{T}\) and advances under
+\[
+\begin{pmatrix}
+x&1&0\\
+0&xy&0\\
+x&1&1
+\end{pmatrix}.
+\]
+Binary matrix powering therefore evaluates \(H_A(g)=h_{A-1}\) with
+\(O(\log A)\) modular matrix multiplications after the endpoint power.
+
+\claimstatus{REF-018}{REFUTED}. The M21 witness is not a cofactor-only
+phenomenon: for \(N=9,g=2,A=5\),
+\(\gcd(2^4-1,9)=3\). The cofactor branch is nevertheless genuine. For
+\(N=55,g=2,A=3\), the endpoint \(2^2-1=3\) is a unit, while
+\[
+H_3(2)=1+2+2^3=11,\qquad \gcd(D_3(2),55)=11.
+\]
+This exact classification is restricted to equal depth-two factors and
+coefficients \((-1,1)\); it is neither a universal schedule nor a reduction
+for unequal factors or general signed forms. Appendix \ref{proof:BAR-017}
+gives the complete proof.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -1552,6 +1625,12 @@ One explicit linear form over retained stage values; component and aggregate
 GCDs can differ in extraction power &
 DEF-020 costs plus \(r\) scalar multiplications and \(r-1\) additions;
 coefficient encodings and every requested formal output are charged \\
+\addlinespace
+Symmetric quotient difference &
+Endpoint/cofactor valuation classification and total extraction trichotomy &
+Two geometric sums, one endpoint power, and a \(3\)-state matrix recurrence
+using \(O(\log A)\) modular steps; expanded \(H_A\) has \(A(A-1)/2\)
+monomials \\
 \addlinespace
 Semismooth randomized splitter &
 Complete Las Vegas factorization on the hereditary promise class &
@@ -1691,6 +1770,15 @@ zero unexplained reductions; 12 differential checks \\
 EXP-0019 & Depth through 3; factors through 5; moduli/bases through \(128/16\) &
 5,190 coefficient checks; 190,805 chains; 529,330 stages; 1,249,465 residue
 identities; zero unexplained reductions; 12 differential checks \\
+\addlinespace
+EXP-0020 & Depth through 3; factors through 5; coefficients in
+\(\{-1,0,1\}\); moduli/bases through \(128/16\) &
+1,301,300 signed combinations; 6,262 proper aggregates with every charged
+component a unit; 12 differential checks \\
+\addlinespace
+EXP-0021 & \(2\le A\le24\); moduli/bases through \(128/16\) &
+43,148 prime-power valuation checks; 27,209 compact/expanded cofactor checks;
+zero unexplained failures; 12 differential checks \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1855,6 +1943,17 @@ observations do not establish an asymptotic success rate, universal schedule,
 population, density, recognition, novelty, general factoring, or a
 general-circuit lower bound.
 
+\claimstatus{EMP-021}{EMPIRICAL}. EXP-0021 completed 23 symbolic exponents,
+2,300 cofactor-monomial checks, 27,209 modular evaluations, 43,148
+prime-power valuation checks, and 27,209 expanded-cofactor comparisons.
+It classified 11,553 unit, 10,477 proper, and 5,179 full endpoint branches.
+Among 4,770 new proper signed differences following two unit stage
+quotients, 4,739 were endpoint paths and 31 were unit-endpoint cofactor
+paths. All 12 selected Python/Rust/C\# comparisons agreed, with zero
+unexplained failures. These finite observations do not establish an
+asymptotic success rate, universal schedule, population, density,
+recognition, novelty, general factoring, or general-circuit lower bound.
+
 These observations audit implementations and minimize counterexamples. The
 universal statements in this paper are supplied by proofs, not extrapolation
 from the table.
@@ -1977,6 +2076,14 @@ succeeds on all composites nor a density, probability, or recognition
 theorem. Adaptive coefficients, several interacting aggregates, unrelated
 bases, other groups, and general arithmetic circuits remain outside.
 
+BAR-017 classifies only the symmetric depth-two specialization
+\((A_1,A_2)=(A,A)\), \((c_1,c_2)=(-1,1)\). Its endpoint/cofactor
+factorization and valuation sum do not imply that either factor separates
+every composite, and its compact cofactor evaluator exposes one aggregate
+value rather than a hidden batch. Unequal factors, other coefficient pairs,
+longer chains, adaptive choices, and general signed arithmetic circuits
+remain outside.
+
 The authoritative Rust layer is bounded to \texttt{u64}; validation primality
 uses trial division and is not itself the polynomial-time procedure imported
 in EXT-001. The literature set is sufficient for the technical statements
@@ -1987,12 +2094,11 @@ in OPEN-002 and OPEN-003, recognition of the combined hereditary promise
 without access to the factorization, whether a non-primorial boundary family
 outside BAR-008's explicit-list model has a proved factor-scale
 \(d\pm1\) yield guarantee, and whether a precisely defined specialized
-  arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
-  evaluate a sufficiently rich formal batch at polynomial total construction,
-  evaluation, and extraction cost. The next bounded case is a
-  factorization-independent signed linear combination of explicit certified
-  geometric quotient stages, with every coefficient, operation, output, and
-  extraction path charged.
+arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
+evaluate a sufficiently rich formal batch at polynomial total construction,
+evaluation, and extraction cost. The next bounded case is the unequal
+depth-two signed quotient difference, followed by general public coefficient
+pairs, with every coefficient, operation, output, and extraction path charged.
 
 \section{Conclusion}
 
@@ -2051,6 +2157,12 @@ BAR-016 marks the first failure of that implication under the next charged
 operation: at \(N=9\), subtracting two unit quotient stages produces residue
 \(3\) and exposes the factor \(3\). This is an exact extraction separation,
 not evidence of a universal signed schedule.
+BAR-017 then resolves the symmetric repeated-factor subfamily exactly:
+the difference is the product of a unit base, the endpoint
+\(X^{A-1}-1\), and a positive cofactor \(H_A\). Local valuations add, and
+the endpoint gives a total extraction trichotomy. The \(N=9\) witness is an
+endpoint success, but \(N=55,g=2,A=3\) confirms that the unit-endpoint
+cofactor branch can independently expose a proper factor.
 
 These results do not resolve general classical factoring. They replace
 plausible shortcuts with exact obligations: recognizable or explicitly
@@ -2074,10 +2186,12 @@ certified two-stage cancellation but reduces it to the rational numerator,
 intermediate denominator, public multiplier, and composed-denominator paths.
 BAR-015 permits a finite public quotient chain and product aggregation while
 retaining the same explicit exits. BAR-016 then proves that one charged
-cross-stage signed combination can create a genuinely new proper GCD. The
-prime-power valuation conditions and schedule-level usefulness of this
-mechanism, together with general rational/compositional circuits and other
-models, remain research targets, not claimed factoring breakthroughs.
+cross-stage signed combination can create a genuinely new proper GCD.
+BAR-017 supplies the exact endpoint/cofactor valuation criterion for its
+symmetric repeated-factor subfamily. Unequal factors, general coefficient
+pairs, schedule-level usefulness, general rational/compositional circuits,
+and other models remain research targets, not claimed factoring
+breakthroughs.
 
 \appendix
 
@@ -3336,6 +3450,62 @@ contains exactly \(\sum_iA_i\) uncollected terms, has degree at most
 \(\max_i(M_i-M_{i-1})\), and makes every requested expanded-output cost
 explicit. \(\square\)
 
+\section{Full proof of the symmetric signed-difference reduction}
+
+\subsection{Proof of BAR-017}\label{proof:BAR-017}
+
+Write \(n=A-1\). Expanding and pairing the equal constant terms gives
+\[
+\begin{aligned}
+D_A(X)
+ &=\sum_{j=1}^{A-1}\left(X^{Aj}-X^j\right)\\
+ &=\sum_{j=1}^{A-1}X^j\left(X^{nj}-1\right)\\
+ &=X(X^n-1)\sum_{j=1}^{A-1}X^{j-1}S_j(X^n).
+\end{aligned}
+\]
+This proves the stated factorization and the first formula for \(H_A\).
+Expanding each \(S_j\) gives exponent pairs
+\[
+e(j,k)=j-1+nk,\qquad 1\le j\le n,\quad 0\le k<j.
+\]
+If \(e(j,k)=e(j',k')\), reduction modulo \(n\) gives
+\(j=j'\), and then \(k=k'\). Thus all terms are distinct and positive.
+There are \(\sum_{j=1}^{n}j=A(A-1)/2\) of them. The maximum, at
+\((j,k)=(n,n-1)\), is \(n-1+n(n-1)=A(A-2)\).
+
+Let \(p^e\mid N\) and \(p\nmid g\). Since \(g\) is a \(p\)-adic unit, the
+integer factorization gives
+\[
+v_p(D_A(g))
+=v_p(g^{A-1}-1)+v_p(H_A(g)).
+\]
+Capping both sides at \(e\) yields
+\[
+\min\{e,v_p(D_A(g))\}=\min\{e,\alpha+\beta\}.
+\]
+Applying this identity independently to every prime power dividing \(N\)
+proves the GCD classification. In the unit-endpoint branch,
+\(g(g^{A-1}-1)\) is invertible modulo \(N\), so division of \(D_A(g)\)
+recovers \(H_A(g)\) and their GCDs are equal. A proper endpoint is already
+a factor. A full endpoint makes \(D_A(g)\equiv0\pmod N\).
+
+For compact evaluation, put \(x=g\bmod N\), \(y=x^n\bmod N\),
+\(t_j=x^{j-1}S_j(y)\), and \(z_j=(xy)^j\). The geometric recurrence gives
+\[
+t_{j+1}=xt_j+z_j,\qquad
+z_{j+1}=xy\,z_j,\qquad
+h_{j+1}=h_j+xt_j+z_j.
+\]
+This is exactly the displayed matrix transition with initial state
+\((t_1,z_1,h_1)=(1,xy,1)\). Binary powering to exponent \(A-2\) computes
+\(h_{A-1}=H_A(g)\) in \(O(\log A)\) modular matrix multiplications. The
+expanded output still costs its exact monomial count.
+
+Finally, \(N=9,g=2,A=5\) has endpoint \(2^4-1=15\) and endpoint GCD \(3\).
+For \(N=55,g=2,A=3\), the endpoint is \(3\), a unit, while
+\(H_3(2)=1+2+8=11\). Hence the difference GCD is \(11\), proving that the
+cofactor branch is nonempty. \(\square\)
+
 \section{Reproduction appendix}
 
 The evidence implementation state preceding M6 is commit
@@ -3416,6 +3586,9 @@ The registered experiment cores and canonical summary hashes are:
 \item EXP-0020, M21 milestone commit recorded in \path{research/STATUS.md},
   hash
   \texttt{\seqsplit{34f0f120a1ef3ab08b08fb9c477ea03161f96c8857bcc143e91be51137c85f6f}}.
+\item EXP-0021, M22 milestone commit recorded in \path{research/STATUS.md},
+  hash
+  \texttt{\seqsplit{637cfa34b777126206b269d16c5a3afb027b9d893a2bea00881e85efea8d4fe6}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -3503,6 +3676,9 @@ python scripts/run_m21_quotient_linear_combination_search.py `
   --factor-max 5 --coefficient-max 1 --depth-max 3 `
   --modulus-max 128 --base-max 16
 python scripts/check_m21_quotient_linear_combination_differential.py
+python scripts/run_m22_symmetric_quotient_difference_search.py `
+  --exponent-max 24 --modulus-max 128 --base-max 16
+python scripts/check_m22_symmetric_quotient_difference_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -3514,7 +3690,7 @@ through EXP-0019 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. EXP-0020
-uses the same deterministic finite-enumeration policy. The
+and EXP-0021 use the same deterministic finite-enumeration policy. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.
 
 \bibliographystyle{plain}

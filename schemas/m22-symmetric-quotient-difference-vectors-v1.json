@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "symmetric_quotient_difference_vectors": [
+    {"base":2,"modulus":9,"exponent":5,"first_quotient":4,"second_quotient":7,"difference":3,"difference_gcd":3,"endpoint":6,"endpoint_gcd":3,"endpoint_status":"proper_factor","cofactor":7,"cofactor_gcd":1,"division_cofactor":null,"cofactor_monomials":10,"cofactor_degree":15,"matrix_multiplications":3},
+    {"base":2,"modulus":55,"exponent":3,"first_quotient":7,"second_quotient":18,"difference":11,"difference_gcd":11,"endpoint":3,"endpoint_gcd":1,"endpoint_status":"unit","cofactor":11,"cofactor_gcd":11,"division_cofactor":11,"cofactor_monomials":3,"cofactor_degree":3,"matrix_multiplications":1},
+    {"base":1,"modulus":8,"exponent":4,"first_quotient":4,"second_quotient":4,"difference":0,"difference_gcd":8,"endpoint":0,"endpoint_gcd":8,"endpoint_status":"full_collision","cofactor":6,"cofactor_gcd":2,"division_cofactor":null,"cofactor_monomials":6,"cofactor_degree":8,"matrix_multiplications":2},
+    {"base":2,"modulus":15,"exponent":2,"first_quotient":3,"second_quotient":5,"difference":2,"difference_gcd":1,"endpoint":1,"endpoint_gcd":1,"endpoint_status":"unit","cofactor":1,"cofactor_gcd":1,"division_cofactor":1,"cofactor_monomials":1,"cofactor_degree":0,"matrix_multiplications":0},
+    {"base":4,"modulus":15,"exponent":3,"first_quotient":6,"second_quotient":6,"difference":0,"difference_gcd":15,"endpoint":0,"endpoint_gcd":15,"endpoint_status":"full_collision","cofactor":9,"cofactor_gcd":3,"division_cofactor":null,"cofactor_monomials":3,"cofactor_degree":3,"matrix_multiplications":1},
+    {"base":2,"modulus":257,"exponent":17,"first_quotient":1,"second_quotient":1,"difference":0,"difference_gcd":257,"endpoint":0,"endpoint_gcd":257,"endpoint_status":"full_collision","cofactor":16,"cofactor_gcd":1,"division_cofactor":null,"cofactor_monomials":136,"cofactor_degree":255,"matrix_multiplications":7}
+  ]
+}

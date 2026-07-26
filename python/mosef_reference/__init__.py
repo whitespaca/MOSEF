@@ -113,6 +113,11 @@ from .quotient_linear_combination import (
     evaluate_quotient_linear_combination,
     expand_quotient_linear_combination,
 )
+from .symmetric_quotient_difference import (
+    SymmetricQuotientDifferenceEvaluation,
+    evaluate_symmetric_quotient_difference,
+    symmetric_cofactor_terms,
+)
 from .separator import (
     CandidateKind,
     CandidateOutcome,
@@ -168,6 +173,7 @@ __all__ = [
     "NestedQuotientEvaluation",
     "IteratedQuotientEvaluation",
     "QuotientLinearCombinationEvaluation",
+    "SymmetricQuotientDifferenceEvaluation",
     "SemismoothAsymmetryWitness",
     "SemismoothFactor",
     "SemismoothWitness",
@@ -199,7 +205,9 @@ __all__ = [
     "evaluate_nested_quotient",
     "evaluate_iterated_quotient",
     "evaluate_quotient_linear_combination",
+    "evaluate_symmetric_quotient_difference",
     "expand_quotient_linear_combination",
+    "symmetric_cofactor_terms",
     "divisor_count",
     "exponent_bit_length",
     "factor_scale_divisor_bound",

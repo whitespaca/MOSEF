@@ -82,6 +82,8 @@ internal static class Program
             "iterated-quotient" when args.Length == 4 => RunIteratedQuotient(args),
             "quotient-linear-combination" when args.Length == 5 =>
                 RunQuotientLinearCombination(args),
+            "symmetric-quotient-difference" when args.Length == 4 =>
+                RunSymmetricQuotientDifference(args),
             "multiplication-lower-bound" when args.Length == 2 =>
                 RunMultiplicationLowerBound(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
@@ -828,6 +830,155 @@ internal static class Program
             + $"weighted:{string.Join(",", weighted)}|"
             + $"weighted_gcds:{string.Join(",", weightedGcds)}|"
             + $"aggregate:{aggregate}|aggregate_gcd:{Gcd(aggregate, modulus)}";
+    }
+
+    private static BigInteger[,] MultiplyMatrix3(
+        BigInteger[,] left,
+        BigInteger[,] right,
+        BigInteger modulus
+    )
+    {
+        BigInteger[,] result = new BigInteger[3, 3];
+        for (int row = 0; row < 3; row++)
+        {
+            for (int column = 0; column < 3; column++)
+            {
+                for (int inner = 0; inner < 3; inner++)
+                {
+                    result[row, column] = (
+                        result[row, column] + left[row, inner] * right[inner, column]
+                    ) % modulus;
+                }
+            }
+        }
+        return result;
+    }
+
+    private static (BigInteger[,] Matrix, int Count) PowerMatrix3(
+        BigInteger[,] matrix,
+        BigInteger exponent,
+        BigInteger modulus
+    )
+    {
+        BigInteger[,] result =
+        {
+            { BigInteger.One, BigInteger.Zero, BigInteger.Zero },
+            { BigInteger.Zero, BigInteger.One, BigInteger.Zero },
+            { BigInteger.Zero, BigInteger.Zero, BigInteger.One },
+        };
+        BigInteger[,] power = matrix;
+        BigInteger remaining = exponent;
+        int count = 0;
+        while (remaining != 0)
+        {
+            if (!remaining.IsEven)
+            {
+                result = MultiplyMatrix3(result, power, modulus);
+                count++;
+            }
+            remaining >>= 1;
+            if (remaining != 0)
+            {
+                power = MultiplyMatrix3(power, power, modulus);
+                count++;
+            }
+        }
+        return (result, count);
+    }
+
+    private static (BigInteger Cofactor, int MatrixCount) CompactSymmetricCofactor(
+        BigInteger value,
+        BigInteger modulus,
+        BigInteger exponent
+    )
+    {
+        BigInteger n = exponent - 1;
+        BigInteger y = BigInteger.ModPow(value, n, modulus);
+        BigInteger xy = value * y % modulus;
+        BigInteger[,] transition =
+        {
+            { value, BigInteger.One, BigInteger.Zero },
+            { BigInteger.Zero, xy, BigInteger.Zero },
+            { value, BigInteger.One, BigInteger.One },
+        };
+        (BigInteger[,] powered, int count) = PowerMatrix3(
+            transition,
+            n - 1,
+            modulus
+        );
+        BigInteger[] initial = [BigInteger.One % modulus, xy, BigInteger.One % modulus];
+        BigInteger[] state = new BigInteger[3];
+        for (int row = 0; row < 3; row++)
+        {
+            for (int column = 0; column < 3; column++)
+            {
+                state[row] = (
+                    state[row] + powered[row, column] * initial[column]
+                ) % modulus;
+            }
+        }
+        return (state[2], count);
+    }
+
+    private static string RunSymmetricQuotientDifference(string[] args)
+    {
+        BigInteger value = Parse(args, 1, "base");
+        BigInteger modulus = Parse(args, 2, "modulus");
+        BigInteger exponent = Parse(args, 3, "exponent");
+        if (modulus < 2 || exponent < 2)
+        {
+            throw new ArgumentException(
+                "modulus must be at least two and exponent at least two"
+            );
+        }
+        BigInteger reducedBase = ((value % modulus) + modulus) % modulus;
+        (BigInteger firstPower, BigInteger firstQuotient) = GeometricPair(
+            reducedBase,
+            modulus,
+            exponent
+        );
+        (_, BigInteger secondQuotient) = GeometricPair(
+            firstPower,
+            modulus,
+            exponent
+        );
+        BigInteger difference = (
+            (secondQuotient - firstQuotient) % modulus + modulus
+        ) % modulus;
+        BigInteger endpoint = (
+            BigInteger.ModPow(reducedBase, exponent - 1, modulus)
+            - 1
+            + modulus
+        ) % modulus;
+        BigInteger endpointGcd = Gcd(endpoint, modulus);
+        string endpointStatus = endpointGcd == 1
+            ? "unit"
+            : endpointGcd < modulus ? "proper_factor" : "full_collision";
+        (BigInteger cofactor, int matrixCount) = CompactSymmetricCofactor(
+            reducedBase,
+            modulus,
+            exponent
+        );
+        if (difference != reducedBase * endpoint % modulus * cofactor % modulus)
+        {
+            throw new ArgumentException("symmetric quotient-difference identity failed");
+        }
+        string divisionCofactor = endpointGcd == 1
+            ? (
+                difference
+                * ModularInverse(reducedBase * endpoint % modulus, modulus)
+                % modulus
+            ).ToString()
+            : "none";
+        return $"exponent:{exponent}|first_quotient:{firstQuotient}|"
+            + $"second_quotient:{secondQuotient}|difference:{difference}|"
+            + $"difference_gcd:{Gcd(difference, modulus)}|endpoint:{endpoint}|"
+            + $"endpoint_gcd:{endpointGcd}|endpoint_status:{endpointStatus}|"
+            + $"cofactor:{cofactor}|cofactor_gcd:{Gcd(cofactor, modulus)}|"
+            + $"division_cofactor:{divisionCofactor}|"
+            + $"cofactor_monomials:{exponent * (exponent - 1) / 2}|"
+            + $"cofactor_degree:{exponent * (exponent - 2)}|"
+            + $"matrix_multiplications:{matrixCount}";
     }
 
     private static string RunMultiplicationLowerBound(string[] args)

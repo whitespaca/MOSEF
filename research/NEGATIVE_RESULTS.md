@@ -460,3 +460,33 @@
   or a lower bound for adaptive or general arithmetic circuits.
 - Revisit by characterizing the prime-power congruence and valuation
   conditions that make a public signed quotient combination succeed.
+
+## NR-019 - The symmetric M21 mechanism is not algebraically unclassified
+
+- Date: 2026-07-27.
+- Status: `REFUTED` claim `REF-018`.
+- Hypothesis tested: the repeated-factor signed difference
+  \(S_A(g^A)-S_A(g)\) creates a proper GCD with no compact endpoint/cofactor
+  decomposition.
+- Counterargument:
+  \[
+  S_A(X^A)-S_A(X)
+  =X(X^{A-1}-1)
+   \sum_{j=1}^{A-1}X^{j-1}S_j(X^{A-1}).
+  \]
+  At every prime power dividing \(N\), the difference valuation is the
+  capped sum of the endpoint and cofactor valuations. A unit endpoint
+  preserves the cofactor GCD, a proper endpoint already factors \(N\), and a
+  full endpoint forces a full difference.
+- The M21 witness is an endpoint case because
+  \(\gcd(2^4-1,9)=3\). The cofactor branch remains real:
+  \(N=55,g=2,A=3\) has unit stage quotients and endpoint, but
+  \(H_3(2)=11\).
+- Evidence: BAR-017 and deterministic EXP-0021; 27,209 compact/expanded
+  evaluations, 43,148 prime-power valuation checks, zero unexplained cases,
+  and 12 Python/Rust/C# agreements.
+- Scope: the exact repeated-factor, coefficients \((-1,1)\) family. Unequal
+  factors, arbitrary coefficients, longer chains, adaptive choices, other
+  groups, and general arithmetic circuits remain open.
+- Revisit with the unequal depth-two signed difference before considering
+  longer schedules.

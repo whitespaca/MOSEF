@@ -503,3 +503,21 @@
   factoring algorithm. M22 must characterize when these cancellations occur
   and whether a factorization-independent family yields a restricted theorem
   or only sparse isolated witnesses.
+
+## ADR-025 - Factor the symmetric difference before proposing schedules
+
+- Date: 2026-07-27.
+- Decision: isolate the repeated-factor, coefficients \((-1,1)\) family and
+  retain both the endpoint \(g^{A-1}-1\) and the exact cofactor \(H_A(g)\)
+  before studying larger signed schedules.
+- Rationale: the M21 witness is explained by the endpoint, but a separate
+  unit-endpoint cofactor path exists. Treating every signed success as an
+  undifferentiated aggregate would hide this algebraic split and encourage
+  unsupported schedule claims.
+- Cost accounting: compute the two geometric sums and endpoint in
+  \(O(\log A)\) modular operations, and compute the cofactor by a fixed
+  \(3\times3\) matrix recurrence in \(O(\log A)\) modular operations. Charge
+  every GCD, the unit-branch inversion, and requested sparse or dense output.
+- Consequence: BAR-017 classifies the symmetric family but does not close
+  unequal factors or arbitrary coefficients. M23 should test whether those
+  next cases admit any comparably compact factorization.
