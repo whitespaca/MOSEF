@@ -46,8 +46,12 @@
   Stable PDF: `output/pdf/mosef-paper.pdf`, SHA-256
   `783ccf5f60de1cad688c638f4ef59a3f69f5dfffcd3a596ace4637ac8867db8f`.
 - The implementation/proof checkpoint is
-  `557731c0feefe1c58b65ab24c6b7b6552cd392bc`; the completion commit and
-  remote publication state are recorded in the following status update.
+  `557731c0feefe1c58b65ab24c6b7b6552cd392bc`; the validated completion
+  commit is `5d15540d372642dd4ca61f5ecf324026dbd55adf`.
+- The completion push was rejected before execution under BLK-021 because
+  publishing this specific repository payload was not explicitly authorized.
+  The remote branch remains at the checkpoint commit, GitHub CLI is
+  unauthenticated, and no pull request was created or verified.
 - Next action: M20 should formalize an iterated public factor chain
   \(M=\prod_i A_i\), give every prefix denominator a total branch, and test
   whether induction reduces every quotient success to a charged prefix exit
