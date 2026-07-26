@@ -15,7 +15,7 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
-Two Restricted Theorems and Four Structural Barriers}
+Two Restricted Theorems and Five Structural Barriers}
 \author{MOSEF Research Program}
 \date{26 July 2026}
 
@@ -34,7 +34,7 @@ each complete schedule cycle at a promised residual node. We also prove an
 exact Lucas root-count formula and use fresh uniform, independently
 parameterized Lucas values to obtain a second Las Vegas theorem on a
 hereditary \(p+1\)-asymmetry promise, with at least \(1/12\) split probability
-at a witness trial. We prove four structural barriers. Divisor
+at a witness trial. We prove five structural barriers. Divisor
 coverage does not imply multiplicative-order separation; the exact missing
 condition is injectivity of divisibility signatures. A natural Lucas
 parameter map \(P=a+a^{-1}\) is also not an independent group channel:
@@ -49,7 +49,13 @@ an exact divisor budget shows that a polynomial-size explicit schedule whose
 maximum exponent length is \(o(k\log k)\) hits at most \(2^{o(k)}\) odd
 primes; on any stipulated exponentially large common-input-length prime
 population, its promised-pair fraction vanishes. This last result makes no
-prime-distribution or compressed-representation claim.
+prime-distribution claim. We then formalize one compressed-representation
+case: a factor-oblivious multiplication-only straight-line program. A
+\(t\)-node program realizes formal exponent at most \(2^t\), so
+\(t=o(k\log k)\) still falls under the explicit-list barrier, and the short
+descriptor \(2^{2^s}\) needs exactly \(2^s\) multiplication nodes in this
+model. This is not a lower bound for equal-residue computation at a fixed
+modulus or for broader algebraic representations.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -91,23 +97,29 @@ algorithm. Its contributions are:
 \item an explicit-list exponent-encoding barrier: a polynomial-size schedule
   of \(o(k\log k)\)-bit exponents has a subexponential global divisor-hit set
   and vanishing promised-pair fraction on every stipulated exponentially
-  large common-input-length prime population; and
+  large common-input-length prime population;
+\item a multiplication straight-line compression barrier: exact formal
+  exponent realization grows by at most one bit per charged multiplication,
+  so short symbolic syntax alone does not evade the explicit-list result; and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
 
 The positive theorems are restricted: membership in their promise classes can
 depend on the unknown factorization and is not recognized by the algorithms.
-The four barriers are also scoped: one concerns explicit order signatures,
+The five barriers are also scoped: one concerns explicit order signatures,
 one concerns only \(P=a+a^{-1}\), and two concern a common explicit finite
-schedule under separate magnitude or encoding hypotheses. These boundaries
-are part of the results.
+schedule under separate magnitude or encoding hypotheses. The fifth concerns
+only formal exponents in a factor-oblivious multiplication-only DAG. These
+boundaries are part of the results.
 
 Section 2 records the imported complexity landscape. Sections 3 and 4 define
 candidate semantics and the recursive framework. Section 5 gives the first
 restricted theorem. Sections 6 and 7 prove two barriers, Section 8 gives the
 nonsplit Lucas theorem, Section 9 gives the combined-promise density barrier,
 and Section 10 gives the exponent-encoding barrier. Later sections separate
+and Section 10 gives the exponent-encoding barrier. Section 11 gives the
+multiplication straight-line compression barrier; later sections separate
 algorithms, experiments, and observations. Complete proofs and reproduction
 details appear in the appendices.
 
@@ -646,6 +658,66 @@ or \(L(k)\not=o(k\log k)\). It is not a recognizer, a natural-density theorem,
 a factoring lower bound, or a barrier to other algebraic mechanisms. No
 novelty or priority claim is made for its elementary divisor estimate.
 
+\section{A multiplication straight-line compression barrier}
+
+We now specify one compressed evaluation model rather than treating short
+syntax as automatically cheap.
+
+\claimstatus{DEF-010}{DEFINITION}. Fix \(N\ge2\) and
+\(g\in\mathbb Z/N\mathbb Z\). A factor-oblivious multiplication straight-line
+program has
+\[
+x_0=g,\qquad
+x_i=x_{a_i}x_{b_i}\pmod N
+\quad(1\le i\le t),
+\]
+where \(0\le a_i,b_i<i\). Its formal exponents are
+\[
+e_0=1,\qquad e_i=e_{a_i}+e_{b_i}.
+\]
+Parent indices, output indices, and every multiplication node are charged.
+With binary indices the table has \(O(t\log(t+1))\) bits; direct evaluation
+uses exactly \(t\) modular multiplications and retains at most \(t+1\)
+residues. The factor-oblivious constructor must emit the tables in polynomial
+time. This includes repeated squaring and shared addition chains, but excludes
+inversion, nonmultiplicative operations, special endomorphisms, adaptive
+factor-dependent branches, and uncharged implicit output expansion.
+
+\claimstatus{BAR-005}{PROVED}. Every node satisfies
+\[
+x_i=g^{e_i}\pmod N,\qquad e_i\le2^i.
+\]
+Thus exact formal realization of \(g^d\) needs at least
+\(\lceil\log_2d\rceil\) multiplication nodes. Repeated squaring attains the
+bound when \(d\) is a power of two. A program has at most \(t+1\) node
+outputs, each with exponent bit length at most \(t+1\).
+
+For a fixed number of initial bases, let \(T(k)\) be the total charged node
+count of every output-producing program in a common factorization-independent
+schedule. Then
+\[
+E(k)\le T(k)+O(1),\qquad L(k)\le T(k)+1.
+\]
+If \(T(k)=o(k\log k)\), BAR-004 applies and gives its subexponential hit-set
+and stipulated-population vanishing-fraction conclusions. If
+\(T(k)=k^{O(1)}\), the model cannot hide a superpolynomial-bit formal exponent
+at polynomial multiplication cost.
+
+\claimstatus{REF-006}{REFUTED}. Inside DEF-010, the short descriptor
+\[
+\operatorname{tower}(s)=2^{2^s}
+\]
+does not make exact formal evaluation polynomial in \(s\). BAR-005 requires
+at least \(2^s\) multiplications, and repeated squaring attains exactly that
+count.
+
+Appendix \ref{proof:BAR-005} supplies the complete elementary proof. No
+literature-novelty claim is made; the contribution here is the explicitly
+scoped application to BAR-004. The result concerns exact formal-exponent
+realization, not the shortest computation of an equal residue for a fixed
+\(N,g\). It makes no conclusion for \(T(k)\not=o(k\log k)\), richer algebraic
+representations, promise recognition, natural density, or general factoring.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -662,6 +734,11 @@ Explicit multiplicative family &
 Exact candidate semantics and recursive failure propagation &
 Polynomial only if construction, cardinalities, exponent lengths, evaluation,
 and recursive success are all polynomial in \(\log N\) \\
+\addlinespace
+Multiplication straight-line family &
+Exact formal exponents and shared same-base multiplication DAGs &
+\(t\) nodes use \(O(t\log(t+1))\) descriptor bits and \(t\) modular
+multiplications; no fixed-modulus or richer-operation lower bound \\
 \addlinespace
 Semismooth randomized splitter &
 Complete Las Vegas factorization on the hereditary promise class &
@@ -754,6 +831,10 @@ EXP-0007 & 987 exponent families; 25 odd primes through 101 &
 EXP-0008 & Every \(1\le d<2^{18}\); direct primes through 4093 &
 262,143 divisor budgets; 2,306,048 direct hit-oracle checks; 987
 record-family bounds; 46 differential checks \\
+\addlinespace
+EXP-0009 & All 1,587,600 seven-node programs; tower levels through 16 &
+1,647,202 exponent-growth and residue checks; 17 tower checks;
+24 differential checks \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -801,6 +882,14 @@ The largest observed single-exponent hit set had 114 odd primes at
 finite observations do not establish budget tightness, asymptotic behavior,
 compressed-representation behavior, a natural density, or novelty.
 
+\claimstatus{EMP-009}{EMPIRICAL}. In EXP-0009, all 1,647,202 constructed
+nodes satisfied the exponent-growth bound and direct residue semantics.
+Every depth through seven attained \(2^t\); all 17 tower levels through
+\(s=16\) matched the exact lower bound and repeated-squaring construction;
+and 24 selected Python/Rust/C\# comparisons agreed. These finite syntax and
+residue checks do not establish an asymptotic, richer-model, density, novelty,
+or factoring claim.
+
 These observations audit implementations and minimize counterexamples. The
 universal statements in this paper are supplied by proofs, not extrapolation
 from the table.
@@ -846,6 +935,14 @@ cover compressed or batched implicit families, adaptive factor-dependent
 choices, \(L(k)\not=o(k\log k)\), exponentially many explicit exponents, or
 other algebraic mechanisms, and is not a factoring lower bound.
 
+BAR-005 closes one of those compressed cases only. It charges every node in a
+factor-oblivious multiplication-only same-base DAG and tracks exact formal
+exponents. It is not a lower bound for computing an equal residue at one fixed
+modulus and base, for inversion or addition-subtraction chains, for special
+endomorphisms, for adaptive factor-revealing branches, or for another
+explicitly costed algebraic model. It also leaves the
+\(\Theta(k\log k)\)-node boundary open.
+
 The authoritative Rust layer is bounded to \texttt{u64}; validation primality
 uses trial division and is not itself the polynomial-time procedure imported
 in EXT-001. The literature set is sufficient for the technical statements
@@ -853,9 +950,10 @@ used here but is not a comprehensive current-state-of-the-art survey.
 
 The main open problems are the two explicit universal constructor questions
 in OPEN-002 and OPEN-003, recognition of the combined hereditary promise
-without access to the factorization, and whether one rigorously specified
-compressed or \(L(k)\not=o(k\log k)\) exponent representation can escape
-BAR-004 while preserving polynomial construction and evaluation cost.
+without access to the factorization, whether a
+\(\Theta(k\log k)\)-node factor-oblivious schedule has enough divisor
+structure for a nonvanishing combined-promise guarantee, and whether a richer
+explicitly costed representation can escape both BAR-004 and BAR-005.
 
 \section{Conclusion}
 
@@ -874,14 +972,18 @@ a polynomial-size explicit list with \(o(k\log k)\)-bit members has a
 subexponential global hit set, so its promised fraction vanishes on every
 stipulated exponentially large common-input-length prime population. Merely
 making an exponent numerically larger than the factors does not help unless
-the required \(p\pm1\) divisor structure is present.
+the required \(p\pm1\) divisor structure is present. Nor does short symbolic
+syntax alone help in DEF-010: formal exponent bit length grows by at most one
+per charged multiplication, so the tower descriptor \(2^{2^s}\) still costs
+exactly \(2^s\) multiplications.
 
 These results do not resolve general classical factoring. They replace
 plausible shortcuts with exact obligations: recognizable or explicitly
 promised input structure, injective rather than merely nonempty signatures,
 genuinely nonsplit rather than conjugately re-encoded group parameters, and
 divisor-rich schedules whose representation, construction, and evaluation
-costs are all accounted for.
+costs are all accounted for. The exact \(\Theta(k\log k)\) straight-line
+boundary remains a research target, not a claimed escape or obstruction.
 
 \appendix
 
@@ -1387,6 +1489,56 @@ The assumptions \(|S_k|\ge2^{\alpha k}\) and
 No existence or distribution assertion about the stipulated sets \(S_k\)
 is used. \(\square\)
 
+\section{Full proof of the multiplication straight-line compression barrier}
+
+\subsection{Proof of BAR-005}\label{proof:BAR-005}
+
+The residue identity follows by induction. At node zero it is the definition.
+If it holds for all earlier nodes, then
+\[
+x_i
+=x_{a_i}x_{b_i}
+=g^{e_{a_i}}g^{e_{b_i}}
+=g^{e_{a_i}+e_{b_i}}
+=g^{e_i}\pmod N.
+\]
+
+For exponent growth, \(e_0=1=2^0\). Both parents of node \(i\) have indices
+at most \(i-1\), so the induction hypothesis gives
+\[
+e_i=e_{a_i}+e_{b_i}
+\le2^{a_i}+2^{b_i}
+\le2^{i-1}+2^{i-1}
+=2^i.
+\]
+Thus a \(t\)-multiplication program that realizes formal exponent \(d\) has
+\(d\le2^t\), hence
+\[
+t\ge\lceil\log_2d\rceil\ge\ell(d)-1.
+\]
+Repeated squaring chooses \((a_i,b_i)=(i-1,i-1)\) and attains
+\(e_i=2^i\), proving tightness for powers of two.
+
+Only the \(t+1\) existing nodes are available as outputs. Summing charged
+nodes across a fixed number of initial-base programs gives
+\[
+E(k)\le T(k)+O(1),\qquad L(k)\le T(k)+1.
+\]
+When \(T(k)=o(k\log k)\), the first quantity is polynomially bounded and the
+second is \(o(k\log k)\), so substitution into BAR-004 proves the stated
+hit-set and stipulated-population consequences. When \(T(k)=k^{O(1)}\), the
+displayed bit-length bound excludes a superpolynomial-bit formal exponent.
+
+Finally,
+\[
+\log_2\operatorname{tower}(s)
+=\log_2(2^{2^s})
+=2^s.
+\]
+The lower bound therefore requires \(2^s\) multiplications, while that many
+repeated squarings attain the target. This proves REF-006 inside DEF-010.
+\(\square\)
+
 \section{Reproduction appendix}
 
 The evidence implementation state preceding M6 is commit
@@ -1398,8 +1550,11 @@ core is commit
 promise implementation and proof core is commit
 \texttt{\seqsplit{bc8b25222823e06830530eac3962271c6d14a7ca}}. The M9
 exponent-encoding barrier implementation and proof core is commit
-\texttt{\seqsplit{1416d70a6bc39a4c7491e9ec86e4e67f96293962}}. The Windows AMD64
-environment and exact toolchains are recorded in
+\texttt{\seqsplit{1416d70a6bc39a4c7491e9ec86e4e67f96293962}}. The M10
+multiplication straight-line compression implementation and proof core is
+commit
+\texttt{\seqsplit{5501d2d1d2a6a5c584fdc03f905e9a36a6054733}}. The Windows
+AMD64 environment and exact toolchains are recorded in
 \path{research/toolchains/windows-amd64-20260725.json}.
 
 The registered experiment cores and canonical summary hashes are:
@@ -1425,7 +1580,10 @@ The registered experiment cores and canonical summary hashes are:
   \texttt{\seqsplit{fb2f861f1670c3e4f68a0e8b461f430e7e10eeb966d9f5bec48886c810dd6cd3}};
 \item EXP-0008, core
   \texttt{\seqsplit{1416d70a6bc39a4c7491e9ec86e4e67f96293962}}, hash
-  \texttt{\seqsplit{b8357f9436ef4d31d072f62dab4f3c8dedad41d6f1787803bf5df2f485ca53ed}}.
+  \texttt{\seqsplit{b8357f9436ef4d31d072f62dab4f3c8dedad41d6f1787803bf5df2f485ca53ed}};
+\item EXP-0009, core
+  \texttt{\seqsplit{5501d2d1d2a6a5c584fdc03f905e9a36a6054733}}, hash
+  \texttt{\seqsplit{67508cf957fa356350a707a58f1079aebcea4f02481ff826cd5ed09727d210fa}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -1473,14 +1631,18 @@ python scripts/run_m9_divisor_budget_search.py `
   --bit-length-max 18 --direct-exponent-max 4096 `
   --prime-max 4093
 python scripts/check_m9_divisor_budget_differential.py
+python scripts/run_m10_compressed_exponent_search.py `
+  --step-max 7 --descriptor-level-max 16
+python scripts/check_m10_compressed_exponent_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
 
 The searches use no random seed. The randomized theorems are validated by
 exact successful-residue enumeration in EXP-0003 and exact parameter
-enumeration in EXP-0006 rather than by unrecorded random runs. EXP-0007 and
-EXP-0008 are deterministic combinatorial enumerations. Large raw
+enumeration in EXP-0006 rather than by unrecorded random runs. EXP-0007,
+EXP-0008, and EXP-0009 are deterministic combinatorial or syntax
+enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.

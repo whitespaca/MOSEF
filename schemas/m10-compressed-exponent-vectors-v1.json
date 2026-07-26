@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "program_vectors": [
+    {
+      "base": 7,
+      "modulus": 91,
+      "steps": [[0, 0]],
+      "exponents": [1, 2],
+      "residues": [7, 49]
+    },
+    {
+      "base": 11,
+      "modulus": 143,
+      "steps": [[0, 0], [1, 0], [2, 2], [3, 1]],
+      "exponents": [1, 2, 3, 6, 8],
+      "residues": [11, 121, 44, 77, 22]
+    },
+    {
+      "base": 5,
+      "modulus": 77,
+      "steps": [[0, 0], [1, 1], [2, 0], [3, 2]],
+      "exponents": [1, 2, 4, 5, 9],
+      "residues": [5, 25, 9, 45, 20]
+    },
+    {
+      "base": 2,
+      "modulus": 561,
+      "steps": [[0, 0], [1, 1], [2, 2], [3, 3], [4, 4], [5, 5]],
+      "exponents": [1, 2, 4, 8, 16, 32, 64],
+      "residues": [2, 4, 16, 256, 460, 103, 511]
+    }
+  ],
+  "lower_bound_vectors": [
+    {"exponent": 1, "minimum_multiplications": 0},
+    {"exponent": 2, "minimum_multiplications": 1},
+    {"exponent": 3, "minimum_multiplications": 2},
+    {"exponent": 8, "minimum_multiplications": 3},
+    {"exponent": 255, "minimum_multiplications": 8},
+    {"exponent": 256, "minimum_multiplications": 8},
+    {"exponent": 65536, "minimum_multiplications": 16},
+    {"exponent": 4294967296, "minimum_multiplications": 32}
+  ]
+}

@@ -1,9 +1,11 @@
 use mosef_arithmetic::{
     analyze_divisor_cover, batch_gcd, combined_promise_asymmetry, combined_promise_hit_count,
     combined_promise_signature, divisor_count, evaluate_lucas_separator_candidate,
-    evaluate_separator_candidate, is_prime, lucas_v, mod_pow, perfect_power, pollard_p_minus_one,
-    pollard_p_plus_one, pollard_rho, semismooth_factor, semismooth_successful_residue_count,
-    trial_division, CoverAnalysis, LucasSeparatorOutcome, SemismoothOutcome, SeparatorOutcome,
+    evaluate_multiplication_program, evaluate_separator_candidate,
+    generic_multiplication_lower_bound, is_prime, lucas_v, mod_pow, perfect_power,
+    pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
+    semismooth_successful_residue_count, trial_division, CoverAnalysis, LucasSeparatorOutcome,
+    SemismoothOutcome, SeparatorOutcome, StraightLineEvaluation,
 };
 use std::env;
 use std::process::ExitCode;
@@ -94,6 +96,42 @@ fn display_combined_signature(signature: &[(bool, bool)]) -> String {
         .map(|(minus, plus)| format!("{}{}", u8::from(*minus), u8::from(*plus)))
         .collect::<Vec<_>>()
         .join(",")
+}
+
+fn parse_steps(raw: String) -> Result<Vec<(usize, usize)>, String> {
+    if raw.is_empty() {
+        return Err("steps must be nonempty".to_owned());
+    }
+    raw.split(',')
+        .map(|step| {
+            let (left, right) = step
+                .split_once(':')
+                .ok_or_else(|| "each step must have left:right form".to_owned())?;
+            Ok((
+                left.parse::<usize>()
+                    .map_err(|error| format!("invalid left parent: {error}"))?,
+                right
+                    .parse::<usize>()
+                    .map_err(|error| format!("invalid right parent: {error}"))?,
+            ))
+        })
+        .collect()
+}
+
+fn display_straight_line(evaluation: StraightLineEvaluation) -> String {
+    let exponents = evaluation
+        .exponents
+        .iter()
+        .map(u64::to_string)
+        .collect::<Vec<_>>()
+        .join(",");
+    let residues = evaluation
+        .residues
+        .iter()
+        .map(u64::to_string)
+        .collect::<Vec<_>>()
+        .join(",");
+    format!("exponents:{exponents}|residues:{residues}")
 }
 
 fn run() -> Result<(), String> {
@@ -277,6 +315,22 @@ fn run() -> Result<(), String> {
             let value = parse_u64(arguments.next(), "value")?;
             divisor_count(value)
                 .ok_or_else(|| "value must be positive".to_owned())?
+                .to_string()
+        }
+        "multiplication-program" => {
+            let base = parse_u64(arguments.next(), "base")?;
+            let modulus = parse_u64(arguments.next(), "modulus")?;
+            let steps = parse_steps(arguments.next().ok_or_else(|| "missing steps".to_owned())?)?;
+            display_straight_line(
+                evaluate_multiplication_program(base, modulus, &steps).ok_or_else(|| {
+                    "modulus must be at least two and parents must be earlier nodes".to_owned()
+                })?,
+            )
+        }
+        "multiplication-lower-bound" => {
+            let exponent = parse_u64(arguments.next(), "exponent")?;
+            generic_multiplication_lower_bound(exponent)
+                .ok_or_else(|| "exponent must be positive".to_owned())?
                 .to_string()
         }
         _ => return Err(format!("unknown operation: {operation}")),

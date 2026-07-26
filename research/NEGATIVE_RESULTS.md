@@ -159,3 +159,26 @@
   \(L(k)\not=o(k\log k)\), exponentially many explicit exponents, compressed
   implicit evaluation, adaptive factor-dependent schedules, other algebraic
   channels, or a general classical factoring algorithm.
+
+## NR-007 - Compact tower syntax does not give compact multiplication-only evaluation
+
+- Date: 2026-07-26
+- Affected claim: `REF-006`, status `REFUTED`.
+- Exact hypothesis: inside DEF-010, the descriptor
+  \(\operatorname{tower}(s)=2^{2^s}\) makes exact formal evaluation of
+  \(g^{\operatorname{tower}(s)}\bmod N\) possible with a number of charged
+  multiplication nodes polynomial in \(s\).
+- Proof of failure: after \(t\) earlier-parent multiplication nodes, BAR-005
+  gives maximum formal exponent \(2^t\). Reaching \(2^{2^s}\) therefore needs
+  \(t\ge2^s\). Repeated squaring attains equality, so this is the exact cost
+  inside the model.
+- Deterministic search:
+  `python scripts/run_m10_compressed_exponent_search.py --step-max 7
+  --descriptor-level-max 16` checked 17 tower levels, including the
+  65,537-bit level-16 exponent and its 65,536 squarings. Summary hash:
+  `67508cf957fa356350a707a58f1079aebcea4f02481ff826cd5ed09727d210fa`.
+- Surviving boundary: this is not a lower bound for computing an equal residue
+  for a fixed modulus and base, for addition-subtraction chains, inversions,
+  special endomorphisms, adaptive factor branches, or another explicitly
+  costed algebraic representation. It does not address whether
+  \(\Theta(k\log k)\)-step schedules have useful divisor structure.

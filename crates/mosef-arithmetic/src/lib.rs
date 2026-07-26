@@ -511,6 +511,50 @@ pub fn divisor_count(value: u64) -> Option<u64> {
     Some(count)
 }
 
+/// Formal exponents and modular residues for a multiplication straight-line program.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct StraightLineEvaluation {
+    pub exponents: Vec<u64>,
+    pub residues: Vec<u64>,
+}
+
+/// Evaluate nodes starting from `g`, with every later node multiplying two parents.
+pub fn evaluate_multiplication_program(
+    base: u64,
+    modulus: u64,
+    steps: &[(usize, usize)],
+) -> Option<StraightLineEvaluation> {
+    if modulus < 2 {
+        return None;
+    }
+    let mut exponents = vec![1_u64];
+    let mut residues = vec![base % modulus];
+    for (node_index, (left, right)) in steps.iter().copied().enumerate() {
+        let available = node_index + 1;
+        if left >= available || right >= available {
+            return None;
+        }
+        exponents.push(exponents[left].checked_add(exponents[right])?);
+        residues.push(mul_mod(residues[left], residues[right], modulus));
+    }
+    Some(StraightLineEvaluation {
+        exponents,
+        residues,
+    })
+}
+
+/// Return `ceil(log2(exponent))`, the generic multiplication growth lower bound.
+pub fn generic_multiplication_lower_bound(exponent: u64) -> Option<u32> {
+    if exponent == 0 {
+        return None;
+    }
+    Some(if exponent == 1 {
+        0
+    } else {
+        u64::BITS - (exponent - 1).leading_zeros()
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -585,6 +629,28 @@ mod tests {
         assert_eq!(divisor_count(840), Some(32));
         assert_eq!(divisor_count(720_720), Some(240));
         assert_eq!(divisor_count(0), None);
+    }
+
+    #[test]
+    fn multiplication_program_tracks_formal_exponents_and_residues() {
+        let steps = [(0, 0), (1, 0), (2, 2), (3, 1)];
+        assert_eq!(
+            evaluate_multiplication_program(11, 143, &steps),
+            Some(StraightLineEvaluation {
+                exponents: vec![1, 2, 3, 6, 8],
+                residues: vec![11, 121, 44, 77, 22],
+            })
+        );
+        assert_eq!(evaluate_multiplication_program(2, 5, &[(0, 1)]), None);
+        assert_eq!(evaluate_multiplication_program(2, 1, &[]), None);
+    }
+
+    #[test]
+    fn multiplication_growth_lower_bound_is_exact_on_powers_of_two() {
+        assert_eq!(generic_multiplication_lower_bound(1), Some(0));
+        assert_eq!(generic_multiplication_lower_bound(3), Some(2));
+        assert_eq!(generic_multiplication_lower_bound(1 << 32), Some(32));
+        assert_eq!(generic_multiplication_lower_bound(0), None);
     }
 
     #[test]

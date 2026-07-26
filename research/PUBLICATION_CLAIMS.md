@@ -45,3 +45,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-004 | PROVED | Explicit-schedule exponent-encoding divisor barrier | `research/proofs/BAR-004-exponent-encoding-divisor-budget.md` |
 | REF-005 | REFUTED | Large exponent value as a coverage guarantee | `research/NEGATIVE_RESULTS.md` NR-006 |
 | EMP-008 | EMPIRICAL | Bounded exponent-encoding divisor audit | `research/experiments/EXP-0008-m9-divisor-budget.md` |
+| DEF-010 | DEFINITION | Factor-oblivious multiplication straight-line model | `research/proofs/BAR-005-multiplication-straight-line-compression.md` |
+| BAR-005 | PROVED | Multiplication straight-line compression barrier | `research/proofs/BAR-005-multiplication-straight-line-compression.md` |
+| REF-006 | REFUTED | Compact tower descriptor as compact evaluation | `research/NEGATIVE_RESULTS.md` NR-007 |
+| EMP-009 | EMPIRICAL | Bounded multiplication-program audit | `research/experiments/EXP-0009-m10-compressed-exponents.md` |

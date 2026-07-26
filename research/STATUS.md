@@ -1,5 +1,70 @@
 # Research Status
 
+## M10 outcome
+
+- Date: 2026-07-26.
+- Branch: `research/20260726-m10-straight-line-compression`.
+- Completed milestone: M10, a restricted multiplication straight-line
+  compression barrier.
+- `DEF-010` defines a factor-oblivious multiplication-only DAG with explicit
+  parent/output indices, exact formal exponents, charged construction, and
+  charged node-by-node modular evaluation.
+- `BAR-005` is `PROVED`: node \(i\) represents \(g^{e_i}\) with
+  \(e_i\le2^i\). Exact formal realization of \(g^d\) therefore needs at least
+  \(\lceil\log_2d\rceil\) multiplication nodes, tight for powers of two by
+  repeated squaring.
+- A common schedule with fixed initial-base count and total charged nodes
+  \(T(k)=o(k\log k)\) has \(E(k)\le T(k)+O(1)\) and
+  \(L(k)\le T(k)+1\), so BAR-004 still applies. Polynomial \(T(k)\) cannot
+  hide a superpolynomial-bit formal exponent in this model.
+- `REF-006` is `REFUTED`; NR-007 records that the compact descriptor
+  \(2^{2^s}\) requires exactly \(2^s\) charged multiplications inside
+  DEF-010.
+- EXP-0009 enumerated all 1,587,600 commutative seven-node programs and
+  checked 1,647,202 constructed nodes for exponent growth and direct residue
+  agreement. Seventeen tower levels and 24 Python/Rust/C# comparisons passed.
+  Its canonical summary SHA-256 is
+  `67508cf957fa356350a707a58f1079aebcea4f02481ff826cd5ed09727d210fa`.
+- Independent adversarial review reproduced the registered search, 5/5
+  focused unit tests, and 24/24 differential checks, then added 645,350 node
+  checks across 20,000 deterministic random programs, 200,000 arbitrary-\(d\)
+  lower-bound edge checks, and tower levels 0--20. Independent source-scope
+  review confirmed that the proof is elementary and needs no new citation.
+- Full validation passed: foundation and publication consistency (42 claims,
+  eight experiment hashes), 79 Python tests and bytecode compilation, Rust
+  format/Clippy/19 tests, C# Release restore/build with zero warnings or
+  errors, all registered M1--M10 searches and differential suites, and a clean
+  converged 25-page XeLaTeX build. Every page was rendered and visually
+  inspected; the stable PDF SHA-256 is
+  `5b64504d4bf18f2646defdcd512f4e2bd96c6b34cca5a03d7f874050a8acd0e0`.
+- Scope: BAR-005 concerns exact formal exponents in a factor-oblivious
+  multiplication-only same-base DAG. It is not a fixed-modulus residue,
+  generic-group, richer-algebraic, natural-density, recognizer, factoring, or
+  general lower-bound result, and it leaves
+  \(T(k)\not=o(k\log k)\) open.
+- 한국어 요약: 짧은 지수 표기만으로 계산 비용을 숨길 수는 없다. 이
+  곱셈 전용 모델에서는 곱셈 한 번마다 형식적 지수 길이가 최대 한
+  비트만 증가하며, 정확한 \(k\log k\) 경계는 다음 과제로 남는다.
+- Next selected milestone: M11, specify and test one divisor-rich
+  \(\Theta(k\log k)\)-node schedule family.
+
+## M10 execution snapshot
+
+- Date: 2026-07-26.
+- Branch: `research/20260726-m10-straight-line-compression`.
+- Completed milestone: M10.
+- Core implementation/proof commit:
+  `5501d2d1d2a6a5c584fdc03f905e9a36a6054733`.
+- Registered experiment commit:
+  `18f104fdb69b8fd96f5776796047487ef211f03a`.
+- Validated milestone completion commit:
+  `bd822de928ff14fd6ee0e270d50862591ee36918`.
+- Remote delivery: blocked by `BLK-012`; the policy-reviewed push attempt was
+  rejected because the user has not explicitly authorized external GitHub
+  egress for this new M10 payload.
+- Next selected milestone: M11, the exact
+  \(\Theta(k\log k)\) straight-line schedule boundary.
+
 ## M9 outcome
 
 - Branch: `research/20260726-m9-divisor-rich-schedules`.
