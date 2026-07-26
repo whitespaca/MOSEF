@@ -1,4 +1,4 @@
-"""Check that the M6 manuscript and claims ledger remain synchronized."""
+"""Check that the current manuscript and claims ledger remain synchronized."""
 
 from __future__ import annotations
 
@@ -29,6 +29,7 @@ REQUIRED_SECTIONS = (
     "A restricted semismooth-order theorem",
     "Difference coverage versus order separation",
     "A two-channel correlation barrier",
+    "A restricted nonsplit Lucas theorem",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -42,6 +43,8 @@ REQUIRED_PROOFS = (
     r"\label{proof:THM-001}",
     r"\label{proof:BAR-001}",
     r"\label{proof:BAR-002}",
+    r"\label{proof:LEM-003}",
+    r"\label{proof:THM-002}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -49,6 +52,7 @@ EXPERIMENT_RECORDS = (
     ROOT / "research" / "experiments" / "EXP-0003-m3-semismooth-search.md",
     ROOT / "research" / "experiments" / "EXP-0004-m4-difference-cover-search.md",
     ROOT / "research" / "experiments" / "EXP-0005-m5-multigroup-correlation.md",
+    ROOT / "research" / "experiments" / "EXP-0006-m7-nonsplit-lucas.md",
 )
 
 
@@ -178,7 +182,7 @@ def main() -> int:
     if errors:
         return 1
     print(
-        "M6 publication consistency: PASS "
+        "Publication consistency: PASS "
         f"({len(ledger)} claims, {len(EXPERIMENT_RECORDS)} experiment hashes)"
     )
     return 0

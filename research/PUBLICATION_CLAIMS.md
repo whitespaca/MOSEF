@@ -1,6 +1,6 @@
 # Publication Claim Matrix
 
-This matrix is the M6 bridge between `research/CLAIMS.md` and
+This matrix is the executable bridge between `research/CLAIMS.md` and
 `paper/main.tex`. It records every public claim exactly once. The executable
 gate `python scripts/check_publication.py` verifies ID and status agreement;
 the evidence and scope remain authoritative in the full claims ledger.
@@ -33,3 +33,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-002 | PROVED | Conjugate-channel correlation barrier | `research/proofs/BAR-002-conjugate-channel-correlation.md` |
 | REF-003 | REFUTED | Conjugate pairing as an independent channel | `research/NEGATIVE_RESULTS.md` NR-004 |
 | EMP-005 | EMPIRICAL | Bounded conjugate-channel audit | `research/experiments/EXP-0005-m5-multigroup-correlation.md` |
+| DEF-007 | DEFINITION | Hereditary nonsplit Lucas-asymmetry promise | `research/proofs/THM-002-nonsplit-lucas-promise.md` |
+| LEM-003 | PROVED | Exact Lucas root and nonsplit-parameter counts | `research/proofs/THM-002-nonsplit-lucas-promise.md` |
+| THM-002 | PROVED | Las Vegas factoring on the hereditary nonsplit promise class | `research/proofs/THM-002-nonsplit-lucas-promise.md` |
+| EMP-006 | EMPIRICAL | Bounded nonsplit Lucas theorem audit | `research/experiments/EXP-0006-m7-nonsplit-lucas.md` |

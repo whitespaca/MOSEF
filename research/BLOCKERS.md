@@ -126,3 +126,19 @@
 - Required resolution: the repository owner must explicitly authorize pushing
   this branch to `origin`. After a successful push, authenticate `gh` and
   create a draft pull request targeting `main`.
+
+## BLK-009 - M7 remote delivery requires explicit approval
+
+- First observed: 2026-07-26.
+- Scope: push `research/20260726-m7-nonsplit-lucas` and create its draft pull
+  request.
+- Evidence: the environment safety reviewer rejected
+  `git push -u origin research/20260726-m7-nonsplit-lucas` because publishing
+  the new theorem, proof, code, experiment, and manuscript to the configured
+  external GitHub remote requires explicit authorization for this payload.
+- Impact: M7 is validated and committed locally at
+  `0bf86f7d1668c2b60cccde69d398ef5e74c8af55`, but its branch is not pushed and
+  no M7 pull request exists.
+- Required resolution: the repository owner must explicitly authorize pushing
+  this M7 branch to `origin`. After a successful push, authenticate `gh` and
+  create a draft pull request targeting `main`.

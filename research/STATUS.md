@@ -1,5 +1,36 @@
 # Research Status
 
+## M7 outcome
+
+- Branch: `research/20260726-m7-nonsplit-lucas`.
+- Completed milestone: M7, a factorization-independent random-parameter
+  theorem on a hereditary nonsplit Lucas-asymmetry promise class.
+- `LEM-003` is `PROVED`:
+  \[
+  \#\{P\bmod q:V_d(P,1)=2\}
+  =\frac{\gcd(d,q-1)+\gcd(d,q+1)}2.
+  \]
+  Its proof also counts degenerate roots and the \((q-1)/2\) nonsplit
+  parameters without importing an uninspected finite-field lemma.
+- `DEF-007` records the hereditary factor-dependent promise
+  \(p+1\mid d,\ q+1\nmid d\). It is nonempty but is not recognized by the
+  algorithm.
+- `THM-002` is `PROVED`: fresh exact uniform \(P\bmod K\), with every
+  discriminant and sequence branch retained, gives a correct almost-sure
+  complete factorer with expected polynomial bit complexity on DEF-007 and
+  at least \(1/12\) success probability at each witness trial.
+- EXP-0006 checked 1,040 root formulas, 714 ordered witnesses, and 75,934
+  proved-event splits. The minimum proved-event probability was \(8/51\);
+  the summary SHA-256 is
+  `23ed0067d2ccb642c3676ff4ea3f5c34e1e622f6372626aa84377eac74b7d905`.
+- Independent adversarial review checked 2,481,900 additional root parameters
+  and 1,080 repeated-factor/multiprime event splits. Independent source review
+  approved the Williams/Lehmer boundary after repairs; neither the root count
+  nor THM-002 is attributed to Williams or claimed as a novelty result.
+- General classical polynomial-time factoring remains open. THM-002 supplies
+  no membership recognizer, density theorem, statistical independence claim,
+  or outside-promise termination guarantee.
+
 ## M6 outcome
 
 - Branch: `research/20260726-m6-publishable-manuscript`.
@@ -28,11 +59,16 @@
 ## Execution snapshot
 
 - Date: 2026-07-26.
-- Branch: `research/20260726-m6-publishable-manuscript`.
-- Completed milestone: M6.
-- Next selected milestone: M7, a factorization-independent nonsplit Lucas
-  parameter model with an exact joint-failure event and either a proved
-  restricted guarantee or a reproducible negative result.
+- Branch: `research/20260726-m7-nonsplit-lucas`.
+- Completed milestone: M7.
+- Core implementation/proof commit:
+  `171a3058c8a26b7d2e25641e8c35a9373c19bc06`.
+- Registered experiment commit:
+  `66040fb`.
+- Validated milestone completion commit:
+  `0bf86f7d1668c2b60cccde69d398ef5e74c8af55`.
+- Next selected milestone: M8, recognition or a rigorous density/barrier
+  result for the union of the hereditary \(p-1\) and \(p+1\) promise classes.
 
 ## M5 outcome
 
@@ -93,7 +129,7 @@
 ## Validation
 
 - `python scripts/validate_foundation.py`: PASS.
-- `python -m unittest discover -s tests -v`: PASS (51 tests).
+- `python -m unittest discover -s tests -v`: PASS (58 tests).
 - `python -m compileall -q python scripts tests`: PASS.
 - `python -m pytest`, Ruff, and mypy: unavailable under BLK-003; no dependency
   was added merely to hide the environment limitation.
@@ -112,17 +148,21 @@
   pair-profile checks, and 12 cross-language checks).
 - M5 registered search: PASS (9,773 families and 117,276 identity checks).
 - M5 Python/Rust/C# differential validation: PASS (18 checks).
-- `python scripts/check_publication.py`: PASS (26 claims and 4 registered
+- M7 registered search: PASS (1,040 root formulas, 714 witnesses, and 75,934
+  proved-event split checks).
+- M7 Python/Rust/C# differential validation: PASS (26 checks).
+- `python scripts/check_publication.py`: PASS (30 claims and 5 registered
   experiment hashes).
-- Independent M6 manuscript, proof, source, and reproducibility review: PASS;
-  no remaining release blocker.
+- Independent M7 proof and source-scope review: PASS after repairing the
+  \(p=3\) non-strict inequality, Legendre notation, finite-field cyclicity
+  proof, and Williams/Lehmer attribution.
 - `latexmk -xelatex -outdir=tmp/pdfs -interaction=nonstopmode -halt-on-error
   paper/main.tex`: PASS; the clean converged log has no warnings, undefined
   references or citations, and no overfull or underfull boxes.
-- Poppler render and page-by-page visual inspection: PASS (14 pages; no
+- Poppler render and page-by-page visual inspection: PASS (17 pages; no
   clipping, overlap, malformed mathematics, or broken claim labels).
 - Final PDF: `output/pdf/mosef-paper.pdf`, SHA-256
-  `c8b18cadede70968e783bdd1e44f1d27d213c7938b1da547838fa08889169c98`.
+  `c2d9f499fb1540468d54c192491e395ec710a65a1d59c6d36ba5b217c3b1b5a2`.
 
 ## Remote state, blockers, and next action
 
@@ -134,12 +174,16 @@
 - The M5 remote branch is now visible at
   `origin/research/20260726-m5-multigroup-correlation`; `gh` is not
   authenticated, so no M5 pull request was verified or created.
-- M6 local delivery is complete. The policy-required push attempt was rejected
-  because this exact new branch payload lacks explicit user authorization; see
-  BLK-008. No M6 pull request exists.
-- Next action: M7 should first define a factorization-independent nonsplit
-  Lucas parameter sampler and its exact joint-failure event, before any
-  bounded experiment is interpreted.
+- M6 local delivery is complete. Its branch is now visible at
+  `origin/research/20260726-m6-publishable-manuscript`; no M6 pull request was
+  verified or created.
+- M7 local research and publication validation are complete. The
+  policy-required push attempt was rejected because this exact new branch
+  payload lacks explicit authorization for external content egress; see
+  BLK-009. No M7 pull request exists.
+- Next action: M8 should define factorization-independent observables before
+  proposing a recognizer or input-density claim for the combined \(p-1\) and
+  \(p+1\) hereditary classes.
 
 ## 한국어 요약
 

@@ -1,6 +1,6 @@
 use mosef_arithmetic::{
     analyze_divisor_cover, batch_gcd, evaluate_lucas_separator_candidate,
-    evaluate_separator_candidate, is_prime, mod_pow, perfect_power, pollard_p_minus_one,
+    evaluate_separator_candidate, is_prime, lucas_v, mod_pow, perfect_power, pollard_p_minus_one,
     pollard_p_plus_one, pollard_rho, semismooth_factor, semismooth_successful_residue_count,
     trial_division, CoverAnalysis, LucasSeparatorOutcome, SemismoothOutcome, SeparatorOutcome,
 };
@@ -173,6 +173,17 @@ fn run() -> Result<(), String> {
                     "n must be at least 2 and exponent must be positive".to_owned()
                 })?,
             )
+        }
+        "lucas-root-count-direct" => {
+            let prime = parse_u64(arguments.next(), "prime")?;
+            let exponent = parse_u64(arguments.next(), "exponent")?;
+            if prime < 3 || prime % 2 == 0 || exponent == 0 {
+                return Err("prime must be odd and exponent positive".to_owned());
+            }
+            (0..prime)
+                .filter(|parameter| lucas_v(exponent, *parameter, prime) == Some(2 % prime))
+                .count()
+                .to_string()
         }
         "semismooth" => {
             let n = parse_u64(arguments.next(), "n")?;

@@ -60,6 +60,8 @@ internal static class Program
             "batch-gcd" when args.Length == 3 => RunBatchGcd(args),
             "separator" when args.Length == 4 => RunSeparator(args),
             "lucas-separator" when args.Length == 4 => RunLucasSeparator(args),
+            "lucas-root-count-direct" when args.Length == 3 =>
+                RunLucasRootCountDirect(args),
             "semismooth" when args.Length == 5 => RunSemismooth(args),
             "semismooth-success-count" when args.Length == 3 =>
                 RunSemismoothSuccessCount(args),
@@ -217,6 +219,25 @@ internal static class Program
             return $"simultaneous_collision|none|{residue}";
         }
         return $"factor|{factor}|{residue}";
+    }
+
+    private static string RunLucasRootCountDirect(string[] args)
+    {
+        int prime = ParsePositiveInt(args, 1, "prime");
+        int exponent = ParsePositiveInt(args, 2, "exponent");
+        if (prime < 3 || prime % 2 == 0)
+        {
+            throw new ArgumentException("prime must be odd");
+        }
+        int count = 0;
+        for (int parameter = 0; parameter < prime; parameter++)
+        {
+            if (LucasV(exponent, parameter, prime) == 2 % prime)
+            {
+                count++;
+            }
+        }
+        return count.ToString();
     }
 
     private static BigInteger LucasV(int index, BigInteger parameter, BigInteger modulus)
