@@ -45,7 +45,10 @@
   overfull/underfull boxes. All 56 pages were rendered and visually inspected.
   Stable PDF: `output/pdf/mosef-paper.pdf`, SHA-256
   `e7fe6d3d7c82b92a9c9cdbe5291295f9e019b22f63b75cf7bbc092f1a726d7b7`.
-- Commit and publication state are recorded after the validated core commit.
+- The validated M22 core is commit
+  `b0f678f0e576e5fc8be9b14f19f2e297ba5634d7`, pushed to
+  `origin/research/20260727-m22-symmetric-difference`. Draft PR #23 targets
+  `main`: `https://github.com/whitespaca/MOSEF/pull/23`.
 - Next action: M23 computes formal polynomial GCD patterns for unequal
   depth-two factors and general public coefficient pairs.
 
@@ -97,10 +100,9 @@ M22는 M21의 대칭 차이를 endpoint와 cofactor의 정확한 곱으로
   Stable PDF: `output/pdf/mosef-paper.pdf`, SHA-256
   `e934547a6b3d7eaabb5b7648a3feb77b4688e689c694eba36ceba8f222e2bde5`.
 - The validated M21 milestone commit is
-  `4128a320726c022d892aaf4ffb17349d322ccb2b`. Publication is blocked by
-  BLK-023: the local M21 branch is one commit ahead of its remote,
-  GitHub CLI is unauthenticated, and no M21 pull request was created or
-  verified.
+  `4128a320726c022d892aaf4ffb17349d322ccb2b`. It is an ancestor of
+  `origin/main`; PR #21 merged it at
+  `e2e5bea5f01424a605ddd2ff4e7824410b760b6d`.
 
 ### M21 Korean summary
 

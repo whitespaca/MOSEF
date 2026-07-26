@@ -410,6 +410,11 @@
 ## BLK-023 - M21 completion requires publication authorization and GitHub authentication
 
 - Date: 2026-07-27.
+- Resolved: 2026-07-27. The owner authenticated as `whitespaca`; the
+  validated M21 commit
+  `4128a320726c022d892aaf4ffb17349d322ccb2b` is an ancestor of
+  `origin/main`, and PR #21 merged at
+  `e2e5bea5f01424a605ddd2ff4e7824410b760b6d`.
 - Scope: publish the validated M21 completion on
   `research/20260727-m21-linear-combination` and create or update a draft pull
   request.
