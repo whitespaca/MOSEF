@@ -526,6 +526,17 @@ pub struct SignedStraightLineEvaluation {
     pub inversion_count: usize,
 }
 
+/// Materialized leaves and root data for a standard modular product tree.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct BatchProductEvaluation {
+    pub exponents: Vec<u64>,
+    pub leaf_residues: Vec<u64>,
+    pub leaf_gcds: Vec<u64>,
+    pub root_residue: u64,
+    pub root_gcd: u64,
+    pub multiplication_count: usize,
+}
+
 /// Evaluate nodes starting from `g`, with every later node multiplying two parents.
 pub fn evaluate_multiplication_program(
     base: u64,
@@ -609,6 +620,63 @@ pub fn evaluate_addition_subtraction_program(
         exponents,
         residues,
         inversion_count,
+    })
+}
+
+/// Materialize every `g^d - 1` leaf and combine them in a binary product tree.
+pub fn evaluate_batch_product(
+    base: u64,
+    modulus: u64,
+    exponents: &[u64],
+) -> Option<BatchProductEvaluation> {
+    if modulus < 2 || exponents.is_empty() || gcd(base % modulus, modulus) != 1 {
+        return None;
+    }
+    if exponents.iter().copied().any(|exponent| exponent == 0)
+        || exponents.windows(2).any(|pair| pair[0] >= pair[1])
+    {
+        return None;
+    }
+    let leaf_residues = exponents
+        .iter()
+        .copied()
+        .map(|exponent| {
+            mod_pow(base, exponent, modulus).map(|residue| {
+                if residue == 0 {
+                    modulus - 1
+                } else {
+                    residue - 1
+                }
+            })
+        })
+        .collect::<Option<Vec<_>>>()?;
+    let leaf_gcds = leaf_residues
+        .iter()
+        .copied()
+        .map(|residue| gcd(residue, modulus))
+        .collect::<Vec<_>>();
+    let mut current = leaf_residues.clone();
+    let mut multiplication_count = 0_usize;
+    while current.len() > 1 {
+        let mut following = Vec::with_capacity(current.len().div_ceil(2));
+        for pair in current.chunks(2) {
+            if pair.len() == 1 {
+                following.push(pair[0]);
+            } else {
+                following.push(mul_mod(pair[0], pair[1], modulus));
+                multiplication_count += 1;
+            }
+        }
+        current = following;
+    }
+    let root_residue = current[0];
+    Some(BatchProductEvaluation {
+        exponents: exponents.to_vec(),
+        leaf_residues,
+        leaf_gcds,
+        root_residue,
+        root_gcd: gcd(root_residue, modulus),
+        multiplication_count,
     })
 }
 
@@ -727,6 +795,27 @@ mod tests {
             evaluate_addition_subtraction_program(5, 77, &[(0, 0, 0)]),
             None
         );
+    }
+
+    #[test]
+    fn batch_product_materializes_leaves_and_can_mask_separators() {
+        assert_eq!(
+            evaluate_batch_product(2, 21, &[2, 3]),
+            Some(BatchProductEvaluation {
+                exponents: vec![2, 3],
+                leaf_residues: vec![3, 7],
+                leaf_gcds: vec![3, 7],
+                root_residue: 0,
+                root_gcd: 21,
+                multiplication_count: 1,
+            })
+        );
+        let odd = evaluate_batch_product(2, 35, &[1, 2, 3])
+            .expect("canonical unit-base batch must evaluate");
+        assert_eq!(odd.multiplication_count, 2);
+        assert_eq!(odd.root_residue, 21);
+        assert_eq!(evaluate_batch_product(5, 35, &[1]), None);
+        assert_eq!(evaluate_batch_product(2, 35, &[2, 2]), None);
     }
 
     #[test]

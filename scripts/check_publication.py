@@ -37,6 +37,7 @@ REQUIRED_SECTIONS = (
     "A factor-scale primorial barrier",
     "A general factor-scale boundary barrier",
     "An addition-subtraction compression barrier",
+    "A leaf-materialized implicit-batch barrier",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -59,6 +60,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-007}",
     r"\label{proof:BAR-008}",
     r"\label{proof:BAR-009}",
+    r"\label{proof:BAR-010}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -74,6 +76,7 @@ EXPERIMENT_RECORDS = (
     ROOT / "research" / "experiments" / "EXP-0011-m12-primorial-scale.md",
     ROOT / "research" / "experiments" / "EXP-0012-m13-general-factor-scale.md",
     ROOT / "research" / "experiments" / "EXP-0013-m14-addition-subtraction.md",
+    ROOT / "research" / "experiments" / "EXP-0014-m15-implicit-batch.md",
 )
 
 

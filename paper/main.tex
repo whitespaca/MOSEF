@@ -15,7 +15,7 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
-Two Restricted Theorems and Nine Structural Barriers}
+Two Restricted Theorems and Ten Structural Barriers}
 \author{MOSEF Research Program}
 \date{27 July 2026}
 
@@ -34,7 +34,7 @@ each complete schedule cycle at a promised residual node. We also prove an
 exact Lucas root-count formula and use fresh uniform, independently
 parameterized Lucas values to obtain a second Las Vegas theorem on a
 hereditary \(p+1\)-asymmetry promise, with at least \(1/12\) split probability
-at a witness trial. We prove nine structural barriers. Divisor
+at a witness trial. We prove ten structural barriers. Divisor
 coverage does not imply multiplicative-order separation; the exact missing
 condition is injectivity of divisibility signatures. A natural Lucas
 parameter map \(P=a+a^{-1}\) is also not an independent group channel:
@@ -71,7 +71,13 @@ This conclusion also survives explicitly charged same-base inversion:
 addition-subtraction programs have signed formal exponents of magnitude at
 most \(2^t\), negative exponents give the same GCD candidates as their
 absolute values, and zero gives only a full collision. Repeated squaring also
-shows that boundary node count alone is insufficient.
+shows that boundary node count alone is insufficient. Finally, a compact
+selector does not compress a standard product tree that materializes every
+selected leaf: \(n\) leaves require \(n-1\) internal multiplications. The
+aggregate GCD has an exact sum-of-valuations formula, cannot reveal a proper
+factor absent from every leaf, and may mask individual separators as a full
+collision. This final statement is not a lower bound for specialized
+arithmetic circuits without leaf materialization.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -128,14 +134,17 @@ algorithm. Its contributions are:
   \(O(k\log k)\) bits in a common polynomial-size explicit schedule;
 \item an addition-subtraction compression barrier: after a unit precheck,
   explicitly charged same-base products and ratios still expose only the
-  absolute values of signed \(O(k\log k)\)-bit formal exponents; and
+  absolute values of signed \(O(k\log k)\)-bit formal exponents;
+\item a leaf-materialized batch barrier: a standard \(n\)-leaf product tree
+  has \(n-1\) internal multiplications, its root cannot create a new proper
+  success, and aggregation may hide individual separators; and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
 
 The positive theorems are restricted: membership in their promise classes can
 depend on the unknown factorization and is not recognized by the algorithms.
-The nine barriers are also scoped: one concerns explicit order signatures,
+The ten barriers are also scoped: one concerns explicit order signatures,
 one concerns only \(P=a+a^{-1}\), and two concern a common explicit finite
 schedule under separate magnitude or encoding hypotheses. The fifth concerns
 only formal exponents in a factor-oblivious multiplication-only DAG. The sixth
@@ -143,8 +152,10 @@ exposes a coefficient threshold for stipulated populations but is silent at
 and above the critical coefficient before factor scale is imposed. The final
 two concern only \(O(k)\)-bit target factors and the stated explicit schedule
 model. The ninth covers only charged, factor-oblivious, same-base
-addition-subtraction programs on their unit branches. These boundaries are
-part of the results.
+addition-subtraction programs on their unit branches. The tenth concerns
+only selector-described standard product trees that materialize and charge
+every leaf, not specialized arithmetic circuits. These boundaries are part
+of the results.
 
 Section 2 records the imported complexity landscape. Sections 3 and 4 define
 candidate semantics and the recursive framework. Section 5 gives the first
@@ -154,7 +165,8 @@ Section 10 gives the exponent-encoding barrier, Section 11 gives the
 multiplication straight-line compression barrier, and Section 12 treats the
 exact boundary coefficient. Sections 13 and 14 give the primorial-specific
 and general factor-scale barriers. Section 15 treats charged same-base
-addition-subtraction programs. Later sections separate algorithms,
+addition-subtraction programs, and Section 16 treats leaf-materialized
+standard product trees. Later sections separate algorithms,
 experiments, and observations. Complete proofs and reproduction details appear in the
 appendices.
 
@@ -1012,6 +1024,57 @@ factor-dependent adaptation, special endomorphisms, unrelated multi-base
 expressions, other algebraic channels, population existence, natural
 density, or general factoring.
 
+\section{A leaf-materialized implicit-batch barrier}
+
+We next allow a compact selector to describe a finite exponent family, but
+require the standard product tree to enumerate and materialize every selected
+residue leaf.
+
+\claimstatus{DEF-015}{DEFINITION}. After the same direct base-GCD precheck,
+let \(\Delta=(d_1,\ldots,d_n)\) be strictly increasing and positive. Evaluation
+materializes
+\[
+r_i=g^{d_i}-1\pmod N
+\]
+for every selected exponent, then combines adjacent nodes in a binary product
+tree, carrying an odd unpaired node unchanged, until it obtains
+\[
+R=\prod_{i=1}^n r_i\pmod N.
+\]
+Selector enumeration, exponent encodings, every modular-power leaf and stored
+leaf, every internal multiplication and subtree product, requested outputs,
+GCDs, and factor extraction are charged.
+
+\claimstatus{BAR-010}{PROVED}. With \(\nu_p(0)=+\infty\) and
+\(N=\prod_{p^e\parallel N}p^e\),
+\[
+\gcd(R,N)=
+\prod_{p^e\parallel N}
+p^{\min\{e,\sum_i\nu_p(g^{d_i}-1)\}}.
+\]
+Therefore a proper root GCD implies that some individual leaf GCD is proper.
+The converse fails: for \(N=21\), \(g=2\), and
+\(\Delta=(2,3)\), the leaf GCDs are \(3\) and \(7\), while the root GCD is
+the full collision \(21\).
+
+An \(n\)-leaf binary product tree has exactly \(n-1\) internal
+multiplications, in addition to its \(n\) charged leaf evaluations and
+materializations. Hence polynomial total charged work permits only
+polynomially many materialized exponents. If, for each input length, the
+complete leaf list is also common and factorization-independent and its
+ordinary exponent lengths are \(O(k\log k)\), BAR-008 applies. Root
+aggregation can reduce GCD calls, but cannot enlarge the individual-leaf
+proper-success set and may shrink what one root GCD reveals.
+
+\claimstatus{REF-011}{REFUTED}. Compact selector syntax plus a standard
+leaf-materialized product tree does not test exponentially many exponents at
+polynomial charged cost.
+
+Appendix \ref{proof:BAR-010} gives the proof. The result does not establish a
+lower bound for a specialized arithmetic circuit computing the same formal
+product without materializing its leaves, nor for adaptive selectors, other
+channels, or general factoring.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -1039,6 +1102,11 @@ Exact signed formal exponents after a unit precheck &
 \(t\) nodes use \(O(t\log(t+1))\) descriptor bits, \(t\) multiplications,
 and at most \(t\) extended-GCD inversions; no implicit-batch or
 fixed-modulus lower bound \\
+\addlinespace
+Leaf-materialized product tree &
+Exact aggregate valuation and root-versus-leaf success semantics &
+\(n\) charged leaf evaluations and exactly \(n-1\) internal
+multiplications; no non-materializing arithmetic-circuit lower bound \\
 \addlinespace
 Semismooth randomized splitter &
 Complete Las Vegas factorization on the hereditary promise class &
@@ -1152,6 +1220,11 @@ EXP-0013 & Signed programs through six nodes; modulus/base/exponent boxes
 through \(512/32/64\) &
 2,403,786 node-growth checks; 190,344 residue checks; 646,400 sign-symmetry
 checks; 24 differential checks \\
+\addlinespace
+EXP-0014 & All nonempty subsets of \([10]\); moduli through 256; bases
+through 24 &
+3,821,928 batch checks; 1,333,349 proper-root implications; 850,538 masked
+separator batches; 10 differential checks \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1242,6 +1315,15 @@ These bounded syntax, residue, and GCD checks do not prove the asymptotic or
 support population, density, recognition, novelty, factoring, or
 broader-model claims.
 
+\claimstatus{EMP-014}{EMPIRICAL}. EXP-0014 completed 3,821,928 nonempty
+subset checks and 6,488,889 prime-power valuation-component checks. Every
+one of 1,333,349 proper root GCDs had a proper leaf GCD. Among 2,183,887
+batches with a proper leaf separator, 850,538 aggregated to the full
+collision. All 4,096 tree counts and 10 selected Python/Rust/C\# comparisons
+agreed. These finite observations do not prove the asymptotic transfer or
+establish a non-materializing circuit, population, density, recognition,
+novelty, factoring, or general lower-bound claim.
+
 These observations audit implementations and minimize counterexamples. The
 universal statements in this paper are supplied by proofs, not extrapolation
 from the table.
@@ -1311,6 +1393,14 @@ unrelated multi-base expressions, special endomorphisms, or other groups.
 Direct proper factors found by the precheck are separate algorithmic exits,
 not part of its factor-scale prime-signature count.
 
+BAR-010 closes only selector-described standard product trees that enumerate,
+evaluate, store, and charge every selected leaf. Its exact valuation identity
+and root-to-leaf implication do not bound a specialized arithmetic circuit
+that computes the same formal product without leaf materialization. The
+BAR-008 transfer separately requires \(O(k\log k)\)-bit exponents, a common
+factorization-independent schedule, fixed factor scale, and a stipulated
+population. Reducing GCD calls does not reduce the charged leaf construction.
+
 The authoritative Rust layer is bounded to \texttt{u64}; validation primality
 uses trial division and is not itself the polynomial-time procedure imported
 in EXT-001. The literature set is sufficient for the technical statements
@@ -1320,9 +1410,10 @@ The main open problems are the two explicit universal constructor questions
 in OPEN-002 and OPEN-003, recognition of the combined hereditary promise
 without access to the factorization, whether a non-primorial boundary family
 outside BAR-008's explicit-list model has a proved factor-scale
-\(d\pm1\) yield guarantee, and whether an explicitly charged implicit
-product/remainder-tree or arithmetic-circuit batch can test exponentially
-many factor-scale exponents without paying for their extraction.
+\(d\pm1\) yield guarantee, and whether a precisely defined specialized
+arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
+evaluate a sufficiently rich formal batch at polynomial total construction,
+evaluation, and extraction cost.
 
 \section{Conclusion}
 
@@ -1356,7 +1447,10 @@ capacity, multiplicity, support placement, nor node count alone supplies a
 prime-yield guarantee. Adding charged same-base ratios does not change this:
 signed exponent magnitude still grows by at most one bit per node, negative
 outputs duplicate their positive absolute exponents, and zero outputs give
-only full collisions.
+only full collisions. A compact selector also does not compress a standard
+leaf-materialized product tree: \(n\) leaves still require \(n-1\) internal
+multiplications, and a root GCD can mask but cannot create individual
+proper-factor success.
 
 These results do not resolve general classical factoring. They replace
 plausible shortcuts with exact obligations: recognizable or explicitly
@@ -1368,8 +1462,10 @@ boundary now has a subcritical coefficient obstruction and an explicit
 capacity witness. At factor scale, BAR-008 closes every fixed coefficient
 inside the common polynomial-size explicit schedule and stated DEF-010
 model, while BAR-009 extends the transfer to the charged same-base
-addition-subtraction unit branch. Implicit batches and other models remain
-research targets, not claimed factoring breakthroughs.
+addition-subtraction unit branch. BAR-010 closes the standard
+leaf-materialized product-tree case. Specialized non-materializing
+arithmetic circuits and other models remain research targets, not claimed
+factoring breakthroughs.
 
 \appendix
 
@@ -2256,6 +2352,43 @@ and BAR-003 gives the stipulated-population bound
 \(2^{-\alpha k+o(k)}\). The initial proper-factor GCD exit is a separate
 branch and is not used in this exponent-mediated count. \(\square\)
 
+\section{Full proof of the leaf-materialized implicit-batch barrier}
+
+\subsection{Proof of BAR-010}\label{proof:BAR-010}
+
+Choose integer representatives \(a_i=g^{d_i}-1\) and put
+\(A=\prod_i a_i\). Since the computed root satisfies \(R\equiv A\pmod N\),
+\(\gcd(R,N)=\gcd(A,N)\). For every \(p^e\parallel N\), the exponent of \(p\)
+in this GCD is
+\[
+\min\{e,\nu_p(A)\}
+=\min\{e,\sum_i\nu_p(a_i)\},
+\tag{30}
+\]
+with \(\nu_p(0)=+\infty\). Multiplication over the relatively prime exact
+prime-power factors of \(N\) proves the displayed formula.
+
+If the root GCD is proper, choose a prime \(p\) dividing it. Then \(p\)
+divides some \(a_j\), so \(\gcd(a_j,N)>1\). This leaf GCD cannot be \(N\):
+otherwise \(N\mid a_j\), hence \(N\mid A\), contradicting that the root GCD
+is proper. Thus the leaf GCD is proper. The converse fails at
+\((N,g,\Delta)=(21,2,(2,3))\), where the leaves \(3\) and \(7\) separately
+factor \(21\) but their product gives the full root collision.
+
+Begin with \(n\) components, one per materialized leaf. Every binary
+multiplication combines two components and decreases the component count by
+one. Reaching one root therefore requires exactly \(n-1\) multiplications;
+the adjacent-pair tree with odd carries attains the count. DEF-015 also
+charges all \(n\) leaf evaluations and materializations, irrespective of
+selector syntax, so polynomial total work forces \(n=k^{O(1)}\).
+
+If, for each input length, the complete materialized leaf list is additionally
+common and factorization-independent and every exponent has ordinary binary
+length \(O(k\log k)\), it meets BAR-008. Its hit-set and stipulated-population
+upper bounds follow. The proper-root implication shows that aggregation
+cannot add success, while the \(N=21\) witness shows it can mask success. No
+claim about a circuit without leaf materialization is used. \(\square\)
+
 \section{Reproduction appendix}
 
 The evidence implementation state preceding M6 is commit
@@ -2314,7 +2447,10 @@ The registered experiment cores and canonical summary hashes are:
   \texttt{\seqsplit{a564c00c8eaafad6f5be31d8705147578e6c86d9e6f42c6a9bacf3b0d93591d3}};
 \item EXP-0013, M14 milestone commit recorded in \path{research/STATUS.md},
   hash
-  \texttt{\seqsplit{7203d3fc6ee67d5af3984c2b5c1eefb1640275dccdecaf979fed645d2d0fbb7d}}.
+  \texttt{\seqsplit{7203d3fc6ee67d5af3984c2b5c1eefb1640275dccdecaf979fed645d2d0fbb7d}};
+\item EXP-0014, M15 milestone commit recorded in \path{research/STATUS.md},
+  hash
+  \texttt{\seqsplit{c4c3f20cc193dc90728d19fa5809d794d9ee07474fe093f12439cf3d16508529}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -2378,6 +2514,10 @@ python scripts/run_m14_addition_subtraction_search.py `
   --step-max 6 --residue-step-max 5 --modulus-max 512 `
   --base-max 32 --exponent-max 64
 python scripts/check_m14_addition_subtraction_differential.py
+python scripts/run_m15_implicit_batch_search.py `
+  --exponent-bound 10 --modulus-max 256 `
+  --base-max 24 --tree-leaf-max 4096
+python scripts/check_m15_implicit_batch_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -2385,7 +2525,7 @@ latexmk -xelatex -outdir=tmp/pdfs `
 The searches use no random seed. The randomized theorems are validated by
 exact successful-residue enumeration in EXP-0003 and exact parameter
 enumeration in EXP-0006 rather than by unrecorded random runs. EXP-0007
-through EXP-0013 are deterministic combinatorial or syntax
+through EXP-0014 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. The

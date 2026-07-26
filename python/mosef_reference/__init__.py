@@ -34,6 +34,11 @@ from .difference_cover import (
     signature_count_lower_bound,
     square_difference_cover,
 )
+from .implicit_batch import (
+    BatchProductEvaluation,
+    batch_tree_multiplication_count,
+    evaluate_batch_product,
+)
 from .multigroup import (
     ConjugatePairAnalysis,
     LucasCandidateKind,
@@ -114,6 +119,7 @@ __all__ = [
     "CandidateKind",
     "CandidateOutcome",
     "BoundaryDivisorBudget",
+    "BatchProductEvaluation",
     "BitLengthDivisorBudget",
     "CombinedDensityAnalysis",
     "FactorScaleDivisorBound",
@@ -136,6 +142,7 @@ __all__ = [
     "analyze_combined_density",
     "absolute_exponent_support",
     "batch_gcd",
+    "batch_tree_multiplication_count",
     "boundary_divisor_budget",
     "bit_length_divisor_budget",
     "capped_valuation_profile",
@@ -151,6 +158,7 @@ __all__ = [
     "evaluate_lucas_candidate",
     "evaluate_addition_subtraction_program",
     "evaluate_multiplication_program",
+    "evaluate_batch_product",
     "divisor_count",
     "exponent_bit_length",
     "factor_scale_divisor_bound",

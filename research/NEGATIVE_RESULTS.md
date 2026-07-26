@@ -266,3 +266,23 @@
   Implicit batches, modulus-specific shortcuts, adaptive factor-dependent
   choices, special endomorphisms, unrelated multi-base expressions, other
   groups, and general factoring remain open.
+
+## NR-012 - A compact selector does not compress materialized batch leaves
+
+- Date: 2026-07-27.
+- Status: `REFUTED` claim `REF-011`.
+- Hypothesis tested: a compact selector plus one aggregate root GCD might test
+  exponentially many same-base exponent candidates at polynomial charged cost
+  even when evaluated by a standard product tree.
+- Counterargument: DEF-015 enumerates, evaluates, stores, and charges every
+  selected leaf. An \(n\)-leaf binary tree has exactly \(n-1\) internal
+  multiplications, so polynomial total charged work forces polynomial \(n\).
+  The aggregate also does not add proper successes: a proper root GCD implies
+  a proper leaf GCD. It can lose them; \(N=21,g=2,\Delta=\{2,3\}\) has leaf
+  GCDs \(3,7\) but root GCD \(21\).
+- Evidence: BAR-010 and deterministic EXP-0014; independent adversarial and
+  source-scope review.
+- Scope: the selector-described standard tree with mandatory leaf
+  materialization. Specialized circuits that compute the formal or residue
+  product without materializing every leaf, adaptive factor-dependent
+  selectors, other channels, and general factoring remain open.

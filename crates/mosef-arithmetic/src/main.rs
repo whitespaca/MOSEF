@@ -1,11 +1,12 @@
 use mosef_arithmetic::{
     analyze_divisor_cover, batch_gcd, combined_promise_asymmetry, combined_promise_hit_count,
     combined_promise_signature, divisor_count, evaluate_addition_subtraction_program,
-    evaluate_lucas_separator_candidate, evaluate_multiplication_program,
+    evaluate_batch_product, evaluate_lucas_separator_candidate, evaluate_multiplication_program,
     evaluate_separator_candidate, generic_multiplication_lower_bound, is_prime, lucas_v, mod_pow,
     perfect_power, pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
-    semismooth_successful_residue_count, trial_division, CoverAnalysis, LucasSeparatorOutcome,
-    SemismoothOutcome, SeparatorOutcome, SignedStraightLineEvaluation, StraightLineEvaluation,
+    semismooth_successful_residue_count, trial_division, BatchProductEvaluation, CoverAnalysis,
+    LucasSeparatorOutcome, SemismoothOutcome, SeparatorOutcome, SignedStraightLineEvaluation,
+    StraightLineEvaluation,
 };
 use std::env;
 use std::process::ExitCode;
@@ -178,6 +179,25 @@ fn display_signed_straight_line(evaluation: SignedStraightLineEvaluation) -> Str
     format!(
         "exponents:{exponents}|residues:{residues}|inversions:{}",
         evaluation.inversion_count
+    )
+}
+
+fn display_batch_product(evaluation: BatchProductEvaluation) -> String {
+    let leaves = evaluation
+        .leaf_residues
+        .iter()
+        .map(u64::to_string)
+        .collect::<Vec<_>>()
+        .join(",");
+    let leaf_gcds = evaluation
+        .leaf_gcds
+        .iter()
+        .map(u64::to_string)
+        .collect::<Vec<_>>()
+        .join(",");
+    format!(
+        "leaves:{leaves}|root:{}|leaf_gcds:{leaf_gcds}|root_gcd:{}|multiplications:{}",
+        evaluation.root_residue, evaluation.root_gcd, evaluation.multiplication_count
     )
 }
 
@@ -385,6 +405,22 @@ fn run() -> Result<(), String> {
                         .to_owned()
                 })?,
             )
+        }
+        "batch-product" => {
+            let base = parse_u64(arguments.next(), "base")?;
+            let modulus = parse_u64(arguments.next(), "modulus")?;
+            let exponents = parse_csv_u64(
+                arguments
+                    .next()
+                    .ok_or_else(|| "missing exponents".to_owned())?,
+                "exponents",
+            )?;
+            display_batch_product(evaluate_batch_product(base, modulus, &exponents).ok_or_else(
+                || {
+                    "base must be a unit, modulus at least two, and exponents positive and increasing"
+                        .to_owned()
+                },
+            )?)
         }
         "multiplication-lower-bound" => {
             let exponent = parse_u64(arguments.next(), "exponent")?;
