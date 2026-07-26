@@ -3,7 +3,7 @@
 ## M22 execution snapshot
 
 - Date: 2026-07-27.
-- Branch: `research/20260727-m21-linear-combination`.
+- Branch: `research/20260727-m22-cancellation-criterion`.
 - Active question: can the signed quotient-stage cancellation exposed by M21
   yield a factorization-independent restricted-class theorem rather than
   isolated witnesses?
@@ -53,8 +53,11 @@
   overfull/underfull boxes. All 52 pages were rendered and visually inspected.
   Stable PDF: `output/pdf/mosef-paper.pdf`, SHA-256
   `e934547a6b3d7eaabb5b7648a3feb77b4688e689c694eba36ceba8f222e2bde5`.
-- The validated completion commit and publication state are recorded after
-  the local commit is created.
+- The validated M21 milestone commit is
+  `4128a320726c022d892aaf4ffb17349d322ccb2b`. Publication is blocked by
+  BLK-023: the local M21 branch is one commit ahead of its remote,
+  GitHub CLI is unauthenticated, and no M21 pull request was created or
+  verified.
 
 ### M21 Korean summary
 
