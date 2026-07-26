@@ -62,3 +62,19 @@
   commit `a1861b4f19ca645e9f6b6553396976105764f7d3`.
 - Impact: no M2 delivery blocker remains. M3 remote delivery is tracked
   separately only if its eventual push or draft pull request fails.
+
+## BLK-005 - M3 remote delivery requires explicit approval
+
+- First observed: 2026-07-26.
+- Scope: push `research/20260725-m3-semismooth-class` and create its draft pull
+  request.
+- Evidence: the environment safety reviewer rejected
+  `git push -u origin research/20260725-m3-semismooth-class` because publishing
+  the new theorem, code, experiment, and manuscript to the configured GitHub
+  remote is sensitive content egress and this payload lacks explicit user
+  authorization.
+- Impact: M3 is validated and committed locally at `2ccd608`, but the branch
+  has not been pushed and no M3 pull request exists.
+- Required resolution: the repository owner must explicitly authorize pushing
+  this M3 branch to `origin`. After a successful push, create a draft pull
+  request targeting `main` and mark this blocker resolved.

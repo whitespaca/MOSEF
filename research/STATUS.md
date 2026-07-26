@@ -79,9 +79,12 @@ M3 proves one restricted theorem and records one deterministic obstruction:
 
 - M2 pull request `https://github.com/whitespaca/MOSEF/pull/2` is merged into
   `main`; BLK-004 is resolved.
-- The M3 branch and commits are local until push/PR delivery is attempted.
-- Unresolved blocker: optional pytest/Ruff/mypy tools are unavailable; see
-  BLK-003. This does not block the dependency-free M3 correctness gates.
+- The M3 push was rejected by the environment safety reviewer because remote
+  content egress requires explicit authorization for this branch payload. The
+  commits remain local and no M3 pull request exists; see BLK-005.
+- Unresolved blockers: optional pytest/Ruff/mypy tools are unavailable
+  (BLK-003), and M3 remote delivery awaits explicit authorization (BLK-005).
+  Neither blocks the local M3 correctness gates.
 - Next action: M4 should formalize a factorization-independent natural
   difference-cover family, reconstruct its strongest primary-source support,
   and attempt to falsify the implication from divisor coverage to actual
