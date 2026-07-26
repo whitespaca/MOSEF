@@ -1,8 +1,7 @@
 # BAR-005 - Multiplication straight-line compression barrier
 
 Status: `PROVED` inside DEF-010's restricted model; bounded falsification and
-independent adversarial and source-scope review are required before milestone
-completion.
+independent adversarial and source-scope review passed on 2026-07-26.
 
 ## DEF-010 - exact representation and evaluation semantics
 
@@ -24,6 +23,17 @@ e_0=1,\qquad e_i=e_{a_i}+e_{b_i}.
 The representation cost and generic modular evaluation cost both charge every
 multiplication node. Parent indices and output indices are explicit. The
 program is independent of the unknown factors of \(N\).
+
+Using ordinary binary indices, the parent table occupies
+\(O(t\log(t+1))\) bits and an explicit output-index list occupies the same
+asymptotic space. Direct evaluation performs exactly \(t\) modular
+multiplications and retains at most \(t+1\) residues; with schoolbook
+arithmetic this is \(O(t(\log N)^2)\) bit operations and
+\(O(t\log N)\) bits of retained residue storage. Faster multiplication may
+improve this upper bound but does not change the charged node count.
+Constructing the program is polynomial only when its factor-oblivious parent
+and output tables can themselves be emitted in polynomial time; a short
+meta-description is not silently expanded for free.
 
 This model includes repeated squaring, ordinary addition chains, shared
 addition chains, and same-base multiplication DAGs. It excludes inversion,

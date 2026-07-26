@@ -1,31 +1,52 @@
 # Research Status
 
-## M10 execution plan
+## M10 outcome
 
 - Date: 2026-07-26.
 - Branch: `research/20260726-m10-straight-line-compression`.
-- Active milestone: M10.
-- Exact model under test: a factor-oblivious multiplication straight-line
-  program starts from one modular residue \(g\); every later node is the
-  product of two earlier nodes, and any existing node may be exposed as an
-  output. The associated formal exponent starts at one and is the sum of the
-  parent exponents at each multiplication.
-- Included mechanisms: repeated squaring, ordinary and shared addition
-  chains, and same-base multiplication DAGs.
-- Excluded mechanisms: factor-dependent or adaptive branches, inversion,
-  division, nonmultiplicative group operations, special field
-  endomorphisms, and any uncharged expansion of an implicit output family.
-- Falsification targets: search for a node whose exponent exceeds \(2^t\)
-  after \(t\) multiplications, a residue that disagrees with direct modular
-  exponentiation, or a compact power-tower descriptor evaluable below its
-  claimed generic multiplication lower bound.
-- Intended bounded outcome: either a counterexample to this cost model or a
-  restricted proof that descriptor compression alone cannot produce
-  superpolynomial-bit exponents in polynomially many generic modular
-  multiplications, followed by the exact consequence for BAR-004.
-- Baseline preflight passed: clean M9 tree, foundation validation,
-  publication consistency (38 claims and seven experiment hashes), and a
-  converged 22-page XeLaTeX build.
+- Completed milestone: M10, a restricted multiplication straight-line
+  compression barrier.
+- `DEF-010` defines a factor-oblivious multiplication-only DAG with explicit
+  parent/output indices, exact formal exponents, charged construction, and
+  charged node-by-node modular evaluation.
+- `BAR-005` is `PROVED`: node \(i\) represents \(g^{e_i}\) with
+  \(e_i\le2^i\). Exact formal realization of \(g^d\) therefore needs at least
+  \(\lceil\log_2d\rceil\) multiplication nodes, tight for powers of two by
+  repeated squaring.
+- A common schedule with fixed initial-base count and total charged nodes
+  \(T(k)=o(k\log k)\) has \(E(k)\le T(k)+O(1)\) and
+  \(L(k)\le T(k)+1\), so BAR-004 still applies. Polynomial \(T(k)\) cannot
+  hide a superpolynomial-bit formal exponent in this model.
+- `REF-006` is `REFUTED`; NR-007 records that the compact descriptor
+  \(2^{2^s}\) requires exactly \(2^s\) charged multiplications inside
+  DEF-010.
+- EXP-0009 enumerated all 1,587,600 commutative seven-node programs and
+  checked 1,647,202 constructed nodes for exponent growth and direct residue
+  agreement. Seventeen tower levels and 24 Python/Rust/C# comparisons passed.
+  Its canonical summary SHA-256 is
+  `67508cf957fa356350a707a58f1079aebcea4f02481ff826cd5ed09727d210fa`.
+- Independent adversarial review reproduced the registered search, 5/5
+  focused unit tests, and 24/24 differential checks, then added 645,350 node
+  checks across 20,000 deterministic random programs, 200,000 arbitrary-\(d\)
+  lower-bound edge checks, and tower levels 0--20. Independent source-scope
+  review confirmed that the proof is elementary and needs no new citation.
+- Full validation passed: foundation and publication consistency (42 claims,
+  eight experiment hashes), 79 Python tests and bytecode compilation, Rust
+  format/Clippy/19 tests, C# Release restore/build with zero warnings or
+  errors, all registered M1--M10 searches and differential suites, and a clean
+  converged 25-page XeLaTeX build. Every page was rendered and visually
+  inspected; the stable PDF SHA-256 is
+  `5b64504d4bf18f2646defdcd512f4e2bd96c6b34cca5a03d7f874050a8acd0e0`.
+- Scope: BAR-005 concerns exact formal exponents in a factor-oblivious
+  multiplication-only same-base DAG. It is not a fixed-modulus residue,
+  generic-group, richer-algebraic, natural-density, recognizer, factoring, or
+  general lower-bound result, and it leaves
+  \(T(k)\not=o(k\log k)\) open.
+- 한국어 요약: 짧은 지수 표기만으로 계산 비용을 숨길 수는 없다. 이
+  곱셈 전용 모델에서는 곱셈 한 번마다 형식적 지수 길이가 최대 한
+  비트만 증가하며, 정확한 \(k\log k\) 경계는 다음 과제로 남는다.
+- Next selected milestone: M11, specify and test one divisor-rich
+  \(\Theta(k\log k)\)-node schedule family.
 
 ## M9 outcome
 

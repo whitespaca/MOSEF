@@ -261,3 +261,31 @@
   exact divisor budget, or if a rigorously specified compressed evaluation
   model invalidates the explicit-list accounting while preserving polynomial
   construction and evaluation cost.
+
+## ADR-013 - Charge multiplication straight-line expansion
+
+- Date: 2026-07-26
+- Status: accepted
+- Context: BAR-004 deliberately leaves compressed or batched implicit exponent
+  families outside its explicit-list model. M10 needs one exact representation
+  and evaluation semantics before deciding whether syntax compression evades
+  the divisor barrier.
+- Alternatives: treat a short symbolic exponent as automatically cheap;
+  attempt a lower bound for every algebraic representation; or isolate the
+  multiplication-only same-base DAG used by repeated squaring and shared
+  addition chains.
+- Decision: adopt DEF-010. Charge every multiplication node, parent index, and
+  output index, track the exact formal exponent, and require the
+  factor-oblivious table constructor itself to run in polynomial time. Prove
+  only the elementary node-growth consequence and its internal transfer to
+  BAR-004.
+- Consequences: syntactic compression alone cannot hide a
+  superpolynomial-bit formal exponent at polynomial multiplication cost in
+  this model. If the total node count is \(o(k\log k)\), BAR-004 still applies.
+  The result says nothing at the \(\Theta(k\log k)\) boundary and is not a
+  modulus-specific modular-exponentiation, generic-group, general algebraic,
+  or factoring lower bound.
+- Rollback condition: revise the model or theorem if an exact earlier-parent
+  multiplication program violates \(e_i\le2^i\), or evaluate a separately
+  specified richer representation under its own explicit construction and
+  operation costs.

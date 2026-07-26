@@ -32,6 +32,7 @@ REQUIRED_SECTIONS = (
     "A restricted nonsplit Lucas theorem",
     "A combined-promise density barrier",
     "An exponent-encoding divisor barrier",
+    "A multiplication straight-line compression barrier",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -49,6 +50,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:THM-002}",
     r"\label{proof:BAR-003}",
     r"\label{proof:BAR-004}",
+    r"\label{proof:BAR-005}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -59,6 +61,7 @@ EXPERIMENT_RECORDS = (
     ROOT / "research" / "experiments" / "EXP-0006-m7-nonsplit-lucas.md",
     ROOT / "research" / "experiments" / "EXP-0007-m8-promise-density.md",
     ROOT / "research" / "experiments" / "EXP-0008-m9-divisor-budget.md",
+    ROOT / "research" / "experiments" / "EXP-0009-m10-compressed-exponents.md",
 )
 
 
