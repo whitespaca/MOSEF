@@ -1,5 +1,29 @@
 # Research Status
 
+## M23 execution snapshot
+
+- Date: 2026-07-27.
+- Branch: `research/20260727-m23-unequal-signed-reduction`.
+- Active question: do unequal depth-two factors or general public coefficient
+  pairs admit a compact algebraic reduction of signed quotient-stage success?
+- Dependency: M22 is complete on
+  `research/20260727-m22-symmetric-difference`; Draft PR #23 targets `main`.
+- First bounded task: compute exact formal polynomial GCD and divisibility
+  patterns for
+  \[
+  c_1S_A(X)+c_2S_B(X^A)
+  \]
+  over small unequal \(A,B\) and signed public coefficient pairs before
+  proposing any theorem.
+- Falsification priority: search for pairs having no shared endpoint or
+  cyclotomic factor yet producing new proper GCDs on repeated-prime and
+  square-free moduli. Any pattern inferred from finite enumeration remains
+  `EMPIRICAL` until an exact proof is recorded.
+- Acceptance target: an exact unequal-factor/coefficient grammar, polynomial
+  GCD or divisibility classification, total residue/valuation/construction/
+  extraction/formal-output accounting, independent implementation, and
+  adversarial review; a minimized obstruction is an acceptable outcome.
+
 ## M22 outcome
 
 - Date: 2026-07-27.
