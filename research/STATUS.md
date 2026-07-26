@@ -1,5 +1,32 @@
 # Research Status
 
+## M10 execution plan
+
+- Date: 2026-07-26.
+- Branch: `research/20260726-m10-straight-line-compression`.
+- Active milestone: M10.
+- Exact model under test: a factor-oblivious multiplication straight-line
+  program starts from one modular residue \(g\); every later node is the
+  product of two earlier nodes, and any existing node may be exposed as an
+  output. The associated formal exponent starts at one and is the sum of the
+  parent exponents at each multiplication.
+- Included mechanisms: repeated squaring, ordinary and shared addition
+  chains, and same-base multiplication DAGs.
+- Excluded mechanisms: factor-dependent or adaptive branches, inversion,
+  division, nonmultiplicative group operations, special field
+  endomorphisms, and any uncharged expansion of an implicit output family.
+- Falsification targets: search for a node whose exponent exceeds \(2^t\)
+  after \(t\) multiplications, a residue that disagrees with direct modular
+  exponentiation, or a compact power-tower descriptor evaluable below its
+  claimed generic multiplication lower bound.
+- Intended bounded outcome: either a counterexample to this cost model or a
+  restricted proof that descriptor compression alone cannot produce
+  superpolynomial-bit exponents in polynomially many generic modular
+  multiplications, followed by the exact consequence for BAR-004.
+- Baseline preflight passed: clean M9 tree, foundation validation,
+  publication consistency (38 claims and seven experiment hashes), and a
+  converged 22-page XeLaTeX build.
+
 ## M9 outcome
 
 - Branch: `research/20260726-m9-divisor-rich-schedules`.

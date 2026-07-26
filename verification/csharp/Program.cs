@@ -70,6 +70,10 @@ internal static class Program
             "combined-asymmetry" when args.Length == 4 => RunCombinedAsymmetry(args),
             "combined-hit-count" when args.Length == 3 => RunCombinedHitCount(args),
             "divisor-count" when args.Length == 2 => RunDivisorCount(args),
+            "multiplication-program" when args.Length == 4 =>
+                RunMultiplicationProgram(args),
+            "multiplication-lower-bound" when args.Length == 2 =>
+                RunMultiplicationLowerBound(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
         };
     }
@@ -196,6 +200,70 @@ internal static class Program
             count *= 2;
         }
         return count.ToString();
+    }
+
+    private static (int Left, int Right)[] ParseSteps(string raw)
+    {
+        if (string.IsNullOrEmpty(raw))
+        {
+            throw new ArgumentException("steps must be nonempty");
+        }
+        return raw.Split(',').Select(step =>
+        {
+            string[] parents = step.Split(':');
+            if (
+                parents.Length != 2
+                || !int.TryParse(parents[0], out int left)
+                || !int.TryParse(parents[1], out int right)
+            )
+            {
+                throw new ArgumentException("each step must have integer left:right form");
+            }
+            return (left, right);
+        }).ToArray();
+    }
+
+    private static string RunMultiplicationProgram(string[] args)
+    {
+        BigInteger value = Parse(args, 1, "base");
+        BigInteger modulus = Parse(args, 2, "modulus");
+        if (modulus < 2)
+        {
+            throw new ArgumentException("modulus must be at least two");
+        }
+        (int Left, int Right)[] steps = ParseSteps(args[3]);
+        List<BigInteger> exponents = [BigInteger.One];
+        List<BigInteger> residues = [((value % modulus) + modulus) % modulus];
+        for (int index = 0; index < steps.Length; index++)
+        {
+            (int left, int right) = steps[index];
+            int available = index + 1;
+            if (left < 0 || right < 0 || left >= available || right >= available)
+            {
+                throw new ArgumentException("parents must be earlier nodes");
+            }
+            exponents.Add(exponents[left] + exponents[right]);
+            residues.Add(residues[left] * residues[right] % modulus);
+        }
+        return $"exponents:{string.Join(",", exponents)}|"
+            + $"residues:{string.Join(",", residues)}";
+    }
+
+    private static string RunMultiplicationLowerBound(string[] args)
+    {
+        BigInteger exponent = Parse(args, 1, "exponent");
+        if (exponent < 1)
+        {
+            throw new ArgumentException("exponent must be positive");
+        }
+        int result = 0;
+        BigInteger capacity = BigInteger.One;
+        while (capacity < exponent)
+        {
+            capacity <<= 1;
+            result++;
+        }
+        return result.ToString();
     }
 
     private static string RunModPow(string[] args)
