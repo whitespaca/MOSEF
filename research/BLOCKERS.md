@@ -142,3 +142,20 @@
 - Required resolution: the repository owner must explicitly authorize pushing
   this M7 branch to `origin`. After a successful push, authenticate `gh` and
   create a draft pull request targeting `main`.
+
+## BLK-010 - M8 remote delivery requires explicit approval
+
+- First observed: 2026-07-26.
+- Scope: push `research/20260726-m8-promise-recognition` and create its draft
+  pull request.
+- Evidence: the environment safety reviewer rejected
+  `git push --set-upstream origin
+  research/20260726-m8-promise-recognition` because publishing the new
+  barrier proof, implementations, experiment, ledgers, and manuscript to the
+  configured external GitHub remote requires explicit authorization for this
+  M8 payload.
+- Impact: M8 is validated and committed locally at `eb3776d`, but its branch
+  is not pushed and no M8 pull request exists.
+- Required resolution: the repository owner must explicitly authorize pushing
+  this M8 branch to `origin`. After a successful push, authenticate `gh` and
+  create a draft pull request targeting `main`.

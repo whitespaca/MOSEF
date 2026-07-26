@@ -110,6 +110,9 @@
   `a4895df3c0cf4de54b59932acf9f2e4ecbef2463`.
 - Validated milestone completion commit:
   `3e2018616e6ac63e8f8632e42f65d34c22c00f90`.
+- Remote delivery: blocked by `BLK-010`; the policy-reviewed push attempt was
+  rejected because this new M8 payload lacks explicit authorization for
+  external GitHub egress.
 - Next selected milestone: M9, explicit divisor-rich schedules with
   polynomial-bit-length exponent values outside BAR-003's magnitude regime.
 
