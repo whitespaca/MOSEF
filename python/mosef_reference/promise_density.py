@@ -22,6 +22,17 @@ class CombinedDensityAnalysis:
     square_root_hit_bound: int
 
 
+@dataclass(frozen=True)
+class BitLengthDivisorBudget:
+    """Exact integer parameters for the BAR-004 bit-length divisor budget."""
+
+    bit_length: int
+    split_threshold: int
+    large_multiplicity_bound: int
+    one_length_bound: int
+    monotone_bound: int
+
+
 def _normalized_exponents(exponents: tuple[int, ...] | list[int]) -> tuple[int, ...]:
     """Return a sorted, duplicate-free positive exponent family."""
     normalized = tuple(sorted(set(exponents)))
@@ -93,6 +104,77 @@ def divisor_count(value: int) -> int:
         if value % divisor == 0:
             count += 1 if divisor * divisor == value else 2
     return count
+
+
+def exponent_bit_length(value: int) -> int:
+    """Return the ordinary unsigned binary representation length."""
+    if isinstance(value, bool) or value <= 0:
+        raise ValueError("value must be positive")
+    return value.bit_length()
+
+
+def _one_length_divisor_budget(bit_length: int) -> tuple[int, int, int]:
+    """Return ``(threshold, large multiplicity, B(bit_length))`` exactly."""
+    if isinstance(bit_length, bool) or bit_length <= 0:
+        raise ValueError("bit_length must be positive")
+    threshold = isqrt(bit_length)
+    large_base = threshold + 1
+    limit = 1 << bit_length
+    power = 1
+    large_multiplicity = 0
+    while power * large_base < limit:
+        power *= large_base
+        large_multiplicity += 1
+    bound = (bit_length + 1) ** threshold * (1 << large_multiplicity)
+    return threshold, large_multiplicity, bound
+
+
+def bit_length_divisor_budget(bit_length: int) -> BitLengthDivisorBudget:
+    """Return the exact BAR-004 budget and its monotone envelope."""
+    threshold, large_multiplicity, one_length_bound = (
+        _one_length_divisor_budget(bit_length)
+    )
+    monotone_bound = max(
+        _one_length_divisor_budget(current)[2]
+        for current in range(1, bit_length + 1)
+    )
+    return BitLengthDivisorBudget(
+        bit_length=bit_length,
+        split_threshold=threshold,
+        large_multiplicity_bound=large_multiplicity,
+        one_length_bound=one_length_bound,
+        monotone_bound=monotone_bound,
+    )
+
+
+def positive_divisors(value: int) -> tuple[int, ...]:
+    """Return every positive divisor in increasing order."""
+    if isinstance(value, bool) or value <= 0:
+        raise ValueError("value must be positive")
+    lower: list[int] = []
+    upper: list[int] = []
+    for divisor in range(1, isqrt(value) + 1):
+        if value % divisor != 0:
+            continue
+        lower.append(divisor)
+        paired = value // divisor
+        if paired != divisor:
+            upper.append(paired)
+    return tuple(lower + list(reversed(upper)))
+
+
+def global_hit_primes(
+    exponents: tuple[int, ...] | list[int],
+) -> tuple[int, ...]:
+    """Return every odd prime with a nonzero signature for the schedule."""
+    normalized = _normalized_exponents(exponents)
+    candidates: set[int] = set()
+    for exponent in normalized:
+        for divisor in positive_divisors(exponent):
+            for prime in (divisor - 1, divisor + 1):
+                if prime >= 3 and prime % 2 == 1 and is_prime(prime):
+                    candidates.add(prime)
+    return tuple(sorted(candidates))
 
 
 def hit_primes(

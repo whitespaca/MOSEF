@@ -159,3 +159,26 @@
 - Required resolution: the repository owner must explicitly authorize pushing
   this M8 branch to `origin`. After a successful push, authenticate `gh` and
   create a draft pull request targeting `main`.
+- Update observed during M9 preflight: the branch now tracks
+  `origin/research/20260726-m8-promise-recognition` at
+  `142e312727675625cbcefecf1cf6d6d47cec30cd`, so the branch-push portion is
+  resolved. GitHub CLI authentication remains absent, and no M8 pull request
+  was verified or created.
+
+## BLK-011 - M9 remote delivery requires explicit approval
+
+- First observed: 2026-07-26.
+- Scope: push `research/20260726-m9-divisor-rich-schedules` and create its
+  draft pull request.
+- Evidence: the environment safety reviewer rejected
+  `git push --set-upstream origin
+  research/20260726-m9-divisor-rich-schedules` because publishing the new
+  proof, implementations, experiment, ledgers, and manuscript to the
+  configured external GitHub remote requires explicit authorization for this
+  M9 payload. GitHub CLI also remains unauthenticated.
+- Impact: M9 is validated and committed locally at
+  `12f2172aaaca8016baccca109d28e0e7cbb8db98`, but its branch is not pushed and
+  no M9 pull request exists.
+- Required resolution: the repository owner must explicitly authorize
+  publishing this M9 branch to `origin`. After a successful push, authenticate
+  `gh` and create a draft pull request targeting `main`.
