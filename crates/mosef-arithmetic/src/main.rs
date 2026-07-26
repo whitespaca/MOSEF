@@ -2,12 +2,13 @@ use mosef_arithmetic::{
     analyze_divisor_cover, batch_gcd, combined_promise_asymmetry, combined_promise_hit_count,
     combined_promise_signature, divisor_count, evaluate_addition_subtraction_program,
     evaluate_batch_product, evaluate_dyadic_telescope, evaluate_geometric_sum,
-    evaluate_lucas_separator_candidate, evaluate_multiplication_program, evaluate_nested_quotient,
-    evaluate_product_dag, evaluate_separator_candidate, generic_multiplication_lower_bound,
-    is_prime, lucas_v, mod_pow, perfect_power, pollard_p_minus_one, pollard_p_plus_one,
-    pollard_rho, semismooth_factor, semismooth_successful_residue_count, trial_division,
-    BatchProductEvaluation, CoverAnalysis, DyadicDivisionStatus, DyadicTelescopeEvaluation,
-    GeometricDivisionStatus, GeometricSumEvaluation, LucasSeparatorOutcome,
+    evaluate_iterated_quotient, evaluate_lucas_separator_candidate,
+    evaluate_multiplication_program, evaluate_nested_quotient, evaluate_product_dag,
+    evaluate_separator_candidate, generic_multiplication_lower_bound, is_prime, lucas_v, mod_pow,
+    perfect_power, pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
+    semismooth_successful_residue_count, trial_division, BatchProductEvaluation, CoverAnalysis,
+    DyadicDivisionStatus, DyadicTelescopeEvaluation, GeometricDivisionStatus,
+    GeometricSumEvaluation, IteratedQuotientEvaluation, LucasSeparatorOutcome,
     NestedQuotientEvaluation, ProductDagEvaluation, SemismoothOutcome, SeparatorOutcome,
     SignedStraightLineEvaluation, StraightLineEvaluation,
 };
@@ -350,6 +351,41 @@ rational_status:{}|rational_quotient:{}|composed_status:{}|composed_quotient:{}"
     )
 }
 
+fn display_iterated_quotient(value: IteratedQuotientEvaluation) -> String {
+    let prefixes = value
+        .prefix_exponents
+        .iter()
+        .map(u64::to_string)
+        .collect::<Vec<_>>()
+        .join(",");
+    let stages = value
+        .stages
+        .iter()
+        .map(|stage| {
+            format!(
+                "{},{},{},{},{},{},{},{},{},{},{},{}",
+                stage.inner_power_residue,
+                stage.intermediate_residue,
+                stage.intermediate_gcd,
+                stage.quotient_residue,
+                stage.quotient_gcd,
+                stage.rational_numerator_residue,
+                stage.rational_numerator_gcd,
+                stage.composed_denominator_gcd,
+                stage.endpoint_gcd,
+                stage.multiplier_gcd,
+                display_division_status(stage.rational_division_status),
+                display_division_status(stage.composed_division_status),
+            )
+        })
+        .collect::<Vec<_>>()
+        .join(";");
+    format!(
+        "prefixes:{prefixes}|final_product:{}|final_prefix:{}|final_gcd:{}|stages:{stages}",
+        value.final_quotient_product_residue, value.final_prefix_residue, value.final_prefix_gcd,
+    )
+}
+
 fn run() -> Result<(), String> {
     let mut arguments = env::args().skip(1);
     let operation = arguments
@@ -613,6 +649,20 @@ fn run() -> Result<(), String> {
             display_nested_quotient(
                 evaluate_nested_quotient(base, modulus, inner_exponent, multiplier)
                     .ok_or_else(|| "invalid nested quotient or exponent overflow".to_owned())?,
+            )
+        }
+        "iterated-quotient" => {
+            let base = parse_u64(arguments.next(), "base")?;
+            let modulus = parse_u64(arguments.next(), "modulus")?;
+            let factors = parse_csv_u64(
+                arguments
+                    .next()
+                    .ok_or_else(|| "missing factors".to_owned())?,
+                "factors",
+            )?;
+            display_iterated_quotient(
+                evaluate_iterated_quotient(base, modulus, &factors)
+                    .ok_or_else(|| "invalid iterated quotient or exponent overflow".to_owned())?,
             )
         }
         "multiplication-lower-bound" => {

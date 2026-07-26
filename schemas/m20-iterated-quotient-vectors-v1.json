@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "iterated_quotient_vectors": [
+    {"base":2,"modulus":35,"factors":[2,3],"prefix_exponents":[1,2,6],"final_product":28,"final_prefix":28,"final_gcd":7},
+    {"base":2,"modulus":15,"factors":[2,2,3],"prefix_exponents":[1,2,4,12],"final_product":0,"final_prefix":0,"final_gcd":15},
+    {"base":2,"modulus":15,"factors":[4,5,2],"prefix_exponents":[1,4,20,40],"final_product":0,"final_prefix":0,"final_gcd":15},
+    {"base":1,"modulus":8,"factors":[2,2,2],"prefix_exponents":[1,2,4,8],"final_product":0,"final_prefix":0,"final_gcd":8},
+    {"base":7,"modulus":15,"factors":[1,2,3],"prefix_exponents":[1,1,2,6],"final_product":3,"final_prefix":3,"final_gcd":3},
+    {"base":2,"modulus":257,"factors":[17,3,2],"prefix_exponents":[1,17,51,102],"final_product":63,"final_prefix":63,"final_gcd":1}
+  ]
+}

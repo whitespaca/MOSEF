@@ -627,6 +627,17 @@ pub struct NestedQuotientEvaluation {
     pub composed_division_quotient: Option<u64>,
 }
 
+/// Stage-by-stage evaluation of a public geometric factor chain.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct IteratedQuotientEvaluation {
+    pub factors: Vec<u64>,
+    pub prefix_exponents: Vec<u64>,
+    pub stages: Vec<NestedQuotientEvaluation>,
+    pub final_quotient_product_residue: u64,
+    pub final_prefix_residue: u64,
+    pub final_prefix_gcd: u64,
+}
+
 /// Evaluate nodes starting from `g`, with every later node multiplying two parents.
 pub fn evaluate_multiplication_program(
     base: u64,
@@ -1043,6 +1054,45 @@ pub fn evaluate_nested_quotient(
     })
 }
 
+/// Evaluate every quotient in a public iterated geometric factor chain.
+pub fn evaluate_iterated_quotient(
+    base: u64,
+    modulus: u64,
+    factors: &[u64],
+) -> Option<IteratedQuotientEvaluation> {
+    if modulus < 2 || factors.is_empty() || factors.contains(&0) {
+        return None;
+    }
+    let mut prefix = 1_u64;
+    let mut prefix_exponents = vec![prefix];
+    let mut stages = Vec::with_capacity(factors.len());
+    let mut quotient_product = 1 % modulus;
+    let mut previous_numerator = None;
+    for factor in factors.iter().copied() {
+        let stage = evaluate_nested_quotient(base, modulus, prefix, factor)?;
+        if previous_numerator.is_some_and(|value| value != stage.intermediate_residue) {
+            return None;
+        }
+        quotient_product = mul_mod(quotient_product, stage.quotient_residue, modulus);
+        if quotient_product != stage.rational_numerator_residue {
+            return None;
+        }
+        previous_numerator = Some(stage.rational_numerator_residue);
+        prefix = prefix.checked_mul(factor)?;
+        prefix_exponents.push(prefix);
+        stages.push(stage);
+    }
+    let final_stage = stages.last()?;
+    Some(IteratedQuotientEvaluation {
+        factors: factors.to_vec(),
+        prefix_exponents,
+        final_quotient_product_residue: quotient_product,
+        final_prefix_residue: final_stage.rational_numerator_residue,
+        final_prefix_gcd: final_stage.rational_numerator_gcd,
+        stages,
+    })
+}
+
 /// Return `ceil(log2(exponent))`, the generic multiplication growth lower bound.
 pub fn generic_multiplication_lower_bound(exponent: u64) -> Option<u32> {
     if exponent == 0 {
@@ -1273,6 +1323,27 @@ mod tests {
         assert_eq!(full.intermediate_gcd, 15);
         assert_eq!(full.inner_power_residue, 1);
         assert_eq!(full.quotient_gcd, full.multiplier_gcd);
+    }
+
+    #[test]
+    fn iterated_quotient_links_prefixes_and_reduces_every_stage() {
+        let value = evaluate_iterated_quotient(2, 15, &[2, 2, 3]).expect("valid iterated quotient");
+        assert_eq!(value.prefix_exponents, vec![1, 2, 4, 12]);
+        assert_eq!(
+            value.final_prefix_residue,
+            value.final_quotient_product_residue
+        );
+        assert_eq!(value.stages[1].intermediate_gcd, 3);
+        assert_eq!(value.stages[1].quotient_gcd, 5);
+        assert_eq!(value.stages[1].rational_numerator_gcd, 15);
+
+        let full = evaluate_iterated_quotient(2, 15, &[4, 5, 2]).expect("valid full-prefix chain");
+        assert_eq!(full.stages[1].intermediate_gcd, 15);
+        assert_eq!(full.stages[1].quotient_gcd, full.stages[1].multiplier_gcd);
+
+        assert_eq!(evaluate_iterated_quotient(2, 15, &[]), None);
+        assert_eq!(evaluate_iterated_quotient(2, 15, &[2, 0]), None);
+        assert_eq!(evaluate_iterated_quotient(5, 15, &[2]), None);
     }
 
     #[test]
