@@ -1,8 +1,8 @@
 # BAR-006 - Constant-sensitive straight-line boundary barrier
 
 Status: `PROVED` inside DEF-008--DEF-011 and DEF-010's restricted
-multiplication-only model; independent adversarial and source-scope review
-pending.
+multiplication-only model; independent adversarial and source-scope reviews
+passed.
 
 ## DEF-011 - optimized exact divisor budget
 
@@ -190,7 +190,13 @@ positive divisor of a scheduled exponent. Therefore
 \]
 
 Taking binary logarithms, using (2)--(3), and observing that
-\(\log_2E(k)=O(\log k)=o(k)\) gives (4). BAR-003 bounds the promised-pair
+\(\log_2E(k)=O(\log k)=o(k)\) gives (4). For \(c>0\), this follows by
+substituting a monotone upper envelope
+\((c+o(1))k\log_2k\) into (2). For \(c=0\), use the BAR-004 case split:
+bounded \(L(k)\) is trivial; if \(L(k)\le k\), then
+\(\log_2R(L(k))=O(k/\log k)=o(k)\); and if \(L(k)>k\), then
+\(L(k)/\log_2L(k)\le L(k)/\log_2k=o(k)\).
+BAR-003 bounds the promised-pair
 fraction on \(S_k\) by the fraction of pairs meeting the hit set. Since
 \(|H(k)|/|S_k|\le2^{-(\alpha-c)k+o(k)}\), its exact pair bound gives (5).
 BAR-005 supplies the stated DEF-010 node and bit-length inequalities.

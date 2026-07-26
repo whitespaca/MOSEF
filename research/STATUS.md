@@ -1,28 +1,61 @@
 # Research Status
 
-## M11 active
+## M11 outcome
 
 - Date: 2026-07-26.
 - Branch: `research/20260726-m11-boundary-constant`.
-- Active milestone: M11, the exact \(\Theta(k\log k)\) multiplication
+- Completed milestone: M11, the exact \(\Theta(k\log k)\) multiplication
   straight-line boundary.
-- Baseline validation passed before edits: foundation and publication
-  consistency (42 claims and eight experiment hashes), plus a converged
-  25-page XeLaTeX build.
-- Selected proof target: optimize BAR-004's elementary small/large-prime split
-  to obtain the leading bound
-  \(\log_2\tau(d)\le(1+o(1))\ell(d)/\log_2\ell(d)\), then transfer its
-  constant to DEF-010 schedules and stipulated exponential prime populations.
-- Selected explicit boundary family: the product of the first \(r\) primes.
-  It has exactly \(2^r\) divisors and ordinary bit length
-  \(\Theta(r\log r)\); Rosser--Schoenfeld's inspected Theorem 3 corollary
-  supplies the explicit upper bound needed for construction accounting.
-- Falsification target: enumerate finite primorial schedules and separate
-  divisor capacity from actual prime hits of the form \(q\pm1\mid d\).
-  Finite prime yield will remain empirical unless a proof is supplied.
-- Planned deliverables: one constant-sensitive barrier proof, one registered
-  deterministic experiment, selected Python/Rust/C# comparisons, state and
-  manuscript synchronization, independent adversarial review, and full gates.
+- `DEF-011` gives an exact integer divisor budget whose monotone envelope
+  satisfies
+  \(\log_2 R(L)\le(1+o(1))L/\log_2L\).
+- `BAR-006` is `PROVED`: a polynomial-size common schedule with
+  \(L(k)\le(c+o(1))k\log_2k\) hits at most \(2^{ck+o(k)}\) odd primes.
+  On a supplied common-input-length population of size at least
+  \(2^{\alpha k}\), its promised-pair fraction therefore vanishes when
+  \(c<\alpha\). The \(c=0\) endpoint and the fixed-base DEF-010 transfer are
+  included explicitly.
+- The first-primes primorial \(P_r\) supplies an explicit boundary-capacity
+  family: \(\ell(P_r)=\Theta(r\log r)\), \(\tau(P_r)=2^r\), and ordinary
+  binary evaluation uses at most \(2\ell(P_r)-2\) multiplication nodes.
+  This does not supply an asymptotic prime-yield lower bound.
+- `REF-007` is `REFUTED`; NR-008 records that repeated squaring reaches the
+  boundary while its exposed exponent divisors remain only powers of two.
+- EXP-0010 checked all 262,143 positive exponents below \(2^{18}\), enumerated
+  all divisors and \(d\pm1\) candidates for the first 12 primorials, and
+  executed 1,777,936 exact trial divisions. At \(r=12\), the 43-bit exponent
+  had 4,096 divisors, 67 binary nodes, and 897 disjoint-channel prime hits
+  split 449/448. The canonical summary SHA-256 is
+  `22699f23a1421805cb472ddca1723e8d580d601cd25ca72b8b2cd134743e4f83`.
+- Independent adversarial review reproduced the seven focused tests,
+  registered experiment, 32 differential comparisons, and publication gate,
+  then added 10,000 exact-budget cases, 200,000 divisor-count cases,
+  primorial accounting through \(r=50\), and 131,054 channel checks through
+  \(r=16\). No mathematical defect was found, including in the \(c=0\)
+  transfer or stipulated-population scope.
+- Independent source review checked the official Rosser--Schoenfeld scan at
+  printed page 69 and confirmed equation (3.13), its strict inequality,
+  natural-log convention, and \(r\ge6\) hypothesis. The imported result is
+  used only for the primorial construction range; no prime-yield or novelty
+  statement is attributed to it.
+- Full validation passed: foundation and publication consistency (47 claims
+  and nine experiment hashes), 86 Python tests and bytecode compilation, Rust
+  format/Clippy/19 tests, C# Release build with zero warnings or errors, all
+  registered M1--M11 searches and differential suites, and a clean converged
+  28-page XeLaTeX build. Every page was rendered and visually inspected; the
+  stable PDF SHA-256 is
+  `bfd6a0f165c20dd5db0f7822d6b9decd253a96da26d295a157f799b6cdeba812`.
+- Optional third-party Python `pytest`, Ruff, and mypy gates remain unavailable
+  under BLK-003; dependency-free unit tests and compilation are the validated
+  Python substitutes in this environment.
+- Scope: BAR-006 is a hit-set upper bound for common
+  factorization-independent schedules on a supplied finite population. It
+  constructs no exponentially large common-input-length population, proves no
+  natural-density or prime-yield theorem, recognizes no promise class, and is
+  not a general algebraic or factoring lower bound.
+- Next selected milestone: M12, isolate whether an explicit critical or
+  supercritical boundary family admits a rigorously supported uniform
+  \(d\pm1\) prime-yield statement after population normalization.
 
 ## M10 outcome
 

@@ -49,3 +49,8 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-005 | PROVED | Multiplication straight-line compression barrier | `research/proofs/BAR-005-multiplication-straight-line-compression.md` |
 | REF-006 | REFUTED | Compact tower descriptor as compact evaluation | `research/NEGATIVE_RESULTS.md` NR-007 |
 | EMP-009 | EMPIRICAL | Bounded multiplication-program audit | `research/experiments/EXP-0009-m10-compressed-exponents.md` |
+| EXT-005 | PROVED | Imported explicit upper bound for the \(n\)-th prime | `research/literature/SRC-006-rosser-schoenfeld-primes.md` |
+| DEF-011 | DEFINITION | Constant-sensitive exact divisor budget | `research/proofs/BAR-006-boundary-constant.md` |
+| BAR-006 | PROVED | Exact-boundary hit-set coefficient barrier | `research/proofs/BAR-006-boundary-constant.md` |
+| REF-007 | REFUTED | Boundary node count as a sufficient guarantee | `research/NEGATIVE_RESULTS.md` NR-008 |
+| EMP-010 | EMPIRICAL | Bounded primorial-boundary audit | `research/experiments/EXP-0010-m11-boundary-schedule.md` |
