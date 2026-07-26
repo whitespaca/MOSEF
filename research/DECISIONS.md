@@ -110,3 +110,28 @@
 - Rollback condition: replace the randomized step only if a deterministic,
   factorization-independent base construction survives the same subgroup and
   bit-complexity review.
+
+## ADR-007 - Separate divisor coverage from order-signature injectivity
+
+- Date: 2026-07-26
+- Status: accepted
+- Context: M4 reconstructed a recent structured difference-set conjecture
+  whose premise covers each divisor, but a MOSEF exponent must distinguish
+  order supports rather than merely hit them.
+- Alternatives: treat an \(n\)-divisor set as an order separator; reject all
+  difference-cover ideas because one cover collides; state the exact
+  divisibility-signature condition and preserve the source algorithm's
+  different collision-resolution mechanism.
+- Decision: define \(\Sigma_\Delta(r)=\{d\in\Delta:r\mid d\}\). Treat
+  nonempty signatures as divisor coverage and injective signatures as the
+  exact universal distinct-order separator condition. Record
+  \(S=\{3\},T=\{1\}\) as the minimal coverage counterexample and the interval
+  difference family as a sufficient but exponential control construction.
+- Consequences: BAR-001 blocks only the unsupported implication from coverage
+  to support-POSF separation. It does not refute Umans--Wang, does not supply a
+  general factoring lower bound, and does not exclude compact batch
+  representations. M5 must state and measure each channel's actual signature
+  rather than use coverage as a proxy.
+- Rollback condition: revise the abstraction only if a stronger candidate
+  evaluation mechanism is defined with exact collision semantics and survives
+  the same proof and source-scope audit.
