@@ -1,5 +1,45 @@
 # Research Status
 
+## M19 active checkpoint
+
+- Date: 2026-07-27.
+- Branch: `research/20260727-m19-nested-quotient`.
+- Active milestone: M19, the cancellation-obscured two-stage identity
+  \[
+  S_{AB}(X)/S_A(X)=S_B(X^A).
+  \]
+- The draft `DEF-019` grammar and `BAR-014` proof now distinguish the rational
+  denominator \(S_A(g)\) from the composed denominator \(g^A-1\), give both
+  paths total unit/proper/full semantics, and charge construction, residue,
+  GCD, certificate, and expanded-output costs.
+- Two independent adversarial reviews passed after repairing the
+  residue-versus-GCD wording and the sparse/dense formal-output accounting.
+  The quotient has degree \(A(B-1)\), \(B\) nonzero monomials, and
+  \(A(B-1)+1\) dense coefficient positions.
+- EXP-0018 checked 144 symbolic identities, 6,084 coefficients, 177,264
+  modular circuits, and 354,528 residue identities. The rational-denominator
+  split was 120,444 unit, 46,932 proper, and 9,888 full cases; the composed
+  split was 74,028 unit, 66,936 proper, and 36,300 full cases. There were zero
+  unexplained reductions and all 12 selected Python/Rust/C# comparisons
+  agreed. Canonical summary SHA-256:
+  `a6d1bd1344b439901f3d40b9dc226fbcedcaba6886d07363461b0814db6aa2aa`.
+- Focused validation passed: six Python tests, the registered deterministic
+  audit, the 12-check cross-language differential validator, Rust formatting,
+  Clippy with warnings denied, 25 Rust tests, and the C# Release build with
+  zero warnings or errors.
+- Remaining completion work is to register `DEF-019`, `BAR-014`, `REF-015`,
+  and `EMP-018` in the claim and publication ledgers, update the decision and
+  negative-result records, integrate the result into the manuscript, and run
+  the complete publication and PDF gates.
+
+## Korean summary
+
+M19를 시작하여 중간 분모가 비가역원인 두 단계 기하급수 몫을 분석하고
+있습니다. 현재 증명 초안, 세 언어 구현, 결정적 탐색은 검토와 검증을
+통과했으며, 두 분모 경로 모두 새로운 숨은 추출 능력을 보이지
+않았습니다. 다만 이는 아직 ACTIVE 체크포인트이며, 주장 원장과 논문 및
+전체 출판 검증을 마쳐야 M19가 완료됩니다.
+
 ## M18 outcome
 
 - Date: 2026-07-27.
