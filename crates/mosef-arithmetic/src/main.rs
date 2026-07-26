@@ -1,8 +1,8 @@
 use mosef_arithmetic::{
-    analyze_divisor_cover, batch_gcd, evaluate_separator_candidate, is_prime, mod_pow,
-    perfect_power, pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
-    semismooth_successful_residue_count, trial_division, CoverAnalysis, SemismoothOutcome,
-    SeparatorOutcome,
+    analyze_divisor_cover, batch_gcd, evaluate_lucas_separator_candidate,
+    evaluate_separator_candidate, is_prime, mod_pow, perfect_power, pollard_p_minus_one,
+    pollard_p_plus_one, pollard_rho, semismooth_factor, semismooth_successful_residue_count,
+    trial_division, CoverAnalysis, LucasSeparatorOutcome, SemismoothOutcome, SeparatorOutcome,
 };
 use std::env;
 use std::process::ExitCode;
@@ -40,6 +40,30 @@ fn display_semismooth(outcome: SemismoothOutcome) -> String {
         SemismoothOutcome::Unresolved => "unresolved".to_owned(),
         SemismoothOutcome::InvalidParameters => "invalid_parameters".to_owned(),
         SemismoothOutcome::ExponentOverflow => "exponent_overflow".to_owned(),
+    }
+}
+
+fn display_lucas_separator(outcome: LucasSeparatorOutcome) -> String {
+    match outcome {
+        LucasSeparatorOutcome::DiscriminantFactor(factor) => {
+            format!("discriminant_factor|{factor}|none")
+        }
+        LucasSeparatorOutcome::DegenerateMiss { residue } => {
+            format!("degenerate_miss|none|{residue}")
+        }
+        LucasSeparatorOutcome::DegenerateFactor { factor, residue } => {
+            format!("degenerate_factor|{factor}|{residue}")
+        }
+        LucasSeparatorOutcome::DegenerateCollision { residue } => {
+            format!("degenerate_collision|none|{residue}")
+        }
+        LucasSeparatorOutcome::Miss { residue } => format!("miss|none|{residue}"),
+        LucasSeparatorOutcome::Factor { factor, residue } => {
+            format!("factor|{factor}|{residue}")
+        }
+        LucasSeparatorOutcome::SimultaneousCollision { residue } => {
+            format!("simultaneous_collision|none|{residue}")
+        }
     }
 }
 
@@ -136,6 +160,16 @@ fn run() -> Result<(), String> {
             let exponent = parse_u64(arguments.next(), "exponent")?;
             display_separator(
                 evaluate_separator_candidate(n, base, exponent).ok_or_else(|| {
+                    "n must be at least 2 and exponent must be positive".to_owned()
+                })?,
+            )
+        }
+        "lucas-separator" => {
+            let n = parse_u64(arguments.next(), "n")?;
+            let parameter = parse_u64(arguments.next(), "parameter")?;
+            let exponent = parse_u64(arguments.next(), "exponent")?;
+            display_lucas_separator(
+                evaluate_lucas_separator_candidate(n, parameter, exponent).ok_or_else(|| {
                     "n must be at least 2 and exponent must be positive".to_owned()
                 })?,
             )

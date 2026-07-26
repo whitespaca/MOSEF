@@ -1,5 +1,24 @@
 # Research Status
 
+## M5 execution plan
+
+- Branch: `research/20260726-m5-multigroup-correlation`.
+- Evidence target: determine whether a rigorously defined Lucas
+  \(V_d(P,1)-2\) channel supplies separation information beyond the
+  multiplicative \(a^d-1\) channel under a natural, factorization-independent
+  parameter pairing.
+- Expected artifacts: exact channel definitions and failure branches, a
+  primary-source note, a bounded correlated-collision search, independent
+  Python/Rust/C# vectors, and either a reviewed theorem or a minimized negative
+  result.
+- Falsification test: attack the assumption that the two channel outcomes are
+  independent, including discriminant failures, square-free inputs, repeated
+  prime powers, order 1 and 2, simultaneous collisions, and Carmichael
+  numbers.
+- Promotion gate: experiments remain `EMPIRICAL`; any exact correlation
+  theorem remains provisional until a separate reviewer reconstructs its
+  algebra and scope.
+
 ## Execution snapshot
 
 - Date: 2026-07-26.

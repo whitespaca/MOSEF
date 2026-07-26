@@ -59,6 +59,7 @@ internal static class Program
                 ?.ToString() ?? "none",
             "batch-gcd" when args.Length == 3 => RunBatchGcd(args),
             "separator" when args.Length == 4 => RunSeparator(args),
+            "lucas-separator" when args.Length == 4 => RunLucasSeparator(args),
             "semismooth" when args.Length == 5 => RunSemismooth(args),
             "semismooth-success-count" when args.Length == 3 =>
                 RunSemismoothSuccessCount(args),
@@ -173,6 +174,66 @@ internal static class Program
             return $"simultaneous_collision|none|{residue}";
         }
         return $"factor|{factor}|{residue}";
+    }
+
+    private static string RunLucasSeparator(string[] args)
+    {
+        BigInteger n = Parse(args, 1, "n");
+        BigInteger parameter = Parse(args, 2, "parameter");
+        BigInteger exponent = Parse(args, 3, "exponent");
+        if (n < 2 || exponent <= 0 || exponent > int.MaxValue)
+        {
+            throw new ArgumentException(
+                "n must be at least 2 and exponent must fit a positive Int32"
+            );
+        }
+
+        parameter = ((parameter % n) + n) % n;
+        BigInteger discriminantGcd = Gcd(parameter * parameter - 4, n);
+        if (discriminantGcd > 1 && discriminantGcd < n)
+        {
+            return $"discriminant_factor|{discriminantGcd}|none";
+        }
+        BigInteger residue = LucasV((int)exponent, parameter, n);
+        BigInteger factor = Gcd(residue - 2, n);
+        if (discriminantGcd == n && factor == 1)
+        {
+            return $"degenerate_miss|none|{residue}";
+        }
+        if (discriminantGcd == n && factor == n)
+        {
+            return $"degenerate_collision|none|{residue}";
+        }
+        if (discriminantGcd == n)
+        {
+            return $"degenerate_factor|{factor}|{residue}";
+        }
+        if (factor == 1)
+        {
+            return $"miss|none|{residue}";
+        }
+        if (factor == n)
+        {
+            return $"simultaneous_collision|none|{residue}";
+        }
+        return $"factor|{factor}|{residue}";
+    }
+
+    private static BigInteger LucasV(int index, BigInteger parameter, BigInteger modulus)
+    {
+        BigInteger previous = 2 % modulus;
+        if (index == 0)
+        {
+            return previous;
+        }
+        BigInteger current = parameter % modulus;
+        for (int value = 1; value < index; value++)
+        {
+            BigInteger next = (parameter * current - previous) % modulus;
+            previous = current;
+            current = next < 0 ? next + modulus : next;
+        }
+        return current;
     }
 
     private static int ParsePositiveInt(string[] args, int index, string name)
