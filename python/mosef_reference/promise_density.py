@@ -33,6 +33,31 @@ class BitLengthDivisorBudget:
     monotone_bound: int
 
 
+@dataclass(frozen=True)
+class BoundaryDivisorBudget:
+    """Exact integer parameters for the BAR-006 boundary divisor budget."""
+
+    bit_length: int
+    logarithm_scale: int
+    iterated_logarithm_scale: int
+    split_threshold: int
+    large_multiplicity_bound: int
+    one_length_bound: int
+    monotone_bound: int
+
+
+@dataclass(frozen=True)
+class PrimorialSchedule:
+    """Exact accounting for the product of the first ``prime_count`` primes."""
+
+    prime_count: int
+    primes: tuple[int, ...]
+    exponent: int
+    bit_length: int
+    divisor_count: int
+    binary_multiplication_nodes: int
+
+
 def _normalized_exponents(exponents: tuple[int, ...] | list[int]) -> tuple[int, ...]:
     """Return a sorted, duplicate-free positive exponent family."""
     normalized = tuple(sorted(set(exponents)))
@@ -145,6 +170,100 @@ def bit_length_divisor_budget(bit_length: int) -> BitLengthDivisorBudget:
         one_length_bound=one_length_bound,
         monotone_bound=monotone_bound,
     )
+
+
+def _one_boundary_divisor_budget(
+    bit_length: int,
+) -> tuple[int, int, int, int, int]:
+    """Return the exact one-length parameters used by DEF-011."""
+    if isinstance(bit_length, bool) or bit_length <= 0:
+        raise ValueError("bit_length must be positive")
+    logarithm_scale = bit_length.bit_length()
+    iterated_logarithm_scale = logarithm_scale.bit_length()
+    denominator = (
+        logarithm_scale * logarithm_scale * iterated_logarithm_scale
+    )
+    threshold = max(1, bit_length // denominator)
+    large_base = threshold + 1
+    limit = 1 << bit_length
+    power = 1
+    large_multiplicity = 0
+    while power * large_base < limit:
+        power *= large_base
+        large_multiplicity += 1
+    bound = (bit_length + 1) ** threshold * (1 << large_multiplicity)
+    return (
+        logarithm_scale,
+        iterated_logarithm_scale,
+        threshold,
+        large_multiplicity,
+        bound,
+    )
+
+
+def boundary_divisor_budget(bit_length: int) -> BoundaryDivisorBudget:
+    """Return DEF-011's exact budget and monotone envelope."""
+    (
+        logarithm_scale,
+        iterated_logarithm_scale,
+        threshold,
+        large_multiplicity,
+        one_length_bound,
+    ) = _one_boundary_divisor_budget(bit_length)
+    monotone_bound = max(
+        _one_boundary_divisor_budget(current)[4]
+        for current in range(1, bit_length + 1)
+    )
+    return BoundaryDivisorBudget(
+        bit_length=bit_length,
+        logarithm_scale=logarithm_scale,
+        iterated_logarithm_scale=iterated_logarithm_scale,
+        split_threshold=threshold,
+        large_multiplicity_bound=large_multiplicity,
+        one_length_bound=one_length_bound,
+        monotone_bound=monotone_bound,
+    )
+
+
+def first_primes(count: int) -> tuple[int, ...]:
+    """Return the first ``count`` primes in increasing order."""
+    if isinstance(count, bool) or count <= 0:
+        raise ValueError("count must be positive")
+    primes: list[int] = []
+    candidate = 2
+    while len(primes) < count:
+        if is_prime(candidate):
+            primes.append(candidate)
+        candidate = 3 if candidate == 2 else candidate + 2
+    return tuple(primes)
+
+
+def primorial_schedule(count: int) -> PrimorialSchedule:
+    """Construct and exactly cost the first-``count``-primes exponent."""
+    primes = first_primes(count)
+    exponent = 1
+    for prime in primes:
+        exponent *= prime
+    bit_length = exponent.bit_length()
+    binary_multiplication_nodes = (
+        bit_length - 1 + exponent.bit_count() - 1
+    )
+    return PrimorialSchedule(
+        prime_count=count,
+        primes=primes,
+        exponent=exponent,
+        bit_length=bit_length,
+        divisor_count=1 << count,
+        binary_multiplication_nodes=binary_multiplication_nodes,
+    )
+
+
+def primorial_divisors(count: int) -> tuple[int, ...]:
+    """Enumerate every divisor of the first-``count``-primes primorial."""
+    divisors = [1]
+    for prime in first_primes(count):
+        divisors.extend(value * prime for value in tuple(divisors))
+    return tuple(sorted(divisors))
 
 
 def positive_divisors(value: int) -> tuple[int, ...]:

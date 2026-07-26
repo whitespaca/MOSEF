@@ -289,3 +289,28 @@
   multiplication program violates \(e_i\le2^i\), or evaluate a separately
   specified richer representation under its own explicit construction and
   operation costs.
+
+## ADR-014 - Separate boundary capacity, coefficient, and prime yield
+
+- Date: 2026-07-26
+- Status: accepted
+- Context: BAR-005 leaves the exact \(\Theta(k\log k)\) node boundary open.
+  A schedule at that scale can have either very sparse or exponentially rich
+  divisor structure, so node count alone cannot answer the combined-promise
+  question.
+- Alternatives: treat reaching the boundary as sufficient; search only for a
+  favorable finite exponent; import a sharp maximal-order theorem without
+  needing its lower-order terms; or optimize BAR-004's elementary split,
+  expose the leading coefficient, and audit one explicit divisor-rich family.
+- Decision: adopt DEF-011 and BAR-006. Keep the prime population stipulated,
+  transfer the exponent-bit coefficient to the hit-set exponent, use the
+  first-primes primorial as the explicit boundary-capacity witness, and keep
+  actual \(d\pm1\) prime yield as a separate empirical/open quantity.
+- Consequences: schedules below population coefficient \(\alpha\) still have
+  vanishing promise fraction, and repeated squaring refutes boundary node
+  count as a sufficient condition. Primorials establish exponential divisor
+  capacity at \(\Theta(k\log k)\) cost but not a population guarantee.
+- Rollback condition: revise the exact integer budget if a divisor-count
+  counterexample is found; revise the primorial accounting if its constructor
+  or binary evaluation exceeds the charged bounds; strengthen the outcome
+  only if a proved asymptotic prime-yield lower bound is supplied.

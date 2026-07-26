@@ -1,5 +1,29 @@
 # Research Status
 
+## M11 active
+
+- Date: 2026-07-26.
+- Branch: `research/20260726-m11-boundary-constant`.
+- Active milestone: M11, the exact \(\Theta(k\log k)\) multiplication
+  straight-line boundary.
+- Baseline validation passed before edits: foundation and publication
+  consistency (42 claims and eight experiment hashes), plus a converged
+  25-page XeLaTeX build.
+- Selected proof target: optimize BAR-004's elementary small/large-prime split
+  to obtain the leading bound
+  \(\log_2\tau(d)\le(1+o(1))\ell(d)/\log_2\ell(d)\), then transfer its
+  constant to DEF-010 schedules and stipulated exponential prime populations.
+- Selected explicit boundary family: the product of the first \(r\) primes.
+  It has exactly \(2^r\) divisors and ordinary bit length
+  \(\Theta(r\log r)\); Rosser--Schoenfeld's inspected Theorem 3 corollary
+  supplies the explicit upper bound needed for construction accounting.
+- Falsification target: enumerate finite primorial schedules and separate
+  divisor capacity from actual prime hits of the form \(q\pm1\mid d\).
+  Finite prime yield will remain empirical unless a proof is supplied.
+- Planned deliverables: one constant-sensitive barrier proof, one registered
+  deterministic experiment, selected Python/Rust/C# comparisons, state and
+  manuscript synchronization, independent adversarial review, and full gates.
+
 ## M10 outcome
 
 - Date: 2026-07-26.

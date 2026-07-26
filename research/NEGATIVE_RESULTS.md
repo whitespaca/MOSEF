@@ -182,3 +182,23 @@
   special endomorphisms, adaptive factor branches, or another explicitly
   costed algebraic representation. It does not address whether
   \(\Theta(k\log k)\)-step schedules have useful divisor structure.
+
+## NR-008 - Boundary node count alone does not guarantee prime separation
+
+- Date: 2026-07-26.
+- Affected claim: `REF-007`, status `REFUTED`.
+- Exact hypothesis: every common factor-oblivious DEF-010 schedule with
+  \(\Theta(k\log k)\) charged multiplication nodes has a nonvanishing
+  combined \(p-1/p+1\) promise fraction on each stipulated exponentially
+  large common-input-length prime population.
+- Proof of failure: use repeated squaring for
+  \(t(k)=\lfloor k\log_2k\rfloor\) nodes and expose every exponent
+  \(1,2,4,\ldots,2^{t(k)}\). Their divisor union contains only
+  \(t(k)+1\) powers of two. At most \(2(t(k)+1)\) odd primes can be one more
+  or one less than those divisors, so the global hit set is polynomial.
+  BAR-003 makes the promised-pair fraction vanish on every stipulated
+  \(2^{\Omega(k)}\)-size population.
+- Surviving boundary: some \(\Theta(k\log k)\)-node schedules, including the
+  first-primes primorial family in BAR-006, have exponentially many divisors.
+  The counterexample refutes sufficiency of node count alone; it does not
+  rule out a construction with a proved prime-yield guarantee.
