@@ -52,8 +52,8 @@
   rendered and visually inspected. Stable PDF:
   `output/pdf/mosef-paper.pdf`, SHA-256
   `6880cfc1740496123ea8aa9f8d8ad029de8adbfad4f29996b4750e9960989023`.
-- The exact local milestone commit will be recorded in the follow-up status
-  commit after this validated state is committed.
+- Local milestone implementation/proof/paper commit:
+  `0728628b5ffe5387b926080de8674f22d1c8dadf`.
 - Next action: M17 should formalize a richer rational or compositional
   circuit, beginning with the dyadic telescoping identity, and charge failed
   division, formal output, residue evaluation, and factor extraction.
