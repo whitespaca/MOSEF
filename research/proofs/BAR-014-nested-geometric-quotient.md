@@ -3,10 +3,14 @@
 ## Claim status
 
 - `DEF-019`: `DEFINITION`.
-- `BAR-014`: `PROVED`, subject to independent adversarial review.
+- `BAR-014`: `PROVED`.
 - `REF-015`: `REFUTED`.
 
 The proof is elementary and imports no external theorem.
+
+Two independent adversarial reviews passed after the statement was repaired
+to distinguish residue equality from GCD equality and to charge sparse and
+dense quotient outputs separately.
 
 ## DEF-019: charged two-stage quotient
 

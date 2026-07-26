@@ -83,3 +83,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-013 | PROVED | Endpoint-denominator-public-exponent extraction trichotomy | `research/proofs/BAR-013-arbitrary-geometric-sum.md` |
 | REF-014 | REFUTED | Arbitrary geometric sum as an unaccounted extraction path | `research/NEGATIVE_RESULTS.md` NR-015 |
 | EMP-017 | EMPIRICAL | Bounded arbitrary geometric-sum audit | `research/experiments/EXP-0017-m18-geometric-sum.md` |
+| DEF-019 | DEFINITION | Charged nested geometric-quotient model with two total denominator paths | `research/proofs/BAR-014-nested-geometric-quotient.md` |
+| BAR-014 | PROVED | Nested geometric-quotient extraction trichotomy | `research/proofs/BAR-014-nested-geometric-quotient.md` |
+| REF-015 | REFUTED | Intermediate cancellation as an unaccounted extraction path | `research/NEGATIVE_RESULTS.md` NR-016 |
+| EMP-018 | EMPIRICAL | Bounded nested geometric-quotient audit | `research/experiments/EXP-0018-m19-nested-quotient.md` |

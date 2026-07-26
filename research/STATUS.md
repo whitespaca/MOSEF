@@ -1,21 +1,50 @@
 # Research Status
 
-## M19 active checkpoint
+## M20 execution snapshot
+
+- Date: 2026-07-27.
+- Branch: `research/20260727-m20-iterated-quotient`.
+- Active question: for a public factor chain
+  \(M_i=\prod_{j=1}^{i}A_j\), can the iterated identities
+  \[
+  S_{M_i}(X)/S_{M_{i-1}}(X)
+  =S_{A_i}(X^{M_{i-1}})
+  \]
+  create a proper extraction success outside every charged prefix numerator,
+  intermediate denominator, composed denominator, and public multiplier?
+- Provisional evidence target: `DEF-020`, `BAR-015` or a minimized
+  counterexample, `REF-016`, and deterministic `EXP-0019`.
+- First action: define a factorization-independent chain grammar with public
+  depth and factors, total semantics for every denominator, exact compact,
+  sparse, and dense output charges, and an inductive falsification oracle.
+- No M20 theorem or empirical conclusion is claimed at this start point.
+
+## M19 outcome
 
 - Date: 2026-07-27.
 - Branch: `research/20260727-m19-nested-quotient`.
-- Active milestone: M19, the cancellation-obscured two-stage identity
+- Completed milestone: M19, the cancellation-obscured two-stage identity
   \[
   S_{AB}(X)/S_A(X)=S_B(X^A).
   \]
-- The draft `DEF-019` grammar and `BAR-014` proof now distinguish the rational
-  denominator \(S_A(g)\) from the composed denominator \(g^A-1\), give both
-  paths total unit/proper/full semantics, and charge construction, residue,
-  GCD, certificate, and expanded-output costs.
+- `DEF-019` and `BAR-014` distinguish the rational denominator \(S_A(g)\)
+  from the composed denominator \(g^A-1\), give both paths total
+  unit/proper/full semantics, and charge construction, residue, GCD,
+  certificate, and expanded-output costs.
+- `BAR-014` is `PROVED`: a unit intermediate denominator makes rational
+  numerator and quotient GCDs identical; a proper denominator is already a
+  factor; and a full denominator forces \(g^A\equiv1\pmod N\), so the
+  quotient GCD is the public \(\gcd(B,N)\). The composed denominator
+  independently follows BAR-013.
 - Two independent adversarial reviews passed after repairing the
   residue-versus-GCD wording and the sparse/dense formal-output accounting.
   The quotient has degree \(A(B-1)\), \(B\) nonzero monomials, and
   \(A(B-1)+1\) dense coefficient positions.
+- `REF-015` is `REFUTED`; NR-016 records that cancellation in this exact
+  two-stage identity does not create a proper quotient success outside the
+  rational numerator, proper intermediate denominator, public multiplier,
+  and composed-denominator paths. This is not a general rational-circuit
+  lower bound.
 - EXP-0018 checked 144 symbolic identities, 6,084 coefficients, 177,264
   modular circuits, and 354,528 residue identities. The rational-denominator
   split was 120,444 unit, 46,932 proper, and 9,888 full cases; the composed
@@ -23,22 +52,37 @@
   unexplained reductions and all 12 selected Python/Rust/C# comparisons
   agreed. Canonical summary SHA-256:
   `a6d1bd1344b439901f3d40b9dc226fbcedcaba6886d07363461b0814db6aa2aa`.
-- Focused validation passed: six Python tests, the registered deterministic
-  audit, the 12-check cross-language differential validator, Rust formatting,
-  Clippy with warnings denied, 25 Rust tests, and the C# Release build with
-  zero warnings or errors.
-- Remaining completion work is to register `DEF-019`, `BAR-014`, `REF-015`,
-  and `EMP-018` in the claim and publication ledgers, update the decision and
-  negative-result records, integrate the result into the manuscript, and run
-  the complete publication and PDF gates.
+- Full gates passed: foundation and publication consistency (80 claims and 17
+  experiment hashes), 141 Python tests and bytecode compilation, Rust
+  formatting/Clippy/25 tests, C# Release restore/build with zero warnings or
+  errors, 58 baseline comparisons, EXP-0018, and the 12-check M19
+  differential validator. Optional third-party pytest, Ruff, and mypy remain
+  unavailable under BLK-003.
+- XeLaTeX converged with no warnings, undefined references or citations, or
+  overfull/underfull boxes. All 47 pages, including the revised title and
+  abstract, Section 20, results table, limitations, conclusion, complete
+  proof, and reproduction appendix, were rendered and visually inspected.
+  Stable PDF: `output/pdf/mosef-paper.pdf`, SHA-256
+  `783ccf5f60de1cad688c638f4ef59a3f69f5dfffcd3a596ace4637ac8867db8f`.
+- The implementation/proof checkpoint is
+  `557731c0feefe1c58b65ab24c6b7b6552cd392bc`; the validated completion
+  commit is `5d15540d372642dd4ca61f5ecf324026dbd55adf`.
+- The completion push was rejected before execution under BLK-021 because
+  publishing this specific repository payload was not explicitly authorized.
+  The remote branch remains at the checkpoint commit, GitHub CLI is
+  unauthenticated, and no pull request was created or verified.
+- Next action: M20 should formalize an iterated public factor chain
+  \(M=\prod_i A_i\), give every prefix denominator a total branch, and test
+  whether induction reduces every quotient success to a charged prefix exit
+  or public multiplier.
 
 ## Korean summary
 
-M19를 시작하여 중간 분모가 비가역원인 두 단계 기하급수 몫을 분석하고
-있습니다. 현재 증명 초안, 세 언어 구현, 결정적 탐색은 검토와 검증을
-통과했으며, 두 분모 경로 모두 새로운 숨은 추출 능력을 보이지
-않았습니다. 다만 이는 아직 ACTIVE 체크포인트이며, 주장 원장과 논문 및
-전체 출판 검증을 마쳐야 M19가 완료됩니다.
+M19를 완료했습니다. 두 단계 기하급수 몫의 중간 분모와 합성 분모를
+각각 unit/proper/full로 분기하면, 상쇄가 새로운 숨은 인수 추출 경로를
+만들지 않음을 증명했습니다. 두 독립 검토와 세 언어 구현, 결정적
+탐색, 전체 출판 검사, 47쪽 PDF 시각 검증이 통과했습니다. 다음 M20은
+이 구조를 공개 인수 사슬의 여러 단계로 확장할 수 있는지 조사합니다.
 
 ## M18 outcome
 

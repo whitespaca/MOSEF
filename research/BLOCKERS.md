@@ -367,3 +367,22 @@
   publishing the M18 follow-up commit; then push the existing branch without
   rewriting history and create or update a draft pull request if authenticated
   GitHub tooling is available.
+
+## BLK-021 - M19 completion requires explicit publication authorization
+
+- Date: 2026-07-27.
+- Scope: push the validated M19 completion commit on
+  `research/20260727-m19-nested-quotient`.
+- Evidence: the environment safety reviewer rejected
+  `git push origin research/20260727-m19-nested-quotient` before execution
+  because publishing the specific completion payload to the external GitHub
+  remote was not explicitly authorized. `gh auth status` also reports no
+  authenticated GitHub host.
+- Impact: the implementation/proof checkpoint is synchronized to `origin` at
+  `557731c0feefe1c58b65ab24c6b7b6552cd392bc`, while the validated completion
+  is committed locally at `5d15540d372642dd4ca61f5ecf324026dbd55adf`.
+  No M19 pull request was created or verified.
+- Required resolution: the repository owner must explicitly authorize
+  publishing this M19 completion payload; then push the existing branch
+  without rewriting history and authenticate GitHub CLI or create the draft
+  pull request through the repository UI.
