@@ -549,6 +549,34 @@ pub struct ProductDagEvaluation {
     pub occurrence_counts: Vec<u64>,
 }
 
+/// Total modular-division outcome for one exact dyadic telescope.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum DyadicDivisionStatus {
+    Unit,
+    ProperFactor,
+    FullCollision,
+}
+
+/// Compact evaluation of `(g^(2^t)-1)/(g-1)`.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct DyadicTelescopeEvaluation {
+    pub power_residues: Vec<u64>,
+    pub factor_residues: Vec<u64>,
+    pub factor_gcds: Vec<u64>,
+    pub denominator_residue: u64,
+    pub denominator_gcd: u64,
+    pub numerator_residue: u64,
+    pub numerator_gcd: u64,
+    pub quotient_residue: u64,
+    pub quotient_gcd: u64,
+    pub division_status: DyadicDivisionStatus,
+    pub division_quotient: Option<u64>,
+    pub formal_degree: u64,
+    pub formal_monomial_count: u64,
+    pub squaring_count: u32,
+    pub product_multiplication_count: u32,
+}
+
 /// Evaluate nodes starting from `g`, with every later node multiplying two parents.
 pub fn evaluate_multiplication_program(
     base: u64,
@@ -765,6 +793,79 @@ pub fn evaluate_product_dag(
     })
 }
 
+/// Evaluate a dyadic geometric quotient through composition and explicit factors.
+pub fn evaluate_dyadic_telescope(
+    base: u64,
+    modulus: u64,
+    levels: u32,
+) -> Option<DyadicTelescopeEvaluation> {
+    if modulus < 2 || levels >= u64::BITS || gcd(base % modulus, modulus) != 1 {
+        return None;
+    }
+    let reduced_base = base % modulus;
+    let mut power_residues = vec![reduced_base];
+    for _ in 0..levels {
+        let following = mul_mod(*power_residues.last()?, *power_residues.last()?, modulus);
+        power_residues.push(following);
+    }
+    let factor_residues = power_residues
+        .iter()
+        .copied()
+        .take(levels as usize)
+        .map(|power| if power == modulus - 1 { 0 } else { power + 1 })
+        .collect::<Vec<_>>();
+    let factor_gcds = factor_residues
+        .iter()
+        .copied()
+        .map(|factor| gcd(factor, modulus))
+        .collect::<Vec<_>>();
+    let quotient_residue = factor_residues
+        .first()
+        .copied()
+        .map_or(1 % modulus, |first| {
+            factor_residues
+                .iter()
+                .copied()
+                .skip(1)
+                .fold(first, |product, factor| mul_mod(product, factor, modulus))
+        });
+    let denominator_residue = reduced_base - 1;
+    let denominator_gcd = gcd(denominator_residue, modulus);
+    let numerator_residue = power_residues.last()?.checked_sub(1)?;
+    let (division_status, division_quotient) = if denominator_gcd == 1 {
+        (
+            DyadicDivisionStatus::Unit,
+            Some(mul_mod(
+                numerator_residue,
+                modular_inverse(denominator_residue, modulus)?,
+                modulus,
+            )),
+        )
+    } else if denominator_gcd < modulus {
+        (DyadicDivisionStatus::ProperFactor, None)
+    } else {
+        (DyadicDivisionStatus::FullCollision, None)
+    };
+    let formal_monomial_count = 1_u64.checked_shl(levels)?;
+    Some(DyadicTelescopeEvaluation {
+        power_residues,
+        factor_residues,
+        factor_gcds,
+        denominator_residue,
+        denominator_gcd,
+        numerator_residue,
+        numerator_gcd: gcd(numerator_residue, modulus),
+        quotient_residue,
+        quotient_gcd: gcd(quotient_residue, modulus),
+        division_status,
+        division_quotient,
+        formal_degree: formal_monomial_count - 1,
+        formal_monomial_count,
+        squaring_count: levels,
+        product_multiplication_count: levels.saturating_sub(1),
+    })
+}
+
 /// Return `ceil(log2(exponent))`, the generic multiplication growth lower bound.
 pub fn generic_multiplication_lower_bound(exponent: u64) -> Option<u32> {
     if exponent == 0 {
@@ -926,6 +1027,27 @@ mod tests {
         assert_eq!(evaluate_product_dag(5, 35, &[1], &[]), None);
         assert_eq!(evaluate_product_dag(2, 35, &[2, 2], &[]), None);
         assert_eq!(evaluate_product_dag(2, 35, &[1], &[(0, 1)]), None);
+    }
+
+    #[test]
+    fn dyadic_telescope_has_total_division_and_product_paths() {
+        let proper = evaluate_dyadic_telescope(4, 15, 1).expect("valid telescope");
+        assert_eq!(proper.denominator_gcd, 3);
+        assert_eq!(proper.factor_gcds, vec![5]);
+        assert_eq!(proper.numerator_gcd, 15);
+        assert_eq!(proper.division_status, DyadicDivisionStatus::ProperFactor);
+        assert_eq!(proper.division_quotient, None);
+
+        let full = evaluate_dyadic_telescope(1, 6, 3).expect("valid telescope");
+        assert_eq!(full.denominator_gcd, 6);
+        assert_eq!(full.quotient_gcd, 2);
+        assert_eq!(full.division_status, DyadicDivisionStatus::FullCollision);
+
+        let unit = evaluate_dyadic_telescope(2, 35, 3).expect("valid telescope");
+        assert_eq!(unit.division_status, DyadicDivisionStatus::Unit);
+        assert_eq!(unit.division_quotient, Some(unit.quotient_residue));
+        assert_eq!(unit.formal_monomial_count, 8);
+        assert_eq!(unit.formal_degree, 7);
     }
 
     #[test]

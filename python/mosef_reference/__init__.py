@@ -93,6 +93,11 @@ from .product_dag import (
     maximum_unfolded_occurrences,
     repeated_product_program,
 )
+from .dyadic_telescope import (
+    DyadicTelescopeEvaluation,
+    dyadic_geometric_coefficients,
+    evaluate_dyadic_telescope,
+)
 from .separator import (
     CandidateKind,
     CandidateOutcome,
@@ -143,6 +148,7 @@ __all__ = [
     "PrimorialScaleBound",
     "ProductDagEvaluation",
     "ProductGate",
+    "DyadicTelescopeEvaluation",
     "SemismoothAsymmetryWitness",
     "SemismoothFactor",
     "SemismoothWitness",
@@ -169,6 +175,7 @@ __all__ = [
     "evaluate_multiplication_program",
     "evaluate_batch_product",
     "evaluate_product_dag",
+    "evaluate_dyadic_telescope",
     "divisor_count",
     "exponent_bit_length",
     "factor_scale_divisor_bound",
@@ -209,6 +216,7 @@ __all__ = [
     "primorial_schedule",
     "repeated_squaring_program",
     "repeated_product_program",
+    "dyadic_geometric_coefficients",
     "semismooth_asymmetry_witnesses",
     "signature_count_lower_bound",
     "signed_exponent_lower_bound",

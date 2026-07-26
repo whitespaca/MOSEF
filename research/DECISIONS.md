@@ -396,3 +396,22 @@
   from those atoms. Addition, subtraction, division, composition, closed-form
   atom synthesis, modulus-specific identities, and adaptive branches remain
   open modeling axes rather than being silently ruled out.
+
+## ADR-020 - Give exact division a total branch and keep the quotient path explicit
+
+- Date: 2026-07-27.
+- Decision: study the first richer M17 circuit through the dyadic identity
+  \((X^{2^t}-1)/(X-1)=\prod_{j<t}(X^{2^j}+1)\), classify every denominator
+  GCD as unit, proper factor, or full collision, and retain the
+  division-free factor product in all three branches.
+- Rationale: this circuit combines repeated composition, subtraction,
+  addition, multiplication, and exact formal division while remaining
+  completely auditable. It distinguishes an exponentially large formal
+  monomial list from separately extractable GCD tests and prevents failed
+  inversion from being silently discarded.
+- Consequence: BAR-012 applies only to this dyadic telescope. Its compact
+  evaluation has \(t+1\) explicit extraction components, while an expanded
+  coefficient output costs \(2^t\). Arbitrary rational circuits,
+  cancellation-obscured exact divisions, general composition, adaptive
+  behavior, other groups, and general arithmetic-circuit lower bounds remain
+  outside the theorem and must be modeled separately.

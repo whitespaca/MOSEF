@@ -312,3 +312,36 @@
   circuits.
 - Revisit only with a precise richer circuit whose uniform constructor,
   formal outputs, residue evaluation, and factor extraction are all charged.
+
+## NR-014 - Dyadic geometric compression is one quotient, not an exponential test family
+
+- Date: 2026-07-27.
+- Status: `REFUTED` claim `REF-013`.
+- Hypothesis tested: the \(2^t\) monomials in
+  \((g^{2^t}-1)/(g-1)=\sum_{i<2^t}g^i\), or exact modular division by
+  \(g-1\), provide \(2^t\) separately extractable same-base exponent tests
+  at \(O(t)\) charged cost or a proper-factor success when every explicit
+  dyadic-component GCD is trivial or full.
+- Counterargument: the quotient has the factorized form
+  \(\prod_{j<t}(g^{2^j}+1)\). A proper quotient GCD implies a proper GCD for
+  one of those \(t\) factors; a proper numerator GCD implies a proper GCD for
+  the denominator or a dyadic factor. A proper nonunit denominator is itself
+  an extracted factor, and a full denominator leaves the division-free
+  product defined. The expanded \(2^t\)-coefficient output is exponential if
+  requested.
+- Small boundaries: \(N=15,g=4,t=1\) has complementary denominator/factor
+  GCDs \(3,5\) but full numerator GCD \(15\). At \(N=6,g=1,t=3\), division
+  has a full denominator collision while the explicit quotient path has GCD
+  \(2\). At \(N=45,g=8,t=5\), factor GCDs \(9,5\) aggregate to full quotient
+  and numerator collisions. At \(N=8,g=1,t=2\), component GCDs \(2,2\)
+  aggregate to the different proper quotient GCD \(4\), so the theorem
+  preserves success existence rather than exact factor value.
+- Evidence: BAR-012 and deterministic EXP-0016; 55,154 circuits, 275,770
+  recurrence checks, 2,047 coefficient checks, and 12 selected
+  cross-language comparisons.
+- Scope: the exact DEF-017 dyadic telescope only. No claim is made for
+  arbitrary rational straight-line programs, arbitrary polynomial
+  composition, adaptive factor-dependent computation, other groups, or
+  general arithmetic circuits.
+- Revisit with a different uniform circuit identity whose extraction output
+  cannot be reduced to a polynomial-size explicit component list.

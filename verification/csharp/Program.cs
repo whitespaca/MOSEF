@@ -76,6 +76,7 @@ internal static class Program
                 RunAdditionSubtractionProgram(args),
             "batch-product" when args.Length == 4 => RunBatchProduct(args),
             "product-dag" when args.Length == 5 => RunProductDag(args),
+            "dyadic-telescope" when args.Length == 4 => RunDyadicTelescope(args),
             "multiplication-lower-bound" when args.Length == 2 =>
                 RunMultiplicationLowerBound(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
@@ -460,6 +461,78 @@ internal static class Program
         return $"nodes:{string.Join(",", nodes)}|"
             + $"gcds:{string.Join(",", nodes.Select(node => Gcd(node, modulus)))}|"
             + $"multiplicities:{profiles}|occurrences:{string.Join(",", occurrences)}";
+    }
+
+    private static string RunDyadicTelescope(string[] args)
+    {
+        BigInteger value = Parse(args, 1, "base");
+        BigInteger modulus = Parse(args, 2, "modulus");
+        BigInteger levelValue = Parse(args, 3, "levels");
+        if (modulus < 2 || levelValue < 0 || levelValue > 63)
+        {
+            throw new ArgumentException(
+                "modulus must be at least two and levels must lie in [0, 63]"
+            );
+        }
+        int levels = (int)levelValue;
+        BigInteger reducedBase = ((value % modulus) + modulus) % modulus;
+        if (Gcd(reducedBase, modulus) != 1)
+        {
+            throw new ArgumentException("base must be a unit modulo the modulus");
+        }
+
+        List<BigInteger> powers = [reducedBase];
+        for (int index = 0; index < levels; index++)
+        {
+            powers.Add(powers[^1] * powers[^1] % modulus);
+        }
+        List<BigInteger> factors = powers
+            .Take(levels)
+            .Select(power => (power + 1) % modulus)
+            .ToList();
+        List<BigInteger> factorGcds = factors
+            .Select(factor => Gcd(factor, modulus))
+            .ToList();
+        BigInteger quotient = factors.Count == 0
+            ? BigInteger.One % modulus
+            : factors[0];
+        foreach (BigInteger factor in factors.Skip(1))
+        {
+            quotient = quotient * factor % modulus;
+        }
+
+        BigInteger denominator = (reducedBase - 1 + modulus) % modulus;
+        BigInteger denominatorGcd = Gcd(denominator, modulus);
+        BigInteger numerator = (powers[^1] - 1 + modulus) % modulus;
+        string divisionStatus;
+        string divisionQuotient;
+        if (denominatorGcd == 1)
+        {
+            divisionStatus = "unit";
+            divisionQuotient = (
+                numerator * ModularInverse(denominator, modulus) % modulus
+            ).ToString();
+        }
+        else if (denominatorGcd < modulus)
+        {
+            divisionStatus = "proper_factor";
+            divisionQuotient = "none";
+        }
+        else
+        {
+            divisionStatus = "full_collision";
+            divisionQuotient = "none";
+        }
+        BigInteger monomials = BigInteger.One << levels;
+        return $"powers:{string.Join(",", powers)}|"
+            + $"factors:{string.Join(",", factors)}|"
+            + $"factor_gcds:{string.Join(",", factorGcds)}|"
+            + $"denominator:{denominator}|denominator_gcd:{denominatorGcd}|"
+            + $"numerator:{numerator}|numerator_gcd:{Gcd(numerator, modulus)}|"
+            + $"quotient:{quotient}|quotient_gcd:{Gcd(quotient, modulus)}|"
+            + $"division_status:{divisionStatus}|division_quotient:{divisionQuotient}|"
+            + $"degree:{monomials - 1}|monomials:{monomials}|squarings:{levels}|"
+            + $"products:{Math.Max(0, levels - 1)}";
     }
 
     private static string RunMultiplicationLowerBound(string[] args)

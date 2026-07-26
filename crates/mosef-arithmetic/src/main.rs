@@ -1,11 +1,12 @@
 use mosef_arithmetic::{
     analyze_divisor_cover, batch_gcd, combined_promise_asymmetry, combined_promise_hit_count,
     combined_promise_signature, divisor_count, evaluate_addition_subtraction_program,
-    evaluate_batch_product, evaluate_lucas_separator_candidate, evaluate_multiplication_program,
-    evaluate_product_dag, evaluate_separator_candidate, generic_multiplication_lower_bound,
-    is_prime, lucas_v, mod_pow, perfect_power, pollard_p_minus_one, pollard_p_plus_one,
-    pollard_rho, semismooth_factor, semismooth_successful_residue_count, trial_division,
-    BatchProductEvaluation, CoverAnalysis, LucasSeparatorOutcome, ProductDagEvaluation,
+    evaluate_batch_product, evaluate_dyadic_telescope, evaluate_lucas_separator_candidate,
+    evaluate_multiplication_program, evaluate_product_dag, evaluate_separator_candidate,
+    generic_multiplication_lower_bound, is_prime, lucas_v, mod_pow, perfect_power,
+    pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
+    semismooth_successful_residue_count, trial_division, BatchProductEvaluation, CoverAnalysis,
+    DyadicDivisionStatus, DyadicTelescopeEvaluation, LucasSeparatorOutcome, ProductDagEvaluation,
     SemismoothOutcome, SeparatorOutcome, SignedStraightLineEvaluation, StraightLineEvaluation,
 };
 use std::env;
@@ -233,6 +234,51 @@ fn display_product_dag(evaluation: ProductDagEvaluation) -> String {
         .collect::<Vec<_>>()
         .join(",");
     format!("nodes:{nodes}|gcds:{gcds}|multiplicities:{multiplicities}|occurrences:{occurrences}")
+}
+
+fn display_dyadic_telescope(evaluation: DyadicTelescopeEvaluation) -> String {
+    let powers = evaluation
+        .power_residues
+        .iter()
+        .map(u64::to_string)
+        .collect::<Vec<_>>()
+        .join(",");
+    let factors = evaluation
+        .factor_residues
+        .iter()
+        .map(u64::to_string)
+        .collect::<Vec<_>>()
+        .join(",");
+    let factor_gcds = evaluation
+        .factor_gcds
+        .iter()
+        .map(u64::to_string)
+        .collect::<Vec<_>>()
+        .join(",");
+    let status = match evaluation.division_status {
+        DyadicDivisionStatus::Unit => "unit",
+        DyadicDivisionStatus::ProperFactor => "proper_factor",
+        DyadicDivisionStatus::FullCollision => "full_collision",
+    };
+    let division_quotient = evaluation
+        .division_quotient
+        .map_or_else(|| "none".to_owned(), |value| value.to_string());
+    format!(
+        "powers:{powers}|factors:{factors}|factor_gcds:{factor_gcds}|denominator:{}|\
+denominator_gcd:{}|numerator:{}|numerator_gcd:{}|quotient:{}|quotient_gcd:{}|\
+division_status:{status}|division_quotient:{division_quotient}|degree:{}|monomials:{}|\
+squarings:{}|products:{}",
+        evaluation.denominator_residue,
+        evaluation.denominator_gcd,
+        evaluation.numerator_residue,
+        evaluation.numerator_gcd,
+        evaluation.quotient_residue,
+        evaluation.quotient_gcd,
+        evaluation.formal_degree,
+        evaluation.formal_monomial_count,
+        evaluation.squaring_count,
+        evaluation.product_multiplication_count,
+    )
 }
 
 fn run() -> Result<(), String> {
@@ -472,6 +518,15 @@ fn run() -> Result<(), String> {
                         .to_owned()
                 })?,
             )
+        }
+        "dyadic-telescope" => {
+            let base = parse_u64(arguments.next(), "base")?;
+            let modulus = parse_u64(arguments.next(), "modulus")?;
+            let levels = u32::try_from(parse_u64(arguments.next(), "levels")?)
+                .map_err(|_| "levels must fit in u32".to_owned())?;
+            display_dyadic_telescope(evaluate_dyadic_telescope(base, modulus, levels).ok_or_else(
+                || "base must be a unit, modulus at least two, and levels below 64".to_owned(),
+            )?)
         }
         "multiplication-lower-bound" => {
             let exponent = parse_u64(arguments.next(), "exponent")?;

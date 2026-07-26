@@ -1,5 +1,73 @@
 # Research Status
 
+## M17 outcome
+
+- Date: 2026-07-27.
+- Branch: `research/20260727-m17-rational-circuit`.
+- Completed milestone: M17, the charged dyadic exact-division and repeated
+  composition circuit
+  \[
+  (X^{2^t}-1)/(X-1)=\sum_{i<2^t}X^i
+  =\prod_{j<t}(X^{2^j}+1).
+  \]
+- `DEF-017` gives every denominator a total unit, proper-factor, or
+  full-collision branch and retains the division-free product in every case.
+  It charges the public factorization-free constructor, \(t\) squarings,
+  \(t\) explicit dyadic factors, \(\max(0,t-1)\) product multiplications,
+  extended-GCD division attempt, requested outputs, GCDs, and extraction.
+- `BAR-012` is `PROVED`: valid division equals the factor product; every
+  proper quotient GCD implies a proper dyadic-factor GCD; and every proper
+  numerator GCD implies a proper denominator or dyadic-factor GCD. The
+  proper factor value need not be identical: \(N=8,g=1,t=2\) has component
+  GCDs \(2,2\) but quotient GCD \(4\).
+- The compact circuit uses \(O(t+1)\) modular operations and
+  \(O((t+1)\operatorname{poly}(k))\) bit operations. Degree and monomial
+  metadata use \(O(t+1)\) bits, but an expanded formal coefficient output
+  has \(2^t\) entries. Those monomials are terms of one quotient value, not
+  separately extracted exponent tests.
+- `REF-013` is `REFUTED`; NR-014 records that dyadic geometric compression
+  cannot create an exponential test family or a proper success when every
+  explicit component GCD is trivial or full. At \(N=15,g=4,t=1\),
+  denominator/factor GCDs \(3,5\) aggregate to full numerator GCD \(15\).
+  At \(N=6,g=1,t=3\), division has a full denominator collision while the
+  division-free quotient GCD is \(2\).
+- EXP-0016 checked 11 symbolic identities, 2,047 coefficients, 55,154
+  modular circuits, 275,770 repeated-squaring recurrences, 55,154 product
+  identities, 22,757 proper quotient implications, and 25,430 proper
+  numerator implications with zero unexplained proper successes. All 12
+  selected Python/Rust/C# comparisons agreed. Canonical summary SHA-256:
+  `1db5968e635901bc00eda0fdaa211aefe16af630741459eb9eb7f51ab50fc219`.
+- Independent source/scope review required exact unreduced lifts and weakened
+  exact factor-value wording. Independent adversarial review additionally
+  required \(t=0\) cost repair and exact implementation of the reported
+  product multiplication count. Both repaired re-reviews passed.
+- Full gates passed: foundation and publication consistency (72 claims and
+  15 experiment hashes), 127 Python tests and bytecode compilation, Rust
+  format/Clippy/23 tests, C# Release restore/build with zero warnings or
+  errors, EXP-0016, and the 12-check differential validator. Optional
+  third-party pytest, Ruff, and mypy remain unavailable under BLK-003.
+- XeLaTeX converged with no warnings, undefined references or citations, or
+  overfull/underfull boxes. All 43 pages, including the revised title and
+  abstract, theorem, results, limitations, full proof, and reproduction
+  appendix, were rendered and visually inspected. Stable PDF:
+  `output/pdf/mosef-paper.pdf`, SHA-256
+  `48e9b77dbe4973bc9e9e8b9a66b2efb61d7d5f7ff45224f1b1530f031e35abc9`.
+- The exact local milestone commit will be recorded in the follow-up status
+  commit after this validated state is committed.
+- Next action: M18 should formalize the arbitrary-exponent binary geometric
+  sum \(S_M(X)\), including its odd/even composition recurrences and the
+  full-denominator reduction \(S_M(1)\equiv M\pmod N\).
+
+## Korean summary
+
+M17은 \(2^t\)개 단항식을 가진 dyadic geometric quotient를 압축 계산해도
+그것이 \(2^t\)개의 독립 GCD 검사가 되지는 않음을 보였습니다. 분모가
+비가역인 경우도 proper factor, full collision, unit으로 모두 분기하며,
+어떤 proper quotient 또는 numerator 성공도 분모나 \(t\)개 dyadic factor
+중 하나의 proper 성공을 동반합니다. 일반 rational/compositional circuit에
+대한 하한은 아니며, 다음 단계는 임의 지수 \(M\)의 binary geometric sum
+회로입니다.
+
 ## M16 outcome
 
 - Date: 2026-07-27.
