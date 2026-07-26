@@ -134,6 +134,9 @@
 - The M5 remote branch is now visible at
   `origin/research/20260726-m5-multigroup-correlation`; `gh` is not
   authenticated, so no M5 pull request was verified or created.
+- M6 local delivery is complete. The policy-required push attempt was rejected
+  because this exact new branch payload lacks explicit user authorization; see
+  BLK-008. No M6 pull request exists.
 - Next action: M7 should first define a factorization-independent nonsplit
   Lucas parameter sampler and its exact joint-failure event, before any
   bounded experiment is interpreted.
