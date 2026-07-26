@@ -415,3 +415,25 @@
   cancellation-obscured exact divisions, general composition, adaptive
   behavior, other groups, and general arithmetic-circuit lower bounds remain
   outside the theorem and must be modeled separately.
+
+## ADR-021 - Reduce one arbitrary geometric sum by denominator status
+
+- Date: 2026-07-27.
+- Decision: generalize the dyadic telescope to the exact left-to-right binary
+  pair grammar for \((X^M,S_M(X))\), and retain the division-free sum residue
+  in all denominator branches.
+- Rationale: the even and odd identities evaluate an exponentially long
+  all-one coefficient vector in \(O(\log M)\) modular operations, so M18 must
+  distinguish compact evaluation from extraction power. Total denominator
+  semantics exposes the exact reduction: unit denominators preserve the
+  endpoint GCD, proper denominators already factor \(N\), and full
+  denominators reduce the sum GCD to the public \(\gcd(M,N)\).
+- Input accounting: charge the encoded base length \(b\), base reduction and
+  GCD precheck, exponent length \(\ell\), circuit operations, requested
+  outputs, GCDs, and extraction. The post-reduction residue circuit is
+  \(O(\ell\operatorname{poly}(k))\), while total work is polynomial in
+  \(b+k+\ell\).
+- Consequence: BAR-013 closes one arbitrary-exponent geometric sum, not
+  cancellation-obscured multi-denominator programs or general rational,
+  compositional, or arithmetic circuits. In the proper-denominator branch it
+  preserves success existence, not the exact divisor value.

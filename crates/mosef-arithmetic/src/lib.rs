@@ -577,6 +577,35 @@ pub struct DyadicTelescopeEvaluation {
     pub product_multiplication_count: u32,
 }
 
+/// Total modular-division outcome for one arbitrary geometric sum.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum GeometricDivisionStatus {
+    Unit,
+    ProperFactor,
+    FullCollision,
+}
+
+/// Compact binary evaluation of `S_M(g) = sum_{i < M} g^i`.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct GeometricSumEvaluation {
+    pub exponent: u64,
+    pub exponent_bit_length: u32,
+    pub power_residue: u64,
+    pub sum_residue: u64,
+    pub denominator_residue: u64,
+    pub denominator_gcd: u64,
+    pub numerator_residue: u64,
+    pub numerator_gcd: u64,
+    pub sum_gcd: u64,
+    pub exponent_gcd: u64,
+    pub division_status: GeometricDivisionStatus,
+    pub division_quotient: Option<u64>,
+    pub formal_degree: u64,
+    pub formal_monomial_count: u64,
+    pub multiplication_count: u32,
+    pub addition_count: u32,
+}
+
 /// Evaluate nodes starting from `g`, with every later node multiplying two parents.
 pub fn evaluate_multiplication_program(
     base: u64,
@@ -866,6 +895,82 @@ pub fn evaluate_dyadic_telescope(
     })
 }
 
+/// Evaluate an arbitrary positive-exponent geometric sum by binary composition.
+pub fn evaluate_geometric_sum(
+    base: u64,
+    modulus: u64,
+    exponent: u64,
+) -> Option<GeometricSumEvaluation> {
+    if modulus < 2 || exponent == 0 || gcd(base % modulus, modulus) != 1 {
+        return None;
+    }
+    let reduced_base = base % modulus;
+    let exponent_bit_length = u64::BITS - exponent.leading_zeros();
+    let mut power_residue = reduced_base;
+    let mut sum_residue = 1 % modulus;
+    let mut multiplication_count = 0_u32;
+    let mut addition_count = 0_u32;
+
+    for bit_index in (0..exponent_bit_length.saturating_sub(1)).rev() {
+        let one_plus_power = if power_residue == modulus - 1 {
+            0
+        } else {
+            power_residue + 1
+        };
+        sum_residue = mul_mod(sum_residue, one_plus_power, modulus);
+        power_residue = mul_mod(power_residue, power_residue, modulus);
+        multiplication_count += 2;
+        addition_count += 1;
+        if (exponent >> bit_index) & 1 == 1 {
+            sum_residue = if sum_residue >= modulus - power_residue {
+                sum_residue - (modulus - power_residue)
+            } else {
+                sum_residue + power_residue
+            };
+            power_residue = mul_mod(power_residue, reduced_base, modulus);
+            multiplication_count += 1;
+            addition_count += 1;
+        }
+    }
+
+    let denominator_residue = reduced_base - 1;
+    let denominator_gcd = gcd(denominator_residue, modulus);
+    let numerator_residue = power_residue - 1;
+    let (division_status, division_quotient) = if denominator_gcd == 1 {
+        (
+            GeometricDivisionStatus::Unit,
+            Some(mul_mod(
+                numerator_residue,
+                modular_inverse(denominator_residue, modulus)?,
+                modulus,
+            )),
+        )
+    } else if denominator_gcd < modulus {
+        (GeometricDivisionStatus::ProperFactor, None)
+    } else {
+        (GeometricDivisionStatus::FullCollision, None)
+    };
+
+    Some(GeometricSumEvaluation {
+        exponent,
+        exponent_bit_length,
+        power_residue,
+        sum_residue,
+        denominator_residue,
+        denominator_gcd,
+        numerator_residue,
+        numerator_gcd: gcd(numerator_residue, modulus),
+        sum_gcd: gcd(sum_residue, modulus),
+        exponent_gcd: gcd(exponent, modulus),
+        division_status,
+        division_quotient,
+        formal_degree: exponent - 1,
+        formal_monomial_count: exponent,
+        multiplication_count,
+        addition_count,
+    })
+}
+
 /// Return `ceil(log2(exponent))`, the generic multiplication growth lower bound.
 pub fn generic_multiplication_lower_bound(exponent: u64) -> Option<u32> {
     if exponent == 0 {
@@ -1048,6 +1153,41 @@ mod tests {
         assert_eq!(unit.division_quotient, Some(unit.quotient_residue));
         assert_eq!(unit.formal_monomial_count, 8);
         assert_eq!(unit.formal_degree, 7);
+    }
+
+    #[test]
+    fn arbitrary_geometric_sum_reduces_each_denominator_branch() {
+        let unit = evaluate_geometric_sum(2, 15, 2).expect("valid geometric sum");
+        assert_eq!(unit.division_status, GeometricDivisionStatus::Unit);
+        assert_eq!(unit.division_quotient, Some(unit.sum_residue));
+        assert_eq!(unit.sum_gcd, 3);
+        assert_eq!(unit.sum_gcd, unit.numerator_gcd);
+
+        let proper = evaluate_geometric_sum(4, 15, 2).expect("valid geometric sum");
+        assert_eq!(
+            proper.division_status,
+            GeometricDivisionStatus::ProperFactor
+        );
+        assert_eq!(proper.denominator_gcd, 3);
+        assert_eq!(proper.sum_gcd, 5);
+        assert_eq!(proper.numerator_gcd, 15);
+
+        let full = evaluate_geometric_sum(1, 15, 5).expect("valid geometric sum");
+        assert_eq!(full.division_status, GeometricDivisionStatus::FullCollision);
+        assert_eq!(full.sum_residue, 5);
+        assert_eq!(full.sum_gcd, full.exponent_gcd);
+
+        let repeated = evaluate_geometric_sum(1, 8, 4).expect("valid geometric sum");
+        assert_eq!(repeated.sum_gcd, 4);
+        assert_eq!(repeated.exponent_gcd, 4);
+
+        let base_case = evaluate_geometric_sum(2, 257, 1).expect("valid geometric sum");
+        assert_eq!(base_case.power_residue, 2);
+        assert_eq!(base_case.sum_residue, 1);
+        assert_eq!(base_case.multiplication_count, 0);
+        assert_eq!(base_case.addition_count, 0);
+        assert_eq!(evaluate_geometric_sum(5, 15, 3), None);
+        assert_eq!(evaluate_geometric_sum(2, 15, 0), None);
     }
 
     #[test]
