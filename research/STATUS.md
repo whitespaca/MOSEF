@@ -92,8 +92,9 @@
   `main`.
 - M3 remote delivery still awaits explicit authorization under BLK-005.
 - Optional pytest/Ruff/mypy tools remain unavailable under BLK-003.
-- M4 local delivery is complete; remote state will be recorded after the
-  policy-required push attempt.
+- M4 local delivery is complete at `8c874d8`. The policy-required push attempt
+  was rejected because this exact branch payload lacks explicit authorization;
+  see BLK-006. No M4 pull request exists.
 - Next action: M5 should define two exact group-channel signatures, preregister
   a bounded correlated-collision search, and try to falsify any independence
   assumption before measuring performance.
