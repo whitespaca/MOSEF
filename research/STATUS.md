@@ -41,6 +41,9 @@
   `6ccdff994d04783b3a05170c28a1b6ccab9f1dca8c46dd8bbb64498655479f28`.
 - Local milestone implementation/proof/paper commit:
   `e80115bd27200c0ec0f37a388cd4e9a4bbac9769`.
+- Follow-up status commit: `4f92cbe`. The push failed because Windows Git
+  had no credentials (`SEC_E_NO_CREDENTIALS`); BLK-016 records the
+  unpublished branch, and no M14 pull request was created.
 - The result excludes implicit exponential batches, fixed-modulus
   equal-residue shortcuts, factor-dependent adaptation, special
   endomorphisms, unrelated multi-base expressions, other groups/channels,
