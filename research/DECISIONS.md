@@ -483,3 +483,23 @@
   unrelated denominators, adaptive behavior, other groups, and general
   arithmetic-circuit lower bounds remain open; M21 isolates the smallest
   factorization-independent linear-combination extension.
+
+## ADR-024 - Treat signed aggregation as a new extraction mechanism
+
+- Date: 2026-07-27.
+- Decision: extend DEF-020 by one aligned public signed coefficient per
+  explicit quotient stage, retain every component output and GCD, and expose
+  exactly one charged linear aggregate.
+- Rationale: multiplication preserves the unit/full component implication,
+  but addition does not. The exact \(N=9\) witness creates a proper aggregate
+  from unit components, so folding signed aggregation into BAR-015 would be
+  mathematically false.
+- Cost accounting: charge coefficient encodings and reductions, \(r\) scalar
+  multiplications, \(r-1\) additions, all coefficient and weighted-stage
+  GCDs, aggregate extraction, and any requested sparse or dense polynomial
+  output. The uncollected polynomial has \(\sum_iA_i\) term records and
+  degree at most \(\max_i(M_i-M_{i-1})\).
+- Consequence: M21 records a positive separation in extraction power, not a
+  factoring algorithm. M22 must characterize when these cancellations occur
+  and whether a factorization-independent family yields a restricted theorem
+  or only sparse isolated witnesses.

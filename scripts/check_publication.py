@@ -43,6 +43,7 @@ REQUIRED_SECTIONS = (
     "An arbitrary-exponent geometric-sum barrier",
     "A nested geometric-quotient barrier",
     "An iterated geometric-quotient-chain barrier",
+    "Signed aggregation separates from product-only iteration",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -71,6 +72,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-013}",
     r"\label{proof:BAR-014}",
     r"\label{proof:BAR-015}",
+    r"\label{proof:BAR-016}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -92,6 +94,10 @@ EXPERIMENT_RECORDS = (
     ROOT / "research" / "experiments" / "EXP-0017-m18-geometric-sum.md",
     ROOT / "research" / "experiments" / "EXP-0018-m19-nested-quotient.md",
     ROOT / "research" / "experiments" / "EXP-0019-m20-iterated-quotient.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0020-m21-quotient-linear-combination.md",
 )
 
 

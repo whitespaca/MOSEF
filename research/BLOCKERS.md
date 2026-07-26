@@ -406,3 +406,22 @@
   publishing this M20 completion payload and authenticate GitHub CLI or use
   the repository UI; then push the existing branch without rewriting history
   and create or update a draft pull request.
+
+## BLK-023 - M21 completion requires publication authorization and GitHub authentication
+
+- Date: 2026-07-27.
+- Scope: publish the validated M21 completion on
+  `research/20260727-m21-linear-combination` and create or update a draft pull
+  request.
+- Evidence: the local validated milestone is
+  `4128a320726c022d892aaf4ffb17349d322ccb2b`, and the branch is one commit
+  ahead of `origin/research/20260727-m21-linear-combination`. Repository
+  publication requires explicit payload authorization, and `gh auth status`
+  reports no authenticated GitHub host.
+- Impact: the proof, three implementations, registered experiment, ledgers,
+  and validated manuscript are committed locally, but the completion commit
+  is not published and no M21 pull request exists.
+- Required resolution: the repository owner must explicitly authorize
+  publishing this M21 completion payload and authenticate GitHub CLI or use
+  the repository UI; then push the existing branch without rewriting history
+  and create or update a draft pull request.

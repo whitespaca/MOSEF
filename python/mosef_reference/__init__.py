@@ -108,6 +108,11 @@ from .iterated_quotient import (
     IteratedQuotientEvaluation,
     evaluate_iterated_quotient,
 )
+from .quotient_linear_combination import (
+    QuotientLinearCombinationEvaluation,
+    evaluate_quotient_linear_combination,
+    expand_quotient_linear_combination,
+)
 from .separator import (
     CandidateKind,
     CandidateOutcome,
@@ -162,6 +167,7 @@ __all__ = [
     "GeometricSumEvaluation",
     "NestedQuotientEvaluation",
     "IteratedQuotientEvaluation",
+    "QuotientLinearCombinationEvaluation",
     "SemismoothAsymmetryWitness",
     "SemismoothFactor",
     "SemismoothWitness",
@@ -192,6 +198,8 @@ __all__ = [
     "evaluate_geometric_sum",
     "evaluate_nested_quotient",
     "evaluate_iterated_quotient",
+    "evaluate_quotient_linear_combination",
+    "expand_quotient_linear_combination",
     "divisor_count",
     "exponent_bit_length",
     "factor_scale_divisor_bound",
