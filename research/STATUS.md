@@ -8,7 +8,7 @@
   channels.
 - Active milestone: M6, strongest fully supported publishable contribution.
 - Reviewed M5 core commit:
-  `667147374ca544450910d02193dc7a2d0945d1d7`.
+  `7ca79de49c404b10c1b1b355ff10b8a8d7d59635`.
 - General classical polynomial-time integer factoring remains open. M5 proves
   a barrier for one natural parameter map, not a factoring algorithm or a
   general two-channel lower bound.
