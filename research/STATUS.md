@@ -1,5 +1,24 @@
 # Research Status
 
+## M20 execution snapshot
+
+- Date: 2026-07-27.
+- Branch: `research/20260727-m20-iterated-quotient`.
+- Active question: for a public factor chain
+  \(M_i=\prod_{j=1}^{i}A_j\), can the iterated identities
+  \[
+  S_{M_i}(X)/S_{M_{i-1}}(X)
+  =S_{A_i}(X^{M_{i-1}})
+  \]
+  create a proper extraction success outside every charged prefix numerator,
+  intermediate denominator, composed denominator, and public multiplier?
+- Provisional evidence target: `DEF-020`, `BAR-015` or a minimized
+  counterexample, `REF-016`, and deterministic `EXP-0019`.
+- First action: define a factorization-independent chain grammar with public
+  depth and factors, total semantics for every denominator, exact compact,
+  sparse, and dense output charges, and an inductive falsification oracle.
+- No M20 theorem or empirical conclusion is claimed at this start point.
+
 ## M19 outcome
 
 - Date: 2026-07-27.
