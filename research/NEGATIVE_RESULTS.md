@@ -244,3 +244,25 @@
   exponentially many exponents, adaptive factor dependence, richer
   representations, other channels, and general factoring remain outside the
   result.
+
+## NR-011 - Charged same-base inversion does not enlarge the exponent hit family
+
+- Date: 2026-07-27.
+- Status: `REFUTED` claim `REF-010`.
+- Hypothesis tested: permitting modular ratios in a factor-oblivious
+  same-base straight-line program might use cancellation and negative
+  exponents to evade the factor-scale scarcity of BAR-008 at
+  \(O(k\log k)\) charged-node cost.
+- Counterargument: signed formal exponents still satisfy
+  \(|z_i|\le2^i\). For a unit base,
+  \(g^{-d}-1=-g^{-d}(g^d-1)\), so negative and positive exponents have
+  exactly the same GCD with \(N\), while exponent zero yields only the full
+  collision. Removing signs, zeros, and duplicates leaves a polynomial
+  explicit list with \(O(k\log k)\)-bit exponents, to which BAR-008 applies.
+- Evidence: BAR-009 and deterministic EXP-0013; independent adversarial
+  review, including a separate full-syntax enumeration with self-ratios.
+- Scope: the charged, factor-oblivious, same-base DEF-014 unit branch.
+  Proper factors discovered by the initial base GCD are separate exits.
+  Implicit batches, modulus-specific shortcuts, adaptive factor-dependent
+  choices, special endomorphisms, unrelated multi-base expressions, other
+  groups, and general factoring remain open.

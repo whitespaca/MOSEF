@@ -72,6 +72,8 @@ internal static class Program
             "divisor-count" when args.Length == 2 => RunDivisorCount(args),
             "multiplication-program" when args.Length == 4 =>
                 RunMultiplicationProgram(args),
+            "addition-subtraction-program" when args.Length == 4 =>
+                RunAdditionSubtractionProgram(args),
             "multiplication-lower-bound" when args.Length == 2 =>
                 RunMultiplicationLowerBound(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
@@ -247,6 +249,99 @@ internal static class Program
         }
         return $"exponents:{string.Join(",", exponents)}|"
             + $"residues:{string.Join(",", residues)}";
+    }
+
+    private static (int Left, int Right, int Sign)[] ParseSignedSteps(string raw)
+    {
+        if (string.IsNullOrEmpty(raw))
+        {
+            throw new ArgumentException("steps must be nonempty");
+        }
+        return raw.Split(',').Select(step =>
+        {
+            string[] parts = step.Split(':');
+            if (
+                parts.Length != 3
+                || !int.TryParse(parts[0], out int left)
+                || !int.TryParse(parts[1], out int right)
+            )
+            {
+                throw new ArgumentException(
+                    "each signed step must have integer left:right:sign form"
+                );
+            }
+            int sign = parts[2] switch
+            {
+                "+" or "1" => 1,
+                "-" or "-1" => -1,
+                _ => throw new ArgumentException("signed step sign must be + or -"),
+            };
+            return (left, right, sign);
+        }).ToArray();
+    }
+
+    private static BigInteger ModularInverse(BigInteger value, BigInteger modulus)
+    {
+        BigInteger oldRemainder = value;
+        BigInteger remainder = modulus;
+        BigInteger oldCoefficient = BigInteger.One;
+        BigInteger coefficient = BigInteger.Zero;
+        while (remainder != 0)
+        {
+            BigInteger quotient = oldRemainder / remainder;
+            (oldRemainder, remainder) = (
+                remainder,
+                oldRemainder - quotient * remainder
+            );
+            (oldCoefficient, coefficient) = (
+                coefficient,
+                oldCoefficient - quotient * coefficient
+            );
+        }
+        if (oldRemainder != 1)
+        {
+            throw new ArgumentException("residue is not invertible");
+        }
+        return ((oldCoefficient % modulus) + modulus) % modulus;
+    }
+
+    private static string RunAdditionSubtractionProgram(string[] args)
+    {
+        BigInteger value = Parse(args, 1, "base");
+        BigInteger modulus = Parse(args, 2, "modulus");
+        if (modulus < 2)
+        {
+            throw new ArgumentException("modulus must be at least two");
+        }
+        BigInteger reducedBase = ((value % modulus) + modulus) % modulus;
+        if (Gcd(reducedBase, modulus) != 1)
+        {
+            throw new ArgumentException("base must be a unit modulo the modulus");
+        }
+        (int Left, int Right, int Sign)[] steps = ParseSignedSteps(args[3]);
+        List<BigInteger> exponents = [BigInteger.One];
+        List<BigInteger> residues = [reducedBase];
+        int inversionCount = 0;
+        for (int index = 0; index < steps.Length; index++)
+        {
+            (int left, int right, int sign) = steps[index];
+            int available = index + 1;
+            if (left < 0 || right < 0 || left >= available || right >= available)
+            {
+                throw new ArgumentException("parents must be earlier nodes");
+            }
+            exponents.Add(exponents[left] + sign * exponents[right]);
+            BigInteger rightResidue = residues[right];
+            if (sign == -1)
+            {
+                rightResidue = ModularInverse(rightResidue, modulus);
+                inversionCount++;
+            }
+            residues.Add(residues[left] * rightResidue % modulus);
+        }
+        return $"exponents:{string.Join(",", exponents)}|"
+            + $"residues:{string.Join(",", residues)}|"
+            + $"inversions:{inversionCount}";
     }
 
     private static string RunMultiplicationLowerBound(string[] args)

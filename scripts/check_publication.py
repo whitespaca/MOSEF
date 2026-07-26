@@ -36,6 +36,7 @@ REQUIRED_SECTIONS = (
     "A constant-sensitive boundary barrier",
     "A factor-scale primorial barrier",
     "A general factor-scale boundary barrier",
+    "An addition-subtraction compression barrier",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -57,6 +58,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-006}",
     r"\label{proof:BAR-007}",
     r"\label{proof:BAR-008}",
+    r"\label{proof:BAR-009}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -71,6 +73,7 @@ EXPERIMENT_RECORDS = (
     ROOT / "research" / "experiments" / "EXP-0010-m11-boundary-schedule.md",
     ROOT / "research" / "experiments" / "EXP-0011-m12-primorial-scale.md",
     ROOT / "research" / "experiments" / "EXP-0012-m13-general-factor-scale.md",
+    ROOT / "research" / "experiments" / "EXP-0013-m14-addition-subtraction.md",
 )
 
 

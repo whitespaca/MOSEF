@@ -245,6 +245,7 @@
 ## BLK-015 - M13 remote delivery requires explicit approval
 
 - Date: 2026-07-27.
+- Status: resolved externally before M14 preflight.
 - Scope: push `research/20260727-m13-general-factor-scale` and create its
   draft pull request.
 - Evidence: the sandboxed `git push --set-upstream origin
@@ -259,3 +260,24 @@
 - Required resolution: the repository owner must explicitly authorize
   publishing this M13 branch to `origin`. After a successful push,
   authenticate GitHub CLI and create a draft pull request targeting `main`.
+- Resolution evidence: M14 preflight found both local and
+  `origin/research/20260727-m13-general-factor-scale` at
+  `843fb411920ca5cba7109871a6daefe1717b0342`. GitHub CLI remains
+  unauthenticated, so no M13 pull request was created or verified.
+
+## BLK-016 - M14 remote delivery lacks Windows Git credentials
+
+- Date: 2026-07-27.
+- Scope: push `research/20260727-m14-addition-subtraction` and create its
+  draft pull request.
+- Evidence: after local commits `e80115bd27200c0ec0f37a388cd4e9a4bbac9769`
+  and `4f92cbe`, the sandboxed command
+  `git push --set-upstream origin
+  research/20260727-m14-addition-subtraction` failed with
+  `schannel: AcquireCredentialsHandle failed: SEC_E_NO_CREDENTIALS
+  (0x8009030e)`.
+- Impact: M14 is complete and locally committed, but the branch is not
+  published and no pull request exists.
+- Required resolution: provide an authenticated Windows Git credential
+  context and authorize the push; then authenticate GitHub CLI or use the
+  repository UI to create a draft pull request targeting `main`.
