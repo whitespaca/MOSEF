@@ -56,6 +56,24 @@
   \(L(k)\not=o(k\log k)\) representation model before searching for an escape
   theorem or a stronger obstruction.
 
+## M9 execution snapshot
+
+- Date: 2026-07-26.
+- Branch: `research/20260726-m9-divisor-rich-schedules`.
+- Completed milestone: M9.
+- Core implementation/proof commit:
+  `1416d70a6bc39a4c7491e9ec86e4e67f96293962`.
+- Registered experiment commit:
+  `fcdb3eb76c942b6c8019ef3002b138385a7ec5b9`.
+- Validated milestone completion commit:
+  `12f2172aaaca8016baccca109d28e0e7cbb8db98`.
+- Remote delivery: blocked by `BLK-011`; the policy-reviewed push attempt was
+  rejected because the user has not explicitly authorized external GitHub
+  egress for this new M9 payload.
+- Next selected milestone: M10, a rigorously specified compressed or
+  \(L(k)\not=o(k\log k)\) exponent representation with exact construction and
+  evaluation accounting.
+
 ## M8 outcome
 
 - Branch: `research/20260726-m8-promise-recognition`.
