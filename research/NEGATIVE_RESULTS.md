@@ -286,3 +286,29 @@
   materialization. Specialized circuits that compute the formal or residue
   product without materializing every leaf, adaptive factor-dependent
   selectors, other channels, and general factoring remain open.
+
+## NR-013 - Product-DAG sharing repeats atoms but does not synthesize distinct tests
+
+- Date: 2026-07-27.
+- Status: `REFUTED` claim `REF-012`.
+- Hypothesis tested: reusing subproducts in a polynomial-size same-base
+  product DAG provides an exponentially indexed family of distinct exponent
+  tests or a new proper-factor success absent from its explicit atoms.
+- Counterargument: the \(s\)-th gate can represent \(2^s\) unfolded
+  occurrences by repeated self-product, but every occurrence is one of the
+  explicitly emitted atoms and every node has a nonnegative formal
+  multiplicity vector over that finite table. A proper node GCD therefore
+  implies a proper used atom GCD.
+- Repetition can instead destroy a prime-power separator:
+  \(N=9,g=4,d=1\) has atom GCD \(3\), while its square has full GCD \(9\).
+  Complementary atoms at \(N=21,g=2,\Delta=(2,3)\) likewise aggregate to the
+  full collision.
+- Evidence: BAR-011 and deterministic EXP-0015; 611,572 syntax checks,
+  517,020 residue circuits, 3,581,928 valuation components, and 10 selected
+  cross-language comparisons.
+- Scope: no statement about addition, subtraction, division, composition,
+  closed-form atom synthesis, modulus-specific identities, adaptive
+  factor-dependent computation, other groups, or general arithmetic
+  circuits.
+- Revisit only with a precise richer circuit whose uniform constructor,
+  formal outputs, residue evaluation, and factor extraction are all charged.

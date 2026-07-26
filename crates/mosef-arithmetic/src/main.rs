@@ -2,11 +2,11 @@ use mosef_arithmetic::{
     analyze_divisor_cover, batch_gcd, combined_promise_asymmetry, combined_promise_hit_count,
     combined_promise_signature, divisor_count, evaluate_addition_subtraction_program,
     evaluate_batch_product, evaluate_lucas_separator_candidate, evaluate_multiplication_program,
-    evaluate_separator_candidate, generic_multiplication_lower_bound, is_prime, lucas_v, mod_pow,
-    perfect_power, pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
-    semismooth_successful_residue_count, trial_division, BatchProductEvaluation, CoverAnalysis,
-    LucasSeparatorOutcome, SemismoothOutcome, SeparatorOutcome, SignedStraightLineEvaluation,
-    StraightLineEvaluation,
+    evaluate_product_dag, evaluate_separator_candidate, generic_multiplication_lower_bound,
+    is_prime, lucas_v, mod_pow, perfect_power, pollard_p_minus_one, pollard_p_plus_one,
+    pollard_rho, semismooth_factor, semismooth_successful_residue_count, trial_division,
+    BatchProductEvaluation, CoverAnalysis, LucasSeparatorOutcome, ProductDagEvaluation,
+    SemismoothOutcome, SeparatorOutcome, SignedStraightLineEvaluation, StraightLineEvaluation,
 };
 use std::env;
 use std::process::ExitCode;
@@ -199,6 +199,40 @@ fn display_batch_product(evaluation: BatchProductEvaluation) -> String {
         "leaves:{leaves}|root:{}|leaf_gcds:{leaf_gcds}|root_gcd:{}|multiplications:{}",
         evaluation.root_residue, evaluation.root_gcd, evaluation.multiplication_count
     )
+}
+
+fn display_product_dag(evaluation: ProductDagEvaluation) -> String {
+    let nodes = evaluation
+        .node_residues
+        .iter()
+        .map(u64::to_string)
+        .collect::<Vec<_>>()
+        .join(",");
+    let gcds = evaluation
+        .node_gcds
+        .iter()
+        .map(u64::to_string)
+        .collect::<Vec<_>>()
+        .join(",");
+    let multiplicities = evaluation
+        .multiplicities
+        .iter()
+        .map(|profile| {
+            profile
+                .iter()
+                .map(u64::to_string)
+                .collect::<Vec<_>>()
+                .join(",")
+        })
+        .collect::<Vec<_>>()
+        .join(";");
+    let occurrences = evaluation
+        .occurrence_counts
+        .iter()
+        .map(u64::to_string)
+        .collect::<Vec<_>>()
+        .join(",");
+    format!("nodes:{nodes}|gcds:{gcds}|multiplicities:{multiplicities}|occurrences:{occurrences}")
 }
 
 fn run() -> Result<(), String> {
@@ -421,6 +455,23 @@ fn run() -> Result<(), String> {
                         .to_owned()
                 },
             )?)
+        }
+        "product-dag" => {
+            let base = parse_u64(arguments.next(), "base")?;
+            let modulus = parse_u64(arguments.next(), "modulus")?;
+            let exponents = parse_csv_u64(
+                arguments
+                    .next()
+                    .ok_or_else(|| "missing exponents".to_owned())?,
+                "exponents",
+            )?;
+            let gates = parse_steps(arguments.next().ok_or_else(|| "missing gates".to_owned())?)?;
+            display_product_dag(
+                evaluate_product_dag(base, modulus, &exponents, &gates).ok_or_else(|| {
+                    "base must be a unit, exponents positive and increasing, gates earlier, and multiplicities in range"
+                        .to_owned()
+                })?,
+            )
         }
         "multiplication-lower-bound" => {
             let exponent = parse_u64(arguments.next(), "exponent")?;

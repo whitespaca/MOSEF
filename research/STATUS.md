@@ -1,5 +1,76 @@
 # Research Status
 
+## M16 outcome
+
+- Date: 2026-07-27.
+- Branch: `research/20260727-m16-product-dag`.
+- Completed milestone: M16, the explicit-atom product-only DAG whose shared
+  subproducts are evaluated once while formal leaf occurrences remain
+  non-materialized.
+- `DEF-016` charges the public-input, factorization-free constructor, explicit
+  exponent atoms, product gates, requested residue or formal outputs, GCDs,
+  and extraction. `BAR-011` is `PROVED`: every node has an exact
+  nonnegative atom-multiplicity product and positive-multiplicity
+  prime-power valuation formula; every proper node GCD implies a proper used
+  atom GCD; and gate \(s\) has at most \(2^s\) unfolded occurrences, tightly.
+- Sharing therefore permits exponential repeated formal occurrences but does
+  not synthesize exponentially many distinct exponent tests or a proper
+  success absent from the explicit atom table. A complete optional formal
+  table has \(O(a(a+t)(t+1))\) bits for \(a\) atoms and \(t\) gates.
+  `REF-012` is `REFUTED`, and NR-013 records the scoped negative result.
+- Aggregation can worsen extraction. The single atom at
+  \(N=9,g=4,d=1\) has proper GCD \(3\), but its first self-product has full
+  GCD \(9\). The complementary \(N=21,g=2,\Delta=(2,3)\) union collision
+  also persists.
+- The BAR-008 transfer remains separate: at each input length the explicit
+  atom list must be common and factorization-independent, and its exponents
+  must have \(O(k\log k)\) bits. Addition, subtraction, division,
+  composition, closed-form atom synthesis, modulus-specific identities,
+  adaptive factor dependence, other groups, and general arithmetic circuits
+  remain outside BAR-011.
+- EXP-0015 checked 611,572 exact product-DAG syntaxes, 3,033,586 gate
+  occurrences, 517,020 residue circuits, 2,282,274 node semantics, and
+  3,581,928 valuation components. All 856,512 proper-node implications held,
+  84,013 product nodes masked a used atom success as a full collision, the
+  exact occurrence maxima were \(2,4,8,16,32\), and the 10 selected
+  Python/Rust/C# comparisons agreed. Canonical summary SHA-256:
+  `431faf3c71fc0f13c3152bffd06faa5e7eb96382164e40611979c8573e41a12d`.
+- Independent source-scope review required positive-multiplicity valuation
+  sums to avoid \(0\cdot(+\infty)\) and removed unsupported minimality
+  wording. Independent adversarial review required the \(t=0\) formal-table
+  repair, a used-atom rather than global-atom audit predicate, the corrected
+  84,013 reachable-mask count, and accurate all-moduli box wording. Both
+  re-reviews passed.
+- Full gates passed: foundation and publication consistency (68 claims and
+  14 experiment hashes), 118 Python tests and bytecode compilation, Rust
+  format/Clippy/22 tests, C# Release build with zero warnings or errors,
+  EXP-0015, and the 10-check differential validator. Optional third-party
+  pytest, Ruff, and mypy remain unavailable under BLK-003.
+- XeLaTeX converged with no warnings, undefined references or citations, or
+  overfull/underfull boxes. All 41 pages, including the revised abstract,
+  theorem, results, limitations, full proof, and reproduction appendix, were
+  rendered and visually inspected. Stable PDF:
+  `output/pdf/mosef-paper.pdf`, SHA-256
+  `6880cfc1740496123ea8aa9f8d8ad029de8adbfad4f29996b4750e9960989023`.
+- Local milestone implementation/proof/paper commit:
+  `0728628b5ffe5387b926080de8674f22d1c8dadf`.
+- Remote publication is blocked under BLK-018: the safety reviewer rejected
+  the M16 branch push because this specific external payload has not been
+  explicitly authorized. GitHub CLI is also unauthenticated, so no pull
+  request was created.
+- Next action: M17 should formalize a richer rational or compositional
+  circuit, beginning with the dyadic telescoping identity, and charge failed
+  division, formal output, residue evaluation, and factor extraction.
+
+## 한국어 요약
+
+M16에서는 명시적으로 계산한 \(g^{d_i}-1\) 원자들을 곱셈 DAG에서
+재사용하는 비물질화 모델을 검증했습니다. 공유를 통해 형식적 반복
+횟수는 \(2^t\)까지 늘릴 수 있지만, 새로운 서로 다른 지수 검사를
+만들거나 사용된 원자에 없던 인수를 얻을 수는 없습니다. 이 결과는
+일반 산술 회로 하한이 아니며, 덧셈ㆍ나눗셈ㆍ합성ㆍ폐쇄형 원자 생성은
+다음 연구 범위로 남습니다.
+
 ## M15 outcome
 
 - Date: 2026-07-27.

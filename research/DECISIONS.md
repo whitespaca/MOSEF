@@ -378,3 +378,21 @@
   factorization-independent leaf list and \(O(k\log k)\)-bit exponents.
   The next milestone may study a genuinely non-materializing circuit only
   after defining its formal output, cost, and extraction semantics.
+
+## ADR-019 - Distinguish DAG sharing from distinct atom synthesis
+
+- Date: 2026-07-27.
+- Decision: define M16's smallest non-materializing model as explicit
+  same-base atoms followed by a multiplication DAG whose earlier subproducts
+  may be reused without unfolding, and charge atom construction, gates,
+  outputs, GCDs, and optional formal multiplicity output separately.
+- Rationale: DAG sharing genuinely represents exponentially many repeated
+  formal occurrences at polynomial gate cost, so it leaves DEF-015's
+  materialized-tree model. At the same time, it has an exact elementary
+  multiplicity semantics that permits falsification without assuming a
+  lower bound for arbitrary arithmetic circuits.
+- Consequence: BAR-011 can prove that sharing exposes no distinct exponent
+  beyond the explicit atom table and no proper product-node factor absent
+  from those atoms. Addition, subtraction, division, composition, closed-form
+  atom synthesis, modulus-specific identities, and adaptive branches remain
+  open modeling axes rather than being silently ruled out.

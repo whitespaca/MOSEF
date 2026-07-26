@@ -537,6 +537,18 @@ pub struct BatchProductEvaluation {
     pub multiplication_count: usize,
 }
 
+/// Explicit atom nodes and shared product nodes for a non-materializing DAG.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ProductDagEvaluation {
+    pub exponents: Vec<u64>,
+    pub atom_residues: Vec<u64>,
+    pub atom_gcds: Vec<u64>,
+    pub node_residues: Vec<u64>,
+    pub node_gcds: Vec<u64>,
+    pub multiplicities: Vec<Vec<u64>>,
+    pub occurrence_counts: Vec<u64>,
+}
+
 /// Evaluate nodes starting from `g`, with every later node multiplying two parents.
 pub fn evaluate_multiplication_program(
     base: u64,
@@ -680,6 +692,79 @@ pub fn evaluate_batch_product(
     })
 }
 
+/// Evaluate explicit `g^d - 1` atoms and shared product gates without unfolding.
+pub fn evaluate_product_dag(
+    base: u64,
+    modulus: u64,
+    exponents: &[u64],
+    gates: &[(usize, usize)],
+) -> Option<ProductDagEvaluation> {
+    if modulus < 2
+        || exponents.is_empty()
+        || gcd(base % modulus, modulus) != 1
+        || exponents.iter().copied().any(|exponent| exponent == 0)
+        || exponents.windows(2).any(|pair| pair[0] >= pair[1])
+    {
+        return None;
+    }
+    let atom_residues = exponents
+        .iter()
+        .copied()
+        .map(|exponent| {
+            mod_pow(base, exponent, modulus).map(|residue| {
+                if residue == 0 {
+                    modulus - 1
+                } else {
+                    residue - 1
+                }
+            })
+        })
+        .collect::<Option<Vec<_>>>()?;
+    let atom_gcds = atom_residues
+        .iter()
+        .copied()
+        .map(|residue| gcd(residue, modulus))
+        .collect::<Vec<_>>();
+    let atom_count = atom_residues.len();
+    let mut node_residues = atom_residues.clone();
+    let mut multiplicities = (0..atom_count)
+        .map(|index| {
+            (0..atom_count)
+                .map(|atom| u64::from(atom == index))
+                .collect::<Vec<_>>()
+        })
+        .collect::<Vec<_>>();
+    let mut occurrence_counts = vec![1_u64; atom_count];
+    for (gate_index, (left, right)) in gates.iter().copied().enumerate() {
+        let available = atom_count + gate_index;
+        if left >= available || right >= available {
+            return None;
+        }
+        node_residues.push(mul_mod(node_residues[left], node_residues[right], modulus));
+        let profile = multiplicities[left]
+            .iter()
+            .zip(&multiplicities[right])
+            .map(|(left_count, right_count)| left_count.checked_add(*right_count))
+            .collect::<Option<Vec<_>>>()?;
+        multiplicities.push(profile);
+        occurrence_counts.push(occurrence_counts[left].checked_add(occurrence_counts[right])?);
+    }
+    let node_gcds = node_residues
+        .iter()
+        .copied()
+        .map(|residue| gcd(residue, modulus))
+        .collect::<Vec<_>>();
+    Some(ProductDagEvaluation {
+        exponents: exponents.to_vec(),
+        atom_residues,
+        atom_gcds,
+        node_residues,
+        node_gcds,
+        multiplicities,
+        occurrence_counts,
+    })
+}
+
 /// Return `ceil(log2(exponent))`, the generic multiplication growth lower bound.
 pub fn generic_multiplication_lower_bound(exponent: u64) -> Option<u32> {
     if exponent == 0 {
@@ -816,6 +901,31 @@ mod tests {
         assert_eq!(odd.root_residue, 21);
         assert_eq!(evaluate_batch_product(5, 35, &[1]), None);
         assert_eq!(evaluate_batch_product(2, 35, &[2, 2]), None);
+    }
+
+    #[test]
+    fn product_dag_tracks_multiplicities_without_unfolding() {
+        assert_eq!(
+            evaluate_product_dag(2, 21, &[2, 3], &[(0, 1)]),
+            Some(ProductDagEvaluation {
+                exponents: vec![2, 3],
+                atom_residues: vec![3, 7],
+                atom_gcds: vec![3, 7],
+                node_residues: vec![3, 7, 0],
+                node_gcds: vec![3, 7, 21],
+                multiplicities: vec![vec![1, 0], vec![0, 1], vec![1, 1]],
+                occurrence_counts: vec![1, 1, 2],
+            })
+        );
+        let repeated = evaluate_product_dag(4, 9, &[1], &[(0, 0), (1, 1), (2, 2), (3, 3), (4, 4)])
+            .expect("repeated product DAG must evaluate");
+        assert_eq!(repeated.atom_gcds, vec![3]);
+        assert_eq!(repeated.node_gcds[1], 9);
+        assert_eq!(repeated.multiplicities[5], vec![32]);
+        assert_eq!(repeated.occurrence_counts[5], 32);
+        assert_eq!(evaluate_product_dag(5, 35, &[1], &[]), None);
+        assert_eq!(evaluate_product_dag(2, 35, &[2, 2], &[]), None);
+        assert_eq!(evaluate_product_dag(2, 35, &[1], &[(0, 1)]), None);
     }
 
     #[test]

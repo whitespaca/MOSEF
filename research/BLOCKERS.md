@@ -303,3 +303,21 @@
 - Required resolution: the repository owner must explicitly authorize
   publishing this M15 branch to `origin`; then push the branch and create or
   update the draft pull request without rewriting history.
+
+## BLK-018 - M16 remote publication requires explicit authorization
+
+- Date: 2026-07-27.
+- Scope: push `research/20260727-m16-product-dag` and create its draft pull
+  request.
+- Evidence: the environment safety reviewer rejected
+  `git push --set-upstream origin research/20260727-m16-product-dag` before
+  execution because publishing this newly created proof, implementation,
+  experiment, and manuscript payload to the external GitHub remote was not
+  explicitly authorized. `gh auth status` also reports no authenticated
+  GitHub host.
+- Impact: M16 is validated and committed locally at
+  `0728628b5ffe5387b926080de8674f22d1c8dadf`, with its status-record commit
+  at `b732a6e`, but the branch is not pushed and no M16 pull request exists.
+- Required resolution: the repository owner must explicitly authorize
+  publishing this M16 branch to `origin`; then push the branch and create or
+  update a draft pull request without rewriting history.

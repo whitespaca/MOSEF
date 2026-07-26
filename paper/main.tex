@@ -15,7 +15,7 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
-Two Restricted Theorems and Ten Structural Barriers}
+Two Restricted Theorems and Eleven Structural Barriers}
 \author{MOSEF Research Program}
 \date{27 July 2026}
 
@@ -34,7 +34,7 @@ each complete schedule cycle at a promised residual node. We also prove an
 exact Lucas root-count formula and use fresh uniform, independently
 parameterized Lucas values to obtain a second Las Vegas theorem on a
 hereditary \(p+1\)-asymmetry promise, with at least \(1/12\) split probability
-at a witness trial. We prove ten structural barriers. Divisor
+at a witness trial. We prove eleven structural barriers. Divisor
 coverage does not imply multiplicative-order separation; the exact missing
 condition is injectivity of divisibility signatures. A natural Lucas
 parameter map \(P=a+a^{-1}\) is also not an independent group channel:
@@ -76,8 +76,10 @@ selector does not compress a standard product tree that materializes every
 selected leaf: \(n\) leaves require \(n-1\) internal multiplications. The
 aggregate GCD has an exact sum-of-valuations formula, cannot reveal a proper
 factor absent from every leaf, and may mask individual separators as a full
-collision. This final statement is not a lower bound for specialized
-arithmetic circuits without leaf materialization.
+collision. A product-only DAG can then share subproducts and describe
+\(2^t\) repeated formal occurrences, but every proper node GCD still implies
+a proper used explicit atom GCD. Neither statement is a lower bound for richer
+arithmetic circuits.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -137,24 +139,27 @@ algorithm. Its contributions are:
   absolute values of signed \(O(k\log k)\)-bit formal exponents;
 \item a leaf-materialized batch barrier: a standard \(n\)-leaf product tree
   has \(n-1\) internal multiplications, its root cannot create a new proper
-  success, and aggregation may hide individual separators; and
+  success, and aggregation may hide individual separators;
+\item an explicit-atom product-DAG barrier: sharing can encode \(2^t\)
+  repeated formal occurrences but cannot synthesize a distinct exponent test
+  or proper success absent from its used atoms; and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
 
 The positive theorems are restricted: membership in their promise classes can
 depend on the unknown factorization and is not recognized by the algorithms.
-The ten barriers are also scoped: one concerns explicit order signatures,
+The eleven barriers are also scoped: one concerns explicit order signatures,
 one concerns only \(P=a+a^{-1}\), and two concern a common explicit finite
-schedule under separate magnitude or encoding hypotheses. The fifth concerns
-only formal exponents in a factor-oblivious multiplication-only DAG. The sixth
+schedule under separate magnitude or encoding hypotheses. One concerns only
+formal exponents in a factor-oblivious multiplication-only DAG, and another
 exposes a coefficient threshold for stipulated populations but is silent at
-and above the critical coefficient before factor scale is imposed. The final
-two concern only \(O(k)\)-bit target factors and the stated explicit schedule
-model. The ninth covers only charged, factor-oblivious, same-base
-addition-subtraction programs on their unit branches. The tenth concerns
-only selector-described standard product trees that materialize and charge
-every leaf, not specialized arithmetic circuits. These boundaries are part
+and above the critical coefficient before factor scale is imposed. Two
+factor-scale barriers retain the stated explicit-schedule hypotheses. The
+remaining three concern, respectively, charged same-base
+addition-subtraction programs, selector-described standard product trees
+that materialize every leaf, and product-only DAGs over explicitly charged
+atoms. Richer arithmetic circuits remain outside. These boundaries are part
 of the results.
 
 Section 2 records the imported complexity landscape. Sections 3 and 4 define
@@ -166,7 +171,8 @@ multiplication straight-line compression barrier, and Section 12 treats the
 exact boundary coefficient. Sections 13 and 14 give the primorial-specific
 and general factor-scale barriers. Section 15 treats charged same-base
 addition-subtraction programs, and Section 16 treats leaf-materialized
-standard product trees. Later sections separate algorithms,
+standard product trees. Section 17 treats the explicit-atom product DAG.
+Later sections separate algorithms,
 experiments, and observations. Complete proofs and reproduction details appear in the
 appendices.
 
@@ -1075,6 +1081,67 @@ lower bound for a specialized arithmetic circuit computing the same formal
 product without materializing its leaves, nor for adaptive selectors, other
 channels, or general factoring.
 
+\section{A non-materializing explicit-atom product-DAG barrier}
+
+We now permit genuine DAG sharing: an earlier subproduct may feed several
+later gates without expanding its formal leaf occurrences.
+
+\claimstatus{DEF-016}{DEFINITION}. After the direct base-GCD precheck, emit a
+strictly increasing positive exponent list
+\(\Delta=(d_1,\ldots,d_a)\), explicit atoms
+\[
+A_i=g^{d_i}-1\pmod N,
+\]
+and \(t\) product gates whose two parents are earlier atom or product nodes.
+The formal multiplicity vector is the corresponding unit vector at an atom
+and adds at a product gate. Its coordinate sum is the unfolded occurrence
+count. A uniform constructor, given the ordinary public input \((N,g)\) but
+no factorization, emits the complete exponent, gate, and requested output
+lists; construction, exponent encodings, atom evaluations and storage,
+gates, outputs, GCDs, extraction, and any requested formal table are charged.
+The evaluator need not materialize the unfolded occurrences.
+
+\claimstatus{BAR-011}{PROVED}. For every node \(v\), with formal
+multiplicities \(\mu_{v,i}\),
+\[
+Y_v\equiv\prod_{i=1}^a A_i^{\mu_{v,i}}\pmod N
+\]
+and
+\[
+\gcd(Y_v,N)=
+\prod_{p^e\parallel N}
+p^{\min\{e,\sum_{i:\mu_{v,i}>0}
+\mu_{v,i}\nu_p(g^{d_i}-1)\}}.
+\]
+Hence every proper node GCD implies a proper used atom GCD. The \(s\)-th
+product gate has at most \(2^s\) unfolded occurrences, and repeated
+self-product attains equality. A polynomial-size DAG may therefore describe
+exponentially many repeated occurrences, but it exposes only its explicitly
+charged atom exponents.
+
+With \(a\) atoms and \(t\) gates, residue evaluation uses \(a\) modular
+exponentiations and \(t\) modular multiplications. Every formal
+multiplicity has \(O(t+1)\) bits; emitting the complete table costs
+\(O(a(a+t)(t+1))\) bits. Inspecting every atom and node requires at most
+\(a+t\) stored residues and GCDs. If the explicit atom list is additionally
+common and factorization-independent at each input length and its exponents
+have \(O(k\log k)\) bits, BAR-008 applies directly.
+
+Sharing can worsen extraction. For \(N=9,g=4,d_1=1\), the atom is \(3\) and
+has proper GCD \(3\), but its first self-product is zero modulo \(9\) and has
+full GCD \(9\). The \(N=21,g=2,\Delta=(2,3)\) complementary-support
+collision from BAR-010 persists.
+
+\claimstatus{REF-012}{REFUTED}. Product-DAG sharing alone does not provide
+exponentially many distinct same-base exponent tests or a proper factor
+absent from the explicit atom table. It does provide exponentially many
+repeated formal occurrences.
+
+Appendix \ref{proof:BAR-011} proves the scoped statement. Addition,
+subtraction, division, composition, closed-form atom synthesis,
+modulus-specific identities, adaptive factor-dependent branches, unrelated
+bases, other groups, and general arithmetic circuits remain outside it.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -1107,6 +1174,12 @@ Leaf-materialized product tree &
 Exact aggregate valuation and root-versus-leaf success semantics &
 \(n\) charged leaf evaluations and exactly \(n-1\) internal
 multiplications; no non-materializing arithmetic-circuit lower bound \\
+\addlinespace
+Explicit-atom product DAG &
+Exact formal multiplicities, shared subproducts, and node-versus-atom
+success semantics &
+\(a\) charged atom exponentiations and \(t\) product gates; unfolded
+occurrences can reach \(2^t\), but richer arithmetic circuits remain outside \\
 \addlinespace
 Semismooth randomized splitter &
 Complete Las Vegas factorization on the hereditary promise class &
@@ -1225,6 +1298,11 @@ EXP-0014 & All nonempty subsets of \([10]\); moduli through 256; bases
 through 24 &
 3,821,928 batch checks; 1,333,349 proper-root implications; 850,538 masked
 separator batches; 10 differential checks \\
+\addlinespace
+EXP-0015 & Product DAGs through five syntax gates; moduli/bases/exponents
+through \(128/16/4\) &
+611,572 syntax checks; 517,020 residue circuits; 856,512 proper-node
+implications; 10 differential checks \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1324,6 +1402,16 @@ agreed. These finite observations do not prove the asymptotic transfer or
 establish a non-materializing circuit, population, density, recognition,
 novelty, factoring, or general lower-bound claim.
 
+\claimstatus{EMP-015}{EMPIRICAL}. EXP-0015 completed 611,572 exact product-DAG
+syntax checks, 3,033,586 gate occurrence checks, 517,020 bounded residue
+circuits, 2,282,274 node-semantics checks, and 3,581,928 valuation-component
+checks. Every one of 856,512 proper node GCDs had a proper explicit atom.
+The exact unfolded-occurrence maxima were \(2,4,8,16,32\), while 84,013
+product nodes masked a used atom success as a full collision. All 10 selected
+Python/Rust/C\# comparisons agreed. These finite observations do not prove the
+asymptotic or support a richer-circuit, population, density, recognition,
+novelty, factoring, or general lower-bound claim.
+
 These observations audit implementations and minimize counterexamples. The
 universal statements in this paper are supplied by proofs, not extrapolation
 from the table.
@@ -1401,6 +1489,15 @@ BAR-008 transfer separately requires \(O(k\log k)\)-bit exponents, a common
 factorization-independent schedule, fixed factor scale, and a stipulated
 population. Reducing GCD calls does not reduce the charged leaf construction.
 
+BAR-011 closes one genuinely non-materializing case: explicit atom residues
+may feed a product-only DAG with shared subproducts. The theorem counts
+formal repetitions exactly and shows that a proper node success already
+occurs at a used atom. It does not cover addition, subtraction, division,
+composition, closed-form atom synthesis, modulus-specific identities,
+adaptive factor-dependent computation, unrelated bases, other groups, or a
+general arithmetic-circuit model. Its BAR-008 transfer again needs a common
+factorization-independent atom list with \(O(k\log k)\)-bit exponents.
+
 The authoritative Rust layer is bounded to \texttt{u64}; validation primality
 uses trial division and is not itself the polynomial-time procedure imported
 in EXT-001. The literature set is sufficient for the technical statements
@@ -1463,9 +1560,11 @@ capacity witness. At factor scale, BAR-008 closes every fixed coefficient
 inside the common polynomial-size explicit schedule and stated DEF-010
 model, while BAR-009 extends the transfer to the charged same-base
 addition-subtraction unit branch. BAR-010 closes the standard
-leaf-materialized product-tree case. Specialized non-materializing
-arithmetic circuits and other models remain research targets, not claimed
-factoring breakthroughs.
+leaf-materialized product-tree case. BAR-011 then permits shared product
+subcircuits and exponential unfolded repetition, but proves that repetition
+does not synthesize a distinct exponent test or a proper factor absent from
+the explicit atoms. Richer non-materializing arithmetic circuits and other
+models remain research targets, not claimed factoring breakthroughs.
 
 \appendix
 
@@ -2389,6 +2488,67 @@ upper bounds follow. The proper-root implication shows that aggregation
 cannot add success, while the \(N=21\) witness shows it can mask success. No
 claim about a circuit without leaf materialization is used. \(\square\)
 
+\section{Full proof of the explicit-atom product-DAG barrier}
+
+\subsection{Proof of BAR-011}\label{proof:BAR-011}
+
+At atom \(i\), the formal residue identity is the definition because its
+multiplicity vector is the \(i\)-th unit vector. If it holds at both parents
+of a product gate, then
+\[
+Y_{\ell_s}Y_{r_s}
+\equiv
+\prod_i A_i^{\mu_{\ell_s,i}+\mu_{r_s,i}}
+=
+\prod_i A_i^{\mu_{v_s,i}}
+\pmod N.
+\tag{31}
+\]
+Induction proves the identity at every node.
+
+Choose integer lifts of the atom residues. Congruence modulo \(N\) preserves
+the GCD with \(N\). For each \(p^e\parallel N\), additivity of valuations on
+the used factors gives
+\[
+\nu_p\left(\prod_i A_i^{\mu_{v,i}}\right)
+=
+\sum_{i:\mu_{v,i}>0}\mu_{v,i}\nu_p(A_i).
+\tag{32}
+\]
+The restriction to positive multiplicity avoids an unused zero atom and the
+undefined expression \(0\cdot(+\infty)\). Capping (32) at \(e\) and
+multiplying the relatively prime prime-power components proves the displayed
+GCD formula.
+
+Suppose a requested node has proper GCD. A prime dividing it divides at least
+one atom with positive multiplicity. That atom GCD exceeds one. It cannot
+equal \(N\), because then its positive multiplicity would make the requested
+product divisible by \(N\), contradicting properness. Hence a used atom GCD
+is proper. Inspecting all stored atoms and reachable nodes visits at most
+\(a+t\) nodes and cannot create another source of success.
+
+Every atom has unfolded occurrence count one. At gate one, the sum of its
+two parent counts is at most two. Before gate \(s\), every earlier gate has
+count at most \(2^{s-1}\), while each atom still has count one, so
+\[
+W_{v_s}=W_{\ell_s}+W_{r_s}\le2^s.
+\tag{33}
+\]
+Feeding each product node into both inputs of the next gate gives
+\(2,4,\ldots,2^s\), proving tightness. Every multiplicity coordinate is at
+most \(2^t\) and therefore has \(O(t+1)\) bits, including at \(t=0\). The
+full optional table has \((a+t)a\) entries and
+\(O(a(a+t)(t+1))\) bits. Residue evaluation uses the
+\(a\) explicit atom exponentiations and one multiplication per gate.
+
+For \(N=9,g=4,d_1=1\), the atom is \(3\) with proper GCD \(3\), while its
+square is zero modulo \(9\) and has full GCD \(9\). The complementary-support
+\(N=21\) collision is identical to BAR-010. Under the separate common
+factorization-independent atom-list and \(O(k\log k)\)-bit exponent
+hypotheses, the explicit atom list satisfies BAR-008, and the
+proper-node-to-atom implication prevents the DAG from enlarging its hit set.
+\(\square\)
+
 \section{Reproduction appendix}
 
 The evidence implementation state preceding M6 is commit
@@ -2450,7 +2610,10 @@ The registered experiment cores and canonical summary hashes are:
   \texttt{\seqsplit{7203d3fc6ee67d5af3984c2b5c1eefb1640275dccdecaf979fed645d2d0fbb7d}};
 \item EXP-0014, M15 milestone commit recorded in \path{research/STATUS.md},
   hash
-  \texttt{\seqsplit{c4c3f20cc193dc90728d19fa5809d794d9ee07474fe093f12439cf3d16508529}}.
+  \texttt{\seqsplit{c4c3f20cc193dc90728d19fa5809d794d9ee07474fe093f12439cf3d16508529}};
+\item EXP-0015, M16 milestone commit recorded in \path{research/STATUS.md},
+  hash
+  \texttt{\seqsplit{431faf3c71fc0f13c3152bffd06faa5e7eb96382164e40611979c8573e41a12d}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -2518,6 +2681,10 @@ python scripts/run_m15_implicit_batch_search.py `
   --exponent-bound 10 --modulus-max 256 `
   --base-max 24 --tree-leaf-max 4096
 python scripts/check_m15_implicit_batch_differential.py
+python scripts/run_m16_product_dag_search.py `
+  --exponent-bound 4 --program-step-max 5 `
+  --residue-step-max 2 --modulus-max 128 --base-max 16
+python scripts/check_m16_product_dag_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -2525,7 +2692,7 @@ latexmk -xelatex -outdir=tmp/pdfs `
 The searches use no random seed. The randomized theorems are validated by
 exact successful-residue enumeration in EXP-0003 and exact parameter
 enumeration in EXP-0006 rather than by unrecorded random runs. EXP-0007
-through EXP-0014 are deterministic combinatorial or syntax
+through EXP-0015 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. The
