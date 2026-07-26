@@ -35,6 +35,11 @@
   converged 30-page XeLaTeX build. The updated sections and full proof were
   rendered and visually inspected. The stable PDF SHA-256 is
   `8fbc253727c4f42bd1e1248f09ca9a67431692ea4faea189a3f0fce11bcf8ee5`.
+- Local milestone commit:
+  `53915509bc257f343f61a814b1ec90bcd0ed8aeb`. The sandboxed push lacked
+  Windows credentials, and the external push was not authorized; BLK-014
+  records that the local branch is ahead of its existing remote ref. No M12
+  pull request exists.
 - Optional third-party Python `pytest`, Ruff, and mypy gates remain
   unavailable under BLK-003.
 - Next selected milestone: M13, classify non-primorial squareful and

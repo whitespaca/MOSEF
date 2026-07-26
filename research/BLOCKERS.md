@@ -221,3 +221,19 @@
 - Required resolution: the repository owner must explicitly authorize
   publishing this M11 branch to `origin`. After a successful push,
   authenticate `gh` and create a draft pull request targeting `main`.
+## BLK-014 - M12 remote delivery requires explicit approval
+
+- Date: 2026-07-27.
+- Status: open; local research is not blocked.
+- Evidence: `git push --set-upstream origin
+  research/20260726-m12-prime-yield` failed in the sandbox with
+  `SEC_E_NO_CREDENTIALS`. The unsandboxed external push was rejected because
+  publishing this repository payload was not explicitly authorized by the
+  user.
+- Impact: M12 is validated and committed locally. The local branch is two
+  commits ahead of the existing `origin/research/20260726-m12-prime-yield`
+  ref, so commits `53915509bc257f343f61a814b1ec90bcd0ed8aeb` and
+  `4daa926` are not published and no M12 pull request exists.
+- Resolution: obtain explicit user authorization before publishing this M12
+  branch. After a successful push, create or update a draft pull request if
+  GitHub authentication is available.
