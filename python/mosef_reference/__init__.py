@@ -86,6 +86,13 @@ from .promise_density import (
     primorial_factor_scale_bound,
     primorial_schedule,
 )
+from .product_dag import (
+    ProductDagEvaluation,
+    ProductGate,
+    evaluate_product_dag,
+    maximum_unfolded_occurrences,
+    repeated_product_program,
+)
 from .separator import (
     CandidateKind,
     CandidateOutcome,
@@ -134,6 +141,8 @@ __all__ = [
     "LucasAsymmetryWitness",
     "PrimorialSchedule",
     "PrimorialScaleBound",
+    "ProductDagEvaluation",
+    "ProductGate",
     "SemismoothAsymmetryWitness",
     "SemismoothFactor",
     "SemismoothWitness",
@@ -159,6 +168,7 @@ __all__ = [
     "evaluate_addition_subtraction_program",
     "evaluate_multiplication_program",
     "evaluate_batch_product",
+    "evaluate_product_dag",
     "divisor_count",
     "exponent_bit_length",
     "factor_scale_divisor_bound",
@@ -183,6 +193,7 @@ __all__ = [
     "lucas_split_success_count",
     "mod_pow",
     "multiplicative_order_mod_prime",
+    "maximum_unfolded_occurrences",
     "nondegenerate_lucas_collision_count",
     "nonsplit_parameter_count",
     "order_support",
@@ -197,6 +208,7 @@ __all__ = [
     "primorial_factor_scale_bound",
     "primorial_schedule",
     "repeated_squaring_program",
+    "repeated_product_program",
     "semismooth_asymmetry_witnesses",
     "signature_count_lower_bound",
     "signed_exponent_lower_bound",

@@ -75,6 +75,7 @@ internal static class Program
             "addition-subtraction-program" when args.Length == 4 =>
                 RunAdditionSubtractionProgram(args),
             "batch-product" when args.Length == 4 => RunBatchProduct(args),
+            "product-dag" when args.Length == 5 => RunProductDag(args),
             "multiplication-lower-bound" when args.Length == 2 =>
                 RunMultiplicationLowerBound(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
@@ -395,6 +396,70 @@ internal static class Program
         return $"leaves:{string.Join(",", leaves)}|root:{root}|"
             + $"leaf_gcds:{string.Join(",", leafGcds)}|root_gcd:{Gcd(root, modulus)}|"
             + $"multiplications:{multiplicationCount}";
+    }
+
+    private static string RunProductDag(string[] args)
+    {
+        BigInteger value = Parse(args, 1, "base");
+        BigInteger modulus = Parse(args, 2, "modulus");
+        if (modulus < 2)
+        {
+            throw new ArgumentException("modulus must be at least two");
+        }
+        BigInteger reducedBase = ((value % modulus) + modulus) % modulus;
+        if (Gcd(reducedBase, modulus) != 1)
+        {
+            throw new ArgumentException("base must be a unit modulo the modulus");
+        }
+        int[] exponents = ParsePositiveCsv(args[3], "exponents");
+        if (!exponents.SequenceEqual(exponents.Distinct().Order()))
+        {
+            throw new ArgumentException("exponents must be strictly increasing");
+        }
+        (int Left, int Right)[] gates = ParseSteps(args[4]);
+        int atomCount = exponents.Length;
+        List<BigInteger> nodes = exponents
+            .Select(exponent =>
+                (BigInteger.ModPow(reducedBase, exponent, modulus) - 1 + modulus)
+                % modulus
+            )
+            .ToList();
+        List<BigInteger[]> multiplicities = Enumerable.Range(0, atomCount)
+            .Select(index =>
+                Enumerable.Range(0, atomCount)
+                    .Select(atom => atom == index ? BigInteger.One : BigInteger.Zero)
+                    .ToArray()
+            )
+            .ToList();
+        List<BigInteger> occurrences = Enumerable.Repeat(
+            BigInteger.One,
+            atomCount
+        ).ToList();
+        for (int index = 0; index < gates.Length; index++)
+        {
+            (int left, int right) = gates[index];
+            int available = atomCount + index;
+            if (left < 0 || right < 0 || left >= available || right >= available)
+            {
+                throw new ArgumentException("gate parents must be earlier nodes");
+            }
+            nodes.Add(nodes[left] * nodes[right] % modulus);
+            multiplicities.Add(
+                multiplicities[left]
+                    .Zip(multiplicities[right], (leftCount, rightCount) =>
+                        leftCount + rightCount
+                    )
+                    .ToArray()
+            );
+            occurrences.Add(occurrences[left] + occurrences[right]);
+        }
+        string profiles = string.Join(
+            ";",
+            multiplicities.Select(profile => string.Join(",", profile))
+        );
+        return $"nodes:{string.Join(",", nodes)}|"
+            + $"gcds:{string.Join(",", nodes.Select(node => Gcd(node, modulus)))}|"
+            + $"multiplicities:{profiles}|occurrences:{string.Join(",", occurrences)}";
     }
 
     private static string RunMultiplicationLowerBound(string[] args)

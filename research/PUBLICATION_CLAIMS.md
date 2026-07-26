@@ -71,3 +71,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-010 | PROVED | Leaf-materialized implicit-batch barrier | `research/proofs/BAR-010-implicit-batch.md` |
 | REF-011 | REFUTED | Compact selector as polynomial-cost materialized batch | `research/NEGATIVE_RESULTS.md` NR-012 |
 | EMP-014 | EMPIRICAL | Bounded leaf-materialized batch audit | `research/experiments/EXP-0014-m15-implicit-batch.md` |
+| DEF-016 | DEFINITION | Charged explicit-atom non-materializing product-DAG model | `research/proofs/BAR-011-product-dag.md` |
+| BAR-011 | PROVED | Explicit-atom product-DAG sharing barrier | `research/proofs/BAR-011-product-dag.md` |
+| REF-012 | REFUTED | DAG sharing as distinct exponential exponent coverage | `research/NEGATIVE_RESULTS.md` NR-013 |
+| EMP-015 | EMPIRICAL | Bounded non-materializing product-DAG audit | `research/experiments/EXP-0015-m16-product-dag.md` |
