@@ -8,6 +8,10 @@
   pairs admit a compact algebraic reduction of signed quotient-stage success?
 - Dependency: M22 is complete on
   `research/20260727-m22-symmetric-difference`; Draft PR #23 targets `main`.
+- Publication: M23 start commit
+  `3bbf51b647b1b7aac67c31bf4a3b3fd011adf3e4` is pushed. Draft PR #24 is
+  stacked on the M22 branch:
+  `https://github.com/whitespaca/MOSEF/pull/24`.
 - First bounded task: compute exact formal polynomial GCD and divisibility
   patterns for
   \[
