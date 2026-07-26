@@ -1,5 +1,34 @@
 # Research Status
 
+## M7 execution plan
+
+- Branch: `research/20260726-m7-nonsplit-lucas`.
+- Research question: does a fresh uniform, factorization-independent Lucas
+  parameter \(P\bmod K\) give a rigorously bounded splitter when one unknown
+  odd prime factor has \(p+1\mid d\) and another has \(q+1\nmid d\)?
+- Provisional claims: `DEF-007` for the hereditary \(p+1\)-asymmetry promise,
+  `LEM-003` for the exact root count
+  \[
+  \#\{P\bmod q:V_d(P,1)=2\}
+  =\frac{\gcd(d,q-1)+\gcd(d,q+1)}2,
+  \]
+  and `THM-002` for a Las Vegas restricted-class algorithm with a per-witness
+  success probability of at least \(1/12\).
+- Algorithmic target: sample \(P\) exactly uniformly modulo each residual
+  composite, retain every discriminant-GCD branch, evaluate
+  \(V_d(P,1)-2\), validate every split, and recurse only after exact primality
+  and maximal-perfect-power preprocessing.
+- Falsification tests: exhaust the root formula over small odd primes and
+  exponents; enumerate every parameter modulo selected composite witnesses;
+  include \(P=\pm2\), repeated primes, even inputs, equal-order collisions,
+  simultaneous collisions, and non-witness controls; verify that no sampled
+  event counted by the proof can return only \(1\) or \(K\).
+- Acceptance gate: a complete finite-field counting proof, full correctness
+  and bit-complexity proof, deterministic EXP-0006 record and hash, Python
+  regression tests, selected Rust/C# differential agreement, independent
+  adversarial proof/source review, synchronized claims and manuscript, clean
+  full quality gates, and committed artifacts.
+
 ## M6 outcome
 
 - Branch: `research/20260726-m6-publishable-manuscript`.

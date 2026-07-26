@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "Selected M7 Lucas root counts and exact splitter branches in the Python, Rust, and C# overlap.",
+  "root_count_vectors": [
+    {"prime": 3, "exponent": 4, "root_count": 3},
+    {"prime": 5, "exponent": 4, "root_count": 3},
+    {"prime": 7, "exponent": 3, "root_count": 2},
+    {"prime": 7, "exponent": 6, "root_count": 4},
+    {"prime": 11, "exponent": 20, "root_count": 7},
+    {"prime": 13, "exponent": 12, "root_count": 7},
+    {"prime": 17, "exponent": 8, "root_count": 5}
+  ],
+  "candidate_vectors": [
+    {
+      "n": 15,
+      "parameter": 3,
+      "exponent": 4,
+      "kind": "discriminant_factor",
+      "factor": 5,
+      "residue": null
+    },
+    {
+      "n": 15,
+      "parameter": 6,
+      "exponent": 4,
+      "kind": "factor",
+      "factor": 3,
+      "residue": 14
+    },
+    {
+      "n": 35,
+      "parameter": 4,
+      "exponent": 6,
+      "kind": "factor",
+      "factor": 5,
+      "residue": 7
+    },
+    {
+      "n": 35,
+      "parameter": 9,
+      "exponent": 6,
+      "kind": "discriminant_factor",
+      "factor": 7,
+      "residue": null
+    },
+    {
+      "n": 45,
+      "parameter": 6,
+      "exponent": 4,
+      "kind": "factor",
+      "factor": 9,
+      "residue": 29
+    },
+    {
+      "n": 105,
+      "parameter": 12,
+      "exponent": 4,
+      "kind": "discriminant_factor",
+      "factor": 35,
+      "residue": null
+    }
+  ]
+}
