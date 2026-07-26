@@ -37,3 +37,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | LEM-003 | PROVED | Exact Lucas root and nonsplit-parameter counts | `research/proofs/THM-002-nonsplit-lucas-promise.md` |
 | THM-002 | PROVED | Las Vegas factoring on the hereditary nonsplit promise class | `research/proofs/THM-002-nonsplit-lucas-promise.md` |
 | EMP-006 | EMPIRICAL | Bounded nonsplit Lucas theorem audit | `research/experiments/EXP-0006-m7-nonsplit-lucas.md` |
+| DEF-008 | DEFINITION | Combined \(p-1/p+1\) schedule signature | `research/proofs/BAR-003-combined-promise-density.md` |
+| BAR-003 | PROVED | Common-schedule finite-distribution and magnitude barrier | `research/proofs/BAR-003-combined-promise-density.md` |
+| REF-004 | REFUTED | Small-magnitude combined-promise coverage | `research/NEGATIVE_RESULTS.md` NR-005 |
+| EMP-007 | EMPIRICAL | Bounded combined-promise density audit | `research/experiments/EXP-0007-m8-promise-density.md` |

@@ -15,7 +15,7 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
-Two Restricted Theorems and Two Structural Barriers}
+Two Restricted Theorems and Three Structural Barriers}
 \author{MOSEF Research Program}
 \date{26 July 2026}
 
@@ -40,10 +40,14 @@ condition is injectivity of divisibility signatures. A natural Lucas
 parameter map \(P=a+a^{-1}\) is also not an independent group channel:
 \(V_d(P,1)-2=a^{-d}(a^d-1)^2\), so it cannot enlarge the multiplicative
 family's success domain when exponent \(2\) is retained and can worsen
-prime-power collisions. Deterministic bounded searches and independent
-Python, Rust, and C\# implementations audit these statements but are not used
-as proofs. No general polynomial-time classical factoring algorithm or lower
-bound is claimed.
+prime-power collisions. Finally, for one common finite exponent schedule, we
+characterize the union of the local \(p-1\) and \(p+1\) promises by a combined
+prime signature and prove a finite-distribution upper bound plus a
+magnitude-conditioned zero-density corollary for balanced semiprimes. These
+signatures are factor-dependent analytical objects, not a recognizer.
+Deterministic bounded searches and independent Python, Rust, and C\#
+implementations audit these statements but are not used as proofs. No general
+polynomial-time classical factoring algorithm or lower bound is claimed.
 \end{abstract}
 
 \section{Introduction and contributions}
@@ -75,23 +79,27 @@ algorithm. Its contributions are:
   profiles is exactly signature injectivity;
 \item a channel-correlation barrier showing that the natural conjugate Lucas
   map only squares multiplicative valuations and therefore does not create an
-  independent \(p+1\) channel; and
+  independent \(p+1\) channel;
+\item a self-contained common-schedule finite-distribution upper bound for the
+  union of the local \(p-1\) and \(p+1\) promises, including a
+  magnitude-conditioned zero-density corollary for balanced semiprimes; and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
 
-The positive theorem is restricted: membership in its promise class can
-depend on the unknown factorization and is not recognized by the algorithm.
-The two barriers are also scoped: one concerns explicit divisibility
-signatures, and the other concerns only \(P=a+a^{-1}\). These boundaries are
-part of the results.
+The positive theorems are restricted: membership in their promise classes can
+depend on the unknown factorization and is not recognized by the algorithms.
+The three barriers are also scoped: one concerns explicit order signatures,
+one concerns only \(P=a+a^{-1}\), and one concerns a common finite schedule
+under explicit magnitude or sparsity hypotheses. These boundaries are part of
+the results.
 
 Section 2 records the imported complexity landscape. Sections 3 and 4 define
 candidate semantics and the recursive framework. Section 5 gives the first
-restricted theorem. Sections 6 and 7 prove the two barriers, and Section 8
-gives the nonsplit Lucas theorem. Sections 9--11 separate algorithms,
-experiments, and observations. Complete proofs and reproduction details
-appear in the appendices.
+restricted theorem. Sections 6 and 7 prove two barriers, Section 8 gives the
+nonsplit Lucas theorem, and Section 9 gives the combined-promise density
+barrier. Later sections separate algorithms, experiments, and observations.
+Complete proofs and reproduction details appear in the appendices.
 
 \section{Related work and complexity landscape}
 
@@ -475,9 +483,86 @@ and the hereditary recursion has \(O(m)\) nodes after exact maximal-power
 preprocessing. Appendix \ref{proof:THM-002} gives the complete exceptional
 branch, termination, recursion, and bit-complexity proof.
 
+\section{A combined-promise density barrier}
+
+Fix one nonempty finite exponent set
+\(\Delta\subset\mathbb Z_{>0}\). For the M3 and M7 schedule at input length
+\(k\), both channels use the same fixed
+\[
+\Delta(k)=
+\{t\operatorname{lcm}(1,\ldots,B(k)):1\le t\le R(k)\}.
+\]
+
+\claimstatus{DEF-008}{DEFINITION}. For an odd prime \(p\), define the combined
+schedule signature
+\[
+\sigma_\Delta(p)=
+\left(
+\mathbf1_{p-1\mid d},\mathbf1_{p+1\mid d}
+\right)_{d\in\Delta}.
+\]
+This is an analytical object evaluated at an unknown factor. It is not
+claimed to be computable from \(N\) without factoring. For a finite odd-prime
+set \(S\), let \(H_\Delta(S)\) be the primes with nonzero signature, and write
+\(s=|S|\), \(h=|H_\Delta(S)|\), and \(D=\max\Delta\).
+
+\claimstatus{BAR-003}{PROVED}. For distinct odd primes \(p,q\), the union of
+the local \(p-1\) and \(p+1\) divisibility-asymmetry promises holds exactly
+when
+\[
+\sigma_\Delta(p)\ne\sigma_\Delta(q).
+\]
+For a square-free semiprime this local condition is also the hereditary union
+of DEF-004 and DEF-007. If \(s\ge2\) and all unordered pairs from \(S\) use
+the same \(\Delta\), their promised fraction satisfies the
+finite-distribution upper bound
+\[
+\rho_\Delta(S)
+\le
+\frac{h(2s-h-1)}{s(s-1)},\qquad
+h\le2\sum_{d\in\Delta}\tau(d)
+\le4|\Delta|\sqrt D.                              \tag{2}
+\]
+Thus
+\[
+\rho_\Delta(S)
+\le
+\min\left\{1,\frac{8|\Delta|\sqrt D}{s-1}\right\}.
+\]
+Every \(p>D+1\) has zero signature.
+
+For
+\[
+S_n=\{p\text{ odd prime}:2^n<p<2^{n+1/2}\},
+\]
+every distinct-prime product has input length \(k=2n+1\). Consequently, if
+\(|S_n|\ge2\) and
+\[
+\max\Delta(2n+1)+1<2^n,
+\]
+the promised-pair density on this explicitly defined balanced-semiprime
+distribution is exactly zero. More generally the displayed upper bound tends
+to zero if
+\[
+|\Delta(2n+1)|\sqrt{\max\Delta(2n+1)}=o(|S_n|).
+\]
+Appendix \ref{proof:BAR-003} gives the complete elementary proof. No
+literature-novelty claim is made.
+
+\claimstatus{REF-004}{REFUTED}. A common combined schedule cannot cover every
+balanced semiprime through these asymmetries while its largest exponent
+remains below each factor minus one. The smallest unrestricted witness is
+\(\Delta=\{1\}\), \(N=15=3\cdot5\), for which both signatures are zero. This
+witness is not asserted to lie in the interval defining \(S_n\).
+
+BAR-003 is a magnitude/sparsity barrier, not a recognizer or a lower bound for
+every polynomial-bit-length schedule. An exponent with \(\Theta(k)\) bits may
+exceed the balanced factors and fall outside its zero-density hypothesis.
+
 \section{Algorithms and bit-complexity synthesis}
 
-The mathematical results use three different algorithmic scopes that must not
+The mathematical results use distinct algorithmic and analytical scopes that
+must not
 be conflated.
 
 \begin{center}
@@ -574,6 +659,10 @@ checks \\
 EXP-0006 & 13 odd primes through 43, \(d\le80\) &
 1,040 root formulas and 75,934 proved-event splits; minimum event probability
 \(8/51\); 26 differential checks \\
+\addlinespace
+EXP-0007 & 987 exponent families; 25 odd primes through 101 &
+296,100 direct/signature comparisons; 184,994 magnitude-zero pair checks;
+28 differential checks \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -606,6 +695,13 @@ passed. The minimum proved-event probability was \(8/51\), and 26 selected
 Python/Rust/C\# comparisons agreed. These finite counts do not estimate
 promise-class density or establish novelty.
 
+\claimstatus{EMP-007}{EMPIRICAL}. In EXP-0007, all 296,100 direct/signature
+comparisons, 987 density and divisor-bound checks, 184,994 magnitude-zero pair
+checks, and 2,443 balanced zero-density checks passed. The maximum observed
+promised-pair fraction was \(49/100\), and 28 selected Python/Rust/C\#
+comparisons agreed. These registered finite-distribution observations are not
+a natural-density estimate, recognizer, asymptotic result, or novelty claim.
+
 These observations audit implementations and minimize counterexamples. The
 universal statements in this paper are supplied by proofs, not extrapolation
 from the table.
@@ -633,15 +729,24 @@ it does not provide a universal construction. Neither result rules out
 quadratic norm-one variants, elliptic-curve channels, adaptive selection, or
 another parameter map.
 
+BAR-003 concerns one common explicit finite exponent schedule and one uniform
+distribution on unordered pairs from a declared finite prime set. Its
+signatures require the unknown factors and therefore do not recognize promise
+membership. The exact zero-density result requires its strict magnitude
+hypothesis, while the asymptotic upper bound requires the displayed sparsity
+hypothesis. It is neither a natural-density theorem nor a lower bound for
+schedules whose polynomial-bit-length exponents have larger values.
+
 The authoritative Rust layer is bounded to \texttt{u64}; validation primality
 uses trial division and is not itself the polynomial-time procedure imported
 in EXT-001. The literature set is sufficient for the technical statements
 used here but is not a comprehensive current-state-of-the-art survey.
 
 The main open problems are the two explicit universal constructor questions
-in OPEN-002 and OPEN-003, plus recognition or a rigorous density theorem for
-the union of the \(p-1\) and \(p+1\) hereditary promise classes without access
-to the factorization.
+in OPEN-002 and OPEN-003, recognition of the combined hereditary promise
+without access to the factorization, and whether explicit divisor-rich
+schedules with \(\Theta(k)\)-bit exponent values can escape BAR-003's
+magnitude/sparsity hypotheses with a nonvanishing rigorous guarantee.
 
 \section{Conclusion}
 
@@ -652,12 +757,17 @@ theorem on one hereditary promise class. An exact Lucas root count turns fresh
 uniform parameters and a \(p+1\) asymmetry into a second restricted theorem.
 Divisor coverage alone still fails because signatures can collide, and the
 natural conjugate Lucas map still fails as an independent channel because it
-algebraically squares the multiplicative residue.
+algebraically squares the multiplicative residue. A common \(p-1/p+1\)
+schedule also covers no balanced-semiprime pair once every factor exceeds its
+largest exponent by more than one, and its promised fraction is bounded by
+the schedule's divisor hit set.
 
 These results do not resolve general classical factoring. They replace
 plausible shortcuts with exact obligations: recognizable or explicitly
 promised input structure, injective rather than merely nonempty signatures,
-and genuinely nonsplit rather than conjugately re-encoded group parameters.
+genuinely nonsplit rather than conjugately re-encoded group parameters, and
+divisor-rich schedules whose value and construction costs are both accounted
+for.
 
 \appendix
 
@@ -1016,6 +1126,61 @@ following split or leaf, while the binary split tree has \(O(m)\) nodes.
 Linearity of expectation gives polynomial expected total time and polynomial
 space. \(\square\)
 
+\section{Full proof of the combined-promise density barrier}
+
+\subsection{Proof of BAR-003}\label{proof:BAR-003}
+
+For distinct odd primes \(p,q\), a local \(p-1\) or \(p+1\) asymmetry exists
+exactly when some coordinate of \(\sigma_\Delta(p)\) is one and the
+corresponding coordinate of \(\sigma_\Delta(q)\) is zero, in either
+orientation. This is equivalent to
+\(\sigma_\Delta(p)\ne\sigma_\Delta(q)\). A square-free semiprime has no other
+composite non-perfect-power divisor, so the local and hereditary-union
+conditions agree.
+
+Now let \(S\) contain \(s\ge2\) odd primes, of which \(h\) have nonzero
+signature. Every pair wholly outside the hit set has two zero signatures and
+is not promised. Therefore the number of promised pairs is at most
+\[
+\binom{s}{2}-\binom{s-h}{2},
+\]
+which, after division by \(\binom{s}{2}\), gives
+\[
+\rho_\Delta(S)\le
+\frac{h(2s-h-1)}{s(s-1)}.                         \tag{3}
+\]
+This need not be equality because two nonzero signatures may coincide.
+
+If \(p\) lies in the hit set, then \(p-1\mid d\) or \(p+1\mid d\) for some
+\(d\in\Delta\). For fixed \(d\), every first-type candidate has the form
+\(r+1\) and every second-type candidate the form \(r-1\), where \(r\mid d\).
+Before imposing primality or membership in \(S\), there are at most
+\(2\tau(d)\) candidates. Hence
+\[
+h\le2\sum_{d\in\Delta}\tau(d).
+\]
+Pairing divisors below and above \(\sqrt d\) gives
+\(\tau(d)\le2\sqrt d\), so, with \(D=\max\Delta\),
+\[
+h\le4|\Delta|\sqrt D.
+\]
+The right side of (3) is at most \(2h/(s-1)\); substitution and the trivial
+probability bound one prove the stated sparse hit-set bound.
+
+If \(p>D+1\), then both \(p-1\) and \(p+1\) exceed every
+\(d\in\Delta\), so neither divides any scheduled exponent and the signature
+is zero. Thus a prime set wholly above \(D+1\) has promised-pair density zero.
+
+Finally, for distinct \(p,q\in S_n\),
+\[
+2^{2n}<pq<2^{2n+1}.
+\]
+Because an odd semiprime is not a power of two, its binary input length is
+\(\lceil\log_2(pq)\rceil=2n+1\), and all pairs use the same schedule.
+The strict magnitude hypothesis puts every prime above \(D+1\), giving exact
+zero density. The conditional asymptotic statement follows directly from the
+sparse hit-set bound. \(\square\)
+
 \section{Reproduction appendix}
 
 The evidence implementation state preceding M6 is commit
@@ -1023,7 +1188,9 @@ The evidence implementation state preceding M6 is commit
 commit is \texttt{\seqsplit{9aac77921421fd69a4ab83e879cf50084f3024f3}}; the final documentation commit is recorded
 in \path{research/STATUS.md}. The M7 nonsplit Lucas implementation and proof
 core is commit
-\texttt{\seqsplit{171a3058c8a26b7d2e25641e8c35a9373c19bc06}}. The Windows AMD64
+\texttt{\seqsplit{171a3058c8a26b7d2e25641e8c35a9373c19bc06}}. The M8 combined
+promise implementation and proof core is commit
+\texttt{\seqsplit{bc8b25222823e06830530eac3962271c6d14a7ca}}. The Windows AMD64
 environment and exact toolchains are recorded in
 \path{research/toolchains/windows-amd64-20260725.json}.
 
@@ -1044,7 +1211,10 @@ The registered experiment cores and canonical summary hashes are:
   \texttt{\seqsplit{98f2be052a315231292c73319fa98066cf4d8fc4cd66740f207b2d99c7f616f5}};
 \item EXP-0006, core
   \texttt{\seqsplit{171a3058c8a26b7d2e25641e8c35a9373c19bc06}}, hash
-  \texttt{\seqsplit{23ed0067d2ccb642c3676ff4ea3f5c34e1e622f6372626aa84377eac74b7d905}}.
+  \texttt{\seqsplit{23ed0067d2ccb642c3676ff4ea3f5c34e1e622f6372626aa84377eac74b7d905}};
+\item EXP-0007, core
+  \texttt{\seqsplit{bc8b25222823e06830530eac3962271c6d14a7ca}}, hash
+  \texttt{\seqsplit{fb2f861f1670c3e4f68a0e8b461f430e7e10eeb966d9f5bec48886c810dd6cd3}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -1084,13 +1254,18 @@ python scripts/check_m5_multigroup_differential.py
 python scripts/run_m7_nonsplit_search.py `
   --prime-max 43 --exponent-max 80
 python scripts/check_m7_nonsplit_differential.py
+python scripts/run_m8_promise_density_search.py `
+  --prime-max 101 --candidate-max 18 `
+  --family-size-max 3 --balanced-n-max 6
+python scripts/check_m8_promise_density_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
 
 The searches use no random seed. The randomized theorems are validated by
 exact successful-residue enumeration in EXP-0003 and exact parameter
-enumeration in EXP-0006 rather than by unrecorded random runs. Large raw
+enumeration in EXP-0006 rather than by unrecorded random runs. EXP-0007 is a
+deterministic combinatorial enumeration. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.

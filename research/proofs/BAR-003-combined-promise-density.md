@@ -1,7 +1,7 @@
 # BAR-003 - Combined-signature and balanced-semiprime density barrier
 
-Status: proof candidate awaiting bounded falsification and independent
-adversarial review.
+Status: proved after bounded falsification, cross-language differential
+checks, and independent adversarial and source-scope review.
 
 ## Computation model and scope
 
@@ -63,8 +63,9 @@ The following assertions hold.
 1. **Exact semiprime characterization.** For distinct odd primes \(p,q\),
    \(pq\) satisfies (2) if and only if
    \(\sigma_\Delta(p)\ne\sigma_\Delta(q)\).
-2. **Exact finite density bound.** Suppose every product of two distinct
-   primes in \(S\) is evaluated with the same exponent set \(\Delta\).
+2. **Finite-distribution upper bound.** Suppose \(s=|S|\ge2\) and every
+   product of two distinct primes in \(S\) is evaluated with the same exponent
+   set \(\Delta\).
    Under the uniform distribution on the \(\binom{s}{2}\) unordered pairs,
    the promised fraction \(\rho_\Delta(S)\) satisfies
 

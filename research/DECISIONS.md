@@ -208,3 +208,28 @@
 - Rollback condition: revise the theorem if a counterexample breaks the root
   count, exact exceptional-branch analysis, CRT event, recursive promise, or
   polynomial representation/evaluation bound.
+
+## ADR-011 - Choose an exact density barrier over an unsupported recognizer
+
+- Date: 2026-07-26
+- Status: accepted
+- Context: M8 asks whether the union of the M3 \(p-1\) and M7 \(p+1\)
+  hereditary promise classes can be recognized or assigned a rigorous density
+  guarantee. Direct evaluation of the relevant divisibility predicates needs
+  the unknown prime factors, and no independent \(N\)-only observable was
+  found or proved equivalent.
+- Alternatives: present factor signatures as a recognizer; assert a
+  random-integer density heuristic; define an explicit common-schedule
+  finite-pair distribution and prove the exact signature and magnitude
+  obstruction.
+- Decision: use the combined prime signature only as an analytical object and
+  select the density/barrier branch. BAR-003 gives a self-contained
+  finite-distribution upper bound and a magnitude-conditioned zero-density
+  corollary for one common M3/M7 schedule.
+- Consequences: M8 supplies no recognizer, natural-density theorem, general
+  schedule lower bound, or factoring result. It leaves schedules with
+  polynomial-bit-length but sufficiently large exponent values to M9.
+- Rollback condition: revise the boundary only if a factorization-independent
+  observable is proved equivalent to the combined promise or a schedule
+  outside BAR-003's magnitude/sparsity hypotheses receives a rigorous
+  construction or obstruction.

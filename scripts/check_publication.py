@@ -30,6 +30,7 @@ REQUIRED_SECTIONS = (
     "Difference coverage versus order separation",
     "A two-channel correlation barrier",
     "A restricted nonsplit Lucas theorem",
+    "A combined-promise density barrier",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -45,6 +46,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-002}",
     r"\label{proof:LEM-003}",
     r"\label{proof:THM-002}",
+    r"\label{proof:BAR-003}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -53,6 +55,7 @@ EXPERIMENT_RECORDS = (
     ROOT / "research" / "experiments" / "EXP-0004-m4-difference-cover-search.md",
     ROOT / "research" / "experiments" / "EXP-0005-m5-multigroup-correlation.md",
     ROOT / "research" / "experiments" / "EXP-0006-m7-nonsplit-lucas.md",
+    ROOT / "research" / "experiments" / "EXP-0007-m8-promise-density.md",
 )
 
 

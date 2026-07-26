@@ -1,33 +1,40 @@
 # Research Status
 
-## M8 execution plan
+## M8 outcome
 
 - Branch: `research/20260726-m8-promise-recognition`.
-- Research question: for the common schedule
-  \(\Delta(k)=\{t\operatorname{lcm}(1,\ldots,B(k)):1\le t\le R(k)\}\),
-  can the union of the local \(p-1\) and \(p+1\) semiprime promises be
-  characterized by a schedule-induced prime signature, and what exact
-  density obstruction follows for balanced prime factors?
-- Provisional claims: `DEF-008` for the two-channel divisibility signature,
-  `BAR-003` for its exact semiprime characterization and the resulting
-  hit-set/density bound, and `REF-004` for the refuted idea that a schedule
-  whose largest exponent is below both factors can cover balanced semiprimes.
-- Target distribution: unordered distinct prime pairs from a finite interval
-  whose products have one common bit length. The result will be an exact
-  finite density bound and a zero-density region, not a transfer from random
-  integers or an assertion about all schedules. The prime signature is an
-  analytical device evaluated from the unknown factors, not a recognizer from
-  \(N\); M8 therefore follows the density/barrier branch of the roadmap.
-- Falsification tests: exhaust small exponent families and odd-prime pairs;
-  compare direct \(p\pm1\) witness search with signature inequality; verify
-  the divisor-count hit-set bound, exact pair count, and the zero-success
-  magnitude boundary; include equal signatures, all-zero signatures, both
-  orientations, and invalid/repeated-prime controls.
-- Acceptance gate: complete proof and scope boundary, deterministic EXP-0007
-  record and hash, Python regression tests, selected Rust/C# differential
-  agreement, independent adversarial and source-scope review, synchronized
-  claims/manuscript, clean full quality gates, committed artifacts, and a
-  recorded remote-delivery outcome.
+- Completed milestone: M8, a self-contained common-schedule
+  finite-distribution and magnitude barrier for the union of the local
+  \(p-1\) and \(p+1\) semiprime promises.
+- `DEF-008` defines the combined prime signature
+  \[
+  \sigma_\Delta(p)=
+  ((\mathbf1_{p-1\mid d},\mathbf1_{p+1\mid d}))_{d\in\Delta}.
+  \]
+  It is evaluated at an unknown factor for analysis and is not an
+  \(N\)-only recognizer.
+- `BAR-003` is `PROVED`: a distinct-prime semiprime is in the local, hence
+  hereditary, promise union exactly when its two signatures differ. For a
+  finite \(s\)-prime set with \(h\) nonzero signatures, the promised fraction
+  is at most \(h(2s-h-1)/(s(s-1))\), with
+  \(h\le2\sum_{d\in\Delta}\tau(d)\le4|\Delta|\sqrt{\max\Delta}\).
+- Every prime above \(\max\Delta+1\) has zero signature. Thus the explicitly
+  defined balanced-semiprime distribution has exact zero density under the
+  stated strict magnitude hypothesis and an asymptotically vanishing upper
+  bound under the stated sparsity hypothesis.
+- `REF-004` is `REFUTED`; NR-005 records the smallest unrestricted witness
+  \((\Delta,N)=(\{1\},15)\). This witness is not labeled as a member of the
+  balanced interval.
+- EXP-0007 checked 987 exponent families, 296,100 direct/signature pairs,
+  184,994 magnitude-zero pairs, 2,443 balanced zero-density cases, and 28
+  cross-language comparisons. Its summary SHA-256 is
+  `fb2f861f1670c3e4f68a0e8b461f430e7e10eeb966d9f5bec48886c810dd6cd3`.
+- Independent adversarial review reconstructed the proof and additionally
+  checked 1,920,600 pairs, 1,940 finite bounds, 20,000 divisor bounds, and
+  27,284 balanced bit-length pairs. Independent source-scope review found no
+  external citation dependency and approved the no-novelty framing.
+- General classical factoring remains open. M8 proves no recognizer, natural
+  density theorem, universal schedule barrier, or general lower bound.
 
 ## M7 outcome
 
@@ -88,16 +95,14 @@
 ## Execution snapshot
 
 - Date: 2026-07-26.
-- Branch: `research/20260726-m7-nonsplit-lucas`.
-- Completed milestone: M7.
+- Branch: `research/20260726-m8-promise-recognition`.
+- Completed milestone: M8.
 - Core implementation/proof commit:
-  `171a3058c8a26b7d2e25641e8c35a9373c19bc06`.
+  `bc8b25222823e06830530eac3962271c6d14a7ca`.
 - Registered experiment commit:
-  `66040fb`.
-- Validated milestone completion commit:
-  `0bf86f7d1668c2b60cccde69d398ef5e74c8af55`.
-- Next selected milestone: M8, recognition or a rigorous density/barrier
-  result for the union of the hereditary \(p-1\) and \(p+1\) promise classes.
+  `a4895df3c0cf4de54b59932acf9f2e4ecbef2463`.
+- Next selected milestone: M9, explicit divisor-rich schedules with
+  polynomial-bit-length exponent values outside BAR-003's magnitude regime.
 
 ## M5 outcome
 
