@@ -55,6 +55,7 @@ from .promise_density import (
     BoundaryDivisorBudget,
     BitLengthDivisorBudget,
     CombinedDensityAnalysis,
+    PrimorialScaleBound,
     PrimorialSchedule,
     analyze_combined_density,
     boundary_divisor_budget,
@@ -69,6 +70,7 @@ from .promise_density import (
     hit_primes,
     positive_divisors,
     primorial_divisors,
+    primorial_factor_scale_bound,
     primorial_schedule,
 )
 from .separator import (
@@ -114,6 +116,7 @@ __all__ = [
     "LucasCandidateOutcome",
     "LucasAsymmetryWitness",
     "PrimorialSchedule",
+    "PrimorialScaleBound",
     "SemismoothAsymmetryWitness",
     "SemismoothFactor",
     "SemismoothWitness",
@@ -168,6 +171,7 @@ __all__ = [
     "positive_divisors",
     "prime_factorization",
     "primorial_divisors",
+    "primorial_factor_scale_bound",
     "primorial_schedule",
     "repeated_squaring_program",
     "semismooth_asymmetry_witnesses",

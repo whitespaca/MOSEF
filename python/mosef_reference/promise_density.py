@@ -58,6 +58,17 @@ class PrimorialSchedule:
     binary_multiplication_nodes: int
 
 
+@dataclass(frozen=True)
+class PrimorialScaleBound:
+    """Exact factor-scale divisor-candidate bound for one primorial."""
+
+    prime_count: int
+    target_max: int
+    support_limit: int
+    divisor_candidate_bound: int
+    prime_candidate_bound: int
+
+
 def _normalized_exponents(exponents: tuple[int, ...] | list[int]) -> tuple[int, ...]:
     """Return a sorted, duplicate-free positive exponent family."""
     normalized = tuple(sorted(set(exponents)))
@@ -264,6 +275,40 @@ def primorial_divisors(count: int) -> tuple[int, ...]:
     for prime in first_primes(count):
         divisors.extend(value * prime for value in tuple(divisors))
     return tuple(sorted(divisors))
+
+
+def primorial_factor_scale_bound(
+    prime_count: int,
+    target_max: int,
+) -> PrimorialScaleBound:
+    """Bound primorial divisors that can equal ``q-1`` or ``q+1``.
+
+    A divisor supported on ``t`` distinct primes is at least
+    ``2*3*...*p_t >= (t+1)!``.  Hence a divisor no larger than
+    ``target_max + 1`` uses at most ``support_limit`` primes.
+    """
+    if isinstance(prime_count, bool) or prime_count <= 0:
+        raise ValueError("prime_count must be positive")
+    if isinstance(target_max, bool) or target_max < 3:
+        raise ValueError("target_max must be at least 3")
+    divisor_max = target_max + 1
+    support_limit = 0
+    factorial = 1
+    while factorial * (support_limit + 2) <= divisor_max:
+        support_limit += 1
+        factorial *= support_limit + 1
+    support_limit = min(support_limit, prime_count)
+    divisor_candidate_bound = sum(
+        comb(prime_count, support)
+        for support in range(support_limit + 1)
+    )
+    return PrimorialScaleBound(
+        prime_count=prime_count,
+        target_max=target_max,
+        support_limit=support_limit,
+        divisor_candidate_bound=divisor_candidate_bound,
+        prime_candidate_bound=2 * divisor_candidate_bound,
+    )
 
 
 def positive_divisors(value: int) -> tuple[int, ...]:

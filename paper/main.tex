@@ -15,9 +15,9 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
-Two Restricted Theorems and Six Structural Barriers}
+Two Restricted Theorems and Seven Structural Barriers}
 \author{MOSEF Research Program}
-\date{26 July 2026}
+\date{27 July 2026}
 
 \begin{document}
 \maketitle
@@ -34,7 +34,7 @@ each complete schedule cycle at a promised residual node. We also prove an
 exact Lucas root-count formula and use fresh uniform, independently
 parameterized Lucas values to obtain a second Las Vegas theorem on a
 hereditary \(p+1\)-asymmetry promise, with at least \(1/12\) split probability
-at a witness trial. We prove six structural barriers. Divisor
+at a witness trial. We prove seven structural barriers. Divisor
 coverage does not imply multiplicative-order separation; the exact missing
 condition is injectivity of divisibility signatures. A natural Lucas
 parameter map \(P=a+a^{-1}\) is also not an independent group channel:
@@ -60,9 +60,12 @@ optimized divisor budget gives
 \(\log_2\tau(d)\le(1+o(1))\ell(d)/\log_2\ell(d)\). Hence an exponent-length
 coefficient \(c\) still yields at most \(2^{ck+o(k)}\) hits and a vanishing
 fraction on any stipulated \(2^{\alpha k}\)-size population when \(c<\alpha\).
-First-primes primorials have exponential divisor capacity at this boundary,
-but no proved asymptotic \(d\pm1\) prime yield; repeated squaring shows that
-boundary node count alone is insufficient.
+First-primes primorials have exponential total divisor capacity at this
+boundary, but their divisors at \(O(k)\)-bit factor scale form only a
+\(2^{O(k\log\log k/\log k)}\) set. Thus their promised-pair fraction vanishes
+on every stipulated exponentially large target population, even at every
+fixed boundary coefficient. Repeated squaring also shows that boundary node
+count alone is insufficient.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -111,13 +114,16 @@ algorithm. Its contributions are:
 \item a constant-sensitive exact-boundary barrier, together with an explicit
   \(\Theta(k\log k)\)-cost primorial capacity family and a repeated-squaring
   counterexample to sufficiency of boundary node count; and
+\item a factor-scale primorial barrier: among \(P_{O(k)}\)'s exponentially
+  many total divisors, only \(2^{O(k\log\log k/\log k)}\) can equal
+  \(q\pm1\) for an \(O(k)\)-bit target prime; and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
 
 The positive theorems are restricted: membership in their promise classes can
 depend on the unknown factorization and is not recognized by the algorithms.
-The six barriers are also scoped: one concerns explicit order signatures,
+The seven barriers are also scoped: one concerns explicit order signatures,
 one concerns only \(P=a+a^{-1}\), and two concern a common explicit finite
 schedule under separate magnitude or encoding hypotheses. The fifth concerns
 only formal exponents in a factor-oblivious multiplication-only DAG. The sixth
@@ -182,6 +188,15 @@ p_n<n(\log n+\log\log n)\qquad(n\ge6),
 with natural logarithms \cite{rosser1962approximate}. We use only the
 consequence \(p_n=O(n\log n)\) to cost the first-primes primorial constructor;
 the source supplies no \(d\pm1\) prime-yield statement.
+
+\claimstatus{EXT-006}{PROVED, IMPORTED}. For fixed nonzero \(a\) and
+\(\beta>15/(32\sqrt e)\), Lichtman proves that for some \(C>1\),
+\[
+\#\{x<p\le2x:P^+(p-a)\le x^\beta\}\gg x/(\log x)^C
+\]
+\cite{lichtman2022shifted}. This is power-scale shifted-prime smoothness
+context only. It gives no polylogarithmic cutoff, squarefreeness, primorial
+divisibility, simultaneous two-channel conclusion, or M12 prime-yield result.
 
 \section{Model and definitions}
 
@@ -816,6 +831,55 @@ Appendix \ref{proof:BAR-006} gives the complete proof. The result is silent
 when \(c\ge\alpha\), supplies no primorial prime-yield theorem or recognizer,
 and remains inside the explicit-schedule and DEF-010 scopes.
 
+\section{A factor-scale primorial barrier}
+
+The total divisor count \(2^r\) includes divisors far larger than an
+\(O(k)\)-bit target factor. We now impose that necessary scale restriction.
+
+\claimstatus{DEF-012}{DEFINITION}. For \(r\ge1\) and \(X\ge3\), define
+\[
+T(X)=\max\{t\ge0:(t+1)!\le X+1\},\qquad
+D(r,X)=\sum_{i=0}^{\min\{r,T(X)\}}\binom ri .
+\]
+
+\claimstatus{BAR-007}{PROVED}. Fix \(C,\beta>0\) and \(r(k)\le Ck\). The
+number of odd primes \(q\le2^{\beta k}\) for which
+\[
+q-1\mid P_{r(k)}\quad\hbox{or}\quad q+1\mid P_{r(k)}
+\]
+is at most
+\[
+2D(r(k),2^{\beta k})
+=2^{O(k\log\log k/\log k)}
+=2^{o(k)}.
+\]
+A divisor using \(t\) distinct primorial primes is at least \((t+1)!\), so a
+factor-scale divisor uses only \(O(k/\log k)\) of the \(O(k)\) available
+primes. The binomial support count is therefore subexponential; primality can
+only reduce it.
+
+On any stipulated common-input-length population \(S_k\) of such primes with
+\(|S_k|\ge2^{\alpha k}\), \(\alpha>0\), BAR-003 gives promised-pair fraction
+at most
+\[
+2^{-\alpha k+o(k)}\longrightarrow0.
+\]
+This holds at every fixed primorial boundary coefficient, including the
+critical and supercritical cases left open by BAR-006. It also covers a
+nested list of primorials because its hit union is contained in that of the
+largest member.
+
+\claimstatus{REF-008}{REFUTED}. Exponentially many total divisors of
+\(P_{\Theta(k)}\) do not imply a nonvanishing promise fraction at
+\(O(k)\)-bit target-factor scale. The obstruction occurs before any
+prime-distribution question: only a subexponential number of divisors are
+small enough to be \(q\pm1\).
+
+Appendix \ref{proof:BAR-007} gives the complete proof. The result is specific
+to first-primes primorials and nested subfamilies; it does not cover arbitrary
+boundary exponents, construct the stipulated populations, recognize the
+promise, or prove a factoring lower bound.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -937,6 +1001,10 @@ EXP-0009 & All 1,587,600 seven-node programs; tower levels through 16 &
 EXP-0010 & Every \(1\le d<2^{18}\); primorials through \(r=12\) &
 262,143 boundary-budget checks; 8,157 distinct prime candidates;
 32 differential checks \\
+\addlinespace
+EXP-0011 & Primorials through \(r=18\); target caps through \(2^{20}-1\) &
+9,961,434 divisor checks; 145,413 support checks; 290,826 candidate checks;
+36 differential checks \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1000,6 +1068,14 @@ two disjoint channels. The within-hit promised fraction was \(449/897\), and
 32 selected Python/Rust/C\# comparisons agreed. These finite records do not
 establish asymptotic prime yield or a fraction on an external population.
 
+\claimstatus{EMP-011}{EMPIRICAL}. EXP-0011 checked 9,961,434 bounded divisor
+memberships, 145,413 support inequalities, 290,826 \(d\pm1\) candidates, and
+16 balanced-population formulas. At \(r=18\), only 7,074 of 262,144 divisors
+were at most \(2^{20}\), below the registered bound 106,762. The 32 selected
+Python/Rust/C\# comparisons and four Python scale-bound records agreed. These
+finite observations do not
+prove the asymptotic theorem or estimate a natural prime density.
+
 These observations audit implementations and minimize counterexamples. The
 universal statements in this paper are supplied by proofs, not extrapolation
 from the table.
@@ -1052,14 +1128,14 @@ modulus and base, for inversion or addition-subtraction chains, for special
 endomorphisms, for adaptive factor-revealing branches, or for another
 explicitly costed algebraic model.
 
-BAR-006 resolves only a constant-sensitive part of the
-\(\Theta(k\log k)\)-node boundary. For a stipulated population exponent
-\(\alpha\), it proves vanishing below coefficient \(\alpha\), but says nothing
-at or above that coefficient. The primorial family proves exponential divisor
-capacity, not an asymptotic lower bound on actual \(d\pm1\) prime hits.
-REF-007 shows that boundary node count alone is not sufficient. None of these
-statements constructs the population, recognizes the promise, or supplies a
-factoring lower bound.
+BAR-006 resolves only a constant-sensitive part of the general
+\(\Theta(k\log k)\)-node boundary. BAR-007 closes the critical and
+supercritical cases only for first-primes primorials: at target-factor scale,
+their relevant divisor set is subexponential. REF-007 shows that boundary
+node count alone is not sufficient. Arbitrary squareful or noninitial-support
+boundary exponents remain outside BAR-007. None of these statements
+constructs the population, recognizes the promise, or supplies a factoring
+lower bound.
 
 The authoritative Rust layer is bounded to \texttt{u64}; validation primality
 uses trial division and is not itself the polynomial-time procedure imported
@@ -1068,10 +1144,9 @@ used here but is not a comprehensive current-state-of-the-art survey.
 
 The main open problems are the two explicit universal constructor questions
 in OPEN-002 and OPEN-003, recognition of the combined hereditary promise
-without access to the factorization, whether any explicit boundary family has
-a proved \(d\pm1\) prime-yield guarantee strong enough at or above the critical
-coefficient, and whether a richer explicitly costed representation can escape
-BAR-004--BAR-006.
+without access to the factorization, whether a non-primorial boundary family
+has a proved factor-scale \(d\pm1\) yield guarantee, and whether a richer
+explicitly costed representation can escape BAR-004--BAR-007.
 
 \section{Conclusion}
 
@@ -1096,8 +1171,9 @@ per charged multiplication, so the tower descriptor \(2^{2^s}\) still costs
 exactly \(2^s\) multiplications. At the exact boundary, the optimized divisor
 budget transfers the exponent-length coefficient \(c\) into a
 \(2^{ck+o(k)}\) hit-set bound. This still vanishes below a stipulated
-population coefficient \(\alpha\). Primorials show that exponential divisor
-capacity exists at boundary cost, but neither that capacity nor the node count
+population coefficient \(\alpha\). Primorials show exponential total divisor
+capacity at boundary cost, but BAR-007 shows that only a subexponential subset
+can hit \(O(k)\)-bit target primes. Thus neither total capacity nor node count
 alone supplies a prime-yield guarantee.
 
 These results do not resolve general classical factoring. They replace
@@ -1791,6 +1867,73 @@ arise from each divisor, so the hit set is polynomial although
 fraction vanish on every stipulated
 \(2^{\Omega(k)}\)-size population. \(\square\)
 
+\section{Full proof of the factor-scale primorial barrier}
+
+\subsection{Proof of BAR-007}\label{proof:BAR-007}
+
+Let \(d\mid P_r\) and \(t=\omega(d)\). Since \(P_r\) is square-free, \(d\)
+is a product of \(t\) distinct primes. Its least possible value is the product
+of the first \(t\) primes. The elementary inequality \(p_j\ge j+1\) gives
+\[
+d\ge\prod_{j=1}^t p_j\ge(t+1)!.
+\tag{16}
+\]
+Thus every divisor \(d\le X+1\) has \(t\le T(X)\). Choosing its support from
+the \(r\) available primes leaves at most \(D(r,X)\) divisors. Every hit
+\(q\le X\) uses one of \(d=q-1,q+1\), and each divisor supplies at most two
+candidates, proving
+\[
+|H_k(\beta)|\le2D(r(k),2^{\beta k}).
+\tag{17}
+\]
+
+For \(t\ge2\), at least \(t/2\) factors of \((t+1)!\) are at least \(t/2\).
+Consequently
+\[
+(t+1)!\ge(t/2)^{t/2}.
+\]
+Together with \((t+1)!\le2^{\beta k}+1\), this gives
+\(T(2^{\beta k})=O(k/\log k)\). Put \(T=T(2^{\beta k})\) and
+\(r=r(k)\). If \(r<2T\), then
+\[
+D(r,2^{\beta k})\le2^r\le2^{2T}=2^{O(k/\log k)}.
+\]
+Otherwise \(T\le r/2\) and
+\[
+D(r,2^{\beta k})
+\le(T+1)\binom rT
+\le(T+1)(er/T)^T.
+\tag{18}
+\]
+For \(r\le Ck\), the function \(t\mapsto t\log(eCk/t)\) is increasing over
+the relevant range. Evaluating it at \(O(k/\log k)\) shows
+\[
+\log_2D(r,2^{\beta k})
+=O(k\log\log k/\log k)=o(k).
+\tag{19}
+\]
+
+For one primorial exponent the nonzero signatures are disjoint: if both
+\(q-1\) and \(q+1\) divided \(P_r\), then \(4\mid P_r\), contradicting
+square-freeness. If the signature counts on \(S_k\) are \(a,b,z\) for
+\((1,0),(0,1),(0,0)\), respectively, the exact promised-pair count is
+\[
+ab+z(a+b).
+\]
+Equivalently applying BAR-003 with \(h_k\le|H_k(\beta)|\) gives
+\[
+\rho_k\le\frac{2h_k}{|S_k|-1}
+\le2^{-\alpha k+o(k)}\longrightarrow0.
+\tag{20}
+\]
+A nested primorial list has its hit union contained in its largest member's
+hit set.
+
+Finally, an exact DEF-010 construction of \(P_{r(k)}\) using
+\(O(k\log k)\) charged nodes has \(\ell(P_{r(k)})=O(k\log k)\) by BAR-005.
+Equation (16) with \(d=P_{r(k)}\) then forces \(r(k)=O(k)\), so the theorem
+covers every first-primes primorial at that boundary. \(\square\)
+
 \section{Reproduction appendix}
 
 The evidence implementation state preceding M6 is commit
@@ -1840,7 +1983,10 @@ The registered experiment cores and canonical summary hashes are:
   \texttt{\seqsplit{67508cf957fa356350a707a58f1079aebcea4f02481ff826cd5ed09727d210fa}};
 \item EXP-0010, core
   \texttt{\seqsplit{cd391e5cf64207ea7dc2f6e4dd55cf469af45424}}, hash
-  \texttt{\seqsplit{22699f23a1421805cb472ddca1723e8d580d601cd25ca72b8b2cd134743e4f83}}.
+  \texttt{\seqsplit{22699f23a1421805cb472ddca1723e8d580d601cd25ca72b8b2cd134743e4f83}};
+\item EXP-0011, M12 milestone commit recorded in \path{research/STATUS.md},
+  hash
+  \texttt{\seqsplit{bad46ee8f6638d98d19bc4479da998ea55af4d1617fef10cfc2c3ea973f39751}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -1894,6 +2040,9 @@ python scripts/check_m10_compressed_exponent_differential.py
 python scripts/run_m11_boundary_schedule_search.py `
   --exponent-max 262144 --primorial-count-max 12
 python scripts/check_m11_boundary_schedule_differential.py
+python scripts/run_m12_primorial_scale_search.py `
+  --primorial-count-max 18 --target-bit-max 20
+python scripts/check_m12_primorial_scale_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -1901,7 +2050,7 @@ latexmk -xelatex -outdir=tmp/pdfs `
 The searches use no random seed. The randomized theorems are validated by
 exact successful-residue enumeration in EXP-0003 and exact parameter
 enumeration in EXP-0006 rather than by unrecorded random runs. EXP-0007
-through EXP-0010 are deterministic combinatorial or syntax
+through EXP-0011 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. The
