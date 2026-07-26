@@ -314,3 +314,16 @@
   counterexample is found; revise the primorial accounting if its constructor
   or binary evaluation exceeds the charged bounds; strengthen the outcome
   only if a proved asymptotic prime-yield lower bound is supplied.
+## ADR-015 - Separate total divisor capacity from factor-scale capacity
+
+- Date: 2026-07-27.
+- Decision: for boundary schedules, count only divisors capable of equaling
+  \(q-1\) or \(q+1\) at the stipulated target-factor scale before asking
+  whether those candidates are prime.
+- Rationale: M11's total divisor count is exponentially large but includes
+  overwhelmingly many divisors too large to hit an \(O(k)\)-bit factor.
+  DEF-012 exposes this scale mismatch, and BAR-007 resolves the first-primes
+  primorial family without importing a shifted-prime distribution theorem.
+- Consequence: prime-yield literature remains contextual; M13 must leave the
+  nested first-primes primorial model or identify a genuinely different
+  factor-scale divisor mechanism.

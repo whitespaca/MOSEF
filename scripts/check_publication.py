@@ -34,6 +34,7 @@ REQUIRED_SECTIONS = (
     "An exponent-encoding divisor barrier",
     "A multiplication straight-line compression barrier",
     "A constant-sensitive boundary barrier",
+    "A factor-scale primorial barrier",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -53,6 +54,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-004}",
     r"\label{proof:BAR-005}",
     r"\label{proof:BAR-006}",
+    r"\label{proof:BAR-007}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -65,6 +67,7 @@ EXPERIMENT_RECORDS = (
     ROOT / "research" / "experiments" / "EXP-0008-m9-divisor-budget.md",
     ROOT / "research" / "experiments" / "EXP-0009-m10-compressed-exponents.md",
     ROOT / "research" / "experiments" / "EXP-0010-m11-boundary-schedule.md",
+    ROOT / "research" / "experiments" / "EXP-0011-m12-primorial-scale.md",
 )
 
 

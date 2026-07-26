@@ -1,38 +1,45 @@
 # Research Status
 
-## M12 active
+## M12 outcome
 
-- Date: 2026-07-26.
+- Date: 2026-07-27.
 - Branch: `research/20260726-m12-prime-yield`.
-- Active milestone: M12, the critical/supercritical primorial prime-yield
-  question after common-input-length population normalization.
-- Baseline validation passed before edits: foundation and publication
-  consistency (47 claims and nine experiment hashes), 86 Python tests and
-  bytecode compilation, Rust format/Clippy/19 tests, and a clean converged
-  28-page XeLaTeX build.
-- Provisional claim target: `BAR-007`. For first-primes primorial indices
-  \(r(k)=O(k)\), count only divisors \(d\le2^{\beta k}+1\), because a hit on
-  an \(O(k)\)-bit target prime must have \(d=q\pm1\) in that range. The
-  factorial lower bound on a square-free divisor's support should force
-  \(\omega(d)=O(k/\log k)\), leaving only
-  \(2^{O(k\log\log k/\log k)}=2^{o(k)}\) relevant divisors despite
-  \(\tau(P_{r(k)})=2^{\Theta(k)}\) overall.
-- Expected consequence: every stipulated exponentially large
-  common-input-length population of \(O(k)\)-bit primes has vanishing
-  primorial-schedule promised-pair fraction, for every fixed boundary
-  coefficient. This would refute the transfer from total divisor capacity to
-  factor-scale prime yield without making a primality-distribution claim.
-- Falsification plan: exhaustively compare the exact factorial/binomial bound
-  with all divisors of bounded primorials; independently test actual
-  \(d\pm1\) prime hits and exact three-signature population fractions on
-  balanced finite prime intervals.
-- Literature plan: audit primary shifted-smooth-prime results only to delimit
-  scope. No external distribution theorem will be used in the elementary
-  barrier proof.
-- Planned deliverables: proof and negative-result record, deterministic
-  EXP-0011, selected Python/Rust/C# checks, claims and manuscript
-  synchronization, independent adversarial/source review, full gates, and a
-  local commit.
+- Completed milestone: M12, the critical/supercritical first-primes
+  primorial prime-yield question at target-factor scale.
+- `DEF-012` defines the exact factorial support threshold and binomial
+  divisor-candidate bound. `BAR-007` is `PROVED`: for \(r(k)=O(k)\), only
+  \(2^{O(k\log\log k/\log k)}=2^{o(k)}\) divisors of \(P_{r(k)}\) are small
+  enough to equal \(q\pm1\) for \(q\le2^{\beta k}\). Hence the promised-pair
+  fraction is at most \(2^{-\alpha k+o(k)}\) on every stipulated
+  \(2^{\alpha k}\)-size common-input-length population.
+- `REF-008` is `REFUTED`; NR-009 records the scale mismatch between
+  \(2^{\Theta(k)}\) total primorial divisors and the subexponential
+  factor-scale subset. The result uses no prime-distribution hypothesis and
+  does not extend to arbitrary boundary exponent families.
+- EXP-0011 completed 9,961,434 divisor checks, 145,413 support checks,
+  290,826 prime-candidate checks, 16 balanced-population formula checks, 32
+  cross-language comparisons, and four Python-only scale-bound records. Its
+  canonical summary SHA-256 is
+  `bad46ee8f6638d98d19bc4479da998ea55af4d1617fef10cfc2c3ea973f39751`.
+- Independent adversarial review found and then verified the repair of the
+  omitted \(T\le r<2T\) binomial case. Its extra audit checked 139,986 exact
+  thresholds/formulas, 20,010 divisor supports, 153,456 channel-disjointness
+  cases, 9,352 nested-hit containments, and 500 factorial/node transfers.
+- Independent source review confirmed Lichtman's exact power-scale
+  shifted-prime theorem and that it supplies no polylogarithmic,
+  square-free, primorial-supported, or simultaneous-channel yield statement.
+- Full gates passed: foundation and publication consistency (52 claims and
+  ten experiment hashes), 93 Python tests and bytecode compilation, Rust
+  format/Clippy/19 tests, C# Release build with zero warnings or errors, the
+  registered M12 experiment and 36-count focused validator, and a clean
+  converged 30-page XeLaTeX build. The updated sections and full proof were
+  rendered and visually inspected. The stable PDF SHA-256 is
+  `8fbc253727c4f42bd1e1248f09ca9a67431692ea4faea189a3f0fce11bcf8ee5`.
+- Optional third-party Python `pytest`, Ruff, and mypy gates remain
+  unavailable under BLK-003.
+- Next selected milestone: M13, classify non-primorial squareful and
+  noninitial-support exact-boundary families by factor-scale divisor yield
+  per charged construction node.
 
 ## M11 outcome
 

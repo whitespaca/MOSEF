@@ -54,3 +54,8 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-006 | PROVED | Exact-boundary hit-set coefficient barrier | `research/proofs/BAR-006-boundary-constant.md` |
 | REF-007 | REFUTED | Boundary node count as a sufficient guarantee | `research/NEGATIVE_RESULTS.md` NR-008 |
 | EMP-010 | EMPIRICAL | Bounded primorial-boundary audit | `research/experiments/EXP-0010-m11-boundary-schedule.md` |
+| EXT-006 | PROVED | Imported power-scale shifted-prime smoothness theorem | `research/literature/SRC-007-lichtman-shifted-smooth-primes.md` |
+| DEF-012 | DEFINITION | Factor-scale primorial support and divisor bound | `research/proofs/BAR-007-primorial-factor-scale.md` |
+| BAR-007 | PROVED | Factor-scale first-primes primorial scarcity barrier | `research/proofs/BAR-007-primorial-factor-scale.md` |
+| REF-008 | REFUTED | Total primorial divisor capacity as factor-scale yield | `research/NEGATIVE_RESULTS.md` NR-009 |
+| EMP-011 | EMPIRICAL | Bounded factor-scale primorial audit | `research/experiments/EXP-0011-m12-primorial-scale.md` |

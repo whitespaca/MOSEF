@@ -202,3 +202,22 @@
   first-primes primorial family in BAR-006, have exponentially many divisors.
   The counterexample refutes sufficiency of node count alone; it does not
   rule out a construction with a proved prime-yield guarantee.
+## NR-009 - Total primorial divisor capacity does not survive factor-scale restriction
+
+- Date: 2026-07-27.
+- Status: `REFUTED` claim `REF-008`.
+- Hypothesis tested: the \(2^{r}\) total divisors of the first-primes
+  primorial \(P_r\), with \(r=\Theta(k)\), should produce enough \(d\pm1\)
+  primes to maintain a nonvanishing combined-promise fraction on an
+  exponentially large population of \(O(k)\)-bit factors.
+- Counterargument: a relevant divisor has \(d=q\pm1\le2^{\beta k}+1\).
+  If it uses \(t\) of the primorial's distinct prime factors, then
+  \((t+1)!\le d\), so \(t=O(k/\log k)\). Among \(r=O(k)\) available primes
+  there are only
+  \(2^{O(k\log\log k/\log k)}=2^{o(k)}\) such divisors, regardless of whether
+  their \(d\pm1\) neighbors are prime.
+- Evidence: BAR-007 and deterministic EXP-0011; independent adversarial
+  review.
+- Scope: first-primes primorials and nested subfamilies. This does not refute
+  every exact-boundary exponent family or prove a general factoring lower
+  bound.
