@@ -1,5 +1,22 @@
 # Research Status
 
+## M21 execution snapshot
+
+- Date: 2026-07-27.
+- Branch: `research/20260727-m21-linear-combination`.
+- Active question: can a factorization-independent signed linear combination
+  of explicit certified geometric quotient stages create a proper extraction
+  success outside every charged stage quotient, prefix numerator,
+  intermediate/composed denominator, and public coefficient or multiplier
+  exit?
+- Provisional evidence target: `DEF-021`, `BAR-016` or a minimized
+  counterexample, `REF-017`, and deterministic `EXP-0020`.
+- First action: define the smallest public coefficient grammar over retained
+  DEF-020 stage values, charge construction and every aggregate output/GCD,
+  and search cancellation cases on even and repeated-prime moduli before
+  attempting an implication theorem.
+- No M21 theorem or empirical conclusion is claimed at this start point.
+
 ## M20 outcome
 
 - Date: 2026-07-27.
