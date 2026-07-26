@@ -6,6 +6,8 @@
 - Completed milestone: M6, the first claim-complete publishable manuscript.
 - Manuscript core commit:
   `9aac77921421fd69a4ab83e879cf50084f3024f3`.
+- Validated milestone completion commit:
+  `72f969df01555730cf2a27e96530444fdfa39b81`.
 - The paper centers one restricted positive result (`THM-001`) and two
   structural barriers (`BAR-001`, `BAR-002`) without enlarging any hypothesis;
   `OPEN-002` and `OPEN-003` remain explicit.
