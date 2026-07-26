@@ -5,6 +5,8 @@
 Hugh C. Williams, "A \(p+1\) Method of Factoring," *Mathematics of
 Computation* 39(159), July 1982, 225--234.
 DOI: `10.1090/S0025-5718-1982-0658227-7`.
+Authoritative artifact:
+`https://www.ams.org/journals/mcom/1982-39-159/S0025-5718-1982-0658227-7/S0025-5718-1982-0658227-7.pdf`.
 
 Primary source inspected: the official AMS article scan. The scan records
 receipt on 1981-03-30 and revision on 1981-09-28.
@@ -75,7 +77,7 @@ For the M5 conjugate pairing \(P=a+a^{-1}\),
 P^2-4=(a-a^{-1})^2.
 \]
 
-Thus every nondegenerate prime component is forced into the split branch.
+Thus every nondegenerate odd-prime component is forced into the split branch.
 The algebraic correlation result in
 `research/proofs/BAR-002-conjugate-channel-correlation.md` is elementary and
 is not attributed to Williams.

@@ -135,3 +135,28 @@
 - Rollback condition: revise the abstraction only if a stronger candidate
   evaluation mechanism is defined with exact collision semantics and survives
   the same proof and source-scope audit.
+
+## ADR-008 - Separate conjugate correlation from arbitrary Lucas parameters
+
+- Date: 2026-07-26
+- Status: accepted
+- Context: M5 sought a factorization-independent pairing between the
+  multiplicative \(a^d-1\) channel and the Lucas \(V_d(P,1)-2\) channel. The
+  natural map \(P=a+a^{-1}\) looked like a two-group construction but exact
+  algebra and the Williams source audit showed that it remains in the split
+  \(p-1\) branch.
+- Alternatives: treat the outcomes as independent; discard Lucas parameters
+  entirely; prove the exact correlation for the conjugate map while keeping
+  independently selected nonsplit parameters outside its scope.
+- Decision: define every discriminant and sequence-GCD branch explicitly,
+  including three outcomes when the discriminant GCD is all of \(N\). Record
+  the conjugate identity as BAR-002 and keep arbitrary \(P\) as a distinct
+  channel that may complement a multiplicative miss.
+- Consequences: adding the conjugately derived Lucas family cannot enlarge a
+  multiplicative exponent family's success domain when exponent \(2\) is
+  retained, and it can degrade prime-power splits. This is not a lower bound
+  for independently sampled parameters or other algebraic groups. A full
+  discriminant GCD is not assumed to determine the later sequence GCD.
+- Rollback condition: revise the separation only if a proposed parameter map
+  is proved not to satisfy the conjugate identity and its exact failure
+  distribution survives source, proof, and bounded counterexample review.

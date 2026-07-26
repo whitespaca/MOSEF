@@ -117,6 +117,8 @@ def search(
         raise ValueError("exponent_max must include exponent 2")
 
     identity_checks = 0
+    sequence_implication_checks = 0
+    discriminant_implication_checks = 0
     squarefree_gcd_checks = 0
     conjugate_families = 0
     multiplicative_success_families = 0
@@ -147,6 +149,14 @@ def search(
                 if not analysis.discriminant_identity or not analysis.lucas_identity:
                     raise AssertionError(("conjugate identity", n, base, exponent))
                 identity_checks += 1
+                if analysis.discriminant_gcd in {1, n}:
+                    sequence_implication_checks += 1
+                    if candidate_succeeds(
+                        analysis.lucas
+                    ) and not candidate_succeeds(analysis.multiplicative):
+                        raise AssertionError(
+                            ("sequence implication", n, base, exponent)
+                        )
                 if squarefree:
                     if analysis.multiplicative_gcd != analysis.lucas_gcd:
                         raise AssertionError(("squarefree gcd", n, base, exponent))
@@ -193,6 +203,13 @@ def search(
             )
             if carmichael and not multiplicative_success and not lucas_success:
                 carmichael_both_failed_families += 1
+            first_analysis = analyze_conjugate_pair(n, base, 1)
+            discriminant_implication_checks += 1
+            if 1 < first_analysis.discriminant_gcd < n:
+                if not candidate_succeeds(
+                    evaluate_separator_candidate(n, base, 2)
+                ):
+                    raise AssertionError(("discriminant implication", n, base))
 
     if derived_lucas_only_families:
         raise AssertionError("a conjugately derived Lucas family added success")
@@ -214,6 +231,10 @@ def search(
         },
         "seed": None,
         "identity_checks": identity_checks,
+        "sequence_success_implication_checks": sequence_implication_checks,
+        "discriminant_success_implication_checks": (
+            discriminant_implication_checks
+        ),
         "squarefree_gcd_checks": squarefree_gcd_checks,
         "conjugate_family_count": conjugate_families,
         "multiplicative_success_family_count": multiplicative_success_families,
@@ -231,6 +252,8 @@ def search(
         "independent_lucas_complement_count": independent_count,
         "checked": {
             "conjugate_identities": True,
+            "pointwise_sequence_success_implies_multiplicative_success": True,
+            "discriminant_success_implies_exponent_two_success": True,
             "squarefree_raw_gcd_equality": True,
             "family_success_domain_equality_when_exponent_two_is_present": True,
             "independent_parameter_complement_search": True,

@@ -71,3 +71,36 @@
 - Source boundary: this negative result does not refute the conditional
   Umans--Wang algorithms, which factor actual prefactored integers and resolve
   collisions without multiplicative-order separation.
+
+## NR-004 - Conjugate Lucas parameters do not create an independent channel
+
+- Date: 2026-07-26
+- Affected claim: `REF-003`, status `REFUTED`.
+- Exact hypothesis: pairing a unit \(a\) with
+  \(P=a+a^{-1}\pmod N\) makes the Lucas GCD
+  \(\gcd(V_d(P,1)-2,N)\) an independent separator that can repair a failure of
+  \(\gcd(a^d-1,N)\).
+- Proof of failure:
+  \[
+  V_d(a+a^{-1},1)-2=a^{-d}(a^d-1)^2.
+  \]
+  The residues have identical prime support. For square-free \(N\), their raw
+  GCDs are equal. If the exponent family also contains \(2\), any proper
+  discriminant GCD follows from the multiplicative exponent-2 candidate, so
+  the combined family has exactly the multiplicative success domain.
+- Strict degradation witness:
+  \((N,a,P,d)=(25,2,15,4)\) gives discriminant GCD \(1\),
+  multiplicative GCD \(5\), and Lucas GCD \(25\).
+- Deterministic search:
+  `python scripts/run_m5_multigroup_search.py --modulus-max 700 --base-max 32
+  --parameter-max 32 --exponent-max 12` checked 9,773 families and 117,276
+  exact identities with no seed. It found zero derived-Lucas-only family
+  successes. Summary hash:
+  `98f2be052a315231292c73319fa98066cf4d8fc4cd66740f207b2d99c7f616f5`.
+- Surviving boundary: arbitrary Lucas parameters are not covered. The bounded
+  witness \((N,a,P,d)=(15,2,9,3)\) has multiplicative GCD \(1\), discriminant
+  GCD \(1\), and Lucas GCD \(5\). This is an exact complement example, not an
+  independence probability or a universal guarantee.
+- Source boundary: Williams's \(p+1\) method requires the nonsplit
+  Legendre-symbol branch. The conjugate discriminant is a square and forces
+  the split branch; Williams does not claim independence for this pairing.

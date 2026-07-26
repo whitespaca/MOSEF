@@ -1,131 +1,127 @@
 # Research Status
 
-## M5 execution plan
-
-- Branch: `research/20260726-m5-multigroup-correlation`.
-- Evidence target: determine whether a rigorously defined Lucas
-  \(V_d(P,1)-2\) channel supplies separation information beyond the
-  multiplicative \(a^d-1\) channel under a natural, factorization-independent
-  parameter pairing.
-- Expected artifacts: exact channel definitions and failure branches, a
-  primary-source note, a bounded correlated-collision search, independent
-  Python/Rust/C# vectors, and either a reviewed theorem or a minimized negative
-  result.
-- Falsification test: attack the assumption that the two channel outcomes are
-  independent, including discriminant failures, square-free inputs, repeated
-  prime powers, order 1 and 2, simultaneous collisions, and Carmichael
-  numbers.
-- Promotion gate: experiments remain `EMPIRICAL`; any exact correlation
-  theorem remains provisional until a separate reviewer reconstructs its
-  algebra and scope.
-
 ## Execution snapshot
 
 - Date: 2026-07-26.
-- Branch: `research/20260726-m4-difference-cover`.
-- Completed milestone: M4, divisor coverage versus order separation.
-- Active milestone: M5, correlated failures across two rigorously defined
-  group channels.
-- Reviewed core commit:
-  `89cc44a6823ef223f36b37ad1cc268fe8fbd9697`.
-- General classical polynomial-time integer factoring remains open. M4 proves
-  a transfer barrier, not a factoring algorithm or a general lower bound.
+- Branch: `research/20260726-m5-multigroup-correlation`.
+- Completed milestone: M5, exact correlation across multiplicative and Lucas
+  channels.
+- Active milestone: M6, strongest fully supported publishable contribution.
+- Reviewed M5 core commit:
+  `667147374ca544450910d02193dc7a2d0945d1d7`.
+- General classical polynomial-time integer factoring remains open. M5 proves
+  a barrier for one natural parameter map, not a factoring algorithm or a
+  general two-channel lower bound.
 
-## M4 outcome
+## M5 outcome
 
-- `DEF-005` distinguishes nonempty divisibility signatures (coverage) from
-  injective signatures (universal distinct-order separation).
-- `BAR-001` is `PROVED`: an \(n\)-divisor family need not separate distinct
-  orders. The exact profile criterion is that its signatures are not all
-  equal; the universal criterion is injectivity on \([n]\).
-- The minimal positive difference-family counterexample is
-  \(S=\{3\}\), \(T=\{1\}\), and \(\Delta^+(S,T)=\{2\}\).
-- The collision occurs in the intended multiplicative mechanism:
-  \(\operatorname{ord}_2(5)=1\), \(\operatorname{ord}_3(5)=2\), but
-  \(\gcd(5^2-1,6)=6\). The smallest odd example is \(N=15,g=4,d=2\).
-- Any explicit family with coverage and injective signatures satisfies
-  \(|\Delta|\ge\lceil\log_2(n+1)\rceil\); a positive difference realization
-  also satisfies \(|S||T|\ge|\Delta|\).
-- The interval difference construction covers and separates, but uses
-  \(\Theta(n)\) pairs and supplies no polynomial-bit-complexity POSF.
-- `EXT-003` remains conditional. The inspected Umans--Wang source uses divisor
-  coverage of actual prefactored integers, not multiplicative orders, and its
-  stated \(N^{\max(\alpha,\beta)/2+o(1)}\) time is exponential in
-  \(m=\lceil\log_2N\rceil\). BAR-001 does not refute that mechanism.
-- Independent literature and adversarial proof audits both approved the scope
-  boundary. The proof reviewer reconstructed every argument after the helper
-  semantics and sign wording were repaired.
+- `DEF-006` defines
+  \(G_M(N,a,d)=\gcd(a^d-1,N)\),
+  \(G_\Delta(N,P)=\gcd(P^2-4,N)\), and
+  \(G_L(N,P,d)=\gcd(V_d(P,1)-2,N)\), including every miss, factor,
+  collision, and full-discriminant sequence branch.
+- `BAR-002` is `PROVED`: for the conjugate map
+  \(P=a+a^{-1}\),
+  \[
+  V_d(P,1)-2=a^{-d}(a^d-1)^2,\qquad
+  P^2-4=a^{-2}(a^2-1)^2.
+  \]
+  The residues have identical prime support, and their raw GCDs agree for
+  square-free \(N\).
+- If the exponent family contains \(2\), any proper derived Lucas or
+  discriminant GCD implies a proper multiplicative-family GCD. Adding the
+  conjugate Lucas family therefore cannot enlarge the multiplicative success
+  domain.
+- The map can degrade repeated-prime valuations:
+  \((N,a,P,d)=(25,2,15,4)\) gives discriminant GCD \(1\),
+  multiplicative GCD \(5\), and Lucas GCD \(25\).
+- A full discriminant GCD is not a complete sequence outcome:
+  \((N,P,d)=(15,8,1)\) has discriminant GCD \(15\) but sequence GCD \(3\).
+- Arbitrary \(P\) remains outside the barrier. The exact witness
+  \((N,a,P,d)=(15,2,9,3)\) has multiplicative GCD \(1\), discriminant
+  GCD \(1\), and Lucas GCD \(5\).
+- The Williams source audit confirms that the conjugate discriminant is a
+  square and forces the split \(p-1\) branch, not the nonsplit \(p+1\)
+  branch. Williams does not claim independence for this pairing.
+- Independent literature and proof audits approved the algebra, exact failure
+  semantics, source boundary, and map-specific theorem scope.
 
 ## Reproducible evidence
 
 - Proof:
-  `research/proofs/BAR-001-divisor-cover-separation-gap.md`.
+  `research/proofs/BAR-002-conjugate-channel-correlation.md`.
 - Source audit:
-  `research/literature/SRC-004-umans-wang-divisor-conjecture.md`.
+  `research/literature/SRC-005-williams-p-plus-one.md`.
 - Experiment:
-  `research/experiments/EXP-0004-m4-difference-cover-search.md`.
-- Negative result: `research/NEGATIVE_RESULTS.md` NR-003.
-- Python semantics: `python/mosef_reference/difference_cover.py`.
+  `research/experiments/EXP-0005-m5-multigroup-correlation.md`.
+- Negative result: `research/NEGATIVE_RESULTS.md` NR-004.
+- Python semantics: `python/mosef_reference/multigroup.py`.
 - Independent selected verifiers: Rust `u64` and C# `BigInteger`.
-- Registered bounds: all 4,095 nonempty subsets of \([12]\), order pairs on
-  \([8]\), collision moduli through 200, and square constructions through 200;
-  deterministic exhaustive enumeration with no seed.
-- Result: 114,660 pair-profile checks; 576 divisor covers, of which 240 were
-  noninjective and 336 injective.
+- Registered bounds: composite moduli through 700, unit bases through 32,
+  Lucas parameters through 32, and exponents through 12; deterministic
+  exhaustive enumeration with no seed.
+- Result: 9,773 conjugate families, 117,276 identities, 45,821 pointwise
+  success implications, 69,192 square-free GCD equalities, and zero
+  derived-Lucas-only family successes.
+- Multiplicative and combined success counts were both 9,037. Independently
+  parameterized same-exponent complements were counted separately and not
+  interpreted probabilistically.
 - Canonical summary SHA-256:
-  `4c046ae8694070b59f5e328f94038fe32cb84b5ab716bb86a62e79636077e55f`.
+  `98f2be052a315231292c73319fa98066cf4d8fc4cd66740f207b2d99c7f616f5`.
 
 ## Validation
 
 - `python scripts/validate_foundation.py`: PASS.
-- `python -m unittest discover -s tests -v`: PASS (44 tests).
+- `python -m unittest discover -s tests -v`: PASS (51 tests).
 - `python -m compileall -q python scripts tests`: PASS.
 - `python -m pytest`, Ruff, and mypy: unavailable under BLK-003; no dependency
   was added merely to hide the environment limitation.
 - `cargo fmt --all --check`: PASS.
 - `cargo clippy --workspace --all-targets --all-features -- -D warnings`:
   PASS.
-- `cargo test --workspace --all-features`: PASS (14 Rust tests).
+- `cargo test --workspace --all-features`: PASS (15 Rust tests).
 - Workspace-scoped `dotnet restore` and `dotnet build`: PASS with zero
-  warnings and errors. A first unscoped restore was denied access to the user
-  NuGet config; the explicit workspace `APPDATA` repair passed.
+  warnings and errors.
 - Baseline differential validation: PASS (58 checks).
 - M2 search and differential validation: PASS (78,860 candidates and 24
   cross-language checks).
 - M3 search and differential validation: PASS (557 witnesses and 22
   cross-language checks).
-- M4 search: PASS (4,095 families and 114,660 pair-profile checks).
-- M4 Python/Rust/C# differential validation: PASS (12 checks).
-- Independent M4 theorem review: PASS; no remaining promotion blocker.
+- M4 search and differential validation: PASS (4,095 families, 114,660
+  pair-profile checks, and 12 cross-language checks).
+- M5 registered search: PASS (9,773 families and 117,276 identity checks).
+- M5 Python/Rust/C# differential validation: PASS (18 checks).
+- Independent M5 theorem review: PASS; no remaining promotion blocker.
 - `latexmk -xelatex -outdir=tmp/pdfs -interaction=nonstopmode -halt-on-error
   paper/main.tex`: PASS; the converged log has no LaTeX warnings, undefined
   references, citations, or overfull/underfull boxes.
-- Poppler render and page-by-page visual inspection: PASS (10 pages; no
+- Poppler render and page-by-page visual inspection: PASS (12 pages; no
   clipping, overlap, malformed mathematics, or broken claim labels).
 - Final PDF: `output/pdf/mosef-paper.pdf`, SHA-256
-  `d936b2fbdaf9b256b1ddc30dc14fd4c4cd86c6be09c317131f6134af315241f6`.
+  `0fc846829ae080cc60cd7052936392f438ec15a75fa3c554b3214a06ede62369`.
 
 ## Remote state, blockers, and next action
 
 - M2 pull request `https://github.com/whitespaca/MOSEF/pull/2` is merged into
   `main`.
-- M3 remote delivery still awaits explicit authorization under BLK-005.
+- M3 and M4 remote delivery remain blocked by explicit content-egress
+  authorization requirements under BLK-005 and BLK-006.
 - Optional pytest/Ruff/mypy tools remain unavailable under BLK-003.
-- M4 local delivery is complete at `8c874d8`. The policy-required push attempt
-  was rejected because this exact branch payload lacks explicit authorization;
-  see BLK-006. No M4 pull request exists.
-- Next action: M5 should define two exact group-channel signatures, preregister
-  a bounded correlated-collision search, and try to falsify any independence
-  assumption before measuring performance.
+- M5 local delivery will be complete after the final manuscript, repository
+  gates, and milestone commit. A policy-required push attempt will be recorded
+  separately if authorization is rejected.
+- Next action: M6 should synthesize the restricted theorem and two barrier
+  results into the strongest claim-complete manuscript, without enlarging any
+  theorem beyond its reviewed hypotheses.
 
 ## 한국어 요약
 
-M4에서는 “모든 수를 한 번 이상 나누는 차이 집합”과 “서로 다른 위수를
-실제로 분리하는 지수 집합”이 같은 조건이 아님을 증명했습니다.
-\(S=\{3\},T=\{1\}\)의 유일한 차이 2는 위수 1과 2를 모두 덮지만 둘을
-구분하지 못하며, 실제로 \(N=6,g=5,d=2\)에서 GCD가 6 전체가 됩니다.
-보편적인 분리를 위해서는 단순한 덮음이 아니라 각 위수의 나눗셈 서명이
-서로 달라야 합니다. 이 결과는 일반 정수분해의 하한도 아니고
-Umans--Wang의 조건부 알고리즘을 반박하지도 않습니다. 다음 M5에서는 두
-그룹 채널의 실패가 실제로 얼마나 함께 발생하는지부터 엄밀하게
-검증합니다.
+M5에서는 곱셈 채널 \(a^d-1\)과 Lucas 채널 \(V_d(P,1)-2\)를 정확히
+비교했습니다. 자연스러운 결합 \(P=a+a^{-1}\)을 사용하면 Lucas 잔여식은
+곱셈 잔여식의 제곱에 단위원을 곱한 형태가 되므로 새로운 소인수 지지집합을
+만들지 못합니다. 지수 집합에 2가 포함되면 두 채널을 합쳐도 곱셈 채널보다
+성공 범위가 넓어지지 않으며, \(N=25\)에서는 오히려 유용한 GCD 5가 전체
+충돌 25로 악화됩니다. 다만 독립적으로 선택한 Lucas 매개변수는 이 장벽의
+대상이 아니며, 작은 범위에서는 곱셈 실패를 보완하는 정확한 예도
+확인했습니다. 이 결과는 일반 정수분해 알고리즘이나 모든 다중 그룹
+구성에 대한 하한을 뜻하지 않습니다.

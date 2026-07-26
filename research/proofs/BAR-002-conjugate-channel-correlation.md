@@ -1,6 +1,6 @@
 # BAR-002 - Conjugate Lucas pairing cannot add separation
 
-Status: `DRAFT` pending bounded falsification and independent adversarial
+Status: `PROVED` after bounded falsification and independent adversarial
 review.
 
 ## Exact channel definitions
@@ -37,8 +37,8 @@ A GCD succeeds exactly when it lies strictly between \(1\) and \(N\).
 The implementation distinguishes a discriminant factor, a miss, a proper
 factor, and a simultaneous collision. When \(G_\Delta=N\), it additionally
 distinguishes whether the sequence GCD misses, factors, or collides. This is
-more informative than Williams's algorithmic rule to reject a parameter with
-\(G_\Delta\ne1\).
+more informative than Williams's rule to reject and reselect a parameter when
+\(G_\Delta=N\); when \(1<G_\Delta<N\), the precheck already factors \(N\).
 
 The **conjugate pairing** is the factorization-independent map
 
@@ -168,8 +168,9 @@ pairing,
 \]
 
 Away from the degenerate zero-discriminant case this is a square modulo every
-prime divisor. The pairing therefore forces the split branch rather than
-constructing Williams's nonsplit \(p+1\) channel. The primary source calls
+odd prime divisor. The pairing therefore forces the split branch at every
+odd prime where Williams's Legendre-symbol theorem applies, rather than
+constructing its nonsplit \(p+1\) channel. The primary source calls
 the methods analogous and reports empirical use of both; it does not claim
 independence of this pairing.
 
