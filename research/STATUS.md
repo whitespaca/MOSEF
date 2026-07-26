@@ -1,5 +1,76 @@
 # Research Status
 
+## M18 outcome
+
+- Date: 2026-07-27.
+- Branch: `research/20260727-m18-geometric-sum`.
+- Completed milestone: M18, the charged left-to-right binary circuit for
+  \[
+  S_M(X)=\sum_{i=0}^{M-1}X^i=\frac{X^M-1}{X-1}
+  \]
+  at an arbitrary public positive exponent \(M\).
+- `DEF-018` gives the exact even/odd pair grammar for
+  \((P_M,S_M)=(X^M,\sum_{i<M}X^i)\), total unit, proper-factor, or
+  full-collision denominator semantics, and explicit charges for the encoded
+  base and exponent, preprocessing, construction, operations, outputs, GCDs,
+  extraction, and any expanded coefficient output.
+- `BAR-013` is `PROVED`: a unit denominator makes quotient and endpoint GCDs
+  identical; a proper denominator is already a factor; and a full denominator
+  gives \(S_M(g)\equiv M\pmod N\), so the quotient GCD is the public
+  \(\gcd(M,N)\). The proper branch preserves success existence, not divisor
+  value: \(N=15,g=4,M=2\) gives denominator GCD \(3\), quotient GCD \(5\),
+  and a full endpoint collision.
+- For \(\ell=\operatorname{bitlength}(M)\), the exact composition counts are
+  \(2(\ell-1)+\operatorname{popcount}(M)-1\) multiplications and
+  \((\ell-1)+\operatorname{popcount}(M)-1\) additions. The post-reduction
+  residue circuit is \(O(\ell\operatorname{poly}(k))\), while total work is
+  polynomial in the charged base, modulus, and exponent lengths. Compact
+  formal metadata uses \(O(\ell)\) bits; expanded output has \(M\) entries.
+- `REF-014` is `REFUTED`; NR-015 records that compact arbitrary-exponent
+  evaluation still produces one quotient value, not a new extraction path
+  beyond endpoint, denominator, and public-exponent GCDs.
+- EXP-0017 checked 64 symbolic identities, 2,080 coefficients, 320,896
+  modular circuits, 1,323,696 binary-prefix steps, and 320,896 residue
+  identities. All 166,784 unit, 134,272 proper, and 19,840 full denominator
+  reductions held with zero unexplained reductions. All 12 selected
+  Python/Rust/C# comparisons agreed. Canonical summary SHA-256:
+  `0f182c819374451a3fd8d9ddb7ffc75580ac363186e19bd804eb28fe1371d2bd`.
+- Independent source/scope review required explicit accounting for the
+  encoded base length and reduction; the repaired review passed. Independent
+  adversarial review passed the proof, \(M=1\), even and repeated-prime
+  moduli, exact counters, \(M=2^{64}-1\), a 129-bit exponent in the
+  arbitrary-precision implementations, and the registered three-language
+  checks.
+- Full gates passed: foundation and publication consistency (76 claims and
+  16 experiment hashes), 135 Python tests and bytecode compilation, Rust
+  format/Clippy/24 tests, C# Release restore/build with zero warnings or
+  errors, 58 baseline comparisons, EXP-0017, and the 12-check M18
+  differential validator. Optional third-party pytest, Ruff, and mypy remain
+  unavailable under BLK-003.
+- XeLaTeX converged with no warnings, undefined references or citations, or
+  overfull/underfull boxes. All 45 pages, including the revised title and
+  abstract, Section 19, results table, limitations, conclusion, complete
+  proof, and reproduction appendix, were rendered and visually inspected.
+  Stable PDF: `output/pdf/mosef-paper.pdf`, SHA-256
+  `85eb9b46fad3ebd5b336be49d56bdcadcc750d0c203bc58e1889a08ac858c31e`.
+- Core implementation/proof/paper commit:
+  `9f36ee9c75d8f13d2883301da63404747e358bcc`.
+- The core commit is synchronized to
+  `origin/research/20260727-m18-geometric-sum`. No pull request was created
+  or verified because GitHub CLI remains unauthenticated.
+- Next action: M19 should formalize the cancellation-obscured two-stage
+  identity \(S_{AB}(X)/S_A(X)=S_B(X^A)\), including total intermediate
+  denominator semantics and a division-free composed path.
+
+## Korean summary
+
+M18은 임의의 공개 지수 \(M\)에 대한 geometric sum을 이진 합성으로
+\(O(\log M)\) 단계에 계산하지만, 새로운 인수분해 경로를 만들지는
+못함을 증명했습니다. 분모가 unit이면 endpoint GCD와 같고, proper이면
+분모 자체가 이미 인수이며, full collision이면 결과가 공개된
+\(\gcd(M,N)\)로 환원됩니다. 이는 일반 rational circuit 하한이 아니며,
+다음 단계는 중간 분모가 nonunit일 수 있는 두 단계 quotient입니다.
+
 ## M17 outcome
 
 - Date: 2026-07-27.
