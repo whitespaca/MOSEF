@@ -1,9 +1,9 @@
 use mosef_arithmetic::{
     analyze_divisor_cover, batch_gcd, combined_promise_asymmetry, combined_promise_hit_count,
-    combined_promise_signature, evaluate_lucas_separator_candidate, evaluate_separator_candidate,
-    is_prime, lucas_v, mod_pow, perfect_power, pollard_p_minus_one, pollard_p_plus_one,
-    pollard_rho, semismooth_factor, semismooth_successful_residue_count, trial_division,
-    CoverAnalysis, LucasSeparatorOutcome, SemismoothOutcome, SeparatorOutcome,
+    combined_promise_signature, divisor_count, evaluate_lucas_separator_candidate,
+    evaluate_separator_candidate, is_prime, lucas_v, mod_pow, perfect_power, pollard_p_minus_one,
+    pollard_p_plus_one, pollard_rho, semismooth_factor, semismooth_successful_residue_count,
+    trial_division, CoverAnalysis, LucasSeparatorOutcome, SemismoothOutcome, SeparatorOutcome,
 };
 use std::env;
 use std::process::ExitCode;
@@ -271,6 +271,12 @@ fn run() -> Result<(), String> {
             )?;
             combined_promise_hit_count(&primes, &exponents)
                 .ok_or_else(|| "primes must be odd primes and exponents positive".to_owned())?
+                .to_string()
+        }
+        "divisor-count" => {
+            let value = parse_u64(arguments.next(), "value")?;
+            divisor_count(value)
+                .ok_or_else(|| "value must be positive".to_owned())?
                 .to_string()
         }
         _ => return Err(format!("unknown operation: {operation}")),

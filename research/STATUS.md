@@ -1,5 +1,39 @@
 # Research Status
 
+## M9 execution plan
+
+- Branch: `research/20260726-m9-divisor-rich-schedules`.
+- Research question: can an explicit polynomial-size exponent list with
+  values above balanced prime factors obtain a nonvanishing combined
+  \(p-1/p+1\) promise guarantee while every exponent has only
+  \(\Theta(k)\), or more generally \(o(k\log k)\), bits?
+- Provisional claims: `DEF-009` for an exact bit-length divisor budget,
+  `BAR-004` for the resulting subexponential hit-set and pair-density barrier,
+  and `REF-005` for the refuted claim that exponent value alone ensures
+  combined-promise coverage.
+- Target model: a factorization-independent explicit list
+  \(\Delta(k)\) used for every pair in a finite odd-prime set whose products
+  have common input length \(k\). The family has polynomial cardinality and
+  maximum exponent bit length \(L(k)=o(k\log k)\). For any such prime
+  population of size at least \(2^{\alpha k}\), \(\alpha>0\), the target
+  conclusion is a vanishing promised-pair fraction.
+- Exact divisor budget: for exponent bit length \(\ell\), split prime factors
+  at \(T=\lfloor\sqrt\ell\rfloor\). Bound the small-prime contribution by
+  \((\ell+1)^T\) and the large-prime contribution by \(2^{A_\ell}\), where
+  \(A_\ell\) is the largest integer with
+  \((T+1)^{A_\ell}<2^\ell\).
+- Falsification tests: exhaust exponents by bit length; compare trial
+  factorization with the exact divisor budget; enumerate all odd-prime
+  \(p\pm1\) hits; verify the BAR-003 hit and pair bounds; and minimize a
+  two-prime all-zero collision whose exponent exceeds both \(p+1\) and
+  \(q+1\). Include powers of two, prime powers, highly composite exponents,
+  equality boundaries, and invalid inputs.
+- Acceptance gate: complete proof and explicit compressed-representation
+  boundary, deterministic EXP-0008 record and hash, Python regression tests,
+  selected Rust/C# differential agreement, independent adversarial and
+  source-scope review, synchronized claims/manuscript, clean full quality
+  gates, committed artifacts, and a recorded remote-delivery outcome.
+
 ## M8 outcome
 
 - Branch: `research/20260726-m8-promise-recognition`.

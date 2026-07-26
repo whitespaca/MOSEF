@@ -486,6 +486,31 @@ pub fn combined_promise_hit_count(primes: &[u64], exponents: &[u64]) -> Option<u
     Some(count)
 }
 
+/// Return the exact number of positive divisors.
+pub fn divisor_count(value: u64) -> Option<u64> {
+    if value == 0 {
+        return None;
+    }
+    let mut remaining = value;
+    let mut divisor = 2_u64;
+    let mut count = 1_u64;
+    while divisor <= remaining / divisor {
+        if remaining % divisor == 0 {
+            let mut exponent = 0_u64;
+            while remaining % divisor == 0 {
+                remaining /= divisor;
+                exponent += 1;
+            }
+            count = count.checked_mul(exponent + 1)?;
+        }
+        divisor = if divisor == 2 { 3 } else { divisor + 2 };
+    }
+    if remaining > 1 {
+        count = count.checked_mul(2)?;
+    }
+    Some(count)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -551,6 +576,15 @@ mod tests {
         );
         assert_eq!(combined_promise_signature(9, &[4]), None);
         assert_eq!(combined_promise_asymmetry(3, 3, &[4]), None);
+    }
+
+    #[test]
+    fn divisor_count_covers_large_value_collision_budget_vectors() {
+        assert_eq!(divisor_count(1), Some(1));
+        assert_eq!(divisor_count(7), Some(2));
+        assert_eq!(divisor_count(840), Some(32));
+        assert_eq!(divisor_count(720_720), Some(240));
+        assert_eq!(divisor_count(0), None);
     }
 
     #[test]

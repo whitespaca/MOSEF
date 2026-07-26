@@ -69,6 +69,7 @@ internal static class Program
             "combined-signature" when args.Length == 3 => RunCombinedSignature(args),
             "combined-asymmetry" when args.Length == 4 => RunCombinedAsymmetry(args),
             "combined-hit-count" when args.Length == 3 => RunCombinedHitCount(args),
+            "divisor-count" when args.Length == 2 => RunDivisorCount(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
         };
     }
@@ -163,6 +164,37 @@ internal static class Program
         int count = primes.Count(prime =>
             CombinedSignature(prime, exponents).Any(bits => bits.Minus || bits.Plus)
         );
+        return count.ToString();
+    }
+
+    private static string RunDivisorCount(string[] args)
+    {
+        BigInteger value = Parse(args, 1, "value");
+        if (value <= 0)
+        {
+            throw new ArgumentException("value must be positive");
+        }
+        BigInteger remaining = value;
+        BigInteger divisor = 2;
+        BigInteger count = 1;
+        while (divisor <= remaining / divisor)
+        {
+            if (remaining % divisor == 0)
+            {
+                int exponent = 0;
+                while (remaining % divisor == 0)
+                {
+                    remaining /= divisor;
+                    exponent++;
+                }
+                count *= exponent + 1;
+            }
+            divisor = divisor == 2 ? 3 : divisor + 2;
+        }
+        if (remaining > 1)
+        {
+            count *= 2;
+        }
         return count.ToString();
     }
 
