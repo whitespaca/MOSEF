@@ -1,7 +1,8 @@
 use mosef_arithmetic::{
-    batch_gcd, evaluate_separator_candidate, is_prime, mod_pow, perfect_power, pollard_p_minus_one,
-    pollard_p_plus_one, pollard_rho, semismooth_factor, semismooth_successful_residue_count,
-    trial_division, SemismoothOutcome, SeparatorOutcome,
+    analyze_divisor_cover, batch_gcd, evaluate_separator_candidate, is_prime, mod_pow,
+    perfect_power, pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
+    semismooth_successful_residue_count, trial_division, CoverAnalysis, SemismoothOutcome,
+    SeparatorOutcome,
 };
 use std::env;
 use std::process::ExitCode;
@@ -40,6 +41,26 @@ fn display_semismooth(outcome: SemismoothOutcome) -> String {
         SemismoothOutcome::InvalidParameters => "invalid_parameters".to_owned(),
         SemismoothOutcome::ExponentOverflow => "exponent_overflow".to_owned(),
     }
+}
+
+fn parse_csv_u64(raw: String, name: &str) -> Result<Vec<u64>, String> {
+    if raw.is_empty() {
+        return Err(format!("{name} must be nonempty"));
+    }
+    raw.split(',')
+        .map(|value| {
+            value
+                .parse::<u64>()
+                .map_err(|error| format!("invalid {name} value: {error}"))
+        })
+        .collect()
+}
+
+fn display_cover(analysis: CoverAnalysis) -> String {
+    format!(
+        "cover:{}|separates:{}|distinct:{}",
+        analysis.divisor_cover, analysis.separates_profile, analysis.distinct_signatures
+    )
 }
 
 fn run() -> Result<(), String> {
@@ -137,6 +158,23 @@ fn run() -> Result<(), String> {
             semismooth_successful_residue_count(n, exponent)
                 .map(|value| value.to_string())
                 .ok_or_else(|| "n must be at least 2 and exponent must be positive".to_owned())?
+        }
+        "cover-profile" => {
+            let candidates = parse_csv_u64(
+                arguments
+                    .next()
+                    .ok_or_else(|| "missing candidates".to_owned())?,
+                "candidates",
+            )?;
+            let orders = parse_csv_u64(
+                arguments
+                    .next()
+                    .ok_or_else(|| "missing orders".to_owned())?,
+                "orders",
+            )?;
+            display_cover(analyze_divisor_cover(&candidates, &orders).ok_or_else(|| {
+                "candidates must be positive and orders must contain two positive values".to_owned()
+            })?)
         }
         _ => return Err(format!("unknown operation: {operation}")),
     };

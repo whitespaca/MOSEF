@@ -1,5 +1,21 @@
 # Research Status
 
+## M4 execution plan
+
+- Branch: `research/20260726-m4-difference-cover`.
+- Evidence target: determine whether an \(n\)-divisor difference cover is
+  sufficient for multiplicative-order separation, and state the weakest exact
+  strengthening that is sufficient.
+- Expected artifacts: a primary-source note, an exact signature
+  characterization or barrier proof, a minimized simultaneous-collision
+  counterexample, deterministic search code, independent vectors, and a
+  synchronized paper section.
+- Falsification test: exhaust small positive difference families and
+  multiplicative-order profiles, including equal orders, divisibility chains,
+  prime powers, repeated primes, and \(2\)-adic cases.
+- Promotion gate: no theorem or barrier moves to `PROVED` until independent
+  adversarial review reconstructs the argument and the bounded oracle agrees.
+
 ## Execution snapshot
 
 - Date: 2026-07-26

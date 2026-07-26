@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0.0",
+  "scope": "Selected exact M4 divisor-cover profiles in the Python, Rust, and C# overlap.",
+  "vectors": [
+    {
+      "candidates": [2],
+      "orders": [1, 2],
+      "cover": true,
+      "separates": false,
+      "distinct": false
+    },
+    {
+      "candidates": [1, 2],
+      "orders": [1, 2],
+      "cover": true,
+      "separates": true,
+      "distinct": true
+    },
+    {
+      "candidates": [2, 3],
+      "orders": [1, 2, 3],
+      "cover": true,
+      "separates": true,
+      "distinct": true
+    },
+    {
+      "candidates": [6],
+      "orders": [2, 3],
+      "cover": true,
+      "separates": false,
+      "distinct": false
+    },
+    {
+      "candidates": [4, 6],
+      "orders": [2, 3, 4],
+      "cover": true,
+      "separates": true,
+      "distinct": true
+    },
+    {
+      "candidates": [2],
+      "orders": [2, 3],
+      "cover": false,
+      "separates": true,
+      "distinct": true
+    }
+  ]
+}

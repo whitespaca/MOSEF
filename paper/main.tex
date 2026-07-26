@@ -26,8 +26,10 @@ support-only requirement cannot cover prime powers and is refuted as an
 all-composite target. On an explicit hereditary semismooth-order promise
 class, we prove a Las Vegas complete-factorization theorem with polynomial
 expected bit complexity. The promise is factor dependent and is not
-recognized by the algorithm; no general polynomial-time factoring theorem is
-claimed.
+recognized by the algorithm. We also prove that divisor coverage, even by a
+positive difference family, does not imply multiplicative-order separation:
+the missing condition is injectivity of divisibility signatures. No general
+polynomial-time factoring theorem is claimed.
 \end{abstract}
 
 \section{Introduction}
@@ -252,6 +254,95 @@ probability was \(268/493\), above the proved \(5/12\) bound. Twenty-two
 selected Python, Rust, and C\# comparisons passed. These finite checks
 falsify implementations, not prove the theorem.
 
+\section{Difference coverage versus order separation}
+
+For a finite positive candidate family \(\Delta\), define
+\[
+  \Sigma_\Delta(r)=\{d\in\Delta:r\mid d\}.
+\]
+\claimstatus{DEF-005}{DEFINITION}. The family has the \(n\)-divisor property
+when every signature for \(1\le r\le n\) is nonempty. It separates an order
+profile \((r_1,\ldots,r_k)\) when some \(d\in\Delta\) is divisible by at least
+one but not all of the profile orders.
+
+Umans and Wang conjecture structured difference sets \(S-T\) having the
+\(n\)-divisor property, with magnitude, cardinality, and
+generalized-arithmetic-progression bounds \cite{umans2025numbertheoretic}.
+Their integer algorithm uses divisibility of actual small prime factors into
+prefactored differences and does not use multiplicative orders.
+\claimstatus{EXT-003}{CONDITIONAL, IMPORTED}. Their Theorem~5.5 states,
+assuming the Strong Prefactored Divisor Conjecture, a deterministic
+\[
+  N^{\max(\alpha,\beta)/2+o(1)}
+\]
+integer-factorization running time. This remains exponential in
+\(m=\lceil\log_2N\rceil\). The inspected version also leaves uniformity,
+modulus-range, and sign/zero conventions insufficiently explicit; the source
+note records these textual gaps. We therefore neither treat the construction
+as available nor restate the bound as unconditional.
+
+\claimstatus{BAR-001}{PROVED}. Divisor coverage does not imply order
+separation, including for positive difference families. A candidate \(d\)
+separates a profile if and only if its signatures are not all equal: a hit
+and a miss distinguish two signatures, and any element of the symmetric
+difference of two signatures supplies a hit and a miss. Consequently a family
+separates every profile containing distinct orders from \(\{1,\ldots,n\}\)
+if and only if \(r\mapsto\Sigma_\Delta(r)\) is injective on that interval.
+Coverage requires only nonempty signatures.
+
+The minimal difference-family counterexample is
+\[
+  S=\{3\},\qquad T=\{1\},\qquad
+  \Delta^+(S,T)=\{2\}.
+\]
+Both 1 and 2 divide the sole difference, but
+\(\Sigma_\Delta(1)=\Sigma_\Delta(2)\). This occurs in the multiplicative-order
+mechanism itself:
+\[
+  \operatorname{ord}_2(5)=1,\quad
+  \operatorname{ord}_3(5)=2,\quad
+  \gcd(5^2-1,6)=6.
+\]
+Thus the covered candidate is a simultaneous collision, not a factor. The
+smallest odd example is \(N=15,g=4,d=2\).
+
+If a family has both coverage and injective signatures on
+\(\{1,\ldots,n\}\), its \(n\) signatures are distinct nonempty subsets of
+\(\Delta\). Hence
+\[
+  n\le2^{|\Delta|}-1,\qquad
+  |\Delta|\ge\lceil\log_2(n+1)\rceil.
+\]
+For \(\Delta=\Delta^+(S,T)\), also
+\(|S||T|\ge|\Delta|\). This is only an explicit-candidate counting bound; it
+does not exclude compact batch evaluation.
+
+A control construction shows sufficiency without efficiency. Put
+\(h=\lceil\sqrt n\rceil\),
+\[
+  S=\{1+ih:1\le i\le h\},\qquad
+  T=\{1+j:0\le j<h\}.
+\]
+Its positive differences are exactly \(\{1,\ldots,h^2\}\), so for distinct
+\(r<s\le n\), candidate \(d=r\) separates the two. The construction uses
+\(h^2=\Theta(n)\) pairs, exponential when \(n\) has magnitude exponential in
+the input bit length. It is a correctness control, not a polynomial-time
+POSF.
+
+\claimstatus{REF-002}{REFUTED}. The attempted implication
+``\(n\)-divisor difference cover \(\Rightarrow\) distinct-order separator''
+is false. This does not refute the conditional Umans--Wang algorithms, whose
+collision-resolution mechanism is different.
+
+\claimstatus{EMP-004}{EMPIRICAL}. Exhaustive enumeration checked all 4,095
+nonempty candidate subsets of \(\{1,\ldots,12\}\) against orders through 8,
+including 114,660 two-order profiles. Among 576 divisor covers, 240 had
+noninjective signatures; 336 were injective. The signature characterization,
+counting bound, and square construction through \(n=200\) passed, as did
+twelve selected Python, Rust, and C\# comparisons. The canonical summary hash
+and exact commands are recorded in
+\path{research/experiments/EXP-0004-m4-difference-cover-search.md}.
+
 \section{Baseline algorithm suite}
 
 The M1 suite contains exact modular exponentiation, trial division,
@@ -302,6 +393,8 @@ python scripts/run_m3_semismooth_search.py
   --n-max 500 --base-bound 5 --smooth-bound 8
   --cofactor-bound 3 --collision-bound-max 20
 python scripts/check_m3_semismooth_differential.py
+python scripts/run_m4_difference_cover_search.py
+python scripts/check_m4_difference_cover_differential.py
 \end{verbatim}
 
 \section{Limitations}
@@ -309,10 +402,14 @@ python scripts/check_m3_semismooth_differential.py
 No universal support-POSF or valuation-family constructor is claimed. THM-001
 applies only on an explicitly factor-dependent hereditary promise and gives no
 membership recognizer or density result. Outside that promise its unbounded
-randomized splitter may not terminate. Trial-division validation primality is
-intentionally not polynomial in binary input length, the Rust algorithms are
-bounded to \texttt{u64}, and finite searches are not proofs for untested
-inputs. The baseline literature set is not a current-state-of-the-art survey.
+randomized splitter may not terminate. BAR-001 is not a lower bound for all
+compressed or algebraic candidate evaluators, and the factor-dependent order
+profile is not an algorithmic input. The imported difference-cover conjecture
+is neither proved nor a polynomial-bit-complexity result. Trial-division
+validation primality is intentionally not polynomial in binary input length,
+the Rust algorithms are bounded to \texttt{u64}, and finite searches are not
+proofs for untested inputs. The literature set is not a
+current-state-of-the-art survey.
 
 \section{Conclusion}
 
@@ -323,8 +420,11 @@ candidate and recursive failure branches, and replaces an impossible
 all-composite support target with two explicit open formulations. M3 supplies
 a noncircular Las Vegas theorem for a hereditary semismooth-order promise
 class while preserving the minimal fixed-base collision that blocks a
-deterministic shortcut. M4 will test whether natural divisor-cover
-constructions actually imply prime-factor separation.
+deterministic shortcut. M4 proves that divisor coverage and order separation
+are different combinatorial requirements: injective divisibility signatures
+are necessary and sufficient for distinct-order profiles, and the smallest
+covered difference family already fails them. This barrier narrows the next
+search without resolving general classical factoring.
 
 \bibliographystyle{plain}
 \small

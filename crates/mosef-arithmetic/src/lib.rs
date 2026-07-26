@@ -348,6 +348,47 @@ pub fn batch_gcd(values: &[u64], modulus: u64) -> Option<Vec<u64>> {
     (modulus > 0).then(|| values.iter().map(|value| gcd(*value, modulus)).collect())
 }
 
+/// Exact divisibility-cover analysis for an explicit candidate family.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub struct CoverAnalysis {
+    pub divisor_cover: bool,
+    pub separates_profile: bool,
+    pub distinct_signatures: bool,
+}
+
+/// Compare the divisibility signatures induced by `candidates` on `orders`.
+pub fn analyze_divisor_cover(candidates: &[u64], orders: &[u64]) -> Option<CoverAnalysis> {
+    if candidates.is_empty() || candidates.contains(&0) || orders.len() < 2 || orders.contains(&0) {
+        return None;
+    }
+    let signatures = orders
+        .iter()
+        .map(|order| {
+            candidates
+                .iter()
+                .enumerate()
+                .filter_map(|(index, candidate)| (candidate % order == 0).then_some(index))
+                .collect::<Vec<_>>()
+        })
+        .collect::<Vec<_>>();
+    let separates_profile = candidates.iter().any(|candidate| {
+        let hits = orders
+            .iter()
+            .filter(|order| candidate % **order == 0)
+            .count();
+        hits > 0 && hits < orders.len()
+    });
+    let distinct_signatures = signatures
+        .iter()
+        .enumerate()
+        .all(|(index, signature)| !signatures[..index].contains(signature));
+    Some(CoverAnalysis {
+        divisor_cover: signatures.iter().all(|signature| !signature.is_empty()),
+        separates_profile,
+        distinct_signatures,
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -372,6 +413,27 @@ mod tests {
     #[test]
     fn batch_gcd_preserves_per_item_results() {
         assert_eq!(batch_gcd(&[2, 6, 35, 11], 105), Some(vec![1, 3, 35, 1]));
+    }
+
+    #[test]
+    fn divisor_cover_does_not_imply_profile_separation() {
+        assert_eq!(
+            analyze_divisor_cover(&[2], &[1, 2]),
+            Some(CoverAnalysis {
+                divisor_cover: true,
+                separates_profile: false,
+                distinct_signatures: false,
+            })
+        );
+        assert_eq!(
+            analyze_divisor_cover(&[1, 2], &[1, 2]),
+            Some(CoverAnalysis {
+                divisor_cover: true,
+                separates_profile: true,
+                distinct_signatures: true,
+            })
+        );
+        assert_eq!(analyze_divisor_cover(&[], &[1, 2]), None);
     }
 
     #[test]
