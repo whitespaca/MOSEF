@@ -433,3 +433,30 @@
   arithmetic circuits remain open.
 - Revisit with an explicitly charged factorization-independent
   linear-combination grammar over certified stage values.
+
+## NR-018 - Product-only component implications fail under signed addition
+
+- Date: 2026-07-27.
+- Status: `REFUTED` claim `REF-017`.
+- Hypothesis tested: a proper GCD of a signed combination of explicit
+  quotient stages must already occur in a charged stage, prefix, denominator,
+  multiplier, coefficient, or weighted-stage GCD.
+- Counterexample: at \(N=9\), \(g=2\), factors \((5,5)\), and coefficients
+  \((-1,1)\), the stage quotients are \(4,7\), the weighted residues are
+  \(5,7\), and every retained component has GCD one with \(9\). Their
+  aggregate is \(3\), whose GCD is the proper factor \(3\).
+- Exact formal output:
+  \[
+  S_5(X^5)-S_5(X)
+  =-X-X^2-X^3-X^4+X^5+X^{10}+X^{15}+X^{20}.
+  \]
+  All eight nonzero monomials and coefficients are explicitly charged.
+- Evidence: BAR-016, its adversarial audit, and deterministic EXP-0020;
+  1,301,300 combinations included 13,800 new proper aggregates and 6,262
+  strict all-unit successes, with zero semantic failures and 12 selected
+  Python/Rust/C# agreements.
+- Scope: the exact DEF-021 single signed aggregate. This does not provide a
+  universal schedule, a success-rate or density theorem, a promise recognizer,
+  or a lower bound for adaptive or general arithmetic circuits.
+- Revisit by characterizing the prime-power congruence and valuation
+  conditions that make a public signed quotient combination succeed.

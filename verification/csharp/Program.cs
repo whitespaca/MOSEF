@@ -80,6 +80,8 @@ internal static class Program
             "geometric-sum" when args.Length == 4 => RunGeometricSum(args),
             "nested-quotient" when args.Length == 5 => RunNestedQuotient(args),
             "iterated-quotient" when args.Length == 4 => RunIteratedQuotient(args),
+            "quotient-linear-combination" when args.Length == 5 =>
+                RunQuotientLinearCombination(args),
             "multiplication-lower-bound" when args.Length == 2 =>
                 RunMultiplicationLowerBound(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
@@ -98,6 +100,15 @@ internal static class Program
             throw new ArgumentException($"{name} values must be positive");
         }
         return values;
+    }
+
+    private static BigInteger[] ParseSignedCsv(string raw, string name)
+    {
+        if (string.IsNullOrEmpty(raw))
+        {
+            throw new ArgumentException($"{name} must be nonempty");
+        }
+        return raw.Split(',').Select(value => BigInteger.Parse(value)).ToArray();
     }
 
     private static string RunCoverProfile(string[] args)
@@ -764,6 +775,59 @@ internal static class Program
             + $"final_product:{quotientProduct}|final_prefix:{finalNumerator}|"
             + $"final_gcd:{Gcd(finalNumerator, modulus)}|"
             + $"stages:{string.Join(";", stages)}";
+    }
+
+    private static string RunQuotientLinearCombination(string[] args)
+    {
+        BigInteger value = Parse(args, 1, "base");
+        BigInteger modulus = Parse(args, 2, "modulus");
+        int[] factors = ParsePositiveCsv(args[3], "factors");
+        BigInteger[] coefficients = ParseSignedCsv(args[4], "coefficients");
+        if (factors.Length != coefficients.Length)
+        {
+            throw new ArgumentException("factors and coefficients must have equal length");
+        }
+        if (modulus < 2)
+        {
+            throw new ArgumentException("modulus must be at least two");
+        }
+
+        BigInteger prefix = BigInteger.One;
+        List<BigInteger> quotients = [];
+        foreach (int factorValue in factors)
+        {
+            BigInteger factor = factorValue;
+            (BigInteger innerPower, _) = GeometricPair(value, modulus, prefix);
+            (_, BigInteger quotient) = GeometricPair(innerPower, modulus, factor);
+            quotients.Add(quotient);
+            prefix *= factor;
+        }
+
+        BigInteger[] coefficientResidues = coefficients
+            .Select(coefficient => ((coefficient % modulus) + modulus) % modulus)
+            .ToArray();
+        BigInteger[] coefficientGcds = coefficients
+            .Select(coefficient => Gcd(coefficient, modulus))
+            .ToArray();
+        BigInteger[] weighted = coefficientResidues
+            .Zip(quotients, (coefficient, quotient) => coefficient * quotient % modulus)
+            .ToArray();
+        BigInteger[] quotientGcds = quotients.Select(item => Gcd(item, modulus)).ToArray();
+        BigInteger[] weightedGcds = weighted.Select(item => Gcd(item, modulus)).ToArray();
+        BigInteger aggregate = weighted.Aggregate(
+            BigInteger.Zero,
+            (current, item) => (current + item) % modulus
+        );
+
+        return $"factors:{string.Join(",", factors)}|"
+            + $"coefficients:{string.Join(",", coefficients)}|"
+            + $"coefficient_residues:{string.Join(",", coefficientResidues)}|"
+            + $"coefficient_gcds:{string.Join(",", coefficientGcds)}|"
+            + $"quotients:{string.Join(",", quotients)}|"
+            + $"quotient_gcds:{string.Join(",", quotientGcds)}|"
+            + $"weighted:{string.Join(",", weighted)}|"
+            + $"weighted_gcds:{string.Join(",", weightedGcds)}|"
+            + $"aggregate:{aggregate}|aggregate_gcd:{Gcd(aggregate, modulus)}";
     }
 
     private static string RunMultiplicationLowerBound(string[] args)

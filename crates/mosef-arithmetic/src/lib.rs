@@ -638,6 +638,19 @@ pub struct IteratedQuotientEvaluation {
     pub final_prefix_gcd: u64,
 }
 
+/// A public signed linear combination of the stages in an iterated quotient chain.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct QuotientLinearCombinationEvaluation {
+    pub chain: IteratedQuotientEvaluation,
+    pub coefficients: Vec<i64>,
+    pub coefficient_residues: Vec<u64>,
+    pub coefficient_gcds: Vec<u64>,
+    pub weighted_stage_residues: Vec<u64>,
+    pub weighted_stage_gcds: Vec<u64>,
+    pub aggregate_residue: u64,
+    pub aggregate_gcd: u64,
+}
+
 /// Evaluate nodes starting from `g`, with every later node multiplying two parents.
 pub fn evaluate_multiplication_program(
     base: u64,
@@ -1093,6 +1106,43 @@ pub fn evaluate_iterated_quotient(
     })
 }
 
+/// Evaluate a signed linear combination of the public quotient-chain stages.
+pub fn evaluate_quotient_linear_combination(
+    base: u64,
+    modulus: u64,
+    factors: &[u64],
+    coefficients: &[i64],
+) -> Option<QuotientLinearCombinationEvaluation> {
+    if factors.len() != coefficients.len() {
+        return None;
+    }
+    let chain = evaluate_iterated_quotient(base, modulus, factors)?;
+    let mut coefficient_residues = Vec::with_capacity(coefficients.len());
+    let mut coefficient_gcds = Vec::with_capacity(coefficients.len());
+    let mut weighted_stage_residues = Vec::with_capacity(coefficients.len());
+    let mut weighted_stage_gcds = Vec::with_capacity(coefficients.len());
+    let mut aggregate_residue = 0_u64;
+    for (coefficient, stage) in coefficients.iter().copied().zip(&chain.stages) {
+        let coefficient_residue = i128::from(coefficient).rem_euclid(i128::from(modulus)) as u64;
+        let weighted = mul_mod(coefficient_residue, stage.quotient_residue, modulus);
+        coefficient_residues.push(coefficient_residue);
+        coefficient_gcds.push(gcd(coefficient.unsigned_abs(), modulus));
+        weighted_stage_residues.push(weighted);
+        weighted_stage_gcds.push(gcd(weighted, modulus));
+        aggregate_residue = add_mod(aggregate_residue, weighted, modulus);
+    }
+    Some(QuotientLinearCombinationEvaluation {
+        chain,
+        coefficients: coefficients.to_vec(),
+        coefficient_residues,
+        coefficient_gcds,
+        weighted_stage_residues,
+        weighted_stage_gcds,
+        aggregate_residue,
+        aggregate_gcd: gcd(aggregate_residue, modulus),
+    })
+}
+
 /// Return `ceil(log2(exponent))`, the generic multiplication growth lower bound.
 pub fn generic_multiplication_lower_bound(exponent: u64) -> Option<u32> {
     if exponent == 0 {
@@ -1344,6 +1394,32 @@ mod tests {
         assert_eq!(evaluate_iterated_quotient(2, 15, &[]), None);
         assert_eq!(evaluate_iterated_quotient(2, 15, &[2, 0]), None);
         assert_eq!(evaluate_iterated_quotient(5, 15, &[2]), None);
+    }
+
+    #[test]
+    fn quotient_linear_combination_can_reveal_a_new_proper_factor() {
+        let value = evaluate_quotient_linear_combination(2, 9, &[5, 5], &[-1, 1])
+            .expect("valid quotient linear combination");
+        assert_eq!(value.chain.prefix_exponents, vec![1, 5, 25]);
+        assert_eq!(
+            value
+                .chain
+                .stages
+                .iter()
+                .map(|stage| stage.quotient_residue)
+                .collect::<Vec<_>>(),
+            vec![4, 7]
+        );
+        assert_eq!(value.coefficient_residues, vec![8, 1]);
+        assert_eq!(value.coefficient_gcds, vec![1, 1]);
+        assert_eq!(value.weighted_stage_residues, vec![5, 7]);
+        assert_eq!(value.weighted_stage_gcds, vec![1, 1]);
+        assert_eq!(value.aggregate_residue, 3);
+        assert_eq!(value.aggregate_gcd, 3);
+        assert_eq!(
+            evaluate_quotient_linear_combination(2, 9, &[5, 5], &[-1]),
+            None
+        );
     }
 
     #[test]

@@ -4,13 +4,14 @@ use mosef_arithmetic::{
     evaluate_batch_product, evaluate_dyadic_telescope, evaluate_geometric_sum,
     evaluate_iterated_quotient, evaluate_lucas_separator_candidate,
     evaluate_multiplication_program, evaluate_nested_quotient, evaluate_product_dag,
-    evaluate_separator_candidate, generic_multiplication_lower_bound, is_prime, lucas_v, mod_pow,
-    perfect_power, pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
+    evaluate_quotient_linear_combination, evaluate_separator_candidate,
+    generic_multiplication_lower_bound, is_prime, lucas_v, mod_pow, perfect_power,
+    pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
     semismooth_successful_residue_count, trial_division, BatchProductEvaluation, CoverAnalysis,
     DyadicDivisionStatus, DyadicTelescopeEvaluation, GeometricDivisionStatus,
     GeometricSumEvaluation, IteratedQuotientEvaluation, LucasSeparatorOutcome,
-    NestedQuotientEvaluation, ProductDagEvaluation, SemismoothOutcome, SeparatorOutcome,
-    SignedStraightLineEvaluation, StraightLineEvaluation,
+    NestedQuotientEvaluation, ProductDagEvaluation, QuotientLinearCombinationEvaluation,
+    SemismoothOutcome, SeparatorOutcome, SignedStraightLineEvaluation, StraightLineEvaluation,
 };
 use std::env;
 use std::process::ExitCode;
@@ -83,6 +84,19 @@ fn parse_csv_u64(raw: String, name: &str) -> Result<Vec<u64>, String> {
         .map(|value| {
             value
                 .parse::<u64>()
+                .map_err(|error| format!("invalid {name} value: {error}"))
+        })
+        .collect()
+}
+
+fn parse_csv_i64(raw: String, name: &str) -> Result<Vec<i64>, String> {
+    if raw.is_empty() {
+        return Err(format!("{name} must be nonempty"));
+    }
+    raw.split(',')
+        .map(|value| {
+            value
+                .parse::<i64>()
                 .map_err(|error| format!("invalid {name} value: {error}"))
         })
         .collect()
@@ -386,6 +400,51 @@ fn display_iterated_quotient(value: IteratedQuotientEvaluation) -> String {
     )
 }
 
+fn display_quotient_linear_combination(value: QuotientLinearCombinationEvaluation) -> String {
+    let join_u64 = |items: &[u64]| {
+        items
+            .iter()
+            .map(u64::to_string)
+            .collect::<Vec<_>>()
+            .join(",")
+    };
+    let coefficients = value
+        .coefficients
+        .iter()
+        .map(i64::to_string)
+        .collect::<Vec<_>>()
+        .join(",");
+    let quotients = value
+        .chain
+        .stages
+        .iter()
+        .map(|stage| stage.quotient_residue)
+        .collect::<Vec<_>>();
+    let quotient_gcds = value
+        .chain
+        .stages
+        .iter()
+        .map(|stage| stage.quotient_gcd)
+        .collect::<Vec<_>>();
+    format!(
+        concat!(
+            "factors:{}|coefficients:{}|coefficient_residues:{}|",
+            "coefficient_gcds:{}|quotients:{}|quotient_gcds:{}|weighted:{}|",
+            "weighted_gcds:{}|aggregate:{}|aggregate_gcd:{}"
+        ),
+        join_u64(&value.chain.factors),
+        coefficients,
+        join_u64(&value.coefficient_residues),
+        join_u64(&value.coefficient_gcds),
+        join_u64(&quotients),
+        join_u64(&quotient_gcds),
+        join_u64(&value.weighted_stage_residues),
+        join_u64(&value.weighted_stage_gcds),
+        value.aggregate_residue,
+        value.aggregate_gcd,
+    )
+}
+
 fn run() -> Result<(), String> {
     let mut arguments = env::args().skip(1);
     let operation = arguments
@@ -663,6 +722,28 @@ fn run() -> Result<(), String> {
             display_iterated_quotient(
                 evaluate_iterated_quotient(base, modulus, &factors)
                     .ok_or_else(|| "invalid iterated quotient or exponent overflow".to_owned())?,
+            )
+        }
+        "quotient-linear-combination" => {
+            let base = parse_u64(arguments.next(), "base")?;
+            let modulus = parse_u64(arguments.next(), "modulus")?;
+            let factors = parse_csv_u64(
+                arguments
+                    .next()
+                    .ok_or_else(|| "missing factors".to_owned())?,
+                "factors",
+            )?;
+            let coefficients = parse_csv_i64(
+                arguments
+                    .next()
+                    .ok_or_else(|| "missing coefficients".to_owned())?,
+                "coefficients",
+            )?;
+            display_quotient_linear_combination(
+                evaluate_quotient_linear_combination(base, modulus, &factors, &coefficients)
+                    .ok_or_else(|| {
+                        "invalid quotient linear combination or exponent overflow".to_owned()
+                    })?,
             )
         }
         "multiplication-lower-bound" => {

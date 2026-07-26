@@ -100,7 +100,10 @@ of the final quotient product implies a proper GCD at an explicit stage
 quotient. Compact construction is polynomial in the encoded factor list,
 while every requested sparse, dense, or expanded prefix output is charged by
 its actual size. This closes product-only aggregation of this exact chain,
-not cross-stage addition or a general arithmetic circuit.
+but not cross-stage addition: at \(N=9\), subtracting two unit quotient
+stages produces residue \(3\) and a proper GCD absent from every charged
+component. This exact separation is not a universal schedule or a result for
+general arithmetic circuits.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -178,7 +181,11 @@ algorithm. Its contributions are:
 \item an iterated geometric-quotient-chain barrier: finite iteration retains
   the same total stage trichotomy, and a proper final-product GCD implies a
   proper explicit stage-quotient GCD, with exact compact, sparse, dense, and
-  expanded-prefix output charges; and
+  expanded-prefix output charges;
+\item a signed-aggregation separation: two unit quotient stages can combine
+  to expose a proper factor absent from every charged component, with an
+  exact repeated-prime-power counterexample and fully charged polynomial
+  output; and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
@@ -197,8 +204,10 @@ addition-subtraction programs, selector-described standard product trees
 that materialize every leaf, product-only DAGs over explicitly charged atoms,
 one dyadic exact-division/composition identity, one arbitrary-exponent
 geometric sum, one two-stage nested geometric quotient, and one product-only
-iterated public quotient chain. Cross-stage linear combinations and general
-rational, compositional, and arithmetic circuits remain outside. These boundaries are
+iterated public quotient chain. The signed-aggregation counterexample
+separately shows that the last product implication cannot be extended to
+addition. Adaptive or multiple aggregates and general rational,
+compositional, and arithmetic circuits remain outside. These boundaries are
 part of the results.
 
 Section 2 records the imported complexity landscape. Sections 3 and 4 define
@@ -213,7 +222,8 @@ addition-subtraction programs, and Section 16 treats leaf-materialized
 standard product trees. Section 17 treats the explicit-atom product DAG.
 Section 18 treats the dyadic telescope, Section 19 treats the arbitrary
 geometric sum, Section 20 treats the nested quotient, and Section 21 treats
-the iterated quotient chain. Later sections separate algorithms,
+the iterated quotient chain. Section 22 gives the signed-aggregation
+separation. Later sections separate algorithms,
 experiments, and observations. Complete proofs and reproduction details appear in the
 appendices.
 
@@ -1425,6 +1435,55 @@ subtraction, arbitrary subset outputs, unrelated denominators, adaptive
 factor-dependent computation, other groups, and general rational or
 arithmetic circuits remain outside.
 
+\section{Signed aggregation separates from product-only iteration}
+
+\claimstatus{DEF-021}{DEFINITION}. Retain a DEF-020 public factor chain and
+introduce aligned public signed coefficients \(c_1,\ldots,c_r\). Compute
+\[
+W_i=c_iQ_i\pmod N,\qquad R=\sum_{i=1}^{r}W_i\pmod N,
+\]
+while retaining every DEF-020 stage and denominator output. The coefficient
+encodings and reductions, \(r\) scalar multiplications, \(r-1\) additions,
+all coefficient, quotient, weighted-stage, and aggregate GCDs, extraction,
+and requested formal output are charged. The exact polynomial is
+\[
+F(X)=\sum_{i=1}^{r}c_iS_{A_i}(X^{M_{i-1}})
+    =\sum_i\sum_{j=0}^{A_i-1}c_iX^{jM_{i-1}}.
+\]
+Its uncollected sparse representation has exactly \(\sum_iA_i\) term
+records, its degree is at most \(\max_i(M_i-M_{i-1})\), and collection can
+only reduce the number of nonzero terms. Dense and sparse outputs are charged
+by their actual sizes and coefficient bit lengths.
+
+\claimstatus{BAR-016}{PROVED}. BAR-015's product component implication does
+not extend to signed addition, even when every charged component is a unit.
+Take
+\[
+N=9,\quad g=2,\quad(A_1,A_2)=(5,5),\quad(c_1,c_2)=(-1,1).
+\]
+The prefix exponents are \(1,5,25\), and the two quotient residues are
+\[
+Q_1=S_5(2)\equiv4,\qquad Q_2=S_5(2^5)\equiv7\pmod9.
+\]
+Every retained prefix, numerator, composed denominator, endpoint, public
+multiplier, coefficient, quotient, and weighted-stage GCD equals one.
+Nevertheless
+\[
+R\equiv Q_2-Q_1\equiv3\pmod9,\qquad\gcd(R,9)=3.
+\]
+The exact collected polynomial,
+\[
+S_5(X^5)-S_5(X)
+=-X-X^2-X^3-X^4+X^5+X^{10}+X^{15}+X^{20},
+\]
+has eight explicitly charged nonzero monomials.
+
+\claimstatus{REF-017}{REFUTED}. A proper signed aggregate need not be
+accompanied by a proper charged component GCD. This existence counterexample
+is not a universal schedule, success-rate theorem, or lower bound for
+adaptive, multiple-aggregate, or general arithmetic circuits.
+Appendix \ref{proof:BAR-016} gives the complete exact audit.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -1432,7 +1491,7 @@ must not
 be conflated.
 
 \begin{center}
-\footnotesize
+\scriptsize
 \begin{tabular}{L{0.23\linewidth}L{0.31\linewidth}L{0.36\linewidth}}
 \toprule
 Component & Guarantee & Complexity boundary \\
@@ -1487,6 +1546,12 @@ Explicit stage exits, linked prefix certificates, and product aggregation &
 For \(L=\sum_i\operatorname{bitlength}(A_i)\), three binary evaluators per
 stage use \(O(rL)\) modular operations; every requested dense, sparse, or
 expanded prefix output is charged by its actual size \\
+\addlinespace
+Signed quotient-stage aggregate &
+One explicit linear form over retained stage values; component and aggregate
+GCDs can differ in extraction power &
+DEF-020 costs plus \(r\) scalar multiplications and \(r-1\) additions;
+coefficient encodings and every requested formal output are charged \\
 \addlinespace
 Semismooth randomized splitter &
 Complete Las Vegas factorization on the hereditary promise class &
@@ -1780,6 +1845,16 @@ theorem or support cross-stage addition, a general rational/arithmetic
 circuit, population, density, recognition, novelty, factoring, or lower-bound
 claim.
 
+\claimstatus{EMP-020}{EMPIRICAL}. EXP-0020 completed 1,100 symbolic
+descriptors, 9,600 uncollected and 7,450 collected term records, 177,450
+chains, and 1,301,300 signed combinations. Among 340,640 proper aggregates,
+13,800 had no proper charged component and 6,262 had every charged component
+equal to a unit. Compact and expanded evaluations had zero disagreements,
+and all 12 selected Python/Rust/C\# comparisons agreed. These finite
+observations do not establish an asymptotic success rate, universal schedule,
+population, density, recognition, novelty, general factoring, or a
+general-circuit lower bound.
+
 These observations audit implementations and minimize counterexamples. The
 universal statements in this paper are supplied by proofs, not extrapolation
 from the table.
@@ -1895,6 +1970,13 @@ subtraction, arbitrary subset interfaces, unrelated denominators, adaptive
 factor-dependent computation, other groups, or general rational/arithmetic
 circuits.
 
+BAR-016 shows that this last product implication is not stable under signed
+addition. It proves a genuine component-to-aggregate separation in the exact
+DEF-021 model, but provides neither a factorization-independent family that
+succeeds on all composites nor a density, probability, or recognition
+theorem. Adaptive coefficients, several interacting aggregates, unrelated
+bases, other groups, and general arithmetic circuits remain outside.
+
 The authoritative Rust layer is bounded to \texttt{u64}; validation primality
 uses trial division and is not itself the polynomial-time procedure imported
 in EXT-001. The literature set is sufficient for the technical statements
@@ -1965,6 +2047,10 @@ stage retains the same trichotomy, and a proper GCD of the quotient product
 implies a proper GCD at an explicit stage quotient. Telescoping may mask a
 stage success as a full collision, but it cannot create a new one in this
 product-only model.
+BAR-016 marks the first failure of that implication under the next charged
+operation: at \(N=9\), subtracting two unit quotient stages produces residue
+\(3\) and exposes the factor \(3\). This is an exact extraction separation,
+not evidence of a universal signed schedule.
 
 These results do not resolve general classical factoring. They replace
 plausible shortcuts with exact obligations: recognizable or explicitly
@@ -1987,9 +2073,11 @@ retains the endpoint/denominator/public-exponent trichotomy. BAR-014 adds one
 certified two-stage cancellation but reduces it to the rational numerator,
 intermediate denominator, public multiplier, and composed-denominator paths.
 BAR-015 permits a finite public quotient chain and product aggregation while
-retaining the same explicit exits. Cross-stage linear combinations and
-general rational/compositional circuits and other models remain research
-targets, not claimed factoring breakthroughs.
+retaining the same explicit exits. BAR-016 then proves that one charged
+cross-stage signed combination can create a genuinely new proper GCD. The
+prime-power valuation conditions and schedule-level usefulness of this
+mechanism, together with general rational/compositional circuits and other
+models, remain research targets, not claimed factoring breakthroughs.
 
 \appendix
 
@@ -3200,6 +3288,54 @@ length is \(M_i-M_{i-1}+1\). Sparse indices use
 \(S_{M_i}\) has \(M_i\) entries. This proves every stated construction,
 evaluation, extraction, and output charge. \(\square\)
 
+\section{Full proof of the signed quotient-stage separation}
+
+\subsection{Proof of BAR-016}\label{proof:BAR-016}
+
+For the public chain \((A_1,A_2)=(5,5)\), the prefix exponents are
+\(M_0=1,M_1=5,M_2=25\). Modulo \(9\),
+\[
+S_5(2)=1+2+4+8+7\equiv4,\qquad 2^5\equiv5,
+\]
+and
+\[
+S_5(5)=1+5+7+8+4\equiv7.
+\]
+Thus the stage quotients are \(Q_1=4,Q_2=7\), and the linked prefix
+numerators are \(U_1=4\) and \(U_2=4\cdot7\equiv1\). The rational prefixes
+are \(L_1=1,L_2=4\). The composed denominators and endpoints are
+\[
+C_1=2-1=1,\quad E_1=2^5-1\equiv4,\quad
+C_2=2^5-1\equiv4,\quad E_2=2^{25}-1\equiv1.
+\]
+Both public multipliers equal \(5\). Every one of these residues, both
+coefficients \(-1,1\), both quotients, and the weighted residues
+\(-4\equiv5,7\) has GCD one with \(9\). Their sum is nevertheless
+\[
+5+7\equiv3\pmod9,\qquad\gcd(3,9)=3.
+\]
+This proves the claimed component-to-aggregate separation.
+
+The exact formal subtraction is
+\[
+\begin{aligned}
+S_5(X^5)-S_5(X)
+ &=(1+X^5+X^{10}+X^{15}+X^{20})
+   -(1+X+X^2+X^3+X^4)\\
+ &=-X-X^2-X^3-X^4+X^5+X^{10}+X^{15}+X^{20}.
+\end{aligned}
+\]
+Hence its eight nonzero monomials are explicit.
+
+Let \(L=\sum_i\operatorname{bitlength}(A_i)\) and
+\(C=\sum_i\operatorname{bitlength}(|c_i|+1)\). Reusing DEF-020 costs
+\(O(rL)\) modular operations. Coefficient reduction, \(r\) scalar
+multiplications, \(r-1\) additions, requested GCDs, and extraction are
+polynomial in the charged input lengths. The double sum defining \(F\)
+contains exactly \(\sum_iA_i\) uncollected terms, has degree at most
+\(\max_i(M_i-M_{i-1})\), and makes every requested expanded-output cost
+explicit. \(\square\)
+
 \section{Reproduction appendix}
 
 The evidence implementation state preceding M6 is commit
@@ -3277,6 +3413,9 @@ The registered experiment cores and canonical summary hashes are:
 \item EXP-0019, M20 milestone commit recorded in \path{research/STATUS.md},
   hash
   \texttt{\seqsplit{06cbbb13eca00655d33da9858117de6920d1e63f6bbfe95794ec18642000f9da}}.
+\item EXP-0020, M21 milestone commit recorded in \path{research/STATUS.md},
+  hash
+  \texttt{\seqsplit{34f0f120a1ef3ab08b08fb9c477ea03161f96c8857bcc143e91be51137c85f6f}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -3360,6 +3499,10 @@ python scripts/check_m19_nested_quotient_differential.py
 python scripts/run_m20_iterated_quotient_search.py `
   --factor-max 5 --depth-max 3 --modulus-max 128 --base-max 16
 python scripts/check_m20_iterated_quotient_differential.py
+python scripts/run_m21_quotient_linear_combination_search.py `
+  --factor-max 5 --coefficient-max 1 --depth-max 3 `
+  --modulus-max 128 --base-max 16
+python scripts/check_m21_quotient_linear_combination_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -3370,7 +3513,8 @@ enumeration in EXP-0006 rather than by unrecorded random runs. EXP-0007
 through EXP-0019 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
-vectors, commits, and hashes reconstruct the reported observations. The
+vectors, commits, and hashes reconstruct the reported observations. EXP-0020
+uses the same deterministic finite-enumeration policy. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.
 
 \bibliographystyle{plain}

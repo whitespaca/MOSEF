@@ -91,3 +91,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-015 | PROVED | Stagewise and aggregate iterated-quotient extraction barrier | `research/proofs/BAR-015-iterated-geometric-quotient.md` |
 | REF-016 | REFUTED | Public quotient-chain iteration as an unaccounted extraction path | `research/NEGATIVE_RESULTS.md` NR-017 |
 | EMP-019 | EMPIRICAL | Bounded iterated geometric-quotient-chain audit | `research/experiments/EXP-0019-m20-iterated-quotient.md` |
+| DEF-021 | DEFINITION | Charged signed linear combination of explicit quotient stages | `research/proofs/BAR-016-quotient-linear-combination.md` |
+| BAR-016 | PROVED | Signed aggregation separates from the product component implication | `research/proofs/BAR-016-quotient-linear-combination.md` |
+| REF-017 | REFUTED | Proper signed aggregates require proper charged components | `research/NEGATIVE_RESULTS.md` NR-018 |
+| EMP-020 | EMPIRICAL | Bounded signed quotient-stage combination audit | `research/experiments/EXP-0020-m21-quotient-linear-combination.md` |
