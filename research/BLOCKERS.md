@@ -224,7 +224,7 @@
 ## BLK-014 - M12 remote delivery requires explicit approval
 
 - Date: 2026-07-27.
-- Status: open; local research is not blocked.
+- Status: resolved externally before M13 preflight.
 - Evidence: `git push --set-upstream origin
   research/20260726-m12-prime-yield` failed in the sandbox with
   `SEC_E_NO_CREDENTIALS`. The unsandboxed external push was rejected because
@@ -237,3 +237,7 @@
 - Resolution: obtain explicit user authorization before publishing this M12
   branch. After a successful push, create or update a draft pull request if
   GitHub authentication is available.
+- Resolution evidence: M13 preflight found both local and
+  `origin/research/20260726-m12-prime-yield` at
+  `1f8d504129394d74ad8203abc0338c7785fc59df`. GitHub CLI remains
+  unauthenticated, so no pull request was created or verified.

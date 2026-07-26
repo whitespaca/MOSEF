@@ -221,3 +221,26 @@
 - Scope: first-primes primorials and nested subfamilies. This does not refute
   every exact-boundary exponent family or prove a general factoring lower
   bound.
+
+## NR-010 - Squareful and noninitial supports do not escape factor-scale scarcity
+
+- Date: 2026-07-27.
+- Status: `REFUTED` claim `REF-009`.
+- Hypothesis tested: at the exact \(O(k\log k)\) exponent-length boundary,
+  repeated prime powers or a support that skips the smallest primes can create
+  exponentially many \(O(k)\)-bit divisors and restore a nonvanishing
+  combined-promise fraction.
+- Counterargument: split prime powers at
+  \(Y_k=k/(\log k)^2\). Small-prime exponent choices contribute only
+  \(2^{O(k/\log k)}\). The exponent contains only \(O(k)\) large-prime
+  occurrences, while an \(O(k)\)-bit divisor can select only
+  \(O(k/\log k)\) of them. The resulting labeled-occurrence binomial count is
+  \(2^{O(k\log\log k/\log k)}=2^{o(k)}\), independently of squarefreeness or
+  whether the support is initial.
+- Evidence: BAR-008 and deterministic EXP-0012; independent adversarial
+  review.
+- Scope: common polynomial-size explicit schedules with \(O(k\log k)\)-bit
+  exponents, plus the stated DEF-010 transfer. Longer exponents,
+  exponentially many exponents, adaptive factor dependence, richer
+  representations, other channels, and general factoring remain outside the
+  result.

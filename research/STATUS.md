@@ -1,5 +1,53 @@
 # Research Status
 
+## M13 outcome
+
+- Date: 2026-07-27.
+- Branch: `research/20260727-m13-general-factor-scale`.
+- Completed milestone: M13, the general explicit factor-scale divisor
+  question at the exact \(O(k\log k)\) exponent-length boundary.
+- `DEF-013` gives the exact small/large-prime split budget. `BAR-008` is
+  `PROVED`: every common polynomial-size explicit schedule whose exponents
+  have bit length \(O(k\log k)\) hits only
+  \(2^{O(k\log\log k/\log k)}=2^{o(k)}\) primes at any fixed
+  \(O(k)\)-bit factor scale. BAR-003 therefore gives promised-pair fraction
+  \(2^{-\alpha k+o(k)}\) on every stipulated common-input-length population
+  of size at least \(2^{\alpha k}\), and BAR-005 transfers the conclusion to
+  fixed-base DEF-010 schedules with \(O(k\log k)\) charged nodes.
+- `REF-009` is `REFUTED`; NR-010 records that squareful multiplicities,
+  prime powers, mixed exponents, and noninitial prime supports do not evade
+  the boundary. The result excludes longer exponents, exponentially many
+  explicit exponents, adaptive factor-dependent schedules, richer compressed
+  representations, other group channels, population existence or natural
+  density, and general factoring.
+- EXP-0012 completed 1,572,816 split-bound checks, 4,421,736 exact
+  divisor-membership checks, and 5,344,372 prime-candidate checks. Its
+  canonical summary SHA-256 is
+  `a564c00c8eaafad6f5be31d8705147578e6c86d9e6f42c6a9bacf3b0d93591d3`.
+  The focused Python/Rust/C# validator passed 36 checks.
+- Independent adversarial review reproduced the focused tests, registered
+  experiment, differential validator, and publication gate, then added
+  209,958 exact divisor-bound cases and 467,958 canonical
+  labeled-occurrence mappings. It explicitly exercised 53,454 \(A=0\),
+  37,864 \(J=0,A>0\), 97,702 \(A<2J\), and 20,938
+  \(A\ge2J,J>0\) cases without finding a defect.
+- Independent source review found no imported theorem or new citation
+  requirement: BAR-008 is elementary and depends only on proved internal
+  BAR-003 and BAR-005. The manuscript avoids novelty claims.
+- Full gates passed: foundation and publication consistency (56 claims and
+  11 experiment hashes), 99 Python tests and bytecode compilation, Rust
+  format/Clippy/19 tests, C# Release build with zero warnings or errors, the
+  registered experiment and focused differential validator, and a clean
+  converged 33-page XeLaTeX build. All pages and the new theorem/proof pages
+  were rendered and visually inspected. The stable PDF SHA-256 is
+  `7d821784f7aabc1b8791101189ce7844a157f5299f6fa60d9b35b747316cec4d`.
+- Optional third-party Python `pytest`, Ruff, and mypy gates remain
+  unavailable under BLK-003.
+- Next selected milestone: M14, formalize a minimal explicitly costed
+  representation outside DEF-010 and test whether it can expose
+  factor-scale divisor families beyond BAR-008 without hidden exponential
+  expansion.
+
 ## M12 outcome
 
 - Date: 2026-07-27.

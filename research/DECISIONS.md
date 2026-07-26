@@ -327,3 +327,18 @@
 - Consequence: prime-yield literature remains contextual; M13 must leave the
   nested first-primes primorial model or identify a genuinely different
   factor-scale divisor mechanism.
+
+## ADR-016 - Use prime-occurrence splitting instead of support-specific arguments
+
+- Date: 2026-07-27.
+- Decision: replace M12's square-free support count by a threshold split that
+  counts small-prime exponent choices and large-prime labeled occurrences
+  separately.
+- Rationale: this single exact budget handles prime powers, mixed
+  multiplicities, arbitrary skipped primes, and square-free primorials without
+  assuming a support shape. At the \(O(k\log k)\) boundary it remains
+  subexponential at \(O(k)\)-bit factor scale.
+- Consequence: BAR-008 subsumes the M12 asymptotic conclusion inside the
+  broader common explicit-schedule model. M14 must leave at least one of the
+  explicit-list, \(O(k\log k)\)-length, fixed target-scale, or existing
+  \(p\pm1\)-channel hypotheses.

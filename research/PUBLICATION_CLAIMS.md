@@ -59,3 +59,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-007 | PROVED | Factor-scale first-primes primorial scarcity barrier | `research/proofs/BAR-007-primorial-factor-scale.md` |
 | REF-008 | REFUTED | Total primorial divisor capacity as factor-scale yield | `research/NEGATIVE_RESULTS.md` NR-009 |
 | EMP-011 | EMPIRICAL | Bounded factor-scale primorial audit | `research/experiments/EXP-0011-m12-primorial-scale.md` |
+| DEF-013 | DEFINITION | General small/large-prime factor-scale divisor budget | `research/proofs/BAR-008-general-factor-scale.md` |
+| BAR-008 | PROVED | General explicit-schedule exact-boundary factor-scale barrier | `research/proofs/BAR-008-general-factor-scale.md` |
+| REF-009 | REFUTED | Squareful or noninitial support as a boundary escape | `research/NEGATIVE_RESULTS.md` NR-010 |
+| EMP-012 | EMPIRICAL | Bounded arbitrary-exponent factor-scale audit | `research/experiments/EXP-0012-m13-general-factor-scale.md` |
