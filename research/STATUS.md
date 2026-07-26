@@ -52,8 +52,8 @@
   appendix, were rendered and visually inspected. Stable PDF:
   `output/pdf/mosef-paper.pdf`, SHA-256
   `48e9b77dbe4973bc9e9e8b9a66b2efb61d7d5f7ff45224f1b1530f031e35abc9`.
-- The exact local milestone commit will be recorded in the follow-up status
-  commit after this validated state is committed.
+- Local milestone implementation/proof/paper commit:
+  `8a09b70497451a23711d853f94af0eb8b9fbeea4`.
 - Next action: M18 should formalize the arbitrary-exponent binary geometric
   sum \(S_M(X)\), including its odd/even composition recurrences and the
   full-denominator reduction \(S_M(1)\equiv M\pmod N\).
