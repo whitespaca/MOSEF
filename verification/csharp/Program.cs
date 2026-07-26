@@ -79,6 +79,7 @@ internal static class Program
             "dyadic-telescope" when args.Length == 4 => RunDyadicTelescope(args),
             "geometric-sum" when args.Length == 4 => RunGeometricSum(args),
             "nested-quotient" when args.Length == 5 => RunNestedQuotient(args),
+            "iterated-quotient" when args.Length == 4 => RunIteratedQuotient(args),
             "multiplication-lower-bound" when args.Length == 2 =>
                 RunMultiplicationLowerBound(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
@@ -699,6 +700,70 @@ internal static class Program
             + $"multiplier_gcd:{Gcd(multiplier, modulus)}|"
             + $"rational_status:{rationalStatus}|rational_quotient:{rationalQuotient}|"
             + $"composed_status:{composedStatus}|composed_quotient:{composedQuotient}";
+    }
+
+    private static string RunIteratedQuotient(string[] args)
+    {
+        BigInteger value = Parse(args, 1, "base");
+        BigInteger modulus = Parse(args, 2, "modulus");
+        int[] factors = ParsePositiveCsv(args[3], "factors");
+        BigInteger prefix = BigInteger.One;
+        List<BigInteger> prefixes = [prefix];
+        List<string> stages = [];
+        BigInteger quotientProduct = BigInteger.One % modulus;
+        BigInteger? previousNumerator = null;
+        BigInteger finalNumerator = BigInteger.One % modulus;
+        foreach (int factorValue in factors)
+        {
+            BigInteger factor = factorValue;
+            (BigInteger innerPower, BigInteger intermediate) = GeometricPair(
+                value, modulus, prefix
+            );
+            (BigInteger outerPower, BigInteger quotient) = GeometricPair(
+                innerPower, modulus, factor
+            );
+            (_, BigInteger rationalNumerator) = GeometricPair(
+                value, modulus, prefix * factor
+            );
+            if (
+                rationalNumerator != intermediate * quotient % modulus
+                || previousNumerator is not null
+                    && intermediate != previousNumerator.Value
+            )
+            {
+                throw new ArgumentException("iterated quotient identity failed");
+            }
+            quotientProduct = quotientProduct * quotient % modulus;
+            if (quotientProduct != rationalNumerator)
+            {
+                throw new ArgumentException("iterated product identity failed");
+            }
+            BigInteger composedDenominator = (innerPower - 1 + modulus) % modulus;
+            BigInteger endpoint = (outerPower - 1 + modulus) % modulus;
+            BigInteger intermediateGcd = Gcd(intermediate, modulus);
+            BigInteger composedGcd = Gcd(composedDenominator, modulus);
+            string rationalStatus = intermediateGcd == 1
+                ? "unit"
+                : intermediateGcd < modulus ? "proper_factor" : "full_collision";
+            string composedStatus = composedGcd == 1
+                ? "unit"
+                : composedGcd < modulus ? "proper_factor" : "full_collision";
+            stages.Add(
+                $"{innerPower},{intermediate},{intermediateGcd},"
+                + $"{quotient},{Gcd(quotient, modulus)},"
+                + $"{rationalNumerator},{Gcd(rationalNumerator, modulus)},"
+                + $"{composedGcd},{Gcd(endpoint, modulus)},"
+                + $"{Gcd(factor, modulus)},{rationalStatus},{composedStatus}"
+            );
+            previousNumerator = rationalNumerator;
+            finalNumerator = rationalNumerator;
+            prefix *= factor;
+            prefixes.Add(prefix);
+        }
+        return $"prefixes:{string.Join(",", prefixes)}|"
+            + $"final_product:{quotientProduct}|final_prefix:{finalNumerator}|"
+            + $"final_gcd:{Gcd(finalNumerator, modulus)}|"
+            + $"stages:{string.Join(";", stages)}";
     }
 
     private static string RunMultiplicationLowerBound(string[] args)

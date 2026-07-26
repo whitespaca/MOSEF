@@ -386,3 +386,23 @@
   publishing this M19 completion payload; then push the existing branch
   without rewriting history and authenticate GitHub CLI or create the draft
   pull request through the repository UI.
+
+## BLK-022 - M20 completion requires publication authorization and GitHub authentication
+
+- Date: 2026-07-27.
+- Scope: publish the validated M20 completion on
+  `research/20260727-m20-iterated-quotient` and create or update a draft pull
+  request.
+- Evidence: the local validated milestone is
+  `11255cca8a3186249f19d8f018270b575b05cc92`, while
+  `origin/research/20260727-m20-iterated-quotient` remains at the M20 start
+  commit `2978f613255e7ef22cc051f485900c5a4fefd4eb`. Prior publication attempts
+  in this repository require explicit payload authorization, and
+  `gh auth status` reports no authenticated GitHub host.
+- Impact: the proof, implementations, registered experiment, ledgers, and
+  validated manuscript are committed locally, but the completion commit is
+  not published and no M20 pull request exists.
+- Required resolution: the repository owner must explicitly authorize
+  publishing this M20 completion payload and authenticate GitHub CLI or use
+  the repository UI; then push the existing branch without rewriting history
+  and create or update a draft pull request.

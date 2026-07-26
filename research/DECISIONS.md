@@ -460,3 +460,26 @@
   groups, or general arithmetic circuits. M20 may study an explicitly
   charged iterated chain only after defining all intermediate exits and
   certificate/output costs.
+
+## ADR-023 - Iterate certificates while retaining every stage exit
+
+- Date: 2026-07-27.
+- Decision: model M20 as a nonempty public factor list with prefix products
+  \(M_i=\prod_{j\le i}A_j\), keep every quotient
+  \(Q_i=S_{A_i}(g^{M_{i-1}})\) explicit, and classify both its rational prefix
+  denominator and composed denominator before forming the final product.
+- Rationale: finite iteration is the nearest extension of BAR-014, but
+  telescoping can mask an earlier proper stage success in a later full
+  collision. Retaining all stage outputs makes the extraction semantics
+  total and permits a zero-safe implication from a proper aggregate GCD to a
+  proper explicit stage GCD.
+- Cost accounting: charge the public factor encodings, every prefix product,
+  three binary geometric evaluators per stage, all requested GCDs and
+  outputs, the compact product certificate, and any dense or sparse formal
+  expansion. A quotient has \(A_i\) nonzero monomials and
+  \(M_i-M_{i-1}+1\) dense positions; an expanded prefix has \(M_i\) entries.
+- Consequence: BAR-015 closes product-only aggregation of this exact public
+  chain. Cross-stage addition or subtraction, arbitrary subset interfaces,
+  unrelated denominators, adaptive behavior, other groups, and general
+  arithmetic-circuit lower bounds remain open; M21 isolates the smallest
+  factorization-independent linear-combination extension.

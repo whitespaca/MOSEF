@@ -401,3 +401,35 @@
   remain open.
 - Revisit with an explicitly charged iterated identity whose intermediate
   denominator exits and compact versus expanded outputs are fully specified.
+
+## NR-017 - Iterated public quotient products do not hide a new stage
+
+- Date: 2026-07-27.
+- Status: `REFUTED` claim `REF-016`.
+- Hypothesis tested: a public chain
+  \(M_i=\prod_{j\le i}A_j\) might make an iterated geometric quotient or its
+  aggregate product expose a proper factor outside the charged prefix
+  numerators, intermediate denominators, composed denominators, public
+  multipliers, and explicit stage quotient GCDs.
+- Counterargument: each exact certificate
+  \(S_{M_i}(X)=S_{M_{i-1}}(X)S_{A_i}(X^{M_{i-1}})\) is one BAR-014 instance.
+  Thus a unit prefix preserves the quotient/numerator GCD, a proper prefix is
+  already a factor exit, and a full prefix makes the quotient congruent to
+  the public \(A_i\). Each composed denominator separately follows BAR-013.
+  If the final product has a proper GCD, no stage quotient can be zero modulo
+  \(N\), while all stage quotients cannot be units; hence some explicit stage
+  quotient has a proper GCD.
+- Masking remains possible and is retained rather than hidden:
+  \(N=15,g=2,(A_1,A_2,A_3)=(2,2,3)\) has a proper stage quotient GCD before
+  the final product becomes a full collision. Proper prefix and quotient
+  divisor values may also differ.
+- Evidence: BAR-015 and deterministic EXP-0019; 155 symbolic chains,
+  190,805 modular chains, 529,330 stages, zero unexplained cases, and 12
+  selected cross-language comparisons. Independent review additionally
+  checked 58,680 small chains and a 256-bit prefix.
+- Scope: the exact DEF-020 product-only public factor chain. Cross-stage
+  addition/subtraction, arbitrary subset extraction, unrelated denominators,
+  adaptive factor-dependent computation, other groups, and general
+  arithmetic circuits remain open.
+- Revisit with an explicitly charged factorization-independent
+  linear-combination grammar over certified stage values.

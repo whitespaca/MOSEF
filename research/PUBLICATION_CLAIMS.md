@@ -87,3 +87,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-014 | PROVED | Nested geometric-quotient extraction trichotomy | `research/proofs/BAR-014-nested-geometric-quotient.md` |
 | REF-015 | REFUTED | Intermediate cancellation as an unaccounted extraction path | `research/NEGATIVE_RESULTS.md` NR-016 |
 | EMP-018 | EMPIRICAL | Bounded nested geometric-quotient audit | `research/experiments/EXP-0018-m19-nested-quotient.md` |
+| DEF-020 | DEFINITION | Charged iterated geometric-quotient-chain model with explicit stage exits | `research/proofs/BAR-015-iterated-geometric-quotient.md` |
+| BAR-015 | PROVED | Stagewise and aggregate iterated-quotient extraction barrier | `research/proofs/BAR-015-iterated-geometric-quotient.md` |
+| REF-016 | REFUTED | Public quotient-chain iteration as an unaccounted extraction path | `research/NEGATIVE_RESULTS.md` NR-017 |
+| EMP-019 | EMPIRICAL | Bounded iterated geometric-quotient-chain audit | `research/experiments/EXP-0019-m20-iterated-quotient.md` |

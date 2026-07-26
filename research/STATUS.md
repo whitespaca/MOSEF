@@ -1,23 +1,89 @@
 # Research Status
 
-## M20 execution snapshot
+## M21 execution snapshot
+
+- Date: 2026-07-27.
+- Branch: `research/20260727-m21-linear-combination`.
+- Active question: can a factorization-independent signed linear combination
+  of explicit certified geometric quotient stages create a proper extraction
+  success outside every charged stage quotient, prefix numerator,
+  intermediate/composed denominator, and public coefficient or multiplier
+  exit?
+- Provisional evidence target: `DEF-021`, `BAR-016` or a minimized
+  counterexample, `REF-017`, and deterministic `EXP-0020`.
+- First action: define the smallest public coefficient grammar over retained
+  DEF-020 stage values, charge construction and every aggregate output/GCD,
+  and search cancellation cases on even and repeated-prime moduli before
+  attempting an implication theorem.
+- No M21 theorem or empirical conclusion is claimed at this start point.
+
+## M20 outcome
 
 - Date: 2026-07-27.
 - Branch: `research/20260727-m20-iterated-quotient`.
-- Active question: for a public factor chain
-  \(M_i=\prod_{j=1}^{i}A_j\), can the iterated identities
+- Completed milestone: M20, the public iterated geometric-quotient chain with
+  \(M_0=1\), \(M_i=\prod_{j\le i}A_j\), and exact certificates
   \[
-  S_{M_i}(X)/S_{M_{i-1}}(X)
-  =S_{A_i}(X^{M_{i-1}})
+  S_{M_i}(X)=S_{M_{i-1}}(X)S_{A_i}(X^{M_{i-1}}).
   \]
-  create a proper extraction success outside every charged prefix numerator,
-  intermediate denominator, composed denominator, and public multiplier?
-- Provisional evidence target: `DEF-020`, `BAR-015` or a minimized
-  counterexample, `REF-016`, and deterministic `EXP-0019`.
-- First action: define a factorization-independent chain grammar with public
-  depth and factors, total semantics for every denominator, exact compact,
-  sparse, and dense output charges, and an inductive falsification oracle.
-- No M20 theorem or empirical conclusion is claimed at this start point.
+- `DEF-020` charges every public factor and prefix, three binary evaluators
+  per stage, both total denominator paths, all retained outputs and GCDs, the
+  product aggregate, extraction, and requested dense, sparse, or expanded
+  prefix output.
+- `BAR-015` is `PROVED`: every stage follows BAR-014; a unit prefix preserves
+  the quotient/numerator GCD, a proper prefix already factors \(N\), and a
+  full prefix reduces the quotient GCD to public \(\gcd(A_i,N)\). Every
+  composed denominator independently follows BAR-013. A proper final-product
+  GCD implies a proper explicit stage-quotient GCD by a zero-safe unit/full
+  dichotomy.
+- For \(L=\sum_i\operatorname{bitlength}(A_i)\), every prefix has at most
+  \(L\) bits, so compact evaluation uses \(O(rL)\) modular operations and
+  \(r\le L\). Stage \(i\) has \(A_i\) sparse monomials,
+  \(M_i-M_{i-1}+1\) dense positions, and a requested expanded prefix has
+  \(M_i\) entries.
+- Two independent reviews passed after repairs to a residue-level congruence,
+  the zero-safe aggregate argument, expanded-prefix charging, and literal
+  multiplication accounting. The adversarial review additionally passed
+  58,680 small chains and a 256-bit prefix stress case.
+- `REF-016` is `REFUTED`; NR-017 records that product-only iteration creates
+  no success outside the charged stage and prefix exits. It may mask an
+  earlier proper stage as a later full aggregate collision. This is not a
+  lower bound for cross-stage addition, general rational programs, or
+  arithmetic circuits.
+- EXP-0019 checked 155 symbolic chains, 430 exact stage identities, 5,190
+  coefficients, 190,805 modular chains, 529,330 stages, 338,525 prefix
+  linkages, and 1,249,465 residue identities. All 68,260 proper final
+  products had a proper stage quotient; there were zero unexplained cases and
+  all 12 selected Python/Rust/C# comparisons agreed. Canonical summary
+  SHA-256:
+  `06cbbb13eca00655d33da9858117de6920d1e63f6bbfe95794ec18642000f9da`.
+- Full gates passed: foundation and publication consistency (84 claims and 18
+  experiment hashes), 147 Python tests and bytecode compilation, Rust
+  formatting/Clippy/26 tests, C# Release restore/build with zero warnings or
+  errors, 58 baseline comparisons, EXP-0019, and the 12-check M20
+  differential validator.
+- XeLaTeX converged with no warnings, undefined references or citations, or
+  overfull/underfull boxes. All 50 pages were rendered and visually
+  inspected. Stable PDF: `output/pdf/mosef-paper.pdf`, SHA-256
+  `6cd6eaef92fda55c6eec886c65340a5a9150d4b3c09add6d281ef60cbb37fbe7`.
+- The validated M20 milestone commit is
+  `11255cca8a3186249f19d8f018270b575b05cc92`. Publication is blocked by
+  BLK-022: the remote branch remains at `2978f613255e7ef22cc051f485900c5a4fefd4eb`,
+  GitHub CLI is unauthenticated, and no M20 pull request was created or
+  verified.
+- Next action: M21 should define the smallest factorization-independent
+  signed linear-combination grammar over explicit certified quotient stages
+  and test whether cross-stage cancellation invalidates component-to-
+  aggregate GCD implications.
+
+## Korean summary
+
+M20을 완료했습니다. 공개 인수 사슬의 각 기하급수 몫 단계를
+unit/proper/full로 분기하면 새 인수 추출 경로가 생기지 않으며, 최종
+곱의 GCD가 proper이면 명시된 단계 몫 중 하나도 proper임을
+증명했습니다. 결정적 탐색, Python/Rust/C# 교차 검증, 독립 검토 두 건,
+전체 출판 검사, 50쪽 PDF 시각 검증이 모두 통과했습니다. 다음 M21은
+단계 값 사이의 덧셈과 뺄셈이 이 결론을 벗어나는지 조사합니다.
 
 ## M19 outcome
 
