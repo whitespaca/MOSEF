@@ -107,9 +107,9 @@
 - M3 and M4 remote delivery remain blocked by explicit content-egress
   authorization requirements under BLK-005 and BLK-006.
 - Optional pytest/Ruff/mypy tools remain unavailable under BLK-003.
-- M5 local delivery will be complete after the final manuscript, repository
-  gates, and milestone commit. A policy-required push attempt will be recorded
-  separately if authorization is rejected.
+- M5 local delivery is complete at `22e213b`. The policy-required push attempt
+  was rejected because this exact branch payload lacks explicit authorization;
+  see BLK-007. No M5 pull request exists.
 - Next action: M6 should synthesize the restricted theorem and two barrier
   results into the strongest claim-complete manuscript, without enlarging any
   theorem beyond its reviewed hypotheses.
