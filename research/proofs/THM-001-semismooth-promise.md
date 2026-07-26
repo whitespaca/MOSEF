@@ -1,6 +1,7 @@
 # THM-001 - Las Vegas factoring on a hereditary semismooth-order class
 
-Status: proof candidate awaiting independent adversarial review.
+Status: `PROVED` after bounded falsification and independent adversarial
+review.
 
 ## Definition
 
@@ -30,9 +31,9 @@ merely naming a successful candidate after seeing the factorization. It still
 depends on unknown prime divisors, so membership is promised rather than
 recognized.
 
-## THM-001 candidate statement
+## THM-001 statement
 
-**Provisional status:** candidate `PROVED`.
+**Status:** `PROVED`.
 
 For every fixed schedule pair above, there is a classical Las Vegas algorithm
 which, on every \(N\) in the hereditary promise class, returns the complete

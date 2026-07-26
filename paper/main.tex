@@ -3,526 +3,871 @@
 \usepackage[T1]{fontenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{array}
 \usepackage{booktabs}
+\usepackage[margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
+\usepackage{seqsplit}
 \setlength{\emergencystretch}{2em}
 
 \newcommand{\claimstatus}[2]{\textbf{#1 [#2]}}
+\newcommand{\poly}{\operatorname{poly}}
 
-\title{Order-Separating Exponent Families for Classical Integer
-Factorization: Algorithms, Barriers, and Reproducible Evaluation}
+\title{Order-Separating Exponents for Classical Integer Factorization:
+A Restricted Theorem and Two Structural Barriers}
 \author{MOSEF Research Program}
-\date{\today}
+\date{26 July 2026}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-This manuscript defines an evidence-driven program for evaluating
-order-separating exponent families in classical integer factorization. It
-proves the elementary support-separator implication and an exact
-valuation-aware criterion for repeated prime factors. The original
-support-only requirement cannot cover prime powers and is refuted as an
-all-composite target. On an explicit hereditary semismooth-order promise
-class, we prove a Las Vegas complete-factorization theorem with polynomial
-expected bit complexity. The promise is factor dependent and is not
-recognized by the algorithm. We also prove that divisor coverage, even by a
-positive difference family, does not imply multiplicative-order separation:
-the missing condition is injectivity of divisibility signatures. Finally, a
-natural conjugate pairing with a Lucas channel is proved algebraically
-correlated with the multiplicative channel and cannot enlarge its success
-domain; independently selected Lucas parameters remain outside that barrier.
-No general polynomial-time factoring theorem is claimed.
+We study order-separating exponent families for classical integer
+factorization, measuring complexity in the binary input length. We first give
+exact support and prime-power valuation semantics for candidates of the form
+\(\gcd(g^d-1,N)\), including every failure branch. On a factor-dependent but
+explicit hereditary semismooth-asymmetry promise class, we prove that fresh
+uniform bases yield a Las Vegas complete-factorization algorithm with
+polynomial expected bit complexity and at least \(5/12\) split probability at
+each complete schedule cycle at a promised residual node. We then prove two
+structural barriers. Divisor
+coverage does not imply multiplicative-order separation; the exact missing
+condition is injectivity of divisibility signatures. A natural Lucas
+parameter map \(P=a+a^{-1}\) is also not an independent group channel:
+\(V_d(P,1)-2=a^{-d}(a^d-1)^2\), so it cannot enlarge the multiplicative
+family's success domain when exponent \(2\) is retained and can worsen
+prime-power collisions. Deterministic bounded searches and independent
+Python, Rust, and C\# implementations audit these statements but are not used
+as proofs. No general polynomial-time classical factoring algorithm or lower
+bound is claimed.
 \end{abstract}
 
-\section{Introduction}
+\section{Introduction and contributions}
 
-Let \(N\) be a positive integer represented in binary. The project asks whether
-order information from one or more algebraic groups can expose a nontrivial
-factor without circular access to the factorization. General classical
-polynomial-time factorization is a research target, not a premise.
+Let \(N\) be a positive integer represented in binary. A recurring strategy
+for factoring \(N\) is to choose an algebraic element, raise it to a structured
+exponent, and take a greatest common divisor with \(N\). The difficulty is not
+merely to hit an unknown prime-factor order. A useful exponent must hit some
+prime-power components without hitting all of them, and its bases, exponents,
+representation, construction, evaluation, and recursion must all cost
+polynomially many bit operations in \(\log N\).
 
-The immediate objective is methodological: every mathematical statement is
-linked to a status and evidence record, finite experiments are not promoted to
-universal theorems, and complexity is measured in binary input length.
+This paper treats the proposed Multi-Group Order-Separating Exponent Factoring
+(MOSEF) direction as a falsifiable research program rather than a presumed
+algorithm. Its contributions are:
+
+\begin{itemize}
+\item exact support and capped-valuation criteria for multiplicative
+  candidates, including the prime-power obstruction to an all-composite
+  support-only definition;
+\item an unconditional Las Vegas complete-factorization theorem on a precisely
+  stated hereditary semismooth-asymmetry promise class, with correctness,
+  termination, sampling, recursion, and bit-complexity proofs;
+\item a coverage-separation barrier showing that nonempty divisibility
+  signatures are insufficient and that universal separation of distinct order
+  profiles is exactly signature injectivity;
+\item a channel-correlation barrier showing that the natural conjugate Lucas
+  map only squares multiplicative valuations and therefore does not create an
+  independent \(p+1\) channel; and
+\item deterministic falsification searches, canonical vectors, and
+  cross-language checks whose finite scope and hashes are recorded explicitly.
+\end{itemize}
+
+The positive theorem is restricted: membership in its promise class can
+depend on the unknown factorization and is not recognized by the algorithm.
+The two barriers are also scoped: one concerns explicit divisibility
+signatures, and the other concerns only \(P=a+a^{-1}\). These boundaries are
+part of the results.
+
+Section 2 records the imported complexity landscape. Sections 3 and 4 define
+candidate semantics and the recursive framework. Section 5 gives the
+restricted theorem. Sections 6 and 7 prove the two barriers. Sections 8--10
+separate algorithms, experiments, and observations. Complete proofs and
+reproduction details appear in the appendices.
+
+\section{Related work and complexity landscape}
+
+\claimstatus{EXT-001}{PROVED, IMPORTED}. Agrawal, Kayal, and Saxena give an
+unconditional deterministic primality test running in time polynomial in the
+binary input length \cite{agrawal2004primes}. This is a decision theorem and
+does not itself find a nontrivial factor.
+
+\claimstatus{EXT-002}{PROVED, IMPORTED}. Lenstra and Pomerance prove a
+probabilistic complete-factorization algorithm with expected running time
+\(L_N[1/2,1+o(1)]\) \cite{lenstra1992rigorous}. This is rigorous and
+subexponential, but it is not polynomial in \(\log N\). Lenstra's
+elliptic-curve method motivates varying group orders; the specific expected
+time expression highlighted in its abstract is explicitly conjectural
+\cite{lenstra1987elliptic}, so we use it only as motivation.
+
+\claimstatus{EXT-003}{CONDITIONAL, IMPORTED}. Umans and Wang's Theorem 5.5,
+assuming their Strong Prefactored Divisor Conjecture, gives deterministic
+integer-factorization time
+\[
+\widetilde O\!\left(N^{\max(\alpha,\beta)/2+o(1)}\right)
+\]
+\cite{umans2025numbertheoretic}. This remains exponential in the binary input
+length. Their integer mechanism covers actual prefactored divisors and has a
+separate collision-resolution process; it does not claim that divisor
+coverage implies multiplicative-order separation.
+
+\claimstatus{EXT-004}{PROVED, IMPORTED}. Williams uses Lucas sequences with
+\(\Delta=P^2-4Q\). For an odd prime \(p\nmid Q\),
+\((\Delta/p)=\varepsilon\), and \(s>0\), the imported Lucas congruences give
+\[
+U_{(p-\varepsilon)s}(P,Q)\equiv0\pmod p,\qquad
+V_{(p-\varepsilon)s}(P,Q)
+\equiv2Q^{s(1-\varepsilon)/2}\pmod p.
+\]
+For \(Q=1\), \(\varepsilon=-1\) is the nonsplit \(p+1\) branch and
+\(\varepsilon=+1\) the split \(p-1\) branch
+\cite{williams1982pplusone}. The zero-discriminant prime component is outside
+this statement.
 
 \section{Model and definitions}
 
 \claimstatus{DEF-001}{DEFINITION}. The input length is
 \[
-  m=\left\lceil\log_2 N\right\rceil.
+m=\left\lceil\log_2N\right\rceil.
 \]
-Thus a running time polynomial in \(N\) is not, merely for that reason,
-polynomial in the input length.
+A bound polynomial in \(N\), \(\sqrt N\), or an enumerated group size is not
+therefore polynomial in the input length.
 
 \claimstatus{DEF-002}{DEFINITION}. Let \(P(N)\) be the set of distinct prime
-divisors of \(N\). For \(\gcd(g,N)=1\) and \(d>0\), define
+divisors of \(N\). For \(d>0\) and \(\gcd(g,N)=1\), define
 \[
-  D_N(g,d)=\{p\in P(N):\operatorname{ord}_p(g)\mid d\}.
+D_N(g,d)=
+\{p\in P(N):\operatorname{ord}_p(g)\mid d\}.
 \]
-The pair \((g,d)\) is an order separator when \(D_N(g,d)\) is nonempty and is
-not all of \(P(N)\).
+The pair \((g,d)\) is a support order separator when this set is nonempty and
+proper.
 
 \claimstatus{DEF-003}{DEFINITION}. If
-\(N=\prod_{p\in P(N)}p^{e_p}\), define
 \[
-  a_p(N,g,d)=\min\{e_p,\nu_p(g^d-1)\},
+N=\prod_{p\in P(N)}p^{e_p},
 \]
-where \(\nu_p(0)=+\infty\). A valuation separator has at least one
-\(a_p>0\) and at least one \(a_q<e_q\), where \(p=q\) is allowed.
-
-A polynomial order-separating family must bound not only the number of bases
-and exponents, but also construction cost, exponent bit lengths, evaluation
-cost, and recursive factor extraction in \(\operatorname{poly}(m)\) bit
-operations.
-
-\section{Inspected baseline evidence}
-
-\claimstatus{EXT-001}{PROVED, IMPORTED}. Agrawal, Kayal, and Saxena give an
-unconditional deterministic polynomial-time primality test
-\cite{agrawal2004primes}. This decision result must not be restated as a
-factor-finding algorithm.
-
-\claimstatus{EXT-002}{PROVED, IMPORTED}. Lenstra and Pomerance prove a
-probabilistic complete-factorization algorithm with expected running time
-\(L_N[1/2,1+o(1)]\) \cite{lenstra1992rigorous}. This is a rigorous
-subexponential bound, not a polynomial bound in \(m\).
-
-Lenstra's elliptic-curve method motivates varying the group channel, while the
-expected-time expression highlighted in the inspected abstract is explicitly
-conjectural \cite{lenstra1987elliptic}. It therefore supplies motivation, not a
-separation theorem for MOSEF.
-
-\section{Open research target}
-
-\claimstatus{OPEN-001}{REFUTED}. A support-defined family cannot guarantee an
-order separator for every composite input. If \(N=p^e\), then
-\(P(N)=\{p\}\), so \(D_N(g,d)\) is either empty or all of \(P(N)\), never
-nonempty and proper.
-
-\noindent\begin{minipage}{\linewidth}
-\claimstatus{OPEN-002}{OPEN}.
-
-It remains unknown here whether exact polynomial time primality and
-perfect-power preprocessing can be followed by a support-POSF constructor,
-independent of the factorization, that succeeds on every residual composite
-cofactor within all polynomial representation, construction, evaluation, and
-recursion bounds.
-\end{minipage}
-
-\claimstatus{OPEN-003}{OPEN}. It also remains unknown whether an all-input
-valuation-separating family satisfying the same bounds can be constructed
-without access to the factorization.
-
-\section{Separator criteria and algorithmic framework}
-
-\claimstatus{LEM-001}{PROVED}. If \(D_N(g,d)\) is nonempty and proper, choose
-\(p\in D_N(g,d)\) and \(q\in P(N)\setminus D_N(g,d)\). Then \(p\) divides
-\(\gcd(g^d-1,N)\), while \(q\) does not. Hence
+define the capped valuation profile
 \[
-  1<\gcd(g^d-1,N)<N.
+a_p(N,g,d)=\min\{e_p,\nu_p(g^d-1)\},
 \]
-The argument is unchanged when \(N\) has repeated prime factors.
+with \(\nu_p(0)=+\infty\). A valuation separator has some \(a_p>0\) and some
+\(a_q<e_q\), where \(p=q\) is allowed.
 
-\claimstatus{LEM-002}{PROVED}. Prime valuations give the exact identity
+A candidate polynomial order-separating family must construct explicit base
+and exponent sets without access to the factorization, use polynomially many
+members, bound every exponent's bit length, evaluate every required group
+operation in polynomial bit complexity, and guarantee a valid split at every
+recursive composite in its claimed domain.
+
+\subsection{Open and refuted universal targets}
+
+\claimstatus{OPEN-001}{REFUTED}. The original support-only requirement cannot
+cover every composite input. For \(N=p^e\), \(e\ge2\), the set \(P(N)\) is a
+singleton, so a support is either empty or all of \(P(N)\), never nonempty and
+proper. This does not prevent a partial prime-power valuation from producing a
+factor.
+
+\claimstatus{OPEN-002}{OPEN}. It remains unknown here whether deterministic
+polynomial-time primality and exact perfect-power preprocessing can be followed
+by a factorization-independent support-POSF constructor that succeeds on every
+remaining composite recursive cofactor with polynomial representation,
+construction, exponent, evaluation, and recursion bounds.
+
+\claimstatus{OPEN-003}{OPEN}. It also remains unknown here whether a
+factorization-independent valuation-separating family satisfying the same
+bounds exists for every composite input, including prime powers.
+
+\section{Order separators and algorithmic framework}
+
+\claimstatus{LEM-001}{PROVED}. If \(D_N(g,d)\) is nonempty and proper, then
 \[
-  \gcd(g^d-1,N)=
-  \prod_{p\in P(N)}p^{\min\{e_p,\nu_p(g^d-1)\}}.
+1<\gcd(g^d-1,N)<N.
 \]
-Thus the GCD is nontrivial exactly when the capped profile is neither all zero
-nor the full profile \((e_p)\). For square-free \(N\), this is equivalent to
-the support condition. For \(N=p^e\), it instead reduces to
-\(0<\nu_p(g^d-1)<e\).
+The complete proof is in Appendix \ref{proof:LEM-001}.
 
-One candidate first computes \(\gcd(g,N)\), returning any direct factor and
-rejecting a base divisible by \(N\). For a unit base it computes
-\(r=g^d\bmod N\) and classifies \(\gcd(r-1,N)\) as a miss, a nontrivial
-factor, or a simultaneous collision equal to \(N\). A family failure is
-reported as unresolved, never prime.
-
-The complete wrapper validates primality, recursively expands exact perfect
-powers, invokes a constructor only on residual composites, validates every
-reported split, and propagates construction or unresolved failures. The full
-pseudocode and proof are in:
-\begin{center}
-\small\path{research/proofs/M2-formal-specification.md}.
-\end{center}
-
-Let \(C(m)\) bound explicit construction, let \(B(m)\) and \(E(m)\) bound the
-numbers of canonical residue bases and exponents, and let \(L(m)\) bound
-exponent bit length. With multiplication cost \(M(m)\) and GCD cost \(G(m)\),
-one Cartesian-product pass costs
+\claimstatus{LEM-002}{PROVED}. The exact GCD is
 \[
-  O\!\left(C(m)+B(m)E(m)
-  \left(M(m)L(m)+G(m)\right)\right).
+\gcd(g^d-1,N)=
+\prod_{p\in P(N)}
+p^{\min\{e_p,\nu_p(g^d-1)\}}.
 \]
-The factor tree has fewer than \(2m\) nodes. This gives a polynomial framework
-only conditionally on polynomial \(C,B,E,L\), polynomial preprocessing, and a
-success guarantee on every recursive cofactor; no such universal constructor
-is supplied.
+It is a proper factor exactly when the capped valuation profile is neither all
+zero nor full. For square-free \(N\), this is equivalent to the support
+condition; for \(N=p^e\), it is equivalent to
+\(0<\nu_p(g^d-1)<e\). Appendix \ref{proof:LEM-002} gives the proof.
 
-\section{Prime-power obstruction and finite falsification}
+One candidate is evaluated as follows.
 
-The smallest valuation-only witness is
+\begin{verbatim}
+EVALUATE-CANDIDATE(N, g, d):
+    require N >= 2 and d > 0
+    g <- g mod N
+    u <- gcd(g, N)
+    if 1 < u < N: return DIRECT-FACTOR(u)
+    if u = N: return INVALID-BASE
+    r <- modular_power(g, d, N)
+    h <- gcd((r - 1) mod N, N)
+    if h = 1: return MISS
+    if h = N: return SIMULTANEOUS-COLLISION
+    return FACTOR(h)
+\end{verbatim}
+
+A complete wrapper first recognizes prime inputs, expands exact maximal
+perfect powers, and invokes a family only on residual composites. It validates
+every reported divisor before recursively factoring both children.
+\texttt{UNRESOLVED} is never interpreted as prime or as proof of
+nonmembership.
+
+Let \(C(m)\) bound construction, \(B(m)\) the number of canonical residue
+bases, \(E(m)\) the number of exponents, and \(L(m)\) their maximum bit length.
+With multiplication cost \(M(m)\) and GCD cost \(G(m)\), one explicit
+Cartesian-product pass costs
 \[
-  (N,g,d)=(4,3,1),\qquad
-  D_4(3,1)=P(4),\qquad
-  \gcd(3-1,4)=2.
+O\!\left(
+C(m)+B(m)E(m)\bigl(M(m)L(m)+G(m)\bigr)
+\right).
 \]
-The smallest odd witness is \((9,2,2)\). These examples do not refute
-LEM-001; they refute the converse outside the square-free domain and expose
-the impossible scope of the original all-composite support-POSF target.
-
-\claimstatus{EMP-002}{EMPIRICAL}. A deterministic search over composite
-\(4\le N\le500\), unit bases \(2\le g\le20\), and \(1\le d\le20\)
-evaluated 78,860 candidates. The registered box produced no counterexample to
-LEM-001, LEM-002, or square-free equivalence, and found 5,672
-nonsquarefree valuation-only splits. Twenty-four selected Python, Rust, and
-C\# comparisons also passed. This finite agreement is an audit, not a proof.
+This is a conditional framework, not an available universal algorithm: all
+of \(C,B,E,L\), representation conversion, preprocessing, and the success
+guarantee on every recursive cofactor must be polynomial.
 
 \section{A restricted semismooth-order theorem}
 
-Let \(B(k)\) and \(R(k)\) be nondecreasing, polynomially bounded integer
-functions computable in polynomial time, and define
+Let \(B(k)\) and \(R(k)\) be fixed nondecreasing, positive,
+polynomially bounded integer functions computable in time polynomial in
+\(k\), and put
 \[
-  M_B(k)=\operatorname{lcm}(1,2,\ldots,B(k)).
+M_B(k)=\operatorname{lcm}(1,2,\ldots,B(k)).
 \]
-\claimstatus{DEF-004}{DEFINITION}. A composite non-perfect-power \(K\), of
-bit length \(k\), has a semismooth asymmetry witness when it has distinct
-prime divisors \(p,q\) and an integer \(1\le t\le R(k)\) such that
-\[
-  p-1\mid tM_B(k)
-  \quad\text{and}\quad
-  q-1\nmid tM_B(k).
-\]
-An input is in the hereditary promise class when every composite
-non-perfect-power divisor has such a witness at its local bit length.
-Membership is promised, not recognized: the definition may use the
-factorization, but the algorithm does not.
 
-\claimstatus{THM-001}{PROVED}. On this hereditary class, a classical Las
-Vegas algorithm returns the complete prime factorization with probability one,
-is always correct, and has expected running time polynomial in the binary
-input length.
+\claimstatus{DEF-004}{DEFINITION}. A composite non-perfect-power \(K\), with
+\(k=\lceil\log_2K\rceil\), has a semismooth-asymmetry witness when distinct
+primes \(p,q\mid K\) and \(1\le t\le R(k)\) satisfy
+\[
+p-1\mid tM_B(k),\qquad q-1\nmid tM_B(k).
+\]
+An input belongs to the hereditary promise class when every divisor \(K\mid N\)
+that is composite and not a perfect power has such a witness at its local bit
+length. Membership is promised, not recognized.
+
+\claimstatus{THM-001}{PROVED}. For every fixed schedule pair \(B,R\) above,
+there is a classical Las Vegas algorithm that completely factors every input
+in the hereditary semismooth-asymmetric promise class, is always correct,
+terminates with probability one, and has expected running time polynomial in
+the binary input length.
 
 At a residual composite \(K\), the algorithm repeatedly enumerates
-\(1\le t\le R(k)\). For each \(t\), it samples a uniform residue
+\(1\le t\le R(k)\). For every \(t\), it draws a fresh exact uniform residue
 \(a\bmod K\), first tries \(\gcd(a,K)\), and then tries
 \[
-  \gcd\!\left(a^{tM_B(k)}-1,K\right).
+\gcd\!\left(a^{tM_B(k)}-1,K\right).
 \]
-Fix a witness \((p,q,t)\) and write \(d=tM_B(k)\). Every unit satisfies
-\(a^d=1\bmod p\). The unit group modulo \(q\) is cyclic, and \(x^d=1\)
-has \(\gcd(d,q-1)\le(q-1)/2\) solutions because \(q-1\nmid d\).
-Thus at least half the units separate \(p\) from \(q\). All nonzero,
-nonunit residues already expose a proper GCD. Consequently
+At a witness value, every unit is \(1\) after exponentiation modulo \(p\), while
+at most half of the units are \(1\) modulo \(q\). Proper nonunits already
+factor \(K\). The one-trial success probability is therefore at least
 \[
-  \Pr[\text{one witness trial succeeds}]
-  \ge \frac{K-1-\varphi(K)/2}{K}
-  \ge \frac{K-1}{2K}
-  \ge \frac{5}{12},
+\frac{K-1-\varphi(K)/2}{K}
+\ge\frac{K-1}{2K}
+\ge\frac{5}{12}.
 \]
-where the last inequality uses \(K\ge6\). A full pass therefore succeeds with
-conditional probability at least \(5/12\), so it needs at most \(12/5\)
-passes in expectation.
+Fresh samples give a geometric tail. The exponent bit length is
+\[
+O(B(k)\log B(k)+\log R(k)),
+\]
+and the complete recursion has \(O(m)\) nodes after exact maximal-power
+preprocessing. Appendix \ref{proof:THM-001} proves correctness, almost-sure
+termination, and expected polynomial bit complexity.
 
-The exponent has
+\claimstatus{REF-001}{REFUTED}. Replacing fresh random bases by a fixed base is
+invalid. For
 \[
-  O(B(k)\log B(k)+\log R(k))
+N=51,\quad p=3,\quad q=17,\quad a=2,\quad
+d=\operatorname{lcm}(1,\ldots,8)=840,
 \]
-bits because \(M_B(k)\mid B(k)!\). Exact rejection sampling takes fewer than
-two \(k\)-bit draws in expectation. Deterministic polynomial-time primality,
-exact maximal-exponent perfect-power preprocessing, and fewer than \(4m\)
-recursive invocations complete the expected polynomial bit-complexity proof.
-The full proof, including recursive correctness and outside-promise semantics,
-is in \path{research/proofs/THM-001-semismooth-promise.md}.
-
-\claimstatus{REF-001}{REFUTED}. The condition \(q-1\nmid d\) does not make a
-fixed base deterministic. For
-\[
-  N=51,\quad p=3,\quad q=17,\quad
-  d=\operatorname{lcm}(1,\ldots,8)=840,
-\]
-we have \(p-1\mid d\), \(q-1\nmid d\), but
+we have \(p-1\mid d\) and \(q-1\nmid d\), but
 \(\operatorname{ord}_{17}(2)=8\mid d\). Hence
-\(\gcd(2^{840}-1,51)=51\), a simultaneous collision. Random residues repair
-this proper-subgroup failure probabilistically; the false fixed-base
-statement remains refuted.
-
-\claimstatus{EMP-003}{EMPIRICAL}. With \(B=8\), \(R=3\), and
-\(4\le N\le500\), exact enumeration found 155 hereditary promised inputs and
-factored all of them with the finite residue oracle. It checked all 557
-ordered witness tuples in the box; the smallest observed exact success
-probability was \(268/493\), above the proved \(5/12\) bound. Twenty-two
-selected Python, Rust, and C\# comparisons passed. These finite checks
-falsify implementations, not prove the theorem.
+\(\gcd(2^{840}-1,51)=51\), a simultaneous collision.
 
 \section{Difference coverage versus order separation}
 
-For a finite positive candidate family \(\Delta\), define
+\claimstatus{DEF-005}{DEFINITION}. For a finite positive exponent family
+\(\Delta\), define
 \[
-  \Sigma_\Delta(r)=\{d\in\Delta:r\mid d\}.
+\Sigma_\Delta(r)=\{d\in\Delta:r\mid d\}.
 \]
-\claimstatus{DEF-005}{DEFINITION}. The family has the \(n\)-divisor property
-when every signature for \(1\le r\le n\) is nonempty. It separates an order
-profile \((r_1,\ldots,r_k)\) when some \(d\in\Delta\) is divisible by at least
-one but not all of the profile orders.
+The family has the \(n\)-divisor property when every signature on
+\(\{1,\ldots,n\}\) is nonempty. It separates a profile
+\((r_1,\ldots,r_s)\) when some \(d\in\Delta\) is divisible by at least one but
+not all profile entries.
 
-Umans and Wang conjecture structured difference sets \(S-T\) having the
-\(n\)-divisor property, with magnitude, cardinality, and
-generalized-arithmetic-progression bounds \cite{umans2025numbertheoretic}.
-Their integer algorithm uses divisibility of actual small prime factors into
-prefactored differences and does not use multiplicative orders.
-\claimstatus{EXT-003}{CONDITIONAL, IMPORTED}. Their Theorem~5.5 states,
-assuming the Strong Prefactored Divisor Conjecture, a deterministic
+\claimstatus{BAR-001}{PROVED}. Divisor coverage does not imply distinct-order
+separation, even for positive difference families. A family separates a
+profile exactly when the profile signatures are not all equal, and it
+separates every profile containing distinct orders in
+\(\{1,\ldots,n\}\) exactly when
 \[
-  N^{\max(\alpha,\beta)/2+o(1)}
+r\longmapsto\Sigma_\Delta(r)
 \]
-integer-factorization running time. This remains exponential in
-\(m=\lceil\log_2N\rceil\). The inspected version also leaves uniformity,
-modulus-range, and sign/zero conventions insufficiently explicit; the source
-note records these textual gaps. We therefore neither treat the construction
-as available nor restate the bound as unconditional.
-
-\claimstatus{BAR-001}{PROVED}. Divisor coverage does not imply order
-separation, including for positive difference families. A candidate \(d\)
-separates a profile if and only if its signatures are not all equal: a hit
-and a miss distinguish two signatures, and any element of the symmetric
-difference of two signatures supplies a hit and a miss. Consequently a family
-separates every profile containing distinct orders from \(\{1,\ldots,n\}\)
-if and only if \(r\mapsto\Sigma_\Delta(r)\) is injective on that interval.
-Coverage requires only nonempty signatures.
-
-The minimal difference-family counterexample is
+is injective on that interval. Any explicit family with both nonempty and
+injective signatures satisfies
 \[
-  S=\{3\},\qquad T=\{1\},\qquad
-  \Delta^+(S,T)=\{2\}.
+|\Delta|\ge\left\lceil\log_2(n+1)\right\rceil.
 \]
-Both 1 and 2 divide the sole difference, but
-\(\Sigma_\Delta(1)=\Sigma_\Delta(2)\). This occurs in the multiplicative-order
-mechanism itself:
+If
 \[
-  \operatorname{ord}_2(5)=1,\quad
-  \operatorname{ord}_3(5)=2,\quad
-  \gcd(5^2-1,6)=6.
+\Delta=\Delta^+(S,T)=
+\{s-t:s\in S,\ t\in T,\ s>t\},
 \]
-Thus the covered candidate is a simultaneous collision, not a factor. The
-smallest odd example is \(N=15,g=4,d=2\).
-
-If a family has both coverage and injective signatures on
-\(\{1,\ldots,n\}\), its \(n\) signatures are distinct nonempty subsets of
-\(\Delta\). Hence
+then also
 \[
-  n\le2^{|\Delta|}-1,\qquad
-  |\Delta|\ge\lceil\log_2(n+1)\rceil.
+|S||T|\ge|\Delta|
+\ge\left\lceil\log_2(n+1)\right\rceil.
 \]
-For \(\Delta=\Delta^+(S,T)\), also
-\(|S||T|\ge|\Delta|\). This is only an explicit-candidate counting bound; it
-does not exclude compact batch evaluation.
 
-A control construction shows sufficiency without efficiency. Put
-\(h=\lceil\sqrt n\rceil\),
+The smallest difference-family counterexample is
 \[
-  S=\{1+ih:1\le i\le h\},\qquad
-  T=\{1+j:0\le j<h\}.
+S=\{3\},\qquad T=\{1\},\qquad\Delta^+(S,T)=\{2\}.
 \]
-Its positive differences are exactly \(\{1,\ldots,h^2\}\), so for distinct
-\(r<s\le n\), candidate \(d=r\) separates the two. The construction uses
-\(h^2=\Theta(n)\) pairs, exponential when \(n\) has magnitude exponential in
-the input bit length. It is a correctness control, not a polynomial-time
-POSF.
+Both orders \(1\) and \(2\) divide the sole difference. The collision occurs
+in the multiplicative mechanism itself:
+\[
+\operatorname{ord}_2(5)=1,\qquad
+\operatorname{ord}_3(5)=2,\qquad
+\gcd(5^2-1,6)=6.
+\]
+A control construction realizes every difference from \(1\) through
+\(\lceil\sqrt n\rceil^2\) but uses \(\Theta(n)\) pairs, which is exponential
+when \(n\) has magnitude exponential in the input length. Appendix
+\ref{proof:BAR-001} gives the complete characterization, lower bound, and
+construction proof.
 
-\claimstatus{REF-002}{REFUTED}. The attempted implication
+\claimstatus{REF-002}{REFUTED}. The implication
 ``\(n\)-divisor difference cover \(\Rightarrow\) distinct-order separator''
-is false. This does not refute the conditional Umans--Wang algorithms, whose
-collision-resolution mechanism is different.
-
-\claimstatus{EMP-004}{EMPIRICAL}. Exhaustive enumeration checked all 4,095
-nonempty candidate subsets of \(\{1,\ldots,12\}\) against orders through 8,
-including 114,660 two-order profiles. Among 576 divisor covers, 240 had
-noninjective signatures; 336 were injective. The signature characterization,
-counting bound, and square construction through \(n=200\) passed, as did
-twelve selected Python, Rust, and C\# comparisons. The canonical summary hash
-and exact commands are recorded in
-\path{research/experiments/EXP-0004-m4-difference-cover-search.md}.
+is false. This refutes only the attempted transfer into support-POSF
+semantics; it does not refute the conditional Umans--Wang integer algorithms.
 
 \section{A two-channel correlation barrier}
 
 \claimstatus{DEF-006}{DEFINITION}. For \(N\ge2\), a unit \(a\bmod N\), an
 arbitrary parameter \(P\), and \(d>0\), define
 \[
- G_M(N,a,d)=\gcd(a^d-1,N),\qquad
- G_\Delta(N,P)=\gcd(P^2-4,N),
+G_M(N,a,d)=\gcd(a^d-1,N),
+\]
+\[
+G_\Delta(N,P)=\gcd(P^2-4,N),\qquad
+G_L(N,P,d)=\gcd(V_d(P,1)-2,N),
+\]
+where
+\[
+V_0(P,1)=2,\quad V_1(P,1)=P,\quad
+V_{j+1}(P,1)=PV_j(P,1)-V_{j-1}(P,1).
+\]
+Every GCD is classified as a miss, proper factor, or full collision. If
+\(G_\Delta=N\), the sequence GCD is still separately classified; for example,
+\(N=15,P=8,d=1\) has a full discriminant GCD and a sequence factor \(3\).
+
+\claimstatus{BAR-002}{PROVED}. Under the factorization-independent conjugate
+map
+\[
+P(a)=a+a^{-1}\pmod N,
+\]
+we have, for every \(d\ge0\),
+\[
+V_d(P(a),1)-2=a^{-d}(a^d-1)^2\pmod N
 \]
 and
 \[
- G_L(N,P,d)=\gcd(V_d(P,1)-2,N),
+P(a)^2-4=a^{-2}(a^2-1)^2\pmod N.
 \]
-where \(V_0=2\), \(V_1=P\), and \(V_{j+1}=PV_j-V_{j-1}\). Every GCD is
-classified exactly as a miss, proper factor, or full collision. When
-\(G_\Delta=N\), the later sequence GCD is still evaluated and separately
-classified; for example \(N=15,P=8,d=1\) has a full discriminant GCD but a
-sequence factor \(3\).
+The two sequence residues have identical prime support, and their raw GCDs
+agree for square-free \(N\). If a finite exponent family contains \(2\), any
+proper conjugately derived sequence GCD implies a proper multiplicative GCD
+at the same exponent, while a proper discriminant GCD implies a proper
+multiplicative GCD at exponent \(2\). Adding the derived Lucas family therefore
+does not enlarge the multiplicative family's success domain.
 
-Williams's \(p+1\) method uses the nonsplit
-\((\Delta/p)=-1\) branch of Lucas sequences and a smooth multiple of \(p+1\)
-\cite{williams1982pplusone}. The split \((\Delta/p)=+1\) branch has
-\(p-1\) behavior. The source calls the method analogous to Pollard \(p-1\)
-and reports using both empirically; it does not assert that their failures are
-independent.
-
-Consider the factorization-independent conjugate pairing
+The map may worsen a prime-power split:
 \[
- P(a)=a+a^{-1}\pmod N.
+(N,a,P,d)=(25,2,15,4),\qquad
+G_\Delta=1,\quad G_M=5,\quad G_L=25.
 \]
-\claimstatus{BAR-002}{PROVED}. For every \(d\ge0\),
+Its discriminant is a square modulo every nondegenerate odd prime, so the map
+forces Williams's split branch instead of constructing a nonsplit \(p+1\)
+channel. Appendix \ref{proof:BAR-002} supplies the complete recurrence,
+valuation, and family-success proof.
+
+\claimstatus{REF-003}{REFUTED}. The conjugate map does not produce an
+independent Lucas separator. This is map-specific. With independently selected
+\(P\),
 \[
- V_d(P(a),1)=a^d+a^{-d},
+(N,a,P,d)=(15,2,9,3)
 \]
-because both sides have initial values \(2,P(a)\) and satisfy the same Lucas
-recurrence. Hence
-\[
- V_d(P(a),1)-2=a^{-d}(a^d-1)^2,                 \tag{1}
-\]
-and
-\[
- P(a)^2-4=a^{-2}(a^2-1)^2.                     \tag{2}
-\]
-For every \(p^e\Vert N\), equation (1) gives
-\[
- \min\{e,\nu_p(V_d(P(a),1)-2)\}
- =\min\{e,2\nu_p(a^d-1)\}.
-\]
-Thus the two residues have identical prime support, and their raw GCDs are
-equal when \(N\) is square-free.
+has \(G_M=1\), \(G_\Delta=1\), and \(G_L=5\). This proves that an arbitrary
+parameter can complement a miss; it does not prove an independent failure
+distribution or a universal construction.
 
-Let a finite exponent family \(\Delta\) contain \(2\). If a derived Lucas
-sequence GCD is proper, the undoubled multiplicative valuation profile at the
-same exponent is also proper. If the discriminant GCD is proper, equation
-(2) makes the multiplicative exponent-2 GCD proper. Therefore adding all
-conjugately derived Lucas candidates does not enlarge the multiplicative
-family's success domain.
+\section{Algorithms and bit-complexity synthesis}
 
-The channel may strictly degrade a prime-power split:
-\[
- (N,a,P,d)=(25,2,15,4),\qquad
- G_\Delta=1,\quad G_M=5,\quad G_L=25.
-\]
-Moreover \(P(a)^2-4\) is a square, so at every nondegenerate odd prime this
-pairing forces Williams's split branch instead of constructing a nonsplit
-\(p+1\) channel.
+The mathematical results use three different algorithmic scopes that must not
+be conflated.
 
-\claimstatus{REF-003}{REFUTED}. The conjugate pairing does not create an
-independent separator. This statement is deliberately map-specific.
-Independently choosing \(P\) can complement a miss: with
-\[
- (N,a,P,d)=(15,2,9,3)
-\]
-the multiplicative GCD and discriminant GCD are \(1\), while the Lucas
-sequence GCD is \(5\). The example proves possibility, not an independent
-failure distribution or a universal construction.
+\begin{center}
+\small
+\begin{tabular}{p{0.23\linewidth}p{0.31\linewidth}p{0.36\linewidth}}
+\toprule
+Component & Guarantee & Complexity boundary \\
+\midrule
+Explicit multiplicative family &
+Exact candidate semantics and recursive failure propagation &
+Polynomial only if construction, cardinalities, exponent lengths, evaluation,
+and recursive success are all polynomial in \(\log N\) \\
+\addlinespace
+Semismooth randomized splitter &
+Complete Las Vegas factorization on the hereditary promise class &
+Expected polynomial bit complexity for every fixed polynomial schedule pair
+\(B,R\); no outside-promise termination claim \\
+\addlinespace
+Lucas channel &
+Exact discriminant and sequence outcomes; conjugate-map barrier &
+Binary Lucas evaluation is polynomial in \(\log N+\log d\); arbitrary
+parameter selection has no universal theorem here \\
+\addlinespace
+Reference suite &
+Exact Python semantics, bounded Rust \texttt{u64}, selected C\#
+\texttt{BigInteger} verification &
+Validation and falsification only; no practical or asymptotic superiority
+claim \\
+\bottomrule
+\end{tabular}
+\end{center}
 
-\claimstatus{EMP-005}{EMPIRICAL}. The registered finite search checked 9,773
-conjugate families, 117,276 exact identities, 45,821 pointwise success
-implications, and 69,192 square-free raw-GCD equalities. Multiplication
-succeeded on 9,037 families; the combined family succeeded on exactly the
-same 9,037, with zero derived-Lucas-only successes. Eighteen selected Python,
-Rust, and C\# comparisons covered every exact branch.
-The bounds, independent-parameter search, and canonical summary hash are
-recorded in
-\path{research/experiments/EXP-0005-m5-multigroup-correlation.md}.
+Binary modular exponentiation uses \(O(L(m))\) modular multiplications for an
+\(L(m)\)-bit exponent. A Lucas pair can likewise be evaluated by binary
+composition in \(O(\log d)\) modular operations. Every failed inversion or
+nonunit precheck is an algorithmic branch that may expose a factor; it is not
+silently treated as an exceptional implementation error.
 
-\section{Baseline algorithm suite}
+For complete factorization, every reported split is verified before recursion.
+A binary split tree has fewer than \(2m\) nodes because the number of prime
+factors with multiplicity is at most \(m\). In the restricted theorem,
+maximal-perfect-power preprocessing adds at most one unary node per subsequent
+split or leaf, preserving an \(O(m)\) recursion count.
 
-The M1 suite contains exact modular exponentiation, trial division,
-perfect-power detection, exact trial-division primality for validation,
-bounded Pollard rho, Pollard \(p-1\) stage 1, a scoped Williams-style
-\(p+1\) stage 1 using the Lucas sequence \(V_k(P,1)\), and per-item batch
-GCD semantics.
+\section{Reproducible experimental methodology}
 
-Python supplies the arbitrary-precision reference behavior. Rust supplies the
-authoritative implementation only on its documented \texttt{u64} domain, with
-\texttt{u128} products preventing modular-multiplication overflow. An
-independent C\# \texttt{BigInteger} program verifies selected operations. The
-current batch-GCD function is a semantic baseline and is not a product-tree
-performance claim.
+All searches are deterministic exhaustive enumerations inside declared finite
+boxes; their seed is therefore recorded as none. Prime inputs, nonunit bases,
+or empty families are skipped only when excluded by the tested definition.
+The searches retain prime powers, repeated-prime products, Carmichael numbers,
+orders \(1\) and \(2\), simultaneous collisions, discriminant degeneracy, and
+explicit independently parameterized controls where relevant.
 
-\claimstatus{EMP-001}{EMPIRICAL}. On the finite canonical corpus in
-\path{schemas/baseline-vectors-v1.json}, 58 cross-language comparisons
-passed. Rust agreed with Python for every registered operation; C\# also agreed
-for modular exponentiation, validation primality, trial factors, and per-item
-batch GCDs. This finite agreement neither proves asymptotic complexity nor
-establishes correctness outside the specified domains.
+Python arbitrary-precision code is the semantic oracle. Rust independently
+implements the documented \texttt{u64} overlap with \texttt{u128} modular
+products, and C\# uses \texttt{BigInteger} for selected vectors. A passing
+differential check establishes agreement only on those registered vectors.
+The experiment records name the core commit, exact command, bounds, pruning,
+toolchain manifest, and canonical summary hash.
 
-\section{Reproducibility}
+The baseline suite includes modular exponentiation, trial division,
+perfect-power detection, validation primality, bounded Pollard rho, Pollard
+\(p-1\), a scoped Williams-style \(p+1\) stage, and per-item batch-GCD
+semantics. The batch routine is not presented as a product-tree optimization.
 
-The result envelope is versioned by a JSON schema stored in the repository's
-\texttt{schemas} directory. Each record contains the repository commit, UTC
-timestamp, host and toolchain metadata, deterministic seed, input and output
-hashes, timing fields, memory metadata, and explicit status. Raw records are
-immutable; corrections must supersede rather than edit them.
+\section{Results}
 
-The dependency-free foundation gates are:
-\begin{verbatim}
-python scripts/validate_foundation.py
-python -m unittest discover -s tests -v
-cargo fmt --all --check
-cargo clippy --workspace --all-targets `
-  --all-features -- -D warnings
-cargo test --workspace --all-features
-dotnet restore verification/csharp/MosefVerifier.csproj
-  --configfile verification/csharp/NuGet.Config
-dotnet build verification/csharp/MosefVerifier.csproj `
-  --no-restore
-python scripts/check_baseline_differential.py
-python scripts/run_m2_separator_search.py
-  --n-max 500 --base-max 20 --exponent-max 20
-python scripts/check_m2_separator_differential.py
-python scripts/run_m3_semismooth_search.py
-  --n-max 500 --base-bound 5 --smooth-bound 8
-  --cofactor-bound 3 --collision-bound-max 20
-python scripts/check_m3_semismooth_differential.py
-python scripts/run_m4_difference_cover_search.py
-python scripts/check_m4_difference_cover_differential.py
-python scripts/run_m5_multigroup_search.py
-python scripts/check_m5_multigroup_differential.py
-\end{verbatim}
+\begin{center}
+\small
+\begin{tabular}{p{0.12\linewidth}p{0.28\linewidth}p{0.49\linewidth}}
+\toprule
+Record & Finite scope & Registered observation \\
+\midrule
+Baseline & Canonical arithmetic and factoring vectors &
+58 cross-language checks passed \\
+\addlinespace
+EXP-0002 & \(N\le500\), \(g\le20\), \(d\le20\) &
+78,860 unit-base candidates; 5,672 nonsquarefree support-only false
+negatives; 24 differential checks \\
+\addlinespace
+EXP-0003 & \(N\le500\), \(B=8\), \(R=3\) &
+155 hereditary promised inputs factored by the finite oracle; 557 witnesses
+met the \(5/12\) bound; 22 differential checks \\
+\addlinespace
+EXP-0004 & 4,095 subsets of \([12]\), orders through 8 &
+114,660 two-order pair-profile checks; 576 covers, including 240
+noninjective covers; 12 differential checks \\
+\addlinespace
+EXP-0005 & \(N\le700\), bases and parameters through 32, \(d\le12\) &
+117,276 identities; zero derived-Lucas-only family gains; 18 differential
+checks \\
+\bottomrule
+\end{tabular}
+\end{center}
 
-\section{Limitations}
+\claimstatus{EMP-001}{EMPIRICAL}. The baseline corpus passed 58 registered
+cross-language comparisons. This is finite implementation agreement.
 
-No universal support-POSF or valuation-family constructor is claimed. THM-001
-applies only on an explicitly factor-dependent hereditary promise and gives no
-membership recognizer or density result. Outside that promise its unbounded
-randomized splitter may not terminate. BAR-001 is not a lower bound for all
-compressed or algebraic candidate evaluators, and the factor-dependent order
-profile is not an algorithmic input. The imported difference-cover conjecture
-is neither proved nor a polynomial-bit-complexity result.
-BAR-002 applies only to the conjugate parameter map and is not a lower bound
-for independently sampled Lucas parameters, other algebraic groups, adaptive
-selection, or compact batch evaluation. Trial-division
-validation primality is intentionally not polynomial in binary input length,
-the Rust algorithms are bounded to \texttt{u64}, and finite searches are not
-proofs for untested inputs. The literature set is not a
-current-state-of-the-art survey.
+\claimstatus{EMP-002}{EMPIRICAL}. In EXP-0002, all 78,860 candidates agreed
+with the support-sufficiency and exact valuation criteria. The search found
+5,672 nonsquarefree proper GCDs not described by a proper support, beginning
+with \((N,g,d)=(4,3,1)\).
+
+\claimstatus{EMP-003}{EMPIRICAL}. In EXP-0003, the finite oracle completely
+factored all 155 hereditary promised inputs in the box, and all 557 ordered
+witnesses met the proved \(5/12\) success bound. The minimum observed exact
+probability was \(268/493\). This does not estimate promise-class density.
+
+\claimstatus{EMP-004}{EMPIRICAL}. In EXP-0004, 240 of 576 divisor covers had
+noninjective signatures. The exact signature characterization, counting bound,
+and control construction passed their registered checks.
+
+\claimstatus{EMP-005}{EMPIRICAL}. In EXP-0005, the multiplicative and combined
+families both succeeded on exactly 9,037 of 9,773 conjugate families, with zero
+derived-Lucas-only gains. Independently chosen parameters produced bounded
+complement examples, but the tuple counts are not probabilities.
+
+These observations audit implementations and minimize counterexamples. The
+universal statements in this paper are supplied by proofs, not extrapolation
+from the table.
+
+\section{Limitations and open problems}
+
+No universal support-POSF or valuation-family constructor is supplied.
+THM-001 applies only to a factor-dependent hereditary promise and provides
+neither a membership recognizer nor a density theorem. Its unbounded splitter
+may not terminate outside the promise.
+
+BAR-001 is a theorem about explicit divisibility signatures, not a lower bound
+for every compressed batch representation or for the Umans--Wang
+collision-resolution mechanism. Its order profile is factor dependent and is
+used for analysis, not as an algorithmic input.
+
+BAR-002 concerns only \(P=a+a^{-1}\). It does not rule out independent Lucas
+parameters, quadratic norm-one groups, elliptic-curve channels, adaptive
+selection, or another parameter map. The bounded arbitrary-\(P\) complements
+do not establish a success probability.
+
+The authoritative Rust layer is bounded to \texttt{u64}; validation primality
+uses trial division and is not itself the polynomial-time procedure imported
+in EXT-001. The literature set is sufficient for the technical statements
+used here but is not a comprehensive current-state-of-the-art survey.
+
+The main open problems are the two explicit universal constructor questions
+in OPEN-002 and OPEN-003, plus a rigorously parameterized nonsplit
+multi-channel construction whose size, generation, exceptional inputs, and
+total bit complexity can be proved without access to the factorization.
 
 \section{Conclusion}
 
-The M0 foundation makes claim status, source inspection, and experiment
-metadata explicit, and M1 provides a differentially checked small-input
-baseline. M2 proves the support and valuation criteria, specifies all
-candidate and recursive failure branches, and replaces an impossible
-all-composite support target with two explicit open formulations. M3 supplies
-a noncircular Las Vegas theorem for a hereditary semismooth-order promise
-class while preserving the minimal fixed-base collision that blocks a
-deterministic shortcut. M4 proves that divisor coverage and order separation
-are different combinatorial requirements: injective divisibility signatures
-are necessary and sufficient for distinct-order profiles, and the smallest
-covered difference family already fails them. This barrier narrows the next
-search without resolving general classical factoring. M5 then proves that the
-natural conjugate Lucas pairing merely squares the multiplicative residue:
-its prime support is unchanged, it can worsen prime-power valuations, and it
-cannot add a family success when exponent 2 is retained. Arbitrary nonsplit
-Lucas parameters remain a separate channel and an open design problem.
+Order-separating exponent research must distinguish hitting an order from
+separating prime-power components. That distinction yields one positive and
+two negative conclusions. Fresh randomized bases turn a factor-dependent
+semismooth asymmetry into an expected-polynomial Las Vegas theorem on a
+hereditary promise class. Divisor coverage alone fails because signatures can
+collide. The natural conjugate Lucas map fails as an independent channel
+because it algebraically squares the multiplicative residue.
+
+These results do not resolve general classical factoring. They replace three
+plausible shortcuts with exact obligations: recognizable or explicitly
+promised input structure, injective rather than merely nonempty signatures,
+and genuinely nonsplit rather than conjugately re-encoded group parameters.
+
+\appendix
+
+\section{Full proofs of the separator criteria}
+
+\subsection{Proof of LEM-001}\label{proof:LEM-001}
+
+Choose \(p\in D_N(g,d)\). By the definition of multiplicative order,
+\(g^d\equiv1\pmod p\), so \(p\mid\gcd(g^d-1,N)\) and the GCD exceeds one.
+Because the support is proper, choose
+\(q\in P(N)\setminus D_N(g,d)\). Then
+\(g^d\not\equiv1\pmod q\), so \(q\) does not divide the GCD. Since \(q\mid N\),
+the GCD is strictly smaller than \(N\). Repeated prime factors affect neither
+strict inequality. \(\square\)
+
+\subsection{Proof of LEM-002}\label{proof:LEM-002}
+
+For each prime \(p\), the exponent of \(p\) in a GCD is the minimum of its
+exponents in the two arguments. Its exponent in \(N\) is \(e_p\), while its
+exponent in \(g^d-1\) is \(\nu_p(g^d-1)\), including the convention for zero.
+Unique factorization gives
+\[
+\gcd(g^d-1,N)=
+\prod_{p\in P(N)}p^{\min(e_p,\nu_p(g^d-1))}.
+\]
+The product is one exactly when every capped exponent is zero, and it is \(N\)
+exactly when every capped exponent is \(e_p\). These are the only trivial
+GCDs.
+
+If \(N\) is square-free, every \(e_p=1\), and
+\[
+a_p=1
+\Longleftrightarrow p\mid g^d-1
+\Longleftrightarrow\operatorname{ord}_p(g)\mid d.
+\]
+Thus support and valuation separation coincide. If \(N=p^e\), the support can
+never be proper, while the valuation criterion is precisely
+\(0<\nu_p(g^d-1)<e\). \(\square\)
+
+\section{Full proof of the restricted theorem}
+
+\subsection{Proof of THM-001}\label{proof:THM-001}
+
+\paragraph{Algorithm.}
+For a reached composite non-perfect-power \(K\), put
+\(k=\lceil\log_2K\rceil\) and
+\(M=M_B(k)\). Repeat complete cycles over \(t=1,\ldots,R(k)\). At every
+\(t\), sample a fresh exact uniform \(a\in\{0,\ldots,K-1\}\), return
+\(\gcd(a,K)\) if it is proper, and otherwise return
+\(\gcd(a^{tM}-1,K)\) if that GCD is proper.
+
+The complete factorer first runs deterministic polynomial-time primality
+testing. It next performs exact maximal-exponent perfect-power detection. If
+\(K=b^e\), it recursively factors \(b\) and multiplies every returned
+multiplicity by \(e\). At every other composite, it invokes the randomized
+splitter, validates the returned divisor, and recursively factors both
+children.
+
+Exact uniform sampling uses rejection: draw \(k\) unbiased bits as
+\(x\in[0,2^k-1]\) and reject \(x\ge K\). Since
+\(2^{k-1}<K\le2^k\), acceptance probability exceeds \(1/2\), so fewer than two
+\(k\)-bit draws are needed in expectation.
+
+\paragraph{One-trial success.}
+Fix a promise witness \((p,q,t)\) and let \(d=tM_B(k)\). If
+\(1<\gcd(a,K)<K\), the first GCD succeeds. The only residue whose GCD with
+\(K\) is \(K\) is \(a=0\).
+
+For a unit \(a\), Fermat's theorem and \(p-1\mid d\) give
+\(a^d\equiv1\pmod p\). Projection of a uniform unit modulo \(K\) to
+\((\mathbb Z/q\mathbb Z)^\times\) is uniform. This cyclic group has order
+\(q-1\), so \(x^d=1\) has exactly \(\gcd(d,q-1)\) roots. Because
+\(q-1\nmid d\), that proper divisor of \(q-1\) is at most \((q-1)/2\).
+At least half the units therefore satisfy \(a^d\not\equiv1\pmod q\), and each
+such unit separates \(p\) from \(q\).
+
+There are \(K-\varphi(K)-1\) proper nonunit residues and at least
+\(\varphi(K)/2\) successful units. Hence
+\[
+\Pr[\mathrm{success}]
+\ge\frac{K-1-\varphi(K)/2}{K}
+\ge\frac{K-1}{2K}.
+\]
+A composite non-perfect-power has at least two distinct prime divisors, so
+\(K\ge6\), and the final quantity is at least \(5/12\).
+
+\paragraph{Correctness and termination.}
+Every returned split is explicitly checked to lie strictly between \(1\) and
+the current input. Prime leaves are recognized deterministically, and exact
+perfect-power expansion preserves multiplicities. The algorithm therefore
+never returns an incorrect factorization.
+
+One value of \(t\) in each cycle is a witness. Conditional on any prior
+history, its fresh sample succeeds with probability at least \(5/12\).
+Consequently, the probability of surviving \(s\) full cycles is at most
+\((7/12)^s\), which tends to zero, and the expected number of cycles is at
+most \(12/5\). Every child divides \(N\), so the hereditary promise applies at
+every recursive node. Induction on the input value gives complete correctness,
+and the geometric tail gives almost-sure termination.
+
+\paragraph{Expected bit complexity.}
+Since \(M_B(k)\mid B(k)!\),
+\[
+\log_2M_B(k)\le\log_2(B(k)!)
+\le B(k)\log_2B(k).
+\]
+Iterative LCM construction uses \(B(k)-1\) GCD/multiplication steps, and every
+intermediate value divides \(B(k)!\). Each
+\(d=tM_B(k)\) therefore has
+\[
+O(B(k)\log B(k)+\log R(k))
+\]
+bits. One full cycle performs \(R(k)\) exact samples, modular
+exponentiations, and GCD computations. The schedule functions and all these
+operations cost polynomially many bit operations by hypothesis. The expected
+cycle count is constant.
+
+Exact maximal-power detection is polynomial: enumerate
+\(2\le e\le k\), find the integer \(e\)-th root by binary search with products
+capped above \(K\), and verify equality. Choosing the maximal exponent leaves
+a base that is not a perfect power, so unary perfect-power nodes cannot be
+consecutive. Charge each unary node to the following split node or prime leaf.
+The binary split tree has fewer than \(2m\) nodes, and the full recursion fewer
+than \(4m\) invocations. Monotonicity bounds every local schedule by its value
+at \(m\); linearity of expectation yields polynomial expected total time and
+polynomial space. \(\square\)
+
+\section{Full proof of the coverage-separation barrier}
+
+\subsection{Proof of BAR-001}\label{proof:BAR-001}
+
+For a profile \(R=(r_1,\ldots,r_s)\), suppose \(d\) separates the profile.
+There is a hit index \(i\) and a miss index \(j\), so
+\(d\in\Sigma_\Delta(r_i)\) and
+\(d\notin\Sigma_\Delta(r_j)\). The signatures are not all equal.
+Conversely, if two signatures differ, an element of their symmetric difference
+is divisible by one associated order but not the other. Its support on the
+full profile is nonempty and proper. Thus a profile is separated exactly when
+its signatures are not all equal.
+
+It follows that every profile containing two distinct values from
+\(\{1,\ldots,n\}\) is separated exactly when the signature map is injective
+there. The \(n\)-divisor property requires only that every signature be
+nonempty, so it cannot imply injectivity. The explicit counterexample
+\(\Delta=\{2\}\) has
+\[
+\Sigma_\Delta(1)=\Sigma_\Delta(2)=\{2\}.
+\]
+It is realized as the positive difference of \(S=\{3\}\) and \(T=\{1\}\),
+and the \(N=6,g=5\) calculation in the main text realizes the simultaneous
+multiplicative collision.
+
+If \(k=|\Delta|\), there are only \(2^k-1\) nonempty subsets of \(\Delta\).
+Coverage plus injectivity on \(n\) orders requires \(n\) distinct nonempty
+signatures, so
+\[
+n\le2^k-1,\qquad
+k\ge\left\lceil\log_2(n+1)\right\rceil.
+\]
+Every positive difference is generated by a pair in \(S\times T\), hence
+\(|\Delta|\le|S||T|\), proving the second bound.
+
+For the control construction, put \(h=\lceil\sqrt n\rceil\) and
+\[
+S=\{1+ih:1\le i\le h\},\qquad
+T=\{1+j:0\le j<h\}.
+\]
+Its positive differences are
+\[
+\{ih-j:1\le i\le h,\ 0\le j<h\}
+=\{1,\ldots,h^2\}.
+\]
+For distinct \(r<s\le n\), candidate \(d=r\) is divisible by \(r\) but not by
+\(s\), so it separates. The construction uses
+\(|S||T|=h^2=\Theta(n)\) pairs. It proves sufficiency but is exponential when
+\(n\) is of magnitude exponential in the binary input length. \(\square\)
+
+\section{Full proof of the conjugate-channel barrier}
+
+\subsection{Proof of BAR-002}\label{proof:BAR-002}
+
+Put \(W_d=a^d+a^{-d}\) in \(\mathbb Z/N\mathbb Z\). Then
+\[
+W_0=2,\qquad W_1=a+a^{-1}=P(a),
+\]
+and direct multiplication gives
+\[
+W_{d+1}=P(a)W_d-W_{d-1}.
+\]
+The initial values and recurrence uniquely determine the Lucas sequence, so
+\[
+V_d(P(a),1)=a^d+a^{-d}\pmod N.
+\]
+Expanding gives
+\[
+V_d(P(a),1)-2
+=a^{-d}(a^d-1)^2\pmod N
+\]
+and
+\[
+P(a)^2-4=(a-a^{-1})^2
+=a^{-2}(a^2-1)^2\pmod N.
+\]
+
+Let \(p^e\Vert N\). Because \(a\) is a unit, the inverse factors have
+\(p\)-adic valuation zero. Congruence modulo \(p^e\) therefore gives the
+capped identity
+\[
+\min\{e,\nu_p(V_d(P(a),1)-2)\}
+=\min\{e,2\nu_p(a^d-1)\}.
+\]
+Doubling preserves whether the capped valuation is positive, so the sequence
+residues have identical prime support. If \(N\) is square-free, every cap is
+one, so the capped valuations, and hence the two raw GCDs, are equal.
+
+Suppose \(G_L(N,P(a),d)\) is proper. Its capped profile is neither all zero nor
+full. The undoubled multiplicative profile is positive at exactly the same
+primes; wherever the doubled profile is not full, the undoubled profile is
+also not full. Thus \(G_M(N,a,d)\) is proper. If
+\(G_\Delta(N,P(a))\) is proper, the discriminant identity applies the same
+argument to \(a^2-1\), so \(G_M(N,a,2)\) is proper. When \(2\) belongs to the
+exponent family, that candidate is present.
+
+The combined family retains every multiplicative candidate. It succeeds
+whenever the multiplicative family succeeds, and the preceding implications
+show that it cannot succeed on an additional input. Their success domains are
+equal. \(\square\)
+
+\section{Reproduction appendix}
+
+The evidence implementation state preceding M6 is commit
+\texttt{\seqsplit{ccc3a9368a015f9d4f1d840dda79d7a3c9a28ecf}}. The M6 manuscript core
+commit is \texttt{\seqsplit{M6\_CORE\_COMMIT}}; the final documentation commit is recorded
+in \path{research/STATUS.md}. The Windows AMD64 environment and exact
+toolchains are recorded in
+\path{research/toolchains/windows-amd64-20260725.json}.
+
+The registered experiment cores and canonical summary hashes are:
+
+\begin{itemize}
+\item EXP-0002, core
+  \texttt{\seqsplit{7691b61dfef292d0da8af5eb022d62cc52383634}}, hash
+  \texttt{\seqsplit{89bda0d3ea8054542151fda07d00c1e2711536b7339952618aea692c1d74cc59}};
+\item EXP-0003, core
+  \texttt{\seqsplit{93e97d96c544d5feddad208997834f47763cf31f}}, hash
+  \texttt{\seqsplit{0a1d2ca2fef29126b60f3a9377454200e33fce20c0b49c081ea527622f8c536d}};
+\item EXP-0004, core
+  \texttt{\seqsplit{89cc44a6823ef223f36b37ad1cc268fe8fbd9697}}, hash
+  \texttt{\seqsplit{4c046ae8694070b59f5e328f94038fe32cb84b5ab716bb86a62e79636077e55f}};
+\item EXP-0005, core
+  \texttt{\seqsplit{7ca79de49c404b10c1b1b355ff10b8a8d7d59635}}, hash
+  \texttt{\seqsplit{98f2be052a315231292c73319fa98066cf4d8fc4cd66740f207b2d99c7f616f5}}.
+\end{itemize}
+
+The exact reproduction commands are:
+
+\begin{verbatim}
+python scripts/validate_foundation.py
+python scripts/check_publication.py
+python -m unittest discover -s tests -v
+python -m compileall -q python scripts tests
+cargo fmt --all --check
+cargo clippy --workspace --all-targets --all-features -- -D warnings
+cargo test --workspace --all-features
+$mosefAppData = Join-Path (Get-Location) 'tmp/dotnet-appdata'
+New-Item -ItemType Directory -Force $mosefAppData
+$env:APPDATA = $mosefAppData
+dotnet restore verification/csharp/MosefVerifier.csproj `
+  --configfile verification/csharp/NuGet.Config `
+  --packages .packages/nuget
+dotnet build verification/csharp/MosefVerifier.csproj `
+  --no-restore --configuration Release
+python scripts/check_baseline_differential.py
+python scripts/run_m2_separator_search.py `
+  --n-max 500 --base-max 20 --exponent-max 20
+python scripts/check_m2_separator_differential.py
+python scripts/run_m3_semismooth_search.py `
+  --n-max 500 --base-bound 5 --smooth-bound 8 `
+  --cofactor-bound 3 --collision-bound-max 20
+python scripts/check_m3_semismooth_differential.py
+python scripts/run_m4_difference_cover_search.py `
+  --order-bound 8 --candidate-max 12 `
+  --modulus-max 200 --construction-bound 200
+python scripts/check_m4_difference_cover_differential.py
+python scripts/run_m5_multigroup_search.py `
+  --modulus-max 700 --base-max 32 `
+  --parameter-max 32 --exponent-max 12
+python scripts/check_m5_multigroup_differential.py
+latexmk -xelatex -outdir=tmp/pdfs `
+  -interaction=nonstopmode -halt-on-error paper/main.tex
+\end{verbatim}
+
+The searches use no random seed. The randomized theorem is validated by exact
+successful-residue enumeration in EXP-0003 rather than by an unrecorded random
+run. Large raw datasets are not required; scripts, bounds, compact records,
+canonical vectors, commits, and hashes reconstruct the reported observations.
+The stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.
 
 \bibliographystyle{plain}
 \small

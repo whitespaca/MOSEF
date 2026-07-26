@@ -1,5 +1,29 @@
 # Research Status
 
+## M6 execution plan
+
+- Branch: `research/20260726-m6-publishable-manuscript`.
+- Evidence target: produce a self-contained first manuscript whose title,
+  abstract, contribution statement, theorem hypotheses, full proofs,
+  experimental results, limitations, and reproduction appendix agree with the
+  reviewed claims ledger.
+- Center of contribution: one restricted positive result (`THM-001`) and two
+  structural barriers (`BAR-001`, `BAR-002`), with `OPEN-002` and `OPEN-003`
+  remaining explicit.
+- Expected artifacts: a publication claim matrix, an executable manuscript
+  consistency checker, full proof appendices, a reproduction appendix, a
+  refreshed stable PDF, and an independent adversarial manuscript review.
+- Falsification test: search the manuscript for untracked claim IDs, status
+  mismatches, factor-dependent constructors presented as algorithms,
+  polynomial-in-\(N\) language, missing theorem hypotheses, experiment counts
+  without hashes, stale proof statuses, and conclusions broader than the
+  reviewed proofs.
+- Acceptance gate: every public theorem statement reconstructs from its proof,
+  every imported statement maps to an inspected source, every empirical
+  statement names its finite scope, the consistency checker and all existing
+  software gates pass, XeLaTeX has no unresolved warnings, and every final PDF
+  page passes visual inspection.
+
 ## Execution snapshot
 
 - Date: 2026-07-26.
@@ -60,7 +84,7 @@
 - Registered bounds: composite moduli through 700, unit bases through 32,
   Lucas parameters through 32, and exponents through 12; deterministic
   exhaustive enumeration with no seed.
-- Result: 9,773 conjugate families, 117,276 identities, 45,821 pointwise
+- Result: 9,773 conjugate families, 117,276 identities, 36,048 pointwise
   success implications, 69,192 square-free GCD equalities, and zero
   derived-Lucas-only family successes.
 - Multiplicative and combined success counts were both 9,037. Independently
