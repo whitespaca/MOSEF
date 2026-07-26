@@ -11,6 +11,13 @@ Authoritative artifact:
 Primary source inspected: the official AMS article scan. The scan records
 receipt on 1981-03-30 and revision on 1981-09-28.
 
+- Retrieval date: 2026-07-26.
+- Result classification: primary-source audit of an imported theorem used by
+  the project; no novelty claim.
+- Inspected range: complete article, pages 225--234, with the definitions and
+  imported Lehmer congruence on pages 226--227, the stage-one method on pages
+  227--229, and the numerical/implementation discussion on pages 230--233.
+
 ## Inspected definitions and theorem
 
 Williams defines
@@ -27,7 +34,8 @@ where \(\alpha,\beta\) solve \(x^2-Px+Q=0\), with discriminant
 U_{n+1}=PU_n-QU_{n-1},\qquad V_{n+1}=PV_n-QV_{n-1}.
 \]
 
-The Lehmer result imported on page 227 assumes an odd prime \(p\),
+The congruence stated and used by Williams on page 227, explicitly attributed
+there to Lehmer [5], assumes an odd prime \(p\),
 \(p\nmid Q\), and Legendre symbol \((\Delta/p)=\varepsilon\). For positive
 \(m\),
 
@@ -43,6 +51,8 @@ V_{(p-\varepsilon)m}(P,Q)
 \]
 
 The case \(\Delta\equiv0\pmod p\) is outside this statement.
+Lehmer's original source was not inspected, so this repository attributes the
+statement only as Williams's use and reproduction of the Lehmer result.
 
 For \(Q=1\), both nondegenerate branches yield a \(V\)-value congruent to
 \(2\), but their group orders differ:
@@ -85,6 +95,9 @@ is not attributed to Williams.
 ## Exact limitations
 
 - The imported theorem excludes the zero-discriminant prime component.
+- The exact root count in LEM-003 and the \(1/12\) promise-class splitter
+  bound in THM-002 are self-contained project derivations, not statements
+  attributed to Williams. No novelty claim is made for the root count.
 - Williams's parameter rejection rule is an algorithmic choice, not proof
   that the later sequence GCD contains no factor. For example,
   \(N=15,P=8,d=1\) has discriminant GCD \(15\) but sequence GCD \(3\).

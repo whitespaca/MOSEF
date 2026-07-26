@@ -1,7 +1,7 @@
 # THM-002 - Random nonsplit Lucas parameters on a hereditary promise class
 
-Status: proof candidate awaiting bounded falsification and independent
-adversarial review.
+Status: `PROVED` after bounded falsification and independent adversarial and
+source-scope review.
 
 ## Computation model and schedule
 
@@ -55,12 +55,24 @@ Among these roots, exactly
 are discriminant-degenerate parameters \(P=\pm2\). Also,
 
 \[
-\#\{P\in\mathbb F_q:(P^2-4/q)=-1\}=\frac{q-1}{2}, \tag{3}
+\#\left\{P\in\mathbb F_q:
+\left(\frac{P^2-4}{q}\right)=-1\right\}=\frac{q-1}{2}, \tag{3}
 \]
 
 where the notation in (3) is the Legendre symbol.
 
 ### Proof
+
+We first discharge the finite-field structure used below. Every finite
+multiplicative subgroup \(H\) of a field is cyclic. Indeed, if \(e\) is its
+exponent, then every element of \(H\) is a root of \(X^e-1\), so
+\(|H|\le e\); finite abelian group structure supplies an element whose order
+is \(e\) by combining elements of maximal prime-power order, while
+\(e\le|H|\). Thus \(e=|H|\) and that element generates \(H\).
+Consequently \(\mathbb F_q^\times\) and
+\(\mathbb F_{q^2}^\times\) are cyclic of orders \(q-1\) and \(q^2-1\).
+The norm map \(x\mapsto x^{q+1}\) sends a generator of the latter group to
+an element of order \(q-1\), so its kernel is cyclic of order \(q+1\).
 
 Let \(\alpha\) be a root of
 
@@ -106,7 +118,8 @@ The invertible change \(u=P-y\), \(v=P+y\) identifies these pairs with
 \(uv=4\), of which there are \(q-1\). Therefore
 
 \[
-\sum_{P\in\mathbb F_q}\left(1+(P^2-4/q)\right)=q-1,
+\sum_{P\in\mathbb F_q}
+\left(1+\left(\frac{P^2-4}{q}\right)\right)=q-1,
 \]
 
 so the character sum is \(-1\). There are two zero-discriminant parameters.
@@ -139,6 +152,11 @@ An input is in the hereditary promise class when every odd divisor of the
 input that is composite and not a perfect power has such a witness at its
 local bit length. Membership is promised and may depend on the unknown
 factorization; the algorithm does not recognize it.
+
+The class is nonempty. For the constant schedule \(B(k)=2,\ R(k)=2\), the
+input \(K=15\) has the witness \(p=3,\ q=5,\ t=2\), because
+\(d=2\operatorname{lcm}(1,2)=4\), so \(p+1=4\mid d\) and
+\(q+1=6\nmid d\).
 
 ## THM-002 statement
 
@@ -207,6 +225,7 @@ The probability of this event is therefore
 
 \[
 \frac{p-1}{2p}\cdot\frac{q-C_q(d)}q
+\ge\frac13\cdot\frac{q-C_q(d)}q
 >\frac13\cdot\frac14=\frac1{12}.                    \tag{8}
 \]
 
@@ -270,3 +289,11 @@ The bounded falsification checks are:
    boundaries;
 6. differentially verify selected counts and candidate branches in Python,
    Rust, and C#.
+
+The registered search completed all six checks over odd primes through 43
+and exponents through 80, with 714 ordered witnesses and 75,934 proved-event
+splits. Its canonical summary SHA-256 is
+`23ed0067d2ccb642c3676ff4ea3f5c34e1e622f6372626aa84377eac74b7d905`.
+Independent review additionally checked 2,481,900 root parameters through
+odd primes below 300 and exponents through 300, plus 1,080 repeated-factor
+and multiprime event splits, without finding a counterexample.

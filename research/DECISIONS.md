@@ -185,3 +185,26 @@
 - Rollback condition: replace the checker or matrix only with a stricter
   mechanism that preserves claim, proof, experiment-hash, and commit
   traceability.
+
+## ADR-010 - Sample independent Lucas parameters on an explicit promise
+
+- Date: 2026-07-26
+- Status: accepted
+- Context: BAR-002 shows that the conjugate map \(P=a+a^{-1}\) cannot create
+  an independent nonsplit channel. M7 asks whether a factorization-independent
+  fresh uniform \(P\bmod K\) admits an exact success analysis without treating
+  finite observations as independence evidence.
+- Alternatives: abandon Lucas parameters after the conjugate barrier; assume
+  independent channel failure heuristically; count exact prime-field roots and
+  state the remaining factor-dependent structure as a hereditary promise.
+- Decision: use fresh exact uniform parameters, retain both the discriminant
+  and sequence GCD branches, prove the exact Lucas root count, and turn
+  \(p+1\mid d,\ q+1\nmid d\) into the restricted THM-002 Las Vegas theorem.
+- Consequences: one witness trial succeeds with probability at least \(1/12\),
+  and complete factorization has expected polynomial bit complexity on the
+  hereditary promise class. Membership is not recognized, no density theorem
+  is supplied, and neither the root-count formula nor the theorem is claimed
+  as a literature novelty.
+- Rollback condition: revise the theorem if a counterexample breaks the root
+  count, exact exceptional-branch analysis, CRT event, recursive promise, or
+  polynomial representation/evaluation bound.
