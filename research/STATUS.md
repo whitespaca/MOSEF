@@ -39,6 +39,8 @@
   proof, results, and reproduction pages were rendered and visually
   inspected. The stable PDF SHA-256 is
   `6ccdff994d04783b3a05170c28a1b6ccab9f1dca8c46dd8bbb64498655479f28`.
+- Local milestone implementation/proof/paper commit:
+  `e80115bd27200c0ec0f37a388cd4e9a4bbac9769`.
 - The result excludes implicit exponential batches, fixed-modulus
   equal-residue shortcuts, factor-dependent adaptation, special
   endomorphisms, unrelated multi-base expressions, other groups/channels,
