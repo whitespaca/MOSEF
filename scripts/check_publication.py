@@ -40,6 +40,8 @@ REQUIRED_SECTIONS = (
     "A leaf-materialized implicit-batch barrier",
     "A non-materializing explicit-atom product-DAG barrier",
     "A dyadic exact-division and composition barrier",
+    "An arbitrary-exponent geometric-sum barrier",
+    "A nested geometric-quotient barrier",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -66,6 +68,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-011}",
     r"\label{proof:BAR-012}",
     r"\label{proof:BAR-013}",
+    r"\label{proof:BAR-014}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -85,6 +88,7 @@ EXPERIMENT_RECORDS = (
     ROOT / "research" / "experiments" / "EXP-0015-m16-product-dag.md",
     ROOT / "research" / "experiments" / "EXP-0016-m17-dyadic-telescope.md",
     ROOT / "research" / "experiments" / "EXP-0017-m18-geometric-sum.md",
+    ROOT / "research" / "experiments" / "EXP-0018-m19-nested-quotient.md",
 )
 
 

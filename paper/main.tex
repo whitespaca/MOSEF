@@ -15,7 +15,7 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
-Two Restricted Theorems and Thirteen Structural Barriers}
+Two Restricted Theorems and Fourteen Structural Barriers}
 \author{MOSEF Research Program}
 \date{27 July 2026}
 
@@ -34,7 +34,7 @@ each complete schedule cycle at a promised residual node. We also prove an
 exact Lucas root-count formula and use fresh uniform, independently
 parameterized Lucas values to obtain a second Las Vegas theorem on a
 hereditary \(p+1\)-asymmetry promise, with at least \(1/12\) split probability
-at a witness trial. We prove thirteen structural barriers. Divisor
+at a witness trial. We prove fourteen structural barriers. Divisor
 coverage does not imply multiplicative-order separation; the exact missing
 condition is injectivity of divisibility signatures. A natural Lucas
 parameter map \(P=a+a^{-1}\) is also not an independent group channel:
@@ -88,6 +88,13 @@ quotient GCD reduces exactly to the endpoint GCD for a unit denominator, is
 accompanied by an already proper denominator GCD in the proper branch, and
 equals the public \(\gcd(M,N)\) in the full branch. Neither geometric result
 is a lower bound for general rational, compositional, or arithmetic circuits.
+For the cancellation-obscured identity
+\(S_{AB}(X)=S_A(X)S_B(X^A)\), we then give both the intermediate rational
+denominator and the composed denominator total semantics. A unit intermediate
+denominator makes numerator and quotient GCDs identical, a proper one already
+factors \(N\), and a full one reduces the quotient to the public
+\(\gcd(B,N)\). This closes one two-stage identity, not arbitrary rational
+programs.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -157,25 +164,31 @@ algorithm. Its contributions are:
   GCD;
 \item an arbitrary geometric-sum barrier: binary composition evaluates one
   \(M\)-monomial sum in \(O(\log M)\) operations, but every quotient success
-  reduces to an endpoint, proper-denominator, or public-exponent GCD path; and
+  reduces to an endpoint, proper-denominator, or public-exponent GCD path;
+\item a nested geometric-quotient barrier: the exact certificate
+  \(S_{AB}(X)=S_A(X)S_B(X^A)\) reduces every quotient success to its rational
+  numerator, an already proper intermediate denominator, or the public
+  multiplier GCD, while separately retaining the composed-denominator path;
+  and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
 
 The positive theorems are restricted: membership in their promise classes can
 depend on the unknown factorization and is not recognized by the algorithms.
-The thirteen barriers are also scoped: one concerns explicit order signatures,
+The fourteen barriers are also scoped: one concerns explicit order signatures,
 one concerns only \(P=a+a^{-1}\), and two concern a common explicit finite
 schedule under separate magnitude or encoding hypotheses. One concerns only
 formal exponents in a factor-oblivious multiplication-only DAG, and another
 exposes a coefficient threshold for stipulated populations but is silent at
 and above the critical coefficient before factor scale is imposed. Two
 factor-scale barriers retain the stated explicit-schedule hypotheses. The
-remaining four concern, respectively, charged same-base
+remaining six concern, respectively, charged same-base
 addition-subtraction programs, selector-described standard product trees
 that materialize every leaf, product-only DAGs over explicitly charged atoms,
 one dyadic exact-division/composition identity, and one arbitrary-exponent
-geometric sum. General rational, cancellation-obscured multi-denominator,
+geometric sum, and one two-stage nested geometric quotient. General rational,
+iterated multi-denominator,
 compositional, and arithmetic circuits remain outside. These boundaries are
 part of the results.
 
@@ -189,8 +202,8 @@ exact boundary coefficient. Sections 13 and 14 give the primorial-specific
 and general factor-scale barriers. Section 15 treats charged same-base
 addition-subtraction programs, and Section 16 treats leaf-materialized
 standard product trees. Section 17 treats the explicit-atom product DAG.
-Section 18 treats the dyadic telescope, and Section 19 treats the arbitrary
-geometric sum. Later sections separate algorithms,
+Section 18 treats the dyadic telescope, Section 19 treats the arbitrary
+geometric sum, and Section 20 treats the nested quotient. Later sections separate algorithms,
 experiments, and observations. Complete proofs and reproduction details appear in the
 appendices.
 
@@ -1286,6 +1299,64 @@ geometric-sum value. Cancellation-obscured multi-denominator programs,
 arbitrary rational or compositional circuits, adaptive factor-dependent
 computation, other groups, and general arithmetic circuits remain outside.
 
+\section{A nested geometric-quotient barrier}
+
+The smallest cancellation-obscured extension considered here uses public
+positive integers \(A,B\) and the exact certificate
+\[
+S_{AB}(X)=S_A(X)S_B(X^A).
+\]
+
+\claimstatus{DEF-019}{DEFINITION}. After the direct base-GCD precheck, retain
+\[
+L=S_A(g),\quad h=g^A,\quad Q=S_B(h),\quad U=S_{AB}(g)
+\]
+and
+\[
+C=h-1,\qquad E=h^B-1\pmod N.
+\]
+Three charged DEF-018 binary evaluators compute \((h,L)\), \((h^B,Q)\), and
+\((g^{AB},U)\). The rational path attempts \(U/L\), while the composed path
+attempts \(E/C\). Each denominator is classified independently as a unit,
+proper factor, or full collision, and \(Q\) remains defined in every branch.
+The encoded base, reduction and precheck, encoded \(A,B\), computation of
+\(AB\), circuits, requested outputs, division attempts, GCDs, and extraction
+are charged.
+
+\claimstatus{BAR-014}{PROVED}. Evaluation of the certificate and the ordinary
+geometric identity at \(h\) gives
+\[
+U\equiv LQ\pmod N,\qquad E\equiv CQ\pmod N.
+\]
+If \(L\) is a unit, rational division returns \(Q\) and
+\(\gcd(U,N)=\gcd(Q,N)\). A proper \(\gcd(L,N)\) is already a factor, although
+the quotient may return a different divisor. If \(\gcd(L,N)=N\), then
+\((g-1)L=g^A-1\equiv0\pmod N\), so
+\[
+h\equiv1\pmod N,\qquad Q\equiv B\pmod N,\qquad
+\gcd(Q,N)=\gcd(B,N).
+\]
+Independently, \(C=h-1\) has the BAR-013 unit, proper, or full trichotomy.
+
+For \(\alpha=\operatorname{bitlength}(A)\) and
+\(\beta=\operatorname{bitlength}(B)\), the three evaluators use
+\(O(\alpha+\beta)\) modular operations. The compact certificate uses
+\(O(\alpha+\beta)\) bits. Its quotient has degree \(A(B-1)\), \(B\) nonzero
+monomials, and \(A(B-1)+1\) dense coefficient positions. A sparse expanded
+list has \(B\) exponent-coefficient pairs and costs
+\(O(B(\alpha+\beta))\) bits.
+
+\claimstatus{REF-015}{REFUTED}. Cancellation in this two-stage quotient does
+not create a proper success unaccounted for by the rational numerator, a
+proper intermediate denominator, or the public multiplier GCD. Exact divisor
+equality is not claimed: \(N=15,g=2,A=B=2\) gives intermediate and quotient
+GCDs \(3\) and \(5\), while the numerator GCD is full.
+
+Appendix \ref{proof:BAR-014} gives the proof. Iterated quotient chains,
+arbitrary rational programs, unrelated denominators, adaptive
+factor-dependent computation, other groups, and general arithmetic circuits
+remain outside.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -1336,6 +1407,12 @@ Endpoint, denominator, and public-exponent extraction trichotomy &
 At most \(3(\ell-1)\) multiplications and \(2(\ell-1)\) additions for an
 \(\ell\)-bit exponent; expanded output has \(M\) coefficients, and
 multi-denominator circuits remain outside \\
+\addlinespace
+Nested geometric-quotient circuit &
+Two total denominator paths and a compact cancellation certificate &
+Three binary evaluators use \(O(\alpha+\beta)\) modular operations; the
+quotient has \(B\) sparse monomials or \(A(B-1)+1\) dense positions, and
+iterated rational chains remain outside \\
 \addlinespace
 Semismooth randomized splitter &
 Complete Las Vegas factorization on the hereditary promise class &
@@ -1466,6 +1543,10 @@ zero unexplained proper successes; 12 differential checks \\
 \addlinespace
 EXP-0017 & Exponents through 64; moduli/bases through \(256/32\) &
 2,080 coefficient checks; 320,896 circuits; 1,323,696 binary steps;
+zero unexplained reductions; 12 differential checks \\
+\addlinespace
+EXP-0018 & \(A,B\le12\); moduli/bases through \(128/16\) &
+6,084 coefficient checks; 177,264 circuits; 354,528 residue identities;
 zero unexplained reductions; 12 differential checks \\
 \bottomrule
 \end{tabular}
@@ -1598,6 +1679,17 @@ agreed. These finite observations do not prove the asymptotic theorem or
 support a general rational/compositional-circuit, population, density,
 recognition, novelty, factoring, or lower-bound claim.
 
+\claimstatus{EMP-018}{EMPIRICAL}. EXP-0018 completed 144 exact symbolic
+identities, 6,084 coefficient checks, 177,264 modular circuits, and 354,528
+residue identities. All 120,444 unit, 46,932 proper, and 9,888 full rational
+denominator reductions held; all 74,028 unit, 66,936 proper, and 36,300 full
+composed-denominator reductions also held. The quotient and intermediate
+proper factors differed in 12,988 cases without contradicting the
+success-existence theorem. All 12 selected Python/Rust/C\# comparisons
+agreed. These finite observations do not prove the asymptotic theorem or
+support an iterated or general rational-circuit, population, density,
+recognition, novelty, factoring, or lower-bound claim.
+
 These observations audit implementations and minimize counterexamples. The
 universal statements in this paper are supplied by proofs, not extrapolation
 from the table.
@@ -1695,9 +1787,15 @@ polynomial compact cost in the charged base, modulus, and exponent lengths,
 but its quotient success reduces to the endpoint in the unit branch, an
 already proper denominator in the proper branch, or the public exponent GCD
 in the full branch. The middle branch does not preserve the exact divisor
-value. Arbitrary exact divisions, cancellation-obscured multi-denominator
-rational programs, general composition, adaptive factor dependence, and
-general arithmetic-circuit lower bounds remain open.
+value.
+
+BAR-014 closes the exact two-stage identity
+\(S_{AB}(X)=S_A(X)S_B(X^A)\). Both the intermediate rational denominator and
+the composed denominator have total semantics, and the proof charges compact,
+dense, and sparse outputs separately. It does not cover iterated quotient
+chains, unrelated cancellation certificates, arbitrary rational programs,
+adaptive factor dependence, other groups, or general arithmetic-circuit lower
+bounds.
 
 The authoritative Rust layer is bounded to \texttt{u64}; validation primality
 uses trial division and is not itself the polynomial-time procedure imported
@@ -1709,12 +1807,12 @@ in OPEN-002 and OPEN-003, recognition of the combined hereditary promise
 without access to the factorization, whether a non-primorial boundary family
 outside BAR-008's explicit-list model has a proved factor-scale
 \(d\pm1\) yield guarantee, and whether a precisely defined specialized
-arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
-evaluate a sufficiently rich formal batch at polynomial total construction,
-evaluation, and extraction cost. The next bounded case is the
-cancellation-obscured two-stage quotient
-\(S_{AB}(X)/S_A(X)=S_B(X^A)\), including nonunit intermediate denominators
-and a division-free composed path.
+  arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
+  evaluate a sufficiently rich formal batch at polynomial total construction,
+  evaluation, and extraction cost. The next bounded case is an iterated
+  geometric-quotient chain with a public factorization of its exponent,
+  explicit total semantics for every prefix denominator, and charged compact,
+  sparse, and dense outputs.
 
 \section{Conclusion}
 
@@ -1760,6 +1858,10 @@ Allowing an arbitrary public exponent makes that single value computable in
 only \(O(\log M)\) modular operations, but BAR-013 still reduces every
 quotient success to the endpoint, an already successful denominator, or the
 public \(\gcd(M,N)\).
+The two-stage cancellation in BAR-014 also adds no hidden path: a unit
+intermediate denominator preserves the numerator GCD, a proper one already
+factors \(N\), and a full one reduces the quotient to the public
+\(\gcd(B,N)\), while the composed denominator independently follows BAR-013.
 
 These results do not resolve general classical factoring. They replace
 plausible shortcuts with exact obligations: recognizable or explicitly
@@ -1778,9 +1880,11 @@ does not synthesize a distinct exponent test or a proper factor absent from
 the explicit atoms. BAR-012 then adds one exact division and dyadic
 composition pattern while retaining only \(t+1\) explicit success
 components. BAR-013 removes the dyadic restriction for one geometric sum but
-retains the endpoint/denominator/public-exponent trichotomy. General
-rational/compositional circuits and other models remain research targets,
-not claimed factoring breakthroughs.
+retains the endpoint/denominator/public-exponent trichotomy. BAR-014 adds one
+certified two-stage cancellation but reduces it to the rational numerator,
+intermediate denominator, public multiplier, and composed-denominator paths.
+Iterated and general rational/compositional circuits and other models remain
+research targets, not claimed factoring breakthroughs.
 
 \appendix
 
@@ -2881,6 +2985,56 @@ circuit costs \(O(\ell\poly(k))\), and all charged work is polynomial in
 the all-one expanded coefficient list has \(M\) entries. Those entries form
 one quotient value, not \(M\) independently extracted tests. \(\square\)
 
+\section{Full proof of the nested geometric-quotient barrier}
+
+\subsection{Proof of BAR-014}\label{proof:BAR-014}
+
+Partition the \(AB\) exponents uniquely as \(i=Ar+j\), where
+\(0\le r<B\) and \(0\le j<A\). Then
+\[
+\begin{aligned}
+S_{AB}(X)
+ &=\sum_{r=0}^{B-1}\sum_{j=0}^{A-1}X^{Ar+j}\\
+ &=\left(\sum_{j=0}^{A-1}X^j\right)
+   \left(\sum_{r=0}^{B-1}(X^A)^r\right)
+ =S_A(X)S_B(X^A).
+\end{aligned}
+\]
+Evaluation gives \(U\equiv LQ\pmod N\). Applying the geometric identity at
+the base \(h=g^A\) also gives \(E\equiv CQ\pmod N\).
+
+If \(L\) is a unit, multiplication by \(L\) preserves the GCD with \(N\), so
+rational division returns \(Q\) and
+\(\gcd(U,N)=\gcd(Q,N)\). If \(L\) has a proper GCD, that value is already a
+factor. Equality of returned divisors is false: at
+\(N=15,g=2,A=B=2\), the intermediate and quotient GCDs are \(3\) and \(5\),
+while the rational numerator GCD is full.
+
+If \(L\equiv0\pmod N\), then
+\[
+h-1=(g-1)S_A(g)\equiv0\pmod N.
+\]
+Therefore \(h\equiv1\pmod N\), so \(Q=S_B(h)\equiv B\pmod N\) and
+\(\gcd(Q,N)=\gcd(B,N)\). This proves the rational-denominator trichotomy.
+Applying BAR-013 at base \(h\) proves the independent composed-denominator
+trichotomy for \(C=h-1\).
+
+Let \(\alpha=\operatorname{bitlength}(A)\) and
+\(\beta=\operatorname{bitlength}(B)\). The three binary evaluators use
+\(O(\alpha)\), \(O(\beta)\), and
+\(O(\operatorname{bitlength}(AB))=O(\alpha+\beta)\) modular operations.
+Computing \(AB\), reducing the base, performing GCDs and inversions, and
+extracting a factor are polynomial in the charged input lengths.
+
+The certificate is described by \((A,B)\). Its quotient monomials have
+exponents \(0,A,\ldots,A(B-1)\), so the quotient has degree \(A(B-1)\) and
+\(B\) nonzero monomials. Its dense vector has \(A(B-1)+1\) positions. Its
+sparse list has \(B\) exponent-coefficient pairs whose exponent fields use
+\(O(\alpha+\beta)\) bits, for
+\(O(B(\alpha+\beta))\) output bits. The dense \(S_A\) and \(S_{AB}\) outputs
+have \(A\) and \(AB\) entries. These charges complete the construction,
+evaluation, extraction, and output accounting. \(\square\)
+
 \section{Reproduction appendix}
 
 The evidence implementation state preceding M6 is commit
@@ -2952,6 +3106,9 @@ The registered experiment cores and canonical summary hashes are:
 \item EXP-0017, M18 milestone commit recorded in \path{research/STATUS.md},
   hash
   \texttt{\seqsplit{0f182c819374451a3fd8d9ddb7ffc75580ac363186e19bd804eb28fe1371d2bd}}.
+\item EXP-0018, M19 milestone commit recorded in \path{research/STATUS.md},
+  hash
+  \texttt{\seqsplit{a6d1bd1344b439901f3d40b9dc226fbcedcaba6886d07363461b0814db6aa2aa}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -3029,6 +3186,9 @@ python scripts/check_m17_dyadic_telescope_differential.py
 python scripts/run_m18_geometric_sum_search.py `
   --exponent-max 64 --modulus-max 256 --base-max 32
 python scripts/check_m18_geometric_sum_differential.py
+python scripts/run_m19_nested_quotient_search.py `
+  --exponent-max 12 --modulus-max 128 --base-max 16
+python scripts/check_m19_nested_quotient_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -3036,7 +3196,7 @@ latexmk -xelatex -outdir=tmp/pdfs `
 The searches use no random seed. The randomized theorems are validated by
 exact successful-residue enumeration in EXP-0003 and exact parameter
 enumeration in EXP-0006 rather than by unrecorded random runs. EXP-0007
-through EXP-0017 are deterministic combinatorial or syntax
+through EXP-0018 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. The

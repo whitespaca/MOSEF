@@ -437,3 +437,26 @@
   cancellation-obscured multi-denominator programs or general rational,
   compositional, or arithmetic circuits. In the proper-denominator branch it
   preserves success existence, not the exact divisor value.
+
+## ADR-022 - Audit a nested quotient through two independent total denominators
+
+- Date: 2026-07-27.
+- Decision: model M19 with the exact certificate
+  \(S_{AB}(X)=S_A(X)S_B(X^A)\), retain \(Q=S_B(g^A)\) independently of
+  division, and classify both the intermediate rational denominator
+  \(L=S_A(g)\) and the composed denominator \(C=g^A-1\) as unit, proper, or
+  full.
+- Rationale: cancellation by \(S_A(g)\) is the smallest concrete extension
+  not covered by BAR-013. Keeping the direct \(S_{AB}\), rational quotient,
+  and composed endpoint paths separate prevents a failed inversion from
+  being discarded and makes every extraction comparison explicit.
+- Output accounting: the compact certificate uses the encoded pair
+  \((A,B)\). The quotient has degree \(A(B-1)\), \(B\) nonzero monomials, and
+  \(A(B-1)+1\) dense positions. Dense and sparse expanded outputs are charged
+  by these exact sizes.
+- Consequence: BAR-014 closes this two-stage identity only. It does not prove
+  a lower bound for arbitrary rational straight-line programs, iterated
+  quotient chains, unrelated denominators, adaptive computation, other
+  groups, or general arithmetic circuits. M20 may study an explicitly
+  charged iterated chain only after defining all intermediate exits and
+  certificate/output costs.

@@ -2,8 +2,7 @@
 
 ## Status
 
-`EMPIRICAL`, deterministic and reproducible. This is an active-milestone
-checkpoint rather than a completed publication record.
+`EMPIRICAL`, deterministic and reproducible.
 
 ## Question and null outcome
 
@@ -44,7 +43,7 @@ and every base from 0 through 16, with the rational denominator
   geometric-sum unit, proper-factor, and full-collision trichotomy.
 - Six selected vectors are checked in Python, Rust, and C#.
 
-## Checkpoint result
+## Result
 
 The registered audit completed with no counterexample:
 

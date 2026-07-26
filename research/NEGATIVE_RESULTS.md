@@ -373,3 +373,31 @@
   remain open.
 - Revisit with a precise richer identity whose total intermediate-division
   semantics and extraction outputs do not reduce to these three GCD paths.
+
+## NR-016 - A two-stage geometric cancellation does not hide a new quotient path
+
+- Date: 2026-07-27.
+- Status: `REFUTED` claim `REF-015`.
+- Hypothesis tested: cancellation in
+  \(S_{AB}(g)/S_A(g)=S_B(g^A)\) can create a proper quotient success not
+  accounted for by the rational numerator, a proper intermediate
+  denominator, or the public multiplier GCD.
+- Counterargument: the exact certificate
+  \(S_{AB}(X)=S_A(X)S_B(X^A)\) gives \(U=LQ\). If \(L\) is a unit, numerator
+  and quotient GCDs are identical. If \(L\) has a proper GCD, it already
+  factors \(N\). If \(L\) is full, then
+  \((g-1)L=g^A-1\equiv0\pmod N\), so \(g^A\equiv1\pmod N\),
+  \(Q\equiv B\pmod N\), and the quotient GCD is the public \(\gcd(B,N)\).
+  Independently, the composed denominator \(g^A-1\) follows BAR-013.
+- Different factor values remain possible in the proper branch:
+  \(N=15,g=2,A=B=2\) gives intermediate and quotient GCDs \(3\) and \(5\),
+  while the rational numerator GCD is full.
+- Evidence: BAR-014 and deterministic EXP-0018; 144 symbolic identities,
+  177,264 modular circuits, 354,528 residue identities, zero unexplained
+  reductions, and 12 selected Python/Rust/C# comparisons.
+- Scope: the exact DEF-019 two-stage geometric identity only. Iterated
+  quotient chains, arbitrary rational programs, unrelated denominators,
+  adaptive factor-dependent computation, other groups, and general factoring
+  remain open.
+- Revisit with an explicitly charged iterated identity whose intermediate
+  denominator exits and compact versus expanded outputs are fully specified.
