@@ -89,3 +89,24 @@
   \(G_m(N)\times\Delta_m(N)\) with canonical residue bases.
 - Rollback condition: change this split only if a later definition preserves
   exact prime-power semantics and passes the same claim and proof review.
+
+## ADR-006 - Randomize bases for the M3 restricted theorem
+
+- Date: 2026-07-26
+- Status: accepted
+- Context: a deterministic M3 draft required its factor-aware promise to name a
+  small base whose order already separates two unknown prime divisors. That
+  condition was correct but scientifically close to restating LEM-001.
+- Alternatives: retain the small-base order promise; assume only
+  \(p-1\mid d\) and \(q-1\nmid d\) for a fixed base; sample a uniform residue
+  for every bounded exponent.
+- Decision: define a base-free hereditary divisibility-asymmetry promise and
+  use fresh exact uniform residues. Preserve the fixed-base version only as a
+  diagnostic and record its \(N=51\) proper-subgroup collision as NR-002.
+- Consequences: THM-001 is a Las Vegas expected-polynomial restricted theorem.
+  Its one-witness success probability is at least \(5/12\), membership remains
+  promised rather than recognized, and no outside-promise termination claim is
+  made. Exact rejection sampling and schedule-evaluation cost are charged.
+- Rollback condition: replace the randomized step only if a deterministic,
+  factorization-independent base construction survives the same subgroup and
+  bit-complexity review.

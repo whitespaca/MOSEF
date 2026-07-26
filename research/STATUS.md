@@ -2,106 +2,101 @@
 
 ## Execution snapshot
 
-- Date: 2026-07-25
-- Branch: `research/20260725-m2-formal-spec`
-- Starting commit: `fdd9489cd5655782d6990a5c9593d047976493c4`
-- M2 core commit: `7691b61dfef292d0da8af5eb022d62cc52383634`
-- M2 manuscript and evidence commit:
-  `e296443b0605e785c87e6b5e6bf1f9bee100aaf6`
-- Completed milestone: M2 - formal multiplicative-channel specification
-- Active milestone: M3 - restricted semismooth-order theorem search
-- Working-tree policy: the run started clean; existing repository and user files
-  were preserved, and generated build/PDF artifacts remain ignored.
+- Date: 2026-07-26
+- Branch: `research/20260725-m3-semismooth-class`
+- Starting commit: `a1861b4f19ca645e9f6b6553396976105764f7d3`
+- M3 core commit: `93e97d96c544d5feddad208997834f47763cf31f`
+- Completed milestone: M3 - hereditary semismooth-order restricted theorem
+- Active milestone: M4 - divisor-cover separation analysis
+- Working-tree policy: the run started from the validated M2 head; no
+  pre-existing user changes were overwritten, and generated build/PDF
+  intermediates remain ignored.
 
-## M2 result
+## M3 result
 
-M2 now gives exact square-free and repeated-prime semantics for one
-multiplicative order candidate:
+M3 proves one restricted theorem and records one deterministic obstruction:
 
-- `LEM-001` proves that a nonempty proper order support yields a nontrivial GCD.
-- `LEM-002` gives the exact capped-valuation formula for every \(N\), including
-  prime powers and mixed repeated-prime inputs.
-- Candidate pseudocode covers direct factors, invalid bases, misses,
-  nontrivial factors, and simultaneous collisions.
-- Complete-factorization pseudocode covers primality, exact perfect powers,
-  validated recursive splits, constructor failure, unresolved leaves, and
-  multiplicities.
-- The complexity ledger charges construction, Cartesian-product size, canonical
-  base representation, exponent bit length, modular evaluation, GCD, and fewer
-  than \(2m\) recursive factor-tree nodes.
-
-The independent adversarial review found no counterexample or missing
-hypothesis in either lemma. It did identify a definitional obstruction:
-support-only POSF coverage cannot include prime powers because their
-distinct-prime support is a singleton. `OPEN-001` is therefore `REFUTED`.
-`OPEN-002` repairs the support target by preprocessing perfect powers, while
-`OPEN-003` asks for an all-input valuation-separating family. Both repaired
-constructor questions remain open.
+- `DEF-004` defines a base-free hereditary semismooth asymmetry promise:
+  every composite non-perfect-power divisor has distinct primes \(p,q\) and a
+  polynomially bounded multiplier \(t\) with
+  \(p-1\mid t\operatorname{lcm}(1,\ldots,B)\) but
+  \(q-1\nmid t\operatorname{lcm}(1,\ldots,B)\).
+- `THM-001` is `PROVED`: fresh uniform residues give a Las Vegas complete
+  factorization algorithm on this promise class, with success probability at
+  least \(5/12\) per witness trial, at most \(12/5\) cycles in expectation,
+  almost-sure termination, and expected polynomial bit complexity.
+- The promise is factor dependent but noncircular. The algorithm never uses
+  the witness primes, and no polynomial-time membership recognizer or
+  outside-promise termination guarantee is claimed.
+- `REF-001`/NR-002 refutes a fixed-base shortcut. For
+  \(N=51\), \(a=2\), and \(d=840\), the prime-divisor asymmetry holds but
+  \(\operatorname{ord}_{17}(2)=8\mid840\), so the GCD is all of \(N\).
+- Independent adversarial review approved promotion after schedule-cost,
+  perfect-power-node, fresh-sample, and all-witness-enumeration repairs.
 
 ## Reproducible evidence
 
-- Proof and algorithm specification:
-  `research/proofs/M2-formal-specification.md`.
-- Negative result: `research/NEGATIVE_RESULTS.md` NR-001.
-- Registered experiment: `research/experiments/EXP-0002-m2-separator-search.md`.
-- Python oracle: `python/mosef_reference/separator.py`.
-- Rust and C# selected-outcome verifiers:
-  `crates/mosef-arithmetic` and `verification/csharp`.
-- Selected vectors: `schemas/m2-separator-vectors-v1.json`.
-- Deterministic search bounds: composite \(4\le N\le500\), unit bases
-  \(2\le g\le20\), and \(1\le d\le20\); no seed.
-- Search result: 78,860 candidates, 46,140 square-free candidates, and 5,672
-  nonsquarefree support-only false negatives.
-- Smallest witnesses: \((4,3,1)\) overall and \((9,2,2)\) for odd \(N\).
+- Proof: `research/proofs/THM-001-semismooth-promise.md`.
+- Experiment: `research/experiments/EXP-0003-m3-semismooth-search.md`.
+- Negative result: `research/NEGATIVE_RESULTS.md` NR-002.
+- Python semantics and oracle: `python/mosef_reference/semismooth.py`.
+- Rust/C# selected verifiers: `crates/mosef-arithmetic` and
+  `verification/csharp`.
+- Registered bounds: \(4\le N\le500\), \(B=8\), \(R=3\); deterministic
+  exhaustive enumeration with no seed.
+- Result: 155 hereditary promised inputs all factored; all 557 ordered witness
+  tuples met the \(5/12\) exact success bound.
+- Minimum observed probability: \(268/493\), at \(N=493\) and \(d=840\).
 - Canonical summary SHA-256:
-  `89bda0d3ea8054542151fda07d00c1e2711536b7339952618aea692c1d74cc59`.
+  `0a1d2ca2fef29126b60f3a9377454200e33fce20c0b49c081ea527622f8c536d`.
 
 ## Validation
 
 - `python scripts/validate_foundation.py`: PASS.
-- `python -m unittest discover -s tests -v`: PASS (28 tests).
+- `python -m unittest discover -s tests -v`: PASS (37 tests).
 - `python -m compileall -q python scripts tests`: PASS.
 - `python -m pytest`, Ruff, and mypy: unavailable under BLK-003; no dependency
   was added merely to hide the environment limitation.
 - `cargo fmt --all --check`: PASS.
 - `cargo clippy --workspace --all-targets --all-features -- -D warnings`: PASS.
-- `cargo test --workspace --all-features`: PASS (11 Rust tests).
-- Repository-local no-source NuGet restore and
-  `dotnet build verification/csharp/MosefVerifier.csproj --nologo --no-restore`:
-  PASS with zero warnings and errors.
-- `python scripts/check_baseline_differential.py`: PASS (58 comparisons).
-- `python scripts/run_m2_separator_search.py --n-max 500 --base-max 20
-  --exponent-max 20`: PASS (78,860 candidates).
-- `python scripts/check_m2_separator_differential.py`: PASS (24 comparisons).
-- Independent clean-room review enumeration: PASS (193,200 cases, including
-  73,632 mixed repeated-prime and 3,672 order-one cases).
+- `cargo test --workspace --all-features`: PASS (13 Rust tests).
+- `dotnet build verification/csharp/MosefVerifier.csproj --nologo
+  --no-restore`: PASS with zero warnings and errors.
+- `python scripts/run_m3_semismooth_search.py --n-max 500 --base-bound 5
+  --smooth-bound 8 --cofactor-bound 3 --collision-bound-max 20`: PASS.
+- `python scripts/check_m3_semismooth_differential.py`: PASS (22 comparisons).
+- Independent theorem review: PASS; no remaining promotion blocker.
 - `latexmk -xelatex -outdir=tmp/pdfs -interaction=nonstopmode -halt-on-error
-  paper/main.tex`: PASS; the final log has no LaTeX warnings, undefined
-  references, or overfull/underfull boxes.
-- Poppler render and visual inspection: PASS (6 pages; no clipping, overlap,
-  orphaned claim labels, malformed mathematics, or broken references).
+  paper/main.tex`: PASS; final log has no LaTeX warnings, undefined references,
+  or overfull/underfull boxes.
+- Poppler render and page-by-page visual inspection: PASS (7 pages; no
+  clipping, overlap, orphaned references, malformed mathematics, or broken
+  claim labels).
 - Final PDF: `output/pdf/mosef-paper.pdf`, SHA-256
-  `2cf029694b6978a9e7c020076a77e92483520f8f8e5b4d1be82e0e30831054cf`.
+  `5cc68afa7c2a67fb52ca850569579f9a625e873ada846da7ed748137819ee185`.
 
 ## Remote state, blockers, and next action
 
-- Existing draft PR for M0/M1: `https://github.com/whitespaca/MOSEF/pull/1`.
-- M2 branch push was rejected by the environment safety reviewer because
-  remote content egress requires explicit user approval. The branch remains
-  local and no M2 draft PR exists; see BLK-004.
-- Unresolved blocker: optional pytest/Ruff/mypy tools are unavailable; see
-  BLK-003. Remote delivery additionally awaits explicit approval under BLK-004.
-  No M2 correctness gate is blocked.
-- Next action: M3 should state the strongest noncircular multiplicative-channel
-  semismooth-order promise class, distinguish promise from recognition, and
-  attack its boundary cases before promoting any theorem.
+- M2 pull request `https://github.com/whitespaca/MOSEF/pull/2` is merged into
+  `main`; BLK-004 is resolved.
+- The M3 push was rejected by the environment safety reviewer because remote
+  content egress requires explicit authorization for this branch payload. The
+  commits remain local and no M3 pull request exists; see BLK-005.
+- Unresolved blockers: optional pytest/Ruff/mypy tools are unavailable
+  (BLK-003), and M3 remote delivery awaits explicit authorization (BLK-005).
+  Neither blocks the local M3 correctness gates.
+- Next action: M4 should formalize a factorization-independent natural
+  difference-cover family, reconstruct its strongest primary-source support,
+  and attempt to falsify the implication from divisor coverage to actual
+  prime-factor separation.
 
 ## 한국어 요약
 
-M2에서 제곱인수 없는 입력과 중복 소인수 입력을 구분하는 정확한 조건을
-정리했습니다. 기본 분리 보조정리와 소인수 지수값을 이용한 정확한 GCD
-조건을 증명했고, 모든 실패 분기와 재귀 복잡도를 명시했습니다. 소수 거듭제곱은
-지지집합 방식의 분리 조건을 만족할 수 없으므로 기존의 모든 합성수 대상
-주장은 반박되었습니다. 완전거듭제곱 전처리 방식과 지수값 분리 방식은 각각
-새로운 열린 문제로 남습니다. 다음 단계 M3에서는 비순환적인 준매끄러운 차수
-입력 클래스에 대한 제한 정리를 탐색합니다.
+M3에서는 모든 입력에 대한 일반 인수분해 주장이 아니라, 명시적인
+준매끄러운 차수 비대칭 약속 클래스에 대한 제한 정리를 증명했습니다.
+무작위 밑을 정확히 균등 추출하면 각 증인 시행의 성공 확률이 최소
+\(5/12\)이고, 재귀 전체의 기대 비트 복잡도가 다항식임을 보였습니다.
+약속 클래스의 소속 판정은 제공하지 않으며, 약속 밖에서는 종료를
+보장하지 않습니다. 고정 밑 \(2\)는 \(N=51\)에서 실패하므로 해당
+지름길은 반례로 보존했습니다. 다음 단계 M4에서는 자연스러운
+차이-커버 구성이 실제 소인수 분리를 보장하는지 검증합니다.

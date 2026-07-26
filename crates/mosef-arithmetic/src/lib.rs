@@ -164,6 +164,78 @@ fn stage_one_exponent(bound: u64) -> Option<u64> {
         })
 }
 
+/// Terminal outcomes for the bounded M3 semismooth family.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum SemismoothOutcome {
+    Factor(u64),
+    Unresolved,
+    InvalidParameters,
+    ExponentOverflow,
+}
+
+/// Try bases `2..=A` and exponents `t*lcm(1..=B)` for `1..=R`.
+pub fn semismooth_factor(
+    n: u64,
+    base_bound: u64,
+    smooth_bound: u64,
+    cofactor_bound: u64,
+) -> SemismoothOutcome {
+    if n < 2 || base_bound < 2 || smooth_bound < 1 || cofactor_bound < 1 {
+        return SemismoothOutcome::InvalidParameters;
+    }
+    let Some(stage_exponent) = stage_one_exponent(smooth_bound) else {
+        return SemismoothOutcome::ExponentOverflow;
+    };
+    if stage_exponent.checked_mul(cofactor_bound).is_none() {
+        return SemismoothOutcome::ExponentOverflow;
+    }
+    for base in 2..=base_bound.min(n - 1) {
+        for multiplier in 1..=cofactor_bound {
+            let exponent = stage_exponent * multiplier;
+            match evaluate_separator_candidate(n, base, exponent) {
+                Some(SeparatorOutcome::DirectFactor(factor))
+                | Some(SeparatorOutcome::Factor { factor, .. }) => {
+                    return SemismoothOutcome::Factor(factor);
+                }
+                Some(
+                    SeparatorOutcome::InvalidBase
+                    | SeparatorOutcome::Miss { .. }
+                    | SeparatorOutcome::SimultaneousCollision { .. },
+                ) => {}
+                None => return SemismoothOutcome::InvalidParameters,
+            }
+        }
+    }
+    SemismoothOutcome::Unresolved
+}
+
+/// Count successful residues for one M3 exponent by exhaustive enumeration.
+///
+/// This finite oracle is for registered small vectors, not the factoring
+/// algorithm or a polynomial-time promise recognizer.
+pub fn semismooth_successful_residue_count(n: u64, exponent: u64) -> Option<u64> {
+    if n < 2 || exponent < 1 {
+        return None;
+    }
+    let mut count = 0;
+    for base in 0..n {
+        let base_gcd = gcd(base, n);
+        let success = if base_gcd > 1 && base_gcd < n {
+            true
+        } else if base_gcd == n {
+            false
+        } else {
+            let residue = mod_pow(base, exponent, n)?;
+            let factor = gcd(residue - 1, n);
+            factor > 1 && factor < n
+        };
+        if success {
+            count += 1;
+        }
+    }
+    Some(count)
+}
+
 /// Run deterministic Pollard p-1 stage 1.
 pub fn pollard_p_minus_one(n: u64, bound: u64, base: u64) -> Option<u64> {
     if n < 4 || bound < 2 {
@@ -367,6 +439,31 @@ mod tests {
         );
         assert_eq!(evaluate_separator_candidate(1, 2, 1), None);
         assert_eq!(evaluate_separator_candidate(15, 2, 0), None);
+    }
+
+    #[test]
+    fn semismooth_family_has_factor_failure_and_overflow_paths() {
+        assert_eq!(semismooth_factor(15, 2, 2, 1), SemismoothOutcome::Factor(3));
+        assert_eq!(
+            semismooth_factor(21, 2, 3, 1),
+            SemismoothOutcome::Unresolved
+        );
+        assert_eq!(semismooth_factor(21, 3, 3, 1), SemismoothOutcome::Factor(3));
+        assert_eq!(
+            semismooth_factor(15, 2, 2, 0),
+            SemismoothOutcome::InvalidParameters
+        );
+        assert_eq!(
+            semismooth_factor(15, 2, 64, 1),
+            SemismoothOutcome::ExponentOverflow
+        );
+    }
+
+    #[test]
+    fn semismooth_success_count_covers_fixed_base_collision() {
+        let count = semismooth_successful_residue_count(51, 840).unwrap();
+        assert!(12 * count >= 5 * 51);
+        assert_eq!(semismooth_successful_residue_count(1, 840), None);
     }
 
     #[test]
