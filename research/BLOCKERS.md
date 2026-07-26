@@ -307,6 +307,7 @@
 ## BLK-018 - M16 remote publication requires explicit authorization
 
 - Date: 2026-07-27.
+- Status: resolved externally before M17 preflight.
 - Scope: push `research/20260727-m16-product-dag` and create its draft pull
   request.
 - Evidence: the environment safety reviewer rejected
@@ -320,4 +321,26 @@
   at `b732a6e`, but the branch is not pushed and no M16 pull request exists.
 - Required resolution: the repository owner must explicitly authorize
   publishing this M16 branch to `origin`; then push the branch and create or
+  update a draft pull request without rewriting history.
+- Resolution evidence: M17 preflight found local and
+  `origin/research/20260727-m16-product-dag` both at
+  `723cb94f625c776fd04bd56ac97fe7292bfbcb1e`. GitHub CLI remains
+  unauthenticated, so no M16 pull request was created or verified.
+
+## BLK-019 - M17 remote publication requires explicit authorization
+
+- Date: 2026-07-27.
+- Scope: push `research/20260727-m17-rational-circuit` and create its draft
+  pull request.
+- Evidence: the environment safety reviewer rejected
+  `git push --set-upstream origin research/20260727-m17-rational-circuit`
+  before execution because publishing this newly created proof,
+  implementation, experiment, and manuscript payload to the external GitHub
+  remote was not explicitly authorized. `gh auth status` also reports no
+  authenticated GitHub host.
+- Impact: M17 is validated and committed locally at
+  `8a09b70497451a23711d853f94af0eb8b9fbeea4`, with its status-record commit
+  at `a0caede`, but the branch is not pushed and no M17 pull request exists.
+- Required resolution: the repository owner must explicitly authorize
+  publishing this M17 branch to `origin`; then push the branch and create or
   update a draft pull request without rewriting history.

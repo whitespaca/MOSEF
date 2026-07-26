@@ -54,6 +54,10 @@
   `48e9b77dbe4973bc9e9e8b9a66b2efb61d7d5f7ff45224f1b1530f031e35abc9`.
 - Local milestone implementation/proof/paper commit:
   `8a09b70497451a23711d853f94af0eb8b9fbeea4`.
+- Remote publication is blocked under BLK-019: the safety reviewer rejected
+  the M17 branch push because this specific external payload has not been
+  explicitly authorized. GitHub CLI is also unauthenticated, so no pull
+  request was created.
 - Next action: M18 should formalize the arbitrary-exponent binary geometric
   sum \(S_M(X)\), including its odd/even composition recurrences and the
   full-denominator reduction \(S_M(1)\equiv M\pmod N\).
