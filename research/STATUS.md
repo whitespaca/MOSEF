@@ -1,5 +1,56 @@
 # Research Status
 
+## M15 outcome
+
+- Date: 2026-07-27.
+- Branch: `research/20260727-m15-implicit-batch`.
+- Completed milestone: M15, the selector-described standard product tree
+  whose every selected residue leaf is enumerated, evaluated, stored, and
+  charged.
+- `DEF-015` fixes the leaf-materialized semantics. `BAR-010` is `PROVED`:
+  the root GCD has the exact sum-of-prime-power-valuations formula, every
+  proper root GCD implies a proper individual leaf GCD, aggregation may mask
+  individual separators as a full collision, and an \(n\)-leaf binary tree
+  has exactly \(n-1\) internal multiplications in addition to its \(n\)
+  charged leaf evaluations and materializations.
+- Polynomial charged work therefore permits only polynomially many
+  materialized leaves. The BAR-008 transfer is separate: for each input
+  length the complete leaf list must also be common and
+  factorization-independent, and its ordinary exponent lengths must be
+  \(O(k\log k)\). No result is claimed for specialized circuits without leaf
+  materialization.
+- `REF-011` is `REFUTED`; NR-012 records that compact selector syntax does
+  not compress a standard materialized batch. The explicit witness
+  \(N=21,g=2,\Delta=\{2,3\}\) has proper leaf GCDs \(3,7\) but root GCD
+  \(21\).
+- EXP-0014 checked 3,821,928 nonempty batches, 6,488,889 valuation
+  components, 1,333,349 proper-root implications, and 4,096 exact tree
+  counts. It recorded 850,538 masked separator batches. Its canonical summary
+  SHA-256 is
+  `c4c3f20cc193dc90728d19fa5809d794d9ee07474fe093f12439cf3d16508529`;
+  the selected Python/Rust/C# differential validator passed 10 checks.
+- Independent adversarial review initially rejected equality wording for a
+  population upper bound and the missing common factorization-independent
+  transfer hypothesis. Both were repaired, and re-review passed. Independent
+  source-scope review found no external citation requirement and confirmed
+  the non-general-circuit boundary.
+- Full gates passed: foundation and publication consistency (64 claims and
+  13 experiment hashes), 111 Python tests and bytecode compilation, Rust
+  format/Clippy/21 tests, C# Release build with zero warnings or errors,
+  EXP-0014, and the 10-check differential validator. XeLaTeX converged
+  without final warnings to a 38-page PDF; all pages and the new theorem,
+  proof, results, limitations, and reproduction pages were rendered and
+  visually inspected. The stable PDF SHA-256 is
+  `9ae325caaf98428d15443638e90063e4896b9fa191cb60c9d5b6145084280ca6`.
+- The local milestone commit is recorded by the follow-up status entry after
+  this validated state is committed.
+- Optional third-party Python `pytest`, Ruff, and mypy gates remain
+  unavailable under BLK-003.
+- Next selected milestone: M16, define the smallest uniform
+  non-materializing product circuit and determine whether its formal output
+  or proper-factor extraction can avoid DEF-015's leaf cost without assuming
+  a general arithmetic-circuit lower bound.
+
 ## M14 outcome
 
 - Date: 2026-07-27.

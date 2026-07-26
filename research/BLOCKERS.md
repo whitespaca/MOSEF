@@ -268,6 +268,7 @@
 ## BLK-016 - M14 remote delivery lacks Windows Git credentials
 
 - Date: 2026-07-27.
+- Status: resolved externally before M15 preflight.
 - Scope: push `research/20260727-m14-addition-subtraction` and create its
   draft pull request.
 - Evidence: after local commits `e80115bd27200c0ec0f37a388cd4e9a4bbac9769`
@@ -281,3 +282,7 @@
 - Required resolution: provide an authenticated Windows Git credential
   context and authorize the push; then authenticate GitHub CLI or use the
   repository UI to create a draft pull request targeting `main`.
+- Resolution evidence: M15 preflight found local and
+  `origin/research/20260727-m14-addition-subtraction` both at
+  `5af39dce1abd7eefeb583bbee06c5a21845ef5bb`. No pull request was created or
+  verified.

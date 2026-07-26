@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "batch_vectors": [
+    {
+      "base": 2,
+      "modulus": 21,
+      "exponents": [2, 3],
+      "leaf_residues": [3, 7],
+      "root_residue": 0,
+      "leaf_gcds": [3, 7],
+      "root_gcd": 21,
+      "multiplication_count": 1
+    },
+    {
+      "base": 2,
+      "modulus": 35,
+      "exponents": [1, 2, 3],
+      "leaf_residues": [1, 3, 7],
+      "root_residue": 21,
+      "leaf_gcds": [1, 1, 7],
+      "root_gcd": 7,
+      "multiplication_count": 2
+    },
+    {
+      "base": 5,
+      "modulus": 77,
+      "exponents": [1, 2, 4, 6],
+      "leaf_residues": [4, 24, 8, 70],
+      "root_residue": 14,
+      "leaf_gcds": [1, 1, 1, 7],
+      "root_gcd": 7,
+      "multiplication_count": 3
+    },
+    {
+      "base": 2,
+      "modulus": 27,
+      "exponents": [1, 3, 6],
+      "leaf_residues": [1, 7, 9],
+      "root_residue": 9,
+      "leaf_gcds": [1, 1, 9],
+      "root_gcd": 9,
+      "multiplication_count": 2
+    },
+    {
+      "base": 10,
+      "modulus": 143,
+      "exponents": [1, 2, 3, 6, 12],
+      "leaf_residues": [9, 99, 141, 0, 0],
+      "root_residue": 0,
+      "leaf_gcds": [1, 11, 1, 143, 143],
+      "root_gcd": 143,
+      "multiplication_count": 4
+    }
+  ]
+}

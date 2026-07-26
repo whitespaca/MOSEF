@@ -67,3 +67,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-009 | PROVED | Addition-subtraction factor-scale transfer barrier | `research/proofs/BAR-009-addition-subtraction.md` |
 | REF-010 | REFUTED | Charged inversion alone as a factor-scale escape | `research/NEGATIVE_RESULTS.md` NR-011 |
 | EMP-013 | EMPIRICAL | Bounded addition-subtraction program audit | `research/experiments/EXP-0013-m14-addition-subtraction.md` |
+| DEF-015 | DEFINITION | Charged leaf-materialized standard product-tree model | `research/proofs/BAR-010-implicit-batch.md` |
+| BAR-010 | PROVED | Leaf-materialized implicit-batch barrier | `research/proofs/BAR-010-implicit-batch.md` |
+| REF-011 | REFUTED | Compact selector as polynomial-cost materialized batch | `research/NEGATIVE_RESULTS.md` NR-012 |
+| EMP-014 | EMPIRICAL | Bounded leaf-materialized batch audit | `research/experiments/EXP-0014-m15-implicit-batch.md` |

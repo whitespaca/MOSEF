@@ -359,3 +359,22 @@
   from the exponent-mediated hit-set theorem. The next milestone must change
   a stronger modeling axis, such as explicitly costed implicit batch
   evaluation, rather than merely add same-base inversion.
+
+## ADR-018 - Separate standard leaf materialization from general circuits
+
+- Date: 2026-07-27.
+- Decision: define the first implicit-batch milestone as a standard binary
+  product tree that enumerates, evaluates, stores, and charges every selected
+  residue leaf, while leaving specialized circuits without leaf
+  materialization outside the theorem.
+- Rationale: selector syntax can be compact while its selected output family
+  is exponential. The smallest auditable model must say whether those leaves
+  exist as charged objects before using the familiar product-tree count.
+  This yields exact aggregate valuation and extraction semantics without
+  pretending to prove a general arithmetic-circuit lower bound.
+- Consequence: BAR-010 proves that a compact selector does not hide the
+  linear leaf cost in DEF-015, and that a root GCD can mask but not create a
+  leaf success. Its BAR-008 transfer separately requires a common
+  factorization-independent leaf list and \(O(k\log k)\)-bit exponents.
+  The next milestone may study a genuinely non-materializing circuit only
+  after defining its formal output, cost, and extraction semantics.

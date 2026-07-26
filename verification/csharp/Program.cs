@@ -74,6 +74,7 @@ internal static class Program
                 RunMultiplicationProgram(args),
             "addition-subtraction-program" when args.Length == 4 =>
                 RunAdditionSubtractionProgram(args),
+            "batch-product" when args.Length == 4 => RunBatchProduct(args),
             "multiplication-lower-bound" when args.Length == 2 =>
                 RunMultiplicationLowerBound(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
@@ -342,6 +343,58 @@ internal static class Program
         return $"exponents:{string.Join(",", exponents)}|"
             + $"residues:{string.Join(",", residues)}|"
             + $"inversions:{inversionCount}";
+    }
+
+    private static string RunBatchProduct(string[] args)
+    {
+        BigInteger value = Parse(args, 1, "base");
+        BigInteger modulus = Parse(args, 2, "modulus");
+        if (modulus < 2)
+        {
+            throw new ArgumentException("modulus must be at least two");
+        }
+        BigInteger reducedBase = ((value % modulus) + modulus) % modulus;
+        if (Gcd(reducedBase, modulus) != 1)
+        {
+            throw new ArgumentException("base must be a unit modulo the modulus");
+        }
+        int[] exponents = ParsePositiveCsv(args[3], "exponents");
+        if (!exponents.SequenceEqual(exponents.Distinct().Order()))
+        {
+            throw new ArgumentException("exponents must be strictly increasing");
+        }
+        List<BigInteger> leaves = exponents
+            .Select(exponent =>
+                (BigInteger.ModPow(reducedBase, exponent, modulus) - 1 + modulus)
+                % modulus
+            )
+            .ToList();
+        BigInteger[] leafGcds = leaves
+            .Select(residue => Gcd(residue, modulus))
+            .ToArray();
+        List<BigInteger> current = [.. leaves];
+        int multiplicationCount = 0;
+        while (current.Count > 1)
+        {
+            List<BigInteger> following = [];
+            for (int index = 0; index < current.Count; index += 2)
+            {
+                if (index + 1 == current.Count)
+                {
+                    following.Add(current[index]);
+                }
+                else
+                {
+                    following.Add(current[index] * current[index + 1] % modulus);
+                    multiplicationCount++;
+                }
+            }
+            current = following;
+        }
+        BigInteger root = current[0];
+        return $"leaves:{string.Join(",", leaves)}|root:{root}|"
+            + $"leaf_gcds:{string.Join(",", leafGcds)}|root_gcd:{Gcd(root, modulus)}|"
+            + $"multiplications:{multiplicationCount}";
     }
 
     private static string RunMultiplicationLowerBound(string[] args)
