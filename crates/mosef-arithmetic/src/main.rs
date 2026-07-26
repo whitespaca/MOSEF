@@ -1,13 +1,14 @@
 use mosef_arithmetic::{
     analyze_divisor_cover, batch_gcd, combined_promise_asymmetry, combined_promise_hit_count,
     combined_promise_signature, divisor_count, evaluate_addition_subtraction_program,
-    evaluate_batch_product, evaluate_dyadic_telescope, evaluate_lucas_separator_candidate,
-    evaluate_multiplication_program, evaluate_product_dag, evaluate_separator_candidate,
-    generic_multiplication_lower_bound, is_prime, lucas_v, mod_pow, perfect_power,
-    pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
+    evaluate_batch_product, evaluate_dyadic_telescope, evaluate_geometric_sum,
+    evaluate_lucas_separator_candidate, evaluate_multiplication_program, evaluate_product_dag,
+    evaluate_separator_candidate, generic_multiplication_lower_bound, is_prime, lucas_v, mod_pow,
+    perfect_power, pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
     semismooth_successful_residue_count, trial_division, BatchProductEvaluation, CoverAnalysis,
-    DyadicDivisionStatus, DyadicTelescopeEvaluation, LucasSeparatorOutcome, ProductDagEvaluation,
-    SemismoothOutcome, SeparatorOutcome, SignedStraightLineEvaluation, StraightLineEvaluation,
+    DyadicDivisionStatus, DyadicTelescopeEvaluation, GeometricDivisionStatus,
+    GeometricSumEvaluation, LucasSeparatorOutcome, ProductDagEvaluation, SemismoothOutcome,
+    SeparatorOutcome, SignedStraightLineEvaluation, StraightLineEvaluation,
 };
 use std::env;
 use std::process::ExitCode;
@@ -281,6 +282,36 @@ squarings:{}|products:{}",
     )
 }
 
+fn display_geometric_sum(evaluation: GeometricSumEvaluation) -> String {
+    let status = match evaluation.division_status {
+        GeometricDivisionStatus::Unit => "unit",
+        GeometricDivisionStatus::ProperFactor => "proper_factor",
+        GeometricDivisionStatus::FullCollision => "full_collision",
+    };
+    let division_quotient = evaluation
+        .division_quotient
+        .map_or_else(|| "none".to_owned(), |value| value.to_string());
+    format!(
+        "power:{}|sum:{}|denominator:{}|denominator_gcd:{}|numerator:{}|\
+numerator_gcd:{}|sum_gcd:{}|exponent_gcd:{}|division_status:{status}|\
+division_quotient:{division_quotient}|bit_length:{}|degree:{}|monomials:{}|\
+multiplications:{}|additions:{}",
+        evaluation.power_residue,
+        evaluation.sum_residue,
+        evaluation.denominator_residue,
+        evaluation.denominator_gcd,
+        evaluation.numerator_residue,
+        evaluation.numerator_gcd,
+        evaluation.sum_gcd,
+        evaluation.exponent_gcd,
+        evaluation.exponent_bit_length,
+        evaluation.formal_degree,
+        evaluation.formal_monomial_count,
+        evaluation.multiplication_count,
+        evaluation.addition_count,
+    )
+}
+
 fn run() -> Result<(), String> {
     let mut arguments = env::args().skip(1);
     let operation = arguments
@@ -526,6 +557,14 @@ fn run() -> Result<(), String> {
                 .map_err(|_| "levels must fit in u32".to_owned())?;
             display_dyadic_telescope(evaluate_dyadic_telescope(base, modulus, levels).ok_or_else(
                 || "base must be a unit, modulus at least two, and levels below 64".to_owned(),
+            )?)
+        }
+        "geometric-sum" => {
+            let base = parse_u64(arguments.next(), "base")?;
+            let modulus = parse_u64(arguments.next(), "modulus")?;
+            let exponent = parse_u64(arguments.next(), "exponent")?;
+            display_geometric_sum(evaluate_geometric_sum(base, modulus, exponent).ok_or_else(
+                || "base must be a unit, modulus at least two, and exponent positive".to_owned(),
             )?)
         }
         "multiplication-lower-bound" => {

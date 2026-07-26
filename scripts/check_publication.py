@@ -65,6 +65,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-010}",
     r"\label{proof:BAR-011}",
     r"\label{proof:BAR-012}",
+    r"\label{proof:BAR-013}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -83,6 +84,7 @@ EXPERIMENT_RECORDS = (
     ROOT / "research" / "experiments" / "EXP-0014-m15-implicit-batch.md",
     ROOT / "research" / "experiments" / "EXP-0015-m16-product-dag.md",
     ROOT / "research" / "experiments" / "EXP-0016-m17-dyadic-telescope.md",
+    ROOT / "research" / "experiments" / "EXP-0017-m18-geometric-sum.md",
 )
 
 

@@ -330,6 +330,7 @@
 ## BLK-019 - M17 remote publication requires explicit authorization
 
 - Date: 2026-07-27.
+- Status: resolved externally before M18 preflight.
 - Scope: push `research/20260727-m17-rational-circuit` and create its draft
   pull request.
 - Evidence: the environment safety reviewer rejected
@@ -344,3 +345,7 @@
 - Required resolution: the repository owner must explicitly authorize
   publishing this M17 branch to `origin`; then push the branch and create or
   update a draft pull request without rewriting history.
+- Resolution evidence: M18 preflight found local and
+  `origin/research/20260727-m17-rational-circuit` both at
+  `cba39565ffa5d2a5ecf9cd8571bde19ec2e0bbb7`. No M17 pull request was
+  created or verified.

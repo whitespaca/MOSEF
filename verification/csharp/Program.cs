@@ -77,6 +77,7 @@ internal static class Program
             "batch-product" when args.Length == 4 => RunBatchProduct(args),
             "product-dag" when args.Length == 5 => RunProductDag(args),
             "dyadic-telescope" when args.Length == 4 => RunDyadicTelescope(args),
+            "geometric-sum" when args.Length == 4 => RunGeometricSum(args),
             "multiplication-lower-bound" when args.Length == 2 =>
                 RunMultiplicationLowerBound(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
@@ -533,6 +534,80 @@ internal static class Program
             + $"division_status:{divisionStatus}|division_quotient:{divisionQuotient}|"
             + $"degree:{monomials - 1}|monomials:{monomials}|squarings:{levels}|"
             + $"products:{Math.Max(0, levels - 1)}";
+    }
+
+    private static string RunGeometricSum(string[] args)
+    {
+        BigInteger value = Parse(args, 1, "base");
+        BigInteger modulus = Parse(args, 2, "modulus");
+        BigInteger exponent = Parse(args, 3, "exponent");
+        if (modulus < 2 || exponent < 1)
+        {
+            throw new ArgumentException(
+                "modulus must be at least two and exponent must be positive"
+            );
+        }
+        BigInteger reducedBase = ((value % modulus) + modulus) % modulus;
+        if (Gcd(reducedBase, modulus) != 1)
+        {
+            throw new ArgumentException("base must be a unit modulo the modulus");
+        }
+
+        List<int> bits = [];
+        for (BigInteger remaining = exponent; remaining > 0; remaining >>= 1)
+        {
+            bits.Add((int)(remaining & BigInteger.One));
+        }
+        BigInteger power = reducedBase;
+        BigInteger geometricSum = BigInteger.One % modulus;
+        int multiplicationCount = 0;
+        int additionCount = 0;
+        for (int bitIndex = bits.Count - 2; bitIndex >= 0; bitIndex--)
+        {
+            geometricSum = geometricSum * ((BigInteger.One + power) % modulus) % modulus;
+            power = power * power % modulus;
+            multiplicationCount += 2;
+            additionCount++;
+            if (bits[bitIndex] == 1)
+            {
+                geometricSum = (geometricSum + power) % modulus;
+                power = power * reducedBase % modulus;
+                multiplicationCount++;
+                additionCount++;
+            }
+        }
+
+        BigInteger denominator = (reducedBase - 1 + modulus) % modulus;
+        BigInteger denominatorGcd = Gcd(denominator, modulus);
+        BigInteger numerator = (power - 1 + modulus) % modulus;
+        string divisionStatus;
+        string divisionQuotient;
+        if (denominatorGcd == 1)
+        {
+            divisionStatus = "unit";
+            divisionQuotient = (
+                numerator * ModularInverse(denominator, modulus) % modulus
+            ).ToString();
+        }
+        else if (denominatorGcd < modulus)
+        {
+            divisionStatus = "proper_factor";
+            divisionQuotient = "none";
+        }
+        else
+        {
+            divisionStatus = "full_collision";
+            divisionQuotient = "none";
+        }
+
+        return $"power:{power}|sum:{geometricSum}|"
+            + $"denominator:{denominator}|denominator_gcd:{denominatorGcd}|"
+            + $"numerator:{numerator}|numerator_gcd:{Gcd(numerator, modulus)}|"
+            + $"sum_gcd:{Gcd(geometricSum, modulus)}|"
+            + $"exponent_gcd:{Gcd(exponent, modulus)}|"
+            + $"division_status:{divisionStatus}|division_quotient:{divisionQuotient}|"
+            + $"bit_length:{bits.Count}|degree:{exponent - 1}|monomials:{exponent}|"
+            + $"multiplications:{multiplicationCount}|additions:{additionCount}";
     }
 
     private static string RunMultiplicationLowerBound(string[] args)

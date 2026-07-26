@@ -98,6 +98,11 @@ from .dyadic_telescope import (
     dyadic_geometric_coefficients,
     evaluate_dyadic_telescope,
 )
+from .geometric_sum import (
+    GeometricSumEvaluation,
+    evaluate_geometric_sum,
+    geometric_sum_coefficients,
+)
 from .separator import (
     CandidateKind,
     CandidateOutcome,
@@ -149,6 +154,7 @@ __all__ = [
     "ProductDagEvaluation",
     "ProductGate",
     "DyadicTelescopeEvaluation",
+    "GeometricSumEvaluation",
     "SemismoothAsymmetryWitness",
     "SemismoothFactor",
     "SemismoothWitness",
@@ -176,6 +182,7 @@ __all__ = [
     "evaluate_batch_product",
     "evaluate_product_dag",
     "evaluate_dyadic_telescope",
+    "evaluate_geometric_sum",
     "divisor_count",
     "exponent_bit_length",
     "factor_scale_divisor_bound",
@@ -217,6 +224,7 @@ __all__ = [
     "repeated_squaring_program",
     "repeated_product_program",
     "dyadic_geometric_coefficients",
+    "geometric_sum_coefficients",
     "semismooth_asymmetry_witnesses",
     "signature_count_lower_bound",
     "signed_exponent_lower_bound",

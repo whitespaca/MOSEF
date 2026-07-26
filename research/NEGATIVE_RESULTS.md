@@ -345,3 +345,31 @@
   general arithmetic circuits.
 - Revisit with a different uniform circuit identity whose extraction output
   cannot be reduced to a polynomial-size explicit component list.
+
+## NR-015 - An arbitrary geometric sum is one compact value, not a new extraction path
+
+- Date: 2026-07-27.
+- Status: `REFUTED` claim `REF-014`.
+- Hypothesis tested: replacing the dyadic exponent by an arbitrary public
+  \(M\) might let the \(O(\log M)\)-size binary circuit for
+  \(S_M(g)=\sum_{i<M}g^i\) produce a proper factor not already accounted for
+  by its endpoint, denominator, or public exponent.
+- Counterargument: the exact identity
+  \((g-1)S_M(g)=g^M-1\) gives an exhaustive denominator trichotomy. If
+  \(g-1\) is a unit, quotient and endpoint GCDs are identical. If it has a
+  proper GCD, that denominator already factors \(N\). If it has full GCD,
+  \(g\equiv1\pmod N\), so \(S_M(g)\equiv M\pmod N\) and the quotient GCD is
+  exactly \(\gcd(M,N)\).
+- Different factor values remain possible in the proper branch:
+  \(N=15,g=4,M=2\) gives denominator GCD \(3\), quotient GCD \(5\), and full
+  endpoint collision. For \(N=8,g=1,M=4\), quotient and public exponent GCDs
+  both equal \(4\), including the repeated prime power.
+- Evidence: BAR-013 and deterministic EXP-0017; 64 symbolic identities,
+  320,896 modular circuits, zero unexplained reductions, and 12 selected
+  cross-language comparisons.
+- Scope: the exact DEF-018 single geometric-sum circuit only. Arbitrary
+  rational programs, cancellation-obscured multi-denominator identities,
+  adaptive factor-dependent computation, other groups, and general factoring
+  remain open.
+- Revisit with a precise richer identity whose total intermediate-division
+  semantics and extraction outputs do not reduce to these three GCD paths.

@@ -79,3 +79,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-012 | PROVED | Dyadic telescope extraction barrier | `research/proofs/BAR-012-dyadic-telescope.md` |
 | REF-013 | REFUTED | Dyadic monomial compression as an exponential test family | `research/NEGATIVE_RESULTS.md` NR-014 |
 | EMP-016 | EMPIRICAL | Bounded dyadic telescope audit | `research/experiments/EXP-0016-m17-dyadic-telescope.md` |
+| DEF-018 | DEFINITION | Charged arbitrary-exponent binary geometric-sum model | `research/proofs/BAR-013-arbitrary-geometric-sum.md` |
+| BAR-013 | PROVED | Endpoint-denominator-public-exponent extraction trichotomy | `research/proofs/BAR-013-arbitrary-geometric-sum.md` |
+| REF-014 | REFUTED | Arbitrary geometric sum as an unaccounted extraction path | `research/NEGATIVE_RESULTS.md` NR-015 |
+| EMP-017 | EMPIRICAL | Bounded arbitrary geometric-sum audit | `research/experiments/EXP-0017-m18-geometric-sum.md` |
