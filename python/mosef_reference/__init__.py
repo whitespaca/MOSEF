@@ -103,6 +103,7 @@ from .geometric_sum import (
     evaluate_geometric_sum,
     geometric_sum_coefficients,
 )
+from .nested_quotient import NestedQuotientEvaluation, evaluate_nested_quotient
 from .separator import (
     CandidateKind,
     CandidateOutcome,
@@ -155,6 +156,7 @@ __all__ = [
     "ProductGate",
     "DyadicTelescopeEvaluation",
     "GeometricSumEvaluation",
+    "NestedQuotientEvaluation",
     "SemismoothAsymmetryWitness",
     "SemismoothFactor",
     "SemismoothWitness",
@@ -183,6 +185,7 @@ __all__ = [
     "evaluate_product_dag",
     "evaluate_dyadic_telescope",
     "evaluate_geometric_sum",
+    "evaluate_nested_quotient",
     "divisor_count",
     "exponent_bit_length",
     "factor_scale_divisor_bound",

@@ -78,6 +78,7 @@ internal static class Program
             "product-dag" when args.Length == 5 => RunProductDag(args),
             "dyadic-telescope" when args.Length == 4 => RunDyadicTelescope(args),
             "geometric-sum" when args.Length == 4 => RunGeometricSum(args),
+            "nested-quotient" when args.Length == 5 => RunNestedQuotient(args),
             "multiplication-lower-bound" when args.Length == 2 =>
                 RunMultiplicationLowerBound(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
@@ -608,6 +609,96 @@ internal static class Program
             + $"division_status:{divisionStatus}|division_quotient:{divisionQuotient}|"
             + $"bit_length:{bits.Count}|degree:{exponent - 1}|monomials:{exponent}|"
             + $"multiplications:{multiplicationCount}|additions:{additionCount}";
+    }
+
+    private static (BigInteger Power, BigInteger Sum) GeometricPair(
+        BigInteger value,
+        BigInteger modulus,
+        BigInteger exponent
+    )
+    {
+        if (modulus < 2 || exponent < 1)
+        {
+            throw new ArgumentException("invalid geometric-pair domain");
+        }
+        BigInteger reducedBase = ((value % modulus) + modulus) % modulus;
+        if (Gcd(reducedBase, modulus) != 1)
+        {
+            throw new ArgumentException("base must be a unit modulo the modulus");
+        }
+        List<int> bits = [];
+        for (BigInteger remaining = exponent; remaining > 0; remaining >>= 1)
+        {
+            bits.Add((int)(remaining & BigInteger.One));
+        }
+        BigInteger power = reducedBase;
+        BigInteger sum = BigInteger.One % modulus;
+        for (int bitIndex = bits.Count - 2; bitIndex >= 0; bitIndex--)
+        {
+            sum = sum * ((BigInteger.One + power) % modulus) % modulus;
+            power = power * power % modulus;
+            if (bits[bitIndex] == 1)
+            {
+                sum = (sum + power) % modulus;
+                power = power * reducedBase % modulus;
+            }
+        }
+        return (power, sum);
+    }
+
+    private static string RunNestedQuotient(string[] args)
+    {
+        BigInteger value = Parse(args, 1, "base");
+        BigInteger modulus = Parse(args, 2, "modulus");
+        BigInteger innerExponent = Parse(args, 3, "inner_exponent");
+        BigInteger multiplier = Parse(args, 4, "multiplier");
+        (BigInteger innerPower, BigInteger intermediate) = GeometricPair(
+            value, modulus, innerExponent
+        );
+        (BigInteger outerPower, BigInteger quotient) = GeometricPair(
+            innerPower, modulus, multiplier
+        );
+        (_, BigInteger rationalNumerator) = GeometricPair(
+            value, modulus, innerExponent * multiplier
+        );
+        if (
+            rationalNumerator != intermediate * quotient % modulus
+            || outerPower != BigInteger.ModPow(
+                ((value % modulus) + modulus) % modulus,
+                innerExponent * multiplier,
+                modulus
+            )
+        )
+        {
+            throw new ArgumentException("nested quotient identity failed");
+        }
+        BigInteger composedDenominator = (innerPower - 1 + modulus) % modulus;
+        BigInteger endpoint = (outerPower - 1 + modulus) % modulus;
+        BigInteger intermediateGcd = Gcd(intermediate, modulus);
+        BigInteger composedGcd = Gcd(composedDenominator, modulus);
+        string rationalStatus = intermediateGcd == 1
+            ? "unit"
+            : intermediateGcd < modulus ? "proper_factor" : "full_collision";
+        string composedStatus = composedGcd == 1
+            ? "unit"
+            : composedGcd < modulus ? "proper_factor" : "full_collision";
+        string rationalQuotient = intermediateGcd == 1
+            ? (rationalNumerator * ModularInverse(intermediate, modulus) % modulus).ToString()
+            : "none";
+        string composedQuotient = composedGcd == 1
+            ? (endpoint * ModularInverse(composedDenominator, modulus) % modulus).ToString()
+            : "none";
+        return $"inner_power:{innerPower}|intermediate:{intermediate}|"
+            + $"intermediate_gcd:{intermediateGcd}|quotient:{quotient}|"
+            + $"quotient_gcd:{Gcd(quotient, modulus)}|"
+            + $"rational_numerator:{rationalNumerator}|"
+            + $"rational_numerator_gcd:{Gcd(rationalNumerator, modulus)}|"
+            + $"composed_denominator:{composedDenominator}|"
+            + $"composed_denominator_gcd:{composedGcd}|endpoint:{endpoint}|"
+            + $"endpoint_gcd:{Gcd(endpoint, modulus)}|"
+            + $"multiplier_gcd:{Gcd(multiplier, modulus)}|"
+            + $"rational_status:{rationalStatus}|rational_quotient:{rationalQuotient}|"
+            + $"composed_status:{composedStatus}|composed_quotient:{composedQuotient}";
     }
 
     private static string RunMultiplicationLowerBound(string[] args)

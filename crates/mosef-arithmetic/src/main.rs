@@ -2,13 +2,14 @@ use mosef_arithmetic::{
     analyze_divisor_cover, batch_gcd, combined_promise_asymmetry, combined_promise_hit_count,
     combined_promise_signature, divisor_count, evaluate_addition_subtraction_program,
     evaluate_batch_product, evaluate_dyadic_telescope, evaluate_geometric_sum,
-    evaluate_lucas_separator_candidate, evaluate_multiplication_program, evaluate_product_dag,
-    evaluate_separator_candidate, generic_multiplication_lower_bound, is_prime, lucas_v, mod_pow,
-    perfect_power, pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
-    semismooth_successful_residue_count, trial_division, BatchProductEvaluation, CoverAnalysis,
-    DyadicDivisionStatus, DyadicTelescopeEvaluation, GeometricDivisionStatus,
-    GeometricSumEvaluation, LucasSeparatorOutcome, ProductDagEvaluation, SemismoothOutcome,
-    SeparatorOutcome, SignedStraightLineEvaluation, StraightLineEvaluation,
+    evaluate_lucas_separator_candidate, evaluate_multiplication_program, evaluate_nested_quotient,
+    evaluate_product_dag, evaluate_separator_candidate, generic_multiplication_lower_bound,
+    is_prime, lucas_v, mod_pow, perfect_power, pollard_p_minus_one, pollard_p_plus_one,
+    pollard_rho, semismooth_factor, semismooth_successful_residue_count, trial_division,
+    BatchProductEvaluation, CoverAnalysis, DyadicDivisionStatus, DyadicTelescopeEvaluation,
+    GeometricDivisionStatus, GeometricSumEvaluation, LucasSeparatorOutcome,
+    NestedQuotientEvaluation, ProductDagEvaluation, SemismoothOutcome, SeparatorOutcome,
+    SignedStraightLineEvaluation, StraightLineEvaluation,
 };
 use std::env;
 use std::process::ExitCode;
@@ -312,6 +313,43 @@ multiplications:{}|additions:{}",
     )
 }
 
+fn display_division_status(status: GeometricDivisionStatus) -> &'static str {
+    match status {
+        GeometricDivisionStatus::Unit => "unit",
+        GeometricDivisionStatus::ProperFactor => "proper_factor",
+        GeometricDivisionStatus::FullCollision => "full_collision",
+    }
+}
+
+fn display_nested_quotient(value: NestedQuotientEvaluation) -> String {
+    format!(
+        "inner_power:{}|intermediate:{}|intermediate_gcd:{}|quotient:{}|quotient_gcd:{}|\
+rational_numerator:{}|rational_numerator_gcd:{}|composed_denominator:{}|\
+composed_denominator_gcd:{}|endpoint:{}|endpoint_gcd:{}|multiplier_gcd:{}|\
+rational_status:{}|rational_quotient:{}|composed_status:{}|composed_quotient:{}",
+        value.inner_power_residue,
+        value.intermediate_residue,
+        value.intermediate_gcd,
+        value.quotient_residue,
+        value.quotient_gcd,
+        value.rational_numerator_residue,
+        value.rational_numerator_gcd,
+        value.composed_denominator_residue,
+        value.composed_denominator_gcd,
+        value.endpoint_residue,
+        value.endpoint_gcd,
+        value.multiplier_gcd,
+        display_division_status(value.rational_division_status),
+        value
+            .rational_division_quotient
+            .map_or_else(|| "none".to_owned(), |item| item.to_string()),
+        display_division_status(value.composed_division_status),
+        value
+            .composed_division_quotient
+            .map_or_else(|| "none".to_owned(), |item| item.to_string()),
+    )
+}
+
 fn run() -> Result<(), String> {
     let mut arguments = env::args().skip(1);
     let operation = arguments
@@ -566,6 +604,16 @@ fn run() -> Result<(), String> {
             display_geometric_sum(evaluate_geometric_sum(base, modulus, exponent).ok_or_else(
                 || "base must be a unit, modulus at least two, and exponent positive".to_owned(),
             )?)
+        }
+        "nested-quotient" => {
+            let base = parse_u64(arguments.next(), "base")?;
+            let modulus = parse_u64(arguments.next(), "modulus")?;
+            let inner_exponent = parse_u64(arguments.next(), "inner_exponent")?;
+            let multiplier = parse_u64(arguments.next(), "multiplier")?;
+            display_nested_quotient(
+                evaluate_nested_quotient(base, modulus, inner_exponent, multiplier)
+                    .ok_or_else(|| "invalid nested quotient or exponent overflow".to_owned())?,
+            )
         }
         "multiplication-lower-bound" => {
             let exponent = parse_u64(arguments.next(), "exponent")?;

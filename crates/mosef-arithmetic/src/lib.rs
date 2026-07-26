@@ -606,6 +606,27 @@ pub struct GeometricSumEvaluation {
     pub addition_count: u32,
 }
 
+/// Both total division paths for `S_(A B)(g) / S_A(g) = S_B(g^A)`.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct NestedQuotientEvaluation {
+    pub inner_power_residue: u64,
+    pub intermediate_residue: u64,
+    pub intermediate_gcd: u64,
+    pub quotient_residue: u64,
+    pub quotient_gcd: u64,
+    pub rational_numerator_residue: u64,
+    pub rational_numerator_gcd: u64,
+    pub composed_denominator_residue: u64,
+    pub composed_denominator_gcd: u64,
+    pub endpoint_residue: u64,
+    pub endpoint_gcd: u64,
+    pub multiplier_gcd: u64,
+    pub rational_division_status: GeometricDivisionStatus,
+    pub rational_division_quotient: Option<u64>,
+    pub composed_division_status: GeometricDivisionStatus,
+    pub composed_division_quotient: Option<u64>,
+}
+
 /// Evaluate nodes starting from `g`, with every later node multiplying two parents.
 pub fn evaluate_multiplication_program(
     base: u64,
@@ -971,6 +992,57 @@ pub fn evaluate_geometric_sum(
     })
 }
 
+/// Evaluate one cancellation-obscured nested geometric quotient.
+pub fn evaluate_nested_quotient(
+    base: u64,
+    modulus: u64,
+    inner_exponent: u64,
+    multiplier: u64,
+) -> Option<NestedQuotientEvaluation> {
+    let product_exponent = inner_exponent.checked_mul(multiplier)?;
+    let inner = evaluate_geometric_sum(base, modulus, inner_exponent)?;
+    let outer = evaluate_geometric_sum(inner.power_residue, modulus, multiplier)?;
+    let combined = evaluate_geometric_sum(base, modulus, product_exponent)?;
+    if combined.sum_residue != mul_mod(inner.sum_residue, outer.sum_residue, modulus)
+        || combined.power_residue != outer.power_residue
+    {
+        return None;
+    }
+    let rational_division_status = if inner.sum_gcd == 1 {
+        GeometricDivisionStatus::Unit
+    } else if inner.sum_gcd < modulus {
+        GeometricDivisionStatus::ProperFactor
+    } else {
+        GeometricDivisionStatus::FullCollision
+    };
+    Some(NestedQuotientEvaluation {
+        inner_power_residue: inner.power_residue,
+        intermediate_residue: inner.sum_residue,
+        intermediate_gcd: inner.sum_gcd,
+        quotient_residue: outer.sum_residue,
+        quotient_gcd: outer.sum_gcd,
+        rational_numerator_residue: combined.sum_residue,
+        rational_numerator_gcd: combined.sum_gcd,
+        composed_denominator_residue: outer.denominator_residue,
+        composed_denominator_gcd: outer.denominator_gcd,
+        endpoint_residue: outer.numerator_residue,
+        endpoint_gcd: outer.numerator_gcd,
+        multiplier_gcd: outer.exponent_gcd,
+        rational_division_status,
+        rational_division_quotient: if inner.sum_gcd == 1 {
+            Some(mul_mod(
+                combined.sum_residue,
+                modular_inverse(inner.sum_residue, modulus)?,
+                modulus,
+            ))
+        } else {
+            None
+        },
+        composed_division_status: outer.division_status,
+        composed_division_quotient: outer.division_quotient,
+    })
+}
+
 /// Return `ceil(log2(exponent))`, the generic multiplication growth lower bound.
 pub fn generic_multiplication_lower_bound(exponent: u64) -> Option<u32> {
     if exponent == 0 {
@@ -1188,6 +1260,19 @@ mod tests {
         assert_eq!(base_case.addition_count, 0);
         assert_eq!(evaluate_geometric_sum(5, 15, 3), None);
         assert_eq!(evaluate_geometric_sum(2, 15, 0), None);
+    }
+
+    #[test]
+    fn nested_quotient_has_total_intermediate_and_composed_paths() {
+        let proper = evaluate_nested_quotient(2, 15, 2, 2).expect("valid quotient");
+        assert_eq!(proper.intermediate_gcd, 3);
+        assert_eq!(proper.quotient_gcd, 5);
+        assert_eq!(proper.rational_numerator_gcd, 15);
+
+        let full = evaluate_nested_quotient(2, 15, 4, 5).expect("valid quotient");
+        assert_eq!(full.intermediate_gcd, 15);
+        assert_eq!(full.inner_power_residue, 1);
+        assert_eq!(full.quotient_gcd, full.multiplier_gcd);
     }
 
     #[test]
