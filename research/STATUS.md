@@ -65,6 +65,8 @@
   `171a3058c8a26b7d2e25641e8c35a9373c19bc06`.
 - Registered experiment commit:
   `66040fb`.
+- Validated milestone completion commit:
+  `0bf86f7d1668c2b60cccde69d398ef5e74c8af55`.
 - Next selected milestone: M8, recognition or a rigorous density/barrier
   result for the union of the hereditary \(p-1\) and \(p+1\) promise classes.
 
@@ -175,8 +177,10 @@
 - M6 local delivery is complete. Its branch is now visible at
   `origin/research/20260726-m6-publishable-manuscript`; no M6 pull request was
   verified or created.
-- M7 local research and publication validation are complete; remote delivery
-  is recorded after the policy-required push attempt.
+- M7 local research and publication validation are complete. The
+  policy-required push attempt was rejected because this exact new branch
+  payload lacks explicit authorization for external content egress; see
+  BLK-009. No M7 pull request exists.
 - Next action: M8 should define factorization-independent observables before
   proposing a recognizer or input-density claim for the combined \(p-1\) and
   \(p+1\) hereditary classes.
