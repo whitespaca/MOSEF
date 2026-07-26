@@ -33,6 +33,13 @@
   checked 1,920,600 pairs, 1,940 finite bounds, 20,000 divisor bounds, and
   27,284 balanced bit-length pairs. Independent source-scope review found no
   external citation dependency and approved the no-novelty framing.
+- Full validation passed: foundation and publication consistency (34 claims,
+  six experiment hashes), 66 Python tests, Python bytecode compilation, Rust
+  format/Clippy/16 tests, C# Release restore/build with zero warnings or
+  errors, all registered M1--M8 searches and differential suites, and a clean
+  converged 19-page XeLaTeX build. Every PDF page was rendered and visually
+  inspected; the stable PDF SHA-256 is
+  `70c926a864636f11206936ba13887f5847f5742f93a3f9e54d4ba4a1174e57a9`.
 - General classical factoring remains open. M8 proves no recognizer, natural
   density theorem, universal schedule barrier, or general lower bound.
 
@@ -101,6 +108,8 @@
   `bc8b25222823e06830530eac3962271c6d14a7ca`.
 - Registered experiment commit:
   `a4895df3c0cf4de54b59932acf9f2e4ecbef2463`.
+- Validated milestone completion commit:
+  `3e2018616e6ac63e8f8632e42f65d34c22c00f90`.
 - Next selected milestone: M9, explicit divisor-rich schedules with
   polynomial-bit-length exponent values outside BAR-003's magnitude regime.
 
