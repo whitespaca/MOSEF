@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "signature_vectors": [
+    {"prime": 3, "exponents": [4, 6], "signature": "11,10"},
+    {"prime": 5, "exponents": [4, 6], "signature": "10,01"},
+    {"prime": 7, "exponents": [4, 6], "signature": "00,10"},
+    {"prime": 17, "exponents": [4, 6, 12], "signature": "00,00,00"},
+    {"prime": 13, "exponents": [12, 18], "signature": "10,00"},
+    {"prime": 19, "exponents": [18], "signature": "10"}
+  ],
+  "asymmetry_vectors": [
+    {"left_prime": 3, "right_prime": 5, "exponents": [4, 6], "asymmetry": true},
+    {"left_prime": 17, "right_prime": 19, "exponents": [4, 6, 12], "asymmetry": false},
+    {"left_prime": 5, "right_prime": 7, "exponents": [6], "asymmetry": true},
+    {"left_prime": 3, "right_prime": 7, "exponents": [2], "asymmetry": true},
+    {"left_prime": 3, "right_prime": 5, "exponents": [1], "asymmetry": false}
+  ],
+  "hit_count_vectors": [
+    {"primes": [3, 5, 7, 11, 13, 17, 19], "exponents": [4, 6], "hit_count": 3},
+    {"primes": [17, 19, 23, 29], "exponents": [4, 6, 12], "hit_count": 0},
+    {"primes": [3, 5, 7, 11, 13, 17, 19, 23, 29, 31], "exponents": [12, 18], "hit_count": 7}
+  ]
+}

@@ -443,6 +443,49 @@ pub fn analyze_divisor_cover(candidates: &[u64], orders: &[u64]) -> Option<Cover
     })
 }
 
+/// Return the combined `(p-1, p+1)` divisibility bits for each exponent.
+pub fn combined_promise_signature(prime: u64, exponents: &[u64]) -> Option<Vec<(bool, bool)>> {
+    if prime < 3 || !is_prime(prime) || exponents.is_empty() || exponents.contains(&0) {
+        return None;
+    }
+    Some(
+        exponents
+            .iter()
+            .map(|exponent| (exponent % (prime - 1) == 0, exponent % (prime + 1) == 0))
+            .collect(),
+    )
+}
+
+/// Return whether either channel has a divisibility bit that separates two primes.
+pub fn combined_promise_asymmetry(
+    left_prime: u64,
+    right_prime: u64,
+    exponents: &[u64],
+) -> Option<bool> {
+    if left_prime == right_prime {
+        return None;
+    }
+    Some(
+        combined_promise_signature(left_prime, exponents)?
+            != combined_promise_signature(right_prime, exponents)?,
+    )
+}
+
+/// Count primes whose combined signature contains at least one hit.
+pub fn combined_promise_hit_count(primes: &[u64], exponents: &[u64]) -> Option<usize> {
+    if primes.is_empty() {
+        return None;
+    }
+    let mut count = 0;
+    for prime in primes {
+        let signature = combined_promise_signature(*prime, exponents)?;
+        if signature.iter().any(|(minus, plus)| *minus || *plus) {
+            count += 1;
+        }
+    }
+    Some(count)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -488,6 +531,26 @@ mod tests {
             })
         );
         assert_eq!(analyze_divisor_cover(&[], &[1, 2]), None);
+    }
+
+    #[test]
+    fn combined_promise_signature_has_exact_magnitude_barrier() {
+        assert_eq!(
+            combined_promise_signature(3, &[4, 6]),
+            Some(vec![(true, true), (true, false)])
+        );
+        assert_eq!(
+            combined_promise_signature(17, &[4, 6, 12]),
+            Some(vec![(false, false); 3])
+        );
+        assert_eq!(combined_promise_asymmetry(3, 5, &[4, 6]), Some(true));
+        assert_eq!(combined_promise_asymmetry(17, 19, &[4, 6, 12]), Some(false));
+        assert_eq!(
+            combined_promise_hit_count(&[3, 5, 7, 11, 13, 17, 19], &[4, 6]),
+            Some(3)
+        );
+        assert_eq!(combined_promise_signature(9, &[4]), None);
+        assert_eq!(combined_promise_asymmetry(3, 3, &[4]), None);
     }
 
     #[test]

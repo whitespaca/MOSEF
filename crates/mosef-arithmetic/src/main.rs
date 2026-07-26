@@ -1,8 +1,9 @@
 use mosef_arithmetic::{
-    analyze_divisor_cover, batch_gcd, evaluate_lucas_separator_candidate,
-    evaluate_separator_candidate, is_prime, lucas_v, mod_pow, perfect_power, pollard_p_minus_one,
-    pollard_p_plus_one, pollard_rho, semismooth_factor, semismooth_successful_residue_count,
-    trial_division, CoverAnalysis, LucasSeparatorOutcome, SemismoothOutcome, SeparatorOutcome,
+    analyze_divisor_cover, batch_gcd, combined_promise_asymmetry, combined_promise_hit_count,
+    combined_promise_signature, evaluate_lucas_separator_candidate, evaluate_separator_candidate,
+    is_prime, lucas_v, mod_pow, perfect_power, pollard_p_minus_one, pollard_p_plus_one,
+    pollard_rho, semismooth_factor, semismooth_successful_residue_count, trial_division,
+    CoverAnalysis, LucasSeparatorOutcome, SemismoothOutcome, SeparatorOutcome,
 };
 use std::env;
 use std::process::ExitCode;
@@ -85,6 +86,14 @@ fn display_cover(analysis: CoverAnalysis) -> String {
         "cover:{}|separates:{}|distinct:{}",
         analysis.divisor_cover, analysis.separates_profile, analysis.distinct_signatures
     )
+}
+
+fn display_combined_signature(signature: &[(bool, bool)]) -> String {
+    signature
+        .iter()
+        .map(|(minus, plus)| format!("{}{}", u8::from(*minus), u8::from(*plus)))
+        .collect::<Vec<_>>()
+        .join(",")
 }
 
 fn run() -> Result<(), String> {
@@ -220,6 +229,49 @@ fn run() -> Result<(), String> {
             display_cover(analyze_divisor_cover(&candidates, &orders).ok_or_else(|| {
                 "candidates must be positive and orders must contain two positive values".to_owned()
             })?)
+        }
+        "combined-signature" => {
+            let prime = parse_u64(arguments.next(), "prime")?;
+            let exponents = parse_csv_u64(
+                arguments
+                    .next()
+                    .ok_or_else(|| "missing exponents".to_owned())?,
+                "exponents",
+            )?;
+            display_combined_signature(
+                &combined_promise_signature(prime, &exponents)
+                    .ok_or_else(|| "prime must be odd prime and exponents positive".to_owned())?,
+            )
+        }
+        "combined-asymmetry" => {
+            let left_prime = parse_u64(arguments.next(), "left_prime")?;
+            let right_prime = parse_u64(arguments.next(), "right_prime")?;
+            let exponents = parse_csv_u64(
+                arguments
+                    .next()
+                    .ok_or_else(|| "missing exponents".to_owned())?,
+                "exponents",
+            )?;
+            combined_promise_asymmetry(left_prime, right_prime, &exponents)
+                .ok_or_else(|| "primes must be distinct odd primes".to_owned())?
+                .to_string()
+        }
+        "combined-hit-count" => {
+            let primes = parse_csv_u64(
+                arguments
+                    .next()
+                    .ok_or_else(|| "missing primes".to_owned())?,
+                "primes",
+            )?;
+            let exponents = parse_csv_u64(
+                arguments
+                    .next()
+                    .ok_or_else(|| "missing exponents".to_owned())?,
+                "exponents",
+            )?;
+            combined_promise_hit_count(&primes, &exponents)
+                .ok_or_else(|| "primes must be odd primes and exponents positive".to_owned())?
+                .to_string()
         }
         _ => return Err(format!("unknown operation: {operation}")),
     };

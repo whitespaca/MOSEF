@@ -1,5 +1,34 @@
 # Research Status
 
+## M8 execution plan
+
+- Branch: `research/20260726-m8-promise-recognition`.
+- Research question: for the common schedule
+  \(\Delta(k)=\{t\operatorname{lcm}(1,\ldots,B(k)):1\le t\le R(k)\}\),
+  can the union of the local \(p-1\) and \(p+1\) semiprime promises be
+  characterized by a schedule-induced prime signature, and what exact
+  density obstruction follows for balanced prime factors?
+- Provisional claims: `DEF-008` for the two-channel divisibility signature,
+  `BAR-003` for its exact semiprime characterization and the resulting
+  hit-set/density bound, and `REF-004` for the refuted idea that a schedule
+  whose largest exponent is below both factors can cover balanced semiprimes.
+- Target distribution: unordered distinct prime pairs from a finite interval
+  whose products have one common bit length. The result will be an exact
+  finite density bound and a zero-density region, not a transfer from random
+  integers or an assertion about all schedules. The prime signature is an
+  analytical device evaluated from the unknown factors, not a recognizer from
+  \(N\); M8 therefore follows the density/barrier branch of the roadmap.
+- Falsification tests: exhaust small exponent families and odd-prime pairs;
+  compare direct \(p\pm1\) witness search with signature inequality; verify
+  the divisor-count hit-set bound, exact pair count, and the zero-success
+  magnitude boundary; include equal signatures, all-zero signatures, both
+  orientations, and invalid/repeated-prime controls.
+- Acceptance gate: complete proof and scope boundary, deterministic EXP-0007
+  record and hash, Python regression tests, selected Rust/C# differential
+  agreement, independent adversarial and source-scope review, synchronized
+  claims/manuscript, clean full quality gates, committed artifacts, and a
+  recorded remote-delivery outcome.
+
 ## M7 outcome
 
 - Branch: `research/20260726-m7-nonsplit-lucas`.
