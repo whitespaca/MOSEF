@@ -48,6 +48,23 @@
 - Next selected milestone: M11, specify and test one divisor-rich
   \(\Theta(k\log k)\)-node schedule family.
 
+## M10 execution snapshot
+
+- Date: 2026-07-26.
+- Branch: `research/20260726-m10-straight-line-compression`.
+- Completed milestone: M10.
+- Core implementation/proof commit:
+  `5501d2d1d2a6a5c584fdc03f905e9a36a6054733`.
+- Registered experiment commit:
+  `18f104fdb69b8fd96f5776796047487ef211f03a`.
+- Validated milestone completion commit:
+  `bd822de928ff14fd6ee0e270d50862591ee36918`.
+- Remote delivery: blocked by `BLK-012`; the policy-reviewed push attempt was
+  rejected because the user has not explicitly authorized external GitHub
+  egress for this new M10 payload.
+- Next selected milestone: M11, the exact
+  \(\Theta(k\log k)\) straight-line schedule boundary.
+
 ## M9 outcome
 
 - Branch: `research/20260726-m9-divisor-rich-schedules`.

@@ -182,3 +182,23 @@
 - Required resolution: the repository owner must explicitly authorize
   publishing this M9 branch to `origin`. After a successful push, authenticate
   `gh` and create a draft pull request targeting `main`.
+
+## BLK-012 - M10 remote delivery requires explicit approval
+
+- First observed: 2026-07-26.
+- Scope: push
+  `research/20260726-m10-straight-line-compression` and create its draft pull
+  request.
+- Evidence: the policy-reviewed
+  `git push --set-upstream origin
+  research/20260726-m10-straight-line-compression` attempt was rejected
+  because publishing the new model, proof, implementations, experiment,
+  ledgers, and manuscript to the configured external GitHub remote requires
+  explicit authorization for this M10 payload. The local `gh auth status`
+  also reports no authenticated GitHub host.
+- Impact: M10 is validated and committed locally at
+  `bd822de928ff14fd6ee0e270d50862591ee36918`, but its branch is not pushed and
+  no M10 pull request exists.
+- Required resolution: the repository owner must explicitly authorize
+  publishing this M10 branch to `origin`. After a successful push,
+  authenticate `gh` and create a draft pull request targeting `main`.
