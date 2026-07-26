@@ -57,6 +57,22 @@
   supercritical boundary family admits a rigorously supported uniform
   \(d\pm1\) prime-yield statement after population normalization.
 
+## M11 execution snapshot
+
+- Date: 2026-07-26.
+- Branch: `research/20260726-m11-boundary-constant`.
+- Core implementation/proof commit:
+  `cd391e5cf64207ea7dc2f6e4dd55cf469af45424`.
+- Registered experiment commit:
+  `de290aea906d0a868fafa958c789227e94904d37`.
+- Reviewed manuscript and milestone completion commit:
+  `a681071f73a22f02e0007923fa03d9e1c4b30d98`.
+- Remote delivery: blocked by BLK-013. The policy-reviewed push attempt was
+  rejected because the user has not explicitly authorized external GitHub
+  egress for the new M11 payload; the local GitHub CLI is also unauthenticated.
+- Next selected milestone: M12, an explicit critical/supercritical
+  boundary-family prime-yield theorem or obstruction.
+
 ## M10 outcome
 
 - Date: 2026-07-26.

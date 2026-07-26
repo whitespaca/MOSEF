@@ -202,3 +202,22 @@
 - Required resolution: the repository owner must explicitly authorize
   publishing this M10 branch to `origin`. After a successful push,
   authenticate `gh` and create a draft pull request targeting `main`.
+
+## BLK-013 - M11 remote delivery requires explicit approval
+
+- First observed: 2026-07-26.
+- Scope: push `research/20260726-m11-boundary-constant` and create its draft
+  pull request.
+- Evidence: the policy-reviewed
+  `git push --set-upstream origin
+  research/20260726-m11-boundary-constant` attempt was rejected because
+  publishing the new proof, implementation, experiment, ledgers, and
+  manuscript to the configured external GitHub remote requires explicit
+  authorization for this M11 payload. The local `gh auth status` also reports
+  no authenticated GitHub host.
+- Impact: M11 is validated and committed locally through
+  `a681071f73a22f02e0007923fa03d9e1c4b30d98`, but its branch is not pushed and
+  no M11 pull request exists.
+- Required resolution: the repository owner must explicitly authorize
+  publishing this M11 branch to `origin`. After a successful push,
+  authenticate `gh` and create a draft pull request targeting `main`.
