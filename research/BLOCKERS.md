@@ -241,3 +241,21 @@
   `origin/research/20260726-m12-prime-yield` at
   `1f8d504129394d74ad8203abc0338c7785fc59df`. GitHub CLI remains
   unauthenticated, so no pull request was created or verified.
+
+## BLK-015 - M13 remote delivery requires explicit approval
+
+- Date: 2026-07-27.
+- Scope: push `research/20260727-m13-general-factor-scale` and create its
+  draft pull request.
+- Evidence: the sandboxed `git push --set-upstream origin
+  research/20260727-m13-general-factor-scale` failed with
+  `SEC_E_NO_CREDENTIALS`. The external push was rejected because publishing
+  this newly created branch and repository payload to GitHub was not
+  explicitly authorized by the user. `gh auth status` reports no
+  authenticated GitHub host.
+- Impact: M13 is validated and committed locally at
+  `6628ea8158458ba2b3c660ee9d70fc651fa0bbfa`, but the branch is not
+  published and no M13 pull request exists.
+- Required resolution: the repository owner must explicitly authorize
+  publishing this M13 branch to `origin`. After a successful push,
+  authenticate GitHub CLI and create a draft pull request targeting `main`.

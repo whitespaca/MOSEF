@@ -41,6 +41,11 @@
   converged 33-page XeLaTeX build. All pages and the new theorem/proof pages
   were rendered and visually inspected. The stable PDF SHA-256 is
   `7d821784f7aabc1b8791101189ce7844a157f5299f6fa60d9b35b747316cec4d`.
+- Local milestone commit:
+  `6628ea8158458ba2b3c660ee9d70fc651fa0bbfa`. The sandboxed push lacked
+  Windows credentials, and external publication was not authorized; BLK-015
+  records the unpublished branch. GitHub CLI is unauthenticated, so no M13
+  pull request was created.
 - Optional third-party Python `pytest`, Ruff, and mypy gates remain
   unavailable under BLK-003.
 - Next selected milestone: M14, formalize a minimal explicitly costed
