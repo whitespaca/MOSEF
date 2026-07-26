@@ -12,6 +12,7 @@
 
 \newcommand{\claimstatus}[2]{\textbf{#1 [#2]}}
 \newcommand{\poly}{\operatorname{poly}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
 A Restricted Theorem and Two Structural Barriers}
@@ -413,7 +414,7 @@ be conflated.
 
 \begin{center}
 \small
-\begin{tabular}{p{0.23\linewidth}p{0.31\linewidth}p{0.36\linewidth}}
+\begin{tabular}{L{0.23\linewidth}L{0.31\linewidth}L{0.36\linewidth}}
 \toprule
 Component & Guarantee & Complexity boundary \\
 \midrule
@@ -478,7 +479,7 @@ semantics. The batch routine is not presented as a product-tree optimization.
 
 \begin{center}
 \small
-\begin{tabular}{p{0.12\linewidth}p{0.28\linewidth}p{0.49\linewidth}}
+\begin{tabular}{L{0.12\linewidth}L{0.28\linewidth}L{0.49\linewidth}}
 \toprule
 Record & Finite scope & Registered observation \\
 \midrule
@@ -803,7 +804,7 @@ equal. \(\square\)
 
 The evidence implementation state preceding M6 is commit
 \texttt{\seqsplit{ccc3a9368a015f9d4f1d840dda79d7a3c9a28ecf}}. The M6 manuscript core
-commit is \texttt{\seqsplit{M6\_CORE\_COMMIT}}; the final documentation commit is recorded
+commit is \texttt{\seqsplit{9aac77921421fd69a4ab83e879cf50084f3024f3}}; the final documentation commit is recorded
 in \path{research/STATUS.md}. The Windows AMD64 environment and exact
 toolchains are recorded in
 \path{research/toolchains/windows-amd64-20260725.json}.
