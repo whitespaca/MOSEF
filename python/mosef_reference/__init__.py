@@ -13,10 +13,15 @@ from .baseline import (
 )
 from .compressed_exponents import (
     MultiplicationStep,
+    SignedStep,
+    SignedStraightLineEvaluation,
     StraightLineEvaluation,
+    absolute_exponent_support,
+    evaluate_addition_subtraction_program,
     evaluate_multiplication_program,
     generic_multiplication_lower_bound,
     repeated_squaring_program,
+    signed_exponent_lower_bound,
     tower_descriptor_exponent,
 )
 from .difference_cover import (
@@ -113,6 +118,8 @@ __all__ = [
     "CombinedDensityAnalysis",
     "FactorScaleDivisorBound",
     "MultiplicationStep",
+    "SignedStep",
+    "SignedStraightLineEvaluation",
     "StraightLineEvaluation",
     "CoverAnalysis",
     "ConjugatePairAnalysis",
@@ -127,6 +134,7 @@ __all__ = [
     "analyze_cover",
     "analyze_conjugate_pair",
     "analyze_combined_density",
+    "absolute_exponent_support",
     "batch_gcd",
     "boundary_divisor_budget",
     "bit_length_divisor_budget",
@@ -141,6 +149,7 @@ __all__ = [
     "direct_witness_event_count",
     "evaluate_separator_candidate",
     "evaluate_lucas_candidate",
+    "evaluate_addition_subtraction_program",
     "evaluate_multiplication_program",
     "divisor_count",
     "exponent_bit_length",
@@ -182,6 +191,7 @@ __all__ = [
     "repeated_squaring_program",
     "semismooth_asymmetry_witnesses",
     "signature_count_lower_bound",
+    "signed_exponent_lower_bound",
     "square_difference_cover",
     "support_is_separator",
     "stage_one_exponent",

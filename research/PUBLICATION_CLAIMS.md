@@ -63,3 +63,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-008 | PROVED | General explicit-schedule exact-boundary factor-scale barrier | `research/proofs/BAR-008-general-factor-scale.md` |
 | REF-009 | REFUTED | Squareful or noninitial support as a boundary escape | `research/NEGATIVE_RESULTS.md` NR-010 |
 | EMP-012 | EMPIRICAL | Bounded arbitrary-exponent factor-scale audit | `research/experiments/EXP-0012-m13-general-factor-scale.md` |
+| DEF-014 | DEFINITION | Charged same-base addition-subtraction program model | `research/proofs/BAR-009-addition-subtraction.md` |
+| BAR-009 | PROVED | Addition-subtraction factor-scale transfer barrier | `research/proofs/BAR-009-addition-subtraction.md` |
+| REF-010 | REFUTED | Charged inversion alone as a factor-scale escape | `research/NEGATIVE_RESULTS.md` NR-011 |
+| EMP-013 | EMPIRICAL | Bounded addition-subtraction program audit | `research/experiments/EXP-0013-m14-addition-subtraction.md` |

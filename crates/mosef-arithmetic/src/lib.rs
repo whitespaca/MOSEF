@@ -518,6 +518,14 @@ pub struct StraightLineEvaluation {
     pub residues: Vec<u64>,
 }
 
+/// Signed formal exponents and unit residues for an addition-subtraction program.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct SignedStraightLineEvaluation {
+    pub exponents: Vec<i128>,
+    pub residues: Vec<u64>,
+    pub inversion_count: usize,
+}
+
 /// Evaluate nodes starting from `g`, with every later node multiplying two parents.
 pub fn evaluate_multiplication_program(
     base: u64,
@@ -540,6 +548,67 @@ pub fn evaluate_multiplication_program(
     Some(StraightLineEvaluation {
         exponents,
         residues,
+    })
+}
+
+fn modular_inverse(value: u64, modulus: u64) -> Option<u64> {
+    let mut old_remainder = i128::from(value);
+    let mut remainder = i128::from(modulus);
+    let mut old_coefficient = 1_i128;
+    let mut coefficient = 0_i128;
+    while remainder != 0 {
+        let quotient = old_remainder / remainder;
+        (old_remainder, remainder) = (
+            remainder,
+            old_remainder.checked_sub(quotient.checked_mul(remainder)?)?,
+        );
+        (old_coefficient, coefficient) = (
+            coefficient,
+            old_coefficient.checked_sub(quotient.checked_mul(coefficient)?)?,
+        );
+    }
+    if old_remainder != 1 {
+        return None;
+    }
+    let normalized = old_coefficient.rem_euclid(i128::from(modulus));
+    u64::try_from(normalized).ok()
+}
+
+/// Evaluate a same-base program whose sign is `1` for product and `-1` for ratio.
+pub fn evaluate_addition_subtraction_program(
+    base: u64,
+    modulus: u64,
+    steps: &[(usize, usize, i8)],
+) -> Option<SignedStraightLineEvaluation> {
+    if modulus < 2 {
+        return None;
+    }
+    let reduced_base = base % modulus;
+    if gcd(reduced_base, modulus) != 1 {
+        return None;
+    }
+    let mut exponents = vec![1_i128];
+    let mut residues = vec![reduced_base];
+    let mut inversion_count = 0_usize;
+    for (node_index, (left, right, sign)) in steps.iter().copied().enumerate() {
+        let available = node_index + 1;
+        if left >= available || right >= available || !matches!(sign, -1 | 1) {
+            return None;
+        }
+        let right_exponent = exponents[right].checked_mul(i128::from(sign))?;
+        exponents.push(exponents[left].checked_add(right_exponent)?);
+        let right_residue = if sign == -1 {
+            inversion_count += 1;
+            modular_inverse(residues[right], modulus)?
+        } else {
+            residues[right]
+        };
+        residues.push(mul_mod(residues[left], right_residue, modulus));
+    }
+    Some(SignedStraightLineEvaluation {
+        exponents,
+        residues,
+        inversion_count,
     })
 }
 
@@ -643,6 +712,21 @@ mod tests {
         );
         assert_eq!(evaluate_multiplication_program(2, 5, &[(0, 1)]), None);
         assert_eq!(evaluate_multiplication_program(2, 1, &[]), None);
+    }
+
+    #[test]
+    fn addition_subtraction_program_tracks_signed_exponents_and_units() {
+        let steps = [(0, 0, 1), (1, 0, -1), (0, 1, -1), (3, 3, 1), (2, 2, -1)];
+        let evaluation = evaluate_addition_subtraction_program(5, 77, &steps)
+            .expect("unit-base signed program must evaluate");
+        assert_eq!(evaluation.exponents, vec![1, 2, 1, -1, -2, 0]);
+        assert_eq!(evaluation.inversion_count, 3);
+        assert_eq!(evaluation.residues, vec![5, 25, 5, 31, 37, 1]);
+        assert_eq!(evaluate_addition_subtraction_program(7, 77, &[]), None);
+        assert_eq!(
+            evaluate_addition_subtraction_program(5, 77, &[(0, 0, 0)]),
+            None
+        );
     }
 
     #[test]

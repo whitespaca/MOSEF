@@ -342,3 +342,20 @@
   broader common explicit-schedule model. M14 must leave at least one of the
   explicit-list, \(O(k\log k)\)-length, fixed target-scale, or existing
   \(p\pm1\)-channel hypotheses.
+
+## ADR-017 - Charge inversion and normalize signed formal exponents
+
+- Date: 2026-07-27.
+- Decision: extend DEF-010 only to explicit same-base product/ratio nodes,
+  charge every extended-GCD inversion and table/output entry, and represent
+  the resulting candidate family by its distinct positive nonzero absolute
+  formal exponents.
+- Rationale: this is the smallest auditable representation change that tests
+  cancellation and negative powers without hiding an exponential batch.
+  Unit prechecks make inversion semantics total; negative exponents multiply
+  the positive residue difference by a unit and zero gives a full collision.
+- Consequence: BAR-009 transfers every \(O(k\log k)\)-node DEF-014 schedule
+  to BAR-008. Direct proper-factor exits from the base precheck stay separate
+  from the exponent-mediated hit-set theorem. The next milestone must change
+  a stronger modeling axis, such as explicitly costed implicit batch
+  evaluation, rather than merely add same-base inversion.

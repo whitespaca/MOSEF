@@ -15,7 +15,7 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
-Two Restricted Theorems and Eight Structural Barriers}
+Two Restricted Theorems and Nine Structural Barriers}
 \author{MOSEF Research Program}
 \date{27 July 2026}
 
@@ -34,7 +34,7 @@ each complete schedule cycle at a promised residual node. We also prove an
 exact Lucas root-count formula and use fresh uniform, independently
 parameterized Lucas values to obtain a second Las Vegas theorem on a
 hereditary \(p+1\)-asymmetry promise, with at least \(1/12\) split probability
-at a witness trial. We prove eight structural barriers. Divisor
+at a witness trial. We prove nine structural barriers. Divisor
 coverage does not imply multiplicative-order separation; the exact missing
 condition is injectivity of divisibility signatures. A natural Lucas
 parameter map \(P=a+a^{-1}\) is also not an independent group channel:
@@ -67,7 +67,11 @@ extends this factor-scale bound to every polynomial-size explicit schedule
 with \(O(k\log k)\)-bit exponents, including squareful and noninitial
 supports. Thus the promised-pair fraction vanishes on every stipulated
 exponentially large target population at every fixed boundary coefficient.
-Repeated squaring also shows that boundary node count alone is insufficient.
+This conclusion also survives explicitly charged same-base inversion:
+addition-subtraction programs have signed formal exponents of magnitude at
+most \(2^t\), negative exponents give the same GCD candidates as their
+absolute values, and zero gives only a full collision. Repeated squaring also
+shows that boundary node count alone is insufficient.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -121,21 +125,26 @@ algorithm. Its contributions are:
   \(q\pm1\) for an \(O(k)\)-bit target prime;
 \item a self-contained elementary generalization of that factor-scale bound
   to arbitrary squareful and noninitial-support exponents of
-  \(O(k\log k)\) bits in a common polynomial-size explicit schedule; and
+  \(O(k\log k)\) bits in a common polynomial-size explicit schedule;
+\item an addition-subtraction compression barrier: after a unit precheck,
+  explicitly charged same-base products and ratios still expose only the
+  absolute values of signed \(O(k\log k)\)-bit formal exponents; and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
 
 The positive theorems are restricted: membership in their promise classes can
 depend on the unknown factorization and is not recognized by the algorithms.
-The eight barriers are also scoped: one concerns explicit order signatures,
+The nine barriers are also scoped: one concerns explicit order signatures,
 one concerns only \(P=a+a^{-1}\), and two concern a common explicit finite
 schedule under separate magnitude or encoding hypotheses. The fifth concerns
 only formal exponents in a factor-oblivious multiplication-only DAG. The sixth
 exposes a coefficient threshold for stipulated populations but is silent at
 and above the critical coefficient before factor scale is imposed. The final
 two concern only \(O(k)\)-bit target factors and the stated explicit schedule
-model. These boundaries are part of the results.
+model. The ninth covers only charged, factor-oblivious, same-base
+addition-subtraction programs on their unit branches. These boundaries are
+part of the results.
 
 Section 2 records the imported complexity landscape. Sections 3 and 4 define
 candidate semantics and the recursive framework. Section 5 gives the first
@@ -144,7 +153,8 @@ nonsplit Lucas theorem, Section 9 gives the combined-promise density barrier,
 Section 10 gives the exponent-encoding barrier, Section 11 gives the
 multiplication straight-line compression barrier, and Section 12 treats the
 exact boundary coefficient. Sections 13 and 14 give the primorial-specific
-and general factor-scale barriers. Later sections separate algorithms,
+and general factor-scale barriers. Section 15 treats charged same-base
+addition-subtraction programs. Later sections separate algorithms,
 experiments, and observations. Complete proofs and reproduction details appear in the
 appendices.
 
@@ -947,6 +957,61 @@ does not cover longer exponents, exponentially many exponents, adaptive
 factor-dependent schedules, richer compressed representations, other group
 channels, population existence, natural density, or general factoring.
 
+\section{An addition-subtraction compression barrier}
+
+We next leave DEF-010 by permitting modular inversion, while keeping the
+same-base program and every operation explicit.
+
+\claimstatus{DEF-014}{DEFINITION}. Fix \(N\ge2\). First compute
+\(u=\gcd(g,N)\): return a proper \(u\) as a factor, reject \(u=N\), and
+otherwise set the unit \(x_0=g\bmod N\). A factor-oblivious same-base
+addition-subtraction program has
+\[
+x_i=x_{a_i}x_{b_i}^{s_i}\pmod N,\qquad
+0\le a_i,b_i<i,\qquad s_i\in\{-1,+1\},
+\]
+with signed formal exponents
+\[
+z_0=1,\qquad z_i=z_{a_i}+s_i z_{b_i}.
+\]
+Every parent, sign, output, modular multiplication, and extended-GCD
+inversion is charged.
+
+\claimstatus{BAR-009}{PROVED}. Every node satisfies
+\[
+x_i=g^{z_i}\pmod N,\qquad |z_i|\le2^i.
+\]
+Thus exact realization of a nonzero signed exponent \(d\) needs at least
+\(\lceil\log_2|d|\rceil\) nodes; positive powers of two attain the bound.
+For every unit base and \(d>0\),
+\[
+g^{-d}-1=-g^{-d}(g^d-1)\pmod N,
+\]
+so the raw GCD with \(N\), including every capped prime-power valuation, is
+exactly the same for \(d\) and \(-d\). Exponent zero gives residue difference
+zero and the full collision \(N\). The exposed candidate family is therefore
+represented without loss by the distinct positive values
+\(\{|z_i|:z_i\ne0\}\).
+
+A fixed number of common factorization-independent programs with total
+charged node count \(T(k)=O(k\log k)\) exposes only \(T(k)+O(1)\) such
+exponents, each of bit length at most \(T(k)+1\). BAR-008 then gives a
+\(2^{o(k)}\) combined \(p-1/p+1\) hit set at every fixed factor scale, and
+BAR-003 gives stipulated-population fraction
+\(2^{-\alpha k+o(k)}\).
+
+\claimstatus{REF-010}{REFUTED}. Explicitly charged same-base ratios and
+inversions alone do not restore a nonvanishing exponent-mediated
+factor-scale promise fraction at \(O(k\log k)\) node cost.
+
+Appendix \ref{proof:BAR-009} gives the complete proof. A proper factor found
+by the initial base GCD is a separate algorithmic exit, not a hit silently
+counted in the common prime-signature model. The result does not cover
+implicit exponential batches, modulus-specific exponent reduction,
+factor-dependent adaptation, special endomorphisms, unrelated multi-base
+expressions, other algebraic channels, population existence, natural
+density, or general factoring.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -968,6 +1033,12 @@ Multiplication straight-line family &
 Exact formal exponents and shared same-base multiplication DAGs &
 \(t\) nodes use \(O(t\log(t+1))\) descriptor bits and \(t\) modular
 multiplications; no fixed-modulus or richer-operation lower bound \\
+\addlinespace
+Addition-subtraction family &
+Exact signed formal exponents after a unit precheck &
+\(t\) nodes use \(O(t\log(t+1))\) descriptor bits, \(t\) multiplications,
+and at most \(t\) extended-GCD inversions; no implicit-batch or
+fixed-modulus lower bound \\
 \addlinespace
 Semismooth randomized splitter &
 Complete Las Vegas factorization on the hereditary promise class &
@@ -1076,6 +1147,11 @@ EXP-0011 & Primorials through \(r=18\); target caps through \(2^{20}-1\) &
 EXP-0012 & Every \(2\le d<2^{16}\); target caps through \(2^{14}-1\) &
 1,572,816 split-bound checks; 4,421,736 divisor checks; 5,344,372 candidate
 checks; 36-count focused validator \\
+\addlinespace
+EXP-0013 & Signed programs through six nodes; modulus/base/exponent boxes
+through \(512/32/64\) &
+2,403,786 node-growth checks; 190,344 residue checks; 646,400 sign-symmetry
+checks; 24 differential checks \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1156,6 +1232,16 @@ noninitial squareful records all satisfied the bound. These finite
 observations do not prove the asymptotic or establish population, density,
 recognition, novelty, factoring, or general lower-bound claims.
 
+\claimstatus{EMP-013}{EMPIRICAL}. EXP-0013 completed 2,403,786 signed
+node-growth checks, 190,344 direct residue checks, and 646,400 exact
+positive/negative GCD comparisons. It classified 10,100 unit, 6,127 proper
+nonunit, and 570 full-nonunit base prechecks; observed 734,190 negative and
+251,685 zero outputs; and attained exact maxima
+\(1,2,4,8,16,32,64\). All 24 selected Python/Rust/C\# comparisons agreed.
+These bounded syntax, residue, and GCD checks do not prove the asymptotic or
+support population, density, recognition, novelty, factoring, or
+broader-model claims.
+
 These observations audit implementations and minimize counterexamples. The
 universal statements in this paper are supplied by proofs, not extrapolation
 from the table.
@@ -1204,9 +1290,8 @@ other algebraic mechanisms, and is not a factoring lower bound.
 BAR-005 closes one of those compressed cases only. It charges every node in a
 factor-oblivious multiplication-only same-base DAG and tracks exact formal
 exponents. It is not a lower bound for computing an equal residue at one fixed
-modulus and base, for inversion or addition-subtraction chains, for special
-endomorphisms, for adaptive factor-revealing branches, or for another
-explicitly costed algebraic model.
+modulus and base, for special endomorphisms, for adaptive factor-revealing
+branches, or for another explicitly costed algebraic model.
 
 BAR-006 resolves only a constant-sensitive part of the general
 \(\Theta(k\log k)\)-node boundary before factor scale is imposed. BAR-007
@@ -1218,6 +1303,14 @@ exponents, exponentially many exponents, adaptive schedules, and richer
 representations remain outside BAR-008. None of these statements constructs
 the population, recognizes the promise, or supplies a factoring lower bound.
 
+BAR-009 closes only the explicitly charged same-base addition-subtraction
+case on the unit branch after a base GCD precheck. It tracks exact formal
+exponents and explicit outputs; it does not bound equal-residue computation
+at a fixed modulus, implicit exponential batches, factor-dependent choices,
+unrelated multi-base expressions, special endomorphisms, or other groups.
+Direct proper factors found by the precheck are separate algorithmic exits,
+not part of its factor-scale prime-signature count.
+
 The authoritative Rust layer is bounded to \texttt{u64}; validation primality
 uses trial division and is not itself the polynomial-time procedure imported
 in EXT-001. The literature set is sufficient for the technical statements
@@ -1227,8 +1320,9 @@ The main open problems are the two explicit universal constructor questions
 in OPEN-002 and OPEN-003, recognition of the combined hereditary promise
 without access to the factorization, whether a non-primorial boundary family
 outside BAR-008's explicit-list model has a proved factor-scale
-\(d\pm1\) yield guarantee, and whether a richer explicitly costed
-representation can escape BAR-004--BAR-008.
+\(d\pm1\) yield guarantee, and whether an explicitly charged implicit
+product/remainder-tree or arithmetic-circuit batch can test exponentially
+many factor-scale exponents without paying for their extraction.
 
 \section{Conclusion}
 
@@ -1259,7 +1353,10 @@ can hit \(O(k)\)-bit target primes. BAR-008 shows that squareful and
 noninitial-support exponents do not change that conclusion anywhere in the
 common explicit \(O(k\log k)\)-bit schedule model. Thus neither total
 capacity, multiplicity, support placement, nor node count alone supplies a
-prime-yield guarantee.
+prime-yield guarantee. Adding charged same-base ratios does not change this:
+signed exponent magnitude still grows by at most one bit per node, negative
+outputs duplicate their positive absolute exponents, and zero outputs give
+only full collisions.
 
 These results do not resolve general classical factoring. They replace
 plausible shortcuts with exact obligations: recognizable or explicitly
@@ -1270,8 +1367,9 @@ costs are all accounted for. The exact \(\Theta(k\log k)\) straight-line
 boundary now has a subcritical coefficient obstruction and an explicit
 capacity witness. At factor scale, BAR-008 closes every fixed coefficient
 inside the common polynomial-size explicit schedule and stated DEF-010
-models. Escapes outside those models remain research targets, not claimed
-factoring breakthroughs.
+model, while BAR-009 extends the transfer to the charged same-base
+addition-subtraction unit branch. Implicit batches and other models remain
+research targets, not claimed factoring breakthroughs.
 
 \appendix
 
@@ -2107,6 +2205,57 @@ length \(O(k\log k)\), for every fixed-base DEF-010 schedule with
 \(O(k\log k)\) total charged nodes. This proves the stated transfer.
 \(\square\)
 
+\section{Full proof of the addition-subtraction compression barrier}
+
+\subsection{Proof of BAR-009}\label{proof:BAR-009}
+
+The base precheck leaves \(x_0=g\bmod N\) as a unit. Products and inverses of
+units remain units, so every requested inverse exists and extended Euclid
+computes it in polynomial bit complexity. Inductively,
+\[
+x_i=x_{a_i}x_{b_i}^{s_i}
+=g^{z_{a_i}}g^{s_i z_{b_i}}
+=g^{z_{a_i}+s_i z_{b_i}}
+=g^{z_i}\pmod N.
+\tag{27}
+\]
+
+The magnitude bound also follows by induction. The base case is
+\(|z_0|=1=2^0\). Since both parents of node \(i\) have index at most \(i-1\),
+\[
+|z_i|
+\le |z_{a_i}|+|z_{b_i}|
+\le2^{a_i}+2^{b_i}
+\le2^i.
+\tag{28}
+\]
+If \(z_i=d\ne0\), then \(i\ge\lceil\log_2|d|\rceil\). Taking
+\(a_i=b_i=i-1\) and \(s_i=+1\) gives \(z_i=2^i\), proving tightness for
+positive powers of two.
+
+For \(d>0\),
+\[
+g^{-d}-1=-g^{-d}(g^d-1)\pmod N.
+\tag{29}
+\]
+The multiplier is a unit modulo \(N\). Multiplication by a unit preserves
+every capped prime-power valuation and therefore the exact GCD with \(N\).
+When \(d=0\), the residue difference is zero and the GCD is \(N\). Thus signs,
+zeros, and duplicates may be removed by retaining precisely the distinct
+positive nonzero absolute exponents.
+
+A \(t\)-node table contains \(t\) signs and \(2t\) earlier-parent indices, so
+its descriptor has \(O(t\log(t+1))\) bits. Evaluation performs \(t\) modular
+multiplications and at most \(t\) extended-GCD inversions, and it exposes at
+most \(t+1\) node outputs. For a fixed number of programs with total node
+count \(T(k)\), normalization therefore leaves at most \(T(k)+O(1)\)
+exponents, each of bit length at most \(T(k)+1\). If
+\(T(k)=O(k\log k)\), these are exactly BAR-008's explicit-list and
+exponent-length hypotheses. BAR-008 gives the stated \(2^{o(k)}\) hit set,
+and BAR-003 gives the stipulated-population bound
+\(2^{-\alpha k+o(k)}\). The initial proper-factor GCD exit is a separate
+branch and is not used in this exponent-mediated count. \(\square\)
+
 \section{Reproduction appendix}
 
 The evidence implementation state preceding M6 is commit
@@ -2162,7 +2311,10 @@ The registered experiment cores and canonical summary hashes are:
   \texttt{\seqsplit{bad46ee8f6638d98d19bc4479da998ea55af4d1617fef10cfc2c3ea973f39751}};
 \item EXP-0012, M13 milestone commit recorded in \path{research/STATUS.md},
   hash
-  \texttt{\seqsplit{a564c00c8eaafad6f5be31d8705147578e6c86d9e6f42c6a9bacf3b0d93591d3}}.
+  \texttt{\seqsplit{a564c00c8eaafad6f5be31d8705147578e6c86d9e6f42c6a9bacf3b0d93591d3}};
+\item EXP-0013, M14 milestone commit recorded in \path{research/STATUS.md},
+  hash
+  \texttt{\seqsplit{7203d3fc6ee67d5af3984c2b5c1eefb1640275dccdecaf979fed645d2d0fbb7d}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -2222,6 +2374,10 @@ python scripts/check_m12_primorial_scale_differential.py
 python scripts/run_m13_general_factor_scale_search.py `
   --exponent-max 65536 --target-bit-max 14
 python scripts/check_m13_general_factor_scale_differential.py
+python scripts/run_m14_addition_subtraction_search.py `
+  --step-max 6 --residue-step-max 5 --modulus-max 512 `
+  --base-max 32 --exponent-max 64
+python scripts/check_m14_addition_subtraction_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -2229,7 +2385,7 @@ latexmk -xelatex -outdir=tmp/pdfs `
 The searches use no random seed. The randomized theorems are validated by
 exact successful-residue enumeration in EXP-0003 and exact parameter
 enumeration in EXP-0006 rather than by unrecorded random runs. EXP-0007
-through EXP-0012 are deterministic combinatorial or syntax
+through EXP-0013 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. The

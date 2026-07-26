@@ -245,6 +245,7 @@
 ## BLK-015 - M13 remote delivery requires explicit approval
 
 - Date: 2026-07-27.
+- Status: resolved externally before M14 preflight.
 - Scope: push `research/20260727-m13-general-factor-scale` and create its
   draft pull request.
 - Evidence: the sandboxed `git push --set-upstream origin
@@ -259,3 +260,7 @@
 - Required resolution: the repository owner must explicitly authorize
   publishing this M13 branch to `origin`. After a successful push,
   authenticate GitHub CLI and create a draft pull request targeting `main`.
+- Resolution evidence: M14 preflight found both local and
+  `origin/research/20260727-m13-general-factor-scale` at
+  `843fb411920ca5cba7109871a6daefe1717b0342`. GitHub CLI remains
+  unauthenticated, so no M13 pull request was created or verified.

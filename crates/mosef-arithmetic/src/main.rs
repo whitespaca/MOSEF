@@ -1,11 +1,11 @@
 use mosef_arithmetic::{
     analyze_divisor_cover, batch_gcd, combined_promise_asymmetry, combined_promise_hit_count,
-    combined_promise_signature, divisor_count, evaluate_lucas_separator_candidate,
-    evaluate_multiplication_program, evaluate_separator_candidate,
-    generic_multiplication_lower_bound, is_prime, lucas_v, mod_pow, perfect_power,
-    pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
+    combined_promise_signature, divisor_count, evaluate_addition_subtraction_program,
+    evaluate_lucas_separator_candidate, evaluate_multiplication_program,
+    evaluate_separator_candidate, generic_multiplication_lower_bound, is_prime, lucas_v, mod_pow,
+    perfect_power, pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
     semismooth_successful_residue_count, trial_division, CoverAnalysis, LucasSeparatorOutcome,
-    SemismoothOutcome, SeparatorOutcome, StraightLineEvaluation,
+    SemismoothOutcome, SeparatorOutcome, SignedStraightLineEvaluation, StraightLineEvaluation,
 };
 use std::env;
 use std::process::ExitCode;
@@ -118,6 +118,34 @@ fn parse_steps(raw: String) -> Result<Vec<(usize, usize)>, String> {
         .collect()
 }
 
+fn parse_signed_steps(raw: String) -> Result<Vec<(usize, usize, i8)>, String> {
+    if raw.is_empty() {
+        return Err("steps must be nonempty".to_owned());
+    }
+    raw.split(',')
+        .map(|step| {
+            let parts = step.split(':').collect::<Vec<_>>();
+            if parts.len() != 3 {
+                return Err("each signed step must have left:right:sign form".to_owned());
+            }
+            let sign = match parts[2] {
+                "+" | "1" => 1,
+                "-" | "-1" => -1,
+                _ => return Err("signed step sign must be + or -".to_owned()),
+            };
+            Ok((
+                parts[0]
+                    .parse::<usize>()
+                    .map_err(|error| format!("invalid left parent: {error}"))?,
+                parts[1]
+                    .parse::<usize>()
+                    .map_err(|error| format!("invalid right parent: {error}"))?,
+                sign,
+            ))
+        })
+        .collect()
+}
+
 fn display_straight_line(evaluation: StraightLineEvaluation) -> String {
     let exponents = evaluation
         .exponents
@@ -132,6 +160,25 @@ fn display_straight_line(evaluation: StraightLineEvaluation) -> String {
         .collect::<Vec<_>>()
         .join(",");
     format!("exponents:{exponents}|residues:{residues}")
+}
+
+fn display_signed_straight_line(evaluation: SignedStraightLineEvaluation) -> String {
+    let exponents = evaluation
+        .exponents
+        .iter()
+        .map(i128::to_string)
+        .collect::<Vec<_>>()
+        .join(",");
+    let residues = evaluation
+        .residues
+        .iter()
+        .map(u64::to_string)
+        .collect::<Vec<_>>()
+        .join(",");
+    format!(
+        "exponents:{exponents}|residues:{residues}|inversions:{}",
+        evaluation.inversion_count
+    )
 }
 
 fn run() -> Result<(), String> {
@@ -324,6 +371,18 @@ fn run() -> Result<(), String> {
             display_straight_line(
                 evaluate_multiplication_program(base, modulus, &steps).ok_or_else(|| {
                     "modulus must be at least two and parents must be earlier nodes".to_owned()
+                })?,
+            )
+        }
+        "addition-subtraction-program" => {
+            let base = parse_u64(arguments.next(), "base")?;
+            let modulus = parse_u64(arguments.next(), "modulus")?;
+            let steps =
+                parse_signed_steps(arguments.next().ok_or_else(|| "missing steps".to_owned())?)?;
+            display_signed_straight_line(
+                evaluate_addition_subtraction_program(base, modulus, &steps).ok_or_else(|| {
+                    "base must be a unit, modulus at least two, signs valid, and parents earlier"
+                        .to_owned()
                 })?,
             )
         }

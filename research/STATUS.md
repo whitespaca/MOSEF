@@ -1,5 +1,55 @@
 # Research Status
 
+## M14 outcome
+
+- Date: 2026-07-27.
+- Branch: `research/20260727-m14-addition-subtraction`.
+- Completed milestone: M14, the explicitly charged same-base
+  addition-subtraction representation beyond multiplication-only DEF-010.
+- `DEF-014` charges every product, extended-GCD inversion, parent/sign/output
+  table entry, and retained output after a base GCD precheck. `BAR-009` is
+  `PROVED`: \(x_i=g^{z_i}\) and \(|z_i|\le2^i\); negative exponents give
+  exactly the same raw GCD and capped valuations as their positive absolute
+  values, while zero gives only the full collision. A common fixed-base
+  schedule with \(T(k)=O(k\log k)\) therefore transfers to BAR-008 and has a
+  \(2^{o(k)}\) factor-scale combined hit set and stipulated-population
+  fraction \(2^{-\alpha k+o(k)}\).
+- `REF-010` is `REFUTED`; NR-011 records that charged same-base ratios and
+  inversions alone do not restore a nonvanishing exponent-mediated
+  \(p-1/p+1\) promise fraction. Proper factors returned by the initial base
+  GCD remain separate algorithmic exits.
+- EXP-0013 completed 2,403,786 node-growth checks, 190,344 direct residue
+  checks, 646,400 sign-symmetry checks, 10,100 unit prechecks, 6,127 proper
+  nonunit prechecks, and 570 full-nonunit prechecks. It observed 734,190
+  negative and 251,685 zero outputs and exact maxima
+  \(1,2,4,8,16,32,64\). Its canonical summary SHA-256 is
+  `7203d3fc6ee67d5af3984c2b5c1eefb1640275dccdecaf979fed645d2d0fbb7d`;
+  the selected Python/Rust/C# differential validator passed 24 checks.
+- Independent adversarial review reproduced the focused tests, registered
+  experiment, and differential validator, then separately enumerated
+  self-ratios and checked prime powers and 20,000 lower-bound boundary cases
+  without finding a defect. Independent source-scope review found no new
+  citation requirement and confirmed the theorem's charged, factor-oblivious,
+  same-base, unit-branch scope.
+- Full gates passed: foundation and publication consistency (60 claims and
+  12 experiment hashes), 106 Python tests and bytecode compilation, Rust
+  format/Clippy/20 tests, C# Release build with zero warnings or errors,
+  EXP-0013, and the 24-check differential validator. XeLaTeX converged
+  without final warnings to a 36-page PDF; all pages and the new theorem,
+  proof, results, and reproduction pages were rendered and visually
+  inspected. The stable PDF SHA-256 is
+  `6ccdff994d04783b3a05170c28a1b6ccab9f1dca8c46dd8bbb64498655479f28`.
+- The result excludes implicit exponential batches, fixed-modulus
+  equal-residue shortcuts, factor-dependent adaptation, special
+  endomorphisms, unrelated multi-base expressions, other groups/channels,
+  population existence or natural density, and general factoring.
+- Optional third-party Python `pytest`, Ruff, and mypy gates remain
+  unavailable under BLK-003.
+- Next selected milestone: M15, formalize the smallest explicitly charged
+  implicit product/remainder-tree or arithmetic-circuit batch and determine
+  whether it can test exponentially many factor-scale exponents without
+  paying for output extraction.
+
 ## M13 outcome
 
 - Date: 2026-07-27.
