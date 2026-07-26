@@ -42,8 +42,11 @@
   proof, results, limitations, and reproduction pages were rendered and
   visually inspected. The stable PDF SHA-256 is
   `9ae325caaf98428d15443638e90063e4896b9fa191cb60c9d5b6145084280ca6`.
-- The local milestone commit is recorded by the follow-up status entry after
-  this validated state is committed.
+- Local milestone implementation/proof/paper commit:
+  `21b6673898d672659412c0cb4300f6ed6c00a5f6`.
+- The push was rejected before execution because this specific M15 payload
+  lacks explicit authorization for external GitHub publication. BLK-017
+  records the local-only branch, and no M15 pull request was created.
 - Optional third-party Python `pytest`, Ruff, and mypy gates remain
   unavailable under BLK-003.
 - Next selected milestone: M16, define the smallest uniform

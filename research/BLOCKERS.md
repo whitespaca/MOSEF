@@ -286,3 +286,20 @@
   `origin/research/20260727-m14-addition-subtraction` both at
   `5af39dce1abd7eefeb583bbee06c5a21845ef5bb`. No pull request was created or
   verified.
+
+## BLK-017 - M15 remote publication requires explicit authorization
+
+- Date: 2026-07-27.
+- Scope: push `research/20260727-m15-implicit-batch` and create its draft pull
+  request.
+- Evidence: the environment safety reviewer rejected
+  `git push -u origin research/20260727-m15-implicit-batch` before execution
+  because publishing this newly created proof, implementation, experiment,
+  and manuscript payload to the external GitHub remote was not explicitly
+  authorized.
+- Impact: M15 is validated and committed locally at
+  `21b6673898d672659412c0cb4300f6ed6c00a5f6`, but the branch was not pushed
+  and no M15 pull request was created.
+- Required resolution: the repository owner must explicitly authorize
+  publishing this M15 branch to `origin`; then push the branch and create or
+  update the draft pull request without rewriting history.
