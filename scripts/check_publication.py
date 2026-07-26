@@ -33,6 +33,7 @@ REQUIRED_SECTIONS = (
     "A combined-promise density barrier",
     "An exponent-encoding divisor barrier",
     "A multiplication straight-line compression barrier",
+    "A constant-sensitive boundary barrier",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -51,6 +52,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-003}",
     r"\label{proof:BAR-004}",
     r"\label{proof:BAR-005}",
+    r"\label{proof:BAR-006}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -62,6 +64,7 @@ EXPERIMENT_RECORDS = (
     ROOT / "research" / "experiments" / "EXP-0007-m8-promise-density.md",
     ROOT / "research" / "experiments" / "EXP-0008-m9-divisor-budget.md",
     ROOT / "research" / "experiments" / "EXP-0009-m10-compressed-exponents.md",
+    ROOT / "research" / "experiments" / "EXP-0010-m11-boundary-schedule.md",
 )
 
 

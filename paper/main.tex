@@ -15,7 +15,7 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
-Two Restricted Theorems and Five Structural Barriers}
+Two Restricted Theorems and Six Structural Barriers}
 \author{MOSEF Research Program}
 \date{26 July 2026}
 
@@ -34,7 +34,7 @@ each complete schedule cycle at a promised residual node. We also prove an
 exact Lucas root-count formula and use fresh uniform, independently
 parameterized Lucas values to obtain a second Las Vegas theorem on a
 hereditary \(p+1\)-asymmetry promise, with at least \(1/12\) split probability
-at a witness trial. We prove five structural barriers. Divisor
+at a witness trial. We prove six structural barriers. Divisor
 coverage does not imply multiplicative-order separation; the exact missing
 condition is injectivity of divisibility signatures. A natural Lucas
 parameter map \(P=a+a^{-1}\) is also not an independent group channel:
@@ -55,7 +55,14 @@ case: a factor-oblivious multiplication-only straight-line program. A
 \(t=o(k\log k)\) still falls under the explicit-list barrier, and the short
 descriptor \(2^{2^s}\) needs exactly \(2^s\) multiplication nodes in this
 model. This is not a lower bound for equal-residue computation at a fixed
-modulus or for broader algebraic representations.
+modulus or for broader algebraic representations. At the exact boundary, an
+optimized divisor budget gives
+\(\log_2\tau(d)\le(1+o(1))\ell(d)/\log_2\ell(d)\). Hence an exponent-length
+coefficient \(c\) still yields at most \(2^{ck+o(k)}\) hits and a vanishing
+fraction on any stipulated \(2^{\alpha k}\)-size population when \(c<\alpha\).
+First-primes primorials have exponential divisor capacity at this boundary,
+but no proved asymptotic \(d\pm1\) prime yield; repeated squaring shows that
+boundary node count alone is insufficient.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -101,27 +108,31 @@ algorithm. Its contributions are:
 \item a multiplication straight-line compression barrier: exact formal
   exponent realization grows by at most one bit per charged multiplication,
   so short symbolic syntax alone does not evade the explicit-list result; and
+\item a constant-sensitive exact-boundary barrier, together with an explicit
+  \(\Theta(k\log k)\)-cost primorial capacity family and a repeated-squaring
+  counterexample to sufficiency of boundary node count; and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
 
 The positive theorems are restricted: membership in their promise classes can
 depend on the unknown factorization and is not recognized by the algorithms.
-The five barriers are also scoped: one concerns explicit order signatures,
+The six barriers are also scoped: one concerns explicit order signatures,
 one concerns only \(P=a+a^{-1}\), and two concern a common explicit finite
 schedule under separate magnitude or encoding hypotheses. The fifth concerns
-only formal exponents in a factor-oblivious multiplication-only DAG. These
-boundaries are part of the results.
+only formal exponents in a factor-oblivious multiplication-only DAG. The sixth
+exposes a coefficient threshold for stipulated populations but is silent at
+and above the critical coefficient. These boundaries are part of the results.
 
 Section 2 records the imported complexity landscape. Sections 3 and 4 define
 candidate semantics and the recursive framework. Section 5 gives the first
 restricted theorem. Sections 6 and 7 prove two barriers, Section 8 gives the
 nonsplit Lucas theorem, Section 9 gives the combined-promise density barrier,
-and Section 10 gives the exponent-encoding barrier. Later sections separate
-and Section 10 gives the exponent-encoding barrier. Section 11 gives the
-multiplication straight-line compression barrier; later sections separate
-algorithms, experiments, and observations. Complete proofs and reproduction
-details appear in the appendices.
+Section 10 gives the exponent-encoding barrier, Section 11 gives the
+multiplication straight-line compression barrier, and Section 12 treats the
+exact boundary coefficient. Later sections separate algorithms, experiments,
+and observations. Complete proofs and reproduction details appear in the
+appendices.
 
 \section{Related work and complexity landscape}
 
@@ -162,6 +173,15 @@ For \(Q=1\), \(\varepsilon=-1\) is the nonsplit \(p+1\) branch and
 \(\varepsilon=+1\) the split \(p-1\) branch
 \cite{williams1982pplusone}. The zero-discriminant prime component is outside
 this statement.
+
+\claimstatus{EXT-005}{PROVED, IMPORTED}. Rosser and Schoenfeld's Theorem 3
+corollary gives, for the \(n\)-th prime,
+\[
+p_n<n(\log n+\log\log n)\qquad(n\ge6),
+\]
+with natural logarithms \cite{rosser1962approximate}. We use only the
+consequence \(p_n=O(n\log n)\) to cost the first-primes primorial constructor;
+the source supplies no \(d\pm1\) prime-yield statement.
 
 \section{Model and definitions}
 
@@ -718,6 +738,84 @@ realization, not the shortest computation of an equal residue for a fixed
 \(N,g\). It makes no conclusion for \(T(k)\not=o(k\log k)\), richer algebraic
 representations, promise recognition, natural density, or general factoring.
 
+\section{A constant-sensitive boundary barrier}
+
+We now retain the leading coefficient at the exact \(k\log k\) boundary.
+For \(\ell\ge1\), put
+\[
+b_\ell=\lceil\log_2(\ell+1)\rceil,\qquad
+c_\ell=\lceil\log_2(b_\ell+1)\rceil,
+\]
+\[
+T_\ell=\max\left\{1,
+\left\lfloor\frac{\ell}{b_\ell^2c_\ell}\right\rfloor\right\},
+\]
+and let \(A_\ell\) be maximal with
+\((T_\ell+1)^{A_\ell}<2^\ell\).
+
+\claimstatus{DEF-011}{DEFINITION}. Define the exact integer budget
+\[
+C(\ell)=(\ell+1)^{T_\ell}2^{A_\ell},\qquad
+R(L)=\max_{1\le\ell\le L}C(\ell).
+\]
+
+\claimstatus{BAR-006}{PROVED}. Every positive \(d\) satisfies
+\[
+\tau(d)\le C(\ell(d))\le R(\ell(d)),\qquad
+\log_2R(L)\le(1+o(1))\frac{L}{\log_2L}.
+\]
+Consequently, a common factorization-independent schedule with polynomially
+many explicit exponents and
+\[
+L(k)\le(c+o(1))k\log_2k
+\]
+has global combined hit set
+\[
+|H(k)|\le2^{ck+o(k)}.
+\]
+On any stipulated common-input-length finite odd-prime population with
+\(|S_k|\ge2^{\alpha k}\) and fixed \(\alpha>c\), BAR-003 gives promised-pair
+fraction at most
+\[
+2^{-(\alpha-c)k+o(k)}\longrightarrow0.
+\]
+For a fixed number of bases, the same coefficient applies to DEF-010 schedules
+whose total charged multiplication-node count has the displayed upper bound.
+This statement neither constructs \(S_k\) nor transfers to natural density.
+
+The boundary is nonvacuous. For
+\[
+P_r=\prod_{j=1}^r p_j,
+\]
+EXT-005 and the elementary lower bound \(p_j\ge j+1\) give
+\(\ell(P_r)=\Theta(r\log r)\), while square-freeness gives
+\(\tau(P_r)=2^r\). Binary exponentiation uses exactly
+\[
+\ell(P_r)-1+\operatorname{popcount}(P_r)-1
+\le2\ell(P_r)-2
+\]
+multiplication nodes, and BAR-005 supplies the matching-order lower bound.
+Thus \(P_r\) is an explicit factor-oblivious boundary family with exponential
+divisor capacity. Capacity does not prove prime yield: no asymptotic lower
+bound is known here for divisors \(d\mid P_r\) with \(d\pm1\) prime.
+
+Also, \(P_r\) contains exactly one factor of two. For every odd prime \(q\),
+one of \(q-1,q+1\) is divisible by four, so they cannot both divide \(P_r\).
+Every nonzero one-exponent signature is \((1,0)\) or \((0,1)\), never
+\((1,1)\).
+
+\claimstatus{REF-007}{REFUTED}. Boundary node count alone is insufficient.
+Take \(t(k)=\lfloor k\log_2k\rfloor\), repeatedly square, and expose every
+node exponent \(1,2,4,\ldots,2^{t(k)}\). Their
+divisor union contains only \(t(k)+1\) powers of two, hence at most
+\(2(t(k)+1)\) odd-prime candidates of the form \(d\pm1\). This
+\(\Theta(k\log k)\)-node schedule has a polynomial hit set and therefore a
+vanishing fraction on every stipulated \(2^{\Omega(k)}\)-size population.
+
+Appendix \ref{proof:BAR-006} gives the complete proof. The result is silent
+when \(c\ge\alpha\), supplies no primorial prime-yield theorem or recognizer,
+and remains inside the explicit-schedule and DEF-010 scopes.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -835,6 +933,10 @@ record-family bounds; 46 differential checks \\
 EXP-0009 & All 1,587,600 seven-node programs; tower levels through 16 &
 1,647,202 exponent-growth and residue checks; 17 tower checks;
 24 differential checks \\
+\addlinespace
+EXP-0010 & Every \(1\le d<2^{18}\); primorials through \(r=12\) &
+262,143 boundary-budget checks; 8,157 distinct prime candidates;
+32 differential checks \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -890,6 +992,14 @@ and 24 selected Python/Rust/C\# comparisons agreed. These finite syntax and
 residue checks do not establish an asymptotic, richer-model, density, novelty,
 or factoring claim.
 
+\claimstatus{EMP-010}{EMPIRICAL}. In EXP-0010, all 262,143 exact DEF-011
+budget checks passed. Every divisor and \(d\pm1\) candidate was enumerated for
+the first 12 primorials. At \(r=12\), the 43-bit exponent had 4,096 divisors,
+67 binary multiplication nodes, and 897 prime hits split 449/448 between the
+two disjoint channels. The within-hit promised fraction was \(449/897\), and
+32 selected Python/Rust/C\# comparisons agreed. These finite records do not
+establish asymptotic prime yield or a fraction on an external population.
+
 These observations audit implementations and minimize counterexamples. The
 universal statements in this paper are supplied by proofs, not extrapolation
 from the table.
@@ -940,8 +1050,16 @@ factor-oblivious multiplication-only same-base DAG and tracks exact formal
 exponents. It is not a lower bound for computing an equal residue at one fixed
 modulus and base, for inversion or addition-subtraction chains, for special
 endomorphisms, for adaptive factor-revealing branches, or for another
-explicitly costed algebraic model. It also leaves the
-\(\Theta(k\log k)\)-node boundary open.
+explicitly costed algebraic model.
+
+BAR-006 resolves only a constant-sensitive part of the
+\(\Theta(k\log k)\)-node boundary. For a stipulated population exponent
+\(\alpha\), it proves vanishing below coefficient \(\alpha\), but says nothing
+at or above that coefficient. The primorial family proves exponential divisor
+capacity, not an asymptotic lower bound on actual \(d\pm1\) prime hits.
+REF-007 shows that boundary node count alone is not sufficient. None of these
+statements constructs the population, recognizes the promise, or supplies a
+factoring lower bound.
 
 The authoritative Rust layer is bounded to \texttt{u64}; validation primality
 uses trial division and is not itself the polynomial-time procedure imported
@@ -950,10 +1068,10 @@ used here but is not a comprehensive current-state-of-the-art survey.
 
 The main open problems are the two explicit universal constructor questions
 in OPEN-002 and OPEN-003, recognition of the combined hereditary promise
-without access to the factorization, whether a
-\(\Theta(k\log k)\)-node factor-oblivious schedule has enough divisor
-structure for a nonvanishing combined-promise guarantee, and whether a richer
-explicitly costed representation can escape both BAR-004 and BAR-005.
+without access to the factorization, whether any explicit boundary family has
+a proved \(d\pm1\) prime-yield guarantee strong enough at or above the critical
+coefficient, and whether a richer explicitly costed representation can escape
+BAR-004--BAR-006.
 
 \section{Conclusion}
 
@@ -975,7 +1093,12 @@ making an exponent numerically larger than the factors does not help unless
 the required \(p\pm1\) divisor structure is present. Nor does short symbolic
 syntax alone help in DEF-010: formal exponent bit length grows by at most one
 per charged multiplication, so the tower descriptor \(2^{2^s}\) still costs
-exactly \(2^s\) multiplications.
+exactly \(2^s\) multiplications. At the exact boundary, the optimized divisor
+budget transfers the exponent-length coefficient \(c\) into a
+\(2^{ck+o(k)}\) hit-set bound. This still vanishes below a stipulated
+population coefficient \(\alpha\). Primorials show that exponential divisor
+capacity exists at boundary cost, but neither that capacity nor the node count
+alone supplies a prime-yield guarantee.
 
 These results do not resolve general classical factoring. They replace
 plausible shortcuts with exact obligations: recognizable or explicitly
@@ -983,7 +1106,9 @@ promised input structure, injective rather than merely nonempty signatures,
 genuinely nonsplit rather than conjugately re-encoded group parameters, and
 divisor-rich schedules whose representation, construction, and evaluation
 costs are all accounted for. The exact \(\Theta(k\log k)\) straight-line
-boundary remains a research target, not a claimed escape or obstruction.
+boundary now has a subcritical coefficient obstruction and an explicit
+capacity witness; the critical and supercritical prime-yield problem remains
+a research target, not a claimed factoring breakthrough.
 
 \appendix
 
@@ -1539,6 +1664,133 @@ The lower bound therefore requires \(2^s\) multiplications, while that many
 repeated squarings attain the target. This proves REF-006 inside DEF-010.
 \(\square\)
 
+\section{Full proof of the constant-sensitive boundary barrier}
+
+\subsection{Proof of BAR-006}\label{proof:BAR-006}
+
+Write
+\[
+d=\prod_i p_i^{a_i},\qquad \ell=\ell(d),\qquad T=T_\ell.
+\]
+There are at most \(T\) prime factors \(p_i\le T\). Since
+\(2^{a_i}\le d<2^\ell\), each small-prime contribution \(a_i+1\) is at most
+\(\ell+1\), so their product is at most \((\ell+1)^T\).
+
+For the remaining primes put \(A=\sum_{p_i>T}a_i\). Every such prime is at
+least \(T+1\), whence
+\[
+(T+1)^A\le d<2^\ell.
+\]
+Thus \(A\le A_\ell\). Since \(a+1\le2^a\) for every positive integer \(a\),
+the large-prime contribution to \(\tau(d)\) is at most
+\(2^A\le2^{A_\ell}\). Therefore
+\[
+\tau(d)\le C(\ell(d))\le R(\ell(d)).
+\tag{11}
+\]
+
+As \(\ell\to\infty\),
+\[
+b_\ell=\log_2\ell+O(1),\qquad
+c_\ell=\log_2\log_2\ell+O(1),
+\]
+and
+\[
+T_\ell=\frac{\ell}{b_\ell^2c_\ell}(1+o(1)).
+\]
+It follows that
+\[
+T_\ell\log_2(\ell+1)
+=o\left(\frac{\ell}{\log_2\ell}\right).
+\tag{12}
+\]
+The strict inequality defining \(A_\ell\) gives
+\[
+A_\ell<\frac{\ell}{\log_2(T_\ell+1)}
+\le(1+o(1))\frac{\ell}{\log_2\ell},
+\tag{13}
+\]
+because
+\[
+\log_2(T_\ell+1)
+=\log_2\ell-O(\log_2\log_2\ell).
+\]
+Equations (12)--(13) prove the one-length leading bound.
+
+It remains to justify the maximum in \(R\). The exact inequalities
+\(T_\ell b_\ell\le\ell\) and \(A_\ell<\ell\) give
+\[
+\log_2C(\ell)\le2\ell.
+\tag{14}
+\]
+For \(\ell\le L/(\log_2L)^2\), equation (14) is
+\(o(L/\log_2L)\). For larger \(\ell\),
+\[
+\log_2\ell=\log_2L-O(\log_2\log_2L),
+\]
+so the one-length estimate is uniform over this range, and the eventual
+monotonicity of \(x/\log_2x\) gives
+\[
+\log_2R(L)\le(1+o(1))\frac{L}{\log_2L}.
+\tag{15}
+\]
+
+Every prime in the global hit set is one more or one less than a positive
+divisor of some scheduled exponent. Hence
+\[
+|H(k)|\le2E(k)R(L(k)).
+\]
+If \(L(k)\le(c+o(1))k\log_2k\), monotonicity lets us substitute the displayed
+upper envelope into (15), obtaining
+\[
+\log_2R(L(k))\le ck+o(k).
+\]
+For \(c=0\), use the BAR-004 case split instead: bounded \(L(k)\) is trivial;
+when \(L(k)\le k\), equation (15) gives \(O(k/\log k)=o(k)\), and when
+\(L(k)>k\),
+\[
+\frac{L(k)}{\log_2L(k)}
+\le\frac{L(k)}{\log_2k}
+=o(k).
+\]
+The polynomial \(E(k)\) contributes only \(O(\log k)=o(k)\), proving the
+hit-set bound.
+
+Let \(h_k=|H(k)\cap S_k|\). BAR-003 gives
+\[
+\rho_k
+\le
+\frac{\binom{|S_k|}{2}-\binom{|S_k|-h_k}{2}}
+     {\binom{|S_k|}{2}}
+\le\frac{2|H(k)|}{|S_k|-1}.
+\]
+Under \(|S_k|\ge2^{\alpha k}\) with \(\alpha>c\), this is
+\[
+\rho_k\le2^{-(\alpha-c)k+o(k)}\longrightarrow0.
+\]
+BAR-005 supplies \(E(k)\le T(k)+O(1)\) and \(L(k)\le T(k)+1\) for the stated
+fixed-base DEF-010 schedule, proving its consequence.
+
+For completeness, let \(P_r=\prod_{j\le r}p_j\). EXT-005 gives
+\[
+\log_2P_r\le r\log_2p_r=O(r\log r).
+\]
+Since \(p_j\ge j+1\), the final half of the factors give the matching
+\(\Omega(r\log r)\) lower bound. Square-freeness gives
+\(\tau(P_r)=2^r\). Scanning its remaining binary digits performs
+\(\ell(P_r)-1\) squarings and \(\operatorname{popcount}(P_r)-1\)
+multiplications by the base, proving the displayed upper bound; BAR-005 gives
+the matching order. Finally, if both \(q-1\) and \(q+1\) divided \(P_r\), then
+\(4\mid P_r\), because one neighbor of every odd \(q\) is divisible by four.
+This contradicts square-freeness.
+
+For REF-007, the repeated-squaring exponents through \(2^{t(k)}\) have divisor
+union exactly \(\{2^j:0\le j\le t(k)\}\). At most two odd-prime candidates
+arise from each divisor, so the hit set is polynomial although
+\(t(k)=\Theta(k\log k)\). BAR-003's exact pair bound makes the promised
+fraction vanish on every stipulated
+\(2^{\Omega(k)}\)-size population. \(\square\)
+
 \section{Reproduction appendix}
 
 The evidence implementation state preceding M6 is commit
@@ -1553,7 +1805,9 @@ exponent-encoding barrier implementation and proof core is commit
 \texttt{\seqsplit{1416d70a6bc39a4c7491e9ec86e4e67f96293962}}. The M10
 multiplication straight-line compression implementation and proof core is
 commit
-\texttt{\seqsplit{5501d2d1d2a6a5c584fdc03f905e9a36a6054733}}. The Windows
+\texttt{\seqsplit{5501d2d1d2a6a5c584fdc03f905e9a36a6054733}}. The M11
+constant-sensitive boundary implementation and proof core is commit
+\texttt{\seqsplit{cd391e5cf64207ea7dc2f6e4dd55cf469af45424}}. The Windows
 AMD64 environment and exact toolchains are recorded in
 \path{research/toolchains/windows-amd64-20260725.json}.
 
@@ -1583,7 +1837,10 @@ The registered experiment cores and canonical summary hashes are:
   \texttt{\seqsplit{b8357f9436ef4d31d072f62dab4f3c8dedad41d6f1787803bf5df2f485ca53ed}};
 \item EXP-0009, core
   \texttt{\seqsplit{5501d2d1d2a6a5c584fdc03f905e9a36a6054733}}, hash
-  \texttt{\seqsplit{67508cf957fa356350a707a58f1079aebcea4f02481ff826cd5ed09727d210fa}}.
+  \texttt{\seqsplit{67508cf957fa356350a707a58f1079aebcea4f02481ff826cd5ed09727d210fa}};
+\item EXP-0010, core
+  \texttt{\seqsplit{cd391e5cf64207ea7dc2f6e4dd55cf469af45424}}, hash
+  \texttt{\seqsplit{22699f23a1421805cb472ddca1723e8d580d601cd25ca72b8b2cd134743e4f83}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -1634,14 +1891,17 @@ python scripts/check_m9_divisor_budget_differential.py
 python scripts/run_m10_compressed_exponent_search.py `
   --step-max 7 --descriptor-level-max 16
 python scripts/check_m10_compressed_exponent_differential.py
+python scripts/run_m11_boundary_schedule_search.py `
+  --exponent-max 262144 --primorial-count-max 12
+python scripts/check_m11_boundary_schedule_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
 
 The searches use no random seed. The randomized theorems are validated by
 exact successful-residue enumeration in EXP-0003 and exact parameter
-enumeration in EXP-0006 rather than by unrecorded random runs. EXP-0007,
-EXP-0008, and EXP-0009 are deterministic combinatorial or syntax
+enumeration in EXP-0006 rather than by unrecorded random runs. EXP-0007
+through EXP-0010 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. The
