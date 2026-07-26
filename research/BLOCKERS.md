@@ -38,7 +38,7 @@
   versions of pytest, Ruff, and mypy. Do not add or download them merely to hide
   this environmental limitation.
 
-## BLK-004 - M2 remote delivery requires explicit approval
+## BLK-004 - M2 remote delivery requires explicit approval (resolved)
 
 - First observed: 2026-07-25
 - Scope: push `research/20260725-m2-formal-spec` and create its draft pull
@@ -53,3 +53,12 @@
   this branch to `origin`. After a successful push, create a stacked draft pull
   request against `research/20260725-m0-foundation` and mark this blocker
   resolved.
+
+### Resolution
+
+- Resolved: 2026-07-26.
+- Evidence: the connected GitHub app reported pull request
+  `https://github.com/whitespaca/MOSEF/pull/2` merged into `main`, with M2 head
+  commit `a1861b4f19ca645e9f6b6553396976105764f7d3`.
+- Impact: no M2 delivery blocker remains. M3 remote delivery is tracked
+  separately only if its eventual push or draft pull request fails.

@@ -5,6 +5,7 @@
 \usepackage{amssymb}
 \usepackage{booktabs}
 \usepackage[hidelinks]{hyperref}
+\setlength{\emergencystretch}{2em}
 
 \newcommand{\claimstatus}[2]{\textbf{#1 [#2]}}
 
@@ -22,9 +23,10 @@ order-separating exponent families in classical integer factorization. It
 proves the elementary support-separator implication and an exact
 valuation-aware criterion for repeated prime factors. The original
 support-only requirement cannot cover prime powers and is refuted as an
-all-composite target. Perfect-power preprocessing and an all-input
-valuation-separating family give two repaired formulations, but neither has a
-known universal polynomial-time constructor. No general factoring theorem is
+all-composite target. On an explicit hereditary semismooth-order promise
+class, we prove a Las Vegas complete-factorization theorem with polynomial
+expected bit complexity. The promise is factor dependent and is not
+recognized by the algorithm; no general polynomial-time factoring theorem is
 claimed.
 \end{abstract}
 
@@ -173,6 +175,83 @@ LEM-001, LEM-002, or square-free equivalence, and found 5,672
 nonsquarefree valuation-only splits. Twenty-four selected Python, Rust, and
 C\# comparisons also passed. This finite agreement is an audit, not a proof.
 
+\section{A restricted semismooth-order theorem}
+
+Let \(B(k)\) and \(R(k)\) be nondecreasing, polynomially bounded integer
+functions computable in polynomial time, and define
+\[
+  M_B(k)=\operatorname{lcm}(1,2,\ldots,B(k)).
+\]
+\claimstatus{DEF-004}{DEFINITION}. A composite non-perfect-power \(K\), of
+bit length \(k\), has a semismooth asymmetry witness when it has distinct
+prime divisors \(p,q\) and an integer \(1\le t\le R(k)\) such that
+\[
+  p-1\mid tM_B(k)
+  \quad\text{and}\quad
+  q-1\nmid tM_B(k).
+\]
+An input is in the hereditary promise class when every composite
+non-perfect-power divisor has such a witness at its local bit length.
+Membership is promised, not recognized: the definition may use the
+factorization, but the algorithm does not.
+
+\claimstatus{THM-001}{PROVED}. On this hereditary class, a classical Las
+Vegas algorithm returns the complete prime factorization with probability one,
+is always correct, and has expected running time polynomial in the binary
+input length.
+
+At a residual composite \(K\), the algorithm repeatedly enumerates
+\(1\le t\le R(k)\). For each \(t\), it samples a uniform residue
+\(a\bmod K\), first tries \(\gcd(a,K)\), and then tries
+\[
+  \gcd\!\left(a^{tM_B(k)}-1,K\right).
+\]
+Fix a witness \((p,q,t)\) and write \(d=tM_B(k)\). Every unit satisfies
+\(a^d=1\bmod p\). The unit group modulo \(q\) is cyclic, and \(x^d=1\)
+has \(\gcd(d,q-1)\le(q-1)/2\) solutions because \(q-1\nmid d\).
+Thus at least half the units separate \(p\) from \(q\). All nonzero,
+nonunit residues already expose a proper GCD. Consequently
+\[
+  \Pr[\text{one witness trial succeeds}]
+  \ge \frac{K-1-\varphi(K)/2}{K}
+  \ge \frac{K-1}{2K}
+  \ge \frac{5}{12},
+\]
+where the last inequality uses \(K\ge6\). A full pass therefore succeeds with
+conditional probability at least \(5/12\), so it needs at most \(12/5\)
+passes in expectation.
+
+The exponent has
+\[
+  O(B(k)\log B(k)+\log R(k))
+\]
+bits because \(M_B(k)\mid B(k)!\). Exact rejection sampling takes fewer than
+two \(k\)-bit draws in expectation. Deterministic polynomial-time primality,
+exact maximal-exponent perfect-power preprocessing, and fewer than \(4m\)
+recursive invocations complete the expected polynomial bit-complexity proof.
+The full proof, including recursive correctness and outside-promise semantics,
+is in \path{research/proofs/THM-001-semismooth-promise.md}.
+
+\claimstatus{REF-001}{REFUTED}. The condition \(q-1\nmid d\) does not make a
+fixed base deterministic. For
+\[
+  N=51,\quad p=3,\quad q=17,\quad
+  d=\operatorname{lcm}(1,\ldots,8)=840,
+\]
+we have \(p-1\mid d\), \(q-1\nmid d\), but
+\(\operatorname{ord}_{17}(2)=8\mid d\). Hence
+\(\gcd(2^{840}-1,51)=51\), a simultaneous collision. Random residues repair
+this proper-subgroup failure probabilistically; the false fixed-base
+statement remains refuted.
+
+\claimstatus{EMP-003}{EMPIRICAL}. With \(B=8\), \(R=3\), and
+\(4\le N\le500\), exact enumeration found 155 hereditary promised inputs and
+factored all of them with the finite residue oracle. It checked all 557
+ordered witness tuples in the box; the smallest observed exact success
+probability was \(268/493\), above the proved \(5/12\) bound. Twenty-two
+selected Python, Rust, and C\# comparisons passed. These finite checks
+falsify implementations, not prove the theorem.
+
 \section{Baseline algorithm suite}
 
 The M1 suite contains exact modular exponentiation, trial division,
@@ -219,19 +298,21 @@ python scripts/check_baseline_differential.py
 python scripts/run_m2_separator_search.py
   --n-max 500 --base-max 20 --exponent-max 20
 python scripts/check_m2_separator_differential.py
+python scripts/run_m3_semismooth_search.py
+  --n-max 500 --base-bound 5 --smooth-bound 8
+  --cofactor-bound 3 --collision-bound-max 20
+python scripts/check_m3_semismooth_differential.py
 \end{verbatim}
 
 \section{Limitations}
 
-No support-POSF or valuation-family constructor and no restricted-class
-factoring theorem is claimed here. Trial-division primality is intentionally
-not polynomial in binary input length, the Rust algorithms are bounded to
-\texttt{u64}, and finite searches are not proofs for untested inputs. The
-valuation profile is used by the analysis oracle and is not available to a
-constructor without knowing the factorization. The baseline literature set is
-not a current-state-of-the-art survey. The manuscript is not yet a
-publication-ready contribution; it has passed XeLaTeX compilation, citation
-resolution, warning scanning, and page-by-page visual inspection.
+No universal support-POSF or valuation-family constructor is claimed. THM-001
+applies only on an explicitly factor-dependent hereditary promise and gives no
+membership recognizer or density result. Outside that promise its unbounded
+randomized splitter may not terminate. Trial-division validation primality is
+intentionally not polynomial in binary input length, the Rust algorithms are
+bounded to \texttt{u64}, and finite searches are not proofs for untested
+inputs. The baseline literature set is not a current-state-of-the-art survey.
 
 \section{Conclusion}
 
@@ -239,11 +320,14 @@ The M0 foundation makes claim status, source inspection, and experiment
 metadata explicit, and M1 provides a differentially checked small-input
 baseline. M2 proves the support and valuation criteria, specifies all
 candidate and recursive failure branches, and replaces an impossible
-all-composite support target with two explicit open formulations. M3 will seek
-the strongest noncircular restricted theorem for a semismooth-order input
-class.
+all-composite support target with two explicit open formulations. M3 supplies
+a noncircular Las Vegas theorem for a hereditary semismooth-order promise
+class while preserving the minimal fixed-base collision that blocks a
+deterministic shortcut. M4 will test whether natural divisor-cover
+constructions actually imply prime-factor separation.
 
 \bibliographystyle{plain}
+\small
 \bibliography{paper/references}
 
 \end{document}
