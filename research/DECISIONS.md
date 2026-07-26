@@ -233,3 +233,31 @@
   observable is proved equivalent to the combined promise or a schedule
   outside BAR-003's magnitude/sparsity hypotheses receives a rigorous
   construction or obstruction.
+
+## ADR-012 - Charge explicit exponent encodings and divisor structure
+
+- Date: 2026-07-26
+- Status: accepted
+- Context: BAR-003's magnitude argument does not constrain a
+  polynomial-bit-length exponent whose numerical value exceeds the target
+  primes. M9 asks whether large explicit values alone can give a nonvanishing
+  common-schedule combined-promise guarantee.
+- Alternatives: infer coverage from exponent magnitude; search for one
+  favorable highly composite schedule without an asymptotic guarantee; or
+  charge binary representation length and bound every possible \(p\pm1\) hit
+  through the exponent's divisor count.
+- Decision: define the exact integer budget DEF-009 and prove BAR-004 for
+  factorization-independent explicit lists whose members are individually
+  evaluated. Treat the prime population as a declared finite distribution,
+  not as an implicit prime-number-theorem claim.
+- Consequences: polynomial list size and
+  \(L(k)=o(k\log k)\) imply only a subexponential hit set and a vanishing
+  promised-pair fraction on every stipulated exponentially large
+  common-input-length population. This is not a recognizer, natural-density
+  theorem, factoring lower bound, or result about compressed, adaptive, or
+  implicit exponent families. Exponent magnitude alone is refuted by
+  REF-005.
+- Rollback condition: revise the barrier if a counterexample violates the
+  exact divisor budget, or if a rigorously specified compressed evaluation
+  model invalidates the explicit-list accounting while preserving polynomial
+  construction and evaluation cost.

@@ -132,3 +132,30 @@
 - Surviving boundary: the argument does not exclude an exponent with
   \(\Theta(k)\) bits whose value exceeds the balanced factors, nor does it
   prove a recognition or general factoring lower bound.
+
+## NR-006 - Large exponent value does not replace divisor structure
+
+- Date: 2026-07-26
+- Affected claim: `REF-005`, status `REFUTED`.
+- Exact hypothesis: once a common exponent \(d\) strictly exceeds both
+  \(p+1\) and \(q+1\), its numerical magnitude guarantees a local
+  \(p-1\) or \(p+1\) divisibility asymmetry for the semiprime \(pq\).
+- Proof of failure: take \(d=7\), \(p=3\), and \(q=5\). Although
+  \(7>p+1=4\) and \(7>q+1=6\), none of \(p-1=2\), \(p+1=4\),
+  \(q-1=4\), or \(q+1=6\) divides 7. Both combined signatures are zero, so
+  \(N=15\) is outside both local promises.
+- Minimality in the registered box: exhaustive increasing search through
+  \(d\le4096\) and odd primes through 4093 found
+  \((d,p,q,N)=(7,3,5,15)\) first under the strict
+  \(d>\max(p+1,q+1)\) condition.
+- Deterministic search:
+  `python scripts/run_m9_divisor_budget_search.py --bit-length-max 18
+  --direct-exponent-max 4096 --prime-max 4093` checked 262,143 exact divisor
+  budgets, 2,306,048 direct hit-oracle cases, and 987 record families with no
+  seed. Summary hash:
+  `b8357f9436ef4d31d072f62dab4f3c8dedad41d6f1787803bf5df2f485ca53ed`.
+- Surviving boundary: BAR-004 counts explicit exponent divisors and supplies
+  a stipulated-population upper bound. It does not rule out
+  \(L(k)\not=o(k\log k)\), exponentially many explicit exponents, compressed
+  implicit evaluation, adaptive factor-dependent schedules, other algebraic
+  channels, or a general classical factoring algorithm.

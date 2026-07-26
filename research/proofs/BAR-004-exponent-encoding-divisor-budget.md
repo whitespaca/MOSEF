@@ -1,7 +1,7 @@
 # BAR-004 - Exponent-encoding divisor-budget barrier
 
-Status: proof candidate awaiting bounded falsification and independent
-adversarial review.
+Status: `PROVED`; bounded falsification and independent adversarial and
+source-scope review passed on 2026-07-26.
 
 ## Computation model and scope
 
@@ -92,7 +92,7 @@ The following assertions hold.
    L(k)=o(k\log k),
    \]
 
-   then \(|H(k)|=2^{o(k)}\). In particular this applies when every exponent
+   then \(|H(k)|\le2^{o(k)}\). In particular this applies when every exponent
    has \(O(k)\) bits, even if its numerical value exceeds the prime factors.
 
 5. **Exponential-population density barrier.** Fix \(\alpha>0\). For every
@@ -110,7 +110,7 @@ The following assertions hold.
    \rho_k
    \le
    \frac{2|H(k)|}{|S_k|-1}
-   =
+   \le
    2^{-\alpha k+o(k)}
    \longrightarrow0.                              \tag{5}
    \]
@@ -209,9 +209,11 @@ There are at most \(2\tau(d)\) candidates before primality is imposed.
 Taking the union over the explicit list and applying (2) proves (4).
 
 If \(E(k)=k^{O(1)}\) and \(L(k)=o(k\log k)\), then
-\(L(k)/\log L(k)=o(k)\): bounded \(L(k)\) is immediate; when \(L(k)\to
-\infty\), split into \(L(k)\le k\), where monotonicity gives
-\(O(k/\log k)\), and \(L(k)>k\), where
+\(\log_2Q(L(k))=o(k)\), without any monotonicity assumption on \(L\).
+Choose a fixed \(L_0\) beyond the increasing range of \(x/\log x\). For each
+sufficiently large \(k\), if \(L(k)\le L_0\), then \(Q(L(k))\) is bounded. If
+\(L_0<L(k)\le k\), (3) and monotonicity give
+\(\log_2Q(L(k))=O(k/\log k)=o(k)\). If \(L(k)>k\), then
 \[
 \frac{L(k)}{\log L(k)}
 \le
@@ -220,7 +222,7 @@ If \(E(k)=k^{O(1)}\) and \(L(k)=o(k\log k)\), then
 \]
 
 Equations (3) and (4), with the polynomial factor absorbed into
-\(2^{o(k)}\), give \(|H(k)|=2^{o(k)}\). This proves assertion 4.
+\(2^{o(k)}\), give \(|H(k)|\le2^{o(k)}\). This proves assertion 4.
 
 Finally put \(h_k=|H(k)\cap S_k|\). Every promised pair in \(S_k\)
 intersects this set, by BAR-003, and \(h_k\le|H(k)|\). Consequently
@@ -269,9 +271,10 @@ pair.
 - The prime-population result is an implication for explicitly stated sets
   satisfying \(|S_k|\ge2^{\alpha k}\); no unproved prime-distribution transfer
   is used.
-- The theorem does not say that \(\Omega(k\log k)\) bits are sufficient for
-  separation. It only identifies a necessary encoding scale for escaping this
-  particular subexponential hit-set obstruction.
+- The theorem does not say that \(\Omega(k\log k)\) bits are necessary or
+  sufficient for separation in general. Under its other hypotheses, escaping
+  this particular subexponential hit-set obstruction requires
+  \(L(k)\not=o(k\log k)\).
 - No general classical factoring algorithm or lower bound is claimed.
 
 ## Falsification plan

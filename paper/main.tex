@@ -15,7 +15,7 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
-Two Restricted Theorems and Three Structural Barriers}
+Two Restricted Theorems and Four Structural Barriers}
 \author{MOSEF Research Program}
 \date{26 July 2026}
 
@@ -34,17 +34,22 @@ each complete schedule cycle at a promised residual node. We also prove an
 exact Lucas root-count formula and use fresh uniform, independently
 parameterized Lucas values to obtain a second Las Vegas theorem on a
 hereditary \(p+1\)-asymmetry promise, with at least \(1/12\) split probability
-at a witness trial. We prove two structural barriers. Divisor
+at a witness trial. We prove four structural barriers. Divisor
 coverage does not imply multiplicative-order separation; the exact missing
 condition is injectivity of divisibility signatures. A natural Lucas
 parameter map \(P=a+a^{-1}\) is also not an independent group channel:
 \(V_d(P,1)-2=a^{-d}(a^d-1)^2\), so it cannot enlarge the multiplicative
 family's success domain when exponent \(2\) is retained and can worsen
-prime-power collisions. Finally, for one common finite exponent schedule, we
+prime-power collisions. For one common finite exponent schedule, we
 characterize the union of the local \(p-1\) and \(p+1\) promises by a combined
 prime signature and prove a finite-distribution upper bound plus a
 magnitude-conditioned zero-density corollary for balanced semiprimes. These
-signatures are factor-dependent analytical objects, not a recognizer.
+signatures are factor-dependent analytical objects, not a recognizer. Finally,
+an exact divisor budget shows that a polynomial-size explicit schedule whose
+maximum exponent length is \(o(k\log k)\) hits at most \(2^{o(k)}\) odd
+primes; on any stipulated exponentially large common-input-length prime
+population, its promised-pair fraction vanishes. This last result makes no
+prime-distribution or compressed-representation claim.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -82,24 +87,29 @@ algorithm. Its contributions are:
   independent \(p+1\) channel;
 \item a self-contained common-schedule finite-distribution upper bound for the
   union of the local \(p-1\) and \(p+1\) promises, including a
-  magnitude-conditioned zero-density corollary for balanced semiprimes; and
+  magnitude-conditioned zero-density corollary for balanced semiprimes;
+\item an explicit-list exponent-encoding barrier: a polynomial-size schedule
+  of \(o(k\log k)\)-bit exponents has a subexponential global divisor-hit set
+  and vanishing promised-pair fraction on every stipulated exponentially
+  large common-input-length prime population; and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
 
 The positive theorems are restricted: membership in their promise classes can
 depend on the unknown factorization and is not recognized by the algorithms.
-The three barriers are also scoped: one concerns explicit order signatures,
-one concerns only \(P=a+a^{-1}\), and one concerns a common finite schedule
-under explicit magnitude or sparsity hypotheses. These boundaries are part of
-the results.
+The four barriers are also scoped: one concerns explicit order signatures,
+one concerns only \(P=a+a^{-1}\), and two concern a common explicit finite
+schedule under separate magnitude or encoding hypotheses. These boundaries
+are part of the results.
 
 Section 2 records the imported complexity landscape. Sections 3 and 4 define
 candidate semantics and the recursive framework. Section 5 gives the first
 restricted theorem. Sections 6 and 7 prove two barriers, Section 8 gives the
-nonsplit Lucas theorem, and Section 9 gives the combined-promise density
-barrier. Later sections separate algorithms, experiments, and observations.
-Complete proofs and reproduction details appear in the appendices.
+nonsplit Lucas theorem, Section 9 gives the combined-promise density barrier,
+and Section 10 gives the exponent-encoding barrier. Later sections separate
+algorithms, experiments, and observations. Complete proofs and reproduction
+details appear in the appendices.
 
 \section{Related work and complexity landscape}
 
@@ -559,6 +569,83 @@ BAR-003 is a magnitude/sparsity barrier, not a recognizer or a lower bound for
 every polynomial-bit-length schedule. An exponent with \(\Theta(k)\) bits may
 exceed the balanced factors and fall outside its zero-density hypothesis.
 
+\section{An exponent-encoding divisor barrier}
+
+We now charge the binary representation of explicit exponents rather than
+their numerical magnitude. For a positive integer \(d\), let
+\(\ell(d)=\lceil\log_2(d+1)\rceil\). For \(\ell\ge1\), set
+\[
+T_\ell=\lfloor\sqrt\ell\rfloor
+\]
+and let \(A_\ell\) be the largest nonnegative integer satisfying
+\[
+(T_\ell+1)^{A_\ell}<2^\ell.
+\]
+
+\claimstatus{DEF-009}{DEFINITION}. Define the exact one-length divisor budget
+and its monotone envelope by
+\[
+B(\ell)=(\ell+1)^{T_\ell}2^{A_\ell},
+\qquad
+Q(L)=\max_{1\le\ell\le L}B(\ell).
+\]
+Both are integer valued and require no floating-point approximation.
+
+Let \(\Delta(k)\) be one factorization-independent explicit list used for
+every pair in a declared common-input-length population, and write
+\[
+E(k)=|\Delta(k)|,\qquad
+L(k)=\max_{d\in\Delta(k)}\ell(d).
+\]
+Let \(H(k)\) be the set of all odd primes having a nonzero combined signature
+for this schedule.
+
+\claimstatus{BAR-004}{PROVED}. Every positive integer \(d\) satisfies
+\[
+\tau(d)\le B(\ell(d))\le Q(\ell(d)),
+\qquad
+\log_2Q(L)=O\!\left(\frac{L}{\log L}\right).
+\]
+Consequently,
+\[
+|H(k)|
+\le2\sum_{d\in\Delta(k)}\tau(d)
+\le2E(k)Q(L(k)).
+\]
+If \(E(k)=k^{O(1)}\) and \(L(k)=o(k\log k)\), then
+\[
+|H(k)|\le2^{o(k)}.
+\]
+In particular, this includes \(O(k)\)-bit exponents even when their numerical
+values exceed the prime factors.
+
+Fix \(\alpha>0\). For any explicitly declared finite odd-prime set \(S_k\)
+whose distinct-prime products all have input length \(k\) and whose size
+satisfies \(|S_k|\ge2^{\alpha k}\), the uniform unordered-pair fraction
+\(\rho_k\) in the local, hence square-free-semiprime hereditary, union of the
+M3 and M7 promises obeys
+\[
+\rho_k
+\le\frac{2|H(k)|}{|S_k|-1}
+\le2^{-\alpha k+o(k)}
+\longrightarrow0.
+\]
+Appendix \ref{proof:BAR-004} supplies the complete elementary proof. This is
+an explicit-list, stipulated-population hit-set bound. It neither constructs
+such a prime population nor invokes a prime-distribution theorem.
+
+\claimstatus{REF-005}{REFUTED}. Numerical value alone does not replace divisor
+structure. With \(\Delta=\{7\}\) and \(N=15=3\cdot5\), the exponent exceeds
+both \(p+1=4\) and \(q+1=6\), but none of \(2,4,4,6\) divides 7. Both
+signatures are zero. EXP-0008 confirms that this is the smallest bounded
+counterexample under the strict value condition.
+
+BAR-004 does not cover exponentially many explicit exponents, adaptive or
+factor-dependent schedules, compressed implicit or batched representations,
+or \(L(k)\not=o(k\log k)\). It is not a recognizer, a natural-density theorem,
+a factoring lower bound, or a barrier to other algebraic mechanisms. No
+novelty or priority claim is made for its elementary divisor estimate.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -663,6 +750,10 @@ EXP-0006 & 13 odd primes through 43, \(d\le80\) &
 EXP-0007 & 987 exponent families; 25 odd primes through 101 &
 296,100 direct/signature comparisons; 184,994 magnitude-zero pair checks;
 28 differential checks \\
+\addlinespace
+EXP-0008 & Every \(1\le d<2^{18}\); direct primes through 4093 &
+262,143 divisor budgets; 2,306,048 direct hit-oracle checks; 987
+record-family bounds; 46 differential checks \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -702,6 +793,14 @@ promised-pair fraction was \(49/100\), and 28 selected Python/Rust/C\#
 comparisons agreed. These registered finite-distribution observations are not
 a natural-density estimate, recognizer, asymptotic result, or novelty claim.
 
+\claimstatus{EMP-008}{EMPIRICAL}. In EXP-0008, all 262,143 exact divisor
+enumerations, one-length budgets, and single-exponent hit bounds passed, as
+did 2,306,048 direct prime-oracle comparisons and 987 record-family bounds.
+The largest observed single-exponent hit set had 114 odd primes at
+\(d=166{,}320\), and 46 selected Python/Rust/C\# comparisons agreed. These
+finite observations do not establish budget tightness, asymptotic behavior,
+compressed-representation behavior, a natural density, or novelty.
+
 These observations audit implementations and minimize counterexamples. The
 universal statements in this paper are supplied by proofs, not extrapolation
 from the table.
@@ -737,6 +836,16 @@ hypothesis, while the asymptotic upper bound requires the displayed sparsity
 hypothesis. It is neither a natural-density theorem nor a lower bound for
 schedules whose polynomial-bit-length exponents have larger values.
 
+BAR-004 extends the obstruction to polynomial-size explicit lists with
+\(L(k)=o(k\log k)\), including \(O(k)\)-bit exponent values above the factors.
+Its vanishing fraction is conditional on a stipulated exponentially large
+finite prime population at common input length; the paper neither constructs
+that population nor transfers the statement to natural semiprime density.
+The result charges individual exponent encodings and evaluations. It does not
+cover compressed or batched implicit families, adaptive factor-dependent
+choices, \(L(k)\not=o(k\log k)\), exponentially many explicit exponents, or
+other algebraic mechanisms, and is not a factoring lower bound.
+
 The authoritative Rust layer is bounded to \texttt{u64}; validation primality
 uses trial division and is not itself the polynomial-time procedure imported
 in EXT-001. The literature set is sufficient for the technical statements
@@ -744,9 +853,9 @@ used here but is not a comprehensive current-state-of-the-art survey.
 
 The main open problems are the two explicit universal constructor questions
 in OPEN-002 and OPEN-003, recognition of the combined hereditary promise
-without access to the factorization, and whether explicit divisor-rich
-schedules with \(\Theta(k)\)-bit exponent values can escape BAR-003's
-magnitude/sparsity hypotheses with a nonvanishing rigorous guarantee.
+without access to the factorization, and whether one rigorously specified
+compressed or \(L(k)\not=o(k\log k)\) exponent representation can escape
+BAR-004 while preserving polynomial construction and evaluation cost.
 
 \section{Conclusion}
 
@@ -760,14 +869,19 @@ natural conjugate Lucas map still fails as an independent channel because it
 algebraically squares the multiplicative residue. A common \(p-1/p+1\)
 schedule also covers no balanced-semiprime pair once every factor exceeds its
 largest exponent by more than one, and its promised fraction is bounded by
-the schedule's divisor hit set.
+the schedule's divisor hit set. Charging exponent encodings sharpens this:
+a polynomial-size explicit list with \(o(k\log k)\)-bit members has a
+subexponential global hit set, so its promised fraction vanishes on every
+stipulated exponentially large common-input-length prime population. Merely
+making an exponent numerically larger than the factors does not help unless
+the required \(p\pm1\) divisor structure is present.
 
 These results do not resolve general classical factoring. They replace
 plausible shortcuts with exact obligations: recognizable or explicitly
 promised input structure, injective rather than merely nonempty signatures,
 genuinely nonsplit rather than conjugately re-encoded group parameters, and
-divisor-rich schedules whose value and construction costs are both accounted
-for.
+divisor-rich schedules whose representation, construction, and evaluation
+costs are all accounted for.
 
 \appendix
 
@@ -1181,6 +1295,98 @@ The strict magnitude hypothesis puts every prime above \(D+1\), giving exact
 zero density. The conditional asymptotic statement follows directly from the
 sparse hit-set bound. \(\square\)
 
+\section{Full proof of the exponent-encoding divisor barrier}
+
+\subsection{Proof of BAR-004}\label{proof:BAR-004}
+
+Write
+\[
+d=\prod_i p_i^{a_i},\qquad
+\ell=\ell(d),\qquad
+T=T_\ell.
+\]
+Since \(d<2^\ell\), every \(a_i\le\ell\). There are at most \(T\) prime
+divisors \(p_i\le T\), and each contributes at most \(\ell+1\) to
+\(\tau(d)=\prod_i(a_i+1)\). Their total contribution is at most
+\((\ell+1)^T\).
+
+For the remaining primes put \(A=\sum_{p_i>T}a_i\). Each such prime is at
+least \(T+1\), so
+\[
+(T+1)^A
+\le\prod_{p_i>T}p_i^{a_i}
+\le d<2^\ell.
+\]
+Thus \(A\le A_\ell\). Since \(a+1\le2^a\) for every nonnegative integer
+\(a\), the large-prime contribution is at most
+\(2^A\le2^{A_\ell}\). Therefore
+\[
+\tau(d)\le B(\ell(d))\le Q(\ell(d)).
+\]
+
+As \(\ell\to\infty\), \(T_\ell=O(\sqrt\ell)\), while the defining strict
+inequality gives
+\[
+A_\ell<
+\frac{\ell}{\log_2(T_\ell+1)}
+=O\!\left(\frac{\ell}{\log\ell}\right).
+\]
+Consequently,
+\[
+\log_2B(\ell)
+=T_\ell\log_2(\ell+1)+A_\ell
+=O\!\left(\frac{\ell}{\log\ell}\right).
+\]
+The function \(x/\log x\) is eventually increasing. Enlarging the constant
+for finitely many small arguments and taking the maximum over
+\(1\le\ell\le L\) gives
+\[
+\log_2Q(L)=O\!\left(\frac{L}{\log L}\right).
+\]
+
+If an odd prime \(p\) has nonzero signature for \(\Delta(k)\), then some
+\(d\in\Delta(k)\) satisfies \(p-1\mid d\) or \(p+1\mid d\). For fixed \(d\),
+each candidate prime is one more or one less than a positive divisor of
+\(d\), so there are at most \(2\tau(d)\) candidates before primality is
+imposed. Hence
+\[
+|H(k)|
+\le2\sum_{d\in\Delta(k)}\tau(d)
+\le2E(k)Q(L(k)).
+\]
+
+Suppose \(E(k)=k^{O(1)}\) and \(L(k)=o(k\log k)\). To avoid any monotonicity
+assumption on \(L\), choose a fixed \(L_0\) beyond the increasing range of
+\(x/\log x\). Pointwise for sufficiently large \(k\), if
+\(L(k)\le L_0\), then \(Q(L(k))\) is bounded. If
+\(L_0<L(k)\le k\), then
+\(\log_2Q(L(k))=O(k/\log k)=o(k)\). If \(L(k)>k\), then
+\[
+\frac{L(k)}{\log L(k)}
+\le\frac{L(k)}{\log k}
+=o(k).
+\]
+Thus in all cases \(\log_2Q(L(k))=o(k)\). The polynomial factor \(E(k)\)
+is absorbed into the exponent, proving \(|H(k)|\le2^{o(k)}\).
+
+Finally let \(h_k=|H(k)\cap S_k|\). Every promised pair from \(S_k\)
+intersects this set by BAR-003, so
+\[
+\rho_k
+\le
+\frac{\binom{|S_k|}{2}-\binom{|S_k|-h_k}{2}}
+     {\binom{|S_k|}{2}}
+\le
+\frac{2|H(k)|}{|S_k|-1}.
+\]
+The assumptions \(|S_k|\ge2^{\alpha k}\) and
+\(|H(k)|\le2^{o(k)}\) give
+\[
+\rho_k\le2^{-\alpha k+o(k)}\longrightarrow0.
+\]
+No existence or distribution assertion about the stipulated sets \(S_k\)
+is used. \(\square\)
+
 \section{Reproduction appendix}
 
 The evidence implementation state preceding M6 is commit
@@ -1190,7 +1396,9 @@ in \path{research/STATUS.md}. The M7 nonsplit Lucas implementation and proof
 core is commit
 \texttt{\seqsplit{171a3058c8a26b7d2e25641e8c35a9373c19bc06}}. The M8 combined
 promise implementation and proof core is commit
-\texttt{\seqsplit{bc8b25222823e06830530eac3962271c6d14a7ca}}. The Windows AMD64
+\texttt{\seqsplit{bc8b25222823e06830530eac3962271c6d14a7ca}}. The M9
+exponent-encoding barrier implementation and proof core is commit
+\texttt{\seqsplit{1416d70a6bc39a4c7491e9ec86e4e67f96293962}}. The Windows AMD64
 environment and exact toolchains are recorded in
 \path{research/toolchains/windows-amd64-20260725.json}.
 
@@ -1214,7 +1422,10 @@ The registered experiment cores and canonical summary hashes are:
   \texttt{\seqsplit{23ed0067d2ccb642c3676ff4ea3f5c34e1e622f6372626aa84377eac74b7d905}};
 \item EXP-0007, core
   \texttt{\seqsplit{bc8b25222823e06830530eac3962271c6d14a7ca}}, hash
-  \texttt{\seqsplit{fb2f861f1670c3e4f68a0e8b461f430e7e10eeb966d9f5bec48886c810dd6cd3}}.
+  \texttt{\seqsplit{fb2f861f1670c3e4f68a0e8b461f430e7e10eeb966d9f5bec48886c810dd6cd3}};
+\item EXP-0008, core
+  \texttt{\seqsplit{1416d70a6bc39a4c7491e9ec86e4e67f96293962}}, hash
+  \texttt{\seqsplit{b8357f9436ef4d31d072f62dab4f3c8dedad41d6f1787803bf5df2f485ca53ed}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -1258,14 +1469,18 @@ python scripts/run_m8_promise_density_search.py `
   --prime-max 101 --candidate-max 18 `
   --family-size-max 3 --balanced-n-max 6
 python scripts/check_m8_promise_density_differential.py
+python scripts/run_m9_divisor_budget_search.py `
+  --bit-length-max 18 --direct-exponent-max 4096 `
+  --prime-max 4093
+python scripts/check_m9_divisor_budget_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
 
 The searches use no random seed. The randomized theorems are validated by
 exact successful-residue enumeration in EXP-0003 and exact parameter
-enumeration in EXP-0006 rather than by unrecorded random runs. EXP-0007 is a
-deterministic combinatorial enumeration. Large raw
+enumeration in EXP-0006 rather than by unrecorded random runs. EXP-0007 and
+EXP-0008 are deterministic combinatorial enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.

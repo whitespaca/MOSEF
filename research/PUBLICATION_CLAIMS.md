@@ -41,3 +41,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-003 | PROVED | Common-schedule finite-distribution and magnitude barrier | `research/proofs/BAR-003-combined-promise-density.md` |
 | REF-004 | REFUTED | Small-magnitude combined-promise coverage | `research/NEGATIVE_RESULTS.md` NR-005 |
 | EMP-007 | EMPIRICAL | Bounded combined-promise density audit | `research/experiments/EXP-0007-m8-promise-density.md` |
+| DEF-009 | DEFINITION | Exact exponent-bit-length divisor budget | `research/proofs/BAR-004-exponent-encoding-divisor-budget.md` |
+| BAR-004 | PROVED | Explicit-schedule exponent-encoding divisor barrier | `research/proofs/BAR-004-exponent-encoding-divisor-budget.md` |
+| REF-005 | REFUTED | Large exponent value as a coverage guarantee | `research/NEGATIVE_RESULTS.md` NR-006 |
+| EMP-008 | EMPIRICAL | Bounded exponent-encoding divisor audit | `research/experiments/EXP-0008-m9-divisor-budget.md` |

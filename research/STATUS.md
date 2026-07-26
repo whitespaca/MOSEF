@@ -1,38 +1,60 @@
 # Research Status
 
-## M9 execution plan
+## M9 outcome
 
 - Branch: `research/20260726-m9-divisor-rich-schedules`.
-- Research question: can an explicit polynomial-size exponent list with
-  values above balanced prime factors obtain a nonvanishing combined
-  \(p-1/p+1\) promise guarantee while every exponent has only
-  \(\Theta(k)\), or more generally \(o(k\log k)\), bits?
-- Provisional claims: `DEF-009` for an exact bit-length divisor budget,
-  `BAR-004` for the resulting subexponential hit-set and pair-density barrier,
-  and `REF-005` for the refuted claim that exponent value alone ensures
-  combined-promise coverage.
-- Target model: a factorization-independent explicit list
-  \(\Delta(k)\) used for every pair in a finite odd-prime set whose products
-  have common input length \(k\). The family has polynomial cardinality and
-  maximum exponent bit length \(L(k)=o(k\log k)\). For any such prime
-  population of size at least \(2^{\alpha k}\), \(\alpha>0\), the target
-  conclusion is a vanishing promised-pair fraction.
-- Exact divisor budget: for exponent bit length \(\ell\), split prime factors
-  at \(T=\lfloor\sqrt\ell\rfloor\). Bound the small-prime contribution by
-  \((\ell+1)^T\) and the large-prime contribution by \(2^{A_\ell}\), where
-  \(A_\ell\) is the largest integer with
-  \((T+1)^{A_\ell}<2^\ell\).
-- Falsification tests: exhaust exponents by bit length; compare trial
-  factorization with the exact divisor budget; enumerate all odd-prime
-  \(p\pm1\) hits; verify the BAR-003 hit and pair bounds; and minimize a
-  two-prime all-zero collision whose exponent exceeds both \(p+1\) and
-  \(q+1\). Include powers of two, prime powers, highly composite exponents,
-  equality boundaries, and invalid inputs.
-- Acceptance gate: complete proof and explicit compressed-representation
-  boundary, deterministic EXP-0008 record and hash, Python regression tests,
-  selected Rust/C# differential agreement, independent adversarial and
-  source-scope review, synchronized claims/manuscript, clean full quality
-  gates, committed artifacts, and a recorded remote-delivery outcome.
+- Completed milestone: M9, an explicit-list exponent-encoding divisor barrier
+  for the combined local \(p-1/p+1\) promises.
+- `DEF-009` defines the exact integer one-length budget
+  \[
+  B(\ell)=(\ell+1)^{\lfloor\sqrt\ell\rfloor}2^{A_\ell}
+  \]
+  and its monotone envelope \(Q\), where \(A_\ell\) is the largest integer
+  satisfying
+  \((\lfloor\sqrt\ell\rfloor+1)^{A_\ell}<2^\ell\).
+- `BAR-004` is `PROVED`: every exponent satisfies
+  \(\tau(d)\le B(\ell(d))\), with
+  \(\log_2Q(L)=O(L/\log L)\). A factorization-independent explicit schedule
+  with polynomial list size and \(L(k)=o(k\log k)\) therefore hits at most
+  \(2^{o(k)}\) odd primes.
+- On every stipulated finite odd-prime population of size at least
+  \(2^{\alpha k}\), whose distinct products all have common input length
+  \(k\), the uniform combined-promised pair fraction is at most
+  \(2^{-\alpha k+o(k)}\) and tends to zero. This is not a prime-distribution
+  existence claim or a natural-density theorem.
+- `REF-005` is `REFUTED`; NR-006 records the minimal bounded value-only
+  counterexample \((d,p,q,N)=(7,3,5,15)\).
+- EXP-0008 checked 262,143 exact divisor budgets and single-exponent hit
+  bounds, 2,306,048 direct prime-oracle comparisons, 987 record-family bounds,
+  and 46 selected Python/Rust/C# comparisons. Its canonical summary SHA-256
+  is
+  `b8357f9436ef4d31d072f62dab4f3c8dedad41d6f1787803bf5df2f485ca53ed`.
+- Independent adversarial review reproduced the registered search and added
+  200,000 divisor-budget checks, 128 small-length boundaries, 24 density caps,
+  and 57 \(O(k)\)-bit large-value cases. It identified and verified repairs
+  for upper-bound notation and oscillatory \(L(k)\). Independent source-scope
+  review confirmed that the proof is elementary and requires no new citation,
+  while prohibiting novelty, prime-distribution, recognizer, or general
+  lower-bound framing.
+- Full validation passed: foundation and publication consistency (38 claims,
+  seven experiment hashes), 74 Python tests and bytecode compilation, Rust
+  format/Clippy/17 tests, C# Release restore/build with zero warnings or
+  errors, all registered M1--M9 searches and differential suites, and a clean
+  converged 22-page XeLaTeX build. Every page was rendered and visually
+  inspected; the stable PDF SHA-256 is
+  `7bc17c4a48a02052b6bedc241cb9c81016542d701c920b652b383103276305fd`.
+- Scope: the result does not cover compressed or batched implicit families,
+  adaptive factor-dependent schedules, exponentially many explicit
+  exponents, \(L(k)\not=o(k\log k)\), or other algebraic mechanisms. It is not
+  a recognizer, natural-density theorem, factoring lower bound, or general
+  classical factoring result.
+- 한국어 요약: 명시적으로 나열하고 개별 평가하는 다항 개수의 지수는 각
+  지수 길이가 \(o(k\log k)\)이면 전체 \(p\pm1\) 적중 소수 집합이
+  준지수적 크기에 머문다. 지숫값이 인수보다 크다는 사실만으로는 약속
+  포함을 보장하지 않는다.
+- Next selected milestone: M10, specify one evaluable compressed or
+  \(L(k)\not=o(k\log k)\) representation model before searching for an escape
+  theorem or a stronger obstruction.
 
 ## M8 outcome
 
@@ -133,7 +155,7 @@
   restricted theorem plus two scoped barriers, not a universal algorithm or a
   general lower bound.
 
-## Execution snapshot
+## M8 execution snapshot
 
 - Date: 2026-07-26.
 - Branch: `research/20260726-m8-promise-recognition`.
