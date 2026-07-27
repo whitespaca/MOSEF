@@ -43,6 +43,9 @@
   transition, and final pages were rendered and visually inspected. Stable
   PDF: `output/pdf/mosef-paper.pdf`, SHA-256
   `ade1efd06707c71c2fae782754178a22859304a607defbdff95f6039d354a0fd`.
+- The validated M27 implementation, proof, experiment, manuscript, and
+  quality-gate repair are commit
+  `9bc8e6b61458c5ed0cc36a2a3a696439025732b6`.
 - Draft PR #33 stacks M27 on the completed M26 branch:
   `https://github.com/whitespaca/MOSEF/pull/33`.
 - Next selected milestone: M28 asks whether an input-length-indexed
