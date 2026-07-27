@@ -1,5 +1,94 @@
 # Research Status
 
+## M26 execution snapshot
+
+- Date: 2026-07-27.
+- Branch: `research/20260727-m26-exceptional-cyclotomic`.
+- Active question: do the only exceptional rational families,
+  \(\Phi_4\) with coefficients \((1,1)\) and \(\Phi_6\) with
+  coefficients \((2,1)\), add extraction power beyond direct GCDs with
+  their small cyclotomic polynomials?
+- Dependency: M25 is complete on
+  `research/20260727-m25-rational-root-orbits`; Draft PR #29 targets
+  `main`.
+- Base checkpoint: M26 starts from M25 completion-status commit
+  `3d0b15def4ba86d022bb770e298f76186503610e`.
+- Draft PR #30 stacks M26 on the M25 branch:
+  `https://github.com/whitespaca/MOSEF/pull/30`.
+- First bounded task: divide each exceptional signed numerator exactly by
+  its fixed cyclotomic factor, retain the quotient as an explicit cofactor,
+  and test whether a proper aggregate GCD can survive when the cyclotomic
+  GCD, both stages, and both M24 public overlap bounds are units.
+- Falsification priority: search repeated-prime and square-free moduli for a
+  unit-cyclotomic residual cofactor path before proposing any family theorem.
+- Acceptance target: exact quotient/cofactor and valuation semantics, total
+  construction/recognition/output costs, independent implementation, and
+  either a restricted extraction theorem or a minimized obstruction.
+
+## M25 outcome
+
+- Date: 2026-07-27.
+- Branch: `research/20260727-m25-rational-root-orbits`.
+- Completed milestone: M25, complete Galois-orbit classification of the
+  rational root-of-unity ratio outside both stage zero sets.
+- `DEF-025` fixes the requested-order orbit model and compact all-order
+  descriptor. `THM-003` is `PROVED`: the ratio is rational exactly for
+  \[
+  n\mid\gcd(A-1,B-1),\quad
+  (n,A,B)\equiv(4,3,3)\pmod4,\quad\text{or}\quad
+  n=6,\ A\equiv5,\ B\equiv3\pmod6,
+  \]
+  with respective ratios \(-1,1,2\) and canonical primitive pairs
+  \((-1,1),(1,1),(2,1)\).
+- Conjugation forces \(n\mid A(B-2)+1\). Normalizing by
+  \(A^{-1}\bmod n\) makes \(R+1\) the squared absolute value of a cyclotomic
+  integer. Its exact norm leaves only orders four and six beyond the
+  common-step family.
+- `REF-021` is `REFUTED`, and NR-022 preserves the minimized obstruction:
+  \((A,B,n)=(2,4,5)\) satisfies the phase congruence but has irrational
+  ratio \((1+\sqrt5)/2\).
+- EXP-0024 checked 930 unequal pairs, 237,150 orders, 228,338 exact
+  cyclotomic orbit ratios, 2,426 phase candidates, and 81 positive-ratio
+  norm identities. It found 513 rational orders in the three proved
+  families, 1,913 phase-only irrational orders, zero classification
+  failures, and 24 Python/Rust/C# agreements. Canonical summary SHA-256:
+  `7e498c64b848973c95501e5e043e2187ab21772c5d7edbbf62f737d36cf9bb13`.
+- Square-free \(\Phi_4\), repeated-prime \(\Phi_4\), and square-free
+  \(\Phi_6\) modular witnesses give proper GCDs \(5,25,7\) while both
+  stages and both public overlap bounds are units.
+- Requested-order recognition is polynomial in the binary input lengths.
+  Factoring \(\gcd(A-1,B-1)\), listing all its divisors, or expanding
+  cyclotomic/numerator polynomials remains charged by actual work and output.
+- Full gates passed: foundation and publication consistency (104 claims and
+  23 experiment hashes), 180 Python tests and bytecode compilation, Rust
+  formatting/Clippy/31 tests, C# Release build with zero warnings or errors,
+  58 baseline comparisons, the registered EXP-0024 rerun, and the 24-check
+  M25 differential validator. Optional Ruff and mypy remain unavailable
+  under BLK-003.
+- XeLaTeX converged with no LaTeX warnings, undefined references or
+  citations, or overfull/underfull boxes. All 62 pages were rendered and
+  visually inspected. Stable PDF: `output/pdf/mosef-paper.pdf`, SHA-256
+  `76800e665ea6cf92d9e367bb937974c6c5ecfb4afb73f00d42aeb7194879cbd5`.
+- The validated M25 core is commit
+  `5cbfb614f886c82e41353f905bd1cb958dd764c5`.
+- Draft PR #29 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/29`. The earlier M25 start PR
+  #28 is merged.
+- Scope: the theorem classifies one unequal depth-two root-of-unity ratio.
+  It proves no schedule, success probability, density, general factoring
+  result, or general arithmetic-circuit lower bound.
+- Next selected milestone: M26 isolates the direct \(\Phi_4,\Phi_6\) GCDs
+  from any residual quotient/cofactor path before proposing schedules.
+
+### M25 Korean summary
+
+M25에서는 예외적인 root-of-unity 비율을 완전히 분류했습니다. 공통차수
+계열의 비율은 \(-1\)이고, 그 밖에는 정확히 \(\Phi_4\) 계열의 비율 \(1\)과
+\(\Phi_6\) 계열의 비율 \(2\)만 남습니다. 위상 합동만으로는 충분하지
+않으며, \((A,B,n)=(2,4,5)\)가 가장 작은 반례입니다. 다음 M26에서는 이
+두 고정 cyclotomic 계열이 해당 작은 다항식의 직접 GCD를 넘어서는
+잔여 cofactor 추출 경로를 갖는지 조사합니다.
+
 ## M24 outcome
 
 - Date: 2026-07-27.

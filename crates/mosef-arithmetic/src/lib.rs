@@ -741,6 +741,24 @@ pub struct RationalResidueAuditEvaluation {
     pub second_resultant_stage_exponent: u64,
 }
 
+/// Complete M25 classification of one nonboundary cyclotomic root ratio.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct RationalRootOrbitClassification {
+    pub first_factor: u64,
+    pub second_factor: u64,
+    pub order: u64,
+    pub category: &'static str,
+    pub outside_stage_zeros: bool,
+    pub phase_order: u128,
+    pub phase_divisible: bool,
+    pub rational_ratio: Option<i64>,
+    pub primitive_first_coefficient: Option<i64>,
+    pub primitive_second_coefficient: Option<i64>,
+    pub common_step: u64,
+    pub phi4_enabled: bool,
+    pub phi6_enabled: bool,
+}
+
 /// Evaluate nodes starting from `g`, with every later node multiplying two parents.
 pub fn evaluate_multiplication_program(
     base: u64,
@@ -1620,6 +1638,52 @@ pub fn evaluate_rational_residue_audit(
     })
 }
 
+/// Classify when `-S_B(zeta^A)/S_A(zeta)` is rational at primitive order `n`.
+pub fn classify_rational_root_orbit(
+    first_factor: u64,
+    second_factor: u64,
+    order: u64,
+) -> Option<RationalRootOrbitClassification> {
+    if first_factor < 2 || second_factor < 2 || first_factor == second_factor || order < 2 {
+        return None;
+    }
+    let first_zero = first_factor % order == 0;
+    let product_mod_order =
+        (u128::from(first_factor) * u128::from(second_factor)) % u128::from(order);
+    let second_zero = product_mod_order == 0 && !first_zero;
+    let outside_stage_zeros = !first_zero && !second_zero;
+    let phase_order = u128::from(first_factor) * u128::from(second_factor - 2) + 1;
+    let common_step = gcd(first_factor - 1, second_factor - 1);
+    let phi4_enabled = first_factor % 4 == 3 && second_factor % 4 == 3;
+    let phi6_enabled = first_factor % 6 == 5 && second_factor % 6 == 3;
+    let (category, rational_ratio, coefficients) = if !outside_stage_zeros {
+        ("stage_zero", None, None)
+    } else if (first_factor - 1) % order == 0 && (second_factor - 1) % order == 0 {
+        ("common_step", Some(-1), Some((-1, 1)))
+    } else if order == 4 && phi4_enabled {
+        ("phi4", Some(1), Some((1, 1)))
+    } else if order == 6 && phi6_enabled {
+        ("phi6", Some(2), Some((2, 1)))
+    } else {
+        ("irrational", None, None)
+    };
+    Some(RationalRootOrbitClassification {
+        first_factor,
+        second_factor,
+        order,
+        category,
+        outside_stage_zeros,
+        phase_order,
+        phase_divisible: phase_order % u128::from(order) == 0,
+        rational_ratio,
+        primitive_first_coefficient: coefficients.map(|value| value.0),
+        primitive_second_coefficient: coefficients.map(|value| value.1),
+        common_step,
+        phi4_enabled,
+        phi6_enabled,
+    })
+}
+
 /// Return `ceil(log2(exponent))`, the generic multiplication growth lower bound.
 pub fn generic_multiplication_lower_bound(exponent: u64) -> Option<u32> {
     if exponent == 0 {
@@ -1987,6 +2051,29 @@ mod tests {
             GeometricDivisionStatus::FullCollision
         );
         assert_eq!(full_content.aggregate_gcd, 5);
+    }
+
+    #[test]
+    fn rational_root_orbit_has_exactly_three_families() {
+        let common = classify_rational_root_orbit(4, 7, 3).expect("valid common-step family");
+        assert_eq!(common.category, "common_step");
+        assert_eq!(common.rational_ratio, Some(-1));
+        assert_eq!(common.primitive_first_coefficient, Some(-1));
+        assert_eq!(common.primitive_second_coefficient, Some(1));
+
+        let phi4 = classify_rational_root_orbit(3, 7, 4).expect("valid Phi_4 family");
+        assert_eq!(phi4.category, "phi4");
+        assert_eq!(phi4.rational_ratio, Some(1));
+
+        let phi6 = classify_rational_root_orbit(5, 3, 6).expect("valid Phi_6 family");
+        assert_eq!(phi6.category, "phi6");
+        assert_eq!(phi6.rational_ratio, Some(2));
+
+        let obstruction =
+            classify_rational_root_orbit(2, 4, 5).expect("valid phase-only obstruction");
+        assert!(obstruction.phase_divisible);
+        assert_eq!(obstruction.category, "irrational");
+        assert_eq!(classify_rational_root_orbit(3, 3, 4), None);
     }
 
     #[test]

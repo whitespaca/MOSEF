@@ -133,6 +133,13 @@ from .rational_residue_audit import (
     polynomial_multiply,
     signed_numerator_coefficients,
 )
+from .rational_root_orbit import (
+    RationalRootOrderDescriptor,
+    RationalRootOrbitClassification,
+    classify_rational_root_orbit,
+    exact_cyclotomic_root_ratio,
+    rational_root_order_descriptor,
+)
 from .separator import (
     CandidateKind,
     CandidateOutcome,
@@ -191,6 +198,8 @@ __all__ = [
     "SymmetricQuotientDifferenceEvaluation",
     "UnequalSignedReductionEvaluation",
     "RationalResidueAuditEvaluation",
+    "RationalRootOrderDescriptor",
+    "RationalRootOrbitClassification",
     "SemismoothAsymmetryWitness",
     "SemismoothFactor",
     "SemismoothWitness",
@@ -228,8 +237,11 @@ __all__ = [
     "cyclotomic_coefficients",
     "cyclotomic_factor_orders",
     "evaluate_rational_residue_audit",
+    "classify_rational_root_orbit",
+    "exact_cyclotomic_root_ratio",
     "polynomial_multiply",
     "signed_numerator_coefficients",
+    "rational_root_order_descriptor",
     "expand_quotient_linear_combination",
     "symmetric_cofactor_terms",
     "unequal_difference_coefficients",

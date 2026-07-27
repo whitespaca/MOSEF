@@ -15,7 +15,7 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
-Two Restricted Theorems and Fifteen Structural Barriers}
+Three Restricted Theorems and Fifteen Structural Barriers}
 \author{MOSEF Research Program}
 \date{27 July 2026}
 
@@ -119,6 +119,12 @@ common factor is a unit. Coefficient normalization then gives exact
 resultants and public stage-overlap bounds, but a primitive
 \((3,7,1,1)\) numerator has the exceptional factor \(\Phi_4\) and a strict
 \(N=55\) witness after every charged stage and public bound is a unit.
+We then classify the exceptional root-of-unity ratio completely. Galois
+conjugation and a cyclotomic norm show that, beyond the common-step ratio
+\(-1\), only order four with ratio \(1\) and order six with ratio \(2\)
+occur, under explicit congruence conditions on \(A,B\). Requested-order
+recognition uses only modular reductions and GCDs; enumerating every divisor
+in the compact common-step descriptor remains charged.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -209,7 +215,11 @@ algorithm. Its contributions are:
   exact common-step factor, together with a residual-cofactor obstruction;
 \item a primitive rational-residue theorem giving exact stage resultants,
   public overlap bounds, and a root-of-unity equation, together with a
-  \(\Phi_4\) counterexample to boundary-only classification; and
+  \(\Phi_4\) counterexample to boundary-only classification;
+\item a complete Galois-orbit classification of rational root-of-unity
+  ratios: the common-step family has ratio \(-1\), while the only exceptional
+  families are \(\Phi_4\) with ratio \(1\) and \(\Phi_6\) with ratio \(2\),
+  with polynomial-time requested-order recognition; and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
@@ -232,9 +242,10 @@ iterated public quotient chain. The signed-aggregation counterexample
 separately shows that the last product implication cannot be extended to
 addition. The symmetric reduction classifies only the repeated-factor,
 coefficient-\((-1,1)\) subfamily. The unequal and primitive-resultant
-theorems treat one depth-two chain, but exceptional orders, adaptive or
-multiple aggregates, and general rational, compositional, and arithmetic
-circuits remain outside. These boundaries are part of the results.
+theorems treat one depth-two chain. The root-orbit theorem closes its rational
+orders but not their schedule-level usefulness; adaptive or multiple
+aggregates and general rational, compositional, and arithmetic circuits
+remain outside. These boundaries are part of the results.
 
 Section 2 records the imported complexity landscape. Sections 3 and 4 define
 candidate semantics and the recursive framework. Section 5 gives the first
@@ -1681,6 +1692,62 @@ The unit-prefix rational residue is \(10\) and has the same GCD. Resultants
 therefore isolate stage overlap without absorbing the exceptional
 cyclotomic residue. Appendix \ref{proof:BAR-019} gives the complete proof.
 
+\section{A complete rational root-orbit classification}
+
+\claimstatus{DEF-025}{DEFINITION}. For unequal public \(A,B\ge2\), let
+\(\zeta\) be primitive of order \(n>1\), outside the zero sets of both
+stages, and define
+\[
+R_{A,B}(\zeta)=-\frac{S_B(\zeta^A)}{S_A(\zeta)}.
+\]
+Rationality means that every Galois conjugate has the same value. Equivalently,
+the remainders of the two stage polynomials modulo \(\Phi_n\) are rationally
+proportional. The compact all-order descriptor retains
+\(h=\gcd(A-1,B-1)\) and two fixed congruence flags; divisor lists and expanded
+polynomials are charged by their actual construction and output.
+
+\claimstatus{THM-003}{PROVED}. The ratio is rational exactly in the following
+three cases:
+\[
+\begin{array}{c|c|c}
+\text{order condition} & R_{A,B}(\zeta) & (c_1,c_2)\\
+\hline
+n\mid\gcd(A-1,B-1) & -1 & (-1,1)\\
+n=4,\ A\equiv B\equiv3\pmod4 & 1 & (1,1)\\
+n=6,\ A\equiv5,\ B\equiv3\pmod6 & 2 & (2,1).
+\end{array}
+\]
+The coefficient pair is primitive and canonical up to simultaneous sign.
+Given \(A,B,n\) in binary, recognition needs only comparisons, modular
+reductions, and GCDs, hence is polynomial in their bit lengths. Given only
+\(A,B\), all common-step orders are represented compactly as the divisors
+greater than one of \(h\), plus the enabled fixed orders four and six.
+
+For the proof, rationality and complex conjugation first force
+\[
+n\mid A(B-2)+1.
+\]
+If \(bA\equiv1\pmod n\) and \(k\equiv b-1\pmod n\), Galois invariance gives
+\[
+R_{A,B}(\zeta)+1
+=\left|\frac{1-\zeta^k}{1-\zeta}\right|^2
+=\frac{\sin^2(k\pi/n)}{\sin^2(\pi/n)}.
+\]
+This is a rational algebraic integer, hence a nonnegative integer. Its
+cyclotomic field norm leaves only the three displayed cases. Appendix
+\ref{proof:THM-003} supplies every norm case and the converses.
+
+\claimstatus{REF-021}{REFUTED}. The phase congruence alone is not sufficient.
+For \((A,B,n)=(2,4,5)\), it holds and neither stage vanishes, but a primitive
+fifth-root embedding gives
+\[
+R_{2,4}(\zeta)=\frac{1+\sqrt5}{2}.
+\]
+Exact reduction modulo \(\Phi_5\) agrees. Square-free \(\Phi_4\), repeated
+prime \(\Phi_4\), and square-free \(\Phi_6\) modular witnesses show that both
+exceptional families are nonempty after the M24 stage and public-bound checks,
+without implying a universal factoring schedule.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -1787,6 +1854,10 @@ The unequal signed depth-two evaluator uses two binary geometric sums and
 \(A+B-2\) or \(A+B-1\) monomials. BAR-019 adds only constant modular work
 for content and overlap checks. Its compact resultants do not license
 materializing integers with \(\Theta(A\log(|c_2|B))\) or comparable bits.
+THM-003 recognizes a requested order using a constant number of modular
+reductions and GCDs. Its compact descriptor does not license a polynomial-time
+listing of all divisors of \(\gcd(A-1,B-1)\), nor free expansion of any
+\(\Phi_n\) or dense signed numerator.
 
 Binary modular exponentiation uses \(O(L(m))\) modular multiplications for an
 \(L(m)\)-bit exponent. A Lucas pair can likewise be evaluated by binary
@@ -2119,6 +2190,16 @@ These observations do not classify orders beyond the registered bound or
 establish a distribution, success rate, recognizer, schedule, novelty,
 general factoring result, or general-circuit lower bound.
 
+\claimstatus{EMP-024}{EMPIRICAL}. EXP-0024 completed 930 ordered unequal
+factor pairs and 237,150 order checks. Outside both stage zero sets, all
+228,338 exact cyclotomic remainder ratios agreed with THM-003. Among 2,426
+phase candidates, 1,913 remained irrational; the 513 rational orders split
+as 432 common-step, 56 \(\Phi_4\), and 25 \(\Phi_6\) cases. All 81 positive
+ratio norm identities and all 24 selected Python/Rust/C\# comparisons agreed,
+with zero classification failures. These observations do not prove the
+theorem or establish a distribution, success rate, density, schedule,
+novelty, general factoring result, or general-circuit lower bound.
+
 These observations audit implementations and minimize counterexamples. The
 universal statements in this paper are supplied by proofs, not extrapolation
 from the table.
@@ -2256,12 +2337,14 @@ classification.
 
 BAR-019 normalizes coefficient content and classifies overlap of the
 aggregate with either charged stage by exact public resultants. Its
-root-of-unity equation is exact, but the \(\Phi_4\) witness proves that the
-value-at-one and common-step factors do not classify all primitive
-cyclotomic factors. It supplies no uniform exceptional-order list or
-recognizer. Longer chains, adaptive coefficients, several interacting
-rational values, unrelated bases, other groups, and general signed
-arithmetic circuits remain outside.
+root-of-unity equation is exact, and its \(\Phi_4\) witness motivates
+THM-003. THM-003 closes the rational-order list for this one unequal
+depth-two numerator and gives requested-order recognition. It does not show
+that the fixed \(\Phi_4\) or \(\Phi_6\) GCDs succeed frequently or add power
+beyond direct evaluation of their small cyclotomic polynomials. Longer
+chains, adaptive coefficients, several interacting rational values,
+unrelated bases, other groups, and general signed arithmetic circuits remain
+outside.
 
 The authoritative Rust layer is bounded to \texttt{u64}; validation primality
 uses trial division and is not itself the polynomial-time procedure imported
@@ -2275,10 +2358,10 @@ outside BAR-008's explicit-list model has a proved factor-scale
 \(d\pm1\) yield guarantee, and whether a precisely defined specialized
 arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
 evaluate a sufficiently rich formal batch at polynomial total construction,
-evaluation, and extraction cost. The next bounded case is to classify when
-the exceptional root-of-unity ratio
-\(-Q_2(\zeta)/Q_1(\zeta)\) is rational for primitive coefficient pairs,
-starting with exact Galois-orbit restrictions.
+evaluation, and extraction cost. The next bounded case is to decide whether
+the two fixed exceptional polynomials from THM-003 yield any
+factorization-independent restricted-class theorem beyond their direct
+small-cyclotomic GCDs.
 
 \section{Conclusion}
 
@@ -2350,7 +2433,10 @@ while the normalized difference factors through
 witness leaves it a unit and extracts factor \(5\) through the residual
 cofactor. BAR-019 then isolates coefficient content and overlap with each
 charged stage by exact resultants. The \(\Phi_4\) witness shows that these
-public bounds are not a boundary-only cyclotomic classification.
+public bounds are not a boundary-only cyclotomic classification. THM-003
+then closes that rational root-of-unity question: Galois phase and norm
+restrictions leave only the common-step ratio \(-1\), the order-four ratio
+\(1\), and the order-six ratio \(2\).
 
 These results do not resolve general classical factoring. They replace
 plausible shortcuts with exact obligations: recognizable or explicitly
@@ -2378,10 +2464,10 @@ cross-stage signed combination can create a genuinely new proper GCD.
 BAR-017 supplies the exact endpoint/cofactor valuation criterion for its
 symmetric repeated-factor subfamily, and BAR-018 supplies the unequal
 first-prefix and common-step reductions. BAR-019 further isolates content and
-stage overlap, but the exceptional \(\Phi_4\) factor leaves rational
-root-of-unity ratios open. Their classification, schedule-level usefulness,
-general rational/compositional circuits, and other models remain research
-targets, not claimed factoring breakthroughs.
+stage overlap. THM-003 completely classifies its rational root-of-unity
+ratios, but the schedule-level usefulness of the fixed \(\Phi_4,\Phi_6\)
+families, general rational/compositional circuits, and other models remain
+research targets, not claimed factoring breakthroughs.
 
 \appendix
 
@@ -3826,6 +3912,104 @@ boundary. Compact power descriptors do not materialize their expanded
 values; every requested expansion is charged by its actual output length.
 \(\square\)
 
+\section{Full proof of the rational root-orbit classification}
+
+\subsection{Proof of THM-003}\label{proof:THM-003}
+
+Let \(R=R_{A,B}(\zeta)\ne0\) be rational and let
+\(K=A(B-2)+1\). Since
+\[
+S_A(\zeta^{-1})=\zeta^{1-A}S_A(\zeta),\qquad
+S_B(\zeta^{-A})=\zeta^{-A(B-1)}S_B(\zeta^A),
+\]
+complex conjugation gives
+\[
+R_{A,B}(\zeta^{-1})=\zeta^{-K}R.
+\]
+It fixes rational \(R\), hence \(n\mid K\). In particular
+\(\gcd(A,n)=1\). The M24 cleared formula and
+\(\zeta^{AB}=\zeta^{2A-1}\) then give
+\[
+R+1=\zeta\left(\frac{\zeta^{A-1}-1}{\zeta^A-1}\right)^2. \tag{20}
+\]
+
+Choose \(bA\equiv1\pmod n\), set \(k\equiv b-1\pmod n\), and apply the
+automorphism \(\zeta\mapsto\zeta^b\) to (20). Rationality fixes the left side,
+while elementary simplification of the right side gives
+\[
+T:=R+1
+=\frac{(1-\zeta^k)(1-\zeta^{-k})}
+        {(1-\zeta)(1-\zeta^{-1})}
+=u\overline u,\qquad u=\frac{1-\zeta^k}{1-\zeta}. \tag{21}
+\]
+The geometric sum \(u\) is an algebraic integer. Thus rational \(T\) is an
+integer, and in the distinguished complex embedding
+\[
+T=\frac{\sin^2(k\pi/n)}{\sin^2(\pi/n)}\ge0. \tag{22}
+\]
+If \(T=0\), then \(k=0\), so \(A\equiv1\pmod n\); the phase congruence then
+gives \(B\equiv1\pmod n\). This is the common-step family with \(R=-1\).
+The case \(T=1\) would give \(R=0\), contrary to the nonzero second stage.
+At \(n=2\), being outside both stage zero sets forces \(A,B\) odd and is
+already common-step. We may therefore assume \(n>2\) and \(T\ge2\).
+
+Put \(d=\gcd(n,k)\) and \(m=n/d>1\), the order of \(\zeta^k\).
+The conjugates of \(\zeta^k\) run through every primitive \(m\)-th root
+\(\varphi(n)/\varphi(m)\) times. Taking the absolute field norm in (21)
+therefore yields
+\[
+T^{\varphi(n)/2}
+=\frac{\Phi_m(1)^{\varphi(n)/\varphi(m)}}{\Phi_n(1)}. \tag{23}
+\]
+For \(s>1\), \(\Phi_s(1)=p\) when \(s=p^a\), and equals one when \(s\)
+has at least two prime divisors. The prime-power statement follows from the
+quotient of \(X^{p^a}-1\) by \(X^{p^{a-1}}-1\). For
+\(s=p^a r\), \(r>1\), \(p\nmid r\), taking \(X\to1\) in
+\[
+\Phi_{p^a r}(X)=
+\frac{\Phi_r(X^{p^a})}{\Phi_r(X^{p^{a-1}})}
+\]
+proves the second statement.
+
+Suppose first that \(n=p^a\). Then \(m=p^c\), and (23) gives
+\[
+v_p(T)=\frac{2}{\varphi(m)}-\frac{2}{\varphi(n)}.
+\]
+If \(m=n\), then \(T=1\). If \(m<n\), a positive integral valuation occurs
+only when \(p=2,a=2,c=1\). Thus
+\((n,m,T)=(4,2,2)\). Here \(k=2,b=3\), so
+\(A\equiv3\pmod4\), and the phase congruence forces
+\(B\equiv3\pmod4\). Hence \(R=1\).
+
+Now suppose \(n\) is not a prime power. If \(m\) is not a prime power,
+(23) again gives \(T=1\). Otherwise \(m=p^c\) and
+\[
+T=p^{2/\varphi(m)}.
+\]
+Integrality forces \(\varphi(m)\mid2\), leaving
+\((m,T)=(2,4),(3,3),(4,2)\). Equation (22) resolves them exactly.
+For \(m=2\), the numerator is one and \(T=4\) forces
+\(\sin^2(\pi/n)=1/4\), hence \(n=6\). For \(m=3\), the numerator is
+\(3/4\), and \(T=3\) again forces \(n=6\). For \(m=4\), the numerator is
+\(1/2\), and \(T=2\) would force \(n=6\), contradicting \(4\mid n\).
+At \(n=6,m=2\), \(k=3\) makes \(b=4\) a nonunit, impossible. At
+\(n=6,m=3\), only \(k=4\) makes \(b=k+1=5\) a unit. Thus
+\(A\equiv5\pmod6\), the phase congruence gives
+\(B\equiv3\pmod6\), and \(R=T-1=2\).
+
+Conversely, in the common-step family both stage values equal one. Direct
+substitution in (21) gives \(T=2\) in the stated order-four family and
+\(T=3\) in the stated order-six family, proving ratios \(1\) and \(2\).
+The primitive coefficient pairs follow from \(c_1/c_2=R\).
+
+Requested-order recognition is a constant number of comparisons, GCDs, and
+modular reductions in the binary inputs. For fixed \(A,B\), the full compact
+descriptor is all divisors greater than one of
+\(\gcd(A-1,B-1)\), plus the enabled orders four and six. Factoring that GCD,
+enumerating divisors, or expanding cyclotomic polynomials is charged
+separately. Finally, \((A,B,n)=(2,4,5)\) satisfies the phase congruence but
+(22) gives \(R=(1+\sqrt5)/2\), refuting its sufficiency. \(\square\)
+
 \section{Reproduction appendix}
 
 The evidence implementation state preceding M6 is commit
@@ -3915,6 +4099,9 @@ The registered experiment cores and canonical summary hashes are:
 \item EXP-0023, M24 milestone commit recorded in \path{research/STATUS.md},
   hash
   \texttt{\seqsplit{01953fe34732449aa6a0ec6ba9bc8c0487027a359eb1fc96f9765ce189ec39e8}}.
+\item EXP-0024, M25 milestone commit recorded in \path{research/STATUS.md},
+  hash
+  \texttt{\seqsplit{7e498c64b848973c95501e5e043e2187ab21772c5d7edbbf62f737d36cf9bb13}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -4024,7 +4211,7 @@ through EXP-0019 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. EXP-0020
-through EXP-0023 use the same deterministic finite-enumeration policy. The
+through EXP-0024 use the same deterministic finite-enumeration policy. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.
 
 \bibliographystyle{plain}

@@ -1,8 +1,8 @@
 use mosef_arithmetic::{
-    analyze_divisor_cover, batch_gcd, combined_promise_asymmetry, combined_promise_hit_count,
-    combined_promise_signature, divisor_count, evaluate_addition_subtraction_program,
-    evaluate_batch_product, evaluate_dyadic_telescope, evaluate_geometric_sum,
-    evaluate_iterated_quotient, evaluate_lucas_separator_candidate,
+    analyze_divisor_cover, batch_gcd, classify_rational_root_orbit, combined_promise_asymmetry,
+    combined_promise_hit_count, combined_promise_signature, divisor_count,
+    evaluate_addition_subtraction_program, evaluate_batch_product, evaluate_dyadic_telescope,
+    evaluate_geometric_sum, evaluate_iterated_quotient, evaluate_lucas_separator_candidate,
     evaluate_multiplication_program, evaluate_nested_quotient, evaluate_product_dag,
     evaluate_quotient_linear_combination, evaluate_rational_residue_audit,
     evaluate_separator_candidate, evaluate_symmetric_quotient_difference,
@@ -12,9 +12,9 @@ use mosef_arithmetic::{
     CoverAnalysis, DyadicDivisionStatus, DyadicTelescopeEvaluation, GeometricDivisionStatus,
     GeometricSumEvaluation, IteratedQuotientEvaluation, LucasSeparatorOutcome,
     NestedQuotientEvaluation, ProductDagEvaluation, QuotientLinearCombinationEvaluation,
-    RationalResidueAuditEvaluation, SemismoothOutcome, SeparatorOutcome,
-    SignedStraightLineEvaluation, StraightLineEvaluation, SymmetricQuotientDifferenceEvaluation,
-    UnequalSignedReductionEvaluation,
+    RationalResidueAuditEvaluation, RationalRootOrbitClassification, SemismoothOutcome,
+    SeparatorOutcome, SignedStraightLineEvaluation, StraightLineEvaluation,
+    SymmetricQuotientDifferenceEvaluation, UnequalSignedReductionEvaluation,
 };
 use std::env;
 use std::process::ExitCode;
@@ -579,6 +579,33 @@ fn display_rational_residue_audit(value: RationalResidueAuditEvaluation) -> Stri
     )
 }
 
+fn display_rational_root_orbit(value: RationalRootOrbitClassification) -> String {
+    let optional =
+        |item: Option<i64>| item.map_or_else(|| "none".to_owned(), |inner| inner.to_string());
+    format!(
+        concat!(
+            "first_factor:{}|second_factor:{}|order:{}|category:{}|",
+            "outside_stage_zeros:{}|phase_order:{}|phase_divisible:{}|",
+            "rational_ratio:{}|primitive_first_coefficient:{}|",
+            "primitive_second_coefficient:{}|common_step:{}|",
+            "phi4_enabled:{}|phi6_enabled:{}"
+        ),
+        value.first_factor,
+        value.second_factor,
+        value.order,
+        value.category,
+        value.outside_stage_zeros,
+        value.phase_order,
+        value.phase_divisible,
+        optional(value.rational_ratio),
+        optional(value.primitive_first_coefficient),
+        optional(value.primitive_second_coefficient),
+        value.common_step,
+        value.phi4_enabled,
+        value.phi6_enabled,
+    )
+}
+
 fn run() -> Result<(), String> {
     let mut arguments = env::args().skip(1);
     let operation = arguments
@@ -935,6 +962,16 @@ fn run() -> Result<(), String> {
                     "base must be a unit, factors unequal and at least two, coefficients nonzero"
                         .to_owned()
                 })?,
+            )
+        }
+        "rational-root-orbit" => {
+            let first_factor = parse_u64(arguments.next(), "first_factor")?;
+            let second_factor = parse_u64(arguments.next(), "second_factor")?;
+            let order = parse_u64(arguments.next(), "order")?;
+            display_rational_root_orbit(
+                classify_rational_root_orbit(first_factor, second_factor, order).ok_or_else(
+                    || "factors must be unequal and at least two, order at least two".to_owned(),
+                )?,
             )
         }
         "multiplication-lower-bound" => {

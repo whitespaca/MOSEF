@@ -107,3 +107,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-019 | PROVED | Exact content, stage-resultant, and root-of-unity reduction | `research/proofs/BAR-019-rational-residue-resultants.md` |
 | REF-020 | REFUTED | Boundary and common-step factors as a complete cyclotomic classification | `research/NEGATIVE_RESULTS.md` NR-021 |
 | EMP-023 | EMPIRICAL | Bounded rational-residue and cyclotomic audit | `research/experiments/EXP-0023-m24-rational-residue-audit.md` |
+| DEF-025 | DEFINITION | Charged Galois-orbit rational root ratio model | `research/proofs/THM-003-rational-root-orbits.md` |
+| THM-003 | PROVED | Complete rational root-of-unity ratio classification | `research/proofs/THM-003-rational-root-orbits.md` |
+| REF-021 | REFUTED | Conjugation phase congruence as a sufficient condition | `research/NEGATIVE_RESULTS.md` NR-022 |
+| EMP-024 | EMPIRICAL | Bounded rational root-orbit and norm audit | `research/experiments/EXP-0024-m25-rational-root-orbits.md` |

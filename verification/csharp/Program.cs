@@ -88,6 +88,8 @@ internal static class Program
                 RunUnequalSignedReduction(args),
             "rational-residue-audit" when args.Length == 7 =>
                 RunRationalResidueAudit(args),
+            "rational-root-orbit" when args.Length == 4 =>
+                RunRationalRootOrbit(args),
             "multiplication-lower-bound" when args.Length == 2 =>
                 RunMultiplicationLowerBound(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
@@ -1261,6 +1263,72 @@ internal static class Program
             + $"second_resultant_coefficient_exponent:{firstFactor * (secondFactor - 1)}|"
             + $"second_resultant_stage_base:{secondFactor}|"
             + $"second_resultant_stage_exponent:{firstFactor - 1}";
+    }
+
+    private static string RunRationalRootOrbit(string[] args)
+    {
+        BigInteger firstFactor = Parse(args, 1, "first_factor");
+        BigInteger secondFactor = Parse(args, 2, "second_factor");
+        BigInteger order = Parse(args, 3, "order");
+        if (
+            firstFactor < 2
+            || secondFactor < 2
+            || firstFactor == secondFactor
+            || order < 2
+        )
+        {
+            throw new ArgumentException("invalid rational-root orbit domain");
+        }
+        bool firstZero = firstFactor % order == 0;
+        bool secondZero = firstFactor * secondFactor % order == 0 && !firstZero;
+        bool outsideStageZeros = !firstZero && !secondZero;
+        BigInteger phaseOrder = firstFactor * (secondFactor - 2) + 1;
+        BigInteger commonStep = Gcd(firstFactor - 1, secondFactor - 1);
+        bool phi4Enabled = firstFactor % 4 == 3 && secondFactor % 4 == 3;
+        bool phi6Enabled = firstFactor % 6 == 5 && secondFactor % 6 == 3;
+        string category = "irrational";
+        string ratio = "none";
+        string firstCoefficient = "none";
+        string secondCoefficient = "none";
+        if (!outsideStageZeros)
+        {
+            category = "stage_zero";
+        }
+        else if (
+            (firstFactor - 1) % order == 0
+            && (secondFactor - 1) % order == 0
+        )
+        {
+            category = "common_step";
+            ratio = "-1";
+            firstCoefficient = "-1";
+            secondCoefficient = "1";
+        }
+        else if (order == 4 && phi4Enabled)
+        {
+            category = "phi4";
+            ratio = "1";
+            firstCoefficient = "1";
+            secondCoefficient = "1";
+        }
+        else if (order == 6 && phi6Enabled)
+        {
+            category = "phi6";
+            ratio = "2";
+            firstCoefficient = "2";
+            secondCoefficient = "1";
+        }
+        string Boolean(bool value) => value.ToString().ToLowerInvariant();
+        return $"first_factor:{firstFactor}|second_factor:{secondFactor}|"
+            + $"order:{order}|category:{category}|"
+            + $"outside_stage_zeros:{Boolean(outsideStageZeros)}|"
+            + $"phase_order:{phaseOrder}|"
+            + $"phase_divisible:{Boolean(phaseOrder % order == 0)}|"
+            + $"rational_ratio:{ratio}|"
+            + $"primitive_first_coefficient:{firstCoefficient}|"
+            + $"primitive_second_coefficient:{secondCoefficient}|"
+            + $"common_step:{commonStep}|phi4_enabled:{Boolean(phi4Enabled)}|"
+            + $"phi6_enabled:{Boolean(phi6Enabled)}";
     }
 
     private static string RunMultiplicationLowerBound(string[] args)
