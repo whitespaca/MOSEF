@@ -8,13 +8,14 @@ import itertools
 import json
 import math
 import sys
+from collections.abc import Iterator
 from pathlib import Path
-from typing import Any, Iterator
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from mosef_reference import evaluate_iterated_quotient  # noqa: E402
+from mosef_reference import evaluate_iterated_quotient
 
 
 def canonical_json(value: Any) -> bytes:

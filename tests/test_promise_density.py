@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from mosef_reference import (  # noqa: E402
+from mosef_reference import (
     analyze_combined_density,
     combined_asymmetry,
     combined_signature,
@@ -113,9 +113,8 @@ class CombinedPromiseDensityTests(unittest.TestCase):
             lambda: analyze_combined_density((3,), (1,)),
         )
         for invalid_call in invalid_calls:
-            with self.subTest(invalid_call=invalid_call):
-                with self.assertRaises(ValueError):
-                    invalid_call()
+            with self.subTest(invalid_call=invalid_call), self.assertRaises(ValueError):
+                invalid_call()
 
 
 if __name__ == "__main__":

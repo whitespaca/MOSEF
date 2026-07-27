@@ -1,31 +1,62 @@
 # Research Status
 
-## M27 execution snapshot
+## M27 outcome
 
-- Date: 2026-07-27.
+- Date: 2026-07-28.
 - Branch: `research/20260727-m27-exceptional-cofactor-schedule`.
-- Active question: can the compact exceptional cofactors \(C_4,C_6\) be
-  placed in a factorization-independent public base schedule with a proved
-  guarantee on a nontrivial promise class?
-- Dependency: M26 is complete on
-  `research/20260727-m26-exceptional-cyclotomic`; completion Draft PR #32
-  targets the M25 branch.
-- Base checkpoint: M27 starts from M26 completion-PR status commit
-  `fd5718b0afadfaf75dde49be400e84e89ed15dc4`.
-- Start checkpoint: commit
-  `8a98a18b5bfa053a0b21b76902867297fdc2b021`.
-- Draft PR #33 stacks M27 on the completed M26 branch and is mergeable:
+- Completed milestone: classify the exceptional cofactor roots and
+  prime-power valuations, isolate every overlap with the two stages and the
+  direct cyclotomic factor, and test fixed public cofactor schedules.
+- `DEF-027` gives the exact local valuation criterion and the compact
+  \(C_4,C_6\) overlap descriptors. Unit-root counts are bounded by
+  \(\min(A(B-1)-2,p-1)\), and every proper cofactor GCD remains a total
+  factor exit.
+- `BAR-021` is `PROVED`. The stage/cofactor resultants are explicit powers
+  of \(B\), except for the second-stage/\(C_6\) factor
+  \(2^{A(B-1)-2}B^{A-1}\). The direct cyclotomic overlaps reduce to positive
+  public integers \(R_4=u_4^2+v_4^2\) and
+  \(R_6=u_6^2+u_6v_6+v_6^2\), so all local overlap prechecks are exact.
+- `REF-023` is `REFUTED`, and NR-024 preserves the scope barrier. Any fixed
+  finite joint schedule charges only finitely many positive integers, hence
+  has finite prime support. Choosing two distinct primes outside that support
+  gives infinitely many square-free semiprimes on which every charged GCD is
+  one. This does not cover input-length-indexed, input-dependent, or adaptive
+  schedules.
+- Minimized fixed-prefix-16 witnesses are \(2491=47\cdot53\) for the
+  \(\Phi_4\) pair \((A,B)=(3,7)\), and \(1537=29\cdot53\) for the
+  \(\Phi_6\) pair \((A,B)=(5,3)\).
+- EXP-0026 completed 29 exact pair/remainder/resultant checks, 725 root
+  enumerations, 30,015 unit-root trials, 60,030 stage implications, 30,015
+  cyclotomic implications, 34,104 compact/dense checks, 34,104 valuations,
+  27,474 exhaustive semiprime comparisons, and 24 Python/Rust/C# comparisons
+  with zero failures. Summary SHA-256:
+  `3ef554db904681c3e6764bf3aba3561b1075ee4372735ce06b7f15dcbc39b6f5`.
+- Full gates pass: foundation and publication consistency (112 claims and 25
+  experiment hashes), 189 Python tests plus 166 subtests, Python bytecode
+  compilation, Ruff 0.16.0, strict mypy 2.3.0 over 22 source files, Rust
+  formatting/Clippy/33 tests, C# Release build, the 58 baseline and 24 M27
+  cross-language comparisons, and the registered EXP-0026 rerun. Ruff,
+  mypy, and pytest were installed in isolated `uv tool` environments, and
+  BLK-003 is resolved.
+- XeLaTeX converged to 68 pages with no undefined references, citations,
+  overfull boxes, or final warnings. The title, theorem, proof, reproduction,
+  transition, and final pages were rendered and visually inspected. Stable
+  PDF: `output/pdf/mosef-paper.pdf`, SHA-256
+  `ade1efd06707c71c2fae782754178a22859304a607defbdff95f6039d354a0fd`.
+- Draft PR #33 stacks M27 on the completed M26 branch:
   `https://github.com/whitespaca/MOSEF/pull/33`.
-- First bounded task: classify local zeros and prime-power valuations of
-  \(C_4,C_6\), and isolate their overlap with both stages and the direct
-  cyclotomic factor before proposing any base list.
-- Falsification priority: search for square-free and repeated-prime inputs
-  on which every polynomial-size-looking public base prefix produces only
-  unit or full cofactor GCDs, and minimize any obstruction without inferring
-  asymptotic coverage from a finite box.
-- Acceptance target: exact local criterion, public construction and
-  recognition accounting, independent implementation, and either a proved
-  restricted schedule theorem or a reproducible scope barrier.
+- Next selected milestone: M28 asks whether an input-length-indexed
+  exceptional-cofactor schedule can evade BAR-021 without hidden factor
+  access or superpolynomial total cost.
+
+### M27 Korean summary
+
+M27에서는 예외 cofactor의 국소 영점, 소수 거듭제곱 valuation, 두 stage 및
+직접 cyclotomic 인자와의 겹침을 정확히 분류했습니다. 고정된 유한 공개
+스케줄은 유한한 소수 지지만 충전하므로, 그 지지 밖의 서로 다른 두 소수로
+이루어진 무한히 많은 square-free semiprime을 놓칩니다. 이 장벽은
+입력 길이에 따라 커지는 스케줄에는 적용되지 않으며, 그 경우가 M28의
+다음 연구 대상입니다.
 
 ## M26 outcome
 

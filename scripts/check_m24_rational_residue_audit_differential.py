@@ -12,7 +12,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
-from mosef_reference import evaluate_rational_residue_audit  # noqa: E402
+from mosef_reference import evaluate_rational_residue_audit
 
 
 def run(command: list[str], env: dict[str, str] | None = None) -> str:

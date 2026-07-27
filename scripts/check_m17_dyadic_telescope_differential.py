@@ -13,7 +13,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from mosef_reference import evaluate_dyadic_telescope  # noqa: E402
+from mosef_reference import evaluate_dyadic_telescope
 
 
 def load_vectors() -> list[dict[str, Any]]:

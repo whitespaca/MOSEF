@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from mosef_reference import (  # noqa: E402
+from mosef_reference import (
     CandidateKind,
     LucasCandidateKind,
     analyze_conjugate_pair,
@@ -65,9 +65,8 @@ class LucasCandidateTests(unittest.TestCase):
             lambda: analyze_conjugate_pair(15, 2, 0),
         )
         for call in calls:
-            with self.subTest(call=call):
-                with self.assertRaises(ValueError):
-                    call()
+            with self.subTest(call=call), self.assertRaises(ValueError):
+                call()
 
 
 class ConjugatePairTests(unittest.TestCase):

@@ -11,12 +11,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from mosef_reference import (  # noqa: E402
+from mosef_reference import (
     batch_tree_multiplication_count,
     evaluate_batch_product,
     prime_factorization,
 )
-from scripts.run_m15_implicit_batch_search import search  # noqa: E402
+
+from scripts.run_m15_implicit_batch_search import search
 
 
 def valuation(value: int, prime: int) -> int:
@@ -89,9 +90,8 @@ class ImplicitBatchTests(unittest.TestCase):
             lambda: batch_tree_multiplication_count(True),
         )
         for invalid_call in invalid_calls:
-            with self.subTest(invalid_call=invalid_call):
-                with self.assertRaises(ValueError):
-                    invalid_call()
+            with self.subTest(invalid_call=invalid_call), self.assertRaises(ValueError):
+                invalid_call()
 
     def test_registered_search_smoke(self) -> None:
         result = search(7, 64, 12, 128)

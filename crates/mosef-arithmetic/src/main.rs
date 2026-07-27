@@ -6,10 +6,11 @@ use mosef_arithmetic::{
     evaluate_lucas_separator_candidate, evaluate_multiplication_program, evaluate_nested_quotient,
     evaluate_product_dag, evaluate_quotient_linear_combination, evaluate_rational_residue_audit,
     evaluate_separator_candidate, evaluate_symmetric_quotient_difference,
-    evaluate_unequal_signed_reduction, generic_multiplication_lower_bound, is_prime, lucas_v,
-    mod_pow, perfect_power, pollard_p_minus_one, pollard_p_plus_one, pollard_rho,
-    semismooth_factor, semismooth_successful_residue_count, trial_division, BatchProductEvaluation,
-    CoverAnalysis, DyadicDivisionStatus, DyadicTelescopeEvaluation,
+    evaluate_unequal_signed_reduction, exceptional_cofactor_overlap,
+    generic_multiplication_lower_bound, is_prime, lucas_v, mod_pow, perfect_power,
+    pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
+    semismooth_successful_residue_count, trial_division, BatchProductEvaluation, CoverAnalysis,
+    DyadicDivisionStatus, DyadicTelescopeEvaluation, ExceptionalCofactorOverlap,
     ExceptionalCyclotomicEvaluation, GeometricDivisionStatus, GeometricSumEvaluation,
     IteratedQuotientEvaluation, LucasSeparatorOutcome, NestedQuotientEvaluation,
     ProductDagEvaluation, QuotientLinearCombinationEvaluation, RationalResidueAuditEvaluation,
@@ -655,6 +656,38 @@ fn display_exceptional_cyclotomic(value: ExceptionalCyclotomicEvaluation) -> Str
     )
 }
 
+fn display_exceptional_cofactor_overlap(value: ExceptionalCofactorOverlap) -> String {
+    let stage_overlap_support = if value.family == "phi4" {
+        value.second_factor.to_string()
+    } else {
+        format!("2,{}", value.second_factor)
+    };
+    format!(
+        concat!(
+            "family:{}|order:{}|first_factor:{}|second_factor:{}|cofactor_degree:{}|",
+            "remainder_constant:{}|remainder_linear:{}|",
+            "cyclotomic_cofactor_resultant:{}|first_stage_resultant_base:{}|",
+            "first_stage_resultant_exponent:{}|second_stage_power_of_two_exponent:{}|",
+            "second_stage_resultant_base:{}|second_stage_resultant_exponent:{}|",
+            "stage_overlap_support:{}"
+        ),
+        value.family,
+        value.order,
+        value.first_factor,
+        value.second_factor,
+        value.cofactor_degree,
+        value.remainder_constant,
+        value.remainder_linear,
+        value.cyclotomic_cofactor_resultant,
+        value.first_stage_resultant_base,
+        value.first_stage_resultant_exponent,
+        value.second_stage_power_of_two_exponent,
+        value.second_stage_resultant_base,
+        value.second_stage_resultant_exponent,
+        stage_overlap_support,
+    )
+}
+
 fn run() -> Result<(), String> {
     let mut arguments = env::args().skip(1);
     let operation = arguments
@@ -1040,6 +1073,17 @@ fn run() -> Result<(), String> {
                     &family,
                 )
                 .ok_or_else(|| "base must be a unit and family congruences must hold".to_owned())?,
+            )
+        }
+        "exceptional-cofactor-overlap" => {
+            let first_factor = parse_u64(arguments.next(), "first_factor")?;
+            let second_factor = parse_u64(arguments.next(), "second_factor")?;
+            let family = arguments
+                .next()
+                .ok_or_else(|| "missing family".to_owned())?;
+            display_exceptional_cofactor_overlap(
+                exceptional_cofactor_overlap(first_factor, second_factor, &family)
+                    .ok_or_else(|| "family congruences must hold".to_owned())?,
             )
         }
         "multiplication-lower-bound" => {

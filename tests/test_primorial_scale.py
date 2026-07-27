@@ -2,16 +2,16 @@
 
 from __future__ import annotations
 
+import sys
+import unittest
 from itertools import combinations
 from math import comb
 from pathlib import Path
-import sys
-import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from mosef_reference import (  # noqa: E402
+from mosef_reference import (
     combined_asymmetry,
     combined_signature,
     first_primes,
@@ -19,7 +19,8 @@ from mosef_reference import (  # noqa: E402
     primorial_divisors,
     primorial_factor_scale_bound,
 )
-from scripts.run_m12_primorial_scale_search import search  # noqa: E402
+
+from scripts.run_m12_primorial_scale_search import search
 
 
 class PrimorialScaleTests(unittest.TestCase):

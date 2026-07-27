@@ -115,3 +115,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-020 | PROVED | Exact compact exceptional cofactor and valuation theorem | `research/proofs/BAR-020-exceptional-cyclotomic-extraction.md` |
 | REF-022 | REFUTED | Direct fixed-cyclotomic GCDs as an exhaustive explanation | `research/NEGATIVE_RESULTS.md` NR-023 |
 | EMP-025 | EMPIRICAL | Bounded exceptional cofactor and prime-power audit | `research/experiments/EXP-0025-m26-exceptional-cyclotomic.md` |
+| DEF-027 | DEFINITION | Charged exceptional-cofactor local profile and fixed joint schedule model | `research/proofs/BAR-021-exceptional-cofactor-schedule-barrier.md` |
+| BAR-021 | PROVED | Exact overlap resultants and fixed finite schedule barrier | `research/proofs/BAR-021-exceptional-cofactor-schedule-barrier.md` |
+| REF-023 | REFUTED | Fixed finite exceptional-cofactor schedule as universal | `research/NEGATIVE_RESULTS.md` NR-024 |
+| EMP-026 | EMPIRICAL | Bounded local-root, overlap, valuation, and prefix audit | `research/experiments/EXP-0026-m27-exceptional-cofactor-schedule.md` |

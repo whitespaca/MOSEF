@@ -1,4 +1,4 @@
-"""Differentially check selected M26 exceptional-cyclotomic vectors."""
+"""Differentially check selected M27 overlap descriptors."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
-from mosef_reference import evaluate_exceptional_cyclotomic
+from mosef_reference import exceptional_cofactor_overlap
 
 
 def run(command: list[str], env: dict[str, str] | None = None) -> str:
@@ -27,41 +27,36 @@ def run(command: list[str], env: dict[str, str] | None = None) -> str:
     ).stdout.strip()
 
 
-def optional(value: Any) -> str:
-    return "none" if value is None else str(value)
-
-
 def protocol(value: Any) -> str:
+    support = ",".join(str(item) for item in value.stage_overlap_support)
     return "|".join(
         (
-            f"base:{value.base}",
-            f"modulus:{value.modulus}",
             f"family:{value.family}",
             f"order:{value.order}",
             f"first_factor:{value.first_factor}",
             f"second_factor:{value.second_factor}",
-            f"first_coefficient:{value.first_coefficient}",
-            f"second_coefficient:{value.second_coefficient}",
-            f"cyclotomic_residue:{value.cyclotomic_residue}",
-            f"cyclotomic_gcd:{value.cyclotomic_gcd}",
-            f"cyclotomic_status:{value.cyclotomic_status}",
-            f"aggregate_residue:{value.aggregate_residue}",
-            f"aggregate_gcd:{value.aggregate_gcd}",
-            f"aggregate_status:{value.aggregate_status}",
-            f"cofactor_residue:{optional(value.cofactor_residue)}",
-            f"cofactor_gcd:{optional(value.cofactor_gcd)}",
-            f"cofactor_status:{optional(value.cofactor_status)}",
-            f"extraction_source:{value.extraction_source}",
-            f"extraction_gcd:{optional(value.extraction_gcd)}",
-            f"first_quotient_gcd:{value.first_quotient_gcd}",
-            f"second_quotient_gcd:{value.second_quotient_gcd}",
-            f"first_public_bound_gcd:{value.first_public_bound_gcd}",
-            f"second_public_bound_gcd:{value.second_public_bound_gcd}",
-            f"dense_cofactor_degree:{value.dense_cofactor_degree}",
+            f"cofactor_degree:{value.cofactor_degree}",
+            f"remainder_constant:{value.remainder_constant}",
+            f"remainder_linear:{value.remainder_linear}",
             (
-                "dense_cofactor_coefficient_count:"
-                f"{value.dense_cofactor_coefficient_count}"
+                "cyclotomic_cofactor_resultant:"
+                f"{value.cyclotomic_cofactor_resultant}"
             ),
+            f"first_stage_resultant_base:{value.first_stage_resultant_base}",
+            (
+                "first_stage_resultant_exponent:"
+                f"{value.first_stage_resultant_exponent}"
+            ),
+            (
+                "second_stage_power_of_two_exponent:"
+                f"{value.second_stage_power_of_two_exponent}"
+            ),
+            f"second_stage_resultant_base:{value.second_stage_resultant_base}",
+            (
+                "second_stage_resultant_exponent:"
+                f"{value.second_stage_resultant_exponent}"
+            ),
+            f"stage_overlap_support:{support}",
         )
     )
 
@@ -69,10 +64,10 @@ def protocol(value: Any) -> str:
 def main() -> int:
     data = json.loads(
         (
-            ROOT / "schemas/m26-exceptional-cyclotomic-vectors-v1.json"
+            ROOT / "schemas/m27-exceptional-cofactor-overlap-vectors-v1.json"
         ).read_text()
     )
-    vectors = data["exceptional_cyclotomic_vectors"]
+    vectors = data["exceptional_cofactor_overlap_vectors"]
     env = os.environ.copy()
     env["APPDATA"] = str(ROOT / "verification/csharp/obj/sandbox-appdata")
     run(
@@ -106,30 +101,32 @@ def main() -> int:
     checks = 0
     for vector in vectors:
         arguments = (
-            vector["base"],
-            vector["modulus"],
             vector["first_factor"],
             vector["second_factor"],
             vector["family"],
         )
-        value = evaluate_exceptional_cyclotomic(*arguments)
-        if asdict(value) != vector:
+        value = exceptional_cofactor_overlap(*arguments)
+        expected_record = dict(vector)
+        expected_record["stage_overlap_support"] = tuple(
+            expected_record["stage_overlap_support"]
+        )
+        if asdict(value) != expected_record:
             raise AssertionError("registered vector disagrees with Python")
         expected = protocol(value)
         text_arguments = [str(item) for item in arguments]
         for command, env_arg in (
-            ([str(rust), "exceptional-cyclotomic", *text_arguments], None),
-            ([*csharp, "exceptional-cyclotomic", *text_arguments], env),
+            ([str(rust), "exceptional-cofactor-overlap", *text_arguments], None),
+            ([*csharp, "exceptional-cofactor-overlap", *text_arguments], env),
         ):
             actual = run(command, env_arg)
             if actual != expected:
                 raise AssertionError(
-                    "exceptional-cyclotomic disagreement: "
+                    "exceptional-cofactor overlap disagreement: "
                     f"{text_arguments}\nexpected={expected}\nactual={actual}"
                 )
             checks += 1
     print(
-        f"M26 exceptional-cyclotomic differential validation: "
+        f"M27 exceptional-cofactor differential validation: "
         f"PASS ({checks} checks)"
     )
     return 0

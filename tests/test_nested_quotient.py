@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from mosef_reference import evaluate_nested_quotient  # noqa: E402
+from mosef_reference import evaluate_nested_quotient
 
 
 class NestedQuotientTests(unittest.TestCase):

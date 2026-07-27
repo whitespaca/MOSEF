@@ -92,6 +92,8 @@ internal static class Program
                 RunRationalRootOrbit(args),
             "exceptional-cyclotomic" when args.Length == 6 =>
                 RunExceptionalCyclotomic(args),
+            "exceptional-cofactor-overlap" when args.Length == 4 =>
+                RunExceptionalCofactorOverlap(args),
             "multiplication-lower-bound" when args.Length == 2 =>
                 RunMultiplicationLowerBound(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
@@ -1467,6 +1469,80 @@ internal static class Program
             + $"second_public_bound_gcd:{secondPublicBoundGcd}|"
             + $"dense_cofactor_degree:{denseDegree}|"
             + $"dense_cofactor_coefficient_count:{denseDegree + 1}";
+    }
+
+    private static string RunExceptionalCofactorOverlap(string[] args)
+    {
+        BigInteger firstFactor = Parse(args, 1, "first_factor");
+        BigInteger secondFactor = Parse(args, 2, "second_factor");
+        string family = args[3];
+        if (
+            firstFactor < 2
+            || secondFactor < 2
+            || firstFactor == secondFactor
+        )
+        {
+            throw new ArgumentException("invalid exceptional-cofactor domain");
+        }
+        BigInteger order;
+        BigInteger remainderConstant;
+        BigInteger remainderLinear;
+        BigInteger secondPowerOfTwoExponent;
+        string overlapSupport;
+        BigInteger cofactorDegree = firstFactor * (secondFactor - 1) - 2;
+        if (
+            family == "phi4"
+            && firstFactor % 4 == 3
+            && secondFactor % 4 == 3
+        )
+        {
+            order = 4;
+            remainderConstant = (
+                firstFactor * (secondFactor + 2) + 1
+            ) / 4;
+            remainderLinear = (
+                firstFactor * (secondFactor - 2) + 1
+            ) / 4;
+            secondPowerOfTwoExponent = 0;
+            overlapSupport = secondFactor.ToString();
+        }
+        else if (
+            family == "phi6"
+            && firstFactor % 6 == 5
+            && secondFactor % 6 == 3
+        )
+        {
+            order = 6;
+            remainderConstant = -2 * (
+                firstFactor * (secondFactor - 2) + 1
+            ) / 3;
+            remainderLinear = (
+                firstFactor * (secondFactor + 4) + 4
+            ) / 3;
+            secondPowerOfTwoExponent = cofactorDegree;
+            overlapSupport = $"2,{secondFactor}";
+        }
+        else
+        {
+            throw new ArgumentException("family congruences do not hold");
+        }
+        BigInteger resultant = family == "phi4"
+            ? remainderConstant * remainderConstant
+                + remainderLinear * remainderLinear
+            : remainderConstant * remainderConstant
+                + remainderConstant * remainderLinear
+                + remainderLinear * remainderLinear;
+        return $"family:{family}|order:{order}|first_factor:{firstFactor}|"
+            + $"second_factor:{secondFactor}|cofactor_degree:{cofactorDegree}|"
+            + $"remainder_constant:{remainderConstant}|"
+            + $"remainder_linear:{remainderLinear}|"
+            + $"cyclotomic_cofactor_resultant:{resultant}|"
+            + $"first_stage_resultant_base:{secondFactor}|"
+            + $"first_stage_resultant_exponent:{firstFactor - 1}|"
+            + $"second_stage_power_of_two_exponent:{secondPowerOfTwoExponent}|"
+            + $"second_stage_resultant_base:{secondFactor}|"
+            + $"second_stage_resultant_exponent:{firstFactor - 1}|"
+            + $"stage_overlap_support:{overlapSupport}";
     }
 
     private static BigInteger GeometricResidue(

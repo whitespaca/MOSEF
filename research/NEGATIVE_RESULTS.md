@@ -590,3 +590,30 @@
 - Scope: fixed exceptional families for one public base. No public schedule,
   success density, universal factoring theorem, or broader-circuit result
   follows.
+
+## NR-024 - No fixed finite exceptional-cofactor schedule is universal
+
+- Date: 2026-07-28.
+- Status: `REFUTED` claim `REF-023`.
+- Hypothesis tested: a fixed finite factorization-independent list of valid
+  exceptional parameter pairs and bases, augmented by every stage,
+  cyclotomic, cofactor, and public overlap precheck, factors every composite
+  input.
+- Infinite obstruction: form the finite product of every nonzero charged
+  integer value in the schedule. Any two distinct primes outside its finite
+  prime support give a square-free semiprime on which every charged GCD is
+  one. Infinitely many such pairs exist.
+- Minimized registered prefix-16 witnesses: bases \(2,\ldots,17\) miss
+  \(2491=47\cdot53\) for \((\Phi_4,A,B)=(\Phi_4,3,7)\), and
+  \(1537=29\cdot53\) for \((\Phi_6,A,B)=(\Phi_6,5,3)\), even after the
+  public cyclotomic/cofactor resultant precheck.
+- Positive boundary: BAR-021 gives exact local valuation criteria, root-count
+  upper bounds, all stage-overlap supports, and closed positive
+  cyclotomic/cofactor resultants. The refutation concerns universal coverage
+  by a fixed finite joint schedule, not per-candidate extraction.
+- Evidence: EXP-0026 completed 30,015 root trials, 90,045 overlap implication
+  checks, 34,104 prime-power valuation checks, ten fixed-prefix searches, and
+  24 cross-language comparisons with zero failures.
+- Scope: the schedule is fixed before \(N\). No conclusion follows for a
+  length-indexed, \(N\)-dependent, or adaptive schedule, density, general
+  factoring, or general circuit lower bounds.

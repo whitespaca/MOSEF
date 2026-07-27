@@ -15,9 +15,9 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
-Three Restricted Theorems and Fifteen Structural Barriers}
+Three Restricted Theorems and Sixteen Structural Barriers}
 \author{MOSEF Research Program}
-\date{27 July 2026}
+\date{28 July 2026}
 
 \begin{document}
 \maketitle
@@ -131,6 +131,14 @@ removing \(\Phi_4\) or \(\Phi_6\), evaluable without modular division in
 \(O(\log A+\log B)\) modular operations. Square-free and repeated-prime
 witnesses show that these cofactors can extract a factor when the direct
 cyclotomic GCD, both stages, and both public overlap bounds are units.
+We next isolate their schedule-level limits. Exact resultants restrict
+stage/cofactor overlap to primes dividing \(B\) or \(2B\), while closed
+quadratic norms give a public precheck for every direct/cofactor overlap.
+Local success is exactly a nonzero, nonfull capped cofactor-valuation profile.
+Nevertheless, every fixed finite public joint base/parameter schedule misses
+infinitely many square-free semiprimes: choose two primes outside the finite
+prime support of all charged integer values. This does not rule out
+input-length-dependent or adaptive schedules.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -229,7 +237,12 @@ algorithm. Its contributions are:
 \item exact compact quotient formulas for both fixed exceptional families,
   including prime-power valuation and total direct/cofactor extraction
   semantics, together with clean square-free and repeated-prime obstructions
-  to a direct-cyclotomic-only explanation; and
+  to a direct-cyclotomic-only explanation;
+\item exact local exceptional-cofactor profiles and overlap resultants,
+  together with an unconditional obstruction showing that every fixed finite
+  public joint base/parameter schedule misses infinitely many square-free
+  semiprimes, with length-indexed and adaptive schedules explicitly outside;
+  and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
@@ -1837,11 +1850,99 @@ GCDs after the direct cyclotomic, both stages, and both public bounds were
 units, with zero failures and 20 selected Python/Rust/C\# agreements. This
 finite box supports the implementation only; BAR-020 is proved independently.
 
+\section{A fixed exceptional-cofactor schedule barrier}
+
+\claimstatus{DEF-027}{DEFINITION}. For every \(p^e\parallel N\), family
+\(i\in\{4,6\}\), and public unit base \(g\), define the capped local profile
+\[
+a_{i,p}(g)=\min(v_p(C_i(g)),e).
+\]
+A fixed public joint schedule is a finite set of valid tuples
+\((i,A,B,g)\), chosen before \(N\), with every base, stage, public-bound,
+direct-cyclotomic, compact-cofactor, aggregate, and public-resultant GCD
+charged.
+
+\claimstatus{BAR-021}{PROVED}. The cofactor GCD is proper exactly when some
+local profile entry is positive and some entry is below its full exponent.
+Since \(C_i\) is monic of degree \(d=A(B-1)-2\), it has at most
+\(\min(d,p-1)\) unit roots modulo a prime \(p\).
+
+The exact stage/cofactor resultants are
+\[
+\begin{aligned}
+|\operatorname{Res}(S_A,C_4)|&=B^{A-1},&
+|\operatorname{Res}(S_B(X^A),C_4)|&=B^{A-1},\\
+|\operatorname{Res}(S_A,C_6)|&=B^{A-1},&
+|\operatorname{Res}(S_B(X^A),C_6)|
+ &=2^{A(B-1)-2}B^{A-1}.
+\end{aligned}
+\]
+Thus their common-root prime support is public: \(B\) for the order-four
+family and \(2B\) for the order-six family. Direct/cofactor overlap is also
+public. Modulo the removed quadratic,
+\[
+C_4\equiv u_4+v_4X,\quad
+(u_4,v_4)=
+\left(\frac{A(B+2)+1}{4},\frac{A(B-2)+1}{4}\right),
+\]
+and
+\[
+C_6\equiv u_6+v_6X,\quad
+(u_6,v_6)=
+\left(-\frac{2(A(B-2)+1)}{3},
+\frac{A(B+4)+4}{3}\right).
+\]
+Hence
+\[
+R_4=|\operatorname{Res}(\Phi_4,C_4)|=u_4^2+v_4^2>0,
+\qquad
+R_6=|\operatorname{Res}(\Phi_6,C_6)|
+=u_6^2+u_6v_6+v_6^2>0.
+\]
+The precheck \(\gcd(R_i,N)\) isolates every possible direct/cofactor overlap
+using \(O(\log A+\log B)\)-bit integers.
+
+Finally, fix any finite joint schedule. The product of all its positive
+charged integer values has finite prime support. Choosing two distinct primes
+outside that support gives a square-free semiprime on which every charged GCD
+is one. Infinitely many such pairs remain. Appendix \ref{proof:BAR-021}
+proves the resultants and the schedule quantifiers. The argument fixes the
+schedule before \(N\); it does not apply to an input-length-indexed,
+\(N\)-dependent, or adaptive schedule.
+
+\claimstatus{REF-023}{REFUTED}. No fixed finite public joint exceptional
+schedule, even with every M27 overlap precheck, factors every composite.
+For the tested prefix \(g=2,\ldots,17\), minimized registered witnesses are
+\[
+2491=47\cdot53\quad(\Phi_4,A=3,B=7)
+\]
+and
+\[
+1537=29\cdot53\quad(\Phi_6,A=5,B=3).
+\]
+The infinite refutation is the finite-product proof, not this finite search.
+
+\claimstatus{EMP-026}{EMPIRICAL}. EXP-0026 checked 29 exact remainders and
+resultants, 30,015 unit-residue root trials, 90,045 overlap implications,
+34,104 compact/dense prime-power identities and capped valuations, ten
+fixed-prefix searches, and 24 selected Python/Rust/C\# comparisons, with
+zero failures. These observations imply no density, recognizer, or
+length-indexed schedule result.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
 must not
 be conflated.
+
+For one exceptional tuple, the compact cofactor evaluator uses
+\(O(\log A+\log B)\) modular operations. The stage-overlap descriptors store
+only public bases and binary exponents, while \(u_i,v_i,R_i\) have
+\(O(\log A+\log B)\) bits and require a constant number of integer
+operations and GCDs. These are polynomial-time prechecks in the encoded
+inputs. By contrast, explicit enumeration of the local root set modulo an
+unknown prime costs \(p-1\) trials and is only an analytical or bounded-test
+operation. BAR-021 does not treat that enumeration as a public recognizer.
 
 \begin{center}
 \scriptsize
@@ -2431,8 +2532,12 @@ THM-003. THM-003 closes the rational-order list for this one unequal
 depth-two numerator and gives requested-order recognition. BAR-020 then
 proves compact evaluation and total valuation/extraction semantics for the
 two exceptional cofactors, while REF-022 shows that their residual paths
-strictly exceed the direct small-cyclotomic GCDs. It does not supply a public
-base schedule, coverage, density, or probability theorem. Longer
+strictly exceed the direct small-cyclotomic GCDs. BAR-021 then isolates all
+stage and direct-cyclotomic overlap and rules out universal coverage by a
+fixed finite joint base/parameter schedule. It does not rule out a schedule
+indexed by the eventual input length, an \(N\)-dependent or adaptive
+schedule, coverage on another explicit promise, density, or probability.
+Longer
 chains, adaptive coefficients, several interacting rational values,
 unrelated bases, other groups, and general signed arithmetic circuits remain
 outside.
@@ -2449,9 +2554,10 @@ outside BAR-008's explicit-list model has a proved factor-scale
 \(d\pm1\) yield guarantee, and whether a precisely defined specialized
 arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
 evaluate a sufficiently rich formal batch at polynomial total construction,
-evaluation, and extraction cost. The next bounded case is to classify local
-zeros and stage overlap of \(C_4,C_6\), then decide whether they admit a
-factorization-independent public base schedule on a nontrivial promise class.
+evaluation, and extraction cost. The next bounded case is to define the
+quantifier order and total bit budget of an input-length-indexed
+exceptional-cofactor schedule, then determine whether it can evade BAR-021
+without hidden factor access.
 
 \section{Conclusion}
 
@@ -2556,10 +2662,12 @@ symmetric repeated-factor subfamily, and BAR-018 supplies the unequal
 first-prefix and common-step reductions. BAR-019 further isolates content and
 stage overlap. THM-003 completely classifies its rational root-of-unity
 ratios. BAR-020 gives exact compact evaluators for the two exceptional
-cofactors and proves that their residual GCD paths are genuine, but no public
-base schedule or success density is known. Such schedule questions, general
-rational/compositional circuits, and other models remain research targets,
-not claimed factoring breakthroughs.
+cofactors and proves that their residual GCD paths are genuine. BAR-021 adds
+exact local profiles and overlap resultants and proves that every fixed finite
+joint base/parameter schedule misses infinitely many square-free semiprimes.
+Input-length-indexed and adaptive schedule questions, success density,
+general rational/compositional circuits, and other models remain research
+targets, not claimed factoring breakthroughs.
 
 \appendix
 
@@ -4175,6 +4283,74 @@ GCDs extract factors. Unit multiplication preserves GCD with \(N\); a full
 cyclotomic collision makes the aggregate full but leaves the independently
 computed cofactor available. These are all branches. \(\square\)
 
+\clearpage
+\section{Full proof of the fixed exceptional-cofactor schedule barrier}
+
+\subsection{Proof of BAR-021}\label{proof:BAR-021}
+
+For \(N=\prod p^{e_p}\), unique factorization gives
+\[
+\gcd(C_i(g),N)=
+\prod_{p\mid N}p^{\min(v_p(C_i(g)),e_p)}.
+\]
+The product is proper exactly when at least one capped exponent is positive
+and at least one is not full. Monicity of \(C_i\) makes its reduction modulo
+every prime a nonzero degree-\(d\) polynomial, proving the stated unit-root
+upper bound.
+
+At every nontrivial \(A\)-th root, \(S_B(X^A)=B\), so
+\[
+|\operatorname{Res}(S_A,F_i)|=B^{A-1}.
+\]
+The second-stage resultant additionally contributes the first coefficient to
+the power \(\deg S_B(X^A)=A(B-1)\). Evaluation at primitive fourth and sixth
+roots gives
+\[
+\begin{gathered}
+|\operatorname{Res}(S_A,\Phi_4)|
+=|\operatorname{Res}(S_B(X^A),\Phi_4)|
+=|\operatorname{Res}(S_A,\Phi_6)|=1,\\
+|\operatorname{Res}(S_B(X^A),\Phi_6)|=4,
+\end{gathered}
+\]
+the last because \(S_B(\zeta_6^A)=2\zeta_6^{-1}\). Multiplicativity of the
+resultant with \(F_i=\Phi_iC_i\) proves all four stage/cofactor formulas.
+
+Reducing the exact M26 quotient identities by \(X^2+1\) gives
+\[
+C_4\equiv
+\frac{A(B+2)+1}{4}+
+\frac{A(B-2)+1}{4}X.
+\]
+Reducing by \(X^2-X+1\) gives
+\[
+C_6\equiv
+-\frac{2(A(B-2)+1)}{3}+
+\frac{A(B+4)+4}{3}X.
+\]
+The family congruences make the coefficients integral. The norm of \(u+vX\)
+is \(u^2+v^2\) in the first quadratic and \(u^2+uv+v^2\) in the second.
+Both forms are positive here, proving the displayed resultants and excluding
+a repeated cyclotomic factor over \(\mathbb Q\).
+
+Now fix a finite public tuple set. At every \(g\ge2\), the base, both
+geometric stages, both cyclotomic polynomials, and both exceptional
+numerators are positive. Since \(F_i=\Phi_iC_i\), each cofactor value is also
+a positive integer. Multiply these values with all public stage bounds and
+\(R_i\). Only finitely many primes divide the resulting nonzero integer.
+Choose distinct primes \(p,q\) outside that support. For \(N=pq\), every
+charged value is coprime to \(N\), so every charged GCD is one. Infinitely
+many primes remain outside a finite support, hence infinitely many such
+semiprimes exist.
+
+The closed \(u_i,v_i,R_i\) have \(O(\log A+\log B)\) bits, while the stage
+resultants are retained as compact base/exponent descriptors. Local compact
+evaluation is polynomial in the encoded inputs, but enumerating all residues
+modulo \(p\) costs \(p-1\) trials. The proof chose \(N\) after one fixed
+finite schedule; changing to a length-indexed or adaptive schedule changes
+the quantifiers and is outside the theorem. \(\square\)
+
+\clearpage
 \section{Reproduction appendix}
 
 The evidence implementation state preceding M6 is commit
@@ -4270,6 +4446,9 @@ The registered experiment cores and canonical summary hashes are:
 \item EXP-0025, M26 milestone commit recorded in \path{research/STATUS.md},
   hash
   \texttt{\seqsplit{aa160aff769f98463268f641365c3a7ac498f2c5dc4e70a018f86a4d116bdbbb}}.
+\item EXP-0026, M27 milestone commit recorded in \path{research/STATUS.md},
+  hash
+  \texttt{\seqsplit{3ef554db904681c3e6764bf3aba3561b1075ee4372735ce06b7f15dcbc39b6f5}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -4374,6 +4553,10 @@ python scripts/check_m25_rational_root_orbit_differential.py
 python scripts/run_m26_exceptional_cyclotomic_audit.py `
   --factor-max 19 --modulus-max 160 --base-max 40
 python scripts/check_m26_exceptional_cyclotomic_differential.py
+python scripts/run_m27_exceptional_cofactor_schedule_audit.py `
+  --factor-max 19 --prime-max 97 --valuation-exponent-max 3 `
+  --prefix-max 16 --schedule-prime-max 400
+python scripts/check_m27_exceptional_cofactor_schedule_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -4385,7 +4568,7 @@ through EXP-0019 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. EXP-0020
-through EXP-0025 use the same deterministic finite-enumeration policy. The
+through EXP-0026 use the same deterministic finite-enumeration policy. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.
 
 \bibliographystyle{plain}

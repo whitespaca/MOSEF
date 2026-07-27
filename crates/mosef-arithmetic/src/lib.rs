@@ -789,6 +789,25 @@ pub struct ExceptionalCyclotomicEvaluation {
     pub dense_cofactor_coefficient_count: u64,
 }
 
+/// Compact exact resultant descriptors for an M27 exceptional cofactor.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ExceptionalCofactorOverlap {
+    pub family: &'static str,
+    pub order: u64,
+    pub first_factor: u64,
+    pub second_factor: u64,
+    pub cofactor_degree: u64,
+    pub remainder_constant: i128,
+    pub remainder_linear: i128,
+    pub cyclotomic_cofactor_resultant: u128,
+    pub first_stage_resultant_base: u64,
+    pub first_stage_resultant_exponent: u64,
+    pub second_stage_power_of_two_exponent: u64,
+    pub second_stage_resultant_base: u64,
+    pub second_stage_resultant_exponent: u64,
+    pub stage_overlap_support: &'static str,
+}
+
 /// Evaluate nodes starting from `g`, with every later node multiplying two parents.
 pub fn evaluate_multiplication_program(
     base: u64,
@@ -1871,6 +1890,90 @@ fn compact_exceptional_cofactor_residue(
     ))
 }
 
+/// Return exact compact stage and cyclotomic overlap descriptors.
+pub fn exceptional_cofactor_overlap(
+    first_factor: u64,
+    second_factor: u64,
+    family: &str,
+) -> Option<ExceptionalCofactorOverlap> {
+    if first_factor < 2 || second_factor < 2 || first_factor == second_factor {
+        return None;
+    }
+    let product = u128::from(first_factor).checked_mul(u128::from(second_factor))?;
+    let cofactor_degree = first_factor
+        .checked_mul(second_factor.checked_sub(1)?)?
+        .checked_sub(2)?;
+    let (
+        family,
+        order,
+        remainder_constant,
+        remainder_linear,
+        second_stage_power_of_two_exponent,
+        stage_overlap_support,
+    ) = match family {
+        "phi4" if first_factor % 4 == 3 && second_factor % 4 == 3 => {
+            let constant_numerator = product
+                .checked_add(u128::from(first_factor).checked_mul(2)?)?
+                .checked_add(1)?;
+            let linear_numerator = product
+                .checked_sub(u128::from(first_factor).checked_mul(2)?)?
+                .checked_add(1)?;
+            (
+                "phi4",
+                4,
+                i128::try_from(constant_numerator / 4).ok()?,
+                i128::try_from(linear_numerator / 4).ok()?,
+                0,
+                "B",
+            )
+        }
+        "phi6" if first_factor % 6 == 5 && second_factor % 6 == 3 => {
+            let residual = product
+                .checked_sub(u128::from(first_factor).checked_mul(2)?)?
+                .checked_add(1)?;
+            let linear_numerator = product
+                .checked_add(u128::from(first_factor).checked_mul(4)?)?
+                .checked_add(4)?;
+            (
+                "phi6",
+                6,
+                i128::try_from(residual.checked_mul(2)? / 3)
+                    .ok()?
+                    .checked_neg()?,
+                i128::try_from(linear_numerator / 3).ok()?,
+                cofactor_degree,
+                "2,B",
+            )
+        }
+        _ => return None,
+    };
+    let constant_square = remainder_constant.checked_mul(remainder_constant)?;
+    let linear_square = remainder_linear.checked_mul(remainder_linear)?;
+    let resultant = if family == "phi4" {
+        constant_square.checked_add(linear_square)?
+    } else {
+        constant_square
+            .checked_add(remainder_constant.checked_mul(remainder_linear)?)?
+            .checked_add(linear_square)?
+    };
+    Some(ExceptionalCofactorOverlap {
+        family,
+        order,
+        first_factor,
+        second_factor,
+        cofactor_degree,
+        remainder_constant,
+        remainder_linear,
+        cyclotomic_cofactor_resultant: u128::try_from(resultant).ok()?,
+        first_stage_resultant_base: second_factor,
+        first_stage_resultant_exponent: first_factor - 1,
+        second_stage_power_of_two_exponent,
+        second_stage_resultant_base: second_factor,
+        second_stage_resultant_exponent: first_factor - 1,
+        stage_overlap_support,
+    })
+}
+
 /// Evaluate the direct-factor, unit-cofactor, and full-collision branches.
 pub fn evaluate_exceptional_cyclotomic(
     base: u64,
@@ -2406,6 +2509,23 @@ mod tests {
             assert_eq!(value.second_public_bound_gcd, 1);
         }
         assert_eq!(evaluate_exceptional_cyclotomic(2, 15, 5, 7, "phi4"), None);
+    }
+
+    #[test]
+    fn exceptional_cofactor_overlap_descriptors_are_exact() {
+        let phi4 = exceptional_cofactor_overlap(3, 7, "phi4").expect("valid phi4");
+        assert_eq!(phi4.remainder_constant, 7);
+        assert_eq!(phi4.remainder_linear, 4);
+        assert_eq!(phi4.cyclotomic_cofactor_resultant, 65);
+        assert_eq!(phi4.stage_overlap_support, "B");
+
+        let phi6 = exceptional_cofactor_overlap(5, 3, "phi6").expect("valid phi6");
+        assert_eq!(phi6.remainder_constant, -4);
+        assert_eq!(phi6.remainder_linear, 13);
+        assert_eq!(phi6.cyclotomic_cofactor_resultant, 133);
+        assert_eq!(phi6.second_stage_power_of_two_exponent, 8);
+        assert_eq!(phi6.stage_overlap_support, "2,B");
+        assert_eq!(exceptional_cofactor_overlap(5, 7, "phi4"), None);
     }
 
     #[test]

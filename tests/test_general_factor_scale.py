@@ -2,20 +2,21 @@
 
 from __future__ import annotations
 
-from pathlib import Path
 import sys
 import unittest
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from mosef_reference import (  # noqa: E402
+from mosef_reference import (
     factor_scale_divisor_bound,
     factor_scale_threshold,
     is_prime,
     positive_divisors,
 )
-from scripts.run_m13_general_factor_scale_search import search  # noqa: E402
+
+from scripts.run_m13_general_factor_scale_search import search
 
 
 class GeneralFactorScaleTests(unittest.TestCase):

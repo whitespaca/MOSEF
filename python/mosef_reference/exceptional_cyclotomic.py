@@ -314,7 +314,7 @@ def evaluate_exceptional_cyclotomic(
     normalized_base = base % modulus
     if gcd(normalized_base, modulus) != 1:
         raise ValueError("base must be a unit modulo the modulus")
-    order, first_coefficient, cyclotomic = _family_data(
+    order, first_coefficient, _cyclotomic = _family_data(
         first_factor, second_factor, family
     )
     audit = evaluate_rational_residue_audit(

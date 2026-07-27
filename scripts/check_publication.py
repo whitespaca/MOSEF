@@ -49,6 +49,7 @@ REQUIRED_SECTIONS = (
     "Primitive rational residues and exceptional cyclotomic factors",
     "A complete rational root-orbit classification",
     "Compact extraction from the exceptional cofactors",
+    "A fixed exceptional-cofactor schedule barrier",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -83,6 +84,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-019}",
     r"\label{proof:THM-003}",
     r"\label{proof:BAR-020}",
+    r"\label{proof:BAR-021}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -128,6 +130,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0025-m26-exceptional-cyclotomic.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0026-m27-exceptional-cofactor-schedule.md",
 )
 
 

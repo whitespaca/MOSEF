@@ -608,3 +608,24 @@
   REF-022 blocks the direct-cyclotomic-only interpretation. M27 may study a
   public schedule only after isolating local cofactor roots and overlaps; M26
   provides no coverage or density theorem.
+
+## ADR-030 - Close the fixed finite schedule model before length-indexed claims
+
+- Date: 2026-07-28.
+- Decision: compute compact stage/cofactor and cyclotomic/cofactor resultants
+  before treating any cofactor root as a new schedule event. Define the first
+  schedule model as one fixed finite set of public family, parameter, and base
+  tuples chosen before the input.
+- Rationale: exact resultants remove every hidden overlap with already charged
+  exits. In the resulting model, a finite product of all nonzero charged
+  integer values has only finitely many prime divisors, so infinitely many
+  square-free semiprimes avoid the whole schedule. This is a rigorous barrier
+  and requires no empirical density extrapolation.
+- Cost accounting: the direct/cofactor resultants have
+  \(O(\log A+\log B)\)-bit closed forms. Stage resultants remain compact
+  base/exponent descriptors. Explicit root enumeration costs \(p-1\) trials
+  and is not called polynomial in \(\log p\).
+- Consequence: BAR-021 refutes a universal fixed finite joint schedule while
+  preserving the local cofactor extraction mechanism. M28 may study schedules
+  indexed by input length only after stating their quantifier order and total
+  construction/evaluation budget; BAR-021 does not transfer automatically.

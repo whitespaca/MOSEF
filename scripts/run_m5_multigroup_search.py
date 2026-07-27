@@ -13,7 +13,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from mosef_reference import (  # noqa: E402
+from mosef_reference import (
     LucasCandidateKind,
     analyze_conjugate_pair,
     candidate_succeeds,
@@ -205,11 +205,13 @@ def search(
                 carmichael_both_failed_families += 1
             first_analysis = analyze_conjugate_pair(n, base, 1)
             discriminant_implication_checks += 1
-            if 1 < first_analysis.discriminant_gcd < n:
-                if not candidate_succeeds(
+            if (
+                1 < first_analysis.discriminant_gcd < n
+                and not candidate_succeeds(
                     evaluate_separator_candidate(n, base, 2)
-                ):
-                    raise AssertionError(("discriminant implication", n, base))
+                )
+            ):
+                raise AssertionError(("discriminant implication", n, base))
 
     if derived_lucas_only_families:
         raise AssertionError("a conjugately derived Lucas family added success")
