@@ -39,6 +39,8 @@
   pages were rendered and visually inspected. Stable PDF:
   `output/pdf/mosef-paper.pdf`, SHA-256
   `848f26b8a8efb79b78851dee5b2bb7cc8612f3170ff6e6df0c06f78672a0d4da`.
+- The validated M26 implementation, proof, experiment, and manuscript core
+  is commit `cc850a084be6940349c09dc35e0ab73a43f791d6`.
 - Draft PR #30 stacks M26 on M25:
   `https://github.com/whitespaca/MOSEF/pull/30`.
 - Next selected milestone: M27 isolates local cofactor roots and overlaps
