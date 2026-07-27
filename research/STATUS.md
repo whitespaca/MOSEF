@@ -44,6 +44,11 @@
   citations, or overfull/underfull boxes. All 59 pages were rendered and
   visually inspected. Stable PDF: `output/pdf/mosef-paper.pdf`, SHA-256
   `0eafe60e8c91ad0e7e3e0775f48017b5dec63cf79a3f54310685db44fc7f3b81`.
+- The validated M24 core is commit
+  `ca3abb022579e760368810b8956e8a5475620c0b`.
+- Draft PR #27 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/27`. The earlier M24 start PR
+  #26 is merged.
 - Scope: no uniform exceptional-order classification, recognizer, schedule,
   density, probability, general factoring result, or general-circuit lower
   bound is claimed.
