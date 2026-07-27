@@ -1,5 +1,32 @@
 # Research Status
 
+## M28 execution snapshot
+
+- Date: 2026-07-28.
+- Branch: `research/20260728-m28-length-indexed-cofactor-schedule`.
+- Active question: can a schedule indexed only by the input length evade the
+  fixed finite-support barrier BAR-021 while retaining public construction,
+  recognition, and polynomial total bit cost?
+- Dependency: M27 is complete on
+  `research/20260727-m27-exceptional-cofactor-schedule`; completion Draft PR
+  #34 targets the completed M26 branch:
+  `https://github.com/whitespaca/MOSEF/pull/34`.
+- Base checkpoint: M28 starts from the M27 completion-PR status commit
+  `dc2607f1d83dca78b7fe66a5f1fbda09e0b391b0`.
+- First bounded task: formalize the quantifier order for schedules
+  \(\mathcal S_m\), charge every generated parameter, base, compact
+  cofactor evaluation, GCD, and output bit, then derive the strongest
+  unconditional root-coverage upper bound that is uniform over unknown
+  balanced prime factors.
+- Falsification priority: enumerate bounded public schedules and search for
+  balanced square-free semiprimes whose two factors simultaneously avoid
+  every charged cofactor root, while separating a finite-box obstruction
+  from any asymptotic claim.
+- Acceptance target: an exact length-indexed grammar, polynomial-cost
+  recognition and evaluation accounting, independent implementation,
+  reproducible bounded audit, and either a proved restricted theorem or a
+  precisely scoped barrier.
+
 ## M27 outcome
 
 - Date: 2026-07-28.
