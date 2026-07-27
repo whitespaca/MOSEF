@@ -1,29 +1,65 @@
 # Research Status
 
-## M24 execution snapshot
+## M24 outcome
 
 - Date: 2026-07-27.
 - Branch: `research/20260727-m24-rational-residue`.
-- Active question: can the surviving unit-prefix rational residue
+- Completed milestone: M24, primitive coefficient-content normalization,
+  exact stage resultants, and the exceptional cyclotomic scope.
+- `DEF-024` retains the content and first-prefix trichotomies, primitive and
+  original aggregates, both aggregate-stage overlap GCDs, compact resultant
+  descriptors, extraction, and explicitly bounded exact cyclotomic audits.
+- `BAR-019` is `PROVED`. For
+  \(F=c_1S_A(X)+c_2S_B(X^A)\),
   \[
-  c_1+c_2\,S_B(g^A)S_A(g)^{-1}\pmod N
+  \operatorname{Res}(S_A,F)=(c_2B)^{A-1},\qquad
+  \operatorname{Res}(S_B(X^A),F)=c_1^{A(B-1)}B^{A-1}.
   \]
-  admit a sharper polynomial or cyclotomic classification?
-- Dependency: M23 is complete on
-  `research/20260727-m23-unequal-signed-reduction`; Draft PR #25 targets
-  `main`: `https://github.com/whitespaca/MOSEF/pull/25`.
-- First bounded task: normalize primitive coefficient pairs, compute exact
-  resultants of \(c_1S_A(X)+c_2S_B(X^A)\) with both stage polynomials, and
-  enumerate its cyclotomic factors for small unequal \(A,B\) before proposing
-  any theorem.
-- Falsification priority: search repeated-prime and square-free moduli for a
-  proper rational-residue GCD not explained by a coefficient multiplier,
-  boundary factor, stage resultant, or explicitly retained residual
-  polynomial. Finite patterns remain `EMPIRICAL` until proved.
-- Acceptance target: an exact charged rational-residue grammar, numerator
-  resultant or cyclotomic classification, total extraction and formal-output
-  accounting, independent implementation, and adversarial review; a
-  minimized obstruction is an acceptable outcome.
+  Aggregate overlap with the first and second stages therefore divides the
+  public GCDs \(\gcd(c_2B,N)\) and \(\gcd(c_1B,N)\), respectively.
+- At a root of unity away from the stage denominators, the exact condition is
+  \[
+  c_1(\zeta^A-1)^2+c_2(\zeta-1)(\zeta^{AB}-1)=0.
+  \]
+  This criterion does not collapse to the M23 boundary factors.
+- `REF-020` is `REFUTED`, and NR-021 preserves the obstruction. For
+  \((A,B,c_1,c_2)=(3,7,1,1)\), \(\Phi_4\) divides the numerator. At
+  \((N,g)=(55,2)\), both stages, coefficient content, and public overlap
+  bounds are units, but the aggregate and rational residue have GCD 5.
+- EXP-0023 checked 42 unequal pairs, 1,512 coefficient/content/Bezout/root
+  cases, 150,528 exact cyclotomic divisions on 1,176 primitive pairs, and
+  1,788,696 modular evaluations. It found six exceptional cyclotomic
+  factors and 56,586 strict residual proper GCDs, with zero unexplained
+  failures and 12 Python/Rust/C# agreements. Canonical summary SHA-256:
+  `01953fe34732449aa6a0ec6ba9bc8c0487027a359eb1fc96f9765ce189ec39e8`.
+- Resultant descriptors are compact; expanded resultants and polynomial or
+  cyclotomic output are charged by their actual bit length or explicit
+  search bound.
+- Full gates passed: foundation and publication consistency (100 claims and
+  22 experiment hashes), 174 Python tests and bytecode compilation, Rust
+  formatting/Clippy/30 tests, C# Release build with zero warnings or errors,
+  58 baseline comparisons, the registered EXP-0023 rerun, and the 12-check
+  M24 differential validator.
+- XeLaTeX converged with no LaTeX warnings, undefined references or
+  citations, or overfull/underfull boxes. All 59 pages were rendered and
+  visually inspected. Stable PDF: `output/pdf/mosef-paper.pdf`, SHA-256
+  `0eafe60e8c91ad0e7e3e0775f48017b5dec63cf79a3f54310685db44fc7f3b81`.
+- Scope: no uniform exceptional-order classification, recognizer, schedule,
+  density, probability, general factoring result, or general-circuit lower
+  bound is claimed.
+- Next selected milestone: M25 classifies rational values of
+  \(-Q_2(\zeta)/Q_1(\zeta)\) through exact Galois-orbit restrictions before
+  any schedule-level proposal.
+
+### M24 Korean summary
+
+M24에서는 계수의 공약수를 먼저 분리하고, 두 단계 다항식과 signed
+분자의 resultant를 정확히 계산했습니다. 이 결과 단계와의 겹침은
+공개된 계수와 \(B\)의 GCD로 완전히 통제됩니다. 그러나
+\((A,B,c_1,c_2)=(3,7,1,1)\)에서는 예상 경계 밖의 \(\Phi_4\) 인자가
+나타나며, \(N=55,g=2\)에서 모든 단계와 공개 경계가 단위인데도 인수
+5가 추출됩니다. 따라서 다음 M25는 이 예외적 root-of-unity 비율이
+유리수가 되는 정확한 조건을 조사합니다.
 
 ## M23 outcome
 

@@ -115,7 +115,10 @@ to a public coefficient times \(B\). The normalized unequal difference has
 the exact common factor \(XS_{\gcd(A-1,B-1)}(X)\), and its polynomial GCD
 with either natural endpoint is exactly that geometric sum. A repeated-prime
 witness shows that the residual cofactor can still expose a factor when the
-common factor is a unit.
+common factor is a unit. Coefficient normalization then gives exact
+resultants and public stage-overlap bounds, but a primitive
+\((3,7,1,1)\) numerator has the exceptional factor \(\Phi_4\) and a strict
+\(N=55\) witness after every charged stage and public bound is a unit.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -201,14 +204,19 @@ algorithm. Its contributions are:
 \item an exact symmetric-difference reduction: repeated public factor \(A\)
   and coefficients \((-1,1)\) factor into the endpoint
   \(X^{A-1}-1\) and a positive cofactor, with a local valuation sum, a total
-  extraction trichotomy, and an \(O(\log A)\) compact cofactor evaluator; and
+  extraction trichotomy, and an \(O(\log A)\) compact cofactor evaluator;
+\item an unequal signed-form reduction with a total prefix trichotomy and
+  exact common-step factor, together with a residual-cofactor obstruction;
+\item a primitive rational-residue theorem giving exact stage resultants,
+  public overlap bounds, and a root-of-unity equation, together with a
+  \(\Phi_4\) counterexample to boundary-only classification; and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
 
 The positive theorems are restricted: membership in their promise classes can
 depend on the unknown factorization and is not recognized by the algorithms.
-The fifteen barriers are also scoped: one concerns explicit order signatures,
+The barriers are also scoped: one concerns explicit order signatures,
 one concerns only \(P=a+a^{-1}\), and two concern a common explicit finite
 schedule under separate magnitude or encoding hypotheses. One concerns only
 formal exponents in a factor-oblivious multiplication-only DAG, and another
@@ -222,10 +230,11 @@ one dyadic exact-division/composition identity, one arbitrary-exponent
 geometric sum, one two-stage nested geometric quotient, and one product-only
 iterated public quotient chain. The signed-aggregation counterexample
 separately shows that the last product implication cannot be extended to
-addition. The symmetric reduction then classifies only the repeated-factor,
-coefficient-\((-1,1)\) subfamily; unequal factors, other coefficients,
-adaptive or multiple aggregates, and general rational, compositional, and
-arithmetic circuits remain outside. These boundaries are part of the results.
+addition. The symmetric reduction classifies only the repeated-factor,
+coefficient-\((-1,1)\) subfamily. The unequal and primitive-resultant
+theorems treat one depth-two chain, but exceptional orders, adaptive or
+multiple aggregates, and general rational, compositional, and arithmetic
+circuits remain outside. These boundaries are part of the results.
 
 Section 2 records the imported complexity landscape. Sections 3 and 4 define
 candidate semantics and the recursive framework. Section 5 gives the first
@@ -241,7 +250,7 @@ Section 18 treats the dyadic telescope, Section 19 treats the arbitrary
 geometric sum, Section 20 treats the nested quotient, and Section 21 treats
 the iterated quotient chain. Section 22 gives the signed-aggregation
 separation, and Section 23 gives the symmetric-difference reduction. Later
-sections separate algorithms,
+sections give the unequal and primitive rational-residue reductions, then separate algorithms,
 experiments, and observations. Complete proofs and reproduction details appear in the
 appendices.
 
@@ -1620,6 +1629,58 @@ path. This classification leaves the surviving unit-prefix rational
 residue open and makes no universal schedule or general factoring claim.
 Appendix \ref{proof:BAR-018} gives the complete proof.
 
+\section{Primitive rational residues and exceptional cyclotomic factors}
+
+\claimstatus{DEF-024}{DEFINITION}. Write
+\[
+d=\gcd(|c_1|,|c_2|),\qquad a_i=c_i/d,\qquad
+P(X)=a_1Q_1(X)+a_2Q_2(X),
+\]
+so \(F=dP\) and \((a_1,a_2)\) is primitive. Retain the content trichotomy,
+the primitive aggregate, both stage-overlap GCDs, the unit-prefix rational
+residues, and compact resultant descriptors. Exact cyclotomic searches have
+an explicit charged order bound; expanded integers and polynomials are
+charged by their actual output size.
+
+\claimstatus{BAR-019}{PROVED}. Content gives a total unit, proper, or full
+exit. On the unit-content branch,
+\(\gcd(F(g),N)=\gcd(P(g),N)\). The exact stage resultants are
+\[
+\operatorname{Res}(Q_1,F)=(c_2B)^{A-1},\qquad
+\operatorname{Res}(Q_2,F)=c_1^{A(B-1)}B^{A-1}.
+\]
+More directly,
+\[
+\gcd(Q_1(g),F(g),N)\mid\gcd(c_2B,N),\qquad
+\gcd(Q_2(g),F(g),N)\mid\gcd(c_1B,N).
+\]
+Thus every aggregate overlap with a charged stage is controlled by a public
+coefficient--multiplier GCD. For a root of unity away from the stage
+denominators,
+\[
+F(\zeta)=0
+\iff c_1(\zeta^A-1)^2+
+c_2(\zeta-1)(\zeta^{AB}-1)=0.
+\]
+This is an exact criterion but not a uniform classification of exceptional
+orders.
+
+\claimstatus{REF-020}{REFUTED}. The natural boundary and common-step factors
+do not exhaust the primitive cyclotomic possibilities. For
+\((A,B,c_1,c_2)=(3,7,1,1)\),
+\[
+Q_1(i)=i,\qquad Q_2(i)=-i,
+\]
+so \(\Phi_4(X)=X^2+1\) divides \(F\). At
+\((N,g)=(55,2)\), the stages are \(7,8\), both public overlap bounds and the
+content are units, but
+\[
+F(2)=15\pmod {55},\qquad \gcd(15,55)=5.
+\]
+The unit-prefix rational residue is \(10\) and has the same GCD. Resultants
+therefore isolate stage overlap without absorbing the exceptional
+cyclotomic residue. Appendix \ref{proof:BAR-019} gives the complete proof.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -1695,6 +1756,12 @@ Two geometric sums, one endpoint power, and a \(3\)-state matrix recurrence
 using \(O(\log A)\) modular steps; expanded \(H_A\) has \(A(A-1)/2\)
 monomials \\
 \addlinespace
+Primitive rational-residue audit &
+Content and stage-overlap classification with exact root-of-unity criterion &
+Two geometric sums and constant modular work; resultants remain compact
+base--exponent descriptors, while expansions and order searches are charged
+by actual output size or explicit bound \\
+\addlinespace
 Semismooth randomized splitter &
 Complete Las Vegas factorization on the hereditary promise class &
 Expected polynomial bit complexity for every fixed polynomial schedule pair
@@ -1717,8 +1784,9 @@ claim \\
 
 The unequal signed depth-two evaluator uses two binary geometric sums and
 \(O(\log A+\log B)\) modular operations. Its collected signed form has
-\(A+B-2\) or \(A+B-1\) monomials; the residual rational value remains outside
-BAR-018's classification.
+\(A+B-2\) or \(A+B-1\) monomials. BAR-019 adds only constant modular work
+for content and overlap checks. Its compact resultants do not license
+materializing integers with \(\Theta(A\log(|c_2|B))\) or comparable bits.
 
 Binary modular exponentiation uses \(O(L(m))\) modular multiplications for an
 \(L(m)\)-bit exponent. A Lucas pair can likewise be evaluated by binary
@@ -2038,6 +2106,19 @@ classify the surviving rational residue or establish an asymptotic success
 rate, universal schedule, recognition, density, novelty, general factoring,
 or a general-circuit lower bound.
 
+\claimstatus{EMP-023}{EMPIRICAL}. EXP-0023 completed 42 ordered unequal
+factor pairs, 1,512 coefficient-content normalizations, 1,512 first-stage
+Bezout identities, and 1,512 cleared root-of-unity identities. It performed
+150,528 exact cyclotomic divisions on 1,176 primitive coefficient pairs and
+found 24 value-at-one, 16 difference common-step, and 6 exceptional factors.
+Across 1,788,696 modular evaluations, all content, unit-prefix, and two
+stage-overlap checks passed; 56,586 proper aggregate GCDs remained after the
+content, both stages, and both public overlap bounds were units. All 12
+selected Python/Rust/C\# comparisons agreed, with zero unexplained failures.
+These observations do not classify orders beyond the registered bound or
+establish a distribution, success rate, recognizer, schedule, novelty,
+general factoring result, or general-circuit lower bound.
+
 These observations audit implementations and minimize counterexamples. The
 universal statements in this paper are supplied by proofs, not extrapolation
 from the table.
@@ -2171,10 +2252,16 @@ remain outside.
 BAR-018 treats one unequal depth-two chain and arbitrary nonzero public
 coefficients. Its first-prefix trichotomy is total, and its normalized
 difference has an exact common-step factor and endpoint polynomial-GCD
-classification. The residual unit-prefix rational/cofactor value is real and
-is not classified by the theorem. Longer chains, adaptive coefficients,
-several interacting rational values, unrelated bases, other groups, and
-general signed arithmetic circuits remain outside.
+classification.
+
+BAR-019 normalizes coefficient content and classifies overlap of the
+aggregate with either charged stage by exact public resultants. Its
+root-of-unity equation is exact, but the \(\Phi_4\) witness proves that the
+value-at-one and common-step factors do not classify all primitive
+cyclotomic factors. It supplies no uniform exceptional-order list or
+recognizer. Longer chains, adaptive coefficients, several interacting
+rational values, unrelated bases, other groups, and general signed
+arithmetic circuits remain outside.
 
 The authoritative Rust layer is bounded to \texttt{u64}; validation primality
 uses trial division and is not itself the polynomial-time procedure imported
@@ -2188,9 +2275,10 @@ outside BAR-008's explicit-list model has a proved factor-scale
 \(d\pm1\) yield guarantee, and whether a precisely defined specialized
 arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
 evaluate a sufficiently rich formal batch at polynomial total construction,
-evaluation, and extraction cost. The next bounded case is the surviving
-unit-prefix rational residue, starting with primitive coefficient pairs and
-exact numerator resultants or cyclotomic factors.
+evaluation, and extraction cost. The next bounded case is to classify when
+the exceptional root-of-unity ratio
+\(-Q_2(\zeta)/Q_1(\zeta)\) is rational for primitive coefficient pairs,
+starting with exact Galois-orbit restrictions.
 
 \section{Conclusion}
 
@@ -2260,7 +2348,9 @@ coefficients. The first prefix has a total rational/proper/public trichotomy,
 while the normalized difference factors through
 \(XS_{\gcd(A-1,B-1)}\). This natural factor is not complete: the \(N=25\)
 witness leaves it a unit and extracts factor \(5\) through the residual
-cofactor.
+cofactor. BAR-019 then isolates coefficient content and overlap with each
+charged stage by exact resultants. The \(\Phi_4\) witness shows that these
+public bounds are not a boundary-only cyclotomic classification.
 
 These results do not resolve general classical factoring. They replace
 plausible shortcuts with exact obligations: recognizable or explicitly
@@ -2287,10 +2377,11 @@ retaining the same explicit exits. BAR-016 then proves that one charged
 cross-stage signed combination can create a genuinely new proper GCD.
 BAR-017 supplies the exact endpoint/cofactor valuation criterion for its
 symmetric repeated-factor subfamily, and BAR-018 supplies the unequal
-first-prefix and common-step reductions. Classification of the surviving
-rational residue, schedule-level usefulness, general rational/compositional
-circuits, and other models remain research targets, not claimed factoring
-breakthroughs.
+first-prefix and common-step reductions. BAR-019 further isolates content and
+stage overlap, but the exceptional \(\Phi_4\) factor leaves rational
+root-of-unity ratios open. Their classification, schedule-level usefulness,
+general rational/compositional circuits, and other models remain research
+targets, not claimed factoring breakthroughs.
 
 \appendix
 
@@ -3668,6 +3759,73 @@ the constant cancels and \(A+B-1\) otherwise. The cofactor degree follows by
 subtracting the degrees of \(X\) and \(S_h\). The two registered witnesses
 establish that both residual paths are nonempty. \(\square\)
 
+\section{Full proof of the primitive rational-residue result}
+
+\subsection{Proof of BAR-019}\label{proof:BAR-019}
+
+Let \(d=\gcd(|c_1|,|c_2|)\), \(a_i=c_i/d\), and
+\(P=a_1Q_1+a_2Q_2\). Then \(F=dP\). If \(d\) is a unit modulo \(N\),
+multiplication by \(d\) preserves the GCD with \(N\). A proper
+\(\gcd(d,N)\) is already a factor, while \(N\mid d\) forces
+\(F(g)=0\pmod N\). If \(Q_1(g)\) is a unit, ordinary modular inversion gives
+\[
+F(g)=Q_1(g)\left(c_1+c_2Q_2(g)Q_1(g)^{-1}\right)
+\]
+and the identical primitive formula. This proves both total trichotomies.
+
+At every root \(\alpha\) of the monic degree-\(A-1\) polynomial \(Q_1\),
+the M23 identity gives \(Q_2(\alpha)=B\). The root-product definition
+therefore gives
+\[
+\operatorname{Res}(Q_1,F)=(c_2B)^{A-1}.
+\]
+At every root of the monic degree-\(A(B-1)\) polynomial \(Q_2\), the
+aggregate is \(c_1Q_1\). Reversing the M23 stage resultant introduces sign
+\((-1)^{A(A-1)(B-1)}=1\), hence
+\[
+\operatorname{Res}(Q_2,F)
+=c_1^{A(B-1)}\operatorname{Res}(Q_2,Q_1)
+=c_1^{A(B-1)}B^{A-1}.
+\]
+
+The sharper overlap statements follow without expanding either resultant.
+From
+\[
+F-c_2B
+=Q_1\left(c_1+c_2(X-1)\sum_{j=1}^{B-1}S_j(X^A)\right),
+\]
+every common divisor of \(Q_1(g),F(g),N\) divides \(c_2B\). A common divisor
+of \(Q_2(g),F(g),N\) divides \(c_1Q_1(g)\). Multiplying
+\[
+Q_2-B=(X-1)Q_1\sum_{j=1}^{B-1}S_j(X^A)
+\]
+by \(c_1\) then shows that it divides \(c_1B\).
+
+A root of \(F\) cannot be a root of \(Q_1\), because there \(F=c_2B\ne0\).
+It cannot be a root of \(Q_2\), because stage coprimality gives
+\(F=c_1Q_1\ne0\). Thus at a root of unity \(\zeta\ne1\), both denominators
+below are nonzero, and multiplying
+\[
+c_1\frac{\zeta^A-1}{\zeta-1}
++c_2\frac{\zeta^{AB}-1}{\zeta^A-1}=0
+\]
+by \((\zeta-1)(\zeta^A-1)\) proves the displayed exact root-of-unity
+criterion. At \(\zeta=1\), direct evaluation gives
+\(c_1A+c_2B=0\). Exact monic division by any requested \(\Phi_n\) is
+therefore a valid bounded audit, not a claim that all orders have been
+enumerated.
+
+Finally, for \(A=3,B=7,c_1=c_2=1\), direct power summation gives
+\(Q_1(i)=i\) and \(Q_2(i)=-i\). Thus the real integer polynomial \(F\)
+vanishes at both roots of \(X^2+1\), proving \(\Phi_4\mid F\). At
+\(N=55,g=2\), exact evaluation gives stages \(7,8\), aggregate \(15\), and
+rational residue \(10\). Their GCD data are respectively \(1,1,5,5\), while
+both public overlap bounds are \(\gcd(7,55)=1\). This refutes the simple
+boundary/common-step classification and proves the claimed scope
+boundary. Compact power descriptors do not materialize their expanded
+values; every requested expansion is charged by its actual output length.
+\(\square\)
+
 \section{Reproduction appendix}
 
 The evidence implementation state preceding M6 is commit
@@ -3754,6 +3912,9 @@ The registered experiment cores and canonical summary hashes are:
 \item EXP-0022, M23 milestone commit recorded in \path{research/STATUS.md},
   hash
   \texttt{\seqsplit{88f103f7a18681abb357cccd4b77f0086f1a7bf165b5e31537c744a2c23d3e04}}.
+\item EXP-0023, M24 milestone commit recorded in \path{research/STATUS.md},
+  hash
+  \texttt{\seqsplit{01953fe34732449aa6a0ec6ba9bc8c0487027a359eb1fc96f9765ce189ec39e8}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -3848,6 +4009,10 @@ python scripts/run_m23_unequal_signed_reduction_search.py `
   --factor-max 8 --coefficient-max 2 `
   --modulus-max 128 --base-max 16
 python scripts/check_m23_unequal_signed_reduction_differential.py
+python scripts/run_m24_rational_residue_audit.py `
+  --factor-max 8 --coefficient-max 3 `
+  --cyclotomic-order-max 128 --modulus-max 128 --base-max 16
+python scripts/check_m24_rational_residue_audit_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -3859,7 +4024,7 @@ through EXP-0019 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. EXP-0020
-through EXP-0022 use the same deterministic finite-enumeration policy. The
+through EXP-0023 use the same deterministic finite-enumeration policy. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.
 
 \bibliographystyle{plain}

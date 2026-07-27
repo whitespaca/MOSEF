@@ -514,3 +514,32 @@
   recognition, universal schedule, density, general factoring, or
   general-circuit claim follows.
 - Revisit by classifying the surviving unit-prefix rational residue.
+
+## NR-021 - Boundary and common-step factors do not classify primitive cyclotomic factors
+
+- Date: 2026-07-27.
+- Status: `REFUTED` claim `REF-020`.
+- Hypothesis tested: every cyclotomic factor of a primitive numerator
+  \(c_1S_A(X)+c_2S_B(X^A)\) is forced either by its value at \(X=1\), or,
+  when \(c_1=-c_2\), by the M23 common-step difference factor.
+- Counterexample: for \((A,B,c_1,c_2)=(3,7,1,1)\), evaluation at \(i\)
+  gives \(S_3(i)=i\) and \(S_7(i^3)=-i\). Therefore
+  \(\Phi_4=X^2+1\) divides the primitive numerator. Neither coefficients
+  sum to zero nor does \(3+7=0\).
+- Strict modular witness: at \((N,g)=(55,2)\), the two stages are 7 and 8,
+  both units, the content and both public resultant bounds are units, but
+  the aggregate is 15 and has GCD 5. The unit-prefix rational residue is 10
+  and has the same GCD.
+- Positive boundary: BAR-019 gives both exact stage resultants, public
+  overlap bounds, total content and prefix semantics, and the exact
+  root-of-unity equation. It does not claim that exceptional orders have no
+  further arithmetic structure.
+- Evidence: EXP-0023 performed 150,528 exact cyclotomic divisions on 1,176
+  primitive coefficient pairs and found six exceptional factors in the
+  registered box, with zero failed identities and 12 cross-language
+  disagreements.
+- Scope: one unequal depth-two signed numerator. No completeness beyond the
+  finite order bound, density, recognizer, universal schedule, general
+  factoring result, or general circuit lower bound follows.
+- Revisit by classifying when the root-of-unity ratio
+  \(-Q_2(\zeta)/Q_1(\zeta)\) is rational for primitive coefficient pairs.

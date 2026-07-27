@@ -86,6 +86,8 @@ internal static class Program
                 RunSymmetricQuotientDifference(args),
             "unequal-signed-reduction" when args.Length == 7 =>
                 RunUnequalSignedReduction(args),
+            "rational-residue-audit" when args.Length == 7 =>
+                RunRationalResidueAudit(args),
             "multiplication-lower-bound" when args.Length == 2 =>
                 RunMultiplicationLowerBound(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
@@ -1118,6 +1120,147 @@ internal static class Program
             + $"common_factor:{commonFactor}|common_factor_gcd:{commonFactorGcd}|"
             + $"cofactor:{cofactor}|cofactor_gcd:{cofactorGcd}|"
             + $"cofactor_degree:{cofactorDegree}";
+    }
+
+    private static string RunRationalResidueAudit(string[] args)
+    {
+        BigInteger value = Parse(args, 1, "base");
+        BigInteger modulus = Parse(args, 2, "modulus");
+        BigInteger firstFactor = Parse(args, 3, "first_factor");
+        BigInteger secondFactor = Parse(args, 4, "second_factor");
+        BigInteger firstCoefficient = Parse(args, 5, "first_coefficient");
+        BigInteger secondCoefficient = Parse(args, 6, "second_coefficient");
+        if (
+            modulus < 2
+            || firstFactor < 2
+            || secondFactor < 2
+            || firstFactor == secondFactor
+            || firstCoefficient == 0
+            || secondCoefficient == 0
+        )
+        {
+            throw new ArgumentException("invalid rational-residue audit domain");
+        }
+        BigInteger reducedBase = ((value % modulus) + modulus) % modulus;
+        (BigInteger firstPower, BigInteger firstQuotient) = GeometricPair(
+            reducedBase,
+            modulus,
+            firstFactor
+        );
+        (_, BigInteger secondQuotient) = GeometricPair(
+            firstPower,
+            modulus,
+            secondFactor
+        );
+        BigInteger content = Gcd(
+            BigInteger.Abs(firstCoefficient),
+            BigInteger.Abs(secondCoefficient)
+        );
+        BigInteger primitiveFirst = firstCoefficient / content;
+        BigInteger primitiveSecond = secondCoefficient / content;
+        BigInteger Normalize(BigInteger coefficient) =>
+            ((coefficient % modulus) + modulus) % modulus;
+        BigInteger LinearCombination(BigInteger left, BigInteger right) =>
+            (
+                Normalize(left) * firstQuotient
+                + Normalize(right) * secondQuotient
+            ) % modulus;
+        string Status(BigInteger divisor) => divisor == 1
+            ? "unit"
+            : divisor < modulus ? "proper_factor" : "full_collision";
+        BigInteger aggregate = LinearCombination(
+            firstCoefficient,
+            secondCoefficient
+        );
+        BigInteger primitiveAggregate = LinearCombination(
+            primitiveFirst,
+            primitiveSecond
+        );
+        if (aggregate != content % modulus * primitiveAggregate % modulus)
+        {
+            throw new ArgumentException("coefficient-content normalization failed");
+        }
+        BigInteger contentGcd = Gcd(content, modulus);
+        BigInteger firstGcd = Gcd(firstQuotient, modulus);
+        string rational = "none";
+        string rationalGcd = "none";
+        string primitiveRational = "none";
+        string primitiveRationalGcd = "none";
+        if (firstGcd == 1)
+        {
+            BigInteger ratio = (
+                secondQuotient * ModularInverse(firstQuotient, modulus)
+            ) % modulus;
+            BigInteger rationalResidue = (
+                Normalize(firstCoefficient)
+                + Normalize(secondCoefficient) * ratio
+            ) % modulus;
+            BigInteger primitiveRationalResidue = (
+                Normalize(primitiveFirst)
+                + Normalize(primitiveSecond) * ratio
+            ) % modulus;
+            if (
+                aggregate != firstQuotient * rationalResidue % modulus
+                || primitiveAggregate
+                    != firstQuotient * primitiveRationalResidue % modulus
+            )
+            {
+                throw new ArgumentException("unit-prefix rational reduction failed");
+            }
+            rational = rationalResidue.ToString();
+            rationalGcd = Gcd(rationalResidue, modulus).ToString();
+            primitiveRational = primitiveRationalResidue.ToString();
+            primitiveRationalGcd = Gcd(
+                primitiveRationalResidue,
+                modulus
+            ).ToString();
+        }
+        BigInteger firstOverlapGcd = Gcd(
+            Gcd(firstQuotient, aggregate),
+            modulus
+        );
+        BigInteger firstPublicBoundGcd = Gcd(
+            BigInteger.Abs(secondCoefficient) * secondFactor,
+            modulus
+        );
+        BigInteger secondOverlapGcd = Gcd(
+            Gcd(secondQuotient, aggregate),
+            modulus
+        );
+        BigInteger secondPublicBoundGcd = Gcd(
+            BigInteger.Abs(firstCoefficient) * secondFactor,
+            modulus
+        );
+        if (
+            firstPublicBoundGcd % firstOverlapGcd != 0
+            || secondPublicBoundGcd % secondOverlapGcd != 0
+        )
+        {
+            throw new ArgumentException("stage overlap escaped public bound");
+        }
+        return $"first_factor:{firstFactor}|second_factor:{secondFactor}|"
+            + $"first_coefficient:{firstCoefficient}|second_coefficient:{secondCoefficient}|"
+            + $"content:{content}|primitive_first_coefficient:{primitiveFirst}|"
+            + $"primitive_second_coefficient:{primitiveSecond}|content_gcd:{contentGcd}|"
+            + $"content_status:{Status(contentGcd)}|first_quotient:{firstQuotient}|"
+            + $"second_quotient:{secondQuotient}|first_quotient_gcd:{firstGcd}|"
+            + $"second_quotient_gcd:{Gcd(secondQuotient, modulus)}|"
+            + $"aggregate:{aggregate}|aggregate_gcd:{Gcd(aggregate, modulus)}|"
+            + $"primitive_aggregate:{primitiveAggregate}|"
+            + $"primitive_aggregate_gcd:{Gcd(primitiveAggregate, modulus)}|"
+            + $"prefix_status:{Status(firstGcd)}|rational:{rational}|"
+            + $"rational_gcd:{rationalGcd}|primitive_rational:{primitiveRational}|"
+            + $"primitive_rational_gcd:{primitiveRationalGcd}|"
+            + $"first_overlap_gcd:{firstOverlapGcd}|"
+            + $"first_public_bound_gcd:{firstPublicBoundGcd}|"
+            + $"second_overlap_gcd:{secondOverlapGcd}|"
+            + $"second_public_bound_gcd:{secondPublicBoundGcd}|"
+            + $"first_resultant_base:{BigInteger.Abs(secondCoefficient) * secondFactor}|"
+            + $"first_resultant_exponent:{firstFactor - 1}|"
+            + $"second_resultant_coefficient_base:{BigInteger.Abs(firstCoefficient)}|"
+            + $"second_resultant_coefficient_exponent:{firstFactor * (secondFactor - 1)}|"
+            + $"second_resultant_stage_base:{secondFactor}|"
+            + $"second_resultant_stage_exponent:{firstFactor - 1}";
     }
 
     private static string RunMultiplicationLowerBound(string[] args)
