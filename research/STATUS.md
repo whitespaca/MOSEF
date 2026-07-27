@@ -15,6 +15,9 @@
   `https://github.com/whitespaca/MOSEF/pull/40`.
 - Base checkpoint: M31 starts from the M30 completion-PR status commit
   `fa8e5dd`.
+- Start commit `e6e3bf0edfeefc6f65fdab35152101771c0c2670` is pushed. Draft
+  PR #41 stacks M31 on the M30 completion branch:
+  `https://github.com/whitespaca/MOSEF/pull/41`.
 - First bounded task: define a factorization-independent selector grammar for
   descriptors
   \((\text{family},A,B,g)\), with every list fixed from the input length
