@@ -651,6 +651,25 @@ pub struct QuotientLinearCombinationEvaluation {
     pub aggregate_gcd: u64,
 }
 
+/// Exact factors of `S_A(g^A) - S_A(g)` in the symmetric depth-two chain.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct SymmetricQuotientDifferenceEvaluation {
+    pub exponent: u64,
+    pub first_quotient_residue: u64,
+    pub second_quotient_residue: u64,
+    pub difference_residue: u64,
+    pub difference_gcd: u64,
+    pub endpoint_residue: u64,
+    pub endpoint_gcd: u64,
+    pub endpoint_status: GeometricDivisionStatus,
+    pub cofactor_residue: u64,
+    pub cofactor_gcd: u64,
+    pub division_cofactor: Option<u64>,
+    pub cofactor_monomial_count: u64,
+    pub cofactor_degree: u64,
+    pub matrix_multiplication_count: u32,
+}
+
 /// Evaluate nodes starting from `g`, with every later node multiplying two parents.
 pub fn evaluate_multiplication_program(
     base: u64,
@@ -1143,6 +1162,129 @@ pub fn evaluate_quotient_linear_combination(
     })
 }
 
+type Matrix3 = [[u64; 3]; 3];
+
+fn multiply_matrix3(left: &Matrix3, right: &Matrix3, modulus: u64) -> Matrix3 {
+    let mut result = [[0_u64; 3]; 3];
+    for (row, result_row) in result.iter_mut().enumerate() {
+        for (column, result_item) in result_row.iter_mut().enumerate() {
+            for (inner, right_row) in right.iter().enumerate() {
+                *result_item = add_mod(
+                    *result_item,
+                    mul_mod(left[row][inner], right_row[column], modulus),
+                    modulus,
+                );
+            }
+        }
+    }
+    result
+}
+
+fn power_matrix3(matrix: Matrix3, exponent: u64, modulus: u64) -> (Matrix3, u32) {
+    let mut result = [[1_u64, 0, 0], [0, 1, 0], [0, 0, 1]];
+    let mut power = matrix;
+    let mut remaining = exponent;
+    let mut multiplication_count = 0_u32;
+    while remaining != 0 {
+        if remaining & 1 == 1 {
+            result = multiply_matrix3(&result, &power, modulus);
+            multiplication_count += 1;
+        }
+        remaining >>= 1;
+        if remaining != 0 {
+            power = multiply_matrix3(&power, &power, modulus);
+            multiplication_count += 1;
+        }
+    }
+    (result, multiplication_count)
+}
+
+fn compact_symmetric_cofactor(base: u64, modulus: u64, exponent: u64) -> Option<(u64, u32)> {
+    let n = exponent.checked_sub(1)?;
+    let y = mod_pow(base, n, modulus)?;
+    let xy = mul_mod(base, y, modulus);
+    let transition = [[base, 1, 0], [0, xy, 0], [base, 1, 1]];
+    let (powered, multiplication_count) = power_matrix3(transition, n.checked_sub(1)?, modulus);
+    let initial = [1 % modulus, xy, 1 % modulus];
+    let mut state = [0_u64; 3];
+    for (row, state_item) in state.iter_mut().enumerate() {
+        for (column, initial_item) in initial.iter().enumerate() {
+            *state_item = add_mod(
+                *state_item,
+                mul_mod(powered[row][column], *initial_item, modulus),
+                modulus,
+            );
+        }
+    }
+    Some((state[2], multiplication_count))
+}
+
+/// Evaluate the symmetric signed difference and its endpoint/cofactor split.
+pub fn evaluate_symmetric_quotient_difference(
+    base: u64,
+    modulus: u64,
+    exponent: u64,
+) -> Option<SymmetricQuotientDifferenceEvaluation> {
+    if exponent < 2 {
+        return None;
+    }
+    let first = evaluate_geometric_sum(base, modulus, exponent)?;
+    let second = evaluate_geometric_sum(first.power_residue, modulus, exponent)?;
+    let difference_residue = if second.sum_residue >= first.sum_residue {
+        second.sum_residue - first.sum_residue
+    } else {
+        modulus - (first.sum_residue - second.sum_residue)
+    };
+    let endpoint_residue = mod_pow(base, exponent - 1, modulus)? - 1;
+    let endpoint_gcd = gcd(endpoint_residue, modulus);
+    let endpoint_status = if endpoint_gcd == 1 {
+        GeometricDivisionStatus::Unit
+    } else if endpoint_gcd < modulus {
+        GeometricDivisionStatus::ProperFactor
+    } else {
+        GeometricDivisionStatus::FullCollision
+    };
+    let reduced_base = base % modulus;
+    let (cofactor_residue, matrix_multiplication_count) =
+        compact_symmetric_cofactor(reduced_base, modulus, exponent)?;
+    let factor_product = mul_mod(
+        mul_mod(reduced_base, endpoint_residue, modulus),
+        cofactor_residue,
+        modulus,
+    );
+    if factor_product != difference_residue {
+        return None;
+    }
+    let division_cofactor = if endpoint_gcd == 1 {
+        Some(mul_mod(
+            difference_residue,
+            modular_inverse(mul_mod(reduced_base, endpoint_residue, modulus), modulus)?,
+            modulus,
+        ))
+    } else {
+        None
+    };
+    if division_cofactor.is_some_and(|value| value != cofactor_residue) {
+        return None;
+    }
+    Some(SymmetricQuotientDifferenceEvaluation {
+        exponent,
+        first_quotient_residue: first.sum_residue,
+        second_quotient_residue: second.sum_residue,
+        difference_residue,
+        difference_gcd: gcd(difference_residue, modulus),
+        endpoint_residue,
+        endpoint_gcd,
+        endpoint_status,
+        cofactor_residue,
+        cofactor_gcd: gcd(cofactor_residue, modulus),
+        division_cofactor,
+        cofactor_monomial_count: exponent.checked_mul(exponent - 1)? / 2,
+        cofactor_degree: exponent.checked_mul(exponent - 2)?,
+        matrix_multiplication_count,
+    })
+}
+
 /// Return `ceil(log2(exponent))`, the generic multiplication growth lower bound.
 pub fn generic_multiplication_lower_bound(exponent: u64) -> Option<u32> {
     if exponent == 0 {
@@ -1420,6 +1562,31 @@ mod tests {
             evaluate_quotient_linear_combination(2, 9, &[5, 5], &[-1]),
             None
         );
+    }
+
+    #[test]
+    fn symmetric_difference_has_total_endpoint_and_cofactor_paths() {
+        let endpoint =
+            evaluate_symmetric_quotient_difference(2, 9, 5).expect("valid symmetric difference");
+        assert_eq!(endpoint.first_quotient_residue, 4);
+        assert_eq!(endpoint.second_quotient_residue, 7);
+        assert_eq!(endpoint.difference_gcd, 3);
+        assert_eq!(endpoint.endpoint_gcd, 3);
+        assert_eq!(
+            endpoint.endpoint_status,
+            GeometricDivisionStatus::ProperFactor
+        );
+
+        let cofactor = evaluate_symmetric_quotient_difference(2, 55, 3)
+            .expect("valid cofactor-only difference");
+        assert_eq!(cofactor.endpoint_gcd, 1);
+        assert_eq!(cofactor.cofactor_residue, 11);
+        assert_eq!(cofactor.cofactor_gcd, 11);
+        assert_eq!(cofactor.difference_gcd, 11);
+        assert_eq!(cofactor.division_cofactor, Some(11));
+
+        assert_eq!(evaluate_symmetric_quotient_difference(2, 9, 1), None);
+        assert_eq!(evaluate_symmetric_quotient_difference(3, 9, 5), None);
     }
 
     #[test]

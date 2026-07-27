@@ -95,3 +95,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-016 | PROVED | Signed aggregation separates from the product component implication | `research/proofs/BAR-016-quotient-linear-combination.md` |
 | REF-017 | REFUTED | Proper signed aggregates require proper charged components | `research/NEGATIVE_RESULTS.md` NR-018 |
 | EMP-020 | EMPIRICAL | Bounded signed quotient-stage combination audit | `research/experiments/EXP-0020-m21-quotient-linear-combination.md` |
+| DEF-022 | DEFINITION | Charged symmetric quotient-difference endpoint/cofactor model | `research/proofs/BAR-017-symmetric-quotient-difference.md` |
+| BAR-017 | PROVED | Exact symmetric quotient-difference valuation reduction | `research/proofs/BAR-017-symmetric-quotient-difference.md` |
+| REF-018 | REFUTED | Symmetric difference as an unclassified extraction mechanism | `research/NEGATIVE_RESULTS.md` NR-019 |
+| EMP-021 | EMPIRICAL | Bounded symmetric quotient-difference audit | `research/experiments/EXP-0021-m22-symmetric-quotient-difference.md` |

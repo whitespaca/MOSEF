@@ -5,13 +5,14 @@ use mosef_arithmetic::{
     evaluate_iterated_quotient, evaluate_lucas_separator_candidate,
     evaluate_multiplication_program, evaluate_nested_quotient, evaluate_product_dag,
     evaluate_quotient_linear_combination, evaluate_separator_candidate,
-    generic_multiplication_lower_bound, is_prime, lucas_v, mod_pow, perfect_power,
-    pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
-    semismooth_successful_residue_count, trial_division, BatchProductEvaluation, CoverAnalysis,
-    DyadicDivisionStatus, DyadicTelescopeEvaluation, GeometricDivisionStatus,
+    evaluate_symmetric_quotient_difference, generic_multiplication_lower_bound, is_prime, lucas_v,
+    mod_pow, perfect_power, pollard_p_minus_one, pollard_p_plus_one, pollard_rho,
+    semismooth_factor, semismooth_successful_residue_count, trial_division, BatchProductEvaluation,
+    CoverAnalysis, DyadicDivisionStatus, DyadicTelescopeEvaluation, GeometricDivisionStatus,
     GeometricSumEvaluation, IteratedQuotientEvaluation, LucasSeparatorOutcome,
     NestedQuotientEvaluation, ProductDagEvaluation, QuotientLinearCombinationEvaluation,
     SemismoothOutcome, SeparatorOutcome, SignedStraightLineEvaluation, StraightLineEvaluation,
+    SymmetricQuotientDifferenceEvaluation,
 };
 use std::env;
 use std::process::ExitCode;
@@ -445,6 +446,33 @@ fn display_quotient_linear_combination(value: QuotientLinearCombinationEvaluatio
     )
 }
 
+fn display_symmetric_quotient_difference(value: SymmetricQuotientDifferenceEvaluation) -> String {
+    format!(
+        concat!(
+            "exponent:{}|first_quotient:{}|second_quotient:{}|difference:{}|",
+            "difference_gcd:{}|endpoint:{}|endpoint_gcd:{}|endpoint_status:{}|",
+            "cofactor:{}|cofactor_gcd:{}|division_cofactor:{}|",
+            "cofactor_monomials:{}|cofactor_degree:{}|matrix_multiplications:{}"
+        ),
+        value.exponent,
+        value.first_quotient_residue,
+        value.second_quotient_residue,
+        value.difference_residue,
+        value.difference_gcd,
+        value.endpoint_residue,
+        value.endpoint_gcd,
+        display_division_status(value.endpoint_status),
+        value.cofactor_residue,
+        value.cofactor_gcd,
+        value
+            .division_cofactor
+            .map_or_else(|| "none".to_owned(), |item| item.to_string()),
+        value.cofactor_monomial_count,
+        value.cofactor_degree,
+        value.matrix_multiplication_count,
+    )
+}
+
 fn run() -> Result<(), String> {
     let mut arguments = env::args().skip(1);
     let operation = arguments
@@ -744,6 +772,19 @@ fn run() -> Result<(), String> {
                     .ok_or_else(|| {
                         "invalid quotient linear combination or exponent overflow".to_owned()
                     })?,
+            )
+        }
+        "symmetric-quotient-difference" => {
+            let base = parse_u64(arguments.next(), "base")?;
+            let modulus = parse_u64(arguments.next(), "modulus")?;
+            let exponent = parse_u64(arguments.next(), "exponent")?;
+            display_symmetric_quotient_difference(
+                evaluate_symmetric_quotient_difference(base, modulus, exponent).ok_or_else(
+                    || {
+                        "base must be a unit, modulus at least two, and exponent at least two"
+                            .to_owned()
+                    },
+                )?,
             )
         }
         "multiplication-lower-bound" => {
