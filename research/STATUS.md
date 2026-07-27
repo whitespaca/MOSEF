@@ -1,5 +1,33 @@
 # Research Status
 
+## M29 execution snapshot
+
+- Date: 2026-07-28.
+- Branch: `research/20260728-m29-compact-cofactor-prime-support`.
+- Active question: can the compact length-indexed family
+  \(A=3,B=2^m+3,g=2\) use its exponentially long exact \(\Phi_4\)
+  cofactor to cover balanced prime factors without materializing that
+  support?
+- Dependency: M28 is complete on
+  `research/20260728-m28-length-indexed-cofactor-schedule`; completion Draft
+  PR #36 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/36`.
+- Base checkpoint: M29 starts from the M28 completion-PR status commit
+  `89184f72db23f6067929d6fb2efe6933a56980d0`.
+- First bounded task: derive an exact divisibility or multiplicative-order
+  characterization for prime divisors of the compact \(\Phi_4\) cofactor,
+  implement factorization-independent modular evaluation, and measure
+  balanced-prime hits and full collisions without constructing the exact
+  lift.
+- Falsification priority: search bounded input lengths for support gaps,
+  repeated collision patterns, exceptional primes, and any hidden dependence
+  on factoring \(N\); treat magnitude, finite hit rates, and regressions as
+  non-proofs.
+- Acceptance target: an exact local criterion with all exceptional cases,
+  deterministic Python plus independent implementation, a reproducible
+  balanced-prime audit, and either a proved restricted support theorem or a
+  precisely scoped barrier recorded in the ledgers and manuscript.
+
 ## M28 outcome
 
 - Date: 2026-07-28.
