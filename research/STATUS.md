@@ -14,6 +14,8 @@
   `https://github.com/whitespaca/MOSEF/pull/38`.
 - Base checkpoint: M30 starts from the M29 completion-PR status commit
   `0b28f17b234dad4091ea72dc04c5844e41a2e942`.
+- Draft PR #39 stacks M30 on the validated M29 completion branch:
+  `https://github.com/whitespaca/MOSEF/pull/39`.
 - First bounded task: define the exact multi-candidate signature grammar,
   prove that universal square-free pair separation is equivalent to
   injectivity of those signatures, and derive the information-theoretic
