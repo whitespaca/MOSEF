@@ -14,6 +14,8 @@
   `https://github.com/whitespaca/MOSEF/pull/36`.
 - Base checkpoint: M29 starts from the M28 completion-PR status commit
   `89184f72db23f6067929d6fb2efe6933a56980d0`.
+- Draft PR #37 stacks the M29 work on the validated M28 completion branch:
+  `https://github.com/whitespaca/MOSEF/pull/37`.
 - First bounded task: derive an exact divisibility or multiplicative-order
   characterization for prime divisors of the compact \(\Phi_4\) cofactor,
   implement factorization-independent modular evaluation, and measure
