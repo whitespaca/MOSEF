@@ -699,3 +699,24 @@
   definitions, verified results, limitations, M29's complete proof, and
   reproduction, while the English manuscript remains the exhaustive proof
   archive for earlier milestones.
+
+## ADR-034 - Require injectivity, not union coverage, from compact candidates
+
+- Date: 2026-07-28.
+- Decision: represent every public compact cofactor by one analytical support
+  bit per population prime and evaluate a candidate list through the complete
+  binary signature. Universal square-free pair extraction is accepted only
+  when those signatures are injective.
+- Rationale: a covered prime may share every support coordinate with another
+  covered prime. Candidate count and union coverage alone therefore cannot
+  rule out full/unit collisions. BAR-024 gives exact collision accounting and
+  the information lower bound before any parameter schedule is proposed.
+- Cost and recognition: the signature is a semantic proof object. The public
+  algorithm evaluates compact residues and GCDs but receives neither the
+  unknown factors nor support sets. Abstract bit-label constructions
+  materialize factor-aware prime products and do not establish a compact
+  exceptional schedule.
+- Consequence: the canonical polynomial prefix \(C_2,\ldots,C_m\) may be
+  audited fairly without overstating its finite failure. M31 may diversify
+  families, bases, and parameters only through an explicit
+  factorization-independent selector whose full compact cost is charged.

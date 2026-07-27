@@ -1,36 +1,70 @@
 # Research Status
 
-## M30 execution snapshot
+## M30 outcome
 
 - Date: 2026-07-28.
 - Branch: `research/20260728-m30-compact-support-signatures`.
-- Active question: can a polynomial list of compact exceptional cofactors
-  assign injective multi-bit signatures to the balanced prime population at
-  each input length, so every prime pair is separated by at least one
-  candidate?
-- Dependency: M29 is complete on
-  `research/20260728-m29-compact-cofactor-prime-support`; completion Draft
-  PR #38 targets `main`:
-  `https://github.com/whitespaca/MOSEF/pull/38`.
-- Base checkpoint: M30 starts from the M29 completion-PR status commit
+- The M29 completion PR #38 and M30 start PR #39 were merged before this
+  completion cycle. M30 started from checkpoint
   `0b28f17b234dad4091ea72dc04c5844e41a2e942`.
-- Draft PR #39 stacks M30 on the validated M29 completion branch:
-  `https://github.com/whitespaca/MOSEF/pull/39`.
-- First bounded task: define the exact multi-candidate signature grammar,
-  prove that universal square-free pair separation is equivalent to
-  injectivity of those signatures, and derive the information-theoretic
-  lower bound on the number of binary candidates before proposing any
-  parameter schedule.
-- Falsification priority: search for full-collision and all-unit pairs,
-  duplicate signatures, denominator exceptions, recognition assumptions,
-  and any construction whose compact evaluator hides factorization or
-  superpolynomial output. Finite injectivity is not an asymptotic
-  construction.
-- Acceptance target: a necessary-and-sufficient separation theorem with
-  explicit quantifier order and cost ledger, deterministic bounded audit,
-  independent implementation and vectors, adversarial edge cases, updated
-  claims and ledgers, and synchronized English and Korean manuscript
-  sections.
+- `DEF-030` fixes the public-before-\(N\) candidate quantifier, analytical
+  support signature, compact cost ledger, and factorization-free recognition
+  boundary.
+- `BAR-024` is `PROVED`: a candidate list separates a square-free pair
+  exactly when the two prime signatures differ, so universal pair separation
+  is equivalent to injectivity. Signature-bucket sizes \(n_u\) give exactly
+  \(\sum_u\binom{n_u}{2}\) failed pairs. Consequently
+  \(r\ge\lceil\log_2s\rceil\), or
+  \(r\ge\lceil\log_2(s+1)\rceil\) when zero signatures are forbidden. The
+  proof also gives the exact balanced-bucket minimum collision count.
+- `REF-026` is `REFUTED`: candidates \((15,7)\) cover every prime in
+  \(\{3,5,7\}\) and meet the two-candidate nonzero-signature lower bound, but
+  signatures \((1,1,2)\) collide on \(3\cdot5\); the two GCDs are 15 and 1.
+  NR-027 preserves the scope.
+- EXP-0029 exhaustively checked 38,860 signature assignments, 366,284 pairs,
+  12 tight minima, 82,019 balanced primes, 2,978,644 canonical-prefix
+  coordinates, and 2,034 explicit balanced pairs. The prefix
+  \(C_2,\ldots,C_m\) was noninjective at all 32 registered lengths
+  \(9\le m\le40\). At \(m=40\), all 22,394 primes had zero signature and all
+  250,734,421 pairs collided. This is finite evidence for one polynomial
+  compact schedule, not an asymptotic impossibility theorem.
+- Python implements arbitrary-width signature and collision accounting. Rust
+  independently packs up to 64 coordinates, and C# independently uses
+  `BigInteger`; all 34 selected cross-language comparisons passed.
+- Registered EXP-0029 summary SHA-256:
+  `74db38bf2f8ebeb088b3773fc1d94207cca0c1a73f7efb7a58a82f387dac5212`.
+- Final gates passed: foundation and bilingual publication checks
+  (124 claims and 28 experiment hashes), 208 Python tests, compileall, Ruff,
+  mypy, Rust formatting/Clippy and 36 tests, warning-free C# Release build,
+  58 baseline comparisons, 34 M29 regression comparisons, the registered M30
+  audit, and 34 M30 comparisons.
+- XeLaTeX produced a 75-page English PDF and a 14-page Korean PDF. Visual QA
+  of the M30 theorem, full proof, Korean formulas and glyphs, limitations,
+  hashes, and page transitions found no clipping, overlap, or unreadable
+  text. Stable artifacts are `output/pdf/mosef-paper.pdf` and
+  `output/pdf/mosef-paper-ko.pdf`.
+- Completion commit, push, and Draft PR state are added after publication.
+- Next selected milestone: M31 will define a factorization-independent
+  diversified selector over exceptional families, bases, and parameters
+  before searching for an injective compact schedule or scoped collision.
+
+### M30 Korean summary
+
+M30에서는 여러 compact cofactor가 만드는 비트열을 각 소수의
+signature로 정의했다. 두 소수의 signature가 다를 때에만 어떤 후보의
+GCD가 proper factor를 주므로, 모집단의 모든 서로 다른 소수쌍을
+분리하는 필요충분조건은 signature 사상의 단사성이다. 후보가 \(r\)개,
+소수가 \(s\)개이면 적어도 \(r\ge\lceil\log_2s\rceil\)가 필요하며,
+모든 소수가 최소 한 후보에 포함되어야 한다면
+\(r\ge\lceil\log_2(s+1)\rceil\)가 필요하다.
+
+단순한 union coverage와 후보 수 하한은 충분하지 않다. 후보
+\((15,7)\)은 \(\{3,5,7\}\)의 모든 소수를 덮지만 3과 5의 signature가
+같아서 \(N=15\)에서 각각 full collision과 unit만 만든다. 또한
+\(C_2,\ldots,C_m\) 접두 일정은 \(9\le m\le40\)의 유한 감사 범위에서
+한 번도 단사가 아니었다. 이 결과는 해당 접두 일정의 유한 음성
+결과일 뿐이며, 다른 다항식 compact 일정이나 일반 고전적
+다항시간 정수분해의 불가능성을 뜻하지 않는다.
 
 ## M29 outcome
 

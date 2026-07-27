@@ -681,3 +681,30 @@
   create multi-bit signatures; \(N\)-dependent or adaptive choices, other
   bases, other exceptional tuples, density, general factoring, and general
   circuit lower bounds remain outside.
+
+## NR-027 - Coverage and enough candidate bits do not imply separation
+
+- Date: 2026-07-28.
+- Status: `REFUTED` claim `REF-026`.
+- Hypothesis tested: if every population prime divides at least one candidate
+  and the list length meets the nonzero-signature information lower bound,
+  then the list separates every distinct prime pair.
+- Minimized obstruction: use population \(\{3,5,7\}\) and exact candidates
+  \((z_1,z_2)=(15,7)\). Their signatures, packed least-significant coordinate
+  first, are \((1,1,2)\). Thus every prime has a nonzero signature and
+  \(r=2=\lceil\log_2(3+1)\rceil\), but primes 3 and 5 have duplicate
+  signatures. On \(N=15\), the candidate GCDs are respectively 15 and 1, so
+  no factor is exposed.
+- Positive boundary: BAR-024 proves that injectivity is necessary and
+  sufficient, gives exact bucket-collision counts, and derives the sharp
+  information lower bounds. A factor-aware materialized construction can
+  realize distinct labels, but this is not a compact public schedule.
+- Evidence: EXP-0029 exhaustively checked 38,860 assignments and 366,284
+  pairs. It also audited the genuine polynomial prefix
+  \(C_2,\ldots,C_m\): none of the 32 registered balanced populations from
+  input length 9 through 40 was injective.
+- Scope: the exact witness refutes coverage-plus-count sufficiency in the
+  finite support abstraction. The prefix observation is finite evidence for
+  one schedule only. Neither result rules out other polynomial compact
+  schedules, later input lengths, a density theorem, general factoring, or a
+  general circuit construction.
