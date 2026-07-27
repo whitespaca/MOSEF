@@ -1,5 +1,30 @@
 # Research Status
 
+## M25 execution snapshot
+
+- Date: 2026-07-27.
+- Branch: `research/20260727-m25-rational-root-orbits`.
+- Active question: for a primitive coefficient pair, when can
+  \[
+  -\frac{S_B(\zeta^A)}{S_A(\zeta)}
+  \]
+  be rational at a root of unity \(\zeta\) outside both stage zero sets?
+- Dependency: M24 is complete on
+  `research/20260727-m24-rational-residue`; Draft PR #27 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/27`.
+- First bounded task: enumerate exact rational ratios by cyclotomic order,
+  quotient them by Galois orbits, and derive the conjugacy constraints that
+  force a ratio to be fixed by every unit in
+  \((\mathbb Z/n\mathbb Z)^\times\).
+- Falsification priority: search first for infinite-looking families that
+  fail under a new conjugate, coefficient pairs whose apparent ratio depends
+  on the chosen primitive root, and modular witnesses explained by a smaller
+  public boundary. Finite patterns remain `EMPIRICAL` until proved.
+- Acceptance target: an exact rational-ratio grammar, proved orbit or
+  arithmetic restrictions, total construction/recognition/output costs,
+  independent implementation, and either a restricted family theorem or a
+  minimized obstruction.
+
 ## M24 outcome
 
 - Date: 2026-07-27.
