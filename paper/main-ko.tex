@@ -1,0 +1,445 @@
+\documentclass[11pt]{article}
+
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage[margin=1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{seqsplit}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{Malgun Gothic}
+\setCJKsansfont{Malgun Gothic}
+\setCJKmonofont{Malgun Gothic}
+\xeCJKsetup{CJKspace=true}
+\XeTeXlinebreaklocale "ko"
+\XeTeXlinebreakskip=0pt plus 1pt
+\setlength{\emergencystretch}{2em}
+
+\newcommand{\claimstatus}[2]{\textbf{#1 [#2]}}
+\newcommand{\poly}{\operatorname{poly}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\renewcommand{\abstractname}{초록}
+
+\title{고전적 정수분해를 위한 차수 분리 지수:\\
+세 개의 제한 정리와 열여덟 개의 구조적 장벽}
+\author{MOSEF 연구 프로그램}
+\date{2026년 7월 28일}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+이 논문은 이진 입력 길이
+\(m=\lceil\log_2N\rceil\)을 복잡도 기준으로 삼아, 고전적 정수분해를
+위한 차수 분리 지수 계열을 연구한다. 일반 정수분해의 고전적 다항
+시간 알고리즘이 존재한다고 가정하지 않는다. 저장소에서 검증된
+결과는 인수분해에 의존하는 두 개의 유전적 약속 클래스에 대한
+Las Vegas 정리, 하나의 완전한 유리 root-of-unity 분류 정리, 그리고
+명시적 지수 목록, 압축 표현, 산술 회로, 기하급수 quotient, 예외적
+cyclotomic cofactor 일정에 대한 구조적 장벽들이다.
+
+이번 M29 결과는 길이별 공개 후보
+\[
+A=3,\qquad B_m=2^m+3,\qquad g=2
+\]
+의 \(\Phi_4\) cofactor \(C_m=C_4(2)\)를 정확히 분석한다. 다음 닫힌
+식을 증명한다.
+\[
+C_m=\frac{16(2^{3\cdot2^m+5}+3)}{35}.
+\]
+소수 5와 7에는 분모 때문에 별도의 quotient 판정이 필요하고,
+\(p>7\)에서는 \(p\mid C_m\)이 하나의 모듈러 합동식과 정확히
+동치이다. 또한 \(\gcd(C_m,C_{m+1})=16\)이다. 한 cofactor가 \(s\)개의
+소수 중 \(h\)개를 지지하면 정확히 \(h(s-h)\)개의 semiprime 쌍만
+proper GCD를 만든다. 같은 쪽의 hit--hit 쌍은 full collision이고
+miss--miss 쌍은 unit이다. 따라서 \(s\ge3\)인 모집단 전체를 한
+후보가 분리할 수 없다. 이 결론은 여러 후보, 적응형 일정, 일반
+산술 회로 또는 일반 정수분해에 대한 하한이 아니다.
+\end{abstract}
+
+\section{연구 목적과 주장 규율}
+
+MOSEF는 ``Multi-Group Order-Separating Exponent Factoring'' 연구
+방향의 이름이지, 이미 성립한 일반 알고리즘의 이름이 아니다. 모든
+수학 문장은 다음 상태 중 하나로 관리한다.
+\[
+\texttt{DEFINITION},\ \texttt{PROVED},\ \texttt{CONDITIONAL},\
+\texttt{CONJECTURE},\ \texttt{HEURISTIC},\ \texttt{EMPIRICAL},\
+\texttt{OPEN},\ \texttt{REFUTED}.
+\]
+실험에서 성공한 사실은 정리로 승격하지 않으며, exact integer의
+크기와 서로 다른 소인수의 수를 동일시하지 않는다. 미지의 인수
+\(p,q\), \(p-1\), \(q-1\), 또는 인수에 의존하는 local order를
+공개 생성기의 입력으로 몰래 사용하지 않는다.
+
+영문 원고 \path{paper/main.tex}는 모든 과거 정리와 증명의 상세
+기록이다. 이 한국어 동반 원고는 동일한 claim ID와 상태를 사용하고,
+현재 M29 결과의 정의, 정리, 증명, 실험, 한계 및 재현 절차를
+자기완결적으로 제공한다.
+
+\section{모형과 기본 판정}
+
+\subsection{입력 길이와 차수 분리}
+
+\(P(N)\)을 \(N\)의 서로 다른 소인수 집합이라 하자. \(g\)가 \(N\)과
+서로소이고 \(d>0\)일 때
+\[
+D_N(g,d)=\{p\in P(N):\operatorname{ord}_p(g)\mid d\}
+\]
+로 둔다. 이 집합이 공집합도 아니고 \(P(N)\) 전체도 아니면
+\[
+\gcd(g^d-1,N)
+\]
+은 nontrivial factor이다. 그러나 \(N\)이 prime power이면 support만
+보는 정의로는 부족하다. 정확한 조건은 각 \(p^e\parallel N\)에
+대하여
+\[
+a_p=\min(e,v_p(g^d-1))
+\]
+를 기록하고, 어떤 \(a_p\)는 양수이면서 모든 \(a_p\)가 \(e\)인 것은
+아닌지 확인하는 것이다.
+
+\subsection{복잡도 원장}
+
+다항 시간은 \(N\)이 아니라 \(m=\lceil\log_2N\rceil\)에 대한 다항
+시간을 뜻한다. 다음 비용을 모두 센다.
+
+\begin{itemize}
+\item 공개 base, exponent, parameter의 생성과 비트 길이;
+\item 모듈러 곱셈, 거듭제곱, 역원 시도, GCD와 factor extraction;
+\item product tree나 회로의 모든 명시적 출력;
+\item exact lift 또는 prime-support certificate를 요구할 때의 실제
+  출력 비트 수;
+\item 재귀적으로 완전 분해할 때의 전체 노드와 성공 확률.
+\end{itemize}
+
+compact modular evaluator가 존재한다는 사실은 그 exact lift가 짧다는
+뜻이 아니다. 반대로 exact lift가 길다는 사실은 서로 다른 소인수가
+많다는 뜻도 아니다.
+
+\section{M0--M28의 검증 결과 요약}
+
+\subsection{제한적 양의 결과}
+
+저장소에는 세 개의 핵심 양의 분류가 있다.
+
+\begin{enumerate}
+\item 인수 구조로 정의된 유전적 \(p-1\) semismooth-asymmetry 약속
+  클래스에서는 fresh uniform base를 사용한 Las Vegas 완전 분해가
+  expected polynomial bit complexity를 가진다.
+\item 별도의 유전적 nonsplit \(p+1\) 약속 클래스에서는 정확한 Lucas
+  root count와 fresh independent parameter를 사용한 두 번째 Las Vegas
+  정리가 성립한다.
+\item unequal depth-two signed numerator의 rational root-of-unity 비율은
+  common-step 비율 \(-1\), \(\Phi_4\) 비율 \(1\), \(\Phi_6\) 비율
+  \(2\)의 세 계열로 완전히 분류된다.
+\end{enumerate}
+
+앞의 두 약속 클래스 membership은 미지의 인수분해에 의존할 수
+있으므로, 일반 입력에서 이를 인식하는 알고리즘을 증명한 것은
+아니다.
+
+\subsection{구조적 장벽}
+
+검증된 장벽들은 다음 원칙을 반복해서 확인한다.
+
+\begin{itemize}
+\item divisor를 hit하는 것과 서로 다른 prime-factor signature를
+  분리하는 것은 다르다.
+\item \(P=a+a^{-1}\)인 자연스러운 Lucas map은 독립 channel이 아니라
+  multiplicative residue의 valuation을 제곱하는 재표현이다.
+\item 짧은 exponent 목록, multiplication-only straight-line program,
+  same-base addition/subtraction program은 명시된 모형 밖의 정보를
+  공짜로 만들지 못한다.
+\item materialized product tree와 product-only DAG의 aggregate GCD는
+  개별 성공을 가릴 수 있지만 없던 proper factor를 만들지 못한다.
+\item geometric sum과 nested quotient의 compact 계산은 가능하지만,
+  분모의 unit/proper/full 분기와 공개 multiplier 경로를 모두 세면
+  새로운 무제한 factorization 경로가 되지 않는다.
+\item signed cross-stage aggregation은 product-only 결론을 벗어나는
+  실제 counterexample을 만들므로 별도의 산술 모형이 필요하다.
+\item 예외적 \(\Phi_4,\Phi_6\) cofactor는 direct cyclotomic GCD가
+  놓치는 proper factor를 실제로 추출하지만, 고정된 유한 공개
+  schedule은 무한히 많은 square-free semiprime을 놓친다.
+\end{itemize}
+
+\subsection{M28: compact 원장과 materialized 원장의 분리}
+
+길이 \(m\)에서 입력 \(N\)보다 먼저 공개 일정 \(\mathcal T_m\)을
+고르는 모형을 생각한다. exact 값들을 실제로 출력하고 그 총 비트
+수를 \(W_m\)이라 하면, balanced prime 모집단에서 \(h_m\)개의 서로
+다른 소수를 지지하기 위해
+\[
+\left\lfloor\frac{m-1}{2}\right\rfloor h_m\le W_m
+\]
+가 필요하다. 그러나 현재 family는 \(O(m)\)-bit parameter와 compact
+modular evaluation을 가지면서 exact cofactor 길이가 exponential이다.
+따라서 이 materialized bound를 compact 실행 시간 하한으로 옮길 수
+없다. M29는 exact 크기가 아니라 prime support와 GCD collision을
+직접 분석한다.
+
+\section{M29: compact cofactor prime-support 장벽}
+
+\subsection{정의와 정확한 판정}
+
+\textbf{DEF-029 [DEFINITION].}
+\(m\ge2\)에서
+\[
+B_m=2^m+3,\qquad C_m=C_4(2)
+\]
+로 둔다. 유한 odd-prime 모집단 \(\mathcal P\)에 대하여
+\[
+H_m(\mathcal P)=\{p\in\mathcal P:p\mid C_m\}
+\]
+를 analytical support라 한다. 공개 알고리즘은 이 집합이나
+\(C_m\)의 factorization을 입력받지 않는다. 기존 M26 공식을 사용해
+\(C_m\bmod N\)만 계산한다.
+
+\textbf{BAR-023 [PROVED].}
+\[
+E_m=3\cdot2^m+5
+\]
+라 하면
+\[
+C_m=\frac{16(2^{E_m}+3)}{35},\qquad
+v_2(C_m)=4,\qquad 3\nmid C_m.
+\]
+또한
+\[
+5\mid C_m\Longleftrightarrow m\equiv2\pmod4,
+\]
+\[
+7\mid C_m\Longleftrightarrow m\equiv2\pmod3,
+\]
+이고 모든 소수 \(p>7\)에 대하여
+\[
+p\mid C_m\Longleftrightarrow2^{E_m}\equiv-3\pmod p.
+\]
+연속한 두 cofactor는
+\[
+\gcd(C_m,C_{m+1})=16
+\]
+을 만족한다.
+
+\(\mathcal P\)가 서로 다른 odd prime \(s\)개를 포함하고
+\(h=|H_m(\mathcal P)|\)라 하자. \(pq\) 꼴의 모든 square-free 쌍
+중에서 다음 개수가 정확하다.
+
+\begin{center}
+\begin{tabular}{L{0.28\linewidth}L{0.26\linewidth}L{0.32\linewidth}}
+\toprule
+두 소수의 signature & 쌍의 수 & GCD 결과 \\
+\midrule
+hit--miss & \(h(s-h)\) & proper factor \\
+hit--hit & \(\binom h2\) & full collision \(pq\) \\
+miss--miss & \(\binom{s-h}{2}\) & unit \(1\) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+따라서
+\[
+h(s-h)\le\left\lfloor\frac{s^2}{4}\right\rfloor
+<\binom{s}{2}\qquad(s\ge3)
+\]
+이고, 한 compact cofactor는 모집단의 모든 pair를 factor할 수 없다.
+
+\subsection{증명}
+
+예외적 \(\Phi_4\) identity를 \(g=2\)에서 계산하면
+\[
+5C_m=S_3(2)+S_{B_m}(8)
+=7+\frac{8^{B_m}-1}{7}.
+\]
+그러므로
+\[
+35C_m=8^{B_m}+48
+=16(2^{3B_m-4}+3)
+=16(2^{E_m}+3).
+\]
+\(m\ge2\)이면 \(E_m\equiv1\pmod4\)이고
+\(E_m\equiv2\pmod3\)이다. 따라서 \(2^{E_m}+3\)은 5와 7로 나누어지고,
+위 식은 정수이다. 이 quotient는 odd이므로 \(v_2(C_m)=4\)이다.
+\(E_m\)은 odd이므로
+\[
+2^{E_m}+3\equiv-1+0\equiv2\pmod3,
+\]
+즉 \(3\nmid C_m\)이다.
+
+분모의 5를 제거한 뒤에도 5가 남으려면
+\[
+2^{E_m}\equiv-3\pmod{25}
+\]
+이어야 한다. 2의 modulo 25 order는 20이고
+\(2^{17}\equiv-3\pmod{25}\)이므로
+\[
+E_m\equiv17\pmod{20}.
+\]
+이는 \(2^m\equiv4\pmod{20}\), 다시
+\(m\equiv2\pmod4\)와 동치이다.
+
+7의 경우 \(8=1+7\)을 사용하면
+\[
+16(2^{E_m}+3)=8^{B_m}+48
+\equiv1+7B_m+48
+\equiv7B_m\pmod{49}.
+\]
+따라서 quotient 뒤에 7이 남는 조건은 \(7\mid B_m\), 즉
+\(2^m\equiv4\pmod7\)이고, 이는 \(m\equiv2\pmod3\)이다. \(p>7\)에서는
+16과 35가 모두 unit이므로 닫힌 식에서 generic congruence가 즉시
+따라온다.
+
+이제 consecutive GCD를 보자. 두 cofactor의 공통 2-adic 부분은
+정확히 16이다. 3은 어느 쪽도 나누지 않고, 5와 7의 level 조건은
+연속해서 성립하지 않는다. 어떤 \(p>7\)이 둘을 모두 나눈다고 하자.
+\[
+E_{m+1}=2E_m-5
+\]
+이므로 generic congruence에서
+\[
+-3\equiv2^{E_{m+1}}
+=2^{2E_m-5}
+\equiv\frac{(-3)^2}{32}
+=\frac9{32}\pmod p.
+\]
+따라서 \(p\mid105\)여야 하는데 \(p>7\)과 모순이다. 그러므로
+\(\gcd(C_m,C_{m+1})=16\)이다.
+
+마지막으로 서로 다른 \(p,q\)에 대하여 \(\gcd(C_m,pq)\)가 proper인
+경우는 정확히 둘 중 하나만 \(H_m\)에 속하는 경우이다. cut의 서로
+다른 쪽을 고르는 방법은 \(h(s-h)\)개이다. 양쪽 모두 hit이면 GCD는
+\(pq\), 양쪽 모두 miss이면 GCD는 1이다. 세 count와
+\(\lfloor s^2/4\rfloor\) 상한이 모두 따라온다. 이 증명은 support를
+공개 입력으로 사용하지 않으며, finite experiment의 zero-hit 관측도
+사용하지 않는다.
+
+\subsection{반박된 해석}
+
+\textbf{REF-025 [REFUTED].}
+exact cofactor가 exponential하게 길다는 사실이나 여러 level에서
+관측한 소인수들을 합친 사실만으로 한 GCD의 universal extraction을
+보장할 수 없다. 연속 level의 odd support는 서로 겹치지 않고, 한
+level에서는 support가 넓어질수록 hit--hit full collision도 늘어난다.
+여러 후보가 multi-bit signature를 만드는 경우는 M30의 별도
+연구 문제이다.
+
+\section{구현과 bit complexity}
+
+\(B_m=2^m+3\)과 \(E_m=3\cdot2^m+5\)의 이진 표현 길이는 \(O(m)\)이다.
+M26의 geometric-sum recurrence는 exact \(C_m\)을 만들지 않고
+\(C_m\bmod N\)을 \(O(m)\)개의 모듈러 composition step으로 계산한다.
+Python은 arbitrary-precision semantic oracle이고, Rust는 문서화된
+\texttt{u64} 범위의 독립 구현이며, C\#은 \texttt{BigInteger}로 선택된
+vector를 다시 계산한다.
+
+소수 \(p\)가 주어진 local profile 함수는 증명과 differential test를
+위한 분석 도구이다. 실제 factorization 후보는 \(p\)를 받지 않고
+\[
+\gcd(C_m\bmod N,N)
+\]
+만 계산한다. support enumeration, exact cofactor factorization,
+unknown local roots는 실행 시간에 숨겨져 있지 않다.
+
+\section{재현 가능한 실험}
+
+\textbf{EMP-028 [EMPIRICAL].}
+EXP-0028은 다음을 deterministic하게 검사했다.
+
+\begin{itemize}
+\item 23개 level에서 prime 20,000 이하의 52,026개 profile;
+\item 51,934개 generic congruence와 92개 small-prime quotient case;
+\item 49,742개 consecutive-support case;
+\item 13개 exact closed form과 consecutive GCD;
+\item input length 9부터 40까지 82,019개의 balanced prime;
+\item input length 20까지 2,034개의 explicit pair outcome;
+\item 17개 canonical vector에 대한 34개 Python/Rust/C\# 비교.
+\end{itemize}
+
+실패는 0개였다. 등록된 balanced 범위에서는 same-index support hit가
+없었다. 특히 length 40의 22,394개 prime과 250,734,421개 pair는 이
+한 후보에서 모두 unit으로 분류되었다. 이는 유한 범위의 empirical
+결과일 뿐이며, 이후 모든 길이에서 support가 0이라는 정리가 아니다.
+
+canonical summary SHA-256은
+\[
+\texttt{\seqsplit{8ca6c6310b64e56d37cfbc98caba9deddd02d5c35ea909870341aae8f23efb7a}}
+\]
+이다.
+
+\section{한계와 다음 연구 문제}
+
+BAR-023이 증명하지 않은 사항은 다음과 같다.
+
+\begin{itemize}
+\item balanced population에서 \(H_m\)의 asymptotic density;
+\item \(H_m\)을 factorization 없이 명시적으로 출력하는 recognizer;
+\item 여러 base 또는 여러 exceptional parameter tuple의 결합 효과;
+\item \(N\)-dependent 또는 adaptive schedule의 하한;
+\item repeated-prime 입력 전체에 대한 이번 single-cut count의 직접
+  확장;
+\item 일반 arithmetic circuit 또는 일반 고전적 정수분해의 하한.
+\end{itemize}
+
+다음 M30의 bounded question은 길이별 polynomial candidate list
+\((C_{m,1},\ldots,C_{m,r})\)가 각 prime에 multi-bit signature를
+부여할 때, 모든 prime pair를 분리하는 정확한 필요충분조건과 최소
+candidate count를 구하는 것이다. 먼저 signature injectivity를
+증명한 뒤에만 구체적인 parameter schedule을 제안한다.
+
+\section{결론}
+
+M29는 compact exact lift의 크기와 prime-factor separation을 분리했다.
+현재 \(\Phi_4\) family는 polynomial-size descriptor와 compact evaluator를
+가지지만, 그 한 후보는 결국 모집단을 hit와 miss의 두 부분으로
+나누는 한 비트만 제공한다. proper factor는 cut을 가로지르는
+semiprime에서만 나오고, 같은 쪽의 두 소수는 unit 또는 full
+collision을 만든다. exact lift가 길다는 사실은 이 combinatorial
+장벽을 제거하지 않는다.
+
+일반 고전적 다항 시간 정수분해 알고리즘도, 그러한 알고리즘의
+일반적 불가능성도 여기서 주장하지 않는다. 검증된 기여는 정확한
+closed form, exceptional prime 판정, consecutive GCD, single-signature
+pair count, 독립 구현, 재현 가능한 finite audit이다.
+
+\section{재현 명령}
+
+\begin{verbatim}
+python scripts/validate_foundation.py
+python scripts/check_publication.py
+python -m unittest discover -s tests -v
+python -m compileall -q python scripts tests
+ruff check python tests scripts
+mypy python
+cargo fmt --all --check
+cargo clippy --workspace --all-targets --all-features -- -D warnings
+cargo test --workspace --all-features
+dotnet build verification/csharp/MosefVerifier.csproj `
+  --no-restore --configuration Release
+python scripts/check_baseline_differential.py
+python scripts/run_m29_compact_cofactor_prime_support_audit.py `
+  --level-min 2 --level-max 24 --prime-max 20000 `
+  --input-length-min 9 --input-length-max 40 `
+  --pair-check-max 20 --exact-level-max 14
+python scripts/check_m29_compact_cofactor_prime_support_differential.py
+python scripts/generate_korean_claim_appendix.py
+latexmk -xelatex -outdir=tmp/pdfs `
+  -interaction=nonstopmode -halt-on-error paper/main.tex
+latexmk -xelatex -jobname=main-ko -outdir=tmp/pdfs `
+  -interaction=nonstopmode -halt-on-error paper/main-ko.tex
+\end{verbatim}
+
+\appendix
+\section{전체 claim ID와 상태}
+
+아래 표는 \path{research/PUBLICATION_CLAIMS.md}에서 생성된다. 상세한
+statement, hypothesis, evidence, scope와 adversarial review 상태의
+권위 있는 원장은 \path{research/CLAIMS.md}이다.
+
+\input{paper/claim-status-ko.tex}
+
+\end{document}

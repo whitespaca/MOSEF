@@ -826,6 +826,19 @@ pub struct LengthIndexedSupportProfile {
     pub necessary_universal_bit_budget: u64,
 }
 
+/// Exact prime-divisibility profile for the M29 compact Phi4 family.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct CompactPhi4PrimeProfile {
+    pub level: u32,
+    pub prime: u64,
+    pub second_factor: u64,
+    pub exponent: u64,
+    pub cofactor_residue: u64,
+    pub criterion_residue: u64,
+    pub divides: bool,
+    pub rule: &'static str,
+}
+
 /// Evaluate nodes starting from `g`, with every later node multiplying two parents.
 pub fn evaluate_multiplication_program(
     base: u64,
@@ -2068,6 +2081,51 @@ pub fn length_indexed_support_profile(
     })
 }
 
+/// Test one prime against `A=3, B=2^level+3, g=2` without an exact lift.
+pub fn compact_phi4_prime_profile(level: u32, prime: u64) -> Option<CompactPhi4PrimeProfile> {
+    if level < 2 || !is_prime(prime) {
+        return None;
+    }
+    let power_of_two = 1_u64.checked_shl(level)?;
+    let second_factor = power_of_two.checked_add(3)?;
+    let exponent = power_of_two.checked_mul(3)?.checked_add(5)?;
+    if prime == 2 {
+        return Some(CompactPhi4PrimeProfile {
+            level,
+            prime,
+            second_factor,
+            exponent,
+            cofactor_residue: 0,
+            criterion_residue: 1,
+            divides: true,
+            rule: "two_adic",
+        });
+    }
+    let cofactor_residue =
+        compact_exceptional_cofactor_residue(2, prime, 3, second_factor, "phi4")?;
+    let power_residue = mod_pow(2, exponent, prime)?;
+    let criterion_residue = ((u128::from(power_residue) + 3) % u128::from(prime)) as u64;
+    let (divides, rule) = match prime {
+        3 => (false, "three_exception"),
+        5 => (level % 4 == 2, "five_quotient"),
+        7 => (level % 3 == 2, "seven_quotient"),
+        _ => (criterion_residue == 0, "generic_congruence"),
+    };
+    if divides != (cofactor_residue == 0) {
+        return None;
+    }
+    Some(CompactPhi4PrimeProfile {
+        level,
+        prime,
+        second_factor,
+        exponent,
+        cofactor_residue,
+        criterion_residue,
+        divides,
+        rule,
+    })
+}
+
 /// Evaluate the direct-factor, unit-cofactor, and full-collision branches.
 pub fn evaluate_exceptional_cyclotomic(
     base: u64,
@@ -2634,6 +2692,31 @@ mod tests {
         assert!(profile.hit_prime_count <= profile.support_cap);
         assert_eq!(length_indexed_support_profile(11, &[23, 29], &[23]), None);
         assert_eq!(length_indexed_support_profile(10, &[23, 29], &[0]), None);
+    }
+
+    #[test]
+    fn compact_phi4_prime_divisibility_rules_are_exact() {
+        for (level, prime, expected, rule) in [
+            (2, 2, true, "two_adic"),
+            (2, 3, false, "three_exception"),
+            (2, 5, true, "five_quotient"),
+            (3, 5, false, "five_quotient"),
+            (2, 7, true, "seven_quotient"),
+            (3, 7, false, "seven_quotient"),
+            (2, 107, true, "generic_congruence"),
+            (4, 11, true, "generic_congruence"),
+            (2, 109, false, "generic_congruence"),
+        ] {
+            let profile = compact_phi4_prime_profile(level, prime).expect("valid prime profile");
+            assert_eq!(profile.divides, expected);
+            assert_eq!(profile.rule, rule);
+            assert_eq!(profile.divides, profile.cofactor_residue == 0);
+            if prime > 7 {
+                assert_eq!(profile.divides, profile.criterion_residue == 0);
+            }
+        }
+        assert_eq!(compact_phi4_prime_profile(1, 11), None);
+        assert_eq!(compact_phi4_prime_profile(2, 9), None);
     }
 
     #[test]

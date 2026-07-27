@@ -10,6 +10,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CLAIMS = ROOT / "research" / "CLAIMS.md"
 PAPER = ROOT / "paper" / "main.tex"
+KOREAN_PAPER = ROOT / "paper" / "main-ko.tex"
+KOREAN_CLAIMS = ROOT / "paper" / "claim-status-ko.tex"
 MATRIX = ROOT / "research" / "PUBLICATION_CLAIMS.md"
 
 CLAIM_ROW = re.compile(r"^\| ([A-Z]+-\d+) \| ([A-Z]+) \|", re.MULTILINE)
@@ -51,6 +53,7 @@ REQUIRED_SECTIONS = (
     "Compact extraction from the exceptional cofactors",
     "A fixed exceptional-cofactor schedule barrier",
     "A length-indexed materialized-support barrier",
+    "A compact cofactor prime-support barrier",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -87,6 +90,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-020}",
     r"\label{proof:BAR-021}",
     r"\label{proof:BAR-022}",
+    r"\label{proof:BAR-023}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -140,6 +144,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0027-m28-length-indexed-support.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0028-m29-compact-cofactor-prime-support.md",
 )
 
 
@@ -169,6 +177,8 @@ def main() -> int:
     args = parse_args()
     claims_text = CLAIMS.read_text(encoding="utf-8")
     paper_text = PAPER.read_text(encoding="utf-8")
+    korean_paper_text = KOREAN_PAPER.read_text(encoding="utf-8")
+    korean_claims_text = KOREAN_CLAIMS.read_text(encoding="utf-8")
     matrix_text = MATRIX.read_text(encoding="utf-8")
     errors = 0
 
@@ -206,7 +216,8 @@ def main() -> int:
             )
             errors += 1
 
-    matrix = dict(MATRIX_ROW.findall(matrix_text))
+    matrix_matches = MATRIX_ROW.findall(matrix_text)
+    matrix = dict(matrix_matches)
     if set(matrix) != set(ledger):
         fail("publication claim matrix must contain every ledger claim exactly once")
         errors += 1
@@ -217,6 +228,33 @@ def main() -> int:
                 f"ledger={ledger[claim_id]}, matrix={matrix[claim_id]}"
             )
             errors += 1
+
+    korean_matches = PAPER_CLAIM.findall(korean_claims_text)
+    korean_ids = [claim_id for claim_id, _ in korean_matches]
+    korean_duplicates = sorted(
+        claim_id
+        for claim_id in set(korean_ids)
+        if korean_ids.count(claim_id) != 1
+    )
+    if korean_duplicates:
+        fail(
+            "Korean claim appendix IDs must occur exactly once: "
+            f"{korean_duplicates}"
+        )
+        errors += 1
+    korean_claims = {
+        claim_id: normalized_status(status)
+        for claim_id, status in korean_matches
+    }
+    if korean_claims != ledger:
+        fail("Korean claim appendix must match every ledger claim and status")
+        errors += 1
+    if korean_matches != matrix_matches:
+        fail("Korean claim appendix must preserve publication-matrix order")
+        errors += 1
+    if r"\input{paper/claim-status-ko.tex}" not in korean_paper_text:
+        fail("Korean manuscript does not include its generated claim appendix")
+        errors += 1
 
     for section in REQUIRED_SECTIONS:
         if rf"\section{{{section}}}" not in paper_text:
@@ -254,6 +292,14 @@ def main() -> int:
                 f"{summary_hash} from {record.relative_to(ROOT)}"
             )
             errors += 1
+        if record.name.startswith("EXP-0028") and (
+            summary_hash not in korean_paper_text.lower()
+        ):
+            fail(
+                "Korean manuscript reproduction appendix omits M29 hash "
+                f"{summary_hash}"
+            )
+            errors += 1
 
     forbidden = (
         "we solve general classical factoring",
@@ -266,10 +312,29 @@ def main() -> int:
             fail(f"forbidden overclaim phrase: {phrase!r}")
             errors += 1
 
+    required_korean = (
+        "고전적 정수분해",
+        "M29: compact cofactor prime-support 장벽",
+        "일반 정수분해",
+        "M30",
+    )
+    for phrase in required_korean:
+        if phrase not in korean_paper_text:
+            fail(f"Korean manuscript omits required text: {phrase!r}")
+            errors += 1
+    forbidden_korean = (
+        "일반 고전적 정수분해를 해결했다",
+        "모든 정수를 다항 시간에 인수분해한다",
+    )
+    for phrase in forbidden_korean:
+        if phrase in korean_paper_text:
+            fail(f"Korean manuscript contains overclaim phrase: {phrase!r}")
+            errors += 1
+
     if errors:
         return 1
     print(
-        "Publication consistency: PASS "
+        "Bilingual publication consistency: PASS "
         f"({len(ledger)} claims, {len(EXPERIMENT_RECORDS)} experiment hashes)"
     )
     return 0

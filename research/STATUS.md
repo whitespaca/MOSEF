@@ -1,34 +1,89 @@
 # Research Status
 
-## M29 execution snapshot
+## M29 outcome
 
 - Date: 2026-07-28.
 - Branch: `research/20260728-m29-compact-cofactor-prime-support`.
-- Active question: can the compact length-indexed family
-  \(A=3,B=2^m+3,g=2\) use its exponentially long exact \(\Phi_4\)
-  cofactor to cover balanced prime factors without materializing that
-  support?
-- Dependency: M28 is complete on
-  `research/20260728-m28-length-indexed-cofactor-schedule`; completion Draft
-  PR #36 targets `main`:
-  `https://github.com/whitespaca/MOSEF/pull/36`.
-- Base checkpoint: M29 starts from the M28 completion-PR status commit
-  `89184f72db23f6067929d6fb2efe6933a56980d0`.
-- Draft PR #37 stacks the M29 work on the validated M28 completion branch:
+- Completed milestone: characterize the prime support of the compact
+  length-indexed family \(A=3,B_m=2^m+3,g=2\), including every denominator
+  exception, and determine exactly what one resulting cofactor GCD can
+  separate on a finite prime population.
+- `DEF-029` defines the analytical support. `BAR-023` is `PROVED`: with
+  \(E_m=3\cdot2^m+5\),
+  \[
+  C_m=\frac{16(2^{E_m}+3)}{35},\qquad
+  v_2(C_m)=4,\qquad 3\nmid C_m.
+  \]
+  The quotient-prime rules are
+  \(5\mid C_m\Longleftrightarrow m\equiv2\pmod4\) and
+  \(7\mid C_m\Longleftrightarrow m\equiv2\pmod3\); for every prime \(p>7\),
+  \(p\mid C_m\Longleftrightarrow2^{E_m}\equiv-3\pmod p\).
+  Consecutive cofactors satisfy \(\gcd(C_m,C_{m+1})=16\).
+- On an \(s\)-prime population with support size \(h\), the single cofactor
+  GCD has exactly \(h(s-h)\) proper pair outcomes,
+  \(\binom h2\) full collisions, and \(\binom{s-h}{2}\) units. Hence it
+  separates at most \(\lfloor s^2/4\rfloor\) pairs and cannot cover all
+  pairs when \(s\ge3\). This is a one-candidate signature-cut barrier, not a
+  multi-candidate, adaptive-schedule, circuit, or general-factoring lower
+  bound.
+- `REF-025` is `REFUTED`, and NR-026 preserves the scope boundary:
+  exponential exact magnitude and accumulated support across levels do not
+  certify universal same-level extraction by one GCD.
+- EXP-0028 checked 52,026 prime/level profiles, 51,934 generic
+  congruences, 92 quotient-prime cases, 49,742 consecutive-support cases,
+  13 exact closed forms and consecutive GCDs, 82,019 balanced primes,
+  2,034 explicit pair outcomes, three outcome witnesses, and 34 selected
+  Python/Rust/C# comparisons with zero failures. No same-index balanced
+  support hit occurred through input length 40; this remains finite empirical
+  evidence. Summary SHA-256:
+  `8ca6c6310b64e56d37cfbc98caba9deddd02d5c35ea909870341aae8f23efb7a`.
+- Full gates pass: foundation and bilingual publication consistency (120
+  claims and 27 experiment hashes), 200 Python tests plus 182 subtests,
+  bytecode compilation, Ruff 0.16.0, strict mypy 2.3.0 over 24 source files,
+  Rust formatting/Clippy/35 tests, C# Release build with zero warnings, the
+  58 baseline and 34 M29 cross-language comparisons, and the registered
+  EXP-0028 rerun.
+- Publication policy is now bilingual. `paper/main.tex` remains the
+  authoritative English manuscript, while `paper/main-ko.tex` is a Korean
+  companion whose complete 120-claim status inventory is generated from
+  `research/PUBLICATION_CLAIMS.md`. The consistency gate rejects missing,
+  duplicated, reordered, or status-divergent Korean claim entries.
+- XeLaTeX converged to a 73-page English PDF and an 11-page Korean PDF with
+  no undefined references, citations, overfull or underfull boxes, package
+  warnings, or missing characters. Eleven rendered pages covering both
+  titles, M29 statements and proof, experiment/limitations, reproduction
+  commands, references, and the Korean claim-table tail passed visual
+  inspection. Stable PDFs:
+  `output/pdf/mosef-paper.pdf`, SHA-256
+  `424d26dbf9624da86240f6fd1c3ec1f3c21b268366f720d4c6aac8d210863c19`;
+  `output/pdf/mosef-paper-ko.pdf`, SHA-256
+  `967cad591027d0a883d89483a86020ba1d7d721095c56c0a4ca25753fe931356`.
+- Draft PR #37 stacks M29 on the validated M28 completion branch:
   `https://github.com/whitespaca/MOSEF/pull/37`.
-- First bounded task: derive an exact divisibility or multiplicative-order
-  characterization for prime divisors of the compact \(\Phi_4\) cofactor,
-  implement factorization-independent modular evaluation, and measure
-  balanced-prime hits and full collisions without constructing the exact
-  lift.
-- Falsification priority: search bounded input lengths for support gaps,
-  repeated collision patterns, exceptional primes, and any hidden dependence
-  on factoring \(N\); treat magnitude, finite hit rates, and regressions as
-  non-proofs.
-- Acceptance target: an exact local criterion with all exceptional cases,
-  deterministic Python plus independent implementation, a reproducible
-  balanced-prime audit, and either a proved restricted support theorem or a
-  precisely scoped barrier recorded in the ledgers and manuscript.
+- Next selected milestone: M30 will determine the exact injectivity criterion
+  and minimum candidate count for multi-candidate compact prime signatures
+  before proposing any concrete parameter schedule.
+
+### M29 Korean summary
+
+M29에서는 길이별 compact \(\Phi_4\) cofactor의 소수 지지를 직접
+분석했습니다. 분모에 포함된 소수 5와 7은 별도의 정확한 합동식으로
+처리했고, 그 밖의 소수는 하나의 모듈러 합동식으로 판정할 수 있음을
+증명했습니다. 연속한 두 cofactor의 최대공약수는 항상 16입니다.
+
+하나의 cofactor가 유한한 소수 집합을 hit 집합과 miss 집합으로 나누면,
+서로 다른 쪽에 놓인 \(h(s-h)\)개의 semiprime 쌍만 proper factor를
+만듭니다. 같은 쪽의 두 소수는 각각 full collision 또는 unit 결과를
+만들기 때문에, 소수가 세 개 이상이면 한 후보만으로 모든 쌍을
+분리할 수 없습니다. 이는 단일 후보에 대한 정확한 장벽이며 여러 후보,
+적응형 일정, 일반 산술 회로 또는 일반 정수분해의 하한은 아닙니다.
+
+앞으로는 영문 원고와 함께 한글 동반 원고를 계속 작성합니다. 한글
+원고의 전체 claim ID와 상태는 공개 주장 행렬에서 자동 생성하며, 두
+원고의 증거 등급이 달라지면 검증 단계가 실패하도록 고정했습니다.
+다음 M30은 여러 compact 후보가 만드는 다중 비트 signature가 모든
+소수 쌍을 분리하기 위한 정확한 injectivity 조건과 최소 후보 수를
+연구합니다.
 
 ## M28 outcome
 

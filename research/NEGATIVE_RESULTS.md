@@ -648,3 +648,36 @@
   supplies no population coverage, success density, recognizer, universal
   factoring algorithm, or general circuit lower bound. M29 must study the
   prime support of compact lifts directly rather than infer it from size.
+
+## NR-026 - One compact cofactor support is only one signature cut
+
+- Date: 2026-07-28.
+- Status: `REFUTED` claim `REF-025`.
+- Hypothesis tested: the exponential exact magnitude, or support accumulated
+  across levels, of \(C_m=C_4(2)\) for
+  \(A=3,B=2^m+3,g=2\) can by itself certify universal extraction on every
+  balanced square-free semiprime by the single cofactor GCD.
+- Infinite structural obstruction: the exact identity
+  \[
+  C_m=\frac{16(2^{3\cdot2^m+5}+3)}{35}
+  \]
+  gives \(\gcd(C_m,C_{m+1})=16\), so no odd prime support persists across
+  consecutive levels. At any fixed level, membership in the support gives
+  only one bit. If \(h\) of \(s\) population primes are hits, exactly
+  \(h(s-h)\) pairs cross the cut and succeed; hit--hit pairs are full
+  collisions and miss--miss pairs are units. For \(s\ge3\), this is strictly
+  less than all \(\binom{s}{2}\) pairs.
+- Minimized registered outcomes at level 2: \(107\cdot109\) gives proper
+  factor 107, \(5\cdot107\) gives a full collision, and
+  \(109\cdot113\) gives a unit.
+- Positive boundary: BAR-023 gives the exact prime criterion, including
+  quotient exceptions at 5 and 7, and proves the complete one-candidate
+  outcome count without materializing the cofactor.
+- Evidence: EXP-0028 checked 52,026 prime/level profiles, 82,019 balanced
+  primes, 2,034 explicit balanced pair outcomes, and 34 cross-language
+  comparisons with zero failures. The absence of balanced hits through
+  length 40 is empirical only.
+- Scope: this is a single-candidate barrier. Several public candidates can
+  create multi-bit signatures; \(N\)-dependent or adaptive choices, other
+  bases, other exceptional tuples, density, general factoring, and general
+  circuit lower bounds remain outside.

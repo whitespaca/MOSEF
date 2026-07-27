@@ -123,3 +123,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-022 | PROVED | Exact balanced-pair support and materialized-bit barrier | `research/proofs/BAR-022-length-indexed-materialized-support.md` |
 | REF-024 | REFUTED | Compact modular cost as a bound on exact-lift bit length | `research/NEGATIVE_RESULTS.md` NR-025 |
 | EMP-027 | EMPIRICAL | Bounded length-indexed support and compact-gap audit | `research/experiments/EXP-0027-m28-length-indexed-support.md` |
+| DEF-029 | DEFINITION | Compact Phi4 cofactor prime-support signature | `research/proofs/BAR-023-compact-cofactor-prime-support.md` |
+| BAR-023 | PROVED | Exact prime criterion, consecutive-support, and signature-cut barrier | `research/proofs/BAR-023-compact-cofactor-prime-support.md` |
+| REF-025 | REFUTED | Exact magnitude or accumulated support as a universal single-candidate certificate | `research/NEGATIVE_RESULTS.md` NR-026 |
+| EMP-028 | EMPIRICAL | Bounded compact cofactor prime-support audit | `research/experiments/EXP-0028-m29-compact-cofactor-prime-support.md` |

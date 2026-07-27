@@ -28,7 +28,7 @@ The system must actively attempt to refute, repair, restrict, or replace these i
 - restricted input classes and density-one results;
 - lower bounds and impossibility results for explicitly defined algorithm families;
 - reproducible implementation and publication-quality empirical analysis;
-- a continuously maintained LaTeX research paper.
+- continuously maintained English and Korean LaTeX research papers.
 
 ### 2.2 Out of scope unless explicitly used as comparison
 
@@ -175,7 +175,8 @@ The multi-group objective is not “different orders probably help.” It is a t
 
 ### Stream F — Publication
 
-Maintain a paper whose claims never outrun the evidence. A useful paper may report:
+Maintain synchronized English and Korean papers whose claims never outrun
+the evidence. A useful paper may report:
 
 - a new restricted-class factoring theorem;
 - a conditional exponent improvement;
@@ -525,6 +526,14 @@ Experiments may not establish worst-case polynomial time, smoothness density for
 
 ## 13. Paper specification
 
+The exhaustive English manuscript is `paper/main.tex`. The synchronized
+Korean companion is `paper/main-ko.tex`. Both use the same stable claim IDs,
+statuses, theorem hypotheses, limitations, experiment hashes, and
+reproduction commands. The Korean companion may summarize earlier proof
+history by evidence anchor, but it must be self-contained for the current
+milestone's definitions, theorem or obstruction, proof, limitations, and
+reproduction procedure.
+
 ### 13.1 Provisional title
 
 Choose the title that matches the strongest verified result. Do not retain a title claiming polynomial-time factoring unless that result is actually proved.
@@ -605,8 +614,9 @@ Include:
 
 ### Gate Q4 — Paper integrity
 
-- PDF compiles without undefined citations/references;
-- claims ledger and manuscript agree;
+- both English and Korean PDFs compile without undefined
+  citations/references or missing glyphs;
+- claims ledger and both manuscripts agree on IDs and statuses;
 - figures and tables trace to experiment IDs;
 - abstract and title do not overclaim.
 

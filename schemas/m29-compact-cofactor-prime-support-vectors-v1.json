@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "compact_phi4_prime_profiles": [
+    {"level": 2, "prime": 2, "expected": {"level": 2, "prime": 2, "second_factor": 7, "exponent": 17, "cofactor_residue": 0, "criterion_residue": 1, "divides": true, "rule": "two_adic"}},
+    {"level": 2, "prime": 3, "expected": {"level": 2, "prime": 3, "second_factor": 7, "exponent": 17, "cofactor_residue": 1, "criterion_residue": 2, "divides": false, "rule": "three_exception"}},
+    {"level": 2, "prime": 5, "expected": {"level": 2, "prime": 5, "second_factor": 7, "exponent": 17, "cofactor_residue": 0, "criterion_residue": 0, "divides": true, "rule": "five_quotient"}},
+    {"level": 3, "prime": 5, "expected": {"level": 3, "prime": 5, "second_factor": 11, "exponent": 29, "cofactor_residue": 4, "criterion_residue": 0, "divides": false, "rule": "five_quotient"}},
+    {"level": 6, "prime": 5, "expected": {"level": 6, "prime": 5, "second_factor": 67, "exponent": 197, "cofactor_residue": 0, "criterion_residue": 0, "divides": true, "rule": "five_quotient"}},
+    {"level": 2, "prime": 7, "expected": {"level": 2, "prime": 7, "second_factor": 7, "exponent": 17, "cofactor_residue": 0, "criterion_residue": 0, "divides": true, "rule": "seven_quotient"}},
+    {"level": 3, "prime": 7, "expected": {"level": 3, "prime": 7, "second_factor": 11, "exponent": 29, "cofactor_residue": 5, "criterion_residue": 0, "divides": false, "rule": "seven_quotient"}},
+    {"level": 5, "prime": 7, "expected": {"level": 5, "prime": 7, "second_factor": 35, "exponent": 101, "cofactor_residue": 0, "criterion_residue": 0, "divides": true, "rule": "seven_quotient"}},
+    {"level": 2, "prime": 107, "expected": {"level": 2, "prime": 107, "second_factor": 7, "exponent": 17, "cofactor_residue": 0, "criterion_residue": 0, "divides": true, "rule": "generic_congruence"}},
+    {"level": 2, "prime": 109, "expected": {"level": 2, "prime": 109, "second_factor": 7, "exponent": 17, "cofactor_residue": 79, "criterion_residue": 57, "divides": false, "rule": "generic_congruence"}},
+    {"level": 4, "prime": 11, "expected": {"level": 4, "prime": 11, "second_factor": 19, "exponent": 53, "cofactor_residue": 0, "criterion_residue": 0, "divides": true, "rule": "generic_congruence"}},
+    {"level": 8, "prime": 1109, "expected": {"level": 8, "prime": 1109, "second_factor": 259, "exponent": 773, "cofactor_residue": 0, "criterion_residue": 0, "divides": true, "rule": "generic_congruence"}},
+    {"level": 8, "prime": 14143, "expected": {"level": 8, "prime": 14143, "second_factor": 259, "exponent": 773, "cofactor_residue": 0, "criterion_residue": 0, "divides": true, "rule": "generic_congruence"}},
+    {"level": 9, "prime": 409, "expected": {"level": 9, "prime": 409, "second_factor": 515, "exponent": 1541, "cofactor_residue": 0, "criterion_residue": 0, "divides": true, "rule": "generic_congruence"}},
+    {"level": 12, "prime": 11, "expected": {"level": 12, "prime": 11, "second_factor": 4099, "exponent": 12293, "cofactor_residue": 0, "criterion_residue": 0, "divides": true, "rule": "generic_congruence"}},
+    {"level": 17, "prime": 83, "expected": {"level": 17, "prime": 83, "second_factor": 131075, "exponent": 393221, "cofactor_residue": 0, "criterion_residue": 0, "divides": true, "rule": "generic_congruence"}},
+    {"level": 24, "prime": 19997, "expected": {"level": 24, "prime": 19997, "second_factor": 16777219, "exponent": 50331653, "cofactor_residue": 16378, "criterion_residue": 8331, "divides": false, "rule": "generic_congruence"}}
+  ]
+}
