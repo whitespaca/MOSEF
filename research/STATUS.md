@@ -46,8 +46,9 @@
 - The validated M27 implementation, proof, experiment, manuscript, and
   quality-gate repair are commit
   `9bc8e6b61458c5ed0cc36a2a3a696439025732b6`.
-- Draft PR #33 stacks M27 on the completed M26 branch:
-  `https://github.com/whitespaca/MOSEF/pull/33`.
+- M27 start PR #33 is merged. Completion Draft PR #34 stacks the validated
+  result on the completed M26 branch:
+  `https://github.com/whitespaca/MOSEF/pull/34`.
 - Next selected milestone: M28 asks whether an input-length-indexed
   exceptional-cofactor schedule can evade BAR-021 without hidden factor
   access or superpolynomial total cost.
