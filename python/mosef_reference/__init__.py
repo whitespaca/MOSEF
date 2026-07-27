@@ -140,6 +140,13 @@ from .rational_root_orbit import (
     exact_cyclotomic_root_ratio,
     rational_root_order_descriptor,
 )
+from .exceptional_cyclotomic import (
+    ExceptionalCyclotomicEvaluation,
+    compact_exceptional_cofactor_residue,
+    evaluate_exceptional_cyclotomic,
+    exceptional_cofactor_coefficients,
+    exceptional_cyclotomic_coefficients,
+)
 from .separator import (
     CandidateKind,
     CandidateOutcome,
@@ -200,6 +207,8 @@ __all__ = [
     "RationalResidueAuditEvaluation",
     "RationalRootOrderDescriptor",
     "RationalRootOrbitClassification",
+    "ExceptionalCyclotomicEvaluation",
+    "compact_exceptional_cofactor_residue",
     "SemismoothAsymmetryWitness",
     "SemismoothFactor",
     "SemismoothWitness",
@@ -242,6 +251,9 @@ __all__ = [
     "polynomial_multiply",
     "signed_numerator_coefficients",
     "rational_root_order_descriptor",
+    "evaluate_exceptional_cyclotomic",
+    "exceptional_cofactor_coefficients",
+    "exceptional_cyclotomic_coefficients",
     "expand_quotient_linear_combination",
     "symmetric_cofactor_terms",
     "unequal_difference_coefficients",

@@ -1,29 +1,56 @@
 # Research Status
 
-## M26 execution snapshot
+## M26 outcome
 
 - Date: 2026-07-27.
 - Branch: `research/20260727-m26-exceptional-cyclotomic`.
-- Active question: do the only exceptional rational families,
+- Completed milestone: do the only exceptional rational families,
   \(\Phi_4\) with coefficients \((1,1)\) and \(\Phi_6\) with
   coefficients \((2,1)\), add extraction power beyond direct GCDs with
   their small cyclotomic polynomials?
-- Dependency: M25 is complete on
-  `research/20260727-m25-rational-root-orbits`; Draft PR #29 targets
-  `main`.
-- Base checkpoint: M26 starts from M25 completion-status commit
-  `3d0b15def4ba86d022bb770e298f76186503610e`.
-- Draft PR #30 stacks M26 on the M25 branch:
+- `DEF-026` retains both stages, both public overlap bounds, the fixed
+  cyclotomic GCD, an independently evaluated compact cofactor, aggregate,
+  valuations, extraction, recognition, and charged dense output.
+- `BAR-020` is `PROVED`: both exact cofactors have degree
+  \(A(B-1)-2\) and constant-size periodic/geometric descriptors evaluable
+  without modular division in \(O(\log A+\log B)\) modular operations.
+  Capped prime-power valuations add, and proper direct or cofactor GCDs are
+  total factor exits.
+- `REF-022` is `REFUTED`. Clean square-free residual witnesses are
+  \((N,g,A,B)=(15,11,3,7)\) for \(\Phi_4\) and
+  \((35,8,5,3)\) for \(\Phi_6\); repeated-prime witnesses are
+  \((9,4,11,7)\) and \((25,3,5,3)\). The direct cyclotomic, both stages,
+  and both public bounds are units, while the cofactor GCD is proper.
+- EXP-0025 completed 29 symbolic divisions, 61,277 compact/dense/product
+  checks, 122,583 capped valuation checks, and 20 Python/Rust/C# comparisons
+  with zero failures. Summary SHA-256:
+  `aa160aff769f98463268f641365c3a7ac498f2c5dc4e70a018f86a4d116bdbbb`.
+- Dense output remains charged at \(A(B-1)-1\) coefficients. No public base
+  schedule, success density, probability, universal factorization result, or
+  broader-circuit theorem is claimed.
+- Validation: foundation and publication checks pass with 108 claims and 24
+  experiment hashes; 185 Python tests pass; Python compile-all passes; Rust
+  formatting, clippy with warnings denied, and all 32 tests pass; C# Release
+  build passes; the 58 baseline and 20 M26 cross-language checks pass; the
+  registered EXP-0025 rerun has zero failures. Optional Ruff and mypy remain
+  unavailable under BLK-003.
+- Paper: XeLaTeX converged to 66 pages with no undefined references,
+  citations, overfull boxes, or final warnings. The new theorem and appendix
+  pages were rendered and visually inspected. Stable PDF:
+  `output/pdf/mosef-paper.pdf`, SHA-256
+  `848f26b8a8efb79b78851dee5b2bb7cc8612f3170ff6e6df0c06f78672a0d4da`.
+- Draft PR #30 stacks M26 on M25:
   `https://github.com/whitespaca/MOSEF/pull/30`.
-- First bounded task: divide each exceptional signed numerator exactly by
-  its fixed cyclotomic factor, retain the quotient as an explicit cofactor,
-  and test whether a proper aggregate GCD can survive when the cyclotomic
-  GCD, both stages, and both M24 public overlap bounds are units.
-- Falsification priority: search repeated-prime and square-free moduli for a
-  unit-cyclotomic residual cofactor path before proposing any family theorem.
-- Acceptance target: exact quotient/cofactor and valuation semantics, total
-  construction/recognition/output costs, independent implementation, and
-  either a restricted extraction theorem or a minimized obstruction.
+- Next selected milestone: M27 isolates local cofactor roots and overlaps
+  before testing any factorization-independent public schedule.
+
+### M26 Korean summary
+
+M26에서는 \(\Phi_4,\Phi_6\) 예외 계열의 quotient를 전개하지 않고도
+주기 계수와 기하급수 합으로 평가하는 정확한 공식을 증명했습니다. 직접
+cyclotomic GCD가 1이어도 cofactor가 새 인수를 주는 square-free 및 반복
+소수 반례가 모두 존재합니다. 따라서 다음 M27은 이 cofactor의 국소 영점과
+stage overlap을 먼저 분류한 뒤 공개 base schedule 가능성을 검토합니다.
 
 ## M25 outcome
 

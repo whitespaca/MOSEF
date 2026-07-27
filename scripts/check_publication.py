@@ -48,6 +48,7 @@ REQUIRED_SECTIONS = (
     "An unequal signed-form reduction",
     "Primitive rational residues and exceptional cyclotomic factors",
     "A complete rational root-orbit classification",
+    "Compact extraction from the exceptional cofactors",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -81,6 +82,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-018}",
     r"\label{proof:BAR-019}",
     r"\label{proof:THM-003}",
+    r"\label{proof:BAR-020}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -122,6 +124,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0024-m25-rational-root-orbits.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0025-m26-exceptional-cyclotomic.md",
 )
 
 

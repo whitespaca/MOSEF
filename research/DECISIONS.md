@@ -585,3 +585,26 @@
 - Consequence: THM-003 completely classifies rational orders in the M25
   model. M26 should test whether the two fixed exceptional polynomials add
   any algorithmic content beyond direct small-cyclotomic GCDs.
+
+## ADR-029 - Evaluate exceptional cofactors independently on every branch
+
+- Date: 2026-07-27.
+- Decision: retain the exact quotients \(C_4=F_4/\Phi_4\) and
+  \(C_6=F_6/\Phi_6\) as first-class extraction components. Evaluate them by
+  fixed periodic and binary geometric-sum formulas, not only by multiplying
+  the aggregate by a cyclotomic inverse.
+- Rationale: inverse recovery is valid only when \(\Phi_i(g)\) is a unit.
+  A full direct cyclotomic collision makes the aggregate full but does not
+  determine or suppress the cofactor GCD. Moreover, the clean residual
+  witnesses show that unit direct cyclotomic GCDs can coexist with proper
+  cofactor GCDs after all earlier stage and public-bound checks.
+- Cost accounting: compact evaluation uses a constant number of exponentiations
+  and binary geometric sums whose counts have bit length
+  \(O(\log A+\log B)\). A dense quotient request still emits
+  \(A(B-1)-1\) coefficients and is charged by that output size. Every base,
+  stage, public-bound, cyclotomic, cofactor, and extraction GCD remains
+  explicit.
+- Consequence: BAR-020 gives a total factorization-independent evaluator and
+  REF-022 blocks the direct-cyclotomic-only interpretation. M27 may study a
+  public schedule only after isolating local cofactor roots and overlaps; M26
+  provides no coverage or density theorem.

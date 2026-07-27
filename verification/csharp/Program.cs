@@ -90,6 +90,8 @@ internal static class Program
                 RunRationalResidueAudit(args),
             "rational-root-orbit" when args.Length == 4 =>
                 RunRationalRootOrbit(args),
+            "exceptional-cyclotomic" when args.Length == 6 =>
+                RunExceptionalCyclotomic(args),
             "multiplication-lower-bound" when args.Length == 2 =>
                 RunMultiplicationLowerBound(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
@@ -1329,6 +1331,320 @@ internal static class Program
             + $"primitive_second_coefficient:{secondCoefficient}|"
             + $"common_step:{commonStep}|phi4_enabled:{Boolean(phi4Enabled)}|"
             + $"phi6_enabled:{Boolean(phi6Enabled)}";
+    }
+
+    private static string RunExceptionalCyclotomic(string[] args)
+    {
+        BigInteger value = Parse(args, 1, "base");
+        BigInteger modulus = Parse(args, 2, "modulus");
+        BigInteger firstFactor = Parse(args, 3, "first_factor");
+        BigInteger secondFactor = Parse(args, 4, "second_factor");
+        string family = args[5];
+        if (
+            modulus < 2
+            || firstFactor < 2
+            || secondFactor < 2
+            || firstFactor == secondFactor
+        )
+        {
+            throw new ArgumentException("invalid exceptional-cyclotomic domain");
+        }
+        BigInteger reducedBase = ((value % modulus) + modulus) % modulus;
+        if (Gcd(reducedBase, modulus) != 1)
+        {
+            throw new ArgumentException("base must be a unit");
+        }
+        BigInteger order;
+        BigInteger firstCoefficient;
+        if (
+            family == "phi4"
+            && firstFactor % 4 == 3
+            && secondFactor % 4 == 3
+        )
+        {
+            order = 4;
+            firstCoefficient = 1;
+        }
+        else if (
+            family == "phi6"
+            && firstFactor % 6 == 5
+            && secondFactor % 6 == 3
+        )
+        {
+            order = 6;
+            firstCoefficient = 2;
+        }
+        else
+        {
+            throw new ArgumentException("family congruences do not hold");
+        }
+        (BigInteger firstPower, BigInteger firstQuotient) = GeometricPair(
+            reducedBase,
+            modulus,
+            firstFactor
+        );
+        (_, BigInteger secondQuotient) = GeometricPair(
+            firstPower,
+            modulus,
+            secondFactor
+        );
+        BigInteger aggregate = (
+            firstCoefficient * firstQuotient + secondQuotient
+        ) % modulus;
+        BigInteger aggregateGcd = Gcd(aggregate, modulus);
+        BigInteger cyclotomic = family == "phi4"
+            ? (reducedBase * reducedBase + 1) % modulus
+            : (
+                reducedBase * reducedBase - reducedBase + 1
+            ) % modulus;
+        cyclotomic = (cyclotomic + modulus) % modulus;
+        BigInteger cyclotomicGcd = Gcd(cyclotomic, modulus);
+        string Status(BigInteger divisor) => divisor == 1
+            ? "unit"
+            : divisor < modulus ? "proper_factor" : "full_collision";
+        string cofactor = "none";
+        string cofactorGcd = "none";
+        string cofactorStatus = "none";
+        string extractionSource = "none";
+        string extractionGcd = "none";
+        BigInteger quotient = CompactExceptionalCofactor(
+            reducedBase,
+            modulus,
+            firstFactor,
+            secondFactor,
+            family
+        );
+        BigInteger quotientGcd = Gcd(quotient, modulus);
+        if (cyclotomic * quotient % modulus != aggregate)
+        {
+            throw new ArgumentException("compact cofactor identity failed");
+        }
+        cofactor = quotient.ToString();
+        cofactorGcd = quotientGcd.ToString();
+        cofactorStatus = Status(quotientGcd);
+        if (cyclotomicGcd == 1 && quotientGcd != aggregateGcd)
+        {
+            throw new ArgumentException("unit cancellation changed GCD");
+        }
+        if (cyclotomicGcd > 1 && cyclotomicGcd < modulus)
+        {
+            extractionSource = "cyclotomic";
+            extractionGcd = cyclotomicGcd.ToString();
+        }
+        else if (quotientGcd > 1 && quotientGcd < modulus)
+        {
+            extractionSource = "cofactor";
+            extractionGcd = quotientGcd.ToString();
+        }
+        else if (cyclotomicGcd == modulus)
+        {
+            if (aggregateGcd != modulus)
+            {
+                throw new ArgumentException("full Phi collision did not force F=0");
+            }
+            extractionSource = "full_collision";
+        }
+        BigInteger firstGcd = Gcd(firstQuotient, modulus);
+        BigInteger secondGcd = Gcd(secondQuotient, modulus);
+        BigInteger firstPublicBoundGcd = Gcd(secondFactor, modulus);
+        BigInteger secondPublicBoundGcd = Gcd(
+            firstCoefficient * secondFactor,
+            modulus
+        );
+        BigInteger denseDegree = firstFactor * (secondFactor - 1) - 2;
+        return $"base:{reducedBase}|modulus:{modulus}|family:{family}|"
+            + $"order:{order}|first_factor:{firstFactor}|second_factor:{secondFactor}|"
+            + $"first_coefficient:{firstCoefficient}|second_coefficient:1|"
+            + $"cyclotomic_residue:{cyclotomic}|cyclotomic_gcd:{cyclotomicGcd}|"
+            + $"cyclotomic_status:{Status(cyclotomicGcd)}|"
+            + $"aggregate_residue:{aggregate}|aggregate_gcd:{aggregateGcd}|"
+            + $"aggregate_status:{Status(aggregateGcd)}|"
+            + $"cofactor_residue:{cofactor}|cofactor_gcd:{cofactorGcd}|"
+            + $"cofactor_status:{cofactorStatus}|extraction_source:{extractionSource}|"
+            + $"extraction_gcd:{extractionGcd}|first_quotient_gcd:{firstGcd}|"
+            + $"second_quotient_gcd:{secondGcd}|"
+            + $"first_public_bound_gcd:{firstPublicBoundGcd}|"
+            + $"second_public_bound_gcd:{secondPublicBoundGcd}|"
+            + $"dense_cofactor_degree:{denseDegree}|"
+            + $"dense_cofactor_coefficient_count:{denseDegree + 1}";
+    }
+
+    private static BigInteger GeometricResidue(
+        BigInteger value,
+        BigInteger modulus,
+        BigInteger count
+    ) => count == 0
+        ? BigInteger.Zero
+        : GeometricPair(value, modulus, count).Sum;
+
+    private static BigInteger PolynomialResidue(
+        BigInteger[] coefficients,
+        BigInteger value,
+        BigInteger modulus
+    )
+    {
+        BigInteger result = BigInteger.Zero;
+        for (int index = coefficients.Length - 1; index >= 0; index--)
+        {
+            result = (
+                result * value + coefficients[index]
+            ) % modulus;
+        }
+        return (result + modulus) % modulus;
+    }
+
+    private static BigInteger PeriodicResidue(
+        BigInteger[] pattern,
+        BigInteger length,
+        BigInteger value,
+        BigInteger modulus
+    )
+    {
+        BigInteger period = pattern.Length;
+        BigInteger blocks = length / period;
+        int tail = (int)(length % period);
+        BigInteger block = PolynomialResidue(pattern, value, modulus);
+        BigInteger blockSum = GeometricResidue(
+            BigInteger.ModPow(value, period, modulus),
+            modulus,
+            blocks
+        );
+        BigInteger tailValue = PolynomialResidue(
+            pattern.Take(tail).ToArray(),
+            value,
+            modulus
+        );
+        return (
+            block * blockSum
+            + BigInteger.ModPow(value, blocks * period, modulus) * tailValue
+        ) % modulus;
+    }
+
+    private static BigInteger CompactExceptionalCofactor(
+        BigInteger value,
+        BigInteger modulus,
+        BigInteger firstFactor,
+        BigInteger secondFactor,
+        string family
+    )
+    {
+        if (family == "phi4")
+        {
+            BigInteger firstBlocks = (firstFactor - 3) / 4;
+            BigInteger secondBlocks = (secondFactor - 3) / 4;
+            BigInteger firstU = (
+                (1 + value)
+                    * GeometricResidue(
+                        BigInteger.ModPow(value, 4, modulus),
+                        modulus,
+                        firstBlocks
+                    )
+                + BigInteger.ModPow(value, 4 * firstBlocks, modulus)
+            ) % modulus;
+            BigInteger nestedBase = BigInteger.ModPow(
+                value,
+                firstFactor,
+                modulus
+            );
+            BigInteger nestedU = (
+                (1 + nestedBase)
+                    * GeometricResidue(
+                        BigInteger.ModPow(nestedBase, 4, modulus),
+                        modulus,
+                        secondBlocks
+                    )
+                + BigInteger.ModPow(nestedBase, 4 * secondBlocks, modulus)
+            ) % modulus;
+            BigInteger alternatingSquare = (
+                -value * value % modulus + modulus
+            ) % modulus;
+            BigInteger substitutedFactor = GeometricResidue(
+                alternatingSquare,
+                modulus,
+                firstFactor
+            );
+            BigInteger firstResidualExponent = firstFactor - 2;
+            BigInteger secondResidualExponent = firstFactor
+                * (secondFactor - 2);
+            BigInteger residualCount = (
+                secondResidualExponent - firstResidualExponent
+            ) / 2;
+            BigInteger residual = BigInteger.ModPow(
+                value,
+                firstResidualExponent,
+                modulus
+            ) * GeometricResidue(
+                alternatingSquare,
+                modulus,
+                residualCount
+            ) % modulus;
+            return (
+                firstU + substitutedFactor * nestedU + residual
+            ) % modulus;
+        }
+
+        BigInteger phi6FirstBlocks = (firstFactor - 5) / 6;
+        BigInteger phi6SecondBlocks = (secondFactor - 3) / 6;
+        BigInteger H(BigInteger item) => (
+            BigInteger.ModPow(item, 3, modulus)
+            + 2 * BigInteger.ModPow(item, 2, modulus)
+            + 2 * item
+            + 1
+        ) % modulus;
+        BigInteger phi6FirstU = H(value) * GeometricResidue(
+            BigInteger.ModPow(value, 6, modulus),
+            modulus,
+            phi6FirstBlocks + 1
+        ) % modulus;
+        BigInteger nested = BigInteger.ModPow(
+            value,
+            firstFactor,
+            modulus
+        );
+        BigInteger phi6NestedU = (
+            H(nested)
+                * GeometricResidue(
+                    BigInteger.ModPow(nested, 6, modulus),
+                    modulus,
+                    phi6SecondBlocks
+                )
+            + BigInteger.ModPow(nested, 6 * phi6SecondBlocks, modulus)
+        ) % modulus;
+        BigInteger substituted = (
+            PeriodicResidue(
+                [1, 1, 0, -1, -1, 0],
+                firstFactor,
+                value,
+                modulus
+            )
+            + BigInteger.ModPow(value, firstFactor, modulus)
+                * PeriodicResidue(
+                    [-1, 0, 1, 1, 0, -1],
+                    firstFactor - 1,
+                    value,
+                    modulus
+                )
+        ) % modulus;
+        BigInteger fixedQuotient = PolynomialResidue(
+            [-1, -1, 0, 1, 1],
+            value,
+            modulus
+        );
+        BigInteger phi6Residual = (
+            2
+            * BigInteger.ModPow(value, firstFactor, modulus)
+            * fixedQuotient
+            * GeometricResidue(
+                BigInteger.ModPow(value, 6, modulus),
+                modulus,
+                firstFactor * phi6SecondBlocks
+            )
+        ) % modulus;
+        return (
+            2 * phi6FirstU
+            + substituted * phi6NestedU
+            + phi6Residual
+        ) % modulus;
     }
 
     private static string RunMultiplicationLowerBound(string[] args)

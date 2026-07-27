@@ -565,3 +565,28 @@
 - Scope: one unequal depth-two signed numerator at roots of unity. The
   obstruction and classification imply no density, schedule, universal
   factoring theorem, or general-circuit lower bound.
+
+## NR-023 - Direct exceptional cyclotomic GCDs do not exhaust extraction
+
+- Date: 2026-07-27.
+- Status: `REFUTED` claim `REF-022`.
+- Hypothesis tested: after both stage GCDs and both M24 public overlap bounds
+  are units, every proper aggregate GCD in the two THM-003 exceptional
+  families is already the direct \(\Phi_4\) or \(\Phi_6\) GCD.
+- Square-free obstructions: \((N,g,A,B)=(15,11,3,7)\) for \(\Phi_4\)
+  has cofactor GCD \(5\), and \((35,8,5,3)\) for \(\Phi_6\) has
+  cofactor GCD \(5\). In each case the direct cyclotomic GCD, both stages,
+  and both public bounds are one.
+- Repeated-prime obstructions: \((9,4,11,7)\) gives cofactor GCD \(3\)
+  for \(\Phi_4\), while \((25,3,5,3)\) gives cofactor GCD \(5\) for
+  \(\Phi_6\), under the same unit preliminary checks.
+- Positive boundary: BAR-020 proves exact compact formulas for both
+  cofactors, all prime-power valuation branches, and extraction. The
+  refutation concerns only completeness of the direct cyclotomic factor.
+- Evidence: EXP-0025 found 1,873 clean residual proper factors among 61,277
+  exhaustive modular checks in its registered box, with zero failed
+  compact/dense/product or valuation identities and 20 cross-language
+  agreements.
+- Scope: fixed exceptional families for one public base. No public schedule,
+  success density, universal factoring theorem, or broader-circuit result
+  follows.

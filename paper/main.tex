@@ -125,6 +125,12 @@ conjugation and a cyclotomic norm show that, beyond the common-step ratio
 occur, under explicit congruence conditions on \(A,B\). Requested-order
 recognition uses only modular reductions and GCDs; enumerating every divisor
 in the compact common-step descriptor remains charged.
+The two exceptional quotients themselves also have compact arithmetic
+content. We prove exact periodic/geometric formulas for the cofactors after
+removing \(\Phi_4\) or \(\Phi_6\), evaluable without modular division in
+\(O(\log A+\log B)\) modular operations. Square-free and repeated-prime
+witnesses show that these cofactors can extract a factor when the direct
+cyclotomic GCD, both stages, and both public overlap bounds are units.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -219,7 +225,11 @@ algorithm. Its contributions are:
 \item a complete Galois-orbit classification of rational root-of-unity
   ratios: the common-step family has ratio \(-1\), while the only exceptional
   families are \(\Phi_4\) with ratio \(1\) and \(\Phi_6\) with ratio \(2\),
-  with polynomial-time requested-order recognition; and
+  with polynomial-time requested-order recognition;
+\item exact compact quotient formulas for both fixed exceptional families,
+  including prime-power valuation and total direct/cofactor extraction
+  semantics, together with clean square-free and repeated-prime obstructions
+  to a direct-cyclotomic-only explanation; and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
@@ -1748,6 +1758,85 @@ prime \(\Phi_4\), and square-free \(\Phi_6\) modular witnesses show that both
 exceptional families are nonempty after the M24 stage and public-bound checks,
 without implying a universal factoring schedule.
 
+\section{Compact extraction from the exceptional cofactors}
+
+\claimstatus{DEF-026}{DEFINITION}. In the order-four family write
+\[
+F_4(X)=S_A(X)+S_B(X^A)=\Phi_4(X)C_4(X),
+\quad A\equiv B\equiv3\pmod4,
+\]
+and in the order-six family write
+\[
+F_6(X)=2S_A(X)+S_B(X^A)=\Phi_6(X)C_6(X),
+\quad A\equiv5,\ B\equiv3\pmod6.
+\]
+Retain both stage GCDs, both M24 public overlap bounds, the direct
+cyclotomic and independently evaluated cofactor GCDs, the aggregate,
+prime-power valuations, extraction priority, and requested formal output.
+
+\claimstatus{BAR-020}{PROVED}. Both quotients are monic integer polynomials
+of degree \(A(B-1)-2\). Nevertheless, their values modulo \(N\) admit
+constant-size descriptors with \(O(\log A+\log B)\) binary modular
+evaluation cost and no modular division.
+
+For \(\Phi_4\), put \(A=4a+3\), \(B=4b+3\),
+\[
+U_4(4t+3;x)=(1+x)S_t(x^4)+x^{4t},
+\quad D_4(A;x)=S_A(-x^2),
+\]
+and let \(r=A-2\), \(s=A(B-2)\), \(k=(s-r)/2\). Then
+\[
+C_4(x)=U_4(A;x)+D_4(A;x)U_4(B;x^A)+x^rS_k(-x^2).
+\]
+For \(\Phi_6\), put \(A=6a+5\), \(B=6b+3\) and
+\[
+H=x^3+2x^2+2x+1,\qquad J=x^4+x^3-x-1.
+\]
+The substitution quotient
+\(D_6(A;x)=\Phi_6(x^A)/\Phi_6(x)\) has two period-six coefficient
+segments, so
+\[
+\begin{split}
+C_6(x)={}&2H(x)S_{a+1}(x^6)\\
+&+D_6(A;x)\bigl(H(x^A)S_b(x^{6A})+x^{6Ab}\bigr)\\
+&+2x^AJ(x)S_{Ab}(x^6).
+\end{split}
+\]
+Appendix \ref{proof:BAR-020} gives the exact segment coefficients and proves
+both identities.
+
+For every \(p^e\parallel N\), integer product valuations give
+\[
+\min(v_p(F_i(g)),e)=
+\min(v_p(\Phi_i(g))+v_p(C_i(g)),e).
+\]
+Thus a proper direct or cofactor GCD extracts a factor. A unit direct
+cyclotomic value makes the aggregate and cofactor GCDs equal. A full direct
+collision forces the aggregate full, but the compact cofactor remains an
+independent extraction path. A dense quotient request still emits
+\(A(B-1)-1\) coefficients and is charged at that output size.
+
+\claimstatus{REF-022}{REFUTED}. Direct small-cyclotomic GCDs do not exhaust
+the exceptional extraction mechanism. The clean square-free witnesses are
+\[
+(N,g,A,B)=(15,11,3,7)\quad(\Phi_4,\ \gcd(C_4(g),N)=5)
+\]
+and
+\[
+(N,g,A,B)=(35,8,5,3)\quad(\Phi_6,\ \gcd(C_6(g),N)=5).
+\]
+In both, the direct cyclotomic, both stages, and both public bounds are
+units. Repeated-prime witnesses are \((9,4,11,7)\), giving \(3\), and
+\((25,3,5,3)\), giving \(5\). This proves genuine per-candidate extraction
+power, not a public schedule, density, or general factoring theorem.
+
+\claimstatus{EMP-025}{EMPIRICAL}. EXP-0025 checked 29 symbolic divisions,
+61,277 compact-versus-dense cofactor evaluations and product identities,
+and 122,583 capped prime-power valuations. It found 1,873 proper residual
+GCDs after the direct cyclotomic, both stages, and both public bounds were
+units, with zero failures and 20 selected Python/Rust/C\# agreements. This
+finite box supports the implementation only; BAR-020 is proved independently.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -2339,9 +2428,11 @@ BAR-019 normalizes coefficient content and classifies overlap of the
 aggregate with either charged stage by exact public resultants. Its
 root-of-unity equation is exact, and its \(\Phi_4\) witness motivates
 THM-003. THM-003 closes the rational-order list for this one unequal
-depth-two numerator and gives requested-order recognition. It does not show
-that the fixed \(\Phi_4\) or \(\Phi_6\) GCDs succeed frequently or add power
-beyond direct evaluation of their small cyclotomic polynomials. Longer
+depth-two numerator and gives requested-order recognition. BAR-020 then
+proves compact evaluation and total valuation/extraction semantics for the
+two exceptional cofactors, while REF-022 shows that their residual paths
+strictly exceed the direct small-cyclotomic GCDs. It does not supply a public
+base schedule, coverage, density, or probability theorem. Longer
 chains, adaptive coefficients, several interacting rational values,
 unrelated bases, other groups, and general signed arithmetic circuits remain
 outside.
@@ -2358,10 +2449,9 @@ outside BAR-008's explicit-list model has a proved factor-scale
 \(d\pm1\) yield guarantee, and whether a precisely defined specialized
 arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
 evaluate a sufficiently rich formal batch at polynomial total construction,
-evaluation, and extraction cost. The next bounded case is to decide whether
-the two fixed exceptional polynomials from THM-003 yield any
-factorization-independent restricted-class theorem beyond their direct
-small-cyclotomic GCDs.
+evaluation, and extraction cost. The next bounded case is to classify local
+zeros and stage overlap of \(C_4,C_6\), then decide whether they admit a
+factorization-independent public base schedule on a nontrivial promise class.
 
 \section{Conclusion}
 
@@ -2465,9 +2555,11 @@ BAR-017 supplies the exact endpoint/cofactor valuation criterion for its
 symmetric repeated-factor subfamily, and BAR-018 supplies the unequal
 first-prefix and common-step reductions. BAR-019 further isolates content and
 stage overlap. THM-003 completely classifies its rational root-of-unity
-ratios, but the schedule-level usefulness of the fixed \(\Phi_4,\Phi_6\)
-families, general rational/compositional circuits, and other models remain
-research targets, not claimed factoring breakthroughs.
+ratios. BAR-020 gives exact compact evaluators for the two exceptional
+cofactors and proves that their residual GCD paths are genuine, but no public
+base schedule or success density is known. Such schedule questions, general
+rational/compositional circuits, and other models remain research targets,
+not claimed factoring breakthroughs.
 
 \appendix
 
@@ -4010,6 +4102,79 @@ enumerating divisors, or expanding cyclotomic polynomials is charged
 separately. Finally, \((A,B,n)=(2,4,5)\) satisfies the phase congruence but
 (22) gives \(R=(1+\sqrt5)/2\), refuting its sufficiency. \(\square\)
 
+\section{Full proof of exceptional cyclotomic extraction}
+
+\subsection{Proof of BAR-020}\label{proof:BAR-020}
+
+For \(A=4a+3\), the block identity
+\[
+S_A(x)=\Phi_4(x)\bigl((1+x)S_a(x^4)+x^{4a}\bigr)+x^{A-2}
+\]
+is a direct expansion. Apply the same identity to \(S_B(x^A)\). Since
+\(A\) is odd,
+\[
+\frac{\Phi_4(x^A)}{\Phi_4(x)}
+=\frac{x^{2A}+1}{x^2+1}=S_A(-x^2).
+\]
+The two remainders have exponents \(r=A-2\equiv1\pmod4\) and
+\(s=A(B-2)\equiv3\pmod4\). Hence \(k=(s-r)/2\) is odd and
+\[
+\frac{x^r+x^s}{x^2+1}=x^rS_k(-x^2).
+\]
+Adding the three quotient terms proves the displayed formula for \(C_4\).
+
+For the second family,
+\[
+S_6=\Phi_6H,\qquad x^6-1=\Phi_6J.
+\]
+Thus, for \(A=6a+5\), \(B=6b+3\), and \(y=x^A\),
+\[
+S_A(x)=\Phi_6(x)H(x)S_{a+1}(x^6)-x^A
+\]
+and
+\[
+S_B(y)=\Phi_6(y)\bigl(H(y)S_b(y^6)+y^{6b}\bigr)+2y^{6b+1}.
+\]
+It remains to divide \(\Phi_6(x^A)\) by \(\Phi_6(x)\). With ascending
+coefficients, division by \(x^2-x+1\) obeys
+\(q_j=p_j+q_{j-1}-q_{j-2}\). Its impulse response is
+\[
+h=(1,1,0,-1,-1,0).
+\]
+The coefficient \(-1\) at degree \(A\equiv5\pmod6\) changes the next
+\(A-1\) coefficients to
+\[
+k=(-1,0,1,1,0,-1).
+\]
+The coefficient at degree \(2A\) makes the next two recurrence values zero,
+so
+\[
+D_6(A;x)=\sum_{j=0}^{A-1}h_{j\bmod6}x^j+
+x^A\sum_{j=0}^{A-2}k_{j\bmod6}x^j
+\]
+is the exact finite quotient. Substituting the two stage identities and
+using
+\[
+x^{6Ab}-1=(x^6-1)S_{Ab}(x^6)
+\]
+proves the displayed \(C_6\) formula.
+
+Each period-six sum is one fixed block polynomial times
+\(S_{\lfloor L/6\rfloor}(x^6)\), plus at most five tail terms. Binary
+geometric-sum composition therefore evaluates every term in
+\(O(\log A+\log B)\) modular operations. Product exponents such as \(Ab\)
+have only \(O(\log A+\log B)\) bits. No inverse and no unknown factor is
+used.
+
+Both \(F_i\) are monic of degree \(A(B-1)\); division by a monic quadratic
+gives a monic cofactor of degree \(A(B-1)-2\). Dense output therefore has
+\(A(B-1)-1\) coefficients and is charged separately. Finally,
+\(F_i(g)=\Phi_i(g)C_i(g)\) is an integer product, so valuations add and
+remain correct after capping at every \(p^e\parallel N\). Proper computed
+GCDs extract factors. Unit multiplication preserves GCD with \(N\); a full
+cyclotomic collision makes the aggregate full but leaves the independently
+computed cofactor available. These are all branches. \(\square\)
+
 \section{Reproduction appendix}
 
 The evidence implementation state preceding M6 is commit
@@ -4102,6 +4267,9 @@ The registered experiment cores and canonical summary hashes are:
 \item EXP-0024, M25 milestone commit recorded in \path{research/STATUS.md},
   hash
   \texttt{\seqsplit{7e498c64b848973c95501e5e043e2187ab21772c5d7edbbf62f737d36cf9bb13}}.
+\item EXP-0025, M26 milestone commit recorded in \path{research/STATUS.md},
+  hash
+  \texttt{\seqsplit{aa160aff769f98463268f641365c3a7ac498f2c5dc4e70a018f86a4d116bdbbb}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -4200,6 +4368,12 @@ python scripts/run_m24_rational_residue_audit.py `
   --factor-max 8 --coefficient-max 3 `
   --cyclotomic-order-max 128 --modulus-max 128 --base-max 16
 python scripts/check_m24_rational_residue_audit_differential.py
+python scripts/run_m25_rational_root_orbit_audit.py `
+  --factor-max 32 --order-max 256
+python scripts/check_m25_rational_root_orbit_differential.py
+python scripts/run_m26_exceptional_cyclotomic_audit.py `
+  --factor-max 19 --modulus-max 160 --base-max 40
+python scripts/check_m26_exceptional_cyclotomic_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -4211,7 +4385,7 @@ through EXP-0019 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. EXP-0020
-through EXP-0024 use the same deterministic finite-enumeration policy. The
+through EXP-0025 use the same deterministic finite-enumeration policy. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.
 
 \bibliographystyle{plain}
