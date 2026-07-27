@@ -103,3 +103,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-018 | PROVED | Exact unequal signed prefix and common-step reduction | `research/proofs/BAR-018-unequal-signed-reduction.md` |
 | REF-019 | REFUTED | Natural common factor as a complete unequal-difference explanation | `research/NEGATIVE_RESULTS.md` NR-020 |
 | EMP-022 | EMPIRICAL | Bounded unequal signed-reduction audit | `research/experiments/EXP-0022-m23-unequal-signed-reduction.md` |
+| DEF-024 | DEFINITION | Charged primitive rational-residue and stage-resultant audit | `research/proofs/BAR-019-rational-residue-resultants.md` |
+| BAR-019 | PROVED | Exact content, stage-resultant, and root-of-unity reduction | `research/proofs/BAR-019-rational-residue-resultants.md` |
+| REF-020 | REFUTED | Boundary and common-step factors as a complete cyclotomic classification | `research/NEGATIVE_RESULTS.md` NR-021 |
+| EMP-023 | EMPIRICAL | Bounded rational-residue and cyclotomic audit | `research/experiments/EXP-0023-m24-rational-residue-audit.md` |

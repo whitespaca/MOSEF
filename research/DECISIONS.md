@@ -543,3 +543,26 @@
   endpoint/common-step classification but leaves the surviving unit-prefix
   rational residue open. M24 should classify that residue or produce a
   sharper restricted obstruction.
+
+## ADR-027 - Isolate public stage overlap before classifying exceptional roots
+
+- Date: 2026-07-27.
+- Decision: normalize coefficient content first, retain both exact stage
+  resultants as compact descriptors, and separate their public overlap bounds
+  from the standalone primitive numerator. Treat cyclotomic order searches
+  as explicitly bounded exact divisions.
+- Rationale: the resultants prove that aggregate overlap with either charged
+  stage is controlled by a public coefficient--multiplier GCD, but the
+  \(\Phi_4\) witness produces a proper aggregate GCD after every such bound
+  is a unit. Folding that witness into a stage explanation would erase the
+  mechanism M24 was intended to isolate.
+- Cost accounting: compact base--exponent resultant descriptors are
+  polynomial-size, while expanded resultants can have bit length linear in
+  the numerical factor \(A\) or \(B\). Charge expansion, coefficient lists,
+  and cyclotomic order enumeration by actual output size or explicit bound;
+  charge all content, stage, aggregate, and rational-residue GCDs.
+- Consequence: BAR-019 closes coefficient content and stage overlap and gives
+  an exact root-of-unity equation, while REF-020 prevents a false
+  boundary-only classification. M25 should study the rational
+  root-of-unity ratio and its Galois-orbit restrictions before proposing any
+  schedule-level theorem.

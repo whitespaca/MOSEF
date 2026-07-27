@@ -124,6 +124,15 @@ from .unequal_signed_reduction import (
     unequal_difference_coefficients,
     unequal_difference_cofactor_coefficients,
 )
+from .rational_residue_audit import (
+    RationalResidueAuditEvaluation,
+    cleared_root_of_unity_coefficients,
+    cyclotomic_coefficients,
+    cyclotomic_factor_orders,
+    evaluate_rational_residue_audit,
+    polynomial_multiply,
+    signed_numerator_coefficients,
+)
 from .separator import (
     CandidateKind,
     CandidateOutcome,
@@ -181,6 +190,7 @@ __all__ = [
     "QuotientLinearCombinationEvaluation",
     "SymmetricQuotientDifferenceEvaluation",
     "UnequalSignedReductionEvaluation",
+    "RationalResidueAuditEvaluation",
     "SemismoothAsymmetryWitness",
     "SemismoothFactor",
     "SemismoothWitness",
@@ -214,6 +224,12 @@ __all__ = [
     "evaluate_quotient_linear_combination",
     "evaluate_symmetric_quotient_difference",
     "evaluate_unequal_signed_reduction",
+    "cleared_root_of_unity_coefficients",
+    "cyclotomic_coefficients",
+    "cyclotomic_factor_orders",
+    "evaluate_rational_residue_audit",
+    "polynomial_multiply",
+    "signed_numerator_coefficients",
     "expand_quotient_linear_combination",
     "symmetric_cofactor_terms",
     "unequal_difference_coefficients",

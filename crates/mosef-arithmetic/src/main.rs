@@ -4,16 +4,17 @@ use mosef_arithmetic::{
     evaluate_batch_product, evaluate_dyadic_telescope, evaluate_geometric_sum,
     evaluate_iterated_quotient, evaluate_lucas_separator_candidate,
     evaluate_multiplication_program, evaluate_nested_quotient, evaluate_product_dag,
-    evaluate_quotient_linear_combination, evaluate_separator_candidate,
-    evaluate_symmetric_quotient_difference, evaluate_unequal_signed_reduction,
-    generic_multiplication_lower_bound, is_prime, lucas_v, mod_pow, perfect_power,
-    pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
-    semismooth_successful_residue_count, trial_division, BatchProductEvaluation, CoverAnalysis,
-    DyadicDivisionStatus, DyadicTelescopeEvaluation, GeometricDivisionStatus,
+    evaluate_quotient_linear_combination, evaluate_rational_residue_audit,
+    evaluate_separator_candidate, evaluate_symmetric_quotient_difference,
+    evaluate_unequal_signed_reduction, generic_multiplication_lower_bound, is_prime, lucas_v,
+    mod_pow, perfect_power, pollard_p_minus_one, pollard_p_plus_one, pollard_rho,
+    semismooth_factor, semismooth_successful_residue_count, trial_division, BatchProductEvaluation,
+    CoverAnalysis, DyadicDivisionStatus, DyadicTelescopeEvaluation, GeometricDivisionStatus,
     GeometricSumEvaluation, IteratedQuotientEvaluation, LucasSeparatorOutcome,
     NestedQuotientEvaluation, ProductDagEvaluation, QuotientLinearCombinationEvaluation,
-    SemismoothOutcome, SeparatorOutcome, SignedStraightLineEvaluation, StraightLineEvaluation,
-    SymmetricQuotientDifferenceEvaluation, UnequalSignedReductionEvaluation,
+    RationalResidueAuditEvaluation, SemismoothOutcome, SeparatorOutcome,
+    SignedStraightLineEvaluation, StraightLineEvaluation, SymmetricQuotientDifferenceEvaluation,
+    UnequalSignedReductionEvaluation,
 };
 use std::env;
 use std::process::ExitCode;
@@ -527,6 +528,57 @@ fn display_unequal_signed_reduction(value: UnequalSignedReductionEvaluation) -> 
     )
 }
 
+fn display_rational_residue_audit(value: RationalResidueAuditEvaluation) -> String {
+    let optional =
+        |item: Option<u64>| item.map_or_else(|| "none".to_owned(), |inner| inner.to_string());
+    format!(
+        concat!(
+            "first_factor:{}|second_factor:{}|first_coefficient:{}|second_coefficient:{}|",
+            "content:{}|primitive_first_coefficient:{}|primitive_second_coefficient:{}|",
+            "content_gcd:{}|content_status:{}|first_quotient:{}|second_quotient:{}|",
+            "first_quotient_gcd:{}|second_quotient_gcd:{}|aggregate:{}|aggregate_gcd:{}|",
+            "primitive_aggregate:{}|primitive_aggregate_gcd:{}|prefix_status:{}|",
+            "rational:{}|rational_gcd:{}|primitive_rational:{}|primitive_rational_gcd:{}|",
+            "first_overlap_gcd:{}|first_public_bound_gcd:{}|second_overlap_gcd:{}|",
+            "second_public_bound_gcd:{}|first_resultant_base:{}|first_resultant_exponent:{}|",
+            "second_resultant_coefficient_base:{}|second_resultant_coefficient_exponent:{}|",
+            "second_resultant_stage_base:{}|second_resultant_stage_exponent:{}"
+        ),
+        value.first_factor,
+        value.second_factor,
+        value.first_coefficient,
+        value.second_coefficient,
+        value.content,
+        value.primitive_first_coefficient,
+        value.primitive_second_coefficient,
+        value.content_gcd,
+        display_division_status(value.content_status),
+        value.first_quotient_residue,
+        value.second_quotient_residue,
+        value.first_quotient_gcd,
+        value.second_quotient_gcd,
+        value.aggregate_residue,
+        value.aggregate_gcd,
+        value.primitive_aggregate_residue,
+        value.primitive_aggregate_gcd,
+        display_division_status(value.prefix_status),
+        optional(value.rational_residue),
+        optional(value.rational_gcd),
+        optional(value.primitive_rational_residue),
+        optional(value.primitive_rational_gcd),
+        value.first_overlap_gcd,
+        value.first_public_bound_gcd,
+        value.second_overlap_gcd,
+        value.second_public_bound_gcd,
+        value.first_resultant_base,
+        value.first_resultant_exponent,
+        value.second_resultant_coefficient_base,
+        value.second_resultant_coefficient_exponent,
+        value.second_resultant_stage_base,
+        value.second_resultant_stage_exponent,
+    )
+}
+
 fn run() -> Result<(), String> {
     let mut arguments = env::args().skip(1);
     let operation = arguments
@@ -850,6 +902,28 @@ fn run() -> Result<(), String> {
             let second_coefficient = parse_i64(arguments.next(), "second_coefficient")?;
             display_unequal_signed_reduction(
                 evaluate_unequal_signed_reduction(
+                    base,
+                    modulus,
+                    first_factor,
+                    second_factor,
+                    first_coefficient,
+                    second_coefficient,
+                )
+                .ok_or_else(|| {
+                    "base must be a unit, factors unequal and at least two, coefficients nonzero"
+                        .to_owned()
+                })?,
+            )
+        }
+        "rational-residue-audit" => {
+            let base = parse_u64(arguments.next(), "base")?;
+            let modulus = parse_u64(arguments.next(), "modulus")?;
+            let first_factor = parse_u64(arguments.next(), "first_factor")?;
+            let second_factor = parse_u64(arguments.next(), "second_factor")?;
+            let first_coefficient = parse_i64(arguments.next(), "first_coefficient")?;
+            let second_coefficient = parse_i64(arguments.next(), "second_coefficient")?;
+            display_rational_residue_audit(
+                evaluate_rational_residue_audit(
                     base,
                     modulus,
                     first_factor,

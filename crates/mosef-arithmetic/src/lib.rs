@@ -704,6 +704,43 @@ pub struct UnequalSignedReductionEvaluation {
     pub difference_cofactor_degree: u64,
 }
 
+/// Primitive-content and public resultant audit of an unequal signed numerator.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct RationalResidueAuditEvaluation {
+    pub first_factor: u64,
+    pub second_factor: u64,
+    pub first_coefficient: i64,
+    pub second_coefficient: i64,
+    pub content: u64,
+    pub primitive_first_coefficient: i64,
+    pub primitive_second_coefficient: i64,
+    pub content_gcd: u64,
+    pub content_status: GeometricDivisionStatus,
+    pub first_quotient_residue: u64,
+    pub second_quotient_residue: u64,
+    pub first_quotient_gcd: u64,
+    pub second_quotient_gcd: u64,
+    pub aggregate_residue: u64,
+    pub aggregate_gcd: u64,
+    pub primitive_aggregate_residue: u64,
+    pub primitive_aggregate_gcd: u64,
+    pub prefix_status: GeometricDivisionStatus,
+    pub rational_residue: Option<u64>,
+    pub rational_gcd: Option<u64>,
+    pub primitive_rational_residue: Option<u64>,
+    pub primitive_rational_gcd: Option<u64>,
+    pub first_overlap_gcd: u64,
+    pub first_public_bound_gcd: u64,
+    pub second_overlap_gcd: u64,
+    pub second_public_bound_gcd: u64,
+    pub first_resultant_base: u128,
+    pub first_resultant_exponent: u64,
+    pub second_resultant_coefficient_base: u64,
+    pub second_resultant_coefficient_exponent: u64,
+    pub second_resultant_stage_base: u64,
+    pub second_resultant_stage_exponent: u64,
+}
+
 /// Evaluate nodes starting from `g`, with every later node multiplying two parents.
 pub fn evaluate_multiplication_program(
     base: u64,
@@ -1447,6 +1484,142 @@ pub fn evaluate_unequal_signed_reduction(
     })
 }
 
+/// Evaluate coefficient content, unit-prefix division, and stage-resultant bounds.
+pub fn evaluate_rational_residue_audit(
+    base: u64,
+    modulus: u64,
+    first_factor: u64,
+    second_factor: u64,
+    first_coefficient: i64,
+    second_coefficient: i64,
+) -> Option<RationalResidueAuditEvaluation> {
+    if first_factor < 2
+        || second_factor < 2
+        || first_factor == second_factor
+        || first_coefficient == 0
+        || second_coefficient == 0
+        || first_coefficient == i64::MIN
+        || second_coefficient == i64::MIN
+    {
+        return None;
+    }
+    let first = evaluate_geometric_sum(base, modulus, first_factor)?;
+    let second = evaluate_geometric_sum(first.power_residue, modulus, second_factor)?;
+    let content = gcd(
+        first_coefficient.unsigned_abs(),
+        second_coefficient.unsigned_abs(),
+    );
+    let content_i64 = i64::try_from(content).ok()?;
+    let primitive_first_coefficient = first_coefficient / content_i64;
+    let primitive_second_coefficient = second_coefficient / content_i64;
+    let coefficient_residue = |value: i64| i128::from(value).rem_euclid(i128::from(modulus)) as u64;
+    let linear_combination = |left: i64, right: i64| {
+        add_mod(
+            mul_mod(coefficient_residue(left), first.sum_residue, modulus),
+            mul_mod(coefficient_residue(right), second.sum_residue, modulus),
+            modulus,
+        )
+    };
+    let aggregate_residue = linear_combination(first_coefficient, second_coefficient);
+    let primitive_aggregate_residue =
+        linear_combination(primitive_first_coefficient, primitive_second_coefficient);
+    if aggregate_residue != mul_mod(content % modulus, primitive_aggregate_residue, modulus) {
+        return None;
+    }
+    let status = |value: u64| {
+        if value == 1 {
+            GeometricDivisionStatus::Unit
+        } else if value < modulus {
+            GeometricDivisionStatus::ProperFactor
+        } else {
+            GeometricDivisionStatus::FullCollision
+        }
+    };
+    let content_gcd = gcd(content, modulus);
+    let prefix_status = status(first.sum_gcd);
+    let (rational_residue, primitive_rational_residue) = if first.sum_gcd == 1 {
+        let inverse = modular_inverse(first.sum_residue, modulus)?;
+        let ratio = mul_mod(second.sum_residue, inverse, modulus);
+        let rational = add_mod(
+            coefficient_residue(first_coefficient),
+            mul_mod(coefficient_residue(second_coefficient), ratio, modulus),
+            modulus,
+        );
+        let primitive_rational = add_mod(
+            coefficient_residue(primitive_first_coefficient),
+            mul_mod(
+                coefficient_residue(primitive_second_coefficient),
+                ratio,
+                modulus,
+            ),
+            modulus,
+        );
+        if aggregate_residue != mul_mod(first.sum_residue, rational, modulus)
+            || primitive_aggregate_residue
+                != mul_mod(first.sum_residue, primitive_rational, modulus)
+        {
+            return None;
+        }
+        (Some(rational), Some(primitive_rational))
+    } else {
+        (None, None)
+    };
+    let first_overlap_gcd = gcd(gcd(first.sum_residue, aggregate_residue), modulus);
+    let first_bound_residue = mul_mod(
+        second_coefficient.unsigned_abs() % modulus,
+        second_factor % modulus,
+        modulus,
+    );
+    let first_public_bound_gcd = gcd(first_bound_residue, modulus);
+    let second_overlap_gcd = gcd(gcd(second.sum_residue, aggregate_residue), modulus);
+    let second_bound_residue = mul_mod(
+        first_coefficient.unsigned_abs() % modulus,
+        second_factor % modulus,
+        modulus,
+    );
+    let second_public_bound_gcd = gcd(second_bound_residue, modulus);
+    if first_public_bound_gcd % first_overlap_gcd != 0
+        || second_public_bound_gcd % second_overlap_gcd != 0
+    {
+        return None;
+    }
+    Some(RationalResidueAuditEvaluation {
+        first_factor,
+        second_factor,
+        first_coefficient,
+        second_coefficient,
+        content,
+        primitive_first_coefficient,
+        primitive_second_coefficient,
+        content_gcd,
+        content_status: status(content_gcd),
+        first_quotient_residue: first.sum_residue,
+        second_quotient_residue: second.sum_residue,
+        first_quotient_gcd: first.sum_gcd,
+        second_quotient_gcd: second.sum_gcd,
+        aggregate_residue,
+        aggregate_gcd: gcd(aggregate_residue, modulus),
+        primitive_aggregate_residue,
+        primitive_aggregate_gcd: gcd(primitive_aggregate_residue, modulus),
+        prefix_status,
+        rational_residue,
+        rational_gcd: rational_residue.map(|value| gcd(value, modulus)),
+        primitive_rational_residue,
+        primitive_rational_gcd: primitive_rational_residue.map(|value| gcd(value, modulus)),
+        first_overlap_gcd,
+        first_public_bound_gcd,
+        second_overlap_gcd,
+        second_public_bound_gcd,
+        first_resultant_base: u128::from(second_coefficient.unsigned_abs())
+            .checked_mul(u128::from(second_factor))?,
+        first_resultant_exponent: first_factor - 1,
+        second_resultant_coefficient_base: first_coefficient.unsigned_abs(),
+        second_resultant_coefficient_exponent: first_factor.checked_mul(second_factor - 1)?,
+        second_resultant_stage_base: second_factor,
+        second_resultant_stage_exponent: first_factor - 1,
+    })
+}
+
 /// Return `ceil(log2(exponent))`, the generic multiplication growth lower bound.
 pub fn generic_multiplication_lower_bound(exponent: u64) -> Option<u32> {
     if exponent == 0 {
@@ -1786,6 +1959,34 @@ mod tests {
         );
         assert_eq!(full.aggregate_gcd, full.public_full_gcd);
         assert_eq!(evaluate_unequal_signed_reduction(2, 9, 3, 3, -1, 1), None);
+    }
+
+    #[test]
+    fn rational_residue_audit_isolates_content_and_stage_overlap() {
+        let phi4 = evaluate_rational_residue_audit(2, 55, 3, 7, 1, 1).expect("valid Phi_4 witness");
+        assert_eq!(phi4.first_quotient_gcd, 1);
+        assert_eq!(phi4.second_quotient_gcd, 1);
+        assert_eq!(phi4.aggregate_gcd, 5);
+        assert_eq!(phi4.rational_gcd, Some(5));
+        assert_eq!(phi4.first_public_bound_gcd, 1);
+        assert_eq!(phi4.second_public_bound_gcd, 1);
+
+        let proper_content =
+            evaluate_rational_residue_audit(2, 55, 3, 7, 5, 10).expect("valid proper-content path");
+        assert_eq!(proper_content.content_gcd, 5);
+        assert_eq!(
+            proper_content.content_status,
+            GeometricDivisionStatus::ProperFactor
+        );
+        assert_eq!(proper_content.primitive_aggregate_gcd, 1);
+
+        let full_content =
+            evaluate_rational_residue_audit(2, 5, 3, 7, 5, 10).expect("valid full-content path");
+        assert_eq!(
+            full_content.content_status,
+            GeometricDivisionStatus::FullCollision
+        );
+        assert_eq!(full_content.aggregate_gcd, 5);
     }
 
     #[test]
