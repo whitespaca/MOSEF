@@ -61,8 +61,10 @@
 - The validated M29 implementation, proof, experiment, bilingual manuscript,
   and publication-policy changes are commit
   `bb7f3d794d31ab9e1908bd3e672dfa64f8a4e73a`.
-- Draft PR #37 stacks M29 on the validated M28 completion branch:
-  `https://github.com/whitespaca/MOSEF/pull/37`.
+- M29 start PR #37 was merged into its M28 base before the validated result
+  commits. Completion Draft PR #38 therefore targets `main` and carries the
+  complete M29 result:
+  `https://github.com/whitespaca/MOSEF/pull/38`.
 - Next selected milestone: M30 will determine the exact injectivity criterion
   and minimum candidate count for multi-candidate compact prime signatures
   before proposing any concrete parameter schedule.
