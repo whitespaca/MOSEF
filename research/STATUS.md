@@ -9,8 +9,8 @@
   coefficients \((2,1)\), add extraction power beyond direct GCDs with
   their small cyclotomic polynomials?
 - Dependency: M25 is complete on
-  `research/20260727-m25-rational-root-orbits`; Draft PR #28 records the
-  M25 stack.
+  `research/20260727-m25-rational-root-orbits`; Draft PR #29 targets
+  `main`.
 - First bounded task: divide each exceptional signed numerator exactly by
   its fixed cyclotomic factor, retain the quotient as an explicit cofactor,
   and test whether a proper aggregate GCD can survive when the cyclotomic
@@ -67,8 +67,9 @@
   `76800e665ea6cf92d9e367bb937974c6c5ecfb4afb73f00d42aeb7194879cbd5`.
 - The validated M25 core is commit
   `5cbfb614f886c82e41353f905bd1cb958dd764c5`.
-- Draft PR #28 stacks M25 on the M24 branch:
-  `https://github.com/whitespaca/MOSEF/pull/28`.
+- Draft PR #29 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/29`. The earlier M25 start PR
+  #28 is merged.
 - Scope: the theorem classifies one unequal depth-two root-of-unity ratio.
   It proves no schedule, success probability, density, general factoring
   result, or general arithmetic-circuit lower bound.
