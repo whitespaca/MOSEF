@@ -13,6 +13,8 @@
   `https://github.com/whitespaca/MOSEF/pull/34`.
 - Base checkpoint: M28 starts from the M27 completion-PR status commit
   `dc2607f1d83dca78b7fe66a5f1fbda09e0b391b0`.
+- Draft PR #35 stacks M28 on the validated M27 completion branch:
+  `https://github.com/whitespaca/MOSEF/pull/35`.
 - First bounded task: formalize the quantifier order for schedules
   \(\mathcal S_m\), charge every generated parameter, base, compact
   cofactor evaluation, GCD, and output bit, then derive the strongest
