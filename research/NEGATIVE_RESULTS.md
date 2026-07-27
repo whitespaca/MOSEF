@@ -543,3 +543,25 @@
   factoring result, or general circuit lower bound follows.
 - Revisit by classifying when the root-of-unity ratio
   \(-Q_2(\zeta)/Q_1(\zeta)\) is rational for primitive coefficient pairs.
+
+## NR-022 - The conjugation phase condition is not sufficient
+
+- Date: 2026-07-27.
+- Status: `REFUTED` claim `REF-021`.
+- Hypothesis tested: outside both stage zero sets,
+  \(n\mid A(B-2)+1\) is sufficient for
+  \(-Q_2(\zeta)/Q_1(\zeta)\) to be rational at primitive order \(n\).
+- Minimized obstruction: \((A,B,n)=(2,4,5)\) has phase order five and
+  neither stage vanishes, but exact reduction modulo \(\Phi_5\) gives an
+  irrational ratio; in the real embedding it is
+  \((1+\sqrt5)/2\).
+- Positive boundary: THM-003 proves the phase condition is necessary and
+  supplements it with the cyclotomic norm restriction. The complete
+  rational list is the common-step family, the \(\Phi_4\) family with ratio
+  one, and the \(\Phi_6\) family with ratio two.
+- Evidence: EXP-0024 found 1,913 phase-only irrational orders and zero
+  classification failures across 228,338 exact orbit checks, with 24
+  Python/Rust/C# agreements.
+- Scope: one unequal depth-two signed numerator at roots of unity. The
+  obstruction and classification imply no density, schedule, universal
+  factoring theorem, or general-circuit lower bound.

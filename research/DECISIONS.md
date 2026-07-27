@@ -566,3 +566,22 @@
   boundary-only classification. M25 should study the rational
   root-of-unity ratio and its Galois-orbit restrictions before proposing any
   schedule-level theorem.
+
+## ADR-028 - Normalize the Galois orbit before enumerating orders
+
+- Date: 2026-07-27.
+- Decision: classify a requested primitive order through conjugation,
+  normalize \(A\) by its inverse modulo \(n\), and apply the norm of
+  \((1-\zeta^k)/(1-\zeta)\). Retain the complete order set as the compact
+  common-step divisor descriptor plus fixed exceptional orders four and six.
+- Rationale: the necessary phase congruence has many irrational solutions;
+  \((A,B,n)=(2,4,5)\) is the first. Exact norms turn the rational value into
+  a nonnegative integer and eliminate every apparent wider family without
+  extrapolating from finite enumeration.
+- Cost accounting: requested-order recognition uses only GCDs and modular
+  reductions in the binary inputs. Listing divisors of
+  \(\gcd(A-1,B-1)\), factoring that integer, or expanding cyclotomic and
+  numerator polynomials is charged separately by actual work and output.
+- Consequence: THM-003 completely classifies rational orders in the M25
+  model. M26 should test whether the two fixed exceptional polynomials add
+  any algorithmic content beyond direct small-cyclotomic GCDs.

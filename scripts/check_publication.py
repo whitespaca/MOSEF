@@ -47,6 +47,7 @@ REQUIRED_SECTIONS = (
     "A symmetric signed-difference reduction",
     "An unequal signed-form reduction",
     "Primitive rational residues and exceptional cyclotomic factors",
+    "A complete rational root-orbit classification",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -79,6 +80,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-017}",
     r"\label{proof:BAR-018}",
     r"\label{proof:BAR-019}",
+    r"\label{proof:THM-003}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -116,6 +118,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0023-m24-rational-residue-audit.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0024-m25-rational-root-orbits.md",
 )
 
 
