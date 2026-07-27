@@ -1,32 +1,64 @@
 # Research Status
 
-## M23 execution snapshot
+## M23 outcome
 
 - Date: 2026-07-27.
 - Branch: `research/20260727-m23-unequal-signed-reduction`.
-- Active question: do unequal depth-two factors or general public coefficient
-  pairs admit a compact algebraic reduction of signed quotient-stage success?
-- Dependency: M22 is complete on
-  `research/20260727-m22-symmetric-difference`; Draft PR #23 targets `main`.
-- Publication: M23 start commit
-  `3bbf51b647b1b7aac67c31bf4a3b3fd011adf3e4` is pushed. Draft PR #24 is
-  stacked on the M22 branch:
-  `https://github.com/whitespaca/MOSEF/pull/24`.
-- First bounded task: compute exact formal polynomial GCD and divisibility
-  patterns for
+- Completed milestone: M23, unequal depth-two factors and arbitrary nonzero
+  public coefficient pairs.
+- `DEF-023` retains both stages, every GCD, the total first-prefix
+  unit/proper/full reduction, the normalized difference, its common-step
+  factor, residual cofactor, extraction, and requested formal output.
+- `BAR-018` is `PROVED`. The stage polynomials are coprime over
+  \(\mathbb Q[X]\), their resultant is \(B^{A-1}\), and every integer common
+  stage divisor divides \(B\). A unit first prefix reduces the signed form to
+  one rational residue, a proper prefix already factors \(N\), and a full
+  prefix reduces it to public \(c_2B\).
+- For \(h=\gcd(A-1,B-1)\), the normalized difference factors as
   \[
-  c_1S_A(X)+c_2S_B(X^A)
+  S_B(X^A)-S_A(X)=XS_h(X)C_{A,B}(X).
   \]
-  over small unequal \(A,B\) and signed public coefficient pairs before
-  proposing any theorem.
-- Falsification priority: search for pairs having no shared endpoint or
-  cyclotomic factor yet producing new proper GCDs on repeated-prime and
-  square-free moduli. Any pattern inferred from finite enumeration remains
-  `EMPIRICAL` until an exact proof is recorded.
-- Acceptance target: an exact unequal-factor/coefficient grammar, polynomial
-  GCD or divisibility classification, total residue/valuation/construction/
-  extraction/formal-output accounting, independent implementation, and
-  adversarial review; a minimized obstruction is an acceptable outcome.
+  Its polynomial GCD with either natural endpoint is exactly \(S_h\), and
+  prime-power valuations split exactly between the common factor and
+  cofactor.
+- `REF-019` is `REFUTED`, and NR-020 preserves the residual obstruction.
+  At \((N,g,A,B)=(25,3,3,2)\), both stages and the natural common factor are
+  units, but the residual cofactor and rational reduction both expose the
+  proper factor \(5\). The proper common-factor path is independently
+  realized at \((9,2,5,7)\).
+- EXP-0022 checked 42 stage coprimality/Bezout identities, 42 common-step
+  factorizations, 84 endpoint polynomial GCDs, 672 boundary conditions,
+  794,976 signed evaluations, 49,686 normalized differences, and 78,792
+  prime-power valuations. All 11,256 proper differences followed a proved
+  path, with zero unexplained failures and 12 selected Python/Rust/C#
+  agreements. Canonical summary SHA-256:
+  `88f103f7a18681abb357cccd4b77f0086f1a7bf165b5e31537c744a2c23d3e04`.
+- Full gates passed: foundation and publication consistency (96 claims and 21
+  experiment hashes), 167 Python tests and bytecode compilation, Rust
+  formatting/Clippy/29 tests, C# Release build with zero warnings or errors,
+  58 baseline comparisons, the registered EXP-0022 rerun, and the 12-check
+  M23 differential validator. Optional pytest, Ruff, and mypy remain
+  unavailable under BLK-003.
+- XeLaTeX converged with no warnings, undefined references or citations, or
+  overfull/underfull boxes. All 57 pages were rendered and visually
+  inspected. Stable PDF: `output/pdf/mosef-paper.pdf`, SHA-256
+  `69186d8eddba2c483693f9ec113962ce2b8d8b47215a1ba6044ad96a3c3d22d2`.
+- The validated M23 core is commit
+  `a2455e805ee3b850f0f7c61d9a521bc90d5773e9`.
+- Scope: BAR-018 isolates but does not classify the surviving unit-prefix
+  rational residue. It proves no universal schedule, recognizer, density,
+  probability, general factoring, or broader-circuit theorem.
+- Next action: M24 computes primitive-numerator resultants and cyclotomic
+  factors for that rational residue before proposing a theorem.
+
+### M23 Korean summary
+
+M23은 서로 다른 두 기하급수 단계의 일반 signed 결합을 정확히
+축약했습니다. 첫 단계가 단위이면 하나의 유리 잔여식만 남고, proper이면
+이미 인수를 얻으며, full이면 공개값 \(c_2B\)로 줄어듭니다. 정규화된
+차이는 \(XS_{\gcd(A-1,B-1)}\)를 정확히 인수로 가지지만, \(N=25\)
+반례는 그 인자가 단위여도 남은 cofactor가 인수 5를 드러낼 수 있음을
+보입니다. 따라서 M24는 이 남은 유리 잔여식을 조사합니다.
 
 ## M22 outcome
 
