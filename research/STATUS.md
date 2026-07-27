@@ -11,6 +11,8 @@
 - Dependency: M25 is complete on
   `research/20260727-m25-rational-root-orbits`; Draft PR #29 targets
   `main`.
+- Base checkpoint: M26 starts from M25 completion-status commit
+  `3d0b15def4ba86d022bb770e298f76186503610e`.
 - First bounded task: divide each exceptional signed numerator exactly by
   its fixed cyclotomic factor, retain the quotient as an explicit cofactor,
   and test whether a proper aggregate GCD can survive when the cyclotomic
