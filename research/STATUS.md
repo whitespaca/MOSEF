@@ -65,6 +65,10 @@
   citations, or overfull/underfull boxes. All 62 pages were rendered and
   visually inspected. Stable PDF: `output/pdf/mosef-paper.pdf`, SHA-256
   `76800e665ea6cf92d9e367bb937974c6c5ecfb4afb73f00d42aeb7194879cbd5`.
+- The validated M25 core is commit
+  `5cbfb614f886c82e41353f905bd1cb958dd764c5`.
+- Draft PR #28 stacks M25 on the M24 branch:
+  `https://github.com/whitespaca/MOSEF/pull/28`.
 - Scope: the theorem classifies one unequal depth-two root-of-unity ratio.
   It proves no schedule, success probability, density, general factoring
   result, or general arithmetic-circuit lower bound.
