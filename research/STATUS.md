@@ -35,6 +35,9 @@
   conclusion, full proof, reproduction commands, and references passed
   visual inspection. Stable PDF: `output/pdf/mosef-paper.pdf`, SHA-256
   `da9349fb7a7e18dc160542acfa85387d47ad5998ab7fd838e0dc9d418a07c7b6`.
+- The validated M28 implementation, proof, experiment, manuscript, and
+  quality-gate updates are commit
+  `285e6a6d767b406c0b8aad86725e20f2b95f77bb`.
 - Draft PR #35 stacks M28 on the validated M27 completion branch:
   `https://github.com/whitespaca/MOSEF/pull/35`.
 - Next selected milestone: M29 will study the distinct balanced-prime support
