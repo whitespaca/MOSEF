@@ -38,8 +38,11 @@
 - The validated M28 implementation, proof, experiment, manuscript, and
   quality-gate updates are commit
   `285e6a6d767b406c0b8aad86725e20f2b95f77bb`.
-- Draft PR #35 stacks M28 on the validated M27 completion branch:
-  `https://github.com/whitespaca/MOSEF/pull/35`.
+- M28 start PR #35 was merged into its stacked M27 base before the result
+  commits, and that base was later removed from the remote. Completion Draft
+  PR #36 therefore targets `main` and carries the unmerged M27 completion
+  together with M28:
+  `https://github.com/whitespaca/MOSEF/pull/36`.
 - Next selected milestone: M29 will study the distinct balanced-prime support
   of the compact family \(A=3,B=2^m+3,g=2\) directly, without materializing
   the exact cofactor or inferring support from magnitude.
