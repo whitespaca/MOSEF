@@ -43,7 +43,10 @@
   hashes, and page transitions found no clipping, overlap, or unreadable
   text. Stable artifacts are `output/pdf/mosef-paper.pdf` and
   `output/pdf/mosef-paper-ko.pdf`.
-- Completion commit, push, and Draft PR state are added after publication.
+- M30 proof/implementation core commit
+  `9b9b87092d8ba919fc539a43aeddb18d8269f45f` is pushed to the research
+  branch. Draft PR #40 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/40`.
 - Next selected milestone: M31 will define a factorization-independent
   diversified selector over exceptional families, bases, and parameters
   before searching for an injective compact schedule or scoped collision.
