@@ -12,6 +12,8 @@
 - Dependency: M24 is complete on
   `research/20260727-m24-rational-residue`; Draft PR #27 targets `main`:
   `https://github.com/whitespaca/MOSEF/pull/27`.
+- Draft PR #28 stacks M25 on the M24 branch:
+  `https://github.com/whitespaca/MOSEF/pull/28`.
 - First bounded task: enumerate exact rational ratios by cyclotomic order,
   quotient them by Galois orbits, and derive the conjugacy constraints that
   force a ratio to be fixed by every unit in
