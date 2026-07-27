@@ -5,14 +5,15 @@ use mosef_arithmetic::{
     evaluate_iterated_quotient, evaluate_lucas_separator_candidate,
     evaluate_multiplication_program, evaluate_nested_quotient, evaluate_product_dag,
     evaluate_quotient_linear_combination, evaluate_separator_candidate,
-    evaluate_symmetric_quotient_difference, generic_multiplication_lower_bound, is_prime, lucas_v,
-    mod_pow, perfect_power, pollard_p_minus_one, pollard_p_plus_one, pollard_rho,
-    semismooth_factor, semismooth_successful_residue_count, trial_division, BatchProductEvaluation,
-    CoverAnalysis, DyadicDivisionStatus, DyadicTelescopeEvaluation, GeometricDivisionStatus,
+    evaluate_symmetric_quotient_difference, evaluate_unequal_signed_reduction,
+    generic_multiplication_lower_bound, is_prime, lucas_v, mod_pow, perfect_power,
+    pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
+    semismooth_successful_residue_count, trial_division, BatchProductEvaluation, CoverAnalysis,
+    DyadicDivisionStatus, DyadicTelescopeEvaluation, GeometricDivisionStatus,
     GeometricSumEvaluation, IteratedQuotientEvaluation, LucasSeparatorOutcome,
     NestedQuotientEvaluation, ProductDagEvaluation, QuotientLinearCombinationEvaluation,
     SemismoothOutcome, SeparatorOutcome, SignedStraightLineEvaluation, StraightLineEvaluation,
-    SymmetricQuotientDifferenceEvaluation,
+    SymmetricQuotientDifferenceEvaluation, UnequalSignedReductionEvaluation,
 };
 use std::env;
 use std::process::ExitCode;
@@ -21,6 +22,13 @@ fn parse_u64(value: Option<String>, name: &str) -> Result<u64, String> {
     value
         .ok_or_else(|| format!("missing {name}"))?
         .parse::<u64>()
+        .map_err(|error| format!("invalid {name}: {error}"))
+}
+
+fn parse_i64(value: Option<String>, name: &str) -> Result<i64, String> {
+    value
+        .ok_or_else(|| format!("missing {name}"))?
+        .parse::<i64>()
         .map_err(|error| format!("invalid {name}: {error}"))
 }
 
@@ -473,6 +481,52 @@ fn display_symmetric_quotient_difference(value: SymmetricQuotientDifferenceEvalu
     )
 }
 
+fn display_unequal_signed_reduction(value: UnequalSignedReductionEvaluation) -> String {
+    let optional =
+        |item: Option<u64>| item.map_or_else(|| "none".to_owned(), |inner| inner.to_string());
+    format!(
+        concat!(
+            "first_factor:{}|second_factor:{}|first_coefficient:{}|second_coefficient:{}|",
+            "first_quotient:{}|second_quotient:{}|first_quotient_gcd:{}|",
+            "second_quotient_gcd:{}|aggregate:{}|aggregate_gcd:{}|prefix_status:{}|",
+            "rational:{}|rational_gcd:{}|public_full:{}|public_full_gcd:{}|",
+            "common_stage_gcd:{}|multiplier_gcd:{}|x_factor:{}|x_minus_one_factor:{}|",
+            "formal_degree:{}|collected_monomials:{}|common_step:{}|difference:{}|",
+            "difference_gcd:{}|common_factor:{}|common_factor_gcd:{}|",
+            "cofactor:{}|cofactor_gcd:{}|cofactor_degree:{}"
+        ),
+        value.first_factor,
+        value.second_factor,
+        value.first_coefficient,
+        value.second_coefficient,
+        value.first_quotient_residue,
+        value.second_quotient_residue,
+        value.first_quotient_gcd,
+        value.second_quotient_gcd,
+        value.aggregate_residue,
+        value.aggregate_gcd,
+        display_division_status(value.first_quotient_status),
+        optional(value.rational_reduction_residue),
+        optional(value.rational_reduction_gcd),
+        value.public_full_residue,
+        value.public_full_gcd,
+        value.common_stage_gcd,
+        value.multiplier_gcd,
+        value.has_x_factor,
+        value.has_x_minus_one_factor,
+        value.formal_degree,
+        value.collected_monomial_count,
+        value.common_step,
+        value.difference_residue,
+        value.difference_gcd,
+        value.common_factor_residue,
+        value.common_factor_gcd,
+        optional(value.difference_cofactor_residue),
+        optional(value.difference_cofactor_gcd),
+        value.difference_cofactor_degree,
+    )
+}
+
 fn run() -> Result<(), String> {
     let mut arguments = env::args().skip(1);
     let operation = arguments
@@ -785,6 +839,28 @@ fn run() -> Result<(), String> {
                             .to_owned()
                     },
                 )?,
+            )
+        }
+        "unequal-signed-reduction" => {
+            let base = parse_u64(arguments.next(), "base")?;
+            let modulus = parse_u64(arguments.next(), "modulus")?;
+            let first_factor = parse_u64(arguments.next(), "first_factor")?;
+            let second_factor = parse_u64(arguments.next(), "second_factor")?;
+            let first_coefficient = parse_i64(arguments.next(), "first_coefficient")?;
+            let second_coefficient = parse_i64(arguments.next(), "second_coefficient")?;
+            display_unequal_signed_reduction(
+                evaluate_unequal_signed_reduction(
+                    base,
+                    modulus,
+                    first_factor,
+                    second_factor,
+                    first_coefficient,
+                    second_coefficient,
+                )
+                .ok_or_else(|| {
+                    "base must be a unit, factors unequal and at least two, coefficients nonzero"
+                        .to_owned()
+                })?,
             )
         }
         "multiplication-lower-bound" => {

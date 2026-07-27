@@ -118,6 +118,12 @@ from .symmetric_quotient_difference import (
     evaluate_symmetric_quotient_difference,
     symmetric_cofactor_terms,
 )
+from .unequal_signed_reduction import (
+    UnequalSignedReductionEvaluation,
+    evaluate_unequal_signed_reduction,
+    unequal_difference_coefficients,
+    unequal_difference_cofactor_coefficients,
+)
 from .separator import (
     CandidateKind,
     CandidateOutcome,
@@ -174,6 +180,7 @@ __all__ = [
     "IteratedQuotientEvaluation",
     "QuotientLinearCombinationEvaluation",
     "SymmetricQuotientDifferenceEvaluation",
+    "UnequalSignedReductionEvaluation",
     "SemismoothAsymmetryWitness",
     "SemismoothFactor",
     "SemismoothWitness",
@@ -206,8 +213,11 @@ __all__ = [
     "evaluate_iterated_quotient",
     "evaluate_quotient_linear_combination",
     "evaluate_symmetric_quotient_difference",
+    "evaluate_unequal_signed_reduction",
     "expand_quotient_linear_combination",
     "symmetric_cofactor_terms",
+    "unequal_difference_coefficients",
+    "unequal_difference_cofactor_coefficients",
     "divisor_count",
     "exponent_bit_length",
     "factor_scale_divisor_bound",

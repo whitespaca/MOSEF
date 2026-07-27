@@ -490,3 +490,27 @@
   groups, and general arithmetic circuits remain open.
 - Revisit with the unequal depth-two signed difference before considering
   longer schedules.
+
+## NR-020 - The natural unequal common factor is not a complete explanation
+
+- Date: 2026-07-27.
+- Status: `REFUTED` claim `REF-019`.
+- Hypothesis tested: every proper GCD of
+  \(D_{A,B}(g)=S_B(g^A)-S_A(g)\) is already a proper GCD of
+  \(gS_{\gcd(A-1,B-1)}(g)\).
+- Counterexample: at \((N,g,A,B)=(25,3,3,2)\), the stage residues are
+  \(13,3\), the difference is \(15\), and its GCD is \(5\). The common step
+  is one, so the natural common factor is the unit \(3\). Unit division gives
+  residual cofactor \(5\bmod25\), and the independent rational-prefix
+  reduction gives the same residue.
+- Positive boundary: BAR-018 proves
+  \(D_{A,B}=XS_hC_{A,B}\), exact endpoint polynomial GCDs \(S_h\), and a
+  total common-factor trichotomy. The refutation concerns only completeness
+  of the natural factor, not that factorization.
+- Evidence: deterministic EXP-0022 found 7,848 proper unit-common-factor
+  cofactor cases and 3,408 proper common-factor cases, with zero unexplained
+  failures and 12 Python/Rust/C# agreements.
+- Scope: one unequal depth-two normalized difference. No success-rate,
+  recognition, universal schedule, density, general factoring, or
+  general-circuit claim follows.
+- Revisit by classifying the surviving unit-prefix rational residue.

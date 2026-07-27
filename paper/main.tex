@@ -34,7 +34,7 @@ each complete schedule cycle at a promised residual node. We also prove an
 exact Lucas root-count formula and use fresh uniform, independently
 parameterized Lucas values to obtain a second Las Vegas theorem on a
 hereditary \(p+1\)-asymmetry promise, with at least \(1/12\) split probability
-at a witness trial. We prove fifteen structural barriers. Divisor
+at a witness trial. We prove a sequence of structural barriers. Divisor
 coverage does not imply multiplicative-order separation; the exact missing
 condition is injectivity of divisibility signatures. A natural Lucas
 parameter map \(P=a+a^{-1}\) is also not an independent group channel:
@@ -108,6 +108,14 @@ signed difference factors exactly into an endpoint and a positive-coefficient
 cofactor. This yields a prime-power valuation sum and a total endpoint/cofactor
 GCD trichotomy; the first counterexample is an endpoint success, while a
 separate \(N=55\) example shows that the cofactor branch is genuine.
+For unequal factors and arbitrary nonzero public coefficients, the first
+stage gives a total reduction: a unit prefix leaves one rational residue, a
+proper prefix already factors \(N\), and a full prefix reduces the aggregate
+to a public coefficient times \(B\). The normalized unequal difference has
+the exact common factor \(XS_{\gcd(A-1,B-1)}(X)\), and its polynomial GCD
+with either natural endpoint is exactly that geometric sum. A repeated-prime
+witness shows that the residual cofactor can still expose a factor when the
+common factor is a unit.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -1557,6 +1565,61 @@ coefficients \((-1,1)\); it is neither a universal schedule nor a reduction
 for unequal factors or general signed forms. Appendix \ref{proof:BAR-017}
 gives the complete proof.
 
+\section{An unequal signed-form reduction}
+
+\claimstatus{DEF-023}{DEFINITION}. Let public \(A,B\ge2\) be unequal, let
+public \(c_1,c_2\ne0\), and define
+\[
+Q_1(X)=S_A(X),\quad Q_2(X)=S_B(X^A),\quad
+F(X)=c_1Q_1(X)+c_2Q_2(X).
+\]
+For the normalized difference put
+\[
+D_{A,B}(X)=Q_2(X)-Q_1(X),\qquad h=\gcd(A-1,B-1).
+\]
+Charge both geometric-sum evaluations, coefficient reductions, every
+retained residue and GCD, any unit inversion, extraction, and requested
+formal output.
+
+\claimstatus{BAR-018}{PROVED}. The stage polynomials satisfy
+\[
+Q_2(X)-B=(X-1)Q_1(X)\sum_{j=1}^{B-1}S_j(X^A).
+\]
+Hence they are coprime over \(\mathbb Q[X]\), their resultant is
+\(B^{A-1}\), and every integer common stage divisor divides \(B\).
+For \(L=Q_1(g)\), the signed aggregate has a total trichotomy. If \(L\) is a
+unit, then
+\[
+\gcd(F(g),N)
+=\gcd\!\left(c_1+c_2Q_2(g)L^{-1},N\right).
+\]
+A proper \(L\)-GCD already factors \(N\). A full \(L\)-collision forces
+\(g^A=1\), \(Q_2(g)=B\), and \(F(g)=c_2B\pmod N\).
+
+There is an integer polynomial \(C_{A,B}\) such that
+\[
+D_{A,B}(X)=XS_h(X)C_{A,B}(X),
+\]
+and the two natural endpoint GCDs are exact:
+\[
+\gcd_{\mathbb Q[X]}(D_{A,B},X^{A-1}-1)
+=\gcd_{\mathbb Q[X]}(D_{A,B},X^{B-1}-1)=S_h(X).
+\]
+Thus local valuations split between \(S_h(g)\) and \(C_{A,B}(g)\), and the
+common factor has total unit, proper, or full semantics.
+
+\claimstatus{REF-019}{REFUTED}. The common factor is not a complete
+explanation. At \((N,g,A,B)=(25,3,3,2)\), both stages \(13,3\) are units,
+the common factor is the unit \(3\), but
+\[
+D_{3,2}(3)=15,\qquad \gcd(15,25)=5.
+\]
+Unit division and the rational-prefix reduction both return \(5\bmod25\).
+Conversely, \((N,g,A,B)=(9,2,5,7)\) exercises the proper common-factor
+path. This classification leaves the surviving unit-prefix rational
+residue open and makes no universal schedule or general factoring claim.
+Appendix \ref{proof:BAR-018} gives the complete proof.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -1651,6 +1714,11 @@ claim \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+The unequal signed depth-two evaluator uses two binary geometric sums and
+\(O(\log A+\log B)\) modular operations. Its collected signed form has
+\(A+B-2\) or \(A+B-1\) monomials; the residual rational value remains outside
+BAR-018's classification.
 
 Binary modular exponentiation uses \(O(L(m))\) modular multiplications for an
 \(L(m)\)-bit exponent. A Lucas pair can likewise be evaluated by binary
@@ -1778,6 +1846,11 @@ component a unit; 12 differential checks \\
 \addlinespace
 EXP-0021 & \(2\le A\le24\); moduli/bases through \(128/16\) &
 43,148 prime-power valuation checks; 27,209 compact/expanded cofactor checks;
+zero unexplained failures; 12 differential checks \\
+\addlinespace
+EXP-0022 & Unequal \(2\le A,B\le8\); coefficients in
+\([-2,2]\setminus\{0\}\); moduli/bases through \(128/16\) &
+794,976 signed evaluations; 49,686 differences; 78,792 valuation checks;
 zero unexplained failures; 12 differential checks \\
 \bottomrule
 \end{tabular}
@@ -1954,6 +2027,17 @@ unexplained failures. These finite observations do not establish an
 asymptotic success rate, universal schedule, population, density,
 recognition, novelty, general factoring, or general-circuit lower bound.
 
+\claimstatus{EMP-022}{EMPIRICAL}. EXP-0022 completed 42 ordered unequal
+factor pairs, 42 stage Bezout and coprimality checks, 42 common-step
+factorizations, 84 endpoint polynomial-GCD checks, 672 boundary-factor
+checks, 794,976 signed evaluations, and 78,792 prime-power valuation checks.
+All 11,256 proper differences followed a proper common factor or a cofactor
+under a unit common factor. All 12 selected Python/Rust/C\# comparisons
+agreed, with zero unexplained failures. These finite observations do not
+classify the surviving rational residue or establish an asymptotic success
+rate, universal schedule, recognition, density, novelty, general factoring,
+or a general-circuit lower bound.
+
 These observations audit implementations and minimize counterexamples. The
 universal statements in this paper are supplied by proofs, not extrapolation
 from the table.
@@ -2084,6 +2168,14 @@ value rather than a hidden batch. Unequal factors, other coefficient pairs,
 longer chains, adaptive choices, and general signed arithmetic circuits
 remain outside.
 
+BAR-018 treats one unequal depth-two chain and arbitrary nonzero public
+coefficients. Its first-prefix trichotomy is total, and its normalized
+difference has an exact common-step factor and endpoint polynomial-GCD
+classification. The residual unit-prefix rational/cofactor value is real and
+is not classified by the theorem. Longer chains, adaptive coefficients,
+several interacting rational values, unrelated bases, other groups, and
+general signed arithmetic circuits remain outside.
+
 The authoritative Rust layer is bounded to \texttt{u64}; validation primality
 uses trial division and is not itself the polynomial-time procedure imported
 in EXT-001. The literature set is sufficient for the technical statements
@@ -2096,9 +2188,9 @@ outside BAR-008's explicit-list model has a proved factor-scale
 \(d\pm1\) yield guarantee, and whether a precisely defined specialized
 arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
 evaluate a sufficiently rich formal batch at polynomial total construction,
-evaluation, and extraction cost. The next bounded case is the unequal
-depth-two signed quotient difference, followed by general public coefficient
-pairs, with every coefficient, operation, output, and extraction path charged.
+evaluation, and extraction cost. The next bounded case is the surviving
+unit-prefix rational residue, starting with primitive coefficient pairs and
+exact numerator resultants or cyclotomic factors.
 
 \section{Conclusion}
 
@@ -2163,6 +2255,12 @@ the difference is the product of a unit base, the endpoint
 the endpoint gives a total extraction trichotomy. The \(N=9\) witness is an
 endpoint success, but \(N=55,g=2,A=3\) confirms that the unit-endpoint
 cofactor branch can independently expose a proper factor.
+BAR-018 extends the accounting to unequal factors and general public
+coefficients. The first prefix has a total rational/proper/public trichotomy,
+while the normalized difference factors through
+\(XS_{\gcd(A-1,B-1)}\). This natural factor is not complete: the \(N=25\)
+witness leaves it a unit and extracts factor \(5\) through the residual
+cofactor.
 
 These results do not resolve general classical factoring. They replace
 plausible shortcuts with exact obligations: recognizable or explicitly
@@ -2188,9 +2286,10 @@ BAR-015 permits a finite public quotient chain and product aggregation while
 retaining the same explicit exits. BAR-016 then proves that one charged
 cross-stage signed combination can create a genuinely new proper GCD.
 BAR-017 supplies the exact endpoint/cofactor valuation criterion for its
-symmetric repeated-factor subfamily. Unequal factors, general coefficient
-pairs, schedule-level usefulness, general rational/compositional circuits,
-and other models remain research targets, not claimed factoring
+symmetric repeated-factor subfamily, and BAR-018 supplies the unequal
+first-prefix and common-step reductions. Classification of the surviving
+rational residue, schedule-level usefulness, general rational/compositional
+circuits, and other models remain research targets, not claimed factoring
 breakthroughs.
 
 \appendix
@@ -3506,6 +3605,69 @@ For \(N=55,g=2,A=3\), the endpoint is \(3\), a unit, while
 \(H_3(2)=1+2+8=11\). Hence the difference GCD is \(11\), proving that the
 cofactor branch is nonempty. \(\square\)
 
+\section{Full proof of the unequal signed-form reduction}
+
+\subsection{Proof of BAR-018}\label{proof:BAR-018}
+
+Put \(Q_1=S_A(X)\) and \(Q_2=S_B(X^A)\). Since
+\[
+S_B(Y)-B=(Y-1)\sum_{j=1}^{B-1}S_j(Y),
+\]
+substitution \(Y=X^A\) and \(X^A-1=(X-1)S_A(X)\) give
+\[
+Q_2(X)-B=(X-1)Q_1(X)\sum_{j=1}^{B-1}S_j(X^A).
+\]
+Any common polynomial divisor of \(Q_1,Q_2\) therefore divides \(B\), so it
+is constant. At every root \(\zeta\) of the monic degree-\(A-1\) polynomial
+\(Q_1\), the displayed identity gives \(Q_2(\zeta)=B\). The root-product definition
+of the resultant gives
+\(\operatorname{Res}(Q_1,Q_2)=B^{A-1}\). Evaluating that identity at an integer
+\(g\) proves
+\[
+\gcd(Q_1(g),Q_2(g),N)\mid\gcd(B,N).
+\]
+
+Let \(L=Q_1(g)\), \(Q=Q_2(g)\), and
+\(F=c_1L+c_2Q\pmod N\). If \(L\) is a unit, then
+\[
+F=L(c_1+c_2QL^{-1})\pmod N,
+\]
+so the two displayed GCDs agree. A proper \(L\)-GCD is already a factor.
+If \(L=0\pmod N\), then
+\((g-1)L=g^A-1=0\pmod N\). Hence \(g^A=1\), \(Q=B\), and
+\(F=c_2B\pmod N\). This proves the total prefix trichotomy.
+
+Now let \(D=Q_2-Q_1\) and \(h=\gcd(A-1,B-1)\). The constant terms cancel,
+so \(X\mid D\). Let \(\zeta\ne1\) satisfy \(\zeta^{A-1}=1\). Then
+\(\zeta^A=\zeta\), \(S_A(\zeta)=1\), and
+\[
+D(\zeta)=S_B(\zeta)-1=\zeta S_{B-1}(\zeta).
+\]
+This vanishes exactly when \(\zeta^{B-1}=1\). Since
+\(D(1)=B-A\ne0\), the common roots with \(X^{A-1}-1\) are precisely the
+nontrivial \(h\)-th roots of unity. The endpoint is square-free, so
+\[
+\gcd_{\mathbb Q[X]}(D,X^{A-1}-1)=S_h(X).
+\]
+Interchanging \(A,B\) proves the second endpoint-GCD formula. Monic division
+then yields \(D=XS_hC_{A,B}\) with \(C_{A,B}\in\mathbb Z[X]\).
+
+For \(p^e\mid N\), the unit base has valuation zero, so
+\[
+\min\{e,v_p(D(g))\}
+=\min\{e,v_p(S_h(g))+v_p(C_{A,B}(g))\}.
+\]
+Applying this at every prime power proves the unit/proper/full common-factor
+trichotomy. In particular, unit division recovers the cofactor residue.
+
+Finally, \(F(0)=c_1+c_2\) and \(F(1)=c_1A+c_2B\), proving the two boundary
+factor conditions. They cannot both hold in the unequal nonzero-coefficient
+domain. The supports of \(Q_1\) and \(Q_2\) meet only at exponent zero, so
+the degree is \(A(B-1)\) and the collected monomial count is \(A+B-2\) when
+the constant cancels and \(A+B-1\) otherwise. The cofactor degree follows by
+subtracting the degrees of \(X\) and \(S_h\). The two registered witnesses
+establish that both residual paths are nonempty. \(\square\)
+
 \section{Reproduction appendix}
 
 The evidence implementation state preceding M6 is commit
@@ -3589,6 +3751,9 @@ The registered experiment cores and canonical summary hashes are:
 \item EXP-0021, M22 milestone commit recorded in \path{research/STATUS.md},
   hash
   \texttt{\seqsplit{637cfa34b777126206b269d16c5a3afb027b9d893a2bea00881e85efea8d4fe6}}.
+\item EXP-0022, M23 milestone commit recorded in \path{research/STATUS.md},
+  hash
+  \texttt{\seqsplit{88f103f7a18681abb357cccd4b77f0086f1a7bf165b5e31537c744a2c23d3e04}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -3679,6 +3844,10 @@ python scripts/check_m21_quotient_linear_combination_differential.py
 python scripts/run_m22_symmetric_quotient_difference_search.py `
   --exponent-max 24 --modulus-max 128 --base-max 16
 python scripts/check_m22_symmetric_quotient_difference_differential.py
+python scripts/run_m23_unequal_signed_reduction_search.py `
+  --factor-max 8 --coefficient-max 2 `
+  --modulus-max 128 --base-max 16
+python scripts/check_m23_unequal_signed_reduction_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -3690,7 +3859,7 @@ through EXP-0019 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. EXP-0020
-and EXP-0021 use the same deterministic finite-enumeration policy. The
+through EXP-0022 use the same deterministic finite-enumeration policy. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.
 
 \bibliographystyle{plain}
