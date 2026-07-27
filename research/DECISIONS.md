@@ -521,3 +521,25 @@
 - Consequence: BAR-017 classifies the symmetric family but does not close
   unequal factors or arbitrary coefficients. M23 should test whether those
   next cases admit any comparably compact factorization.
+
+## ADR-026 - Separate total prefix reduction from residual unequal extraction
+
+- Date: 2026-07-27.
+- Decision: for unequal depth-two factors, retain the general signed form's
+  total first-prefix trichotomy and analyze the normalized difference through
+  the exact common factor \(XS_{\gcd(A-1,B-1)}\).
+- Rationale: the general coefficient form always reduces to a proper prefix,
+  a public full-prefix value, or one unit-prefix rational residue. The
+  normalized difference has a provable natural factor, but the \(N=25\)
+  witness shows that its residual cofactor can still extract a factor.
+  Conflating these statements would falsely claim that the natural factor is
+  complete.
+- Cost accounting: charge two binary geometric-sum evaluators, signed
+  coefficient reductions, every GCD, any unit inversion, extraction, and
+  requested expanded coefficients. Compact residue evaluation is logarithmic
+  in the public factors; formal cofactor output is charged by its actual
+  degree and coefficient count.
+- Consequence: BAR-018 closes the total first-prefix semantics and exact
+  endpoint/common-step classification but leaves the surviving unit-prefix
+  rational residue open. M24 should classify that residue or produce a
+  sharper restricted obstruction.

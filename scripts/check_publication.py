@@ -45,6 +45,7 @@ REQUIRED_SECTIONS = (
     "An iterated geometric-quotient-chain barrier",
     "Signed aggregation separates from product-only iteration",
     "A symmetric signed-difference reduction",
+    "An unequal signed-form reduction",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -75,6 +76,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-015}",
     r"\label{proof:BAR-016}",
     r"\label{proof:BAR-017}",
+    r"\label{proof:BAR-018}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -104,6 +106,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0021-m22-symmetric-quotient-difference.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0022-m23-unequal-signed-reduction.md",
 )
 
 

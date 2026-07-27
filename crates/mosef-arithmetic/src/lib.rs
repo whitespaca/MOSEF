@@ -670,6 +670,40 @@ pub struct SymmetricQuotientDifferenceEvaluation {
     pub matrix_multiplication_count: u32,
 }
 
+/// General signed depth-two form and normalized unequal-difference reductions.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct UnequalSignedReductionEvaluation {
+    pub first_factor: u64,
+    pub second_factor: u64,
+    pub first_coefficient: i64,
+    pub second_coefficient: i64,
+    pub first_quotient_residue: u64,
+    pub second_quotient_residue: u64,
+    pub first_quotient_gcd: u64,
+    pub second_quotient_gcd: u64,
+    pub aggregate_residue: u64,
+    pub aggregate_gcd: u64,
+    pub first_quotient_status: GeometricDivisionStatus,
+    pub rational_reduction_residue: Option<u64>,
+    pub rational_reduction_gcd: Option<u64>,
+    pub public_full_residue: u64,
+    pub public_full_gcd: u64,
+    pub common_stage_gcd: u64,
+    pub multiplier_gcd: u64,
+    pub has_x_factor: bool,
+    pub has_x_minus_one_factor: bool,
+    pub formal_degree: u64,
+    pub collected_monomial_count: u64,
+    pub common_step: u64,
+    pub difference_residue: u64,
+    pub difference_gcd: u64,
+    pub common_factor_residue: u64,
+    pub common_factor_gcd: u64,
+    pub difference_cofactor_residue: Option<u64>,
+    pub difference_cofactor_gcd: Option<u64>,
+    pub difference_cofactor_degree: u64,
+}
+
 /// Evaluate nodes starting from `g`, with every later node multiplying two parents.
 pub fn evaluate_multiplication_program(
     base: u64,
@@ -1285,6 +1319,134 @@ pub fn evaluate_symmetric_quotient_difference(
     })
 }
 
+/// Evaluate an unequal depth-two signed form and its total rational reduction.
+pub fn evaluate_unequal_signed_reduction(
+    base: u64,
+    modulus: u64,
+    first_factor: u64,
+    second_factor: u64,
+    first_coefficient: i64,
+    second_coefficient: i64,
+) -> Option<UnequalSignedReductionEvaluation> {
+    if first_factor < 2
+        || second_factor < 2
+        || first_factor == second_factor
+        || first_coefficient == 0
+        || second_coefficient == 0
+    {
+        return None;
+    }
+    let first = evaluate_geometric_sum(base, modulus, first_factor)?;
+    let second = evaluate_geometric_sum(first.power_residue, modulus, second_factor)?;
+    let first_coefficient_residue =
+        i128::from(first_coefficient).rem_euclid(i128::from(modulus)) as u64;
+    let second_coefficient_residue =
+        i128::from(second_coefficient).rem_euclid(i128::from(modulus)) as u64;
+    let aggregate_residue = add_mod(
+        mul_mod(first_coefficient_residue, first.sum_residue, modulus),
+        mul_mod(second_coefficient_residue, second.sum_residue, modulus),
+        modulus,
+    );
+    let first_quotient_status = if first.sum_gcd == 1 {
+        GeometricDivisionStatus::Unit
+    } else if first.sum_gcd < modulus {
+        GeometricDivisionStatus::ProperFactor
+    } else {
+        GeometricDivisionStatus::FullCollision
+    };
+    let rational_reduction_residue = if first.sum_gcd == 1 {
+        let ratio = mul_mod(
+            second.sum_residue,
+            modular_inverse(first.sum_residue, modulus)?,
+            modulus,
+        );
+        let value = add_mod(
+            first_coefficient_residue,
+            mul_mod(second_coefficient_residue, ratio, modulus),
+            modulus,
+        );
+        if mul_mod(first.sum_residue, value, modulus) != aggregate_residue {
+            return None;
+        }
+        Some(value)
+    } else {
+        None
+    };
+    let public_full_residue = mul_mod(second_coefficient_residue, second_factor % modulus, modulus);
+    if first.sum_gcd == modulus
+        && (second.sum_residue != second_factor % modulus
+            || aggregate_residue != public_full_residue)
+    {
+        return None;
+    }
+    let common_stage_gcd = gcd(gcd(first.sum_residue, second.sum_residue), modulus);
+    let multiplier_gcd = gcd(second_factor, modulus);
+    if multiplier_gcd % common_stage_gcd != 0 {
+        return None;
+    }
+
+    let common_step = gcd(first_factor - 1, second_factor - 1);
+    let common_sum = evaluate_geometric_sum(base, modulus, common_step)?;
+    let reduced_base = base % modulus;
+    let common_factor_residue = mul_mod(reduced_base, common_sum.sum_residue, modulus);
+    let common_factor_gcd = gcd(common_factor_residue, modulus);
+    let difference_residue = if second.sum_residue >= first.sum_residue {
+        second.sum_residue - first.sum_residue
+    } else {
+        modulus - (first.sum_residue - second.sum_residue)
+    };
+    let difference_cofactor_residue = if common_factor_gcd == 1 {
+        Some(mul_mod(
+            difference_residue,
+            modular_inverse(common_factor_residue, modulus)?,
+            modulus,
+        ))
+    } else {
+        None
+    };
+
+    let formal_at_one = i128::from(first_coefficient)
+        .checked_mul(i128::from(first_factor))?
+        .checked_add(i128::from(second_coefficient).checked_mul(i128::from(second_factor))?)?;
+    let coefficient_sum = i128::from(first_coefficient) + i128::from(second_coefficient);
+    let formal_degree = first_factor.checked_mul(second_factor - 1)?;
+    let collected_monomial_count = first_factor
+        .checked_add(second_factor)?
+        .checked_sub(if coefficient_sum == 0 { 2 } else { 1 })?;
+    let difference_cofactor_degree = formal_degree.checked_sub(common_step)?.checked_sub(1)?;
+    Some(UnequalSignedReductionEvaluation {
+        first_factor,
+        second_factor,
+        first_coefficient,
+        second_coefficient,
+        first_quotient_residue: first.sum_residue,
+        second_quotient_residue: second.sum_residue,
+        first_quotient_gcd: first.sum_gcd,
+        second_quotient_gcd: second.sum_gcd,
+        aggregate_residue,
+        aggregate_gcd: gcd(aggregate_residue, modulus),
+        first_quotient_status,
+        rational_reduction_residue,
+        rational_reduction_gcd: rational_reduction_residue.map(|value| gcd(value, modulus)),
+        public_full_residue,
+        public_full_gcd: gcd(public_full_residue, modulus),
+        common_stage_gcd,
+        multiplier_gcd,
+        has_x_factor: coefficient_sum == 0,
+        has_x_minus_one_factor: formal_at_one == 0,
+        formal_degree,
+        collected_monomial_count,
+        common_step,
+        difference_residue,
+        difference_gcd: gcd(difference_residue, modulus),
+        common_factor_residue,
+        common_factor_gcd,
+        difference_cofactor_residue,
+        difference_cofactor_gcd: difference_cofactor_residue.map(|value| gcd(value, modulus)),
+        difference_cofactor_degree,
+    })
+}
+
 /// Return `ceil(log2(exponent))`, the generic multiplication growth lower bound.
 pub fn generic_multiplication_lower_bound(exponent: u64) -> Option<u32> {
     if exponent == 0 {
@@ -1587,6 +1749,43 @@ mod tests {
 
         assert_eq!(evaluate_symmetric_quotient_difference(2, 9, 1), None);
         assert_eq!(evaluate_symmetric_quotient_difference(3, 9, 5), None);
+    }
+
+    #[test]
+    fn unequal_signed_reduction_has_total_prefix_and_difference_paths() {
+        let cofactor =
+            evaluate_unequal_signed_reduction(3, 25, 3, 2, -1, 1).expect("valid unequal reduction");
+        assert_eq!(cofactor.first_quotient_residue, 13);
+        assert_eq!(cofactor.second_quotient_residue, 3);
+        assert_eq!(cofactor.aggregate_gcd, 5);
+        assert_eq!(cofactor.rational_reduction_residue, Some(5));
+        assert_eq!(cofactor.rational_reduction_gcd, Some(5));
+        assert_eq!(cofactor.common_step, 1);
+        assert_eq!(cofactor.common_factor_gcd, 1);
+        assert_eq!(cofactor.difference_cofactor_gcd, Some(5));
+
+        let common =
+            evaluate_unequal_signed_reduction(2, 9, 5, 7, -1, 1).expect("valid common-step path");
+        assert_eq!(common.common_step, 2);
+        assert_eq!(common.common_factor_gcd, 3);
+        assert_eq!(common.difference_gcd, 3);
+
+        let proper = evaluate_unequal_signed_reduction(2, 15, 2, 3, 1, -1)
+            .expect("valid proper-prefix path");
+        assert_eq!(
+            proper.first_quotient_status,
+            GeometricDivisionStatus::ProperFactor
+        );
+        assert_eq!(proper.first_quotient_gcd, 3);
+
+        let full =
+            evaluate_unequal_signed_reduction(2, 15, 4, 5, 1, 2).expect("valid full-prefix path");
+        assert_eq!(
+            full.first_quotient_status,
+            GeometricDivisionStatus::FullCollision
+        );
+        assert_eq!(full.aggregate_gcd, full.public_full_gcd);
+        assert_eq!(evaluate_unequal_signed_reduction(2, 9, 3, 3, -1, 1), None);
     }
 
     #[test]

@@ -84,6 +84,8 @@ internal static class Program
                 RunQuotientLinearCombination(args),
             "symmetric-quotient-difference" when args.Length == 4 =>
                 RunSymmetricQuotientDifference(args),
+            "unequal-signed-reduction" when args.Length == 7 =>
+                RunUnequalSignedReduction(args),
             "multiplication-lower-bound" when args.Length == 2 =>
                 RunMultiplicationLowerBound(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
@@ -979,6 +981,143 @@ internal static class Program
             + $"cofactor_monomials:{exponent * (exponent - 1) / 2}|"
             + $"cofactor_degree:{exponent * (exponent - 2)}|"
             + $"matrix_multiplications:{matrixCount}";
+    }
+
+    private static string RunUnequalSignedReduction(string[] args)
+    {
+        BigInteger value = Parse(args, 1, "base");
+        BigInteger modulus = Parse(args, 2, "modulus");
+        BigInteger firstFactor = Parse(args, 3, "first_factor");
+        BigInteger secondFactor = Parse(args, 4, "second_factor");
+        BigInteger firstCoefficient = Parse(args, 5, "first_coefficient");
+        BigInteger secondCoefficient = Parse(args, 6, "second_coefficient");
+        if (
+            modulus < 2
+            || firstFactor < 2
+            || secondFactor < 2
+            || firstFactor == secondFactor
+            || firstCoefficient == 0
+            || secondCoefficient == 0
+        )
+        {
+            throw new ArgumentException("invalid unequal signed-reduction domain");
+        }
+        BigInteger reducedBase = ((value % modulus) + modulus) % modulus;
+        (BigInteger firstPower, BigInteger firstQuotient) = GeometricPair(
+            reducedBase,
+            modulus,
+            firstFactor
+        );
+        (_, BigInteger secondQuotient) = GeometricPair(
+            firstPower,
+            modulus,
+            secondFactor
+        );
+        BigInteger firstCoefficientResidue = (
+            (firstCoefficient % modulus) + modulus
+        ) % modulus;
+        BigInteger secondCoefficientResidue = (
+            (secondCoefficient % modulus) + modulus
+        ) % modulus;
+        BigInteger aggregate = (
+            firstCoefficientResidue * firstQuotient
+            + secondCoefficientResidue * secondQuotient
+        ) % modulus;
+        BigInteger firstGcd = Gcd(firstQuotient, modulus);
+        string prefixStatus = firstGcd == 1
+            ? "unit"
+            : firstGcd < modulus ? "proper_factor" : "full_collision";
+        string rational = "none";
+        string rationalGcd = "none";
+        if (firstGcd == 1)
+        {
+            BigInteger rationalResidue = (
+                firstCoefficientResidue
+                + secondCoefficientResidue
+                    * secondQuotient
+                    * ModularInverse(firstQuotient, modulus)
+            ) % modulus;
+            if (aggregate != firstQuotient * rationalResidue % modulus)
+            {
+                throw new ArgumentException("unit-prefix rational reduction failed");
+            }
+            rational = rationalResidue.ToString();
+            rationalGcd = Gcd(rationalResidue, modulus).ToString();
+        }
+        BigInteger publicFull = (
+            secondCoefficientResidue * (secondFactor % modulus)
+        ) % modulus;
+        if (
+            firstGcd == modulus
+            && (
+                secondQuotient != secondFactor % modulus
+                || aggregate != publicFull
+            )
+        )
+        {
+            throw new ArgumentException("full-prefix public reduction failed");
+        }
+
+        BigInteger commonStageGcd = Gcd(
+            Gcd(firstQuotient, secondQuotient),
+            modulus
+        );
+        BigInteger multiplierGcd = Gcd(secondFactor, modulus);
+        if (multiplierGcd % commonStageGcd != 0)
+        {
+            throw new ArgumentException("common stage divisor did not divide multiplier");
+        }
+
+        BigInteger commonStep = Gcd(firstFactor - 1, secondFactor - 1);
+        (_, BigInteger commonSum) = GeometricPair(
+            reducedBase,
+            modulus,
+            commonStep
+        );
+        BigInteger commonFactor = reducedBase * commonSum % modulus;
+        BigInteger commonFactorGcd = Gcd(commonFactor, modulus);
+        BigInteger difference = (
+            secondQuotient - firstQuotient + modulus
+        ) % modulus;
+        string cofactor = "none";
+        string cofactorGcd = "none";
+        if (commonFactorGcd == 1)
+        {
+            BigInteger cofactorResidue = (
+                difference * ModularInverse(commonFactor, modulus)
+            ) % modulus;
+            cofactor = cofactorResidue.ToString();
+            cofactorGcd = Gcd(cofactorResidue, modulus).ToString();
+        }
+
+        bool hasXFactor = firstCoefficient + secondCoefficient == 0;
+        bool hasXMinusOneFactor = (
+            firstCoefficient * firstFactor
+            + secondCoefficient * secondFactor
+            == 0
+        );
+        BigInteger formalDegree = firstFactor * (secondFactor - 1);
+        BigInteger collectedMonomials = firstFactor + secondFactor
+            - (hasXFactor ? 2 : 1);
+        BigInteger cofactorDegree = formalDegree - commonStep - 1;
+        return $"first_factor:{firstFactor}|second_factor:{secondFactor}|"
+            + $"first_coefficient:{firstCoefficient}|second_coefficient:{secondCoefficient}|"
+            + $"first_quotient:{firstQuotient}|second_quotient:{secondQuotient}|"
+            + $"first_quotient_gcd:{firstGcd}|"
+            + $"second_quotient_gcd:{Gcd(secondQuotient, modulus)}|"
+            + $"aggregate:{aggregate}|aggregate_gcd:{Gcd(aggregate, modulus)}|"
+            + $"prefix_status:{prefixStatus}|rational:{rational}|"
+            + $"rational_gcd:{rationalGcd}|public_full:{publicFull}|"
+            + $"public_full_gcd:{Gcd(publicFull, modulus)}|"
+            + $"common_stage_gcd:{commonStageGcd}|multiplier_gcd:{multiplierGcd}|"
+            + $"x_factor:{hasXFactor.ToString().ToLowerInvariant()}|"
+            + $"x_minus_one_factor:{hasXMinusOneFactor.ToString().ToLowerInvariant()}|"
+            + $"formal_degree:{formalDegree}|collected_monomials:{collectedMonomials}|"
+            + $"common_step:{commonStep}|difference:{difference}|"
+            + $"difference_gcd:{Gcd(difference, modulus)}|"
+            + $"common_factor:{commonFactor}|common_factor_gcd:{commonFactorGcd}|"
+            + $"cofactor:{cofactor}|cofactor_gcd:{cofactorGcd}|"
+            + $"cofactor_degree:{cofactorDegree}";
     }
 
     private static string RunMultiplicationLowerBound(string[] args)

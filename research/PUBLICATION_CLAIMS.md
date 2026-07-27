@@ -99,3 +99,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-017 | PROVED | Exact symmetric quotient-difference valuation reduction | `research/proofs/BAR-017-symmetric-quotient-difference.md` |
 | REF-018 | REFUTED | Symmetric difference as an unclassified extraction mechanism | `research/NEGATIVE_RESULTS.md` NR-019 |
 | EMP-021 | EMPIRICAL | Bounded symmetric quotient-difference audit | `research/experiments/EXP-0021-m22-symmetric-quotient-difference.md` |
+| DEF-023 | DEFINITION | Charged unequal depth-two signed-reduction model | `research/proofs/BAR-018-unequal-signed-reduction.md` |
+| BAR-018 | PROVED | Exact unequal signed prefix and common-step reduction | `research/proofs/BAR-018-unequal-signed-reduction.md` |
+| REF-019 | REFUTED | Natural common factor as a complete unequal-difference explanation | `research/NEGATIVE_RESULTS.md` NR-020 |
+| EMP-022 | EMPIRICAL | Bounded unequal signed-reduction audit | `research/experiments/EXP-0022-m23-unequal-signed-reduction.md` |
