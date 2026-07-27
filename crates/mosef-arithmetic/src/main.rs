@@ -1,9 +1,9 @@
 use mosef_arithmetic::{
     analyze_divisor_cover, batch_gcd, classify_rational_root_orbit, combined_promise_asymmetry,
     combined_promise_hit_count, combined_promise_signature, compact_phi4_prime_profile,
-    divisor_count, evaluate_addition_subtraction_program, evaluate_batch_product,
-    evaluate_dyadic_telescope, evaluate_exceptional_cyclotomic, evaluate_geometric_sum,
-    evaluate_iterated_quotient, evaluate_lucas_separator_candidate,
+    compact_phi4_signature, divisor_count, evaluate_addition_subtraction_program,
+    evaluate_batch_product, evaluate_dyadic_telescope, evaluate_exceptional_cyclotomic,
+    evaluate_geometric_sum, evaluate_iterated_quotient, evaluate_lucas_separator_candidate,
     evaluate_multiplication_program, evaluate_nested_quotient, evaluate_product_dag,
     evaluate_quotient_linear_combination, evaluate_rational_residue_audit,
     evaluate_separator_candidate, evaluate_symmetric_quotient_difference,
@@ -1172,6 +1172,34 @@ fn run() -> Result<(), String> {
                 compact_phi4_prime_profile(level, prime).ok_or_else(|| {
                     "level must be at least two and prime must be prime".to_owned()
                 })?,
+            )
+        }
+        "compact-phi4-signature" => {
+            let levels = parse_csv_u64(
+                arguments
+                    .next()
+                    .ok_or_else(|| "missing candidate_levels".to_owned())?,
+                "candidate_levels",
+            )?
+            .into_iter()
+            .map(|level| {
+                u32::try_from(level).map_err(|_| "candidate level must fit u32".to_owned())
+            })
+            .collect::<Result<Vec<_>, _>>()?;
+            let prime = parse_u64(arguments.next(), "prime")?;
+            let signature = compact_phi4_signature(&levels, prime).ok_or_else(|| {
+                "levels must be nonempty and at least two, with at most 64 coordinates, and prime must be prime".to_owned()
+            })?;
+            format!(
+                "candidate_levels:{}|prime:{}|signature:{}|hit_count:{}",
+                levels
+                    .iter()
+                    .map(u32::to_string)
+                    .collect::<Vec<_>>()
+                    .join(","),
+                prime,
+                signature,
+                signature.count_ones(),
             )
         }
         "multiplication-lower-bound" => {

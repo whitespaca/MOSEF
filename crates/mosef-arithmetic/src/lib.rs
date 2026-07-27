@@ -2126,6 +2126,21 @@ pub fn compact_phi4_prime_profile(level: u32, prime: u64) -> Option<CompactPhi4P
     })
 }
 
+/// Build the binary support signature of one prime across compact Phi4 levels.
+pub fn compact_phi4_signature(levels: &[u32], prime: u64) -> Option<u64> {
+    if levels.is_empty() || levels.len() > 64 || !is_prime(prime) {
+        return None;
+    }
+    let mut signature = 0_u64;
+    for (index, level) in levels.iter().copied().enumerate() {
+        let profile = compact_phi4_prime_profile(level, prime)?;
+        if profile.divides {
+            signature |= 1_u64.checked_shl(u32::try_from(index).ok()?)?;
+        }
+    }
+    Some(signature)
+}
+
 /// Evaluate the direct-factor, unit-cofactor, and full-collision branches.
 pub fn evaluate_exceptional_cyclotomic(
     base: u64,
@@ -2717,6 +2732,16 @@ mod tests {
         }
         assert_eq!(compact_phi4_prime_profile(1, 11), None);
         assert_eq!(compact_phi4_prime_profile(2, 9), None);
+    }
+
+    #[test]
+    fn compact_phi4_signatures_pack_coordinate_hits() {
+        assert_eq!(compact_phi4_signature(&[2, 3], 107), Some(1));
+        assert_eq!(compact_phi4_signature(&[2, 3], 109), Some(0));
+        assert_eq!(compact_phi4_signature(&[2, 3], 7), Some(1));
+        assert_eq!(compact_phi4_signature(&[], 107), None);
+        assert_eq!(compact_phi4_signature(&[1], 107), None);
+        assert_eq!(compact_phi4_signature(&[2], 9), None);
     }
 
     #[test]

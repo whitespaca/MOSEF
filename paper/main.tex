@@ -2100,6 +2100,73 @@ comparisons, with zero failures. No same-index balanced support hit occurred
 through input length 40. This last observation is finite evidence, not an
 asymptotic zero-support theorem.
 
+\section{A compact multi-support signature barrier}
+
+\claimstatus{DEF-030}{DEFINITION}. At input length \(m\), a
+factorization-independent constructor fixes a finite ordered list of compact
+exceptional-cofactor descriptors before the particular \(N\) is received.
+If their nonzero exact lifts are \(z_{m,1},\ldots,z_{m,r}\), define the
+analytical signature of a population prime by
+\[
+\sigma_m(p)=
+\bigl(\mathbf1_{p\mid z_{m,1}},\ldots,
+      \mathbf1_{p\mid z_{m,r}}\bigr)\in\{0,1\}^r.
+\]
+The compact ledger charges every descriptor, modular evaluator, GCD, output,
+and extraction. The signature is a proof object: the public algorithm
+receives neither \(p\), the factorization of an exact lift, nor a support
+oracle.
+
+\claimstatus{BAR-024}{PROVED}. Let \(n_u\) be the number of primes with
+signature \(u\). On square-free \(N=pq\), candidate \(j\) gives a proper GCD
+exactly when the \(j\)-th signature bits differ. Hence the list succeeds
+exactly when \(\sigma_m(p)\ne\sigma_m(q)\), and
+\[
+F_m=\sum_{u\in\{0,1\}^r}\binom{n_u}{2}
+\]
+is the exact failed-pair count. Universal pair separation is therefore
+equivalent to injectivity. For a population of size \(s\),
+\[
+r\ge\lceil\log_2s\rceil.
+\]
+If every prime must have a nonzero signature, then
+\[
+r\ge\lceil\log_2(s+1)\rceil.
+\]
+More sharply, put \(t=2^r\) and \(s=bt+a\), \(0\le a<t\). The minimum
+possible failed-pair count over all \(r\)-bit assignments is
+\[
+(t-a)\binom b2+a\binom{b+1}{2}.
+\]
+When zero signatures are forbidden, replace \(t\) by \(2^r-1\). Appendix
+\ref{proof:BAR-024} gives the complete exchange proof and cost boundary.
+
+The information bounds are abstractly tight if population factors may be
+used to materialize each coordinate as the product of primes whose label bit
+is one. That construction enumerates the unknown primes and can have
+population-scale output. It is not a factorization-independent compact
+exceptional schedule.
+
+\claimstatus{REF-026}{REFUTED}. Union coverage plus the numerical candidate
+lower bound is not sufficient. On population \(\{3,5,7\}\), candidates
+\((15,7)\) give packed signatures \((1,1,2)\). Every signature is nonzero and
+\(r=2=\lceil\log_2(3+1)\rceil\), but 3 and 5 collide. For \(N=15\), the two
+GCDs are 15 and 1.
+
+The canonical public prefix \((C_2,\ldots,C_m)\) is a genuine polynomial
+compact schedule: it uses \(m-1\) candidates and
+\(O(m^2)\) total descriptor bits and modular composition steps, followed by
+\(m-1\) GCDs.
+
+\claimstatus{EMP-029}{EMPIRICAL}. EXP-0029 checked 38,860 complete signature
+assignments, 366,284 direct pairs, 12 tight collision minima, 82,019 balanced
+primes, 2,978,644 canonical-prefix coordinates, 2,034 explicit balanced
+pairs, and 34 selected Python/Rust/C\# comparisons, with zero failures. The
+prefix was noninjective at every registered length \(9\le m\le40\). At
+\(m=40\), all 22,394 primes had zero signature and all 250,734,421 pairs
+collided. These are finite results for one prefix, not an asymptotic theorem
+about that prefix or an obstruction to all polynomial compact schedules.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -2123,8 +2190,11 @@ BAR-023 stays on the compact ledger. The public constructor writes
 \(B_m=2^m+3\) in \(O(m)\) bits and evaluates one residue with \(O(m)\)
 binary-composition steps. The local congruence modulo \(p\) is an analytical
 criterion, not a public factor recognizer. Support enumeration, exact-lift
-factorization, and multi-candidate signature construction are not hidden in
-this cost.
+factorization, and signature enumeration remain outside the public
+algorithm. BAR-024 preserves that boundary for several candidates. For the
+canonical prefix \(C_2,\ldots,C_m\), summing the per-level descriptor and
+binary-evaluation costs gives \(O(m^2)\), while exact injectivity remains a
+factor-dependent semantic property.
 
 \begin{center}
 \scriptsize
@@ -2722,9 +2792,11 @@ support certificates are materialized. It gives an exact balanced-pair
 coverage formula and necessary bit budget, but REF-024 proves that compact
 modular evaluation does not imply that materialized budget. BAR-023 then
 classifies one compact lift directly and proves that its one-bit support cut
-cannot separate every pair, even if its support is broad. It does not rule
-out injective signatures from several compact candidates, an \(N\)-dependent
-or adaptive schedule, coverage on another explicit promise, density, or
+cannot separate every pair, even if its support is broad. BAR-024 gives the
+exact several-candidate injectivity criterion, candidate lower bounds, and
+collision minimum. It does not construct an injective compact schedule or
+rule out diversified families, bases, and parameters, an \(N\)-dependent or
+adaptive schedule, coverage on another explicit promise, density, or
 probability. Longer
 chains, adaptive coefficients, several interacting rational values,
 unrelated bases, other groups, and general signed arithmetic circuits remain
@@ -2743,9 +2815,10 @@ outside BAR-008's explicit-list model has a proved factor-scale
 arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
 evaluate a sufficiently rich formal batch at polynomial total construction,
 evaluation, and extraction cost. The next bounded case is to define exact
-multi-candidate compact support signatures and determine when a
-factorization-independent polynomial tuple list can make those signatures
-injective on a balanced population.
+factorization-independent selectors over diversified exceptional families,
+bases, and parameters, then determine whether one polynomial compact list
+makes the signatures injective on a balanced population or exhibits a
+scoped collision.
 
 \section{Conclusion}
 
@@ -2859,11 +2932,14 @@ misusing that result against the compact evaluator: one valid \(O(m)\)-bit
 tuple represents an exponentially long exact cofactor. BAR-023 analyzes that
 tuple without materialization: it gives the exact prime criterion,
 consecutive GCD 16, and the complete support-cut count. One candidate cannot
-separate every pair in a population of at least three primes. Whether a
-polynomial list of compact candidates can create injective signatures, as
-well as \(N\)-dependent and adaptive schedule questions, success density,
-general rational/compositional circuits, and other models, remains a research
-target, not a claimed factoring breakthrough.
+separate every pair in a population of at least three primes. BAR-024 gives
+the exact multi-candidate criterion: universal pair separation is equivalent
+to signature injectivity, with sharp information and collision-count lower
+bounds. REF-026 blocks replacing injectivity by union coverage. The
+canonical polynomial prefix failed injectivity only in the registered finite
+box; diversified compact schedules, \(N\)-dependent and adaptive questions,
+success density, general rational/compositional circuits, and other models
+remain research targets, not claimed factoring breakthroughs.
 
 \appendix
 
@@ -4663,6 +4739,57 @@ modular work; none of the analytical support primes are constructor inputs.
 No multi-candidate, density, adaptive-schedule, general factoring, or
 general-circuit conclusion is used. \(\square\)
 
+\subsection{Proof of BAR-024}\label{proof:BAR-024}
+
+Fix \(m\), a population \(\mathcal P_m\) of \(s\ge2\) distinct odd primes,
+and nonzero exact candidate lifts \(z_1,\ldots,z_r\). For
+\(N=pq\) with distinct population primes,
+\[
+\gcd(z_j,N)
+=p^{\mathbf1_{p\mid z_j}}q^{\mathbf1_{q\mid z_j}}.
+\]
+Equal zero bits give the unit GCD, equal one bits give the full collision,
+and unequal bits give one proper prime factor. Consequently some candidate
+succeeds exactly when \(\sigma(p)\ne\sigma(q)\).
+
+For each \(u\in\{0,1\}^r\), let
+\(n_u=|\{p:\sigma(p)=u\}|\). Precisely the pairs within a common signature
+bucket fail, so
+\[
+F=\sum_u\binom{n_u}{2},\qquad
+S=\binom s2-F.
+\]
+Thus all pairs succeed if and only if every bucket has size at most one,
+which is exactly injectivity. Since there are \(2^r\) buckets,
+\(s\le2^r\), proving \(r\ge\lceil\log_2s\rceil\). If zero signatures are
+forbidden, only \(2^r-1\) buckets remain and
+\(r\ge\lceil\log_2(s+1)\rceil\).
+
+It remains to minimize \(F\). If two occupied buckets have sizes
+\(x\ge y+2\), moving one prime from the larger bucket to the smaller changes
+their contribution by
+\[
+\binom{x-1}{2}+\binom{y+1}{2}
+-\binom x2-\binom y2=y-x+1<0.
+\]
+Every minimizing assignment therefore has bucket sizes differing by at most
+one. With \(t=2^r\) and \(s=bt+a\), exactly \(a\) buckets have size \(b+1\)
+and \(t-a\) have size \(b\), giving
+\[
+F_{\min}=(t-a)\binom b2+a\binom{b+1}{2}.
+\]
+Removing the zero bucket gives the stated nonzero-signature variant.
+
+Distinct labels can be realized abstractly by taking coordinate \(j\) to be
+the product of population primes whose label has bit \(j\). That tightness
+construction enumerates the unknown primes, uses their values, and
+materializes their products; it is not a compact factorization-independent
+schedule. Conversely, candidates \((15,7)\) on \(\{3,5,7\}\) give signatures
+\((1,1,2)\), so coverage and the candidate count do not imply injectivity.
+The canonical-prefix observations in EXP-0029 are finite and are not used in
+this proof. No recognizer, density theorem, general factoring conclusion, or
+general circuit lower bound follows. \(\square\)
+
 \clearpage
 \section{Reproduction appendix}
 
@@ -4768,6 +4895,9 @@ The registered experiment cores and canonical summary hashes are:
 \item EXP-0028, M29 milestone commit recorded in \path{research/STATUS.md},
   hash
   \texttt{\seqsplit{8ca6c6310b64e56d37cfbc98caba9deddd02d5c35ea909870341aae8f23efb7a}}.
+\item EXP-0029, M30 milestone commit recorded in \path{research/STATUS.md},
+  hash
+  \texttt{\seqsplit{74db38bf2f8ebeb088b3773fc1d94207cca0c1a73f7efb7a58a82f387dac5212}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -4885,6 +5015,10 @@ python scripts/run_m29_compact_cofactor_prime_support_audit.py `
   --input-length-min 9 --input-length-max 40 `
   --pair-check-max 20 --exact-level-max 14
 python scripts/check_m29_compact_cofactor_prime_support_differential.py
+python scripts/run_m30_compact_support_signature_audit.py `
+  --assignment-candidate-max 3 --assignment-population-max 5 `
+  --input-length-min 9 --input-length-max 40 --pair-check-max 20
+python scripts/check_m30_compact_support_signature_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -4896,7 +5030,7 @@ through EXP-0019 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. EXP-0020
-through EXP-0028 use the same deterministic finite-enumeration policy. The
+through EXP-0029 use the same deterministic finite-enumeration policy. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.
 
 \bibliographystyle{plain}

@@ -127,3 +127,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-023 | PROVED | Exact prime criterion, consecutive-support, and signature-cut barrier | `research/proofs/BAR-023-compact-cofactor-prime-support.md` |
 | REF-025 | REFUTED | Exact magnitude or accumulated support as a universal single-candidate certificate | `research/NEGATIVE_RESULTS.md` NR-026 |
 | EMP-028 | EMPIRICAL | Bounded compact cofactor prime-support audit | `research/experiments/EXP-0028-m29-compact-cofactor-prime-support.md` |
+| DEF-030 | DEFINITION | Compact multi-candidate analytical support-signature model | `research/proofs/BAR-024-compact-support-signatures.md` |
+| BAR-024 | PROVED | Exact injectivity criterion, candidate lower bounds, and collision minimum | `research/proofs/BAR-024-compact-support-signatures.md` |
+| REF-026 | REFUTED | Union coverage and candidate count as sufficient for pair separation | `research/NEGATIVE_RESULTS.md` NR-027 |
+| EMP-029 | EMPIRICAL | Bounded abstract-signature and canonical compact-prefix audit | `research/experiments/EXP-0029-m30-compact-support-signatures.md` |
