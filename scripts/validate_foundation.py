@@ -24,6 +24,7 @@ REQUIRED_FILES = (
     "research/literature/SOURCE_POLICY.md",
     "research/literature/BASELINE.md",
     "paper/main.tex",
+    "paper/main-ko.tex",
     "paper/references.bib",
     "schemas/experiment-result-v1.schema.json",
     "schemas/examples/experiment-result-v1.example.json",
@@ -201,13 +202,19 @@ def validate_claim_statuses() -> list[str]:
 
 def validate_citations() -> list[str]:
     """Check that all manuscript citation keys exist in the BibTeX file."""
-    paper = (ROOT / "paper" / "main.tex").read_text(encoding="utf-8")
     bibliography = (ROOT / "paper" / "references.bib").read_text(encoding="utf-8")
-    cited: set[str] = set()
-    for group in re.findall(r"\\cite\{([^}]+)\}", paper):
-        cited.update(key.strip() for key in group.split(","))
     defined = set(re.findall(r"@\w+\{([^,]+),", bibliography))
-    return [f"paper citation key has no bibliography entry: {key}" for key in sorted(cited - defined)]
+    errors: list[str] = []
+    for relative in ("paper/main.tex", "paper/main-ko.tex"):
+        paper = (ROOT / relative).read_text(encoding="utf-8")
+        cited: set[str] = set()
+        for group in re.findall(r"\\cite\{([^}]+)\}", paper):
+            cited.update(key.strip() for key in group.split(","))
+        errors.extend(
+            f"{relative} citation key has no bibliography entry: {key}"
+            for key in sorted(cited - defined)
+        )
+    return errors
 
 
 def validate_foundation() -> list[str]:

@@ -96,6 +96,8 @@ internal static class Program
                 RunExceptionalCofactorOverlap(args),
             "length-indexed-support-profile" when args.Length == 4 =>
                 RunLengthIndexedSupportProfile(args),
+            "compact-phi4-prime-profile" when args.Length == 3 =>
+                RunCompactPhi4PrimeProfile(args),
             "multiplication-lower-bound" when args.Length == 2 =>
                 RunMultiplicationLowerBound(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
@@ -1623,6 +1625,69 @@ internal static class Program
             + $"support_cap:{supportCap}|"
             + "necessary_universal_bit_budget:"
             + $"{minPrimeLog2Floor * (populationSize - 1)}";
+    }
+
+    private static string RunCompactPhi4PrimeProfile(string[] args)
+    {
+        int level = ParsePositiveInt(args, 1, "level");
+        BigInteger prime = Parse(args, 2, "prime");
+        if (level < 2 || !IsPrime(prime))
+        {
+            throw new ArgumentException(
+                "level must be at least two and prime must be prime"
+            );
+        }
+        BigInteger powerOfTwo = BigInteger.One << level;
+        BigInteger secondFactor = powerOfTwo + 3;
+        BigInteger exponent = 3 * powerOfTwo + 5;
+        if (prime == 2)
+        {
+            return $"level:{level}|prime:2|second_factor:{secondFactor}|"
+                + $"exponent:{exponent}|cofactor_residue:0|"
+                + "criterion_residue:1|divides:true|rule:two_adic";
+        }
+        BigInteger cofactorResidue = CompactExceptionalCofactor(
+            2,
+            prime,
+            3,
+            secondFactor,
+            "phi4"
+        );
+        BigInteger criterionResidue = (
+            BigInteger.ModPow(2, exponent, prime) + 3
+        ) % prime;
+        bool divides;
+        string rule;
+        if (prime == 3)
+        {
+            divides = false;
+            rule = "three_exception";
+        }
+        else if (prime == 5)
+        {
+            divides = level % 4 == 2;
+            rule = "five_quotient";
+        }
+        else if (prime == 7)
+        {
+            divides = level % 3 == 2;
+            rule = "seven_quotient";
+        }
+        else
+        {
+            divides = criterionResidue == 0;
+            rule = "generic_congruence";
+        }
+        if (divides != (cofactorResidue == 0))
+        {
+            throw new InvalidOperationException(
+                "compact residue disagrees with the divisibility rule"
+            );
+        }
+        return $"level:{level}|prime:{prime}|second_factor:{secondFactor}|"
+            + $"exponent:{exponent}|cofactor_residue:{cofactorResidue}|"
+            + $"criterion_residue:{criterionResidue}|"
+            + $"divides:{divides.ToString().ToLowerInvariant()}|rule:{rule}";
     }
 
     private static BigInteger GeometricResidue(

@@ -655,3 +655,47 @@
   balanced-prime support of compact exceptional cofactors directly; neither
   large magnitude nor finite-box root counts may be treated as support
   density.
+
+## ADR-032 - Treat one compact cofactor as one support-signature bit
+
+- Date: 2026-07-28.
+- Decision: analyze the M29 family through the exact local predicate
+  \(p\mid C_m\), but evaluate it publicly only as one compact residue modulo
+  \(N\). Count square-free pair outcomes as the cut induced by that predicate,
+  including both unit and full-collision failures.
+- Rationale: exact magnitude says nothing about the distribution of distinct
+  prime divisors, and broad support alone can worsen extraction by placing
+  both factors on the hit side. The cut model captures success exactly and
+  requires neither factorization nor materialization in the public
+  evaluator.
+- Cost accounting: the public \(B_m=2^m+3\) and the local exponent
+  \(E_m=3\cdot2^m+5\) have \(O(m)\) bits. Compact evaluation uses the M26
+  binary formulas. Listing the support, factoring the exact cofactor, or
+  supplying local primes remains outside and is charged if requested.
+- Consequence: BAR-023 closes the single-tuple family and refutes a
+  magnitude-as-coverage interpretation. M30 should study multi-candidate
+  signature vectors, where universal pair separation requires distinct
+  signatures rather than merely a large union of supports.
+
+## ADR-033 - Maintain synchronized English and Korean manuscripts
+
+- Date: 2026-07-28.
+- Decision: retain `paper/main.tex` as the full English publication manuscript
+  and add `paper/main-ko.tex` as a Korean companion manuscript. Every
+  milestone must update both where its result affects the paper. Automated
+  publication checks must verify claim-ID/status parity, the current
+  experiment hash, required limitations, and reproduction commands across
+  both manuscripts.
+- Rationale: the repository owner requested Korean papers in addition to the
+  English publication. A separately compiled companion preserves readable
+  Korean prose and typography while retaining stable mathematical claim IDs
+  and evidence anchors.
+- Build and typography: both manuscripts use XeLaTeX. The Korean companion
+  uses `fontspec`, `xeCJK`, and the installed Malgun Gothic family. Both final
+  PDFs are rendered and visually inspected; missing Korean glyphs or broken
+  line layout are failures.
+- Consequence: the stable outputs are `output/pdf/mosef-paper.pdf` and
+  `output/pdf/mosef-paper-ko.pdf`. The Korean companion is self-contained for
+  definitions, verified results, limitations, M29's complete proof, and
+  reproduction, while the English manuscript remains the exhaustive proof
+  archive for earlier milestones.

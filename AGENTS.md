@@ -27,6 +27,7 @@ Before changing the repository:
    - `research/BLOCKERS.md`
    - `research/NEGATIVE_RESULTS.md`
    - `paper/main.tex`
+   - `paper/main-ko.tex` when present
 5. Inspect `git status`, the current branch, recent commits, open worktrees, and available build tools.
 
 If any required state file is absent, create it from the specifications in `CODEX.md` before substantive work.
@@ -128,6 +129,7 @@ Create missing directories incrementally; do not scaffold unused code merely for
 │   └── experiments/
 ├── paper/
 │   ├── main.tex
+│   ├── main-ko.tex
 │   ├── sections/
 │   ├── figures/
 │   ├── tables/
@@ -198,6 +200,7 @@ Rscript scripts/check-r-analysis.R
 
 # Paper
 latexmk -xelatex -interaction=nonstopmode -halt-on-error paper/main.tex
+latexmk -xelatex -interaction=nonstopmode -halt-on-error paper/main-ko.tex
 ```
 
 Do not install or add a production dependency merely to satisfy a preference. First determine whether the standard library or an existing dependency is sufficient. Record any added dependency and its license in `research/DECISIONS.md`.
@@ -216,13 +219,19 @@ Do not install or add a production dependency merely to satisfy a preference. Fi
 
 The manuscript is a continuous deliverable, not an end-stage summary.
 
-- Write the publication paper primarily in English.
-- Keep concise Korean progress summaries in `research/STATUS.md` when useful to the repository owner.
+- Maintain the full publication manuscript in English at `paper/main.tex`
+  and a synchronized Korean companion manuscript at `paper/main-ko.tex`.
+- Update both manuscripts whenever a milestone changes the title, abstract,
+  contribution statement, claim statuses, current theorem or proof,
+  limitations, conclusions, or reproduction record.
+- Keep concise Korean progress summaries in `research/STATUS.md`.
 - Every theorem must point to a proof file or a complete proof in the manuscript.
 - Every experimental table or figure must point to a reproducible command, manifest, commit, and data hash.
 - Separate unconditional results, conditional results, heuristics, and empirical findings into visibly distinct statements.
 - Include negative results and limitations when they materially constrain the contribution.
-- Compile the PDF after manuscript changes and treat warnings about undefined references or citations as failures.
+- Compile both PDFs after manuscript changes and treat warnings about
+  undefined references, citations, missing Korean glyphs, or hidden overfull
+  content as failures.
 
 ## Definition of done for a milestone
 

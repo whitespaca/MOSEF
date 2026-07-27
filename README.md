@@ -7,10 +7,9 @@ is an open research target, not an established result.
 The project constitution is in `CODEX.md`. Current research state and claim
 statuses are maintained under `research/`.
 
-M0 through M2 are complete. M2 proves the elementary support and valuation
-criteria, records the prime-power obstruction to an all-composite support-POSF,
-and leaves two repaired universal constructor questions open. M3 is the active
-restricted semismooth-order theorem search.
+M0 through M29 are complete. The active roadmap item is M30, an exact
+multi-candidate compact-support signature analysis. General classical
+polynomial-time factoring remains open.
 
 ## Foundation validation
 
@@ -21,10 +20,11 @@ python scripts/validate_foundation.py
 python -m unittest discover -s tests -v
 ```
 
-When a TeX toolchain is available, compile the manuscript with:
+When a TeX toolchain is available, compile both publication manuscripts with:
 
 ```powershell
 latexmk -xelatex -interaction=nonstopmode -halt-on-error paper/main.tex
+latexmk -xelatex -interaction=nonstopmode -halt-on-error paper/main-ko.tex
 ```
 
 ## Baseline algorithm validation

@@ -11,6 +11,14 @@ from .baseline import (
     pollard_rho,
     trial_division,
 )
+from .compact_cofactor_prime_support import (
+    Phi4BalancedSupportProfile,
+    Phi4PairOutcome,
+    Phi4PrimeDivisibilityProfile,
+    phi4_balanced_support_profile,
+    phi4_pair_outcome,
+    phi4_prime_divisibility_profile,
+)
 from .compressed_exponents import (
     MultiplicationStep,
     SignedStep,
@@ -212,7 +220,10 @@ __all__ = [
     "LucasCandidateOutcome",
     "MultiplicationStep",
     "NestedQuotientEvaluation",
+    "Phi4BalancedSupportProfile",
     "Phi4CompactGapProfile",
+    "Phi4PairOutcome",
+    "Phi4PrimeDivisibilityProfile",
     "PrimorialScaleBound",
     "PrimorialSchedule",
     "ProductDagEvaluation",
@@ -306,7 +317,10 @@ __all__ = [
     "nonsplit_parameter_count",
     "order_support",
     "perfect_power",
+    "phi4_balanced_support_profile",
     "phi4_compact_gap_profile",
+    "phi4_pair_outcome",
+    "phi4_prime_divisibility_profile",
     "pollard_p_minus_one",
     "pollard_p_plus_one",
     "pollard_rho",

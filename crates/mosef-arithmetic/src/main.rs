@@ -1,22 +1,24 @@
 use mosef_arithmetic::{
     analyze_divisor_cover, batch_gcd, classify_rational_root_orbit, combined_promise_asymmetry,
-    combined_promise_hit_count, combined_promise_signature, divisor_count,
-    evaluate_addition_subtraction_program, evaluate_batch_product, evaluate_dyadic_telescope,
-    evaluate_exceptional_cyclotomic, evaluate_geometric_sum, evaluate_iterated_quotient,
-    evaluate_lucas_separator_candidate, evaluate_multiplication_program, evaluate_nested_quotient,
-    evaluate_product_dag, evaluate_quotient_linear_combination, evaluate_rational_residue_audit,
+    combined_promise_hit_count, combined_promise_signature, compact_phi4_prime_profile,
+    divisor_count, evaluate_addition_subtraction_program, evaluate_batch_product,
+    evaluate_dyadic_telescope, evaluate_exceptional_cyclotomic, evaluate_geometric_sum,
+    evaluate_iterated_quotient, evaluate_lucas_separator_candidate,
+    evaluate_multiplication_program, evaluate_nested_quotient, evaluate_product_dag,
+    evaluate_quotient_linear_combination, evaluate_rational_residue_audit,
     evaluate_separator_candidate, evaluate_symmetric_quotient_difference,
     evaluate_unequal_signed_reduction, exceptional_cofactor_overlap,
     generic_multiplication_lower_bound, is_prime, length_indexed_support_profile, lucas_v, mod_pow,
     perfect_power, pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
-    semismooth_successful_residue_count, trial_division, BatchProductEvaluation, CoverAnalysis,
-    DyadicDivisionStatus, DyadicTelescopeEvaluation, ExceptionalCofactorOverlap,
-    ExceptionalCyclotomicEvaluation, GeometricDivisionStatus, GeometricSumEvaluation,
-    IteratedQuotientEvaluation, LengthIndexedSupportProfile, LucasSeparatorOutcome,
-    NestedQuotientEvaluation, ProductDagEvaluation, QuotientLinearCombinationEvaluation,
-    RationalResidueAuditEvaluation, RationalRootOrbitClassification, SemismoothOutcome,
-    SeparatorOutcome, SignedStraightLineEvaluation, StraightLineEvaluation,
-    SymmetricQuotientDifferenceEvaluation, UnequalSignedReductionEvaluation,
+    semismooth_successful_residue_count, trial_division, BatchProductEvaluation,
+    CompactPhi4PrimeProfile, CoverAnalysis, DyadicDivisionStatus, DyadicTelescopeEvaluation,
+    ExceptionalCofactorOverlap, ExceptionalCyclotomicEvaluation, GeometricDivisionStatus,
+    GeometricSumEvaluation, IteratedQuotientEvaluation, LengthIndexedSupportProfile,
+    LucasSeparatorOutcome, NestedQuotientEvaluation, ProductDagEvaluation,
+    QuotientLinearCombinationEvaluation, RationalResidueAuditEvaluation,
+    RationalRootOrbitClassification, SemismoothOutcome, SeparatorOutcome,
+    SignedStraightLineEvaluation, StraightLineEvaluation, SymmetricQuotientDifferenceEvaluation,
+    UnequalSignedReductionEvaluation,
 };
 use std::env;
 use std::process::ExitCode;
@@ -725,6 +727,23 @@ fn display_length_indexed_support(value: LengthIndexedSupportProfile) -> String 
     )
 }
 
+fn display_compact_phi4_prime_profile(value: CompactPhi4PrimeProfile) -> String {
+    format!(
+        concat!(
+            "level:{}|prime:{}|second_factor:{}|exponent:{}|",
+            "cofactor_residue:{}|criterion_residue:{}|divides:{}|rule:{}"
+        ),
+        value.level,
+        value.prime,
+        value.second_factor,
+        value.exponent,
+        value.cofactor_residue,
+        value.criterion_residue,
+        value.divides,
+        value.rule,
+    )
+}
+
 fn run() -> Result<(), String> {
     let mut arguments = env::args().skip(1);
     let operation = arguments
@@ -1143,6 +1162,16 @@ fn run() -> Result<(), String> {
                 length_indexed_support_profile(input_length, &primes, &charged_values).ok_or_else(
                     || "invalid length, balanced prime population, or charged values".to_owned(),
                 )?,
+            )
+        }
+        "compact-phi4-prime-profile" => {
+            let level = parse_u64(arguments.next(), "level")?;
+            let level = u32::try_from(level).map_err(|_| "level must fit u32".to_owned())?;
+            let prime = parse_u64(arguments.next(), "prime")?;
+            display_compact_phi4_prime_profile(
+                compact_phi4_prime_profile(level, prime).ok_or_else(|| {
+                    "level must be at least two and prime must be prime".to_owned()
+                })?,
             )
         }
         "multiplication-lower-bound" => {
