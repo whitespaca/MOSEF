@@ -41,8 +41,9 @@
   `848f26b8a8efb79b78851dee5b2bb7cc8612f3170ff6e6df0c06f78672a0d4da`.
 - The validated M26 implementation, proof, experiment, and manuscript core
   is commit `cc850a084be6940349c09dc35e0ab73a43f791d6`.
-- Draft PR #30 stacks M26 on M25:
-  `https://github.com/whitespaca/MOSEF/pull/30`.
+- The earlier M26 start PR #30 was merged. Completion Draft PR #32 stacks
+  the two validated M26 commits on the M25 branch and is mergeable:
+  `https://github.com/whitespaca/MOSEF/pull/32`.
 - Next selected milestone: M27 isolates local cofactor roots and overlaps
   before testing any factorization-independent public schedule.
 
