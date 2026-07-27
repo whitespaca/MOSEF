@@ -12,6 +12,10 @@
   targets the M25 branch.
 - Base checkpoint: M27 starts from M26 completion-PR status commit
   `fd5718b0afadfaf75dde49be400e84e89ed15dc4`.
+- Start checkpoint: commit
+  `8a98a18b5bfa053a0b21b76902867297fdc2b021`.
+- Draft PR #33 stacks M27 on the completed M26 branch and is mergeable:
+  `https://github.com/whitespaca/MOSEF/pull/33`.
 - First bounded task: classify local zeros and prime-power valuations of
   \(C_4,C_6\), and isolate their overlap with both stages and the direct
   cyclotomic factor before proposing any base list.
