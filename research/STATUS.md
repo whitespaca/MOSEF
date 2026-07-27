@@ -1,5 +1,37 @@
 # Research Status
 
+## M30 execution snapshot
+
+- Date: 2026-07-28.
+- Branch: `research/20260728-m30-compact-support-signatures`.
+- Active question: can a polynomial list of compact exceptional cofactors
+  assign injective multi-bit signatures to the balanced prime population at
+  each input length, so every prime pair is separated by at least one
+  candidate?
+- Dependency: M29 is complete on
+  `research/20260728-m29-compact-cofactor-prime-support`; completion Draft
+  PR #38 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/38`.
+- Base checkpoint: M30 starts from the M29 completion-PR status commit
+  `0b28f17b234dad4091ea72dc04c5844e41a2e942`.
+- Draft PR #39 stacks M30 on the validated M29 completion branch:
+  `https://github.com/whitespaca/MOSEF/pull/39`.
+- First bounded task: define the exact multi-candidate signature grammar,
+  prove that universal square-free pair separation is equivalent to
+  injectivity of those signatures, and derive the information-theoretic
+  lower bound on the number of binary candidates before proposing any
+  parameter schedule.
+- Falsification priority: search for full-collision and all-unit pairs,
+  duplicate signatures, denominator exceptions, recognition assumptions,
+  and any construction whose compact evaluator hides factorization or
+  superpolynomial output. Finite injectivity is not an asymptotic
+  construction.
+- Acceptance target: a necessary-and-sufficient separation theorem with
+  explicit quantifier order and cost ledger, deterministic bounded audit,
+  independent implementation and vectors, adversarial edge cases, updated
+  claims and ledgers, and synchronized English and Korean manuscript
+  sections.
+
 ## M29 outcome
 
 - Date: 2026-07-28.
