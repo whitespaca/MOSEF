@@ -1,5 +1,28 @@
 # Research Status
 
+## M27 execution snapshot
+
+- Date: 2026-07-27.
+- Branch: `research/20260727-m27-exceptional-cofactor-schedule`.
+- Active question: can the compact exceptional cofactors \(C_4,C_6\) be
+  placed in a factorization-independent public base schedule with a proved
+  guarantee on a nontrivial promise class?
+- Dependency: M26 is complete on
+  `research/20260727-m26-exceptional-cyclotomic`; completion Draft PR #32
+  targets the M25 branch.
+- Base checkpoint: M27 starts from M26 completion-PR status commit
+  `fd5718b0afadfaf75dde49be400e84e89ed15dc4`.
+- First bounded task: classify local zeros and prime-power valuations of
+  \(C_4,C_6\), and isolate their overlap with both stages and the direct
+  cyclotomic factor before proposing any base list.
+- Falsification priority: search for square-free and repeated-prime inputs
+  on which every polynomial-size-looking public base prefix produces only
+  unit or full cofactor GCDs, and minimize any obstruction without inferring
+  asymptotic coverage from a finite box.
+- Acceptance target: exact local criterion, public construction and
+  recognition accounting, independent implementation, and either a proved
+  restricted schedule theorem or a reproducible scope barrier.
+
 ## M26 outcome
 
 - Date: 2026-07-27.
