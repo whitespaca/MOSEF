@@ -13,6 +13,8 @@
   `main`.
 - Base checkpoint: M26 starts from M25 completion-status commit
   `3d0b15def4ba86d022bb770e298f76186503610e`.
+- Draft PR #30 stacks M26 on the M25 branch:
+  `https://github.com/whitespaca/MOSEF/pull/30`.
 - First bounded task: divide each exceptional signed numerator exactly by
   its fixed cyclotomic factor, retain the quotient as an explicit cofactor,
   and test whether a proper aggregate GCD can survive when the cyclotomic
