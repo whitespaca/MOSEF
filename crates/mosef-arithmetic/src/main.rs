@@ -7,16 +7,16 @@ use mosef_arithmetic::{
     evaluate_product_dag, evaluate_quotient_linear_combination, evaluate_rational_residue_audit,
     evaluate_separator_candidate, evaluate_symmetric_quotient_difference,
     evaluate_unequal_signed_reduction, exceptional_cofactor_overlap,
-    generic_multiplication_lower_bound, is_prime, lucas_v, mod_pow, perfect_power,
-    pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
+    generic_multiplication_lower_bound, is_prime, length_indexed_support_profile, lucas_v, mod_pow,
+    perfect_power, pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
     semismooth_successful_residue_count, trial_division, BatchProductEvaluation, CoverAnalysis,
     DyadicDivisionStatus, DyadicTelescopeEvaluation, ExceptionalCofactorOverlap,
     ExceptionalCyclotomicEvaluation, GeometricDivisionStatus, GeometricSumEvaluation,
-    IteratedQuotientEvaluation, LucasSeparatorOutcome, NestedQuotientEvaluation,
-    ProductDagEvaluation, QuotientLinearCombinationEvaluation, RationalResidueAuditEvaluation,
-    RationalRootOrbitClassification, SemismoothOutcome, SeparatorOutcome,
-    SignedStraightLineEvaluation, StraightLineEvaluation, SymmetricQuotientDifferenceEvaluation,
-    UnequalSignedReductionEvaluation,
+    IteratedQuotientEvaluation, LengthIndexedSupportProfile, LucasSeparatorOutcome,
+    NestedQuotientEvaluation, ProductDagEvaluation, QuotientLinearCombinationEvaluation,
+    RationalResidueAuditEvaluation, RationalRootOrbitClassification, SemismoothOutcome,
+    SeparatorOutcome, SignedStraightLineEvaluation, StraightLineEvaluation,
+    SymmetricQuotientDifferenceEvaluation, UnequalSignedReductionEvaluation,
 };
 use std::env;
 use std::process::ExitCode;
@@ -688,6 +688,43 @@ fn display_exceptional_cofactor_overlap(value: ExceptionalCofactorOverlap) -> St
     )
 }
 
+fn display_length_indexed_support(value: LengthIndexedSupportProfile) -> String {
+    let hit_primes = value
+        .hit_primes
+        .iter()
+        .map(u64::to_string)
+        .collect::<Vec<_>>()
+        .join(",");
+    let missed_primes = value
+        .missed_primes
+        .iter()
+        .map(u64::to_string)
+        .collect::<Vec<_>>()
+        .join(",");
+    format!(
+        concat!(
+            "input_length:{}|population_size:{}|min_prime_log2_floor:{}|",
+            "charged_value_count:{}|materialized_bit_budget:{}|hit_primes:{}|",
+            "missed_primes:{}|hit_prime_count:{}|forced_miss_pair_count:{}|",
+            "pair_count:{}|maximum_coverable_pair_count:{}|support_cap:{}|",
+            "necessary_universal_bit_budget:{}"
+        ),
+        value.input_length,
+        value.population_size,
+        value.min_prime_log2_floor,
+        value.charged_value_count,
+        value.materialized_bit_budget,
+        hit_primes,
+        missed_primes,
+        value.hit_prime_count,
+        value.forced_miss_pair_count,
+        value.pair_count,
+        value.maximum_coverable_pair_count,
+        value.support_cap,
+        value.necessary_universal_bit_budget,
+    )
+}
+
 fn run() -> Result<(), String> {
     let mut arguments = env::args().skip(1);
     let operation = arguments
@@ -1084,6 +1121,28 @@ fn run() -> Result<(), String> {
             display_exceptional_cofactor_overlap(
                 exceptional_cofactor_overlap(first_factor, second_factor, &family)
                     .ok_or_else(|| "family congruences must hold".to_owned())?,
+            )
+        }
+        "length-indexed-support-profile" => {
+            let input_length = parse_u64(arguments.next(), "input_length")?;
+            let input_length =
+                u32::try_from(input_length).map_err(|_| "input_length must fit u32".to_owned())?;
+            let primes = parse_csv_u64(
+                arguments
+                    .next()
+                    .ok_or_else(|| "missing primes".to_owned())?,
+                "primes",
+            )?;
+            let charged_values = parse_csv_i64(
+                arguments
+                    .next()
+                    .ok_or_else(|| "missing charged_values".to_owned())?,
+                "charged_values",
+            )?;
+            display_length_indexed_support(
+                length_indexed_support_profile(input_length, &primes, &charged_values).ok_or_else(
+                    || "invalid length, balanced prime population, or charged values".to_owned(),
+                )?,
             )
         }
         "multiplication-lower-bound" => {

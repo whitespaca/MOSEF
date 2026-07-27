@@ -1,33 +1,56 @@
 # Research Status
 
-## M28 execution snapshot
+## M28 outcome
 
 - Date: 2026-07-28.
 - Branch: `research/20260728-m28-length-indexed-cofactor-schedule`.
-- Active question: can a schedule indexed only by the input length evade the
-  fixed finite-support barrier BAR-021 while retaining public construction,
-  recognition, and polynomial total bit cost?
-- Dependency: M27 is complete on
-  `research/20260727-m27-exceptional-cofactor-schedule`; completion Draft PR
-  #34 targets the completed M26 branch:
-  `https://github.com/whitespaca/MOSEF/pull/34`.
-- Base checkpoint: M28 starts from the M27 completion-PR status commit
-  `dc2607f1d83dca78b7fe66a5f1fbda09e0b391b0`.
+- Completed milestone: formalize schedules selected from the eventual input
+  length before the particular \(N\), separate compact modular cost from
+  exact-lift materialization, and account for every balanced semiprime pair
+  that a materialized support can touch.
+- `DEF-028` defines the two cost ledgers. `BAR-022` is `PROVED`: for
+  \(\mathcal P_m=\{p\text{ prime}:2^{m-1}\le p^2<2^m\}\),
+  \(s_m=|\mathcal P_m|\), \(b_m=\lfloor(m-1)/2\rfloor\), and \(h_m\) hit
+  primes, exactly \(\binom{s_m-h_m}{2}\) pairs make every materialized GCD
+  one and \(b_mh_m\le W_m\). Universal population coverage therefore needs
+  \(h_m\ge s_m-1\) and \(W_m\ge b_m(s_m-1)\).
+- `REF-024` is `REFUTED`, and NR-025 preserves the scope boundary. The valid
+  family \(A=3,B=2^m+3,g=2\) has \(O(m)\)-bit public parameters and a
+  polynomial-time compact modular evaluator, while its exact \(\Phi_4\)
+  cofactor has at least \(3\cdot2^m+4\) bits. This proves an exact
+  compact/materialized separation, not broad distinct-prime support.
+- EXP-0027 checked 91 balanced primes, 623 pair lengths, 2,494 support
+  profiles, 751,072 pair/value GCDs, 182,523 forced-unit pairs, 13 exact
+  compact-gap cofactors, 52 compact residues, and 24 Python/Rust/C#
+  comparisons with zero failures. Summary SHA-256:
+  `e0744fdd20d09b103e6e5e237b2e1375290d32d3991951913086965321e29d52`.
+- Full gates pass: foundation and publication consistency (116 claims and 26
+  experiment hashes), 194 Python tests plus 172 subtests, bytecode
+  compilation, Ruff 0.16.0, strict mypy 2.3.0 over 23 source files, Rust
+  formatting/Clippy/34 tests, C# Release build, the 58 baseline and 24 M28
+  cross-language comparisons, and the registered EXP-0027 rerun.
+- XeLaTeX converged to 71 pages with no undefined references, citations,
+  overfull boxes, underfull boxes, or final warnings. Sixteen rendered pages
+  covering the title, M28 statements, synthesis table, limitations,
+  conclusion, full proof, reproduction commands, and references passed
+  visual inspection. Stable PDF: `output/pdf/mosef-paper.pdf`, SHA-256
+  `da9349fb7a7e18dc160542acfa85387d47ad5998ab7fd838e0dc9d418a07c7b6`.
 - Draft PR #35 stacks M28 on the validated M27 completion branch:
   `https://github.com/whitespaca/MOSEF/pull/35`.
-- First bounded task: formalize the quantifier order for schedules
-  \(\mathcal S_m\), charge every generated parameter, base, compact
-  cofactor evaluation, GCD, and output bit, then derive the strongest
-  unconditional root-coverage upper bound that is uniform over unknown
-  balanced prime factors.
-- Falsification priority: enumerate bounded public schedules and search for
-  balanced square-free semiprimes whose two factors simultaneously avoid
-  every charged cofactor root, while separating a finite-box obstruction
-  from any asymptotic claim.
-- Acceptance target: an exact length-indexed grammar, polynomial-cost
-  recognition and evaluation accounting, independent implementation,
-  reproducible bounded audit, and either a proved restricted theorem or a
-  precisely scoped barrier.
+- Next selected milestone: M29 will study the distinct balanced-prime support
+  of the compact family \(A=3,B=2^m+3,g=2\) directly, without materializing
+  the exact cofactor or inferring support from magnitude.
+
+### M28 Korean summary
+
+M28에서는 입력 길이만 보고 정해지는 스케줄의 비용을 두 원장으로
+분리했습니다. 정확한 정수 값을 실제로 펼치면 균형 소수 \(h_m\)개를
+지원하는 데 최소 \(b_mh_m\)비트가 필요하고, 지원 밖의 두 소수로 만든
+세미프라임은 반드시 실패합니다. 그러나 모듈러 계산만 하는 압축
+평가기는 지수적으로 긴 정확한 코팩터도 다항 시간에 다룰 수 있으므로,
+이 물질화 장벽을 압축 스케줄 전체의 하한으로 확대할 수 없습니다.
+M29는 큰 정수의 크기가 아니라 그 정수가 실제로 포함하는 서로 다른
+균형 소수의 지지집합을 직접 조사합니다.
 
 ## M27 outcome
 

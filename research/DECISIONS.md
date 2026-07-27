@@ -629,3 +629,29 @@
   preserving the local cofactor extraction mechanism. M28 may study schedules
   indexed by input length only after stating their quantifier order and total
   construction/evaluation budget; BAR-021 does not transfer automatically.
+
+## ADR-031 - Separate compact modular cost from exact-lift support cost
+
+- Date: 2026-07-28.
+- Decision: define a length-indexed schedule before the particular input
+  \(N\), but maintain two ledgers. The compact ledger charges binary
+  parameters and modular evaluation. The materialized ledger additionally
+  charges the actual bit length of every nonzero exact integer or an
+  equivalent explicit support certificate.
+- Rationale: a same-length finite-support diagonalization must control how
+  many balanced primes divide the charged values. BAR-022 provides that
+  control exactly under materialization. The valid family
+  \(A=3,B=2^m+3,g=2\) shows that compact evaluation alone can represent an
+  exponentially long cofactor, so using its exact bit length as compact
+  running time would be false.
+- Cost accounting: for a balanced prime population, \(h\) hit primes each
+  contribute at least \(b=\lfloor(m-1)/2\rfloor\) bits to the product of
+  materialized values, giving \(bh\le W\). Compact geometric-sum evaluation
+  is instead charged by the binary count lengths and modular operands.
+  Touched pairs are only an upper bound because one value can collide on both
+  factors.
+- Consequence: M28 proves a scoped materialized-support barrier and refutes
+  the naive compact-to-exact cost transfer. M29 should examine the distinct
+  balanced-prime support of compact exceptional cofactors directly; neither
+  large magnitude nor finite-box root counts may be treated as support
+  density.

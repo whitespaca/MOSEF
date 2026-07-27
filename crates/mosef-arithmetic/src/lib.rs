@@ -808,6 +808,24 @@ pub struct ExceptionalCofactorOverlap {
     pub stage_overlap_support: &'static str,
 }
 
+/// Exact materialized-support accounting for one M28 input length.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct LengthIndexedSupportProfile {
+    pub input_length: u32,
+    pub population_size: u64,
+    pub min_prime_log2_floor: u32,
+    pub charged_value_count: u64,
+    pub materialized_bit_budget: u64,
+    pub hit_primes: Vec<u64>,
+    pub missed_primes: Vec<u64>,
+    pub hit_prime_count: u64,
+    pub forced_miss_pair_count: u64,
+    pub pair_count: u64,
+    pub maximum_coverable_pair_count: u64,
+    pub support_cap: u64,
+    pub necessary_universal_bit_budget: u64,
+}
+
 /// Evaluate nodes starting from `g`, with every later node multiplying two parents.
 pub fn evaluate_multiplication_program(
     base: u64,
@@ -1974,6 +1992,82 @@ pub fn exceptional_cofactor_overlap(
     })
 }
 
+/// Account for the balanced prime pairs touched by nonzero exact integers.
+pub fn length_indexed_support_profile(
+    input_length: u32,
+    primes: &[u64],
+    charged_values: &[i64],
+) -> Option<LengthIndexedSupportProfile> {
+    if input_length < 4 || primes.len() < 2 {
+        return None;
+    }
+    for (index, prime) in primes.iter().copied().enumerate() {
+        if !is_prime(prime) || primes[..index].contains(&prime) {
+            return None;
+        }
+        for second_prime in primes[index + 1..].iter().copied() {
+            let product = u128::from(prime).checked_mul(u128::from(second_prime))?;
+            let product_bits = u128::BITS - product.leading_zeros();
+            if product_bits != input_length {
+                return None;
+            }
+        }
+    }
+    if charged_values.iter().any(|value| *value == 0) {
+        return None;
+    }
+    let materialized_bit_budget = charged_values.iter().try_fold(0_u64, |total, value| {
+        let absolute = value.unsigned_abs();
+        let bit_length = u64::from(u64::BITS - absolute.leading_zeros());
+        total.checked_add(bit_length)
+    })?;
+    let hit_primes = primes
+        .iter()
+        .copied()
+        .filter(|prime| {
+            charged_values
+                .iter()
+                .any(|value| value.unsigned_abs() % prime == 0)
+        })
+        .collect::<Vec<_>>();
+    let missed_primes = primes
+        .iter()
+        .copied()
+        .filter(|prime| !hit_primes.contains(prime))
+        .collect::<Vec<_>>();
+    let population_size = u64::try_from(primes.len()).ok()?;
+    let charged_value_count = u64::try_from(charged_values.len()).ok()?;
+    let hit_prime_count = u64::try_from(hit_primes.len()).ok()?;
+    let missed_count = u64::try_from(missed_primes.len()).ok()?;
+    let pair_count = population_size.checked_mul(population_size.checked_sub(1)?)? / 2;
+    let forced_miss_pair_count = missed_count.checked_mul(missed_count.saturating_sub(1))? / 2;
+    let min_prime_log2_floor = primes
+        .iter()
+        .map(|prime| u64::BITS - prime.leading_zeros() - 1)
+        .min()?;
+    if min_prime_log2_floor == 0 {
+        return None;
+    }
+    let support_cap =
+        population_size.min(materialized_bit_budget / u64::from(min_prime_log2_floor));
+    Some(LengthIndexedSupportProfile {
+        input_length,
+        population_size,
+        min_prime_log2_floor,
+        charged_value_count,
+        materialized_bit_budget,
+        hit_primes,
+        missed_primes,
+        hit_prime_count,
+        forced_miss_pair_count,
+        pair_count,
+        maximum_coverable_pair_count: pair_count.checked_sub(forced_miss_pair_count)?,
+        support_cap,
+        necessary_universal_bit_budget: u64::from(min_prime_log2_floor)
+            .checked_mul(population_size.checked_sub(1)?)?,
+    })
+}
+
 /// Evaluate the direct-factor, unit-cofactor, and full-collision branches.
 pub fn evaluate_exceptional_cyclotomic(
     base: u64,
@@ -2526,6 +2620,20 @@ mod tests {
         assert_eq!(phi6.second_stage_power_of_two_exponent, 8);
         assert_eq!(phi6.stage_overlap_support, "2,B");
         assert_eq!(exceptional_cofactor_overlap(5, 7, "phi4"), None);
+    }
+
+    #[test]
+    fn length_indexed_support_accounting_is_exact() {
+        let profile = length_indexed_support_profile(12, &[47, 53, 59, 61], &[47 * 53, -5])
+            .expect("valid balanced population");
+        assert_eq!(profile.hit_primes, vec![47, 53]);
+        assert_eq!(profile.missed_primes, vec![59, 61]);
+        assert_eq!(profile.forced_miss_pair_count, 1);
+        assert_eq!(profile.pair_count, 6);
+        assert_eq!(profile.maximum_coverable_pair_count, 5);
+        assert!(profile.hit_prime_count <= profile.support_cap);
+        assert_eq!(length_indexed_support_profile(11, &[23, 29], &[23]), None);
+        assert_eq!(length_indexed_support_profile(10, &[23, 29], &[0]), None);
     }
 
     #[test]

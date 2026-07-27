@@ -94,6 +94,8 @@ internal static class Program
                 RunExceptionalCyclotomic(args),
             "exceptional-cofactor-overlap" when args.Length == 4 =>
                 RunExceptionalCofactorOverlap(args),
+            "length-indexed-support-profile" when args.Length == 4 =>
+                RunLengthIndexedSupportProfile(args),
             "multiplication-lower-bound" when args.Length == 2 =>
                 RunMultiplicationLowerBound(args),
             _ => throw new ArgumentException("unknown operation or wrong argument count"),
@@ -1543,6 +1545,84 @@ internal static class Program
             + $"second_stage_resultant_base:{secondFactor}|"
             + $"second_stage_resultant_exponent:{firstFactor - 1}|"
             + $"stage_overlap_support:{overlapSupport}";
+    }
+
+    private static string RunLengthIndexedSupportProfile(string[] args)
+    {
+        int inputLength = ParsePositiveInt(args, 1, "input_length");
+        BigInteger[] primes = ParseSignedCsv(args[2], "primes");
+        BigInteger[] chargedValues = ParseSignedCsv(args[3], "charged_values");
+        if (
+            inputLength < 4
+            || primes.Length < 2
+            || primes.Distinct().Count() != primes.Length
+            || primes.Any(prime => !IsPrime(prime))
+            || chargedValues.Any(value => value == 0)
+        )
+        {
+            throw new ArgumentException(
+                "invalid length, prime population, or charged values"
+            );
+        }
+        for (int firstIndex = 0; firstIndex < primes.Length; firstIndex++)
+        {
+            for (
+                int secondIndex = firstIndex + 1;
+                secondIndex < primes.Length;
+                secondIndex++
+            )
+            {
+                if (
+                    (primes[firstIndex] * primes[secondIndex]).GetBitLength()
+                    != inputLength
+                )
+                {
+                    throw new ArgumentException(
+                        "prime pairs do not have the declared input length"
+                    );
+                }
+            }
+        }
+        long materializedBitBudget = chargedValues.Sum(
+            value => BigInteger.Abs(value).GetBitLength()
+        );
+        BigInteger[] hitPrimes = primes
+            .Where(
+                prime => chargedValues.Any(
+                    value => BigInteger.Abs(value) % prime == 0
+                )
+            )
+            .ToArray();
+        BigInteger[] missedPrimes = primes.Except(hitPrimes).ToArray();
+        long populationSize = primes.Length;
+        long hitPrimeCount = hitPrimes.Length;
+        long missedCount = missedPrimes.Length;
+        long pairCount = populationSize * (populationSize - 1) / 2;
+        long forcedMissPairCount = missedCount * (missedCount - 1) / 2;
+        long minPrimeLog2Floor = primes.Min(
+            prime => prime.GetBitLength() - 1
+        );
+        if (minPrimeLog2Floor < 1)
+        {
+            throw new ArgumentException("prime population is below the support bound");
+        }
+        long supportCap = Math.Min(
+            populationSize,
+            materializedBitBudget / minPrimeLog2Floor
+        );
+        return $"input_length:{inputLength}|population_size:{populationSize}|"
+            + $"min_prime_log2_floor:{minPrimeLog2Floor}|"
+            + $"charged_value_count:{chargedValues.Length}|"
+            + $"materialized_bit_budget:{materializedBitBudget}|"
+            + $"hit_primes:{string.Join(",", hitPrimes)}|"
+            + $"missed_primes:{string.Join(",", missedPrimes)}|"
+            + $"hit_prime_count:{hitPrimeCount}|"
+            + $"forced_miss_pair_count:{forcedMissPairCount}|"
+            + $"pair_count:{pairCount}|"
+            + $"maximum_coverable_pair_count:{pairCount - forcedMissPairCount}|"
+            + $"support_cap:{supportCap}|"
+            + "necessary_universal_bit_budget:"
+            + $"{minPrimeLog2Floor * (populationSize - 1)}";
     }
 
     private static BigInteger GeometricResidue(

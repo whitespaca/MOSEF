@@ -15,7 +15,7 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
-Three Restricted Theorems and Sixteen Structural Barriers}
+Three Restricted Theorems and Seventeen Structural Barriers}
 \author{MOSEF Research Program}
 \date{28 July 2026}
 
@@ -139,6 +139,20 @@ Nevertheless, every fixed finite public joint base/parameter schedule misses
 infinitely many square-free semiprimes: choose two primes outside the finite
 prime support of all charged integer values. This does not rule out
 input-length-dependent or adaptive schedules.
+For a schedule indexed only by the eventual input length, we then separate
+compact modular cost from exact-lift materialization. On the balanced
+population
+\(\mathcal P_m=\{p:2^{m-1}\le p^2<2^m\}\), if \(h_m\) primes divide some
+materialized exact value and their total bit budget is \(W_m\), then exactly
+\(\binom{|\mathcal P_m|-h_m}{2}\) prime pairs force every such GCD to be one,
+and \(\lfloor(m-1)/2\rfloor h_m\le W_m\). Universal population coverage
+therefore requires all but at most one population prime in the support and
+a corresponding materialized bit budget. This exact barrier does not transfer
+to compact evaluation: the valid tuple
+\(A=3,B=2^m+3,g=2\) has \(O(m)\)-bit parameters and a polynomial-time modular
+evaluator, while its exact order-four cofactor has at least
+\(3\cdot2^m+4\) bits. Large exact magnitude is not asserted to imply broad
+prime support.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -242,7 +256,10 @@ algorithm. Its contributions are:
   together with an unconditional obstruction showing that every fixed finite
   public joint base/parameter schedule misses infinitely many square-free
   semiprimes, with length-indexed and adaptive schedules explicitly outside;
-  and
+\item an exact length-indexed materialized-support barrier for balanced
+  semiprimes, together with an in-family compact-evaluation counterexample
+  showing that exact-lift bit length cannot be charged as compact running
+  time; and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
@@ -256,12 +273,13 @@ formal exponents in a factor-oblivious multiplication-only DAG, and another
 exposes a coefficient threshold for stipulated populations but is silent at
 and above the critical coefficient before factor scale is imposed. Two
 factor-scale barriers retain the stated explicit-schedule hypotheses. The
-remaining seven concern, respectively, charged same-base
+remaining eight concern, respectively, charged same-base
 addition-subtraction programs, selector-described standard product trees
 that materialize every leaf, product-only DAGs over explicitly charged atoms,
 one dyadic exact-division/composition identity, one arbitrary-exponent
-geometric sum, one two-stage nested geometric quotient, and one product-only
-iterated public quotient chain. The signed-aggregation counterexample
+geometric sum, one two-stage nested geometric quotient, one product-only
+iterated public quotient chain, and one materialized-support ledger for
+length-indexed exceptional schedules. The signed-aggregation counterexample
 separately shows that the last product implication cannot be extended to
 addition. The symmetric reduction classifies only the repeated-factor,
 coefficient-\((-1,1)\) subfamily. The unequal and primitive-resultant
@@ -284,8 +302,9 @@ Section 18 treats the dyadic telescope, Section 19 treats the arbitrary
 geometric sum, Section 20 treats the nested quotient, and Section 21 treats
 the iterated quotient chain. Section 22 gives the signed-aggregation
 separation, and Section 23 gives the symmetric-difference reduction. Later
-sections give the unequal and primitive rational-residue reductions, then separate algorithms,
-experiments, and observations. Complete proofs and reproduction details appear in the
+sections give the unequal and primitive rational-residue reductions, the two
+exceptional-cofactor schedule barriers, then separate algorithms, experiments,
+and observations. Complete proofs and reproduction details appear in the
 appendices.
 
 \section{Related work and complexity landscape}
@@ -1929,6 +1948,75 @@ fixed-prefix searches, and 24 selected Python/Rust/C\# comparisons, with
 zero failures. These observations imply no density, recognizer, or
 length-indexed schedule result.
 
+\section{A length-indexed materialized-support barrier}
+
+\claimstatus{DEF-028}{DEFINITION}. For every input length \(m\), a public
+constructor that receives neither \(N\) nor a factor selects a finite schedule
+\(\mathcal T_m\). The compact ledger charges binary tuple construction and
+every modular operation, output, GCD, and extraction. The materialized-lift
+ledger additionally emits every nonzero exact integer \(z_{m,j}\) whose
+reduction is sent to a GCD and charges
+\[
+ W_m=\sum_j\operatorname{bitlength}(|z_{m,j}|).
+\]
+An exact zero is omitted because its GCD with every \(N\) is the full
+collision \(N\).
+
+\claimstatus{BAR-022}{PROVED}. Define
+\[
+ \mathcal P_m=\{p\text{ prime}:2^{m-1}\le p^2<2^m\},\quad
+ s_m=|\mathcal P_m|,\quad
+ b_m=\left\lfloor\frac{m-1}{2}\right\rfloor.
+\]
+Every distinct pair in \(\mathcal P_m\) has product of input length \(m\).
+Let \(H_m\) contain the population primes dividing at least one materialized
+lift and write \(h_m=|H_m|\). Then exactly
+\[
+ \binom{s_m-h_m}{2}
+\]
+population pairs make every materialized GCD one. At most
+\[
+ \binom{s_m}{2}-\binom{s_m-h_m}{2}
+\]
+pairs can even be touched, before full collisions are removed. Moreover,
+\[
+ b_mh_m\le W_m.
+\]
+Indeed, the square-free product of the \(h_m\) hit primes divides the product
+of all \(|z_{m,j}|\), and each hit prime is at least \(2^{b_m}\). Universal
+coverage of all population pairs therefore requires
+\[
+ h_m\ge s_m-1,\qquad W_m\ge b_m(s_m-1).
+\]
+Appendix \ref{proof:BAR-022} proves the exact quantifiers. No asymptotic lower
+bound for \(s_m\) is used or claimed.
+
+\claimstatus{REF-024}{REFUTED}. Polynomial compact cost does not imply a
+polynomial materialized-lift budget. For \(t\ge2\), the valid order-four tuple
+\[
+ A=3,\qquad B=2^t+3,\qquad g=2
+\]
+has \(O(t)\)-bit public parameters and a compact binary geometric-sum
+evaluator, but
+\[
+ 5C_4(2)=7+\frac{8^B-1}{7}
+\]
+and hence
+\[
+ \operatorname{bitlength}(C_4(2))
+ \ge3B-5=3\cdot2^t+4.
+\]
+This proves an exact compact/materialized separation, not a lower bound on
+the number of distinct prime divisors or a factoring success theorem.
+
+\claimstatus{EMP-027}{EMPIRICAL}. EXP-0027 checked 91 balanced primes, 623
+pair lengths, 2,494 support profiles and materialized inequalities, 751,072
+pair/value GCDs, 182,523 forced-unit pairs, 13 exact compact-gap cofactors,
+52 compact residues, and 24 selected Python/Rust/C\# comparisons, with zero
+failures. At level 14, 19 public-integer encoding bits described a
+49,156-bit exact cofactor. These finite data imply no asymptotic population
+or prime-support density.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -1943,6 +2031,11 @@ operations and GCDs. These are polynomial-time prechecks in the encoded
 inputs. By contrast, explicit enumeration of the local root set modulo an
 unknown prime costs \(p-1\) trials and is only an analytical or bounded-test
 operation. BAR-021 does not treat that enumeration as a public recognizer.
+BAR-022 adds a separate exact-output ledger: if exact lifts or equivalent
+prime-support certificates are requested, their actual bit length is charged.
+The compact M26 evaluator remains polynomial in the encoded counts and
+modulus even when the corresponding exact integer is exponentially long.
+Neither ledger provides the unknown local roots as public input.
 
 \begin{center}
 \scriptsize
@@ -2534,10 +2627,14 @@ proves compact evaluation and total valuation/extraction semantics for the
 two exceptional cofactors, while REF-022 shows that their residual paths
 strictly exceed the direct small-cyclotomic GCDs. BAR-021 then isolates all
 stage and direct-cyclotomic overlap and rules out universal coverage by a
-fixed finite joint base/parameter schedule. It does not rule out a schedule
-indexed by the eventual input length, an \(N\)-dependent or adaptive
-schedule, coverage on another explicit promise, density, or probability.
-Longer
+fixed finite joint base/parameter schedule. BAR-022 treats one
+length-indexed extension only when exact integer lifts or equivalent explicit
+support certificates are materialized. It gives an exact balanced-pair
+coverage formula and necessary bit budget, but REF-024 proves that compact
+modular evaluation does not imply that materialized budget. Neither result
+rules out broad prime support in an exponentially long compact lift, an
+\(N\)-dependent or adaptive schedule, coverage on another explicit promise,
+density, or probability. Longer
 chains, adaptive coefficients, several interacting rational values,
 unrelated bases, other groups, and general signed arithmetic circuits remain
 outside.
@@ -2555,9 +2652,9 @@ outside BAR-008's explicit-list model has a proved factor-scale
 arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
 evaluate a sufficiently rich formal batch at polynomial total construction,
 evaluation, and extraction cost. The next bounded case is to define the
-quantifier order and total bit budget of an input-length-indexed
-exceptional-cofactor schedule, then determine whether it can evade BAR-021
-without hidden factor access.
+divisibility structure of the compact family
+\(A=3,B=2^m+3,g=2\), then measure its distinct balanced-prime support without
+materializing the exact cofactor or inferring support from its magnitude.
 
 \section{Conclusion}
 
@@ -2665,9 +2762,14 @@ ratios. BAR-020 gives exact compact evaluators for the two exceptional
 cofactors and proves that their residual GCD paths are genuine. BAR-021 adds
 exact local profiles and overlap resultants and proves that every fixed finite
 joint base/parameter schedule misses infinitely many square-free semiprimes.
-Input-length-indexed and adaptive schedule questions, success density,
-general rational/compositional circuits, and other models remain research
-targets, not claimed factoring breakthroughs.
+BAR-022 then counts same-length misses for every materialized
+length-indexed support and proves the necessary bit budget. REF-024 prevents
+misusing that result against the compact evaluator: one valid \(O(m)\)-bit
+tuple represents an exponentially long exact cofactor. Whether such compact
+lifts have sufficiently broad distinct-prime support, as well as
+\(N\)-dependent and adaptive schedule questions, success density, general
+rational/compositional circuits, and other models, remains a research target,
+not a claimed factoring breakthrough.
 
 \appendix
 
@@ -4350,6 +4452,70 @@ modulo \(p\) costs \(p-1\) trials. The proof chose \(N\) after one fixed
 finite schedule; changing to a length-indexed or adaptive schedule changes
 the quantifiers and is outside the theorem. \(\square\)
 
+\subsection{Proof of BAR-022}\label{proof:BAR-022}
+
+Fix \(m\) with \(s_m=|\mathcal P_m|\ge2\). From the definition of
+\(\mathcal P_m\), every \(p,q\in\mathcal P_m\) satisfy
+\[
+ 2^{(m-1)/2}\le p,q<2^{m/2}.
+\]
+Thus every distinct pair obeys \(2^{m-1}\le pq<2^m\). Since \(pq\) is odd,
+it is not a power of two, and its repository input length is exactly \(m\).
+Also \(p\ge2^{b_m}\) for
+\(b_m=\lfloor(m-1)/2\rfloor\).
+
+Let \(H_m\) be the population primes dividing at least one nonzero exact lift
+\(z_{m,j}\). If distinct \(p,q\notin H_m\), then
+\[
+ \gcd(z_{m,j},pq)=1
+\]
+for every \(j\). The pairs with both endpoints outside \(H_m\) are exactly
+the \(\binom{s_m-h_m}{2}\) forced misses. Every other pair has at least one
+endpoint in \(H_m\), so at most
+\(\binom{s_m}{2}-\binom{s_m-h_m}{2}\) pairs can be touched. This is only an
+upper bound: a value divisible by both endpoints gives the full collision
+\(pq\), not a proper factor.
+
+Put \(D_m=\prod_j|z_{m,j}|\). The square-free product of the distinct primes
+in \(H_m\) divides \(D_m\), hence
+\[
+ 2^{b_mh_m}
+ \le\prod_{p\in H_m}p
+ \le D_m.
+\]
+Taking base-two logarithms and using
+\(\log_2|z_{m,j}|\le\operatorname{bitlength}(|z_{m,j}|)\) proves
+\[
+ b_mh_m\le W_m.
+\]
+If \(h_m\le s_m-2\), two population primes remain outside the support and
+their product is a miss. Universal population coverage therefore requires
+\(h_m\ge s_m-1\), and substitution gives
+\(W_m\ge b_m(s_m-1)\).
+
+It remains to verify why this materialized bound does not apply to the
+compact ledger. For \(t\ge2\), set \(A=3\), \(B=2^t+3\), and \(g=2\).
+Both \(A\) and \(B\) are \(3\bmod4\), so the order-four exceptional identity
+is valid and gives
+\[
+ 5C_4(2)=S_3(2)+S_B(8)=7+\frac{8^B-1}{7}.
+\]
+The parameter encodings and binary recurrence counts have \(O(t)\) bits,
+so the M26 formula evaluates the residue modulo \(N\) in polynomial time in
+\(t+\operatorname{bitlength}(N)\). On exact integers,
+\[
+ C_4(2)>\frac{8^{B-1}}5>2^{3B-6},
+\]
+which implies
+\[
+ \operatorname{bitlength}(C_4(2))\ge3B-5=3\cdot2^t+4.
+\]
+This refutes the compact-to-materialized bit-budget implication. It says
+nothing about how many distinct primes divide the cofactor. All prime
+divisors used above are analytical objects, not constructor inputs. No
+asymptotic lower bound for \(s_m\), promise recognizer, adaptive schedule
+bound, or general factoring lower bound has been used. \(\square\)
+
 \clearpage
 \section{Reproduction appendix}
 
@@ -4449,6 +4615,9 @@ The registered experiment cores and canonical summary hashes are:
 \item EXP-0026, M27 milestone commit recorded in \path{research/STATUS.md},
   hash
   \texttt{\seqsplit{3ef554db904681c3e6764bf3aba3561b1075ee4372735ce06b7f15dcbc39b6f5}}.
+\item EXP-0027, M28 milestone commit recorded in \path{research/STATUS.md},
+  hash
+  \texttt{\seqsplit{e0744fdd20d09b103e6e5e237b2e1375290d32d3991951913086965321e29d52}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -4557,6 +4726,10 @@ python scripts/run_m27_exceptional_cofactor_schedule_audit.py `
   --factor-max 19 --prime-max 97 --valuation-exponent-max 3 `
   --prefix-max 16 --schedule-prime-max 400
 python scripts/check_m27_exceptional_cofactor_schedule_differential.py
+python scripts/run_m28_length_indexed_support_audit.py `
+  --input-length-min 9 --input-length-max 18 `
+  --subset-prime-max 8 --gap-level-max 14
+python scripts/check_m28_length_indexed_support_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -4568,7 +4741,7 @@ through EXP-0019 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. EXP-0020
-through EXP-0026 use the same deterministic finite-enumeration policy. The
+through EXP-0027 use the same deterministic finite-enumeration policy. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.
 
 \bibliographystyle{plain}

@@ -50,6 +50,7 @@ REQUIRED_SECTIONS = (
     "A complete rational root-orbit classification",
     "Compact extraction from the exceptional cofactors",
     "A fixed exceptional-cofactor schedule barrier",
+    "A length-indexed materialized-support barrier",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -85,6 +86,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:THM-003}",
     r"\label{proof:BAR-020}",
     r"\label{proof:BAR-021}",
+    r"\label{proof:BAR-022}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -134,6 +136,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0026-m27-exceptional-cofactor-schedule.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0027-m28-length-indexed-support.md",
 )
 
 

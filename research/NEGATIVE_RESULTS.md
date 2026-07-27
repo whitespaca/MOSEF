@@ -617,3 +617,34 @@
 - Scope: the schedule is fixed before \(N\). No conclusion follows for a
   length-indexed, \(N\)-dependent, or adaptive schedule, density, general
   factoring, or general circuit lower bounds.
+
+## NR-025 - Compact modular cost does not bound exact cofactor size
+
+- Date: 2026-07-28.
+- Status: `REFUTED` claim `REF-024`.
+- Hypothesis tested: if a length-indexed exceptional-cofactor tuple has
+  polynomial-size public parameters and a polynomial-time compact modular
+  evaluator, then every exact integer sent implicitly to its GCD has
+  polynomial bit length.
+- Infinite obstruction: for every \(m\ge2\), the valid \(\Phi_4\) tuple
+  \[
+  A=3,\qquad B=2^m+3,\qquad g=2
+  \]
+  has \(O(m)\)-bit public parameters. Its compact evaluator uses binary
+  geometric sums with \(O(m)\)-bit counts, but
+  \[
+  5C_4(2)=7+\frac{8^B-1}{7}
+  \]
+  and therefore
+  \(\operatorname{bitlength}(C_4(2))\ge3B-5=3\cdot2^m+4\).
+- Positive boundary: BAR-022 exactly bounds balanced-pair coverage when
+  those integer lifts or equivalent explicit prime-support certificates are
+  materialized and charged. It does not transfer that bit bound to compact
+  modular evaluation.
+- Evidence: EXP-0027 materialized levels 2 through 14, verified exact
+  division and 52 compact residues, and reached a 49,156-bit cofactor from
+  19 public-integer encoding bits at level 14.
+- Scope: exact magnitude is not distinct-prime support. The obstruction
+  supplies no population coverage, success density, recognizer, universal
+  factoring algorithm, or general circuit lower bound. M29 must study the
+  prime support of compact lifts directly rather than infer it from size.
