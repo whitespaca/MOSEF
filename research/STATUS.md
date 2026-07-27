@@ -1,5 +1,30 @@
 # Research Status
 
+## M24 execution snapshot
+
+- Date: 2026-07-27.
+- Branch: `research/20260727-m24-rational-residue`.
+- Active question: can the surviving unit-prefix rational residue
+  \[
+  c_1+c_2\,S_B(g^A)S_A(g)^{-1}\pmod N
+  \]
+  admit a sharper polynomial or cyclotomic classification?
+- Dependency: M23 is complete on
+  `research/20260727-m23-unequal-signed-reduction`; Draft PR #25 targets
+  `main`: `https://github.com/whitespaca/MOSEF/pull/25`.
+- First bounded task: normalize primitive coefficient pairs, compute exact
+  resultants of \(c_1S_A(X)+c_2S_B(X^A)\) with both stage polynomials, and
+  enumerate its cyclotomic factors for small unequal \(A,B\) before proposing
+  any theorem.
+- Falsification priority: search repeated-prime and square-free moduli for a
+  proper rational-residue GCD not explained by a coefficient multiplier,
+  boundary factor, stage resultant, or explicitly retained residual
+  polynomial. Finite patterns remain `EMPIRICAL` until proved.
+- Acceptance target: an exact charged rational-residue grammar, numerator
+  resultant or cyclotomic classification, total extraction and formal-output
+  accounting, independent implementation, and adversarial review; a
+  minimized obstruction is an acceptable outcome.
+
 ## M23 outcome
 
 - Date: 2026-07-27.
