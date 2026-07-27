@@ -58,6 +58,9 @@
   `424d26dbf9624da86240f6fd1c3ec1f3c21b268366f720d4c6aac8d210863c19`;
   `output/pdf/mosef-paper-ko.pdf`, SHA-256
   `967cad591027d0a883d89483a86020ba1d7d721095c56c0a4ca25753fe931356`.
+- The validated M29 implementation, proof, experiment, bilingual manuscript,
+  and publication-policy changes are commit
+  `bb7f3d794d31ab9e1908bd3e672dfa64f8a4e73a`.
 - Draft PR #37 stacks M29 on the validated M28 completion branch:
   `https://github.com/whitespaca/MOSEF/pull/37`.
 - Next selected milestone: M30 will determine the exact injectivity criterion
