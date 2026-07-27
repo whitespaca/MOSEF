@@ -1,5 +1,40 @@
 # Research Status
 
+## M31 execution snapshot
+
+- Date: 2026-07-28.
+- Branch: `research/20260728-m31-diversified-compact-signatures`.
+- Active question: can a polynomial public selector over the \(\Phi_4\) and
+  \(\Phi_6\) exceptional families, several bases, and several parameter pairs
+  assign injective signatures to every balanced-prime population, or does a
+  rigorously scoped collision remain?
+- Dependency: M30 is complete on
+  `research/20260728-m30-compact-support-signatures`; proof/implementation
+  commit `9b9b87092d8ba919fc539a43aeddb18d8269f45f` and status checkpoint
+  `fa8e5dd` are pushed. Completion Draft PR #40 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/40`.
+- Base checkpoint: M31 starts from the M30 completion-PR status commit
+  `fa8e5dd`.
+- First bounded task: define a factorization-independent selector grammar for
+  descriptors
+  \((\text{family},A,B,g)\), with every list fixed from the input length
+  before \(N\), and charge candidate count, integer encodings, compact
+  evaluation, all public prechecks, GCDs, outputs, and extraction.
+- Normalization priority: use BAR-020 and BAR-021 to separate direct stage,
+  removed cyclotomic, compact cofactor, aggregate, and public resultant exits.
+  A cofactor-support coordinate must not count success already exposed by a
+  charged direct or overlap precheck.
+- Falsification priority: search for duplicate all-unit and nonzero
+  signatures, denominator-prime exceptions, repeated or redundant
+  coordinates, selectors that depend on hidden factors, and schedules whose
+  descriptor or total evaluation cost is superpolynomial. Finite injectivity
+  is not an asymptotic construction.
+- Acceptance target: either a factorization-independent restricted
+  construction with complete compact cost and recognition accounting, or a
+  scoped collision/barrier with deterministic bounded audit, independent
+  implementation, synchronized English/Korean paper sections, and no general
+  factoring claim.
+
 ## M30 outcome
 
 - Date: 2026-07-28.
