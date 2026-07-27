@@ -14,7 +14,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from mosef_reference import evaluate_addition_subtraction_program  # noqa: E402
+from mosef_reference import evaluate_addition_subtraction_program
 
 SignedStep = tuple[int, int, int]
 

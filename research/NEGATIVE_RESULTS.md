@@ -565,3 +565,86 @@
 - Scope: one unequal depth-two signed numerator at roots of unity. The
   obstruction and classification imply no density, schedule, universal
   factoring theorem, or general-circuit lower bound.
+
+## NR-023 - Direct exceptional cyclotomic GCDs do not exhaust extraction
+
+- Date: 2026-07-27.
+- Status: `REFUTED` claim `REF-022`.
+- Hypothesis tested: after both stage GCDs and both M24 public overlap bounds
+  are units, every proper aggregate GCD in the two THM-003 exceptional
+  families is already the direct \(\Phi_4\) or \(\Phi_6\) GCD.
+- Square-free obstructions: \((N,g,A,B)=(15,11,3,7)\) for \(\Phi_4\)
+  has cofactor GCD \(5\), and \((35,8,5,3)\) for \(\Phi_6\) has
+  cofactor GCD \(5\). In each case the direct cyclotomic GCD, both stages,
+  and both public bounds are one.
+- Repeated-prime obstructions: \((9,4,11,7)\) gives cofactor GCD \(3\)
+  for \(\Phi_4\), while \((25,3,5,3)\) gives cofactor GCD \(5\) for
+  \(\Phi_6\), under the same unit preliminary checks.
+- Positive boundary: BAR-020 proves exact compact formulas for both
+  cofactors, all prime-power valuation branches, and extraction. The
+  refutation concerns only completeness of the direct cyclotomic factor.
+- Evidence: EXP-0025 found 1,873 clean residual proper factors among 61,277
+  exhaustive modular checks in its registered box, with zero failed
+  compact/dense/product or valuation identities and 20 cross-language
+  agreements.
+- Scope: fixed exceptional families for one public base. No public schedule,
+  success density, universal factoring theorem, or broader-circuit result
+  follows.
+
+## NR-024 - No fixed finite exceptional-cofactor schedule is universal
+
+- Date: 2026-07-28.
+- Status: `REFUTED` claim `REF-023`.
+- Hypothesis tested: a fixed finite factorization-independent list of valid
+  exceptional parameter pairs and bases, augmented by every stage,
+  cyclotomic, cofactor, and public overlap precheck, factors every composite
+  input.
+- Infinite obstruction: form the finite product of every nonzero charged
+  integer value in the schedule. Any two distinct primes outside its finite
+  prime support give a square-free semiprime on which every charged GCD is
+  one. Infinitely many such pairs exist.
+- Minimized registered prefix-16 witnesses: bases \(2,\ldots,17\) miss
+  \(2491=47\cdot53\) for \((\Phi_4,A,B)=(\Phi_4,3,7)\), and
+  \(1537=29\cdot53\) for \((\Phi_6,A,B)=(\Phi_6,5,3)\), even after the
+  public cyclotomic/cofactor resultant precheck.
+- Positive boundary: BAR-021 gives exact local valuation criteria, root-count
+  upper bounds, all stage-overlap supports, and closed positive
+  cyclotomic/cofactor resultants. The refutation concerns universal coverage
+  by a fixed finite joint schedule, not per-candidate extraction.
+- Evidence: EXP-0026 completed 30,015 root trials, 90,045 overlap implication
+  checks, 34,104 prime-power valuation checks, ten fixed-prefix searches, and
+  24 cross-language comparisons with zero failures.
+- Scope: the schedule is fixed before \(N\). No conclusion follows for a
+  length-indexed, \(N\)-dependent, or adaptive schedule, density, general
+  factoring, or general circuit lower bounds.
+
+## NR-025 - Compact modular cost does not bound exact cofactor size
+
+- Date: 2026-07-28.
+- Status: `REFUTED` claim `REF-024`.
+- Hypothesis tested: if a length-indexed exceptional-cofactor tuple has
+  polynomial-size public parameters and a polynomial-time compact modular
+  evaluator, then every exact integer sent implicitly to its GCD has
+  polynomial bit length.
+- Infinite obstruction: for every \(m\ge2\), the valid \(\Phi_4\) tuple
+  \[
+  A=3,\qquad B=2^m+3,\qquad g=2
+  \]
+  has \(O(m)\)-bit public parameters. Its compact evaluator uses binary
+  geometric sums with \(O(m)\)-bit counts, but
+  \[
+  5C_4(2)=7+\frac{8^B-1}{7}
+  \]
+  and therefore
+  \(\operatorname{bitlength}(C_4(2))\ge3B-5=3\cdot2^m+4\).
+- Positive boundary: BAR-022 exactly bounds balanced-pair coverage when
+  those integer lifts or equivalent explicit prime-support certificates are
+  materialized and charged. It does not transfer that bit bound to compact
+  modular evaluation.
+- Evidence: EXP-0027 materialized levels 2 through 14, verified exact
+  division and 52 compact residues, and reached a 49,156-bit cofactor from
+  19 public-integer encoding bits at level 14.
+- Scope: exact magnitude is not distinct-prime support. The obstruction
+  supplies no population coverage, success density, recognizer, universal
+  factoring algorithm, or general circuit lower bound. M29 must study the
+  prime support of compact lifts directly rather than infer it from size.

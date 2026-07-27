@@ -111,3 +111,15 @@ the evidence and scope remain authoritative in the full claims ledger.
 | THM-003 | PROVED | Complete rational root-of-unity ratio classification | `research/proofs/THM-003-rational-root-orbits.md` |
 | REF-021 | REFUTED | Conjugation phase congruence as a sufficient condition | `research/NEGATIVE_RESULTS.md` NR-022 |
 | EMP-024 | EMPIRICAL | Bounded rational root-orbit and norm audit | `research/experiments/EXP-0024-m25-rational-root-orbits.md` |
+| DEF-026 | DEFINITION | Charged exceptional cyclotomic/cofactor extraction model | `research/proofs/BAR-020-exceptional-cyclotomic-extraction.md` |
+| BAR-020 | PROVED | Exact compact exceptional cofactor and valuation theorem | `research/proofs/BAR-020-exceptional-cyclotomic-extraction.md` |
+| REF-022 | REFUTED | Direct fixed-cyclotomic GCDs as an exhaustive explanation | `research/NEGATIVE_RESULTS.md` NR-023 |
+| EMP-025 | EMPIRICAL | Bounded exceptional cofactor and prime-power audit | `research/experiments/EXP-0025-m26-exceptional-cyclotomic.md` |
+| DEF-027 | DEFINITION | Charged exceptional-cofactor local profile and fixed joint schedule model | `research/proofs/BAR-021-exceptional-cofactor-schedule-barrier.md` |
+| BAR-021 | PROVED | Exact overlap resultants and fixed finite schedule barrier | `research/proofs/BAR-021-exceptional-cofactor-schedule-barrier.md` |
+| REF-023 | REFUTED | Fixed finite exceptional-cofactor schedule as universal | `research/NEGATIVE_RESULTS.md` NR-024 |
+| EMP-026 | EMPIRICAL | Bounded local-root, overlap, valuation, and prefix audit | `research/experiments/EXP-0026-m27-exceptional-cofactor-schedule.md` |
+| DEF-028 | DEFINITION | Length-indexed compact and materialized-lift schedule ledgers | `research/proofs/BAR-022-length-indexed-materialized-support.md` |
+| BAR-022 | PROVED | Exact balanced-pair support and materialized-bit barrier | `research/proofs/BAR-022-length-indexed-materialized-support.md` |
+| REF-024 | REFUTED | Compact modular cost as a bound on exact-lift bit length | `research/NEGATIVE_RESULTS.md` NR-025 |
+| EMP-027 | EMPIRICAL | Bounded length-indexed support and compact-gap audit | `research/experiments/EXP-0027-m28-length-indexed-support.md` |

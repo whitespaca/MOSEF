@@ -8,6 +8,15 @@ requires-python = ">=3.12"
 line-length = 100
 target-version = "py312"
 
+[tool.ruff.lint]
+# Public validators historically use ValueError for both malformed values and
+# wrong runtime types. Preserve that API contract while enabling the remaining
+# Ruff rule set repository-wide.
+ignore = ["TRY004"]
+
 [tool.mypy]
 python_version = "3.12"
 strict = true
+
+[tool.pytest.ini_options]
+pythonpath = ["."]

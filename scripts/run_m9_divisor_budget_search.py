@@ -13,7 +13,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from mosef_reference import bit_length_divisor_budget  # noqa: E402
+from mosef_reference import bit_length_divisor_budget
 
 
 def canonical_json(value: Any) -> bytes:

@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from mosef_reference import (  # noqa: E402
+from mosef_reference import (
     factor_semismooth_oracle,
     factor_semismooth_promised,
     find_semismooth_asymmetry_witness,
@@ -104,9 +104,8 @@ class SemismoothDefinitionTests(unittest.TestCase):
             lambda: successful_residue_count(1, 1),
         )
         for call in calls:
-            with self.subTest(call=call):
-                with self.assertRaises(ValueError):
-                    call()
+            with self.subTest(call=call), self.assertRaises(ValueError):
+                call()
 
 
 class SemismoothExhaustiveTests(unittest.TestCase):

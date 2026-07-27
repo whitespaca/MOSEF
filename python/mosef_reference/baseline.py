@@ -65,7 +65,7 @@ def _integer_nth_root(n: int, exponent: int) -> int:
     high = 1 << ((n.bit_length() + exponent - 1) // exponent)
     while low <= high:
         middle = (low + high) // 2
-        within, value = _power_leq(middle, exponent, n)
+        within, _value = _power_leq(middle, exponent, n)
         if within:
             low = middle + 1
         else:

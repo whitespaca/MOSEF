@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from mosef_reference import (  # noqa: E402
+from mosef_reference import (
     boundary_divisor_budget,
     divisor_count,
     exponent_bit_length,
@@ -19,7 +19,8 @@ from mosef_reference import (  # noqa: E402
     primorial_divisors,
     primorial_schedule,
 )
-from scripts.run_m11_boundary_schedule_search import search  # noqa: E402
+
+from scripts.run_m11_boundary_schedule_search import search
 
 
 class BoundaryDivisorBudgetTests(unittest.TestCase):
@@ -105,9 +106,8 @@ class BoundaryDivisorBudgetTests(unittest.TestCase):
             lambda: primorial_divisors(False),
         )
         for invalid_call in invalid_calls:
-            with self.subTest(invalid_call=invalid_call):
-                with self.assertRaises(ValueError):
-                    invalid_call()
+            with self.subTest(invalid_call=invalid_call), self.assertRaises(ValueError):
+                invalid_call()
 
     def test_registered_search_small_box(self) -> None:
         summary = search(1024, 6)

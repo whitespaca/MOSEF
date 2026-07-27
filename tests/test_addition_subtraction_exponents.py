@@ -11,12 +11,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from mosef_reference import (  # noqa: E402
+from mosef_reference import (
     absolute_exponent_support,
     evaluate_addition_subtraction_program,
     signed_exponent_lower_bound,
 )
-from scripts.run_m14_addition_subtraction_search import search  # noqa: E402
+
+from scripts.run_m14_addition_subtraction_search import search
 
 
 class AdditionSubtractionExponentTests(unittest.TestCase):
@@ -116,9 +117,8 @@ class AdditionSubtractionExponentTests(unittest.TestCase):
             lambda: signed_exponent_lower_bound(0),
         )
         for invalid_call in invalid_calls:
-            with self.subTest(invalid_call=invalid_call):
-                with self.assertRaises(ValueError):
-                    invalid_call()
+            with self.subTest(invalid_call=invalid_call), self.assertRaises(ValueError):
+                invalid_call()
 
     def test_registered_search_smoke(self) -> None:
         result = search(4, 3, 64, 12, 16)

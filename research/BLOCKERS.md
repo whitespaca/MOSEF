@@ -25,18 +25,20 @@
 - Impact: none for the current delivery. The local `gh` CLI remains
   unauthenticated and should not be treated as the source of PR credentials.
 
-## BLK-003 — Optional Python quality tools unavailable
+## BLK-003 — Optional Python quality tools unavailable (resolved)
 
 - First observed: 2026-07-25
+- Resolved: 2026-07-28
 - Scope: the repository-default `pytest`, Ruff, and mypy gates.
-- Evidence: `python -m pytest`, `python -m ruff check python tests scripts`, and
+- Initial evidence: `python -m pytest`, `python -m ruff check python tests scripts`, and
   `python -m mypy python` each report that the requested module is not installed;
   the active Python 3.12 interpreter also has no `pip` module.
-- Impact: dependency-free `unittest` coverage and bytecode compilation pass, but
-  the optional third-party lint/type gates have not run.
-- Required resolution: provide an approved environment containing pinned
-  versions of pytest, Ruff, and mypy. Do not add or download them merely to hide
-  this environmental limitation.
+- Resolution evidence: under the owner's explicit instruction to install
+  missing programs, isolated `uv tool` environments installed
+  pytest 9.1.1, Ruff 0.16.0, and mypy 2.3.0. The repository test suite,
+  `ruff check python tests scripts`, and strict `mypy python` gate pass.
+- Impact: none remaining. These are user-level isolated tools, not production
+  project dependencies.
 
 ## BLK-004 - M2 remote delivery requires explicit approval (resolved)
 

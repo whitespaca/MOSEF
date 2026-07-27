@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from fractions import Fraction
 import unittest
+from fractions import Fraction
 
 from python.mosef_reference.rational_root_orbit import (
     classify_rational_root_orbit,

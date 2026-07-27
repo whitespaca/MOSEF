@@ -1,29 +1,179 @@
 # Research Status
 
-## M26 execution snapshot
+## M28 outcome
+
+- Date: 2026-07-28.
+- Branch: `research/20260728-m28-length-indexed-cofactor-schedule`.
+- Completed milestone: formalize schedules selected from the eventual input
+  length before the particular \(N\), separate compact modular cost from
+  exact-lift materialization, and account for every balanced semiprime pair
+  that a materialized support can touch.
+- `DEF-028` defines the two cost ledgers. `BAR-022` is `PROVED`: for
+  \(\mathcal P_m=\{p\text{ prime}:2^{m-1}\le p^2<2^m\}\),
+  \(s_m=|\mathcal P_m|\), \(b_m=\lfloor(m-1)/2\rfloor\), and \(h_m\) hit
+  primes, exactly \(\binom{s_m-h_m}{2}\) pairs make every materialized GCD
+  one and \(b_mh_m\le W_m\). Universal population coverage therefore needs
+  \(h_m\ge s_m-1\) and \(W_m\ge b_m(s_m-1)\).
+- `REF-024` is `REFUTED`, and NR-025 preserves the scope boundary. The valid
+  family \(A=3,B=2^m+3,g=2\) has \(O(m)\)-bit public parameters and a
+  polynomial-time compact modular evaluator, while its exact \(\Phi_4\)
+  cofactor has at least \(3\cdot2^m+4\) bits. This proves an exact
+  compact/materialized separation, not broad distinct-prime support.
+- EXP-0027 checked 91 balanced primes, 623 pair lengths, 2,494 support
+  profiles, 751,072 pair/value GCDs, 182,523 forced-unit pairs, 13 exact
+  compact-gap cofactors, 52 compact residues, and 24 Python/Rust/C#
+  comparisons with zero failures. Summary SHA-256:
+  `e0744fdd20d09b103e6e5e237b2e1375290d32d3991951913086965321e29d52`.
+- Full gates pass: foundation and publication consistency (116 claims and 26
+  experiment hashes), 194 Python tests plus 172 subtests, bytecode
+  compilation, Ruff 0.16.0, strict mypy 2.3.0 over 23 source files, Rust
+  formatting/Clippy/34 tests, C# Release build, the 58 baseline and 24 M28
+  cross-language comparisons, and the registered EXP-0027 rerun.
+- XeLaTeX converged to 71 pages with no undefined references, citations,
+  overfull boxes, underfull boxes, or final warnings. Sixteen rendered pages
+  covering the title, M28 statements, synthesis table, limitations,
+  conclusion, full proof, reproduction commands, and references passed
+  visual inspection. Stable PDF: `output/pdf/mosef-paper.pdf`, SHA-256
+  `da9349fb7a7e18dc160542acfa85387d47ad5998ab7fd838e0dc9d418a07c7b6`.
+- The validated M28 implementation, proof, experiment, manuscript, and
+  quality-gate updates are commit
+  `285e6a6d767b406c0b8aad86725e20f2b95f77bb`.
+- M28 start PR #35 was merged into its stacked M27 base before the result
+  commits, and that base was later removed from the remote. Completion Draft
+  PR #36 therefore targets `main` and carries the unmerged M27 completion
+  together with M28:
+  `https://github.com/whitespaca/MOSEF/pull/36`.
+- Next selected milestone: M29 will study the distinct balanced-prime support
+  of the compact family \(A=3,B=2^m+3,g=2\) directly, without materializing
+  the exact cofactor or inferring support from magnitude.
+
+### M28 Korean summary
+
+M28에서는 입력 길이만 보고 정해지는 스케줄의 비용을 두 원장으로
+분리했습니다. 정확한 정수 값을 실제로 펼치면 균형 소수 \(h_m\)개를
+지원하는 데 최소 \(b_mh_m\)비트가 필요하고, 지원 밖의 두 소수로 만든
+세미프라임은 반드시 실패합니다. 그러나 모듈러 계산만 하는 압축
+평가기는 지수적으로 긴 정확한 코팩터도 다항 시간에 다룰 수 있으므로,
+이 물질화 장벽을 압축 스케줄 전체의 하한으로 확대할 수 없습니다.
+M29는 큰 정수의 크기가 아니라 그 정수가 실제로 포함하는 서로 다른
+균형 소수의 지지집합을 직접 조사합니다.
+
+## M27 outcome
+
+- Date: 2026-07-28.
+- Branch: `research/20260727-m27-exceptional-cofactor-schedule`.
+- Completed milestone: classify the exceptional cofactor roots and
+  prime-power valuations, isolate every overlap with the two stages and the
+  direct cyclotomic factor, and test fixed public cofactor schedules.
+- `DEF-027` gives the exact local valuation criterion and the compact
+  \(C_4,C_6\) overlap descriptors. Unit-root counts are bounded by
+  \(\min(A(B-1)-2,p-1)\), and every proper cofactor GCD remains a total
+  factor exit.
+- `BAR-021` is `PROVED`. The stage/cofactor resultants are explicit powers
+  of \(B\), except for the second-stage/\(C_6\) factor
+  \(2^{A(B-1)-2}B^{A-1}\). The direct cyclotomic overlaps reduce to positive
+  public integers \(R_4=u_4^2+v_4^2\) and
+  \(R_6=u_6^2+u_6v_6+v_6^2\), so all local overlap prechecks are exact.
+- `REF-023` is `REFUTED`, and NR-024 preserves the scope barrier. Any fixed
+  finite joint schedule charges only finitely many positive integers, hence
+  has finite prime support. Choosing two distinct primes outside that support
+  gives infinitely many square-free semiprimes on which every charged GCD is
+  one. This does not cover input-length-indexed, input-dependent, or adaptive
+  schedules.
+- Minimized fixed-prefix-16 witnesses are \(2491=47\cdot53\) for the
+  \(\Phi_4\) pair \((A,B)=(3,7)\), and \(1537=29\cdot53\) for the
+  \(\Phi_6\) pair \((A,B)=(5,3)\).
+- EXP-0026 completed 29 exact pair/remainder/resultant checks, 725 root
+  enumerations, 30,015 unit-root trials, 60,030 stage implications, 30,015
+  cyclotomic implications, 34,104 compact/dense checks, 34,104 valuations,
+  27,474 exhaustive semiprime comparisons, and 24 Python/Rust/C# comparisons
+  with zero failures. Summary SHA-256:
+  `3ef554db904681c3e6764bf3aba3561b1075ee4372735ce06b7f15dcbc39b6f5`.
+- Full gates pass: foundation and publication consistency (112 claims and 25
+  experiment hashes), 189 Python tests plus 166 subtests, Python bytecode
+  compilation, Ruff 0.16.0, strict mypy 2.3.0 over 22 source files, Rust
+  formatting/Clippy/33 tests, C# Release build, the 58 baseline and 24 M27
+  cross-language comparisons, and the registered EXP-0026 rerun. Ruff,
+  mypy, and pytest were installed in isolated `uv tool` environments, and
+  BLK-003 is resolved.
+- XeLaTeX converged to 68 pages with no undefined references, citations,
+  overfull boxes, or final warnings. The title, theorem, proof, reproduction,
+  transition, and final pages were rendered and visually inspected. Stable
+  PDF: `output/pdf/mosef-paper.pdf`, SHA-256
+  `ade1efd06707c71c2fae782754178a22859304a607defbdff95f6039d354a0fd`.
+- The validated M27 implementation, proof, experiment, manuscript, and
+  quality-gate repair are commit
+  `9bc8e6b61458c5ed0cc36a2a3a696439025732b6`.
+- M27 start PR #33 is merged. Completion Draft PR #34 stacks the validated
+  result on the completed M26 branch:
+  `https://github.com/whitespaca/MOSEF/pull/34`.
+- Next selected milestone: M28 asks whether an input-length-indexed
+  exceptional-cofactor schedule can evade BAR-021 without hidden factor
+  access or superpolynomial total cost.
+
+### M27 Korean summary
+
+M27에서는 예외 cofactor의 국소 영점, 소수 거듭제곱 valuation, 두 stage 및
+직접 cyclotomic 인자와의 겹침을 정확히 분류했습니다. 고정된 유한 공개
+스케줄은 유한한 소수 지지만 충전하므로, 그 지지 밖의 서로 다른 두 소수로
+이루어진 무한히 많은 square-free semiprime을 놓칩니다. 이 장벽은
+입력 길이에 따라 커지는 스케줄에는 적용되지 않으며, 그 경우가 M28의
+다음 연구 대상입니다.
+
+## M26 outcome
 
 - Date: 2026-07-27.
 - Branch: `research/20260727-m26-exceptional-cyclotomic`.
-- Active question: do the only exceptional rational families,
+- Completed milestone: do the only exceptional rational families,
   \(\Phi_4\) with coefficients \((1,1)\) and \(\Phi_6\) with
   coefficients \((2,1)\), add extraction power beyond direct GCDs with
   their small cyclotomic polynomials?
-- Dependency: M25 is complete on
-  `research/20260727-m25-rational-root-orbits`; Draft PR #29 targets
-  `main`.
-- Base checkpoint: M26 starts from M25 completion-status commit
-  `3d0b15def4ba86d022bb770e298f76186503610e`.
-- Draft PR #30 stacks M26 on the M25 branch:
-  `https://github.com/whitespaca/MOSEF/pull/30`.
-- First bounded task: divide each exceptional signed numerator exactly by
-  its fixed cyclotomic factor, retain the quotient as an explicit cofactor,
-  and test whether a proper aggregate GCD can survive when the cyclotomic
-  GCD, both stages, and both M24 public overlap bounds are units.
-- Falsification priority: search repeated-prime and square-free moduli for a
-  unit-cyclotomic residual cofactor path before proposing any family theorem.
-- Acceptance target: exact quotient/cofactor and valuation semantics, total
-  construction/recognition/output costs, independent implementation, and
-  either a restricted extraction theorem or a minimized obstruction.
+- `DEF-026` retains both stages, both public overlap bounds, the fixed
+  cyclotomic GCD, an independently evaluated compact cofactor, aggregate,
+  valuations, extraction, recognition, and charged dense output.
+- `BAR-020` is `PROVED`: both exact cofactors have degree
+  \(A(B-1)-2\) and constant-size periodic/geometric descriptors evaluable
+  without modular division in \(O(\log A+\log B)\) modular operations.
+  Capped prime-power valuations add, and proper direct or cofactor GCDs are
+  total factor exits.
+- `REF-022` is `REFUTED`. Clean square-free residual witnesses are
+  \((N,g,A,B)=(15,11,3,7)\) for \(\Phi_4\) and
+  \((35,8,5,3)\) for \(\Phi_6\); repeated-prime witnesses are
+  \((9,4,11,7)\) and \((25,3,5,3)\). The direct cyclotomic, both stages,
+  and both public bounds are units, while the cofactor GCD is proper.
+- EXP-0025 completed 29 symbolic divisions, 61,277 compact/dense/product
+  checks, 122,583 capped valuation checks, and 20 Python/Rust/C# comparisons
+  with zero failures. Summary SHA-256:
+  `aa160aff769f98463268f641365c3a7ac498f2c5dc4e70a018f86a4d116bdbbb`.
+- Dense output remains charged at \(A(B-1)-1\) coefficients. No public base
+  schedule, success density, probability, universal factorization result, or
+  broader-circuit theorem is claimed.
+- Validation: foundation and publication checks pass with 108 claims and 24
+  experiment hashes; 185 Python tests pass; Python compile-all passes; Rust
+  formatting, clippy with warnings denied, and all 32 tests pass; C# Release
+  build passes; the 58 baseline and 20 M26 cross-language checks pass; the
+  registered EXP-0025 rerun has zero failures. Optional Ruff and mypy remain
+  unavailable under BLK-003.
+- Paper: XeLaTeX converged to 66 pages with no undefined references,
+  citations, overfull boxes, or final warnings. The new theorem and appendix
+  pages were rendered and visually inspected. Stable PDF:
+  `output/pdf/mosef-paper.pdf`, SHA-256
+  `848f26b8a8efb79b78851dee5b2bb7cc8612f3170ff6e6df0c06f78672a0d4da`.
+- The validated M26 implementation, proof, experiment, and manuscript core
+  is commit `cc850a084be6940349c09dc35e0ab73a43f791d6`.
+- The earlier M26 start PR #30 was merged. Completion Draft PR #32 stacks
+  the two validated M26 commits on the M25 branch and is mergeable:
+  `https://github.com/whitespaca/MOSEF/pull/32`.
+- Next selected milestone: M27 isolates local cofactor roots and overlaps
+  before testing any factorization-independent public schedule.
+
+### M26 Korean summary
+
+M26에서는 \(\Phi_4,\Phi_6\) 예외 계열의 quotient를 전개하지 않고도
+주기 계수와 기하급수 합으로 평가하는 정확한 공식을 증명했습니다. 직접
+cyclotomic GCD가 1이어도 cofactor가 새 인수를 주는 square-free 및 반복
+소수 반례가 모두 존재합니다. 따라서 다음 M27은 이 cofactor의 국소 영점과
+stage overlap을 먼저 분류한 뒤 공개 base schedule 가능성을 검토합니다.
 
 ## M25 outcome
 

@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from mosef_reference import (  # noqa: E402
+from mosef_reference import (
     evaluate_multiplication_program,
     generic_multiplication_lower_bound,
     repeated_squaring_program,
@@ -88,9 +88,8 @@ class CompressedExponentTests(unittest.TestCase):
             lambda: tower_descriptor_exponent(-1),
         )
         for invalid_call in invalid_calls:
-            with self.subTest(invalid_call=invalid_call):
-                with self.assertRaises(ValueError):
-                    invalid_call()
+            with self.subTest(invalid_call=invalid_call), self.assertRaises(ValueError):
+                invalid_call()
 
 
 if __name__ == "__main__":

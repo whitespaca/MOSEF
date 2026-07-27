@@ -10,11 +10,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from mosef_reference import (  # noqa: E402
+from mosef_reference import (
     dyadic_geometric_coefficients,
     evaluate_dyadic_telescope,
 )
-from scripts.run_m17_dyadic_telescope_search import search  # noqa: E402
+
+from scripts.run_m17_dyadic_telescope_search import search
 
 
 def multiply_polynomials(
@@ -124,9 +125,8 @@ class DyadicTelescopeTests(unittest.TestCase):
             lambda: dyadic_geometric_coefficients(21),
         )
         for invalid_call in invalid_calls:
-            with self.subTest(invalid_call=invalid_call):
-                with self.assertRaises(ValueError):
-                    invalid_call()
+            with self.subTest(invalid_call=invalid_call), self.assertRaises(ValueError):
+                invalid_call()
 
     def test_registered_search_smoke(self) -> None:
         result = search(6, 64, 12)

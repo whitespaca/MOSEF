@@ -12,7 +12,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
-from mosef_reference import evaluate_nested_quotient  # noqa: E402
+from mosef_reference import evaluate_nested_quotient
 
 
 def run(command: list[str], env: dict[str, str] | None = None) -> str:

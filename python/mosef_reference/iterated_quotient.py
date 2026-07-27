@@ -44,9 +44,11 @@ def evaluate_iterated_quotient(
     previous_numerator: int | None = None
     for factor in factor_tuple:
         stage = evaluate_nested_quotient(base, modulus, prefix, factor)
-        if previous_numerator is not None:
-            if stage.intermediate_residue != previous_numerator:
-                raise AssertionError("iterated prefix linkage failed")
+        if (
+            previous_numerator is not None
+            and stage.intermediate_residue != previous_numerator
+        ):
+            raise AssertionError("iterated prefix linkage failed")
         quotient_product = (
             stage.quotient_residue
             if quotient_product is None

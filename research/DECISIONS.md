@@ -585,3 +585,73 @@
 - Consequence: THM-003 completely classifies rational orders in the M25
   model. M26 should test whether the two fixed exceptional polynomials add
   any algorithmic content beyond direct small-cyclotomic GCDs.
+
+## ADR-029 - Evaluate exceptional cofactors independently on every branch
+
+- Date: 2026-07-27.
+- Decision: retain the exact quotients \(C_4=F_4/\Phi_4\) and
+  \(C_6=F_6/\Phi_6\) as first-class extraction components. Evaluate them by
+  fixed periodic and binary geometric-sum formulas, not only by multiplying
+  the aggregate by a cyclotomic inverse.
+- Rationale: inverse recovery is valid only when \(\Phi_i(g)\) is a unit.
+  A full direct cyclotomic collision makes the aggregate full but does not
+  determine or suppress the cofactor GCD. Moreover, the clean residual
+  witnesses show that unit direct cyclotomic GCDs can coexist with proper
+  cofactor GCDs after all earlier stage and public-bound checks.
+- Cost accounting: compact evaluation uses a constant number of exponentiations
+  and binary geometric sums whose counts have bit length
+  \(O(\log A+\log B)\). A dense quotient request still emits
+  \(A(B-1)-1\) coefficients and is charged by that output size. Every base,
+  stage, public-bound, cyclotomic, cofactor, and extraction GCD remains
+  explicit.
+- Consequence: BAR-020 gives a total factorization-independent evaluator and
+  REF-022 blocks the direct-cyclotomic-only interpretation. M27 may study a
+  public schedule only after isolating local cofactor roots and overlaps; M26
+  provides no coverage or density theorem.
+
+## ADR-030 - Close the fixed finite schedule model before length-indexed claims
+
+- Date: 2026-07-28.
+- Decision: compute compact stage/cofactor and cyclotomic/cofactor resultants
+  before treating any cofactor root as a new schedule event. Define the first
+  schedule model as one fixed finite set of public family, parameter, and base
+  tuples chosen before the input.
+- Rationale: exact resultants remove every hidden overlap with already charged
+  exits. In the resulting model, a finite product of all nonzero charged
+  integer values has only finitely many prime divisors, so infinitely many
+  square-free semiprimes avoid the whole schedule. This is a rigorous barrier
+  and requires no empirical density extrapolation.
+- Cost accounting: the direct/cofactor resultants have
+  \(O(\log A+\log B)\)-bit closed forms. Stage resultants remain compact
+  base/exponent descriptors. Explicit root enumeration costs \(p-1\) trials
+  and is not called polynomial in \(\log p\).
+- Consequence: BAR-021 refutes a universal fixed finite joint schedule while
+  preserving the local cofactor extraction mechanism. M28 may study schedules
+  indexed by input length only after stating their quantifier order and total
+  construction/evaluation budget; BAR-021 does not transfer automatically.
+
+## ADR-031 - Separate compact modular cost from exact-lift support cost
+
+- Date: 2026-07-28.
+- Decision: define a length-indexed schedule before the particular input
+  \(N\), but maintain two ledgers. The compact ledger charges binary
+  parameters and modular evaluation. The materialized ledger additionally
+  charges the actual bit length of every nonzero exact integer or an
+  equivalent explicit support certificate.
+- Rationale: a same-length finite-support diagonalization must control how
+  many balanced primes divide the charged values. BAR-022 provides that
+  control exactly under materialization. The valid family
+  \(A=3,B=2^m+3,g=2\) shows that compact evaluation alone can represent an
+  exponentially long cofactor, so using its exact bit length as compact
+  running time would be false.
+- Cost accounting: for a balanced prime population, \(h\) hit primes each
+  contribute at least \(b=\lfloor(m-1)/2\rfloor\) bits to the product of
+  materialized values, giving \(bh\le W\). Compact geometric-sum evaluation
+  is instead charged by the binary count lengths and modular operands.
+  Touched pairs are only an upper bound because one value can collide on both
+  factors.
+- Consequence: M28 proves a scoped materialized-support barrier and refutes
+  the naive compact-to-exact cost transfer. M29 should examine the distinct
+  balanced-prime support of compact exceptional cofactors directly; neither
+  large magnitude nor finite-box root counts may be treated as support
+  density.

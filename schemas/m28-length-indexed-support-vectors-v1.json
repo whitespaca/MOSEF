@@ -1,0 +1,245 @@
+{
+  "schema_version": "1.0.0",
+  "length_indexed_support_vectors": [
+    {
+      "input_length": 10,
+      "primes": [23, 29, 31],
+      "charged_values": [23],
+      "expected": {
+        "input_length": 10,
+        "population_size": 3,
+        "min_prime_log2_floor": 4,
+        "charged_value_count": 1,
+        "materialized_bit_budget": 5,
+        "hit_primes": [23],
+        "missed_primes": [29, 31],
+        "hit_prime_count": 1,
+        "forced_miss_pair_count": 1,
+        "pair_count": 3,
+        "maximum_coverable_pair_count": 2,
+        "support_cap": 1,
+        "necessary_universal_bit_budget": 8
+      }
+    },
+    {
+      "input_length": 10,
+      "primes": [23, 29, 31],
+      "charged_values": [667],
+      "expected": {
+        "input_length": 10,
+        "population_size": 3,
+        "min_prime_log2_floor": 4,
+        "charged_value_count": 1,
+        "materialized_bit_budget": 10,
+        "hit_primes": [23, 29],
+        "missed_primes": [31],
+        "hit_prime_count": 2,
+        "forced_miss_pair_count": 0,
+        "pair_count": 3,
+        "maximum_coverable_pair_count": 3,
+        "support_cap": 2,
+        "necessary_universal_bit_budget": 8
+      }
+    },
+    {
+      "input_length": 10,
+      "primes": [23, 29, 31],
+      "charged_values": [-31, 5],
+      "expected": {
+        "input_length": 10,
+        "population_size": 3,
+        "min_prime_log2_floor": 4,
+        "charged_value_count": 2,
+        "materialized_bit_budget": 8,
+        "hit_primes": [31],
+        "missed_primes": [23, 29],
+        "hit_prime_count": 1,
+        "forced_miss_pair_count": 1,
+        "pair_count": 3,
+        "maximum_coverable_pair_count": 2,
+        "support_cap": 2,
+        "necessary_universal_bit_budget": 8
+      }
+    },
+    {
+      "input_length": 11,
+      "primes": [37, 41, 43],
+      "charged_values": [1517],
+      "expected": {
+        "input_length": 11,
+        "population_size": 3,
+        "min_prime_log2_floor": 5,
+        "charged_value_count": 1,
+        "materialized_bit_budget": 11,
+        "hit_primes": [37, 41],
+        "missed_primes": [43],
+        "hit_prime_count": 2,
+        "forced_miss_pair_count": 0,
+        "pair_count": 3,
+        "maximum_coverable_pair_count": 3,
+        "support_cap": 2,
+        "necessary_universal_bit_budget": 10
+      }
+    },
+    {
+      "input_length": 11,
+      "primes": [37, 41, 43],
+      "charged_values": [1591, -41],
+      "expected": {
+        "input_length": 11,
+        "population_size": 3,
+        "min_prime_log2_floor": 5,
+        "charged_value_count": 2,
+        "materialized_bit_budget": 17,
+        "hit_primes": [37, 41, 43],
+        "missed_primes": [],
+        "hit_prime_count": 3,
+        "forced_miss_pair_count": 0,
+        "pair_count": 3,
+        "maximum_coverable_pair_count": 3,
+        "support_cap": 3,
+        "necessary_universal_bit_budget": 10
+      }
+    },
+    {
+      "input_length": 12,
+      "primes": [47, 53, 59, 61],
+      "charged_values": [2491, -5],
+      "expected": {
+        "input_length": 12,
+        "population_size": 4,
+        "min_prime_log2_floor": 5,
+        "charged_value_count": 2,
+        "materialized_bit_budget": 15,
+        "hit_primes": [47, 53],
+        "missed_primes": [59, 61],
+        "hit_prime_count": 2,
+        "forced_miss_pair_count": 1,
+        "pair_count": 6,
+        "maximum_coverable_pair_count": 5,
+        "support_cap": 3,
+        "necessary_universal_bit_budget": 15
+      }
+    },
+    {
+      "input_length": 12,
+      "primes": [47, 53, 59, 61],
+      "charged_values": [2491, 3599],
+      "expected": {
+        "input_length": 12,
+        "population_size": 4,
+        "min_prime_log2_floor": 5,
+        "charged_value_count": 2,
+        "materialized_bit_budget": 24,
+        "hit_primes": [47, 53, 59, 61],
+        "missed_primes": [],
+        "hit_prime_count": 4,
+        "forced_miss_pair_count": 0,
+        "pair_count": 6,
+        "maximum_coverable_pair_count": 6,
+        "support_cap": 4,
+        "necessary_universal_bit_budget": 15
+      }
+    },
+    {
+      "input_length": 13,
+      "primes": [67, 71, 73, 79, 83, 89],
+      "charged_values": [4757, 5767, 83],
+      "expected": {
+        "input_length": 13,
+        "population_size": 6,
+        "min_prime_log2_floor": 6,
+        "charged_value_count": 3,
+        "materialized_bit_budget": 33,
+        "hit_primes": [67, 71, 73, 79, 83],
+        "missed_primes": [89],
+        "hit_prime_count": 5,
+        "forced_miss_pair_count": 0,
+        "pair_count": 15,
+        "maximum_coverable_pair_count": 15,
+        "support_cap": 5,
+        "necessary_universal_bit_budget": 30
+      }
+    },
+    {
+      "input_length": 13,
+      "primes": [67, 71, 73, 79, 83, 89],
+      "charged_values": [-89, 1],
+      "expected": {
+        "input_length": 13,
+        "population_size": 6,
+        "min_prime_log2_floor": 6,
+        "charged_value_count": 2,
+        "materialized_bit_budget": 8,
+        "hit_primes": [89],
+        "missed_primes": [67, 71, 73, 79, 83],
+        "hit_prime_count": 1,
+        "forced_miss_pair_count": 10,
+        "pair_count": 15,
+        "maximum_coverable_pair_count": 5,
+        "support_cap": 1,
+        "necessary_universal_bit_budget": 30
+      }
+    },
+    {
+      "input_length": 14,
+      "primes": [97, 101, 103, 107, 109, 113, 127],
+      "charged_values": [9797, 103],
+      "expected": {
+        "input_length": 14,
+        "population_size": 7,
+        "min_prime_log2_floor": 6,
+        "charged_value_count": 2,
+        "materialized_bit_budget": 21,
+        "hit_primes": [97, 101, 103],
+        "missed_primes": [107, 109, 113, 127],
+        "hit_prime_count": 3,
+        "forced_miss_pair_count": 6,
+        "pair_count": 21,
+        "maximum_coverable_pair_count": 15,
+        "support_cap": 3,
+        "necessary_universal_bit_budget": 36
+      }
+    },
+    {
+      "input_length": 15,
+      "primes": [131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181],
+      "charged_values": [20711, 23707],
+      "expected": {
+        "input_length": 15,
+        "population_size": 11,
+        "min_prime_log2_floor": 7,
+        "charged_value_count": 2,
+        "materialized_bit_budget": 30,
+        "hit_primes": [139, 149, 151, 157],
+        "missed_primes": [131, 137, 163, 167, 173, 179, 181],
+        "hit_prime_count": 4,
+        "forced_miss_pair_count": 21,
+        "pair_count": 55,
+        "maximum_coverable_pair_count": 34,
+        "support_cap": 4,
+        "necessary_universal_bit_budget": 70
+      }
+    },
+    {
+      "input_length": 16,
+      "primes": [191, 193, 197, 199, 211, 223, 227, 229, 233, 239, 241, 251],
+      "charged_values": [36481, 38021, 199],
+      "expected": {
+        "input_length": 16,
+        "population_size": 12,
+        "min_prime_log2_floor": 7,
+        "charged_value_count": 3,
+        "materialized_bit_budget": 40,
+        "hit_primes": [191, 193, 197, 199],
+        "missed_primes": [211, 223, 227, 229, 233, 239, 241, 251],
+        "hit_prime_count": 4,
+        "forced_miss_pair_count": 28,
+        "pair_count": 66,
+        "maximum_coverable_pair_count": 38,
+        "support_cap": 5,
+        "necessary_universal_bit_budget": 77
+      }
+    }
+  ]
+}

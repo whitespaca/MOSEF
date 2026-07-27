@@ -10,7 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from mosef_reference import (  # noqa: E402
+from mosef_reference import (
     CandidateKind,
     capped_valuation_profile,
     evaluate_separator_candidate,
@@ -99,9 +99,8 @@ class SeparatorDefinitionTests(unittest.TestCase):
             lambda: evaluate_separator_candidate(15, 2, 0),
         )
         for invalid_call in invalid_calls:
-            with self.subTest(invalid_call=invalid_call):
-                with self.assertRaises(ValueError):
-                    invalid_call()
+            with self.subTest(invalid_call=invalid_call), self.assertRaises(ValueError):
+                invalid_call()
 
 
 class SeparatorExhaustiveTests(unittest.TestCase):

@@ -2,15 +2,17 @@ use mosef_arithmetic::{
     analyze_divisor_cover, batch_gcd, classify_rational_root_orbit, combined_promise_asymmetry,
     combined_promise_hit_count, combined_promise_signature, divisor_count,
     evaluate_addition_subtraction_program, evaluate_batch_product, evaluate_dyadic_telescope,
-    evaluate_geometric_sum, evaluate_iterated_quotient, evaluate_lucas_separator_candidate,
-    evaluate_multiplication_program, evaluate_nested_quotient, evaluate_product_dag,
-    evaluate_quotient_linear_combination, evaluate_rational_residue_audit,
+    evaluate_exceptional_cyclotomic, evaluate_geometric_sum, evaluate_iterated_quotient,
+    evaluate_lucas_separator_candidate, evaluate_multiplication_program, evaluate_nested_quotient,
+    evaluate_product_dag, evaluate_quotient_linear_combination, evaluate_rational_residue_audit,
     evaluate_separator_candidate, evaluate_symmetric_quotient_difference,
-    evaluate_unequal_signed_reduction, generic_multiplication_lower_bound, is_prime, lucas_v,
-    mod_pow, perfect_power, pollard_p_minus_one, pollard_p_plus_one, pollard_rho,
-    semismooth_factor, semismooth_successful_residue_count, trial_division, BatchProductEvaluation,
-    CoverAnalysis, DyadicDivisionStatus, DyadicTelescopeEvaluation, GeometricDivisionStatus,
-    GeometricSumEvaluation, IteratedQuotientEvaluation, LucasSeparatorOutcome,
+    evaluate_unequal_signed_reduction, exceptional_cofactor_overlap,
+    generic_multiplication_lower_bound, is_prime, length_indexed_support_profile, lucas_v, mod_pow,
+    perfect_power, pollard_p_minus_one, pollard_p_plus_one, pollard_rho, semismooth_factor,
+    semismooth_successful_residue_count, trial_division, BatchProductEvaluation, CoverAnalysis,
+    DyadicDivisionStatus, DyadicTelescopeEvaluation, ExceptionalCofactorOverlap,
+    ExceptionalCyclotomicEvaluation, GeometricDivisionStatus, GeometricSumEvaluation,
+    IteratedQuotientEvaluation, LengthIndexedSupportProfile, LucasSeparatorOutcome,
     NestedQuotientEvaluation, ProductDagEvaluation, QuotientLinearCombinationEvaluation,
     RationalResidueAuditEvaluation, RationalRootOrbitClassification, SemismoothOutcome,
     SeparatorOutcome, SignedStraightLineEvaluation, StraightLineEvaluation,
@@ -606,6 +608,123 @@ fn display_rational_root_orbit(value: RationalRootOrbitClassification) -> String
     )
 }
 
+fn display_exceptional_cyclotomic(value: ExceptionalCyclotomicEvaluation) -> String {
+    let optional =
+        |item: Option<u64>| item.map_or_else(|| "none".to_owned(), |inner| inner.to_string());
+    let optional_status = |item: Option<GeometricDivisionStatus>| {
+        item.map_or_else(
+            || "none".to_owned(),
+            |inner| display_division_status(inner).to_owned(),
+        )
+    };
+    format!(
+        concat!(
+            "base:{}|modulus:{}|family:{}|order:{}|first_factor:{}|second_factor:{}|",
+            "first_coefficient:{}|second_coefficient:{}|cyclotomic_residue:{}|",
+            "cyclotomic_gcd:{}|cyclotomic_status:{}|aggregate_residue:{}|",
+            "aggregate_gcd:{}|aggregate_status:{}|cofactor_residue:{}|cofactor_gcd:{}|",
+            "cofactor_status:{}|extraction_source:{}|extraction_gcd:{}|",
+            "first_quotient_gcd:{}|second_quotient_gcd:{}|first_public_bound_gcd:{}|",
+            "second_public_bound_gcd:{}|dense_cofactor_degree:{}|",
+            "dense_cofactor_coefficient_count:{}"
+        ),
+        value.base,
+        value.modulus,
+        value.family,
+        value.order,
+        value.first_factor,
+        value.second_factor,
+        value.first_coefficient,
+        value.second_coefficient,
+        value.cyclotomic_residue,
+        value.cyclotomic_gcd,
+        display_division_status(value.cyclotomic_status),
+        value.aggregate_residue,
+        value.aggregate_gcd,
+        display_division_status(value.aggregate_status),
+        optional(value.cofactor_residue),
+        optional(value.cofactor_gcd),
+        optional_status(value.cofactor_status),
+        value.extraction_source,
+        optional(value.extraction_gcd),
+        value.first_quotient_gcd,
+        value.second_quotient_gcd,
+        value.first_public_bound_gcd,
+        value.second_public_bound_gcd,
+        value.dense_cofactor_degree,
+        value.dense_cofactor_coefficient_count,
+    )
+}
+
+fn display_exceptional_cofactor_overlap(value: ExceptionalCofactorOverlap) -> String {
+    let stage_overlap_support = if value.family == "phi4" {
+        value.second_factor.to_string()
+    } else {
+        format!("2,{}", value.second_factor)
+    };
+    format!(
+        concat!(
+            "family:{}|order:{}|first_factor:{}|second_factor:{}|cofactor_degree:{}|",
+            "remainder_constant:{}|remainder_linear:{}|",
+            "cyclotomic_cofactor_resultant:{}|first_stage_resultant_base:{}|",
+            "first_stage_resultant_exponent:{}|second_stage_power_of_two_exponent:{}|",
+            "second_stage_resultant_base:{}|second_stage_resultant_exponent:{}|",
+            "stage_overlap_support:{}"
+        ),
+        value.family,
+        value.order,
+        value.first_factor,
+        value.second_factor,
+        value.cofactor_degree,
+        value.remainder_constant,
+        value.remainder_linear,
+        value.cyclotomic_cofactor_resultant,
+        value.first_stage_resultant_base,
+        value.first_stage_resultant_exponent,
+        value.second_stage_power_of_two_exponent,
+        value.second_stage_resultant_base,
+        value.second_stage_resultant_exponent,
+        stage_overlap_support,
+    )
+}
+
+fn display_length_indexed_support(value: LengthIndexedSupportProfile) -> String {
+    let hit_primes = value
+        .hit_primes
+        .iter()
+        .map(u64::to_string)
+        .collect::<Vec<_>>()
+        .join(",");
+    let missed_primes = value
+        .missed_primes
+        .iter()
+        .map(u64::to_string)
+        .collect::<Vec<_>>()
+        .join(",");
+    format!(
+        concat!(
+            "input_length:{}|population_size:{}|min_prime_log2_floor:{}|",
+            "charged_value_count:{}|materialized_bit_budget:{}|hit_primes:{}|",
+            "missed_primes:{}|hit_prime_count:{}|forced_miss_pair_count:{}|",
+            "pair_count:{}|maximum_coverable_pair_count:{}|support_cap:{}|",
+            "necessary_universal_bit_budget:{}"
+        ),
+        value.input_length,
+        value.population_size,
+        value.min_prime_log2_floor,
+        value.charged_value_count,
+        value.materialized_bit_budget,
+        hit_primes,
+        missed_primes,
+        value.hit_prime_count,
+        value.forced_miss_pair_count,
+        value.pair_count,
+        value.maximum_coverable_pair_count,
+        value.support_cap,
+        value.necessary_universal_bit_budget,
+    )
+}
+
 fn run() -> Result<(), String> {
     let mut arguments = env::args().skip(1);
     let operation = arguments
@@ -971,6 +1090,58 @@ fn run() -> Result<(), String> {
             display_rational_root_orbit(
                 classify_rational_root_orbit(first_factor, second_factor, order).ok_or_else(
                     || "factors must be unequal and at least two, order at least two".to_owned(),
+                )?,
+            )
+        }
+        "exceptional-cyclotomic" => {
+            let base = parse_u64(arguments.next(), "base")?;
+            let modulus = parse_u64(arguments.next(), "modulus")?;
+            let first_factor = parse_u64(arguments.next(), "first_factor")?;
+            let second_factor = parse_u64(arguments.next(), "second_factor")?;
+            let family = arguments
+                .next()
+                .ok_or_else(|| "missing family".to_owned())?;
+            display_exceptional_cyclotomic(
+                evaluate_exceptional_cyclotomic(
+                    base,
+                    modulus,
+                    first_factor,
+                    second_factor,
+                    &family,
+                )
+                .ok_or_else(|| "base must be a unit and family congruences must hold".to_owned())?,
+            )
+        }
+        "exceptional-cofactor-overlap" => {
+            let first_factor = parse_u64(arguments.next(), "first_factor")?;
+            let second_factor = parse_u64(arguments.next(), "second_factor")?;
+            let family = arguments
+                .next()
+                .ok_or_else(|| "missing family".to_owned())?;
+            display_exceptional_cofactor_overlap(
+                exceptional_cofactor_overlap(first_factor, second_factor, &family)
+                    .ok_or_else(|| "family congruences must hold".to_owned())?,
+            )
+        }
+        "length-indexed-support-profile" => {
+            let input_length = parse_u64(arguments.next(), "input_length")?;
+            let input_length =
+                u32::try_from(input_length).map_err(|_| "input_length must fit u32".to_owned())?;
+            let primes = parse_csv_u64(
+                arguments
+                    .next()
+                    .ok_or_else(|| "missing primes".to_owned())?,
+                "primes",
+            )?;
+            let charged_values = parse_csv_i64(
+                arguments
+                    .next()
+                    .ok_or_else(|| "missing charged_values".to_owned())?,
+                "charged_values",
+            )?;
+            display_length_indexed_support(
+                length_indexed_support_profile(input_length, &primes, &charged_values).ok_or_else(
+                    || "invalid length, balanced prime population, or charged values".to_owned(),
                 )?,
             )
         }

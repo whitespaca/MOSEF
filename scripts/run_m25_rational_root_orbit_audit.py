@@ -13,7 +13,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
-from mosef_reference import (  # noqa: E402
+from mosef_reference import (
     classify_rational_root_orbit,
     evaluate_rational_residue_audit,
     exact_cyclotomic_root_ratio,

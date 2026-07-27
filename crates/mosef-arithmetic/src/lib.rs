@@ -759,6 +759,73 @@ pub struct RationalRootOrbitClassification {
     pub phi6_enabled: bool,
 }
 
+/// Total extraction semantics for one fixed exceptional cyclotomic family.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ExceptionalCyclotomicEvaluation {
+    pub base: u64,
+    pub modulus: u64,
+    pub family: &'static str,
+    pub order: u64,
+    pub first_factor: u64,
+    pub second_factor: u64,
+    pub first_coefficient: i64,
+    pub second_coefficient: i64,
+    pub cyclotomic_residue: u64,
+    pub cyclotomic_gcd: u64,
+    pub cyclotomic_status: GeometricDivisionStatus,
+    pub aggregate_residue: u64,
+    pub aggregate_gcd: u64,
+    pub aggregate_status: GeometricDivisionStatus,
+    pub cofactor_residue: Option<u64>,
+    pub cofactor_gcd: Option<u64>,
+    pub cofactor_status: Option<GeometricDivisionStatus>,
+    pub extraction_source: &'static str,
+    pub extraction_gcd: Option<u64>,
+    pub first_quotient_gcd: u64,
+    pub second_quotient_gcd: u64,
+    pub first_public_bound_gcd: u64,
+    pub second_public_bound_gcd: u64,
+    pub dense_cofactor_degree: u64,
+    pub dense_cofactor_coefficient_count: u64,
+}
+
+/// Compact exact resultant descriptors for an M27 exceptional cofactor.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct ExceptionalCofactorOverlap {
+    pub family: &'static str,
+    pub order: u64,
+    pub first_factor: u64,
+    pub second_factor: u64,
+    pub cofactor_degree: u64,
+    pub remainder_constant: i128,
+    pub remainder_linear: i128,
+    pub cyclotomic_cofactor_resultant: u128,
+    pub first_stage_resultant_base: u64,
+    pub first_stage_resultant_exponent: u64,
+    pub second_stage_power_of_two_exponent: u64,
+    pub second_stage_resultant_base: u64,
+    pub second_stage_resultant_exponent: u64,
+    pub stage_overlap_support: &'static str,
+}
+
+/// Exact materialized-support accounting for one M28 input length.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub struct LengthIndexedSupportProfile {
+    pub input_length: u32,
+    pub population_size: u64,
+    pub min_prime_log2_floor: u32,
+    pub charged_value_count: u64,
+    pub materialized_bit_budget: u64,
+    pub hit_primes: Vec<u64>,
+    pub missed_primes: Vec<u64>,
+    pub hit_prime_count: u64,
+    pub forced_miss_pair_count: u64,
+    pub pair_count: u64,
+    pub maximum_coverable_pair_count: u64,
+    pub support_cap: u64,
+    pub necessary_universal_bit_budget: u64,
+}
+
 /// Evaluate nodes starting from `g`, with every later node multiplying two parents.
 pub fn evaluate_multiplication_program(
     base: u64,
@@ -1684,6 +1751,426 @@ pub fn classify_rational_root_orbit(
     })
 }
 
+fn geometric_residue(base: u64, modulus: u64, count: u64) -> Option<u64> {
+    if count == 0 {
+        Some(0)
+    } else {
+        Some(evaluate_geometric_sum(base, modulus, count)?.sum_residue)
+    }
+}
+
+fn signed_polynomial_residue(coefficients: &[i64], base: u64, modulus: u64) -> u64 {
+    coefficients
+        .iter()
+        .rev()
+        .copied()
+        .fold(0, |value, coefficient| {
+            let coefficient_residue =
+                i128::from(coefficient).rem_euclid(i128::from(modulus)) as u64;
+            add_mod(mul_mod(value, base, modulus), coefficient_residue, modulus)
+        })
+}
+
+fn periodic_residue(pattern: &[i64], length: u64, base: u64, modulus: u64) -> Option<u64> {
+    let period = u64::try_from(pattern.len()).ok()?;
+    let blocks = length / period;
+    let tail = usize::try_from(length % period).ok()?;
+    let block = signed_polynomial_residue(pattern, base, modulus);
+    let block_sum = geometric_residue(mod_pow(base, period, modulus)?, modulus, blocks)?;
+    let tail_value = signed_polynomial_residue(&pattern[..tail], base, modulus);
+    Some(add_mod(
+        mul_mod(block, block_sum, modulus),
+        mul_mod(
+            mod_pow(base, blocks.checked_mul(period)?, modulus)?,
+            tail_value,
+            modulus,
+        ),
+        modulus,
+    ))
+}
+
+fn phi6_h_residue(value: u64, modulus: u64) -> Option<u64> {
+    Some(add_mod(
+        add_mod(
+            mod_pow(value, 3, modulus)?,
+            mul_mod(2 % modulus, mod_pow(value, 2, modulus)?, modulus),
+            modulus,
+        ),
+        add_mod(mul_mod(2 % modulus, value, modulus), 1 % modulus, modulus),
+        modulus,
+    ))
+}
+
+fn compact_exceptional_cofactor_residue(
+    base: u64,
+    modulus: u64,
+    first_factor: u64,
+    second_factor: u64,
+    family: &str,
+) -> Option<u64> {
+    if family == "phi4" {
+        let first_blocks = (first_factor - 3) / 4;
+        let second_blocks = (second_factor - 3) / 4;
+        let first_u = add_mod(
+            mul_mod(
+                add_mod(1 % modulus, base, modulus),
+                geometric_residue(mod_pow(base, 4, modulus)?, modulus, first_blocks)?,
+                modulus,
+            ),
+            mod_pow(base, first_blocks.checked_mul(4)?, modulus)?,
+            modulus,
+        );
+        let nested_base = mod_pow(base, first_factor, modulus)?;
+        let nested_u = add_mod(
+            mul_mod(
+                add_mod(1 % modulus, nested_base, modulus),
+                geometric_residue(mod_pow(nested_base, 4, modulus)?, modulus, second_blocks)?,
+                modulus,
+            ),
+            mod_pow(nested_base, second_blocks.checked_mul(4)?, modulus)?,
+            modulus,
+        );
+        let alternating_square =
+            (u128::from(modulus) - u128::from(mul_mod(base, base, modulus))) % u128::from(modulus);
+        let alternating_square = alternating_square as u64;
+        let substituted_factor = geometric_residue(alternating_square, modulus, first_factor)?;
+        let first_residual_exponent = first_factor - 2;
+        let second_residual_exponent = first_factor.checked_mul(second_factor - 2)?;
+        let residual_count = second_residual_exponent.checked_sub(first_residual_exponent)? / 2;
+        let residual = mul_mod(
+            mod_pow(base, first_residual_exponent, modulus)?,
+            geometric_residue(alternating_square, modulus, residual_count)?,
+            modulus,
+        );
+        return Some(add_mod(
+            add_mod(
+                first_u,
+                mul_mod(substituted_factor, nested_u, modulus),
+                modulus,
+            ),
+            residual,
+            modulus,
+        ));
+    }
+
+    let first_blocks = (first_factor - 5) / 6;
+    let second_blocks = (second_factor - 3) / 6;
+    let first_u = mul_mod(
+        phi6_h_residue(base, modulus)?,
+        geometric_residue(
+            mod_pow(base, 6, modulus)?,
+            modulus,
+            first_blocks.checked_add(1)?,
+        )?,
+        modulus,
+    );
+    let nested_base = mod_pow(base, first_factor, modulus)?;
+    let nested_u = add_mod(
+        mul_mod(
+            phi6_h_residue(nested_base, modulus)?,
+            geometric_residue(mod_pow(nested_base, 6, modulus)?, modulus, second_blocks)?,
+            modulus,
+        ),
+        mod_pow(nested_base, second_blocks.checked_mul(6)?, modulus)?,
+        modulus,
+    );
+    let substituted_factor = add_mod(
+        periodic_residue(&[1, 1, 0, -1, -1, 0], first_factor, base, modulus)?,
+        mul_mod(
+            mod_pow(base, first_factor, modulus)?,
+            periodic_residue(&[-1, 0, 1, 1, 0, -1], first_factor - 1, base, modulus)?,
+            modulus,
+        ),
+        modulus,
+    );
+    let fixed_quotient = signed_polynomial_residue(&[-1, -1, 0, 1, 1], base, modulus);
+    let residual = mul_mod(
+        mul_mod(2 % modulus, mod_pow(base, first_factor, modulus)?, modulus),
+        mul_mod(
+            fixed_quotient,
+            geometric_residue(
+                mod_pow(base, 6, modulus)?,
+                modulus,
+                first_factor.checked_mul(second_blocks)?,
+            )?,
+            modulus,
+        ),
+        modulus,
+    );
+    Some(add_mod(
+        add_mod(
+            mul_mod(2 % modulus, first_u, modulus),
+            mul_mod(substituted_factor, nested_u, modulus),
+            modulus,
+        ),
+        residual,
+        modulus,
+    ))
+}
+
+/// Return exact compact stage and cyclotomic overlap descriptors.
+pub fn exceptional_cofactor_overlap(
+    first_factor: u64,
+    second_factor: u64,
+    family: &str,
+) -> Option<ExceptionalCofactorOverlap> {
+    if first_factor < 2 || second_factor < 2 || first_factor == second_factor {
+        return None;
+    }
+    let product = u128::from(first_factor).checked_mul(u128::from(second_factor))?;
+    let cofactor_degree = first_factor
+        .checked_mul(second_factor.checked_sub(1)?)?
+        .checked_sub(2)?;
+    let (
+        family,
+        order,
+        remainder_constant,
+        remainder_linear,
+        second_stage_power_of_two_exponent,
+        stage_overlap_support,
+    ) = match family {
+        "phi4" if first_factor % 4 == 3 && second_factor % 4 == 3 => {
+            let constant_numerator = product
+                .checked_add(u128::from(first_factor).checked_mul(2)?)?
+                .checked_add(1)?;
+            let linear_numerator = product
+                .checked_sub(u128::from(first_factor).checked_mul(2)?)?
+                .checked_add(1)?;
+            (
+                "phi4",
+                4,
+                i128::try_from(constant_numerator / 4).ok()?,
+                i128::try_from(linear_numerator / 4).ok()?,
+                0,
+                "B",
+            )
+        }
+        "phi6" if first_factor % 6 == 5 && second_factor % 6 == 3 => {
+            let residual = product
+                .checked_sub(u128::from(first_factor).checked_mul(2)?)?
+                .checked_add(1)?;
+            let linear_numerator = product
+                .checked_add(u128::from(first_factor).checked_mul(4)?)?
+                .checked_add(4)?;
+            (
+                "phi6",
+                6,
+                i128::try_from(residual.checked_mul(2)? / 3)
+                    .ok()?
+                    .checked_neg()?,
+                i128::try_from(linear_numerator / 3).ok()?,
+                cofactor_degree,
+                "2,B",
+            )
+        }
+        _ => return None,
+    };
+    let constant_square = remainder_constant.checked_mul(remainder_constant)?;
+    let linear_square = remainder_linear.checked_mul(remainder_linear)?;
+    let resultant = if family == "phi4" {
+        constant_square.checked_add(linear_square)?
+    } else {
+        constant_square
+            .checked_add(remainder_constant.checked_mul(remainder_linear)?)?
+            .checked_add(linear_square)?
+    };
+    Some(ExceptionalCofactorOverlap {
+        family,
+        order,
+        first_factor,
+        second_factor,
+        cofactor_degree,
+        remainder_constant,
+        remainder_linear,
+        cyclotomic_cofactor_resultant: u128::try_from(resultant).ok()?,
+        first_stage_resultant_base: second_factor,
+        first_stage_resultant_exponent: first_factor - 1,
+        second_stage_power_of_two_exponent,
+        second_stage_resultant_base: second_factor,
+        second_stage_resultant_exponent: first_factor - 1,
+        stage_overlap_support,
+    })
+}
+
+/// Account for the balanced prime pairs touched by nonzero exact integers.
+pub fn length_indexed_support_profile(
+    input_length: u32,
+    primes: &[u64],
+    charged_values: &[i64],
+) -> Option<LengthIndexedSupportProfile> {
+    if input_length < 4 || primes.len() < 2 {
+        return None;
+    }
+    for (index, prime) in primes.iter().copied().enumerate() {
+        if !is_prime(prime) || primes[..index].contains(&prime) {
+            return None;
+        }
+        for second_prime in primes[index + 1..].iter().copied() {
+            let product = u128::from(prime).checked_mul(u128::from(second_prime))?;
+            let product_bits = u128::BITS - product.leading_zeros();
+            if product_bits != input_length {
+                return None;
+            }
+        }
+    }
+    if charged_values.iter().any(|value| *value == 0) {
+        return None;
+    }
+    let materialized_bit_budget = charged_values.iter().try_fold(0_u64, |total, value| {
+        let absolute = value.unsigned_abs();
+        let bit_length = u64::from(u64::BITS - absolute.leading_zeros());
+        total.checked_add(bit_length)
+    })?;
+    let hit_primes = primes
+        .iter()
+        .copied()
+        .filter(|prime| {
+            charged_values
+                .iter()
+                .any(|value| value.unsigned_abs() % prime == 0)
+        })
+        .collect::<Vec<_>>();
+    let missed_primes = primes
+        .iter()
+        .copied()
+        .filter(|prime| !hit_primes.contains(prime))
+        .collect::<Vec<_>>();
+    let population_size = u64::try_from(primes.len()).ok()?;
+    let charged_value_count = u64::try_from(charged_values.len()).ok()?;
+    let hit_prime_count = u64::try_from(hit_primes.len()).ok()?;
+    let missed_count = u64::try_from(missed_primes.len()).ok()?;
+    let pair_count = population_size.checked_mul(population_size.checked_sub(1)?)? / 2;
+    let forced_miss_pair_count = missed_count.checked_mul(missed_count.saturating_sub(1))? / 2;
+    let min_prime_log2_floor = primes
+        .iter()
+        .map(|prime| u64::BITS - prime.leading_zeros() - 1)
+        .min()?;
+    if min_prime_log2_floor == 0 {
+        return None;
+    }
+    let support_cap =
+        population_size.min(materialized_bit_budget / u64::from(min_prime_log2_floor));
+    Some(LengthIndexedSupportProfile {
+        input_length,
+        population_size,
+        min_prime_log2_floor,
+        charged_value_count,
+        materialized_bit_budget,
+        hit_primes,
+        missed_primes,
+        hit_prime_count,
+        forced_miss_pair_count,
+        pair_count,
+        maximum_coverable_pair_count: pair_count.checked_sub(forced_miss_pair_count)?,
+        support_cap,
+        necessary_universal_bit_budget: u64::from(min_prime_log2_floor)
+            .checked_mul(population_size.checked_sub(1)?)?,
+    })
+}
+
+/// Evaluate the direct-factor, unit-cofactor, and full-collision branches.
+pub fn evaluate_exceptional_cyclotomic(
+    base: u64,
+    modulus: u64,
+    first_factor: u64,
+    second_factor: u64,
+    family: &str,
+) -> Option<ExceptionalCyclotomicEvaluation> {
+    if modulus < 2 || first_factor < 2 || second_factor < 2 || first_factor == second_factor {
+        return None;
+    }
+    let base = base % modulus;
+    if gcd(base, modulus) != 1 {
+        return None;
+    }
+    let (family, order, first_coefficient) = match family {
+        "phi4" if first_factor % 4 == 3 && second_factor % 4 == 3 => ("phi4", 4, 1),
+        "phi6" if first_factor % 6 == 5 && second_factor % 6 == 3 => ("phi6", 6, 2),
+        _ => return None,
+    };
+    let audit = evaluate_rational_residue_audit(
+        base,
+        modulus,
+        first_factor,
+        second_factor,
+        first_coefficient,
+        1,
+    )?;
+    let square = u128::from(base) * u128::from(base);
+    let cyclotomic_residue = if family == "phi4" {
+        ((square + 1) % u128::from(modulus)) as u64
+    } else {
+        ((square + u128::from(modulus) - u128::from(base) + 1) % u128::from(modulus)) as u64
+    };
+    let status = |value: u64| {
+        if value == 1 {
+            GeometricDivisionStatus::Unit
+        } else if value < modulus {
+            GeometricDivisionStatus::ProperFactor
+        } else {
+            GeometricDivisionStatus::FullCollision
+        }
+    };
+    let cyclotomic_gcd = gcd(cyclotomic_residue, modulus);
+    let cyclotomic_status = status(cyclotomic_gcd);
+    let aggregate_status = status(audit.aggregate_gcd);
+    let cofactor =
+        compact_exceptional_cofactor_residue(base, modulus, first_factor, second_factor, family)?;
+    if mul_mod(cyclotomic_residue, cofactor, modulus) != audit.aggregate_residue {
+        return None;
+    }
+    let cofactor_gcd_value = gcd(cofactor, modulus);
+    let cofactor_status_value = status(cofactor_gcd_value);
+    if cyclotomic_status == GeometricDivisionStatus::Unit
+        && cofactor_gcd_value != audit.aggregate_gcd
+    {
+        return None;
+    }
+    let (extraction_source, extraction_gcd) =
+        if cyclotomic_status == GeometricDivisionStatus::ProperFactor {
+            ("cyclotomic", Some(cyclotomic_gcd))
+        } else if cofactor_status_value == GeometricDivisionStatus::ProperFactor {
+            ("cofactor", Some(cofactor_gcd_value))
+        } else if cyclotomic_status == GeometricDivisionStatus::FullCollision {
+            if audit.aggregate_gcd != modulus {
+                return None;
+            }
+            ("full_collision", None)
+        } else {
+            ("none", None)
+        };
+    let dense_cofactor_degree = first_factor
+        .checked_mul(second_factor - 1)?
+        .checked_sub(2)?;
+    Some(ExceptionalCyclotomicEvaluation {
+        base,
+        modulus,
+        family,
+        order,
+        first_factor,
+        second_factor,
+        first_coefficient,
+        second_coefficient: 1,
+        cyclotomic_residue,
+        cyclotomic_gcd,
+        cyclotomic_status,
+        aggregate_residue: audit.aggregate_residue,
+        aggregate_gcd: audit.aggregate_gcd,
+        aggregate_status,
+        cofactor_residue: Some(cofactor),
+        cofactor_gcd: Some(cofactor_gcd_value),
+        cofactor_status: Some(cofactor_status_value),
+        extraction_source,
+        extraction_gcd,
+        first_quotient_gcd: audit.first_quotient_gcd,
+        second_quotient_gcd: audit.second_quotient_gcd,
+        first_public_bound_gcd: audit.first_public_bound_gcd,
+        second_public_bound_gcd: audit.second_public_bound_gcd,
+        dense_cofactor_degree,
+        dense_cofactor_coefficient_count: dense_cofactor_degree.checked_add(1)?,
+    })
+}
+
 /// Return `ceil(log2(exponent))`, the generic multiplication growth lower bound.
 pub fn generic_multiplication_lower_bound(exponent: u64) -> Option<u32> {
     if exponent == 0 {
@@ -2074,6 +2561,79 @@ mod tests {
         assert!(obstruction.phase_divisible);
         assert_eq!(obstruction.category, "irrational");
         assert_eq!(classify_rational_root_orbit(3, 3, 4), None);
+    }
+
+    #[test]
+    fn exceptional_cyclotomic_trichotomy_and_residual_witnesses() {
+        let direct =
+            evaluate_exceptional_cyclotomic(2, 55, 3, 7, "phi4").expect("valid direct witness");
+        assert_eq!(
+            direct.cyclotomic_status,
+            GeometricDivisionStatus::ProperFactor
+        );
+        assert_eq!(direct.extraction_source, "cyclotomic");
+        assert_eq!(direct.extraction_gcd, Some(5));
+
+        let full =
+            evaluate_exceptional_cyclotomic(2, 5, 3, 7, "phi4").expect("valid full collision");
+        assert_eq!(
+            full.cyclotomic_status,
+            GeometricDivisionStatus::FullCollision
+        );
+        assert_eq!(
+            full.aggregate_status,
+            GeometricDivisionStatus::FullCollision
+        );
+
+        for (base, modulus, first_factor, second_factor, family, expected) in [
+            (11, 15, 3, 7, "phi4", 5),
+            (4, 9, 11, 7, "phi4", 3),
+            (8, 35, 5, 3, "phi6", 5),
+            (3, 25, 5, 3, "phi6", 5),
+        ] {
+            let value =
+                evaluate_exceptional_cyclotomic(base, modulus, first_factor, second_factor, family)
+                    .expect("valid residual witness");
+            assert_eq!(value.cyclotomic_status, GeometricDivisionStatus::Unit);
+            assert_eq!(value.extraction_source, "cofactor");
+            assert_eq!(value.extraction_gcd, Some(expected));
+            assert_eq!(value.first_quotient_gcd, 1);
+            assert_eq!(value.second_quotient_gcd, 1);
+            assert_eq!(value.first_public_bound_gcd, 1);
+            assert_eq!(value.second_public_bound_gcd, 1);
+        }
+        assert_eq!(evaluate_exceptional_cyclotomic(2, 15, 5, 7, "phi4"), None);
+    }
+
+    #[test]
+    fn exceptional_cofactor_overlap_descriptors_are_exact() {
+        let phi4 = exceptional_cofactor_overlap(3, 7, "phi4").expect("valid phi4");
+        assert_eq!(phi4.remainder_constant, 7);
+        assert_eq!(phi4.remainder_linear, 4);
+        assert_eq!(phi4.cyclotomic_cofactor_resultant, 65);
+        assert_eq!(phi4.stage_overlap_support, "B");
+
+        let phi6 = exceptional_cofactor_overlap(5, 3, "phi6").expect("valid phi6");
+        assert_eq!(phi6.remainder_constant, -4);
+        assert_eq!(phi6.remainder_linear, 13);
+        assert_eq!(phi6.cyclotomic_cofactor_resultant, 133);
+        assert_eq!(phi6.second_stage_power_of_two_exponent, 8);
+        assert_eq!(phi6.stage_overlap_support, "2,B");
+        assert_eq!(exceptional_cofactor_overlap(5, 7, "phi4"), None);
+    }
+
+    #[test]
+    fn length_indexed_support_accounting_is_exact() {
+        let profile = length_indexed_support_profile(12, &[47, 53, 59, 61], &[47 * 53, -5])
+            .expect("valid balanced population");
+        assert_eq!(profile.hit_primes, vec![47, 53]);
+        assert_eq!(profile.missed_primes, vec![59, 61]);
+        assert_eq!(profile.forced_miss_pair_count, 1);
+        assert_eq!(profile.pair_count, 6);
+        assert_eq!(profile.maximum_coverable_pair_count, 5);
+        assert!(profile.hit_prime_count <= profile.support_cap);
+        assert_eq!(length_indexed_support_profile(11, &[23, 29], &[23]), None);
+        assert_eq!(length_indexed_support_profile(10, &[23, 29], &[0]), None);
     }
 
     #[test]

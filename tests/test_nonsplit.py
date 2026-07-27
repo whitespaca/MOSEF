@@ -9,7 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "python"))
 
-from mosef_reference import (  # noqa: E402
+from mosef_reference import (
     LucasAsymmetryWitness,
     candidate_succeeds,
     direct_lucas_root_count,
@@ -65,9 +65,8 @@ class LucasRootCountTests(unittest.TestCase):
             lambda: is_lucas_asymmetry_witness(3, 5, 0),
         )
         for call in calls:
-            with self.subTest(call=call):
-                with self.assertRaises(ValueError):
-                    call()
+            with self.subTest(call=call), self.assertRaises(ValueError):
+                call()
 
 
 class LucasAsymmetryWitnessTests(unittest.TestCase):
