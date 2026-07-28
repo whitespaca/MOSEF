@@ -6,6 +6,9 @@
 - Branch: `research/20260728-m33-linear-cap-recurrence`.
 - Base checkpoint: M32 completion PR #43 was squash-merged into `main` as
   `659f820c1511aab6becef1e26d9b4350187786a8`.
+- Start commit `fe510a77e6d3656415c2fe98cda3fdce4a274aa5` is pushed. Draft
+  PR #44 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/44`.
 - Active question: do the fixed public linear caps \(L_+(m)=m+11\) and
   \(L_{151}(m)=\lceil151m/100\rceil\), which are certified only through
   \(m=20\), remain injective on the next complete balanced populations?
