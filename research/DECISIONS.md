@@ -819,3 +819,20 @@
 - Consequence: \(209/100\) is a concrete succeeding witness through length
   24, while the finite result remains silent about every later length. M37
   must separately test additive cap 52 and multiplicative cap 53 at \(m=25\).
+
+## ADR-041 - Track later collisions inside the first complete failed bucket
+
+- Date: 2026-07-28.
+- Decision: freeze complete population profiles at the two public caps 52
+  and 53 and at the first injective cap 65, while auditing caps 54 through 64
+  on the sole complete cap-52 collision bucket.
+- Rationale: raw selector inclusion prevents any pair already separated at
+  cap 52 from merging at a later cap. Therefore every later collision lies
+  inside the registered nine-prime bucket, and an exact bucket-restricted
+  audit is a complete transition certificate rather than sampling. This
+  avoids repeatedly materializing eleven redundant 196-prime profiles.
+- Consequence: the cap-64 pair \(\{5011,5179\}\) proves the lower endpoint,
+  while the complete cap-65 profile proves the upper endpoint. The finite
+  envelopes through length 25 become \(m+40\) and \(c>64/25\); no
+  asymptotic rate is inferred. M38 must test the repaired caps 66 and 67 at
+  \(m=26\).
