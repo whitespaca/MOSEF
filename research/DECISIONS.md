@@ -974,3 +974,24 @@
   closed-form, dense, Rust, and C# paths verify the certificate. This is a
   lossless finite proof strategy, not a sampling method, an asymptotic
   improvement to DEF-032, or a general factoring result.
+
+## ADR-049 - Reuse exact partition refinement at length 33
+
+- Date: 2026-07-29.
+- Decision: retain the M44 exact non-singleton equivalence-partition
+  algorithm for M45, but register both inherited public caps before
+  restricting the transition to the complete cap-172 collision class.
+  Record every varying primitive bit as a construction coordinate and audit
+  every newly admitted cap-195 primitive coordinate on the last pair.
+- Rationale: the complete cap-172 profile proves that all primes outside its
+  eight-prime bucket are already singletons and cannot merge after coordinate
+  appending. Evaluating subsequent descriptors only on live classes is
+  therefore exact, while avoiding a full \(2{,}410\times661{,}152\) byte
+  prefix. The separate repair census prevents a first-found witness from
+  being mistaken for uniqueness.
+- Consequence: the audit proves both public-cap failures, the complete
+  cap-172--195 collision ladder, the adjacent cap-194/cap-195 threshold, and
+  uniqueness of the final nonconstant primitive coordinate. The resulting
+  2,410-coordinate certificate is explicit and independently checkable. This
+  remains a finite certificate method, not an asymptotic selector
+  construction, a public promise recognizer, or a general factoring result.
