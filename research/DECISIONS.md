@@ -950,3 +950,27 @@
   representatives plus one minimum repair coordinate. The finite envelopes
   become \(m+113\) and \(c>143/31\). This is a finite certificate strategy,
   not an asymptotic algorithm or a public promise recognizer.
+
+## ADR-048 - Replace full raw prefixes with exact partition refinement
+
+- Date: 2026-07-29.
+- Decision: for M44, retain only the non-singleton raw-signature
+  equivalence classes after each descriptor and record every primitive bit
+  that changes a class. Use those recorded coordinates as the positive
+  construction certificate.
+- Rationale: the length-32 cap-148 selector has 284,004 descriptors and
+  1,750 population primes. Materializing every byte prefix would retain
+  roughly half a billion entries even though almost all primes become
+  singletons early. Appending coordinates can refine an equality partition
+  but cannot merge distinct prefixes, so a discarded singleton can never
+  re-enter a collision. Recording every varying primitive bit reproduces
+  each exact descriptor-mask split and converts the same pass into an
+  explicit binary-coordinate certificate.
+- Consequence: the exact audit performs 82,518,653 optimized local-exit
+  evaluations, proves the complete cap-145 and cap-148 failures, and tracks
+  all later collisions through the adjacent cap-166/cap-167 boundary. The
+  1,748 recorded cap-166 coordinates leave only
+  \(\{59699,63463\}\); one cap-167 coordinate repairs it. Independent
+  closed-form, dense, Rust, and C# paths verify the certificate. This is a
+  lossless finite proof strategy, not a sampling method, an asymptotic
+  improvement to DEF-032, or a general factoring result.

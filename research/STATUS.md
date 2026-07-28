@@ -1,6 +1,6 @@
 # Research Status
 
-## M44 work snapshot
+## M44 outcome
 
 - Date: 2026-07-29.
 - Branch: `research/20260729-m44-length-32-caps`.
@@ -9,13 +9,94 @@
 - Start commit `667f3bc97588b219569926629dc749b5f5738808` is pushed. Draft
   PR #55 targets `main`:
   `https://github.com/whitespaca/MOSEF/pull/55`.
-- Active bounded question: on the complete \(m=32\) balanced-prime
-  population, test the repaired factorization-independent caps
-  \(m+113=145\) and \(\lceil60m/13\rceil=148\) separately, then determine
-  the exact adjacent threshold and either construct a complete separating
-  certificate or preserve the smallest collision.
-- Claim boundary: no inference to \(m>32\), an asymptotic cap law, promise
-  recognition, or general classical polynomial-time factoring is permitted.
+- The complete \(m=32\) balanced population has 1,750 primes and 1,530,375
+  unordered pairs. The inherited public caps both fail: cap 145 leaves one
+  14-prime bucket and 91 pairs, while cap 148 leaves one six-prime bucket
+  and 15 pairs.
+- Exact partition refinement retains precisely the non-singleton
+  raw-signature classes. Appending coordinates cannot merge a discarded
+  singleton, so the method is lossless and uses no hash or sampling.
+- Raw selector inclusion confines every later collision to the cap-148
+  bucket. Exact transition profiles at caps 148 through 167 give collision
+  counts
+  \(15,10,10,10,10,6,6,6,3,3,3,1,1,1,1,1,1,1,1,0\).
+- The sole cap-166 collision bucket is \(\{59699,63463\}\), while cap 167
+  is injective. Therefore \(L_{32}^{\star}=167\).
+- Recording every primitive bit that changes a live class gives 1,748
+  cap-166 coordinates that separate all but the last pair. The unique new
+  cofactor pattern `phi4:167:119:93:cofactor` \(=(1,0)\) gives a
+  1,749-coordinate certificate separating all 1,530,375 pairs.
+- The minimum incremental repair size is one: cap 166 proves that zero new
+  coordinates cannot suffice, and the displayed coordinate separates the
+  final pair. The full 1,749-coordinate certificate is not claimed minimum.
+- `THM-017` is `PROVED`: \(L=m+135\) is injective on every complete balanced
+  population for \(9\le m\le32\), and 135 is the smallest common integer
+  offset because cap 166 fails at length 32.
+- `BAR-038` is `PROVED`: the exact multiplicative coefficients through
+  length 32 are \(c>83/16\). The endpoint gives failed cap 166, while the
+  Farey-adjacent witness \(26/5\), larger by \(1/80\), gives cap 167.
+- `REF-040` is `REFUTED`: neither inherited M43 formula survives the new
+  complete population. No recurrence or asymptotic rate is inferred.
+- ADR-048 replaces retained full raw prefixes with exact equality-partition
+  refinement and extracts the binary construction certificate from the same
+  splits.
+- EXP-0043 checked 82,130,579 optimized public local exits, 82,518,653
+  optimized repair-cap local exits, 388,074 optimized and 791,952
+  independent transition exits, 165,248 repair-coordinate cases, one
+  minimum repair coordinate, 1,749 construction coordinates, and 1,530,375
+  certificate pairs.
+- Independent validation passed 16 Rust/C# command comparisons, four dense
+  vectors, 548,388 public-cap descriptor checks, 791,952 transition
+  local-exit checks, 165,248 repair-coordinate checks, and 1,530,375
+  construction-certificate pairs.
+- Registered schema SHA-256:
+  `a05de0bf7941d2c44bf0d5d79488f90f467c33cb5a8ec986ca5de0aa5f39aa21`.
+  Registered EXP-0043 summary SHA-256:
+  `6d09e1831de30009de0e770dea2d17271e8e00ccff0c09ecd11aba42fdc55b13`.
+- Final gates passed: foundation and bilingual publication checks
+  (183 claims and 42 experiment hashes), 229 Python tests and 206 subtests
+  in 221.28 seconds with the cache provider disabled, compileall, Ruff,
+  strict mypy over 26 source files, Rust formatting/Clippy and 36 tests, and
+  a warning-free C# Release build.
+- XeLaTeX produced final-warning-free 99-page English and 33-page Korean
+  PDFs. Rendered bilingual titles, the M44 result and evidence, complete
+  proof, reproduction, and claim-appendix pages had no clipping, overlap,
+  missing glyph, malformed mathematics, or unreadable text. Stable artifact
+  SHA-256 values are
+  `68e9a50b2b8494262940f9affe41c0106ff4aa52c9c84672e47b401fb9c31e97`
+  and
+  `eeb945cd6c90fdb09a9b3dcd884ad2c082f91cff9bae31b75d5383f63de49fd7`.
+- Both repaired formulas remain factorization independent and use
+  \(O(m^3\log m)\) compact work. Population enumeration, partition
+  refinement, certificate extraction, and dense expansion are certificate
+  operations. The finite result does not establish a cap growth rate,
+  behavior at \(m>32\), promise recognition, or general factoring.
+- Next selected milestone: M45 separately tests additive cap 168 and
+  multiplicative cap 172 on the complete \(m=33\) population.
+
+### M44 Korean summary
+
+M44에서는 \(m=32\)의 완전한 balanced-prime 모집단 1,750개에 대해 기존
+공개 상한 \(m+113=145\)와 \(\lceil60m/13\rceil=148\)을 각각 검사했습니다.
+cap 145는 14개 소수의 한 충돌류와 91쌍을, cap 148은 6개 소수의 한
+충돌류와 15쌍을 남기므로 두 공식 모두 실패합니다.
+
+정확한 동치분할 정제는 비단일 raw-signature 충돌류만 유지합니다. 새
+좌표를 추가해도 이미 다른 prefix는 다시 합쳐질 수 없으므로 이 방법은
+손실이 없고 해시나 표본추출을 사용하지 않습니다. cap 148부터 167까지의
+충돌쌍 수는
+\(15,10,10,10,10,6,6,6,3,3,3,1,1,1,1,1,1,1,1,0\)입니다.
+cap 166의 마지막 충돌은 \(\{59699,63463\}\)이고 cap 167은
+단사이므로 \(L_{32}^{\star}=167\)입니다.
+
+cap 166까지 기록한 1,748개 원시 좌표는 마지막 한 쌍을 제외한 모든
+쌍을 분리합니다. 유일한 새 좌표
+`phi4:167:119:93:cofactor`가 패턴 \((1,0)\)으로 그 쌍을 분리하여
+1,749-coordinate 인증서를 완성합니다. 따라서 \(9\le m\le32\)의 최소
+공통 additive offset은 135이고 정확한 계수 경계는 \(c>83/16\)입니다.
+\(26/5\)는 cap 167을 주는 고정 성공 증인입니다. 이 결과는 유한하고
+인수분해 의존적인 balanced-semiprime 약속 정리이며 \(m>32\), 점근적
+cap 성장률, 약속 인식, 일반 고전 다항시간 정수분해를 증명하지 않습니다.
 
 ## M43 outcome
 
