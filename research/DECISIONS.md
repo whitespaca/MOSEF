@@ -930,3 +930,23 @@
   plus two minimum repair coordinates. The finite envelopes become \(m+93\)
   and \(c>61/15\). This is a finite certificate strategy, not an asymptotic
   algorithm or a public promise recognizer.
+
+## ADR-047 - Reuse lossless prefixes and normalize only the repair cap
+
+- Date: 2026-07-29.
+- Decision: for M43, compute lossless full-population raw prefixes only at
+  the two pre-registered public caps 124 and 127. After cap 127, use raw
+  selector inclusion to evaluate each newly admitted descriptor only on the
+  complete 12-prime collision bucket through cap 144. Independently
+  materialize and normalize the complete cap-144 profile.
+- Rationale: the public-cap profiles must independently falsify both inherited
+  formulas on all 1,280 primes. Once a complete cap-127 equivalence class is
+  known, widening cannot merge any already separated pair, so the exact
+  bucket transition is complete without seventeen redundant full-population
+  profiles.
+- Consequence: the audit proves both public caps fail, tracks the exact
+  \(66,66,66,66,21,21,21,21,10,10,6,6,1,1,1,1,1,0\) collision ladder,
+  and constructs a 3,362-coordinate cap-144 certificate from 3,361 cap-143
+  representatives plus one minimum repair coordinate. The finite envelopes
+  become \(m+113\) and \(c>143/31\). This is a finite certificate strategy,
+  not an asymptotic algorithm or a public promise recognizer.

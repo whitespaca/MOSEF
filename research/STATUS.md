@@ -1,6 +1,6 @@
 # Research Status
 
-## M43 work snapshot
+## M43 outcome
 
 - Date: 2026-07-29.
 - Branch: `research/20260729-m43-length-31-caps`.
@@ -9,13 +9,90 @@
 - Start commit `fa6093971e8037e43b3a2b1beba64dba5e28c0f5` is pushed. Draft
   PR #54 targets `main`:
   `https://github.com/whitespaca/MOSEF/pull/54`.
-- Active bounded question: on the complete \(m=31\) balanced-prime
-  population, test the repaired factorization-independent caps
-  \(m+93=124\) and \(\lceil49m/12\rceil=127\) separately, then determine
-  the exact adjacent threshold and either construct a complete separating
-  certificate or preserve the smallest collision.
-- Claim boundary: no inference to \(m>31\), an asymptotic cap law, promise
-  recognition, or general classical polynomial-time factoring is permitted.
+- The complete \(m=31\) balanced population has 1,280 primes and 818,560
+  unordered pairs. The inherited public caps both fail: cap 124 leaves one
+  18-prime bucket and 153 pairs, while cap 127 leaves one 12-prime bucket
+  and 66 pairs.
+- Raw selector inclusion confines every later collision to the cap-127
+  bucket. Exact transition profiles at caps 127 through 144 give collision
+  counts
+  \(66,66,66,66,21,21,21,21,10,10,6,6,1,1,1,1,1,0\).
+- The sole cap-143 collision bucket is \(\{37483,44963\}\), while cap 144
+  is injective. Therefore \(L_{31}^{\star}=144\).
+- The complete cap-144 normalization reduces 2,100,384 raw coordinates to
+  3,474 nonconstant distinct columns. Selecting 3,361 cap-143 representative
+  columns and appending the unique new cofactor pattern
+  `phi6:11:105:144:cofactor` \(=(1,0)\) gives a 3,362-coordinate
+  certificate separating all 818,560 pairs.
+- The minimum incremental repair size is one: cap 143 proves that zero new
+  coordinates cannot suffice, and the displayed coordinate separates the
+  final pair. The full 3,362-coordinate certificate is not claimed minimum.
+- `THM-016` is `PROVED`: \(L=m+113\) is injective on every complete balanced
+  population for \(9\le m\le31\), and 113 is the smallest common integer
+  offset because cap 143 fails at length 31.
+- `BAR-037` is `PROVED`: the exact multiplicative coefficients through
+  length 31 are \(c>143/31\). The endpoint gives failed cap 143, while the
+  fixed witness \(60/13\), larger by \(1/403\), gives cap 144.
+- `REF-039` is `REFUTED`: neither inherited M42 formula survives the new
+  complete population. No recurrence or asymptotic rate is inferred.
+- ADR-047 combines two lossless public-cap raw profiles with a complete
+  12-prime bucket transition and one independent full cap-144 normalized
+  profile.
+- EXP-0042 checked 231,114,240 raw-prefix local exits, 983,880 transition
+  local exits, 336,061,440 repair-profile local exits, 818,560 normalization
+  equivalences, 14,688 repair-coordinate cases, one minimum repair
+  coordinate, 3,362 construction coordinates, and 818,560 certificate
+  pairs.
+- Independent validation passed 16 Rust/C# command comparisons, four dense
+  vectors, 346,608 public-cap descriptor checks, 983,880 transition
+  local-exit checks, 14,688 repair-coordinate checks, and 818,560
+  construction-certificate pairs.
+- Registered schema SHA-256:
+  `d333d0cebe6c79e2c7a02629be8c3c6a2ea84cb651e184a4cd3a08d1bef969db`.
+  Registered EXP-0042 summary SHA-256:
+  `c15234f614eb9602b6b704700a9660c4a0d486d7e2f965e59af2967eb2cf6888`.
+- Final gates passed: foundation and bilingual publication checks
+  (179 claims and 41 experiment hashes), 228 Python tests and 206 subtests
+  in 177.11 seconds with the cache provider disabled, compileall, Ruff,
+  strict mypy over 26 source files, Rust formatting/Clippy and 36 tests, and
+  a warning-free C# Release build.
+- XeLaTeX produced final-warning-free 97-page English and 31-page Korean
+  PDFs. Rendered bilingual titles, the M43 result and evidence, complete
+  proof, reproduction, and claim-appendix pages had no clipping, overlap,
+  missing glyph, malformed mathematics, or unreadable text. Stable artifact
+  SHA-256 values are
+  `7ef3b29b83f17c6db1b7b0465ee9efdc36dbbb303a81ced8c6e2290d5b23d77d`
+  and
+  `68a5b487979f5c7c5d02eb25d9fde761c5a46dbf3714a436b67c6839c762d1ec`.
+- Both repaired formulas remain factorization independent and use
+  \(O(m^3\log m)\) compact work. Population enumeration, raw-prefix
+  comparison, normalization, and dense expansion are certificate operations.
+  The finite result does not establish a cap growth rate, behavior at
+  \(m>31\), promise recognition, or general factoring.
+- Next selected milestone: M44 separately tests additive cap 145 and
+  multiplicative cap 148 on the complete \(m=32\) population.
+
+### M43 Korean summary
+
+M43에서는 \(m=31\)의 완전 balanced prime 모집단 1,280개에 대해 기존
+공개 상한 \(m+93=124\)와 \(\lceil49m/12\rceil=127\)을 각각 전수
+검사했습니다. cap 124는 18개 소수의 153쌍, cap 127은 12개 소수의
+66쌍을 남기므로 두 공식 모두 실패합니다.
+
+cap 127 이후의 완전 transition은 충돌 pair 수를
+\(66,66,66,66,21,21,21,21,10,10,6,6,1,1,1,1,1,0\)으로
+줄입니다. cap 143의 마지막 충돌은 \(\{37483,44963\}\)이고 cap 144는
+단사이므로 \(L_{31}^{\star}=144\)입니다. cap 143 대표 좌표
+3,361개에 유일한 새 cofactor 좌표 하나를 추가한 3,362-coordinate
+certificate가 818,560개 모든 쌍을 분리합니다. cap 143이 실제로
+실패하고 이 한 좌표가 충분하므로 새 좌표 한 개가 필요충분합니다.
+
+따라서 \(9\le m\le31\)의 최소 공통 additive offset은 113으로
+증가하고, 정확한 곱셈 경계는 \(c>143/31\)가 됩니다.
+\(60/13\)은 cap 144를 주는 고정 성공 witness입니다. 이는 유한하고
+인수분해 의존적인 balanced-semiprime 약속 정리이며, \(m>31\),
+asymptotic cap 성장률, 약속 인식, 일반 고전적 다항 시간 정수분해는
+여전히 증명되지 않았습니다.
 
 ## M42 outcome
 

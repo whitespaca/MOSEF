@@ -978,3 +978,29 @@
 - Scope: this refutes two fixed linear formulas at one new length. It does
   not prove a future recurrence, a superlinear cap requirement, an
   asymptotic rate, density, recognition, or general factoring.
+
+## NR-040 - Both inherited M42 caps fail at length 31
+
+- Date: 2026-07-29.
+- Status: `REFUTED` claim `REF-039`.
+- Hypothesis tested: either public selector \(L=m+93\) or
+  \(L=\lceil49m/12\rceil\), proved only through \(m=30\), remains injective
+  on the complete \(m=31\) balanced population.
+- Additive obstruction: cap 124 gives 166,050 descriptors and 1,328,400 raw
+  coordinates, but one 18-prime bucket shares a signature and produces 153
+  failed pairs.
+- Multiplicative obstruction: cap 127 gives 180,558 descriptors and
+  1,444,464 raw coordinates, but one 12-prime bucket shares a signature and
+  produces 66 failed pairs.
+- Persistent predecessor: cap-127 completeness and raw selector inclusion
+  confine every later collision to the 12-prime bucket. Exact incremental
+  evaluation leaves \(\{37483,44963\}\) colliding across all 260,712
+  cap-143 descriptors.
+- Positive boundary: the unique new nonconstant cap-144 cofactor pattern
+  assigns the final pair repair signatures \(1,0\). The cap-143
+  representatives already separate every other pair, so cap 144 is
+  injective. The smallest common integer-offset schedule through length 31
+  is \(m+113\), and the exact multiplicative condition is \(c>143/31\).
+- Scope: this refutes two fixed linear formulas at one new length. It does
+  not prove a future recurrence, a superlinear cap requirement, an
+  asymptotic rate, density, recognition, or general factoring.
