@@ -6,6 +6,9 @@
 - Branch: `research/20260729-m42-length-30-caps`.
 - Base: M41 squash merge
   `6c8282847aa7667315833581586b5a056e479989`.
+- Start commit `2ac95f6db41cb22d2ff7297f94f9d34fcfa3727d` is pushed. Draft
+  PR #53 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/53`.
 - Active bounded question: on the complete \(m=30\) balanced-prime
   population, test the unchanged factorization-independent caps
   \(m+76=106\) and \(\lceil26m/7\rceil=112\) separately, then determine
