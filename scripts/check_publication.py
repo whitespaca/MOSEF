@@ -59,6 +59,7 @@ REQUIRED_SECTIONS = (
     "A widened-cap finite construction and exact threshold",
     "The first linear-cap recurrence and repair",
     "The next finite-envelope jump",
+    "The length-23 finite envelope",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -101,6 +102,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:THM-005-BAR-026}",
     r"\label{proof:THM-006-BAR-027}",
     r"\label{proof:THM-007-BAR-028}",
+    r"\label{proof:THM-008-BAR-029}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -178,6 +180,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0033-m34-next-envelope.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0034-m35-next-envelope.md",
 )
 
 
@@ -330,6 +336,7 @@ def main() -> int:
                 "EXP-0031",
                 "EXP-0032",
                 "EXP-0033",
+                "EXP-0034",
             )
         ) and (
             summary_hash not in korean_paper_text.lower()
@@ -368,6 +375,9 @@ def main() -> int:
         "M34: 다음 유한 envelope",
         "THM-007",
         "1481,1511,1571,1663,1721,1747,1867,1931,2029",
+        "M35: 길이 23의 유한 envelope",
+        "THM-008",
+        "2411,2477,2741,2777,2837",
     )
     for phrase in required_korean:
         if phrase not in korean_paper_text:

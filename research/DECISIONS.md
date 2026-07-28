@@ -793,3 +793,15 @@
 - Consequence: the finite envelopes through length 22 are now 17 and
   \(19/11\). They remain finite maxima, not evidence of an asymptotic growth
   law. M35 must test the repaired formulas at \(m=23\).
+
+## ADR-039 - Treat the exact coefficient 2 as a strict failed endpoint
+
+- Date: 2026-07-28.
+- Decision: state the M35 multiplicative envelope as \(c>2\), not
+  \(c\ge2\), and freeze the cap-46 predecessor collision proving the strict
+  boundary.
+- Rationale: \(\lceil2\cdot23\rceil=46\), where \(2411\) and \(2777\)
+  still collide. The first injective cap is 47.
+- Consequence: \(201/100\) is a concrete succeeding witness through length
+  23, while the finite result remains silent about every later length. M36
+  must test the now-distinct caps 48 and 49 at \(m=24\).
