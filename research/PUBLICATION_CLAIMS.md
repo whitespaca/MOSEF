@@ -141,3 +141,8 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-026 | PROVED | Exact finite cap thresholds, monotonicity, and multiplicative endpoint | `research/proofs/THM-005-BAR-026-widened-selector-cap.md` |
 | REF-028 | REFUTED | The additive cap m plus 10 as sufficient through length 20 | `research/NEGATIVE_RESULTS.md` NR-029 |
 | EMP-031 | EMPIRICAL | Bounded widened-cap threshold and certificate audit | `research/experiments/EXP-0031-m32-widened-selector-cap.md` |
+| DEF-033 | DEFINITION | Finite first-injective-cap and linear-envelope model | `research/proofs/THM-006-BAR-027-linear-cap-recurrence.md` |
+| THM-006 | PROVED | Finite balanced-semiprime construction through input length 21 | `research/proofs/THM-006-BAR-027-linear-cap-recurrence.md` |
+| BAR-027 | PROVED | Exact length-21 linear-cap recurrence and cap-33 repair | `research/proofs/THM-006-BAR-027-linear-cap-recurrence.md` |
+| REF-029 | REFUTED | The M32 additive cap as injective at length 21 | `research/NEGATIVE_RESULTS.md` NR-030 |
+| EMP-032 | EMPIRICAL | Length-21 recurrence and repair audit | `research/experiments/EXP-0032-m33-linear-cap-recurrence.md` |

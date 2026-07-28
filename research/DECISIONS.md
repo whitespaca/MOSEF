@@ -765,3 +765,17 @@
   smallest admissible endpoint. M33 must test whether a fixed public linear
   cap continues to work beyond the finite M32 range before any asymptotic
   interpretation.
+
+## ADR-037 - Track finite linear envelopes without extrapolating a rate
+
+- Date: 2026-07-28.
+- Decision: record the least certified cap \(L_m^\star\), the common integer
+  offset \(t_M^\star\), and the strict multiplier infimum \(c_M^\star\) only
+  over an explicitly completed finite range.
+- Rationale: the M32 formulas fail immediately at \(m=21\). Calling their
+  earlier success a stable linear law would convert finite evidence into an
+  asymptotic claim. A predecessor collision and repaired construction instead
+  determine the next finite envelope exactly.
+- Consequence: through length 21 the envelopes move from 11 to 12 and from
+  \(3/2\) to \(32/21\). M34 must test the repaired formulas at \(m=22\)
+  before inferring any further pattern.
