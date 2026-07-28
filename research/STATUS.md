@@ -1,5 +1,24 @@
 # Research Status
 
+## M33 execution snapshot
+
+- Date: 2026-07-28.
+- Branch: `research/20260728-m33-linear-cap-recurrence`.
+- Base checkpoint: M32 completion PR #43 was squash-merged into `main` as
+  `659f820c1511aab6becef1e26d9b4350187786a8`.
+- Active question: do the fixed public linear caps \(L_+(m)=m+11\) and
+  \(L_{151}(m)=\lceil151m/100\rceil\), which are certified only through
+  \(m=20\), remain injective on the next complete balanced populations?
+- Quantifier and cost boundary: both formulas are fixed before \(N\), use the
+  branch-total DEF-032 selector, and retain \(O(m^3\log m)\) compact work.
+  Population enumeration and support normalization remain certificate
+  operations, not a factorization-free recognizer.
+- First falsification task: evaluate both caps at \(m=21\). If either
+  collides, minimize one complete collision bucket and search monotonically
+  for the exact first repairing cap. If both are injective, record complete
+  certificates before extending to \(m=22\).
+- No outcome at \(m\ge21\) is claimed in this snapshot.
+
 ## M32 outcome
 
 - Date: 2026-07-28.
