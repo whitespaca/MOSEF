@@ -64,6 +64,9 @@
   `3314a7e7f631a051e96b0c78055d740a7b16947ee442c9c899b9b4f84c4b7c8d`
   and
   `c5f57e98b40ea488d47c8379ecad16672c2950fb1fcf0e51bb80f53f08ff7723`.
+- M39 proof, implementation, registered experiment, and bilingual-paper core
+  commit:
+  `0ca1a3598aafa47b2ee7ed66e56ae3366fbb3510`.
 - Both formulas remain factorization independent and use
   \(O(m^3\log m)\) compact work. Population enumeration, normalization, and
   dense expansion are certificate operations. The finite result does not
