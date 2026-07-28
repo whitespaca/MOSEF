@@ -26,7 +26,7 @@
 \renewcommand{\abstractname}{초록}
 
 \title{고전적 정수분해를 위한 차수 분리 지수:\\
-열다섯 개의 제한 정리와 서른 개의 구조적 장벽}
+열여섯 개의 제한 정리와 서른한 개의 구조적 장벽}
 \author{MOSEF 연구 프로그램}
 \date{2026년 7월 29일}
 
@@ -90,6 +90,11 @@ threshold 단조성만 반박하며 asymptotic 추세를 뜻하지 않는다.
 새 cofactor 좌표 두 개가 이를 분리한다. 따라서
 \(L_{30}^{\star}=123\)이고 유한 envelope는 \(m+93\)과
 \(c>61/15\)로 이동한다.
+\(m=31\)에서는 복구된 cap 124와 127도 각각 153개와 66개 충돌
+pair를 남겨 실패한다. 마지막 pair는 cap 143까지 남고 cap 144의
+유일한 새 cofactor 좌표가 이를 분리한다. 따라서
+\(L_{31}^{\star}=144\)이고 유한 envelope는 \(m+113\)과
+\(c>143/31\)로 이동한다.
 이 양성 결과는 인수분해에 의존하는 유한 약속 정리이다.
 일반 고전적 다항 시간 정수분해 알고리즘이나 모든 다항 selector의
 하한은 주장하지 않는다.
@@ -112,7 +117,7 @@ MOSEF는 ``Multi-Group Order-Separating Exponent Factoring'' 연구
 
 영문 원고 \path{paper/main.tex}는 모든 과거 정리와 증명의 상세
 기록이다. 이 한국어 동반 원고는 동일한 claim ID와 상태를 사용하고,
-현재 M42 결과의 정의, 정리, 증명, 실험, 한계 및 재현 절차를
+현재 M43 결과의 정의, 정리, 증명, 실험, 한계 및 재현 절차를
 자기완결적으로 제공한다.
 
 \section{모형과 기본 판정}
@@ -1403,6 +1408,99 @@ cap 123의 완전 normalized profile도 927개 소수를 분리한다. cap 122
 이다. 따라서 두 finite envelope가 모두 길이 30의 값으로 이동한다.
 이후 길이나 asymptotic rate에 대한 결론은 없다.
 
+\section{M43: 길이 31의 유한 envelope}
+
+\claimstatus{BAR-037}{PROVED}.
+\(m=31\)에서 M42의 두 공개 공식은 서로 다른 cap을 준다.
+\[
+m+93=124,\qquad
+\left\lceil\frac{49m}{12}\right\rceil=127.
+\]
+두 cap은 모두 1,280개 완전 population에서 실패한다. cap 124는
+166,050개 descriptor 뒤에 18-prime bucket과 153개 충돌 pair를
+남기고, cap 127은 180,558개 descriptor 뒤에 12-prime bucket과
+66개 충돌 pair를 남긴다.
+
+raw selector 포함관계로 이후 충돌은 cap-127 bucket 안에만 있다.
+완전 transition의 충돌 pair 수는 다음과 같다.
+\[
+\begin{array}{c|rrrrrrrrr}
+L&127&128&129&130&131&132&133&134&135\\
+\hline
+\#\text{ pair}&66&66&66&66&21&21&21&21&10
+\end{array}
+\]
+\[
+\begin{array}{c|rrrrrrrrr}
+L&136&137&138&139&140&141&142&143&144\\
+\hline
+\#\text{ pair}&10&6&6&1&1&1&1&1&0
+\end{array}
+\]
+cap 143의 유일한 충돌은 \(\{37483,44963\}\)이다. cap 144에서
+추가되는 14,688개 primitive coordinate 중 정확히 하나가 이 pair에서
+nonconstant다.
+\[
+\begin{array}{c|rr}
+\text{source}&37483&44963\\
+\hline
+\texttt{phi6:11:105:144:cofactor}&1&0
+\end{array}
+\]
+cap 143의 대표 normalized column 3,361개에 이 좌표를 추가한
+3,362-coordinate certificate가 818,560개 모든 pair를 분리한다.
+cap 143이 충돌하므로 새 좌표 0개는 부족하고 표시한 좌표 하나가
+충분하다. 따라서 incremental repair의 최소 크기는 하나이다. 전체
+certificate의 최소성은 주장하지 않는다. 따라서
+\(L_{31}^{\star}=144\)이다.
+
+\claimstatus{THM-016}{PROVED}.
+\(L=m+113\)은 \(9\le m\le31\)의 모든 완전 balanced population에서
+단사이고, cap 143이 실패하므로 113은 최소 공통 정수 offset이다.
+정확한 곱셈 조건은 \(c>143/31\)이다. 끝점은 cap 143을 주어 실패하고
+\(60/13\)은 \(1/403\)만큼 더 크며 성공 cap 144를 준다.
+
+\claimstatus{REF-039}{REFUTED}.
+M42의 두 공개 공식은 모두 새 완전 population에서 실패한다. 이 유한
+재발은 이후 재발이나 asymptotic cap 법칙을 뜻하지 않는다.
+
+\claimstatus{EMP-042}{EMPIRICAL}.
+EXP-0042는 raw-prefix local exit 231,114,240개, transition local exit
+983,880개, cap-144 normalized profile local exit 336,061,440개,
+raw coordinate 2,100,384개, normalized coordinate 3,474개, 새
+repair-coordinate 14,688개, 최소 repair 좌표 하나, construction
+pair 818,560개를 검사했다. 독립 검증은 Rust/C\# command 16회,
+dense vector 네 개, public-cap descriptor 346,608개, transition
+local exit 983,880개, repair-coordinate 14,688개, independent
+construction pair 818,560개를 추가했다. summary SHA-256은
+\[
+\texttt{\seqsplit{c15234f614eb9602b6b704700a9660c4a0d486d7e2f965e59af2967eb2cf6888}}
+\]
+이고 schema SHA-256은
+\[
+\texttt{\seqsplit{d333d0cebe6c79e2c7a02629be8c3c6a2ea84cb651e184a4cd3a08d1bef969db}}
+\]
+이다.
+
+\subsection{THM-016과 BAR-037의 증명}
+
+cap 124와 127의 완전 raw signature는 위 비자명 bucket을 각각
+보존하므로 두 공개 공식을 반박한다. cap 127 이후의 새 descriptor를
+12개 잔여 소수에서 모두 평가한 transition은 cap 143의 마지막
+pair와 cap 144의 단사성을 증명한다.
+
+cap 144의 완전 normalized profile도 1,280개 소수를 분리한다.
+cap 143 대표 좌표와 표시한 새 좌표를 결합하면 모든 signature가 서로
+다르다. cap 143의 충돌은 0개 좌표가 부족함을 보이고, 표시 좌표는
+repair signature \(1,0\)을 주므로 최소성도 따른다.
+
+새 local additive offset은 \(144-31=113\)이고, 새 곱셈 끝점은
+\[
+\frac{144-1}{31}=\frac{143}{31}>\frac{61}{15}
+\]
+이다. 따라서 두 finite envelope가 모두 길이 31의 값으로 이동한다.
+이후 길이나 asymptotic rate에 대한 결론은 없다.
+
 \section{구현과 bit complexity}
 
 \(B_m=2^m+3\)과 \(E_m=3\cdot2^m+5\)의 이진 표현 길이는 \(O(m)\)이다.
@@ -1423,7 +1521,7 @@ certificate expansion은 증명 절차이며 공개 recognizer 비용에
 M32에서는 이 경계가 \(2(L(m)-1)^3\)이고 compact work는
 \(O(L(m)^3\log L(m))\)이다. 따라서 polynomial하게 bounded되고
 계산 가능한 \(L(m)\)은 전체 비용도 polynomial하게 유지한다.
-M32부터 M42까지의 스물두 개 선형 공식은 모두
+M32부터 M43까지의 스물네 개 선형 공식은 모두
 \(O(m^3\log m)\) compact step을
 사용한다. 이 비용 경계 자체는 검사하지 않은 길이의 단사성을
 뜻하지 않는다.
@@ -1469,7 +1567,7 @@ BAR-023부터 BAR-026까지가 증명하지 않은 사항은 다음과 같다.
 \begin{itemize}
 \item balanced population에서 \(H_m\)의 asymptotic density;
 \item \(H_m\)을 factorization 없이 명시적으로 출력하는 recognizer;
-\item \(m>30\)에서 \(m+93\), \(\lceil49m/12\rceil\), 또는 다른
+\item \(m>31\)에서 \(m+113\), \(\lceil60m/13\rceil\), 또는 다른
   polynomial cap의 단사성;
 \item \(N\)-dependent 또는 adaptive schedule의 하한;
 \item repeated-prime 입력 전체에 대한 이번 square-free signature
@@ -1477,9 +1575,9 @@ BAR-023부터 BAR-026까지가 증명하지 않은 사항은 다음과 같다.
 \item 일반 arithmetic circuit 또는 일반 고전적 정수분해의 하한.
 \end{itemize}
 
-다음 M43의 bounded question은 복구된 두 공개 선형 상한
-\(m+93\)과 \(\lceil49m/12\rceil\)이 \(m=31\)에서 각각 주는
-서로 다른 cap 124와 127을 완전 balanced population에서 검사하는 것이다.
+다음 M44의 bounded question은 복구된 두 공개 선형 상한
+\(m+113\)과 \(\lceil60m/13\rceil\)이 \(m=32\)에서 각각 주는
+서로 다른 cap 145와 148을 완전 balanced population에서 검사하는 것이다.
 
 \section{결론}
 
@@ -1514,8 +1612,11 @@ M40은 서로 다른 cap 88과 90이 같은 여섯-prime 충돌을 남기고 cap
 단조성은 거짓이지만, 유한 envelope는 그대로 유지된다.
 M42에서는 두 기존 공식이 cap 106과 112에서 모두 실패하고 cap 122까지
 마지막 triple이 남는다. cap 123의 두 새 좌표가 이를 분리하므로
-유한 envelope는 \(m+93\)과 \(c>61/15\)로 복구된다. 이는
-\(m>30\)의 단사성이나 cap 성장률을 증명하지 않는다.
+유한 envelope는 \(m+93\)과 \(c>61/15\)로 복구된다.
+M43에서는 두 복구 공식이 cap 124와 127에서 다시 실패하고 cap 143까지
+마지막 pair가 남는다. cap 144의 유일한 새 좌표가 이를 분리하므로
+유한 envelope는 \(m+113\)과 \(c>143/31\)로 복구된다. 이는
+\(m>31\)의 단사성이나 cap 성장률을 증명하지 않는다.
 
 일반 고전적 다항 시간 정수분해 알고리즘도, 그러한 알고리즘의
 일반적 불가능성도 여기서 주장하지 않는다. 검증된 기여는 정확한
@@ -1584,6 +1685,9 @@ python scripts/check_m41_length_29_cap_differential.py
 python scripts/run_m42_length_30_cap_audit.py
 python scripts/generate_m42_length_30_cap_schema.py
 python scripts/check_m42_length_30_cap_differential.py
+python scripts/run_m43_length_31_cap_audit.py
+python scripts/generate_m43_length_31_cap_schema.py
+python scripts/check_m43_length_31_cap_differential.py
 python scripts/generate_korean_claim_appendix.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex

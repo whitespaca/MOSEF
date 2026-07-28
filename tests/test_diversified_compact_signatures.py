@@ -559,6 +559,47 @@ class DiversifiedCompactSignatureTests(unittest.TestCase):
             ],
         )
 
+    def test_m43_cap_144_has_one_new_final_pair_coordinate(self) -> None:
+        primes = (37483, 44963)
+        cap_143 = diversified_exceptional_selector(31, 143)
+        cap_144 = diversified_exceptional_selector(31, 144)
+        self.assertEqual(len(cap_143), 260712)
+        self.assertEqual(len(cap_144), 262548)
+        self.assertEqual(
+            len(diversified_exceptional_selector(31, 124)),
+            166050,
+        )
+        self.assertEqual(
+            len(diversified_exceptional_selector(31, 127)),
+            180558,
+        )
+        for descriptor in cap_143:
+            masks = tuple(
+                primitive_exit_mask(descriptor, prime) for prime in primes
+            )
+            self.assertEqual(len(set(masks)), 1, descriptor.key)
+
+        old_keys = {descriptor.key for descriptor in cap_143}
+        distinguishing: list[tuple[str, int, tuple[int, int]]] = []
+        for descriptor in cap_144:
+            if descriptor.key in old_keys:
+                continue
+            masks = tuple(
+                primitive_exit_mask(descriptor, prime) for prime in primes
+            )
+            for kind_index in range(8):
+                pattern = tuple(
+                    int(bool(mask & (1 << kind_index))) for mask in masks
+                )
+                if len(set(pattern)) > 1:
+                    distinguishing.append(
+                        (descriptor.key, kind_index, pattern)
+                    )
+        self.assertEqual(
+            distinguishing,
+            [("phi6:11:105:144", 7, (1, 0))],
+        )
+
     def test_invalid_inputs(self) -> None:
         for call in (
             lambda: diversified_exceptional_selector(8),
