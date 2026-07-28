@@ -756,3 +756,21 @@
 - Scope: the witness refutes only \(m+10\) on the stated finite range. It does
   not refute \(m+11\) asymptotically, a different linear or polynomial cap,
   adaptive schedules, a density theorem, a recognizer, or general factoring.
+
+## NR-030 - The M32 linear caps collide at the next length
+
+- Date: 2026-07-28.
+- Status: `REFUTED` claim `REF-029`.
+- Hypothesis tested: the public selector \(L=m+11\), proved only through
+  \(m=20\), remains injective on the complete \(m=21\) balanced population.
+- Exact obstruction: \(L=32\) gives 2,511 descriptors and 20,088 raw
+  coordinates, but \(1031,1231,1319,1433\) share one signature. All six
+  semiprime pairs fail. The M32 multiplier \(151/100\) gives the same cap and
+  fails identically.
+- Positive boundary: cap 33 is injective on all 57 population primes, so
+  \(m+12\) is the smallest common integer-offset schedule through length 21.
+- Evidence: an independent dense evaluator checks every cap-32 descriptor on
+  all four collision primes and all 1,596 pairs in the cap-33 certificate.
+- Scope: this refutes two fixed linear formulas at one new length. It does not
+  prove repeated future collisions, a superlinear cap requirement, a density
+  theorem, a recognizer, or general factoring.

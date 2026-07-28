@@ -1,6 +1,6 @@
 # Research Status
 
-## M33 execution snapshot
+## M33 outcome
 
 - Date: 2026-07-28.
 - Branch: `research/20260728-m33-linear-cap-recurrence`.
@@ -9,18 +9,65 @@
 - Start commit `fe510a77e6d3656415c2fe98cda3fdce4a274aa5` is pushed. Draft
   PR #44 targets `main`:
   `https://github.com/whitespaca/MOSEF/pull/44`.
-- Active question: do the fixed public linear caps \(L_+(m)=m+11\) and
-  \(L_{151}(m)=\lceil151m/100\rceil\), which are certified only through
-  \(m=20\), remain injective on the next complete balanced populations?
-- Quantifier and cost boundary: both formulas are fixed before \(N\), use the
-  branch-total DEF-032 selector, and retain \(O(m^3\log m)\) compact work.
-  Population enumeration and support normalization remain certificate
-  operations, not a factorization-free recognizer.
-- First falsification task: evaluate both caps at \(m=21\). If either
-  collides, minimize one complete collision bucket and search monotonically
-  for the exact first repairing cap. If both are injective, record complete
-  certificates before extending to \(m=22\).
-- No outcome at \(m\ge21\) is claimed in this snapshot.
+- At \(m=21\), both M32 formulas \(m+11\) and
+  \(\lceil151m/100\rceil\) give cap 32. The complete 57-prime population has
+  a four-prime collision bucket \(\{1031,1231,1319,1433\}\) across all 2,511
+  descriptors and 20,088 raw coordinates, producing six failed pairs.
+- Cap 33 has 2,752 descriptors, 74 normalized columns, and 57 distinct
+  signatures. A 53-coordinate certificate separates all 1,596 population
+  pairs. Cap 32's collision and raw selector inclusion prove that 33 is the
+  exact first injective cap at length 21.
+- `THM-006` is `PROVED`: \(L=m+12\) is injective on every complete balanced
+  population for \(9\le m\le21\), and 12 is the smallest common integer
+  offset on this finite range.
+- `BAR-027` is `PROVED`: the exact multiplicative coefficients covering the
+  finite thresholds through length 21 are \(c>32/21\). The old
+  \(151/100\) witness fails; \(153/100\) is a fixed succeeding witness.
+- EXP-0032 checked two cap profiles, 57 primes, 5,263 descriptor instances,
+  299,991 local exits, 42,104 raw and 143 normalized coordinates, 1,596
+  monotonicity checks, 3,192 normalization equivalences, and 1,596
+  construction-certificate pairs.
+- Independent validation passed 28 Rust/C# command comparisons, 1,596 dense
+  construction pairs, and all 2,511 dense collision-descriptor cases.
+- Registered schema SHA-256:
+  `5947cc85d8664fcb1433d7d748a7d7be0be81098c49ddd433cc0645313c77b80`.
+  Registered EXP-0032 summary SHA-256:
+  `3b6536eaf343951ca0efb50aae08f1b32f36f89e896a9f5a9f2cc6286f1ffa88`.
+- Final gates passed: foundation and bilingual publication checks
+  (139 claims and 31 experiment hashes), 217 Python tests plus 206 subtests,
+  compileall, Ruff, strict mypy over 26 source files, Rust formatting/Clippy
+  and 36 tests, and a warning-free C# Release build.
+- Regression gates passed: 58 baseline comparisons, the registered M29 audit
+  and 34 comparisons, the M30 audit and 34 comparisons, the M31 audit with
+  72 command checks, 12 profiles, and 104 dense pairs, the M32 audit with
+  64 command checks, 1,930 dense construction pairs, and 5,314 dense
+  predecessor checks, and the complete M33 audit and differential check.
+- XeLaTeX produced final-warning-free 82-page English and 18-page Korean
+  PDFs. Rendered title, theorem, evidence, proof, reproduction, and claim
+  appendix pages had no clipping, overlap, missing glyph, or unreadable text.
+  Stable artifact SHA-256 values are
+  `f875201b611d5521966af680ed7226cab880119748974ca8ca6c874fcdc8a6e6`
+  and
+  `95393070ca5e979791b62bfdb95db43a039dbb1732c00185cf0a0d144d8ede77`.
+- The formulas remain factorization independent and use
+  \(O(m^3\log m)\) compact work. The finite result does not establish a cap
+  growth rate, behavior at \(m>21\), promise recognition, or general
+  factoring.
+- Next selected milestone: M34 tests \(m+12\) and
+  \(\lceil153m/100\rceil\) on the complete \(m=22\) population.
+
+### M33 Korean summary
+
+M33에서는 M32의 두 공개 선형 상한을 바로 다음 길이에서 반증
+검사했습니다. \(m=21\)에서 두 공식은 모두 \(L=32\)가 되고,
+\(1031,1231,1319,1433\)이 모든 2,511개 descriptor에서 같은
+signature를 가져 여섯 소수쌍이 실패합니다.
+
+상한 33에서는 완전한 57-prime population이 단사입니다. 따라서
+\(9\le m\le21\)에서는 \(m+12\)가 작동하며 가산 상수 12가 최소입니다.
+곱셈형 상한의 정확한 유한 경계는 \(c>32/21\)입니다. 이 결과는 다음
+길이나 asymptotic 성장률, promise 인식, 일반 정수분해를 증명하지
+않습니다.
 
 ## M32 outcome
 
