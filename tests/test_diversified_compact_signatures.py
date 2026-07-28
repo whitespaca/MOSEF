@@ -11,9 +11,59 @@ from python.mosef_reference.diversified_compact_signatures import (
     greedy_separating_column_indices,
     primitive_exit_mask,
 )
+from python.mosef_reference.exceptional_cofactor_schedule import (
+    exceptional_cofactor_overlap,
+)
+from python.mosef_reference.exceptional_cyclotomic import (
+    evaluate_exceptional_cyclotomic,
+)
 
 
 class DiversifiedCompactSignatureTests(unittest.TestCase):
+    def test_direct_primitive_masks_match_full_audit_objects(self) -> None:
+        primes = (2, 3, 5, 7, 11, 13, 17, 19, 107, 109, 211)
+        for descriptor in diversified_exceptional_selector(20):
+            overlap = exceptional_cofactor_overlap(
+                descriptor.first_factor,
+                descriptor.second_factor,
+                descriptor.family,
+            )
+            for prime in primes:
+                if descriptor.base % prime == 0:
+                    expected = 1
+                else:
+                    evaluation = evaluate_exceptional_cyclotomic(
+                        descriptor.base,
+                        prime,
+                        descriptor.first_factor,
+                        descriptor.second_factor,
+                        descriptor.family,
+                    )
+                    support = (
+                        False,
+                        evaluation.first_quotient_gcd == prime,
+                        evaluation.second_quotient_gcd == prime,
+                        evaluation.first_public_bound_gcd == prime,
+                        evaluation.second_public_bound_gcd == prime,
+                        evaluation.cyclotomic_gcd == prime,
+                        (
+                            overlap.cyclotomic_cofactor_resultant
+                            % prime
+                            == 0
+                        ),
+                        evaluation.cofactor_gcd == prime,
+                    )
+                    expected = sum(
+                        1 << index
+                        for index, hit in enumerate(support)
+                        if hit
+                    )
+                self.assertEqual(
+                    primitive_exit_mask(descriptor, prime),
+                    expected,
+                    (descriptor, prime),
+                )
+
     def test_public_selector_is_deterministic_and_valid(self) -> None:
         descriptors = diversified_exceptional_selector(12)
         self.assertEqual(len(descriptors), 110)

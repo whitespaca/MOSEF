@@ -872,3 +872,24 @@
   repair, although the full certificate is not claimed minimum. The finite
   envelopes through length 27 become \(m+60\) and \(c>86/27\); no
   asymptotic rate is inferred. M40 must test caps 88 and 90 at \(m=28\).
+
+## ADR-044 - Stream primitive masks without caching audit objects
+
+- Date: 2026-07-29.
+- Decision: retain the public cached `primitive_exit_mask` interface, but
+  construct complete selector profiles through an allocation-free evaluator
+  that returns the same eight support bits and stores only the resulting
+  population masks.
+- Rationale: a cap-88, length-28 profile contains 58,464 descriptors and
+  507 balanced primes, hence 29,641,248 local evaluations. Retaining one full
+  audit object or cache entry per pair is not needed to normalize support
+  columns. The direct evaluator computes both geometric sums, the public
+  bounds, the exceptional resultant, and the cyclotomic bit exactly. It uses
+  the integral identity \(F=\Phi_k C\) when the cyclotomic residue is a unit
+  and evaluates the compact cofactor explicitly when that residue vanishes.
+- Consequence: column ordering and profile semantics remain unchanged while
+  peak retained state is proportional to the raw coordinate masks rather
+  than the descriptor-population product. Exhaustive selector comparisons
+  against the original full audit-object path, all historical M33--M39
+  collision regressions, and the frozen M39 audit pass. This is an
+  implementation optimization, not a new complexity or factoring claim.
