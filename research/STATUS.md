@@ -9,6 +9,8 @@
 - Start commit `6a234cf1b8436a1755fcf3ab630ca76a9c694672` is pushed. Draft
   PR #52 targets `main`:
   `https://github.com/whitespaca/MOSEF/pull/52`.
+- M41 proof, implementation, registered experiment, and bilingual-paper core
+  commit: `a424abb5422c98777580b92f3f9e52da69ec273a`.
 - The repaired schedules give distinct caps \(m+76=105\) and
   \(\lceil26m/7\rceil=108\). Complete lossless raw-prefix profiles show that
   both caps are injective on all 685 balanced primes.
