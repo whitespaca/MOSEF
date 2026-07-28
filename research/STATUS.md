@@ -1,5 +1,86 @@
 # Research Status
 
+## M38 outcome
+
+- Date: 2026-07-28.
+- Branch: `research/20260728-m38-length-26-caps`.
+- Base: M37 squash merge
+  `df3af93a89b764f6be6eec9d55b26b4477749cea`.
+- Start commit `95f26a2b2188b44bdcb1452ff79d394027ce6659` is pushed. Draft
+  PR #49 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/49`.
+- At \(m=26\), the M37 formulas give distinct caps:
+  \(m+40=66\) and \(\lceil257m/100\rceil=67\). The complete 268-prime
+  population at cap 66 has the collision bucket
+  \(\{6229,6703,6793,6947,7187,7229,7649\}\), producing 21 failed pairs
+  across all 23,465 descriptors.
+- Cap 67 reduces the complete collision set to
+  \(\{7187,7229,7649\}\), which produces three failed pairs across all
+  25,938 descriptors. Raw selector inclusion confines every later collision
+  to the original cap-66 bucket.
+- Exact transition checks preserve the final triple through cap 70 and all
+  27,876 descriptors. At cap 71, two new cofactor coordinates have patterns
+  \((0,0,1)\) and \((0,1,0)\) on the triple. Appending them to the 561
+  cap-67 normalized columns gives a 563-coordinate certificate separating
+  all 35,778 population pairs, so 71 is the exact first injective cap.
+- `THM-011` is `PROVED`: \(L=m+45\) is injective on every complete balanced
+  population for \(9\le m\le26\), and 45 is the smallest common integer
+  offset on this finite range.
+- `BAR-032` is `PROVED`: the exact multiplicative coefficients covering the
+  finite thresholds through length 26 are \(c>35/13\). The endpoint gives
+  failed cap 70; \(27/10\) is a fixed succeeding witness.
+- EXP-0037 checked two full cap profiles, six transition profiles, 268
+  primes, 49,403 descriptor instances, 13,240,004 full-profile local exits,
+  395,224 raw and 1,101 normalized coordinates, 35,778 monotonicity checks,
+  71,556 normalization equivalences, 113,179 transition descriptor checks,
+  792,253 tracked transition exits, two new repair coordinates, and 35,778
+  construction pairs.
+- Independent validation checks 16 Rust/C# command comparisons, 35,778
+  dense construction pairs, 23,465 dense additive-cap cases, 25,938 dense
+  multiplicative-cap cases, and 27,876 dense predecessor cases.
+- Registered schema SHA-256:
+  `68f7e9b710be7960b78c11e4bef06119f00d75a6df2074ed8976f211e6b32a97`.
+  Registered EXP-0037 summary SHA-256:
+  `c3b758e046f9e6ae722352bd54be62521a32608c43a4fc95237f2e89229a094c`.
+- Final gates passed: foundation and bilingual publication checks
+  (159 claims and 36 experiment hashes), 222 Python tests in 849.67 seconds
+  with the cache provider disabled, compileall, Ruff, strict mypy over 26
+  source files, Rust formatting/Clippy and 36 tests, and a warning-free C#
+  Release build.
+- The complete M38 schema generation and independent differential suite
+  passed, including 16 Rust/C# command checks, 35,778 dense construction
+  pairs, 23,465 additive-cap checks, 25,938 multiplicative-cap checks, and
+  27,876 predecessor checks.
+- XeLaTeX produced final-warning-free 88-page English and 24-page Korean
+  PDFs. Rendered M38 result, complete proof, complexity, and claim-appendix
+  pages had no clipping, overlap, missing glyph, malformed mathematics, or
+  unreadable text. Stable artifact SHA-256 values are
+  `83ad986bb3462e2787ecf58f342da8a5d743dbb03f85e41fa85af1feb777a4e7`
+  and
+  `4356b89305ebe521e8c4b371ef6e47983c11b2674624557819f116bc65c841eb`.
+- M38 proof, implementation, registered experiment, and bilingual-paper core
+  commit:
+  `2ea56e314b0675f8639b54072aa3e60406104ce5`.
+- Both formulas remain factorization independent and use
+  \(O(m^3\log m)\) compact work. The finite result does not establish a cap
+  growth rate, behavior at \(m>26\), promise recognition, or general
+  factoring.
+- Next selected milestone: M39 separately tests additive cap 72 and
+  multiplicative cap 73 on the complete \(m=27\) population.
+
+### M38 Korean summary
+
+M38에서는 M37의 두 공개 상한이 \(m=26\)에서 주는 cap 66과 67을
+각각 검사했습니다. cap 66에는 일곱 소수의 21개 충돌 pair가 남고,
+cap 67에는 세 소수의 세 충돌 pair가 남습니다. selector 포함관계로
+이후 충돌을 첫 bucket 안에서 완전 추적했으며, cap 70에서도 triple이
+충돌하지만 cap 71의 새 cofactor coordinate 두 개가 이를 분리합니다.
+
+따라서 \(9\le m\le26\)에서 \(m+45\)는 작동하며 최소 공통 정수 offset은
+45입니다. 곱셈형 상한의 정확한 유한 경계는 \(c>35/13\)입니다. 이
+결과는 이후 길이의 asymptotic 성장, promise 인식, 일반 정수분해를
+증명하지 않습니다.
+
 ## M37 outcome
 
 - Date: 2026-07-28.

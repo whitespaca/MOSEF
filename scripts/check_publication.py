@@ -62,6 +62,7 @@ REQUIRED_SECTIONS = (
     "The length-23 finite envelope",
     "The length-24 distinct-cap envelope",
     "The length-25 finite envelope",
+    "The length-26 finite envelope",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -107,6 +108,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:THM-008-BAR-029}",
     r"\label{proof:THM-009-BAR-030}",
     r"\label{proof:THM-010-BAR-031}",
+    r"\label{proof:THM-011-BAR-032}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -196,6 +198,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0036-m37-length-25-cap.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0037-m38-length-26-cap.md",
 )
 
 
@@ -351,6 +357,7 @@ def main() -> int:
                 "EXP-0034",
                 "EXP-0035",
                 "EXP-0036",
+                "EXP-0037",
             )
         ) and (
             summary_hash not in korean_paper_text.lower()
@@ -398,6 +405,9 @@ def main() -> int:
         "M37: 길이 25의 유한 envelope",
         "THM-010",
         "4133,4297,4337,4423,4663,5011,5179,5233,5297",
+        "M38: 길이 26의 유한 envelope",
+        "THM-011",
+        "6229,6703,6793,6947,7187,7229,7649",
     )
     for phrase in required_korean:
         if phrase not in korean_paper_text:
