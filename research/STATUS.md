@@ -6,6 +6,9 @@
 - Branch: `research/20260729-m43-length-31-caps`.
 - Base: M42 squash merge
   `15fb801a35c279e496922b2af8a4ea0d932bb115`.
+- Start commit `fa6093971e8037e43b3a2b1beba64dba5e28c0f5` is pushed. Draft
+  PR #54 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/54`.
 - Active bounded question: on the complete \(m=31\) balanced-prime
   population, test the repaired factorization-independent caps
   \(m+93=124\) and \(\lceil49m/12\rceil=127\) separately, then determine
