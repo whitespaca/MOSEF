@@ -1,5 +1,25 @@
 # Research Status
 
+## M36 execution snapshot
+
+- Date: 2026-07-28.
+- Branch: `research/20260728-m36-distinct-caps`.
+- Base: M35 squash merge
+  `b4d6fba2509a9a0cc334b7dfa195e01c119869a0`.
+- Active question: do the repaired public schedules \(L_+(m)=m+24\) and
+  \(L_{201}(m)=\lceil201m/100\rceil\), certified only through \(m=23\),
+  remain injective on the complete balanced population at \(m=24\)?
+- The formulas now give distinct caps 48 and 49. The first falsification task
+  is to evaluate both exact selectors independently, minimize every complete
+  collision bucket, and search monotonically for the first repairing cap if
+  neither is injective.
+- Both formulas are fixed before \(N\) and preserve
+  \(O(m^3\log m)\) compact work. Population enumeration, normalization, and
+  dense expansion remain certificate operations rather than a public
+  promise recognizer.
+- No outcome at \(m=24\), later length, or asymptotic cap rate is claimed in
+  this snapshot.
+
 ## M35 outcome
 
 - Date: 2026-07-28.
