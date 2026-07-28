@@ -56,6 +56,10 @@
   claim table found no clipping, overlap, missing glyph, or unreadable text.
   Stable artifacts are `output/pdf/mosef-paper.pdf` and
   `output/pdf/mosef-paper-ko.pdf`.
+- M31 proof, implementation, experiment, and bilingual-paper commit
+  `fa44f445cd8ead4122fe57e790f1ccb51f1206fd` is pushed. Completion Draft
+  PR #42 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/42`.
 - Next selected milestone: M32 will parameterize a wider public cap \(L(m)\),
   charge its polynomial degree, and audit the smallest additive and
   multiplicative ranges that repair or preserve the M31 collisions on
