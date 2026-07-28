@@ -1,5 +1,35 @@
 # Research Status
 
+## M32 execution snapshot
+
+- Date: 2026-07-28.
+- Branch: `research/20260728-m32-widened-selector-cap`.
+- Base checkpoint: M31 completion PR #42 was squash-merged into `main` as
+  `3e98fe1450f2d3f808f12f8291296ad2bfe01e09`.
+- Active question: what factorization-independent public cap \(L(m)\ge m\)
+  first repairs the M31 collision populations, and what polynomial degree and
+  complete charged-exit cost does that cap require?
+- Candidate grammar: \(\mathcal T_{m,L}\) contains every valid exceptional
+  descriptor with \(2\le A,B,g\le L(m)\), where the integer-valued function
+  \(L\) is fixed publicly before \(N\). The baseline families are
+  \(L_t(m)=m+t\) and \(L_c(m)=\lceil cm\rceil\) for fixed public \(t,c\).
+- Cost boundary: the descriptor count is at most \(2(L(m)-1)^3\), and each
+  compact evaluator uses \(O(\log L(m))\) composition steps. A cap counts as
+  polynomial only after its encoding, constructor, every nonunit base/stage
+  branch, GCD, output, and extraction cost are charged in \(m\).
+- Monotonicity target: increasing \(L\) appends raw charged exits, so the
+  underlying prime-equivalence relation can only refine. Normalized column
+  counts need not themselves be monotone; only pair separation is.
+- First bounded task: search \(t=0,1,\ldots\) for the smallest additive cap
+  that separates each complete M31 collision range \(16\le m\le20\), then
+  translate the thresholds into small fixed multiplicative caps before
+  considering \(L(m)=m^2\).
+- Falsification priority: retain duplicate nonzero signatures, all-unit
+  buckets, nonunit bases when \(L(m)\) reaches a population prime, hidden
+  factor-dependent cap selection, redundant derived exits, and
+  superpolynomial descriptor growth. Any threshold found is finite evidence
+  until converted into an explicit complete certificate.
+
 ## M31 outcome
 
 - Date: 2026-07-28.
