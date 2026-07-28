@@ -166,3 +166,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-032 | PROVED | Exact length-26 collision ladder and cap-71 repair | `research/proofs/THM-011-BAR-032-length-26-envelope.md` |
 | REF-034 | REFUTED | Either M37 repaired cap as injective at length 26 | `research/NEGATIVE_RESULTS.md` NR-035 |
 | EMP-037 | EMPIRICAL | Length-26 finite-envelope audit | `research/experiments/EXP-0037-m38-length-26-cap.md` |
+| THM-012 | PROVED | Finite balanced-semiprime construction through input length 27 | `research/proofs/THM-012-BAR-033-length-27-envelope.md` |
+| BAR-033 | PROVED | Exact length-27 collision ladder and cap-87 repair | `research/proofs/THM-012-BAR-033-length-27-envelope.md` |
+| REF-035 | REFUTED | Either M38 repaired cap as injective at length 27 | `research/NEGATIVE_RESULTS.md` NR-036 |
+| EMP-038 | EMPIRICAL | Length-27 finite-envelope audit | `research/experiments/EXP-0038-m39-length-27-cap.md` |
