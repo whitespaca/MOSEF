@@ -6,6 +6,9 @@
 - Branch: `research/20260728-m32-widened-selector-cap`.
 - Base checkpoint: M31 completion PR #42 was squash-merged into `main` as
   `3e98fe1450f2d3f808f12f8291296ad2bfe01e09`.
+- Start commit `4c92b2039a5e82b728b2d4305db6628030d3b2df` is pushed. Draft
+  PR #43 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/43`.
 - Active question: what factorization-independent public cap \(L(m)\ge m\)
   first repairs the M31 collision populations, and what polynomial degree and
   complete charged-exit cost does that cap require?
