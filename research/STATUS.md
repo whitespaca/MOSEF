@@ -9,6 +9,8 @@
 - Start commit `667f3bc97588b219569926629dc749b5f5738808` is pushed. Draft
   PR #55 targets `main`:
   `https://github.com/whitespaca/MOSEF/pull/55`.
+- M44 proof, implementation, registered experiment, and bilingual-paper core
+  commit: `ee1f3ab1f6dbd77f2ea45b206a8f4bcbd5a46a6d`.
 - The complete \(m=32\) balanced population has 1,750 primes and 1,530,375
   unordered pairs. The inherited public caps both fail: cap 145 leaves one
   14-prime bucket and 91 pairs, while cap 148 leaves one six-prime bucket
