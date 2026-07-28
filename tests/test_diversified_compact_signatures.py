@@ -263,6 +263,53 @@ class DiversifiedCompactSignatureTests(unittest.TestCase):
         self.assertTrue(repaired.injective)
         self.assertEqual(repaired.collision_pair_count, 0)
 
+    def test_m38_repaired_caps_fail_and_two_new_columns_repair(self) -> None:
+        additive = diversified_selector_profile(
+            26,
+            66,
+            compute_minimum_certificate=False,
+        )
+        multiplicative = diversified_selector_profile(
+            26,
+            67,
+            compute_minimum_certificate=False,
+        )
+        self.assertEqual(
+            additive.collision_buckets,
+            ((6229, 6703, 6793, 6947, 7187, 7229, 7649),),
+        )
+        self.assertEqual(
+            multiplicative.collision_buckets,
+            ((7187, 7229, 7649),),
+        )
+
+        primes = (7187, 7229, 7649)
+        first = ExceptionalSelectorDescriptor("phi4", 7, 71, 65)
+        second = ExceptionalSelectorDescriptor("phi4", 19, 71, 50)
+        first_pattern = tuple(
+            int(bool(primitive_exit_mask(first, prime) & (1 << 7)))
+            for prime in primes
+        )
+        second_pattern = tuple(
+            int(bool(primitive_exit_mask(second, prime) & (1 << 7)))
+            for prime in primes
+        )
+        self.assertEqual(first_pattern, (0, 0, 1))
+        self.assertEqual(second_pattern, (0, 1, 0))
+        self.assertEqual(
+            len(
+                {
+                    first_bit | (second_bit << 1)
+                    for first_bit, second_bit in zip(
+                        first_pattern,
+                        second_pattern,
+                        strict=True,
+                    )
+                }
+            ),
+            3,
+        )
+
     def test_invalid_inputs(self) -> None:
         for call in (
             lambda: diversified_exceptional_selector(8),

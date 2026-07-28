@@ -855,3 +855,28 @@
 - Scope: this refutes two fixed linear formulas at one new length. It does not
   prove a future recurrence, a superlinear cap requirement, an asymptotic
   rate, density, recognition, or general factoring.
+
+## NR-035 - Both distinct M37 repaired caps fail at length 26
+
+- Date: 2026-07-28.
+- Status: `REFUTED` claim `REF-034`.
+- Hypothesis tested: either public selector \(L=m+40\) or
+  \(L=\lceil257m/100\rceil\), proved only through \(m=25\), remains injective
+  on the complete \(m=26\) balanced population.
+- Additive obstruction: \(L=66\) gives 23,465 descriptors and 187,720 raw
+  coordinates, but \(\{6229,6703,6793,6947,7187,7229,7649\}\) share one
+  signature and produce 21 failed pairs.
+- Multiplicative obstruction: \(L=67\) leaves
+  \(\{7187,7229,7649\}\) in one bucket, producing three failed pairs across
+  all 25,938 descriptors.
+- Persistent predecessor: the complete cap-66 bucket is the only possible
+  source of later collisions by raw selector inclusion, and its exact
+  transition audit leaves the final triple colliding across all 27,876
+  cap-70 descriptors.
+- Positive boundary: two new cap-71 cofactor columns separate the final
+  triple, and the complete cap-67 signatures already separate every other
+  pair. Thus cap 71 is injective and \(m+45\) is the smallest common
+  integer-offset schedule through length 26.
+- Scope: this refutes two fixed linear formulas at one new length. It does not
+  prove a future recurrence, a superlinear cap requirement, an asymptotic
+  rate, density, recognition, or general factoring.

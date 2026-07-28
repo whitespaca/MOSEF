@@ -836,3 +836,21 @@
   envelopes through length 25 become \(m+40\) and \(c>64/25\); no
   asymptotic rate is inferred. M38 must test the repaired caps 66 and 67 at
   \(m=26\).
+
+## ADR-042 - Certify a repair incrementally from the last complete profile
+
+- Date: 2026-07-28.
+- Decision: for M38, freeze complete population profiles at the two public
+  caps 66 and 67, then certify cap 71 by appending the two explicit new
+  binary columns that separate the sole cap-67 collision triple.
+- Rationale: raw selector inclusion guarantees that every pair separated at
+  cap 67 remains separated. The complete cap-67 profile leaves only
+  \(\{7187,7229,7649\}\); the two registered cap-71 cofactor patterns assign
+  it signatures \(0,2,1\). Thus the 561 old normalized columns plus two new
+  raw columns are a complete 268-prime construction certificate without
+  materializing a redundant full cap-71 normalized profile.
+- Consequence: two new coordinates are minimal for the final triple, although
+  the full 563-coordinate certificate is not claimed minimum. The finite
+  envelopes through length 26 become \(m+45\) and \(c>35/13\); no
+  asymptotic rate is inferred. M39 must test the repaired caps 72 and 73 at
+  \(m=27\).
