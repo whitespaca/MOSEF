@@ -1,5 +1,24 @@
 # Research Status
 
+## M35 execution snapshot
+
+- Date: 2026-07-28.
+- Branch: `research/20260728-m35-next-envelope`.
+- Base: M34 squash merge
+  `826bc672b0893b2dd1481bfebf4b7f726120fcd4`.
+- Active question: do the repaired public schedules \(L_+(m)=m+17\) and
+  \(L_{173}(m)=\lceil173m/100\rceil\), certified only through \(m=22\),
+  remain injective on the complete balanced population at \(m=23\)?
+- Both formulas give cap 40 at \(m=23\). The first falsification task is to
+  evaluate that exact selector, minimize any complete collision bucket, and
+  search monotonically for the first repairing cap if needed.
+- Both formulas are fixed before \(N\) and preserve
+  \(O(m^3\log m)\) compact work. Population enumeration, normalization, and
+  dense expansion remain certificate operations rather than a public
+  promise recognizer.
+- No outcome at \(m=23\), later length, or asymptotic cap rate is claimed in
+  this snapshot.
+
 ## M34 outcome
 
 - Date: 2026-07-28.
