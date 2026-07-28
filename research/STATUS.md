@@ -1,5 +1,19 @@
 # Research Status
 
+## M42 work snapshot
+
+- Date: 2026-07-29.
+- Branch: `research/20260729-m42-length-30-caps`.
+- Base: M41 squash merge
+  `6c8282847aa7667315833581586b5a056e479989`.
+- Active bounded question: on the complete \(m=30\) balanced-prime
+  population, test the unchanged factorization-independent caps
+  \(m+76=106\) and \(\lceil26m/7\rceil=112\) separately, then determine
+  the exact adjacent threshold and either construct a complete separating
+  certificate or preserve the smallest collision.
+- Claim boundary: no inference to \(m>30\), an asymptotic cap law, promise
+  recognition, or general classical polynomial-time factoring is permitted.
+
 ## M41 outcome
 
 - Date: 2026-07-29.
