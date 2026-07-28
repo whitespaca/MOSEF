@@ -154,3 +154,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-029 | PROVED | Exact length-23 recurrence ladder and cap-47 repair | `research/proofs/THM-008-BAR-029-length-23-envelope.md` |
 | REF-031 | REFUTED | The M34 additive cap as injective at length 23 | `research/NEGATIVE_RESULTS.md` NR-032 |
 | EMP-034 | EMPIRICAL | Length-23 next-envelope audit | `research/experiments/EXP-0034-m35-next-envelope.md` |
+| THM-009 | PROVED | Finite balanced-semiprime construction through input length 24 | `research/proofs/THM-009-BAR-030-length-24-distinct-caps.md` |
+| BAR-030 | PROVED | Exact length-24 distinct-cap ladder and cap-51 repair | `research/proofs/THM-009-BAR-030-length-24-distinct-caps.md` |
+| REF-032 | REFUTED | Either M35 repaired cap as injective at length 24 | `research/NEGATIVE_RESULTS.md` NR-033 |
+| EMP-035 | EMPIRICAL | Length-24 distinct-cap audit | `research/experiments/EXP-0035-m36-distinct-cap.md` |
