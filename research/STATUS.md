@@ -6,6 +6,9 @@
 - Branch: `research/20260729-m44-length-32-caps`.
 - Base: M43 squash merge
   `ef0750dd74ccfdc60060e690225f8126292ea7f4`.
+- Start commit `667f3bc97588b219569926629dc749b5f5738808` is pushed. Draft
+  PR #55 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/55`.
 - Active bounded question: on the complete \(m=32\) balanced-prime
   population, test the repaired factorization-independent caps
   \(m+113=145\) and \(\lceil60m/13\rceil=148\) separately, then determine
