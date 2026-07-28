@@ -26,7 +26,7 @@
 \renewcommand{\abstractname}{초록}
 
 \title{고전적 정수분해를 위한 차수 분리 지수:\\
-세 개의 제한 정리와 열여덟 개의 구조적 장벽}
+네 개의 제한 정리와 열아홉 개의 구조적 장벽}
 \author{MOSEF 연구 프로그램}
 \date{2026년 7월 28일}
 
@@ -39,27 +39,22 @@
 위한 차수 분리 지수 계열을 연구한다. 일반 정수분해의 고전적 다항
 시간 알고리즘이 존재한다고 가정하지 않는다. 저장소에서 검증된
 결과는 인수분해에 의존하는 두 개의 유전적 약속 클래스에 대한
-Las Vegas 정리, 하나의 완전한 유리 root-of-unity 분류 정리, 그리고
+Las Vegas 정리, 하나의 완전한 유리 root-of-unity 분류 정리,
+하나의 완전 유한 balanced-semiprime 약속 정리, 그리고
 명시적 지수 목록, 압축 표현, 산술 회로, 기하급수 quotient, 예외적
 cyclotomic cofactor 일정에 대한 구조적 장벽들이다.
 
-이번 M29 결과는 길이별 공개 후보
-\[
-A=3,\qquad B_m=2^m+3,\qquad g=2
-\]
-의 \(\Phi_4\) cofactor \(C_m=C_4(2)\)를 정확히 분석한다. 다음 닫힌
-식을 증명한다.
-\[
-C_m=\frac{16(2^{3\cdot2^m+5}+3)}{35}.
-\]
-소수 5와 7에는 분모 때문에 별도의 quotient 판정이 필요하고,
-\(p>7\)에서는 \(p\mid C_m\)이 하나의 모듈러 합동식과 정확히
-동치이다. 또한 \(\gcd(C_m,C_{m+1})=16\)이다. 한 cofactor가 \(s\)개의
-소수 중 \(h\)개를 지지하면 정확히 \(h(s-h)\)개의 semiprime 쌍만
-proper GCD를 만든다. 같은 쪽의 hit--hit 쌍은 full collision이고
-miss--miss 쌍은 unit이다. 따라서 \(s\ge3\)인 모집단 전체를 한
-후보가 분리할 수 없다. 이 결론은 여러 후보, 적응형 일정, 일반
-산술 회로 또는 일반 정수분해에 대한 하한이 아니다.
+이번 M31 결과는 입력 \(N\)을 받기 전에 두 exceptional family와
+\(2\le A,B,g\le m\)의 모든 유효 descriptor를 선택하는 명시적
+다항 selector를 분석한다. 모든 primitive exit를 비용에 포함하고,
+상수 support column을 제거하고 중복 column을 합치는 정규화가
+모든 pair outcome을 보존함을 증명한다. 완전 유한 certificate는
+\(9\le m\le15\)의 balanced population에서 단사성을 증명한다.
+그러나 \(m=16\)에서는 소수 \(191,227,233\)이 270개 descriptor의
+모든 charged exit에서 충돌한다. 양성 결과는 인수분해에 의존하는
+유한 약속 정리이고, 음성 결과는 이 정확한 selector만 반박한다.
+일반 고전적 다항 시간 정수분해 알고리즘이나 모든 다항 selector의
+하한은 주장하지 않는다.
 \end{abstract}
 
 \section{연구 목적과 주장 규율}
@@ -79,7 +74,7 @@ MOSEF는 ``Multi-Group Order-Separating Exponent Factoring'' 연구
 
 영문 원고 \path{paper/main.tex}는 모든 과거 정리와 증명의 상세
 기록이다. 이 한국어 동반 원고는 동일한 claim ID와 상태를 사용하고,
-현재 M29 결과의 정의, 정리, 증명, 실험, 한계 및 재현 절차를
+현재 M31 결과의 정의, 정리, 증명, 실험, 한계 및 재현 절차를
 자기완결적으로 제공한다.
 
 \section{모형과 기본 판정}
@@ -455,6 +450,112 @@ summary SHA-256은
 selector에 대한 불가능성 정리가 아니며 일반 고전적 다항 시간
 정수분해의 불가능성도 뜻하지 않는다.
 
+\section{M31: 다변화 selector의 유한 구성과 한정된 충돌}
+
+\claimstatus{DEF-031}{DEFINITION}.
+\(m\ge9\)에 대하여 입력 \(N\)을 받기 전에
+\(\mathcal T_m\)을 만든다. 이 selector는 두 exceptional family에서
+\(2\le A,B,g\le m\)인 모든 유효 descriptor \((i,A,B,g)\)를 포함한다.
+각 descriptor에 대해 base, 첫째와 둘째 quotient stage, 두 public
+stage-overlap bound, direct cyclotomic, public cyclotomic/cofactor
+resultant, independently evaluated cofactor를 primitive support
+coordinate로 비용에 포함한다. aggregate support는 cyclotomic과
+cofactor support의 OR이고, 나머지 overlap exit는 primitive
+coordinate의 Boolean 함수이다.
+
+balanced population을
+\[
+\mathcal P_m=\{p\text{ prime}:2^{m-1}\le p^2<2^m\}
+\]
+로 둔다. 분석용 정규화에서는 상수 support column을 제거하고 같은
+column을 하나로 합친다. 이 과정은 공개 알고리즘에서 GCD를 생략하는
+절차가 아니다. 두 prime의 정규화 signature가 같은 것은 모든
+charged primitive 및 derived exit가 두 prime을 동일하게 처리하는
+것과 정확히 동치이다.
+
+\claimstatus{THM-004}{PROVED}.
+각 \(9\le m\le15\)에서 \(\mathcal T_m\)의 정규화 signature는
+\(\mathcal P_m\)에서 단사이다. 따라서 서로 다른
+\(p,q\in\mathcal P_m\)에 대한 모든 square-free 입력 \(N=pq\)에서
+이 공개 selector의 어떤 GCD는 proper factor를 노출한다. 완전
+separating certificate의 coordinate 수는 차례로
+\[
+1,2,2,3,4,6,10
+\]
+이다. 이는 인수분해에 의존하는 완전 유한 약속 정리이며, asymptotic
+constructor나 약속 recognizer가 아니다.
+
+\claimstatus{BAR-025}{PROVED}.
+\(m=16\)의 270개 descriptor는 2,160개 raw primitive column을 만든다.
+그중 상수 2,054개를 제거하고 중복 96개를 합치면 정규화 column은
+10개가 남는다. 그럼에도
+\[
+\nu_{16}(191)=\nu_{16}(227)=\nu_{16}(233)
+\]
+이다. 따라서 세 pair product 모두 모든 charged exit에서 unit 또는
+full-collision GCD만 얻는다. 독립 dense evaluator는 모든 descriptor와
+여덟 primitive exit를 직접 다시 계산했다. 이 장벽의 범위는 정확히
+\(2\le A,B,g\le m\)인 selector이다.
+
+\claimstatus{REF-027}{REFUTED}.
+두 exceptional family와 \(m\)까지의 모든 parameter 및 base를
+다양화하면 모든 길이에서 단사성이 보장된다는 가설은 거짓이다.
+\(m=16\) 충돌은 exact하지만, 더 넓은 다항 범위와 다른 selector
+formula는 열린 문제이다.
+
+\claimstatus{EMP-030}{EMPIRICAL}.
+EXP-0030은 입력 길이 12개, balanced prime 166개, descriptor 2,816개,
+local exit profile 63,953개, raw column 22,528개와 normalized column
+152개, 정규화 동치 2,034개, marginal cofactor separation 705개,
+Rust/C\# command 비교 72개, profile 검사 12개, dense certificate
+pair 검사 104개를 결정론적으로 확인했다. selector는
+\(9\le m\le15\)에서 단사였고 \(16\le m\le20\)에서 비단사였다.
+canonical summary SHA-256은
+\[
+\texttt{\seqsplit{423a86409f38a4be1382e611ca94d3e2b08abfe7c1923133ab195db9c3716ae8}}
+\]
+이다.
+등록된 certificate-vector SHA-256은
+\[
+\texttt{\seqsplit{f27e1681525d9c71f488c07457ed998cd43a8ea85ccac5b6e8e1b1e7227e93d0}}
+\]
+이다.
+
+\subsection{THM-004와 BAR-025의 증명}
+
+두 family, 최대 \((m-1)^2\)개의 ordered parameter pair, \(m-1\)개의
+base가 있으므로
+\[
+|\mathcal T_m|\le2(m-1)^3.
+\]
+각 parameter와 base는 \(O(\log m)\) bit이고, 각 compact cofactor와
+public resultant는 \(O(\log m)\)번의 compact modular step으로
+평가된다. 따라서 모든 construction, evaluation, GCD, output,
+extraction 비용은 입력 길이 \(m\)에 대해 다항식이다.
+
+\(p\in\mathcal P_m\)이면 \(p\ge2^{(m-1)/2}>m\)이다. 마지막 부등식은
+\(m=9\)에서 성립하고 이후에도 유지된다. 따라서 예정된 모든 base와
+parameter는 odd population prime보다 작고, unit-only exceptional
+evaluation은 약속 입력에서 정의된다.
+
+charged integer \(z\)에 대해
+\(h_z(p)=\mathbf1_{p\mid z}\)라 쓰자. 상수 column은 어느 pair도
+분리하지 못하고, 중복 column 하나는 원래 복사본들과 같은 equality
+relation을 가진다. aggregate는 cyclotomic/cofactor column의 OR이고
+overlap은 constituent column의 AND이므로, 정규화 signature의
+동일성은 모든 charged exit의 동일성과 동치이다. BAR-024에 의해
+selector가 \(pq\)에서 성공하는 것은 두 정규화 signature가 다른
+것과 동치이다.
+
+등록된 certificate는 \(9\le m\le15\)의 각 \(\mathcal P_m\)에 속한
+모든 prime을 열거하고, 위의 제한 signature가 pairwise distinct임을
+104개 pair에 대해 dense cofactor expansion으로 재검사한다. 이것이
+THM-004의 완전 유한 증명이다. \(m=16\)에서는 270개 descriptor의
+여덟 primitive exit를 직접 평가해 \(191,227,233\)의 mask가 모두
+같음을 확인한다. derived exit도 같으므로 BAR-024에 의해 세
+pair product가 모두 실패한다. 이것이 BAR-025를 증명하고 REF-027을
+반박한다. 다른 selector나 무한 범위에 대한 결론은 없다.
+
 \section{구현과 bit complexity}
 
 \(B_m=2^m+3\)과 \(E_m=3\cdot2^m+5\)의 이진 표현 길이는 \(O(m)\)이다.
@@ -466,6 +567,12 @@ vector를 다시 계산한다. M30의 Python 구현은 arbitrary-width
 signature와 collision count를 계산한다. Rust는 최대 64개 coordinate를
 \texttt{u64}에 독립적으로 packing하고, C\#은 \texttt{BigInteger}
 signature를 독립적으로 다시 계산한다.
+M31 selector의 descriptor 수는 최대 \(2(m-1)^3\)이고, 각 descriptor의
+compact 평가 비용은 \(O(\log m)\) step이다. 따라서 전체 공개
+selector의 construction, evaluation, GCD, output, extraction 비용은
+다항식이다. population enumeration, support normalization, dense
+certificate expansion은 증명 절차이며 공개 recognizer 비용에
+숨기지 않는다.
 
 소수 \(p\)가 주어진 local profile 함수는 증명과 differential test를
 위한 분석 도구이다. 실제 factorization 후보는 \(p\)를 받지 않고
@@ -503,38 +610,42 @@ canonical summary SHA-256은
 
 \section{한계와 다음 연구 문제}
 
-BAR-023과 BAR-024가 증명하지 않은 사항은 다음과 같다.
+BAR-023, BAR-024, BAR-025가 증명하지 않은 사항은 다음과 같다.
 
 \begin{itemize}
 \item balanced population에서 \(H_m\)의 asymptotic density;
 \item \(H_m\)을 factorization 없이 명시적으로 출력하는 recognizer;
-\item 여러 base 또는 여러 exceptional parameter tuple이 단사
-  signature를 만드는 구체적인 compact constructor;
+\item \(m\)보다 넓은 다항 cap이나 다른 formula가 단사 signature를
+  만드는 구체적인 compact constructor;
 \item \(N\)-dependent 또는 adaptive schedule의 하한;
 \item repeated-prime 입력 전체에 대한 이번 square-free signature
   count의 직접 확장;
 \item 일반 arithmetic circuit 또는 일반 고전적 정수분해의 하한.
 \end{itemize}
 
-다음 M31의 bounded question은 exceptional family, base, parameter를
-다양화한 factorization-independent polynomial selector가 balanced
-population에서 단사 signature를 만들 수 있는지, 아니면 명시적으로
-한정된 collision 장벽이 남는지 판단하는 것이다. 먼저 selector
-grammar와 compact 비용을 고정한 뒤 bounded search를 수행한다.
+다음 M32의 bounded question은 더 넓은 공개 cap \(L(m)\)을 정확히
+parameterize하고 그 다항 차수와 모든 exit 비용을 센 뒤, M31의
+유한 충돌을 factor-dependent support recognition 없이 복구하는
+가장 작은 범위를 찾는 것이다. 먼저 \(L(m)=m+t\)와
+\(L(m)=\lceil cm\rceil\)의 작은 공개 계열을 \(16\le m\le20\)에서
+falsification-first 방식으로 검사한다.
 
 \section{결론}
 
 M29는 compact exact lift의 크기와 prime-factor separation을
-분리했고, M30은 여러 후보의 정확한 결합 조건을 확정했다. 한 후보는
-하나의 cut만 만들며, 여러 후보가 모든 pair를 분리하려면 전체
-signature 사상이 단사여야 한다. union coverage나 후보 수 하한만으로는
-충분하지 않다. canonical prefix의 유한 실패는 재현되었지만 다른
-compact selector의 가능성은 열려 있다.
+분리했고, M30은 여러 후보의 정확한 결합 조건을 확정했다. M31은
+명시적 다변화 다항 selector를 구성해 \(9\le m\le15\)의 완전 유한
+balanced promise에서 단사성을 증명했다. 같은 selector는
+\(m=16\)에서 \(191,227,233\)을 분리하지 못한다. union coverage나
+후보 수 하한만으로는 충분하지 않고, 모든 pair를 분리하려면
+signature 사상이 단사여야 한다. M31 결과도 더 넓은
+polynomial selector의 가능성을 닫지 않는다.
 
 일반 고전적 다항 시간 정수분해 알고리즘도, 그러한 알고리즘의
 일반적 불가능성도 여기서 주장하지 않는다. 검증된 기여는 정확한
 closed form, exceptional prime 판정, consecutive GCD, exact
-multi-signature pair count, sharp candidate lower bound, 독립 구현,
+multi-signature pair count, sharp candidate lower bound, 유한
+construction certificate와 한정된 collision certificate, 독립 구현,
 재현 가능한 finite audit이다.
 
 \section{재현 명령}
@@ -561,6 +672,9 @@ python scripts/run_m30_compact_support_signature_audit.py `
   --assignment-candidate-max 3 --assignment-population-max 5 `
   --input-length-min 9 --input-length-max 40 --pair-check-max 20
 python scripts/check_m30_compact_support_signature_differential.py
+python scripts/run_m31_diversified_compact_signature_audit.py `
+  --input-length-min 9 --input-length-max 20
+python scripts/check_m31_diversified_compact_signature_differential.py
 python scripts/generate_korean_claim_appendix.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex

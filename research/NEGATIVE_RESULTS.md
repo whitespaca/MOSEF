@@ -708,3 +708,28 @@
   one schedule only. Neither result rules out other polynomial compact
   schedules, later input lengths, a density theorem, general factoring, or a
   general circuit construction.
+
+## NR-028 - Diversifying every parameter and base through \(m\) is not universal
+
+- Date: 2026-07-28.
+- Status: `REFUTED` claim `REF-027`.
+- Hypothesis tested: the factorization-independent selector containing both
+  exceptional families and every valid \(2\le A,B,g\le m\), together with
+  every charged stage, public bound, direct cyclotomic, resultant, cofactor,
+  and aggregate exit, has injective balanced-prime signatures for every
+  \(m\ge9\).
+- Exact obstruction: at \(m=16\), the 270 descriptors yield 2,160 primitive
+  support columns. After exact constant and duplicate normalization, primes
+  \(191,227,233\) share one signature. Hence the three pair products receive
+  only unit or full-collision GCDs from the complete schedule.
+- Positive boundary: the same selector is injective on every complete
+  balanced population for \(9\le m\le15\), giving the finite restricted
+  THM-004 construction.
+- Evidence: the compact evaluator and an independent dense polynomial
+  evaluator agree on the complete collision certificate. EXP-0030 additionally
+  found collisions at every registered length 17 through 20 and completed 72
+  selected Rust/C# command checks.
+- Scope: this refutes only the coordinate box bounded by \(m\). It does not
+  rule out a larger polynomial parameter/base range, a different public
+  formula, \(N\)-dependent or adaptive schedules, asymptotic injectivity,
+  general classical factoring, or broader arithmetic circuits.

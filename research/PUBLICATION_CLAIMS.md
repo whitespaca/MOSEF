@@ -131,3 +131,8 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-024 | PROVED | Exact injectivity criterion, candidate lower bounds, and collision minimum | `research/proofs/BAR-024-compact-support-signatures.md` |
 | REF-026 | REFUTED | Union coverage and candidate count as sufficient for pair separation | `research/NEGATIVE_RESULTS.md` NR-027 |
 | EMP-029 | EMPIRICAL | Bounded abstract-signature and canonical compact-prefix audit | `research/experiments/EXP-0029-m30-compact-support-signatures.md` |
+| DEF-031 | DEFINITION | Diversified exceptional selector and overlap-normalized primitive coordinates | `research/proofs/THM-004-BAR-025-diversified-selector.md` |
+| THM-004 | PROVED | Finite balanced-semiprime construction for input lengths 9 through 15 | `research/proofs/THM-004-BAR-025-diversified-selector.md` |
+| BAR-025 | PROVED | Exact normalization equivalence and length-16 collision | `research/proofs/THM-004-BAR-025-diversified-selector.md` |
+| REF-027 | REFUTED | The parameter-and-base box through m as universally injective | `research/NEGATIVE_RESULTS.md` NR-028 |
+| EMP-030 | EMPIRICAL | Bounded diversified-selector and certificate audit | `research/experiments/EXP-0030-m31-diversified-compact-signatures.md` |

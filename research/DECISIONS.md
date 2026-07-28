@@ -720,3 +720,26 @@
   audited fairly without overstating its finite failure. M31 may diversify
   families, bases, and parameters only through an explicit
   factorization-independent selector whose full compact cost is charged.
+
+## ADR-035 - Normalize support columns without deleting charged exits
+
+- Date: 2026-07-28.
+- Decision: retain every base, stage, public bound, direct cyclotomic,
+  cyclotomic/cofactor resultant, and independent cofactor GCD in the public
+  algorithm. For analytical injectivity only, delete constant population
+  columns, merge exact duplicate columns, and omit aggregate or overlap
+  columns that are Boolean functions of the primitive columns.
+- Rationale: suppressing a cofactor merely because a direct exit hits the same
+  prime can destroy a legitimate later separation when both factors share the
+  direct hit. Exact column equivalence preserves all pair outcomes, while
+  marginal partition refinement counts only cofactor separations not already
+  supplied by direct coordinates.
+- Cost accounting: the selector contains at most \(2(m-1)^3\) descriptors.
+  Every descriptor, compact evaluation, public precheck, GCD, output, and
+  extraction remains charged. Population support enumeration and
+  normalization are proof/audit operations, not a public recognizer.
+- Consequence: THM-004 gives a complete finite construction for lengths 9
+  through 15, while BAR-025 records the exact length-16 collision for the same
+  selector. M32 must vary the public range or formula explicitly and charge
+  the resulting polynomial degree before interpreting any repaired finite
+  signature.
