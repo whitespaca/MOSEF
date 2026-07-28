@@ -6,6 +6,9 @@
 - Branch: `research/20260729-m41-length-29-caps`.
 - Base: M40 squash merge
   `0c4895a50749f58ab1c04cef688ebecc1c318db3`.
+- Start commit `6a234cf1b8436a1755fcf3ab630ca76a9c694672` is pushed. Draft
+  PR #52 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/52`.
 - Active question: do the repaired public schedules \(L_+(m)=m+76\) and
   \(L_{26}(m)=\lceil26m/7\rceil\), certified only through \(m=28\),
   remain injective on the complete balanced population at \(m=29\)?
