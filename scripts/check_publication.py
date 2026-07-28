@@ -56,6 +56,7 @@ REQUIRED_SECTIONS = (
     "A compact cofactor prime-support barrier",
     "A compact multi-support signature barrier",
     "A diversified finite construction and scoped collision",
+    "A widened-cap finite construction and exact threshold",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -95,6 +96,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-023}",
     r"\label{proof:BAR-024}",
     r"\label{proof:THM-004-BAR-025}",
+    r"\label{proof:THM-005-BAR-026}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -160,6 +162,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0030-m31-diversified-compact-signatures.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0031-m32-widened-selector-cap.md",
 )
 
 
@@ -304,7 +310,9 @@ def main() -> int:
                 f"{summary_hash} from {record.relative_to(ROOT)}"
             )
             errors += 1
-        if record.name.startswith(("EXP-0028", "EXP-0029", "EXP-0030")) and (
+        if record.name.startswith(
+            ("EXP-0028", "EXP-0029", "EXP-0030", "EXP-0031")
+        ) and (
             summary_hash not in korean_paper_text.lower()
         ):
             fail(
@@ -332,7 +340,9 @@ def main() -> int:
         "signature 사상이 단사",
         "M31: 다변화 selector",
         "191,227,233",
-        "M32",
+        "M32: 넓어진 공개 상한",
+        "THM-005",
+        "809,827",
     )
     for phrase in required_korean:
         if phrase not in korean_paper_text:

@@ -15,7 +15,7 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
-Four Restricted Theorems and Nineteen Structural Barriers}
+Five Restricted Theorems and Twenty Structural Barriers}
 \author{MOSEF Research Program}
 \date{28 July 2026}
 
@@ -173,6 +173,13 @@ certificates prove injectivity on the balanced populations for
 \(9\le m\le15\), while \(191,227,233\) collide across all 270 descriptors at
 \(m=16\). The positive result is a bounded factor-dependent promise theorem,
 and the collision refutes only this selector, not all polynomial selectors.
+Separating the public cap \(L(m)\) from \(m\), we determine the exact first
+injective caps \(19,19,27,27,31\) at lengths \(16,\ldots,20\). Raw selector
+inclusion proves monotone separation. Hence \(L=m+11\) gives a complete
+finite construction through \(m=20\), with 11 the smallest common integer
+offset on this range. For \(L=\lceil cm\rceil\), the finite thresholds are
+covered exactly when \(c>3/2\); the endpoint retains the collision
+\(\{809,827\}\) at \(m=20\). No unbounded-length conclusion follows.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -290,7 +297,10 @@ algorithm. Its contributions are:
 \item a factorization-independent diversified selector with complete finite
   construction certificates for input lengths 9 through 15, exact
   support-column normalization, and a complete length-16 collision
-  certificate for the same selector; and
+  certificate for the same selector;
+\item an exact widened-cap threshold theorem on lengths 16 through 20,
+  yielding the finite public construction \(L=m+11\), its minimal common
+  integer offset, and the strict multiplicative endpoint \(c>3/2\); and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
@@ -2246,6 +2256,70 @@ The registered certificate-vector SHA-256 is
 \texttt{\seqsplit{f27e1681525d9c71f488c07457ed998cd43a8ea85ccac5b6e8e1b1e7227e93d0}}.
 \]
 
+\section{A widened-cap finite construction and exact threshold}
+
+\claimstatus{DEF-032}{DEFINITION}. For \(m\ge9\) and a public integer
+\(L(m)\ge m\) fixed before receiving \(N\), let
+\(\mathcal T_{m,L}\) contain every valid exceptional descriptor with
+\(2\le A,B,g\le L(m)\). All eight primitive exits from DEF-031 remain
+charged. If a base is nonunit, its base GCD is processed before the
+unit-only continuation is skipped.
+
+For \(L\le L'\), raw selector inclusion gives
+\(\mathcal T_{m,L}\subseteq\mathcal T_{m,L'}\). A separated prime pair
+therefore stays separated. Normalized column counts need not be monotone,
+but the exact fixed-cap normalization equivalence transfers this raw
+monotonicity to pair outcomes.
+
+The complete first-injective-cap certificates are:
+
+\begin{center}
+\begin{tabular}{rrrrrrl}
+\toprule
+\(m\) & \(|\mathcal P_m|\) & \(L^\star\) & \(L^\star-m\) &
+descriptors & certificate & collision at \(L^\star-1\) \\
+\midrule
+16 & 12 & 19 & 3  & 522   & 10 & \(191,227,233\) \\
+17 & 18 & 19 & 2  & 522   & 16 & \(277,317;\ 263,349\) \\
+18 & 25 & 27 & 9  & 1,612 & 20 & \(503,509\) \\
+19 & 31 & 27 & 8  & 1,612 & 26 & \(569,719\) \\
+20 & 44 & 31 & 11 & 2,430 & 40 & \(809,827\) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\claimstatus{THM-005}{PROVED}. The public cap \(L(m)=m+11\) has an
+injective signature on every complete balanced population for
+\(9\le m\le20\), and hence exposes a proper factor of every distinct-prime
+balanced semiprime in this finite range. Offset 11 is minimal on the range:
+at \(m=20,L=30\), primes 809 and 827 still collide.
+
+\claimstatus{BAR-026}{PROVED}. For \(L_c(m)=\lceil cm\rceil\), the
+coefficients covering all five new threshold rows are exactly \(c>3/2\).
+Thus \(3/2\) is an unattained infimum, not a valid smallest coefficient.
+The endpoint gives \(L(20)=30\) and fails on \(\{809,827\}\);
+\(c=151/100\) is one fixed public witness.
+
+\claimstatus{REF-028}{REFUTED}. The uniform additive cap \(m+10\) does not
+suffice throughout \(9\le m\le20\), by the same exact length-20 collision.
+
+\claimstatus{EMP-031}{EMPIRICAL}. EXP-0031 checked 38 cap profiles,
+1,206,359 local exit profiles, 283,368 raw and 1,289 normalized coordinates,
+17,330 monotonicity pair checks, 3,860 normalization equivalences, and 1,930
+construction-certificate pairs. Independent validation added 64 Rust/C\#
+command comparisons, one nonunit-base branch, 1,930 dense construction pairs,
+and 5,314 dense predecessor collision-descriptor checks. The summary
+SHA-256 is
+\[
+\texttt{\seqsplit{5cdc44356ae8ed81d395b033e86403691205c6552bc8da3bf4414b47842463d8}},
+\]
+and the registered schema SHA-256 is
+\[
+\texttt{\seqsplit{24f506ce7cb7ad9b10f8150f064441dbc1450f7402c72a6d228a363834eb9203}}.
+\]
+Appendix \ref{proof:THM-005-BAR-026} proves the finite theorem and exact
+threshold boundary. Neither the audit nor the proof addresses \(m>20\).
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -2281,6 +2355,13 @@ selector therefore has polynomial construction, evaluation, GCD, output, and
 extraction cost. Population enumeration, support normalization, and dense
 certificate expansion are proof operations and are not counted as a public
 recognizer.
+DEF-032 replaces \(m\) in the descriptor bound by a public cap \(L(m)\):
+there are at most \(2(L(m)-1)^3\) descriptors and
+\(O(L(m)^3\log L(m))\) compact modular steps. Every polynomially bounded,
+polynomial-time computable cap therefore preserves polynomial total bit
+complexity. In particular, \(m+11\) and \(\lceil151m/100\rceil\) both use
+\(O(m^3\log m)\) compact steps. This cost statement does not imply
+injectivity outside the certified finite range.
 
 \begin{center}
 \scriptsize
@@ -2882,9 +2963,12 @@ cannot separate every pair, even if its support is broad. BAR-024 gives the
 exact several-candidate injectivity criterion, candidate lower bounds, and
 collision minimum. THM-004 constructs one diversified selector only on the
 complete finite promise range \(9\le m\le15\), and BAR-025 proves that the
-same selector already collides at \(m=16\). These results do not decide a
-wider polynomial range, an \(N\)-dependent or adaptive schedule, coverage on
-another explicit promise, asymptotic density, or probability. Longer
+same selector already collides at \(m=16\). THM-005 widens the public box and
+extends the complete finite construction through \(m=20\); BAR-026 gives the
+exact five new thresholds and excludes the multiplicative endpoint
+\(c=3/2\). These results do not decide \(m>20\), an asymptotic linear cap,
+an \(N\)-dependent or adaptive schedule, coverage on another explicit
+promise, asymptotic density, or probability. Longer
 chains, adaptive coefficients, several interacting rational values,
 unrelated bases, other groups, and general signed arithmetic circuits remain
 outside.
@@ -2901,10 +2985,11 @@ outside BAR-008's explicit-list model has a proved factor-scale
 \(d\pm1\) yield guarantee, and whether a precisely defined specialized
 arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
 evaluate a sufficiently rich formal batch at polynomial total construction,
-evaluation, and extraction cost. The next bounded case is to parameterize a
-wider public cap \(L(m)\), charge its polynomial degree, and determine the
-smallest factorization-independent range that repairs the M31 finite
-collisions without using factor-dependent support recognition.
+evaluation, and extraction cost. The next bounded case is to test the two
+fixed public linear caps \(m+11\) and \(\lceil151m/100\rceil\) on the next
+complete balanced populations, beginning at \(m=21\), and to record the first
+exact recurrence collision or new repair threshold without extrapolating
+from the M32 finite table.
 
 \section{Conclusion}
 
@@ -3025,8 +3110,11 @@ bounds. REF-026 blocks replacing injectivity by union coverage. The
 canonical polynomial prefix failed injectivity only in the registered finite
 box. DEF-031 then supplies one explicit diversified polynomial selector.
 THM-004 proves its complete finite promise range through \(m=15\), while
-BAR-025 gives the exact collision triple at \(m=16\). Widened polynomial
-ranges, \(N\)-dependent and adaptive questions, success density, general
+BAR-025 gives the exact collision triple at \(m=16\). DEF-032 then widens
+the selector without factor access. THM-005 proves the public \(m+11\)
+construction through \(m=20\), and BAR-026 gives exact minimal caps plus the
+strict \(c>3/2\) finite multiplicative boundary. Lengths above 20,
+\(N\)-dependent and adaptive questions, success density, general
 rational/compositional circuits, and other models remain research targets,
 not claimed factoring breakthroughs.
 
@@ -4926,6 +5014,47 @@ BAR-024 makes each of their three pair products a failure, proving BAR-025
 and refuting REF-027. The certificate contains no statement about another
 selector or an unbounded range. \(\square\)
 
+\subsection{Proof of THM-005 and BAR-026}
+\label{proof:THM-005-BAR-026}
+
+Fix \(m\ge9\). For public caps \(m\le L\le L'\), every valid descriptor
+through \(L\) is also present through \(L'\). The raw signature at \(L\) is
+therefore a coordinate projection of the raw signature at \(L'\), so an
+already separated pair cannot merge. At either fixed cap, deletion of
+constant columns and identification of duplicate columns preserve equality
+of prime signatures by the DEF-031 normalization proof. This establishes
+pair-separation monotonicity without asserting monotonicity of normalized
+column counts.
+
+EXP-0031 enumerates every integer cap from \(m\) to the first injective cap
+for \(16\le m\le20\). At the reported predecessor, an independent dense
+evaluator checks identical branch-total masks for every descriptor on each
+reported collision bucket. The collision and raw inclusion prove failure at
+every smaller cap. At the threshold, the registered public coordinate
+sublist has pairwise distinct packed signatures on the complete population.
+Its sizes are \(10,16,20,26,40\), and all 1,930 prime pairs were checked
+independently. Thus the exact threshold sequence is
+\[
+19,19,27,27,31.
+\]
+
+THM-004 already gives injectivity at cap \(m\) for \(9\le m\le15\).
+For \(16\le m\le20\), \(m+11\) is at least the displayed threshold.
+Monotonicity and BAR-024 prove THM-005. Offset 10 fails at
+\(m=20,L=30\) on \(\{809,827\}\), so 11 is the smallest common integer
+offset on the finite range.
+
+For \(L_c(m)=\lceil cm\rceil\), meeting threshold \(L_m^\star\) is
+equivalent to \(c>(L_m^\star-1)/m\). The five right-hand sides are
+\[
+\frac{18}{16},\quad\frac{18}{17},\quad\frac{26}{18},\quad
+\frac{26}{19},\quad\frac{30}{20}.
+\]
+Their maximum is \(3/2\), proving the strict coefficient condition in
+BAR-026. The endpoint fails on the registered length-20 collision, while
+any \(c>3/2\) exceeds all five ratios. This is a complete finite proof, not
+an asymptotic claim. \(\square\)
+
 \clearpage
 \section{Reproduction appendix}
 
@@ -5039,6 +5168,11 @@ The registered experiment cores and canonical summary hashes are:
   \texttt{\seqsplit{423a86409f38a4be1382e611ca94d3e2b08abfe7c1923133ab195db9c3716ae8}},
   certificate-vector hash
   \texttt{\seqsplit{f27e1681525d9c71f488c07457ed998cd43a8ea85ccac5b6e8e1b1e7227e93d0}}.
+\item EXP-0031, M32 milestone commit recorded in \path{research/STATUS.md},
+  summary hash
+  \texttt{\seqsplit{5cdc44356ae8ed81d395b033e86403691205c6552bc8da3bf4414b47842463d8}},
+  certificate-vector hash
+  \texttt{\seqsplit{24f506ce7cb7ad9b10f8150f064441dbc1450f7402c72a6d228a363834eb9203}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -5163,6 +5297,9 @@ python scripts/check_m30_compact_support_signature_differential.py
 python scripts/run_m31_diversified_compact_signature_audit.py `
   --input-length-min 9 --input-length-max 20
 python scripts/check_m31_diversified_compact_signature_differential.py
+python scripts/run_m32_widened_selector_cap_audit.py
+python scripts/generate_m32_widened_selector_schema.py
+python scripts/check_m32_widened_selector_cap_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -5174,7 +5311,7 @@ through EXP-0019 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. EXP-0020
-through EXP-0030 use the same deterministic finite-enumeration policy. The
+through EXP-0031 use the same deterministic finite-enumeration policy. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.
 
 \bibliographystyle{plain}
