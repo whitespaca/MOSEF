@@ -1,5 +1,96 @@
 # Research Status
 
+## M40 outcome
+
+- Date: 2026-07-29.
+- Branch: `research/20260729-m40-length-28-caps`.
+- Base: M39 squash merge
+  `2dd415534845ce9ef20dc6852cb42d050c7097ca`.
+- Start commit `0248758e779d3120b51efe6db0c438ea33782b54` is pushed. Draft
+  PR #51 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/51`.
+- M40 proof, implementation, registered experiment, and bilingual-paper core
+  commit: `c3a37c7bc7e58adde25d8e845b5b09e22df33dc3`.
+- At \(m=28\), the M39 formulas give distinct caps:
+  \(m+60=88\) and \(\lceil16m/5\rceil=90\). The complete 507-prime
+  population at cap 88 has the sole collision bucket
+  \(\{11867,12791,13633,13967,14051,15559\}\), producing 15 failed
+  pairs across all 58,464 descriptors.
+- All 2,679 descriptors added through cap 90 preserve the same bucket and
+  all 15 failed pairs. Raw selector inclusion confines every later collision
+  to the original cap-88 bucket.
+- Exact incremental transition checks give collision-pair counts
+  \(15,15,15,10,6,6,6,3,3,1,1,1,1,1,1,1,0\) at caps 88 through 104.
+  The pair \(\{11867,12791\}\) remains equal through all 95,778 cap-103
+  descriptors, while cap 104 has no collision.
+- The 38,253 descriptors added after cap 88 and through cap 104 induce
+  14 nonconstant raw coordinates but exactly five unit patterns on the
+  original bucket. Representatives give new signatures
+  \(0,16,8,4,2,1\). Appending them to the 908 cap-88 normalized columns
+  gives a 913-coordinate certificate separating all 128,271 population
+  pairs. All five new patterns are necessary for this incremental repair.
+- `THM-013` is `PROVED`: \(L=m+76\) is injective on every complete balanced
+  population for \(9\le m\le28\), and 76 is the smallest common integer
+  offset on this finite range.
+- `BAR-034` is `PROVED`: the exact multiplicative coefficients covering the
+  finite thresholds through length 28 are \(c>103/28\). The endpoint gives
+  failed cap 103; \(26/7\) is a fixed succeeding witness.
+- ADR-044 changes complete-profile evaluation to stream primitive masks
+  without retaining one audit object per descriptor-prime pair. Every
+  cap-20 selector mask was compared against the original full audit-object
+  evaluator on eleven adversarial primes, and all historical M33--M39
+  collision regressions remain unchanged.
+- EXP-0039 checked one full cap profile, seventeen transition profiles, 507
+  primes, 58,464 descriptors, 29,641,248 full-profile local exits, 467,712
+  raw and 908 normalized coordinates, 128,271 normalization equivalences,
+  38,253 new transition descriptors, 229,518 tracked transition exits,
+  306,024 raw pattern checks, 255 tracked pair checks, 14 nonconstant raw
+  coordinates, five distinct repair patterns, five new repair coordinates,
+  and 128,271 construction pairs.
+- Independent validation passed 16 Rust/C# command comparisons, four dense
+  vectors, 128,271 independent construction pairs, 58,464 additive-cap
+  cases, 61,143 multiplicative-cap cases, and 95,778 predecessor cases.
+- Registered schema SHA-256:
+  `7f45ad32c1abb3d09d0b47c4659b2e3555af7126fa534b786b5a0d0504ed4414`.
+  Registered EXP-0039 summary SHA-256:
+  `2059fbfc2eff0bfe710427cea5de920362f5dfa6bbf34e3f2143e1513633f0c6`.
+- Final gates passed: foundation and bilingual publication checks
+  (167 claims and 38 experiment hashes), 225 Python tests in 199.74 seconds
+  with the cache provider disabled, compileall, Ruff, strict mypy over 26
+  source files, Rust formatting/Clippy and 36 tests, and a warning-free C#
+  Release build.
+- XeLaTeX produced final-warning-free 92-page English and 27-page Korean
+  PDFs. Rendered bilingual titles, M40 result tables, complete proof,
+  complexity, reproduction, and claim-appendix pages had no clipping,
+  overlap, missing glyph, malformed mathematics, or unreadable text. Stable
+  artifact SHA-256 values are
+  `f13eaa2b4dbe54b68884b8d8a0186e4d5a301f6396acdccddcbcadefefcde9c1`
+  and
+  `aa22b243bd5514166094502e58091316708c782162cf8cca4b05eca4b2d990ae`.
+- Both formulas remain factorization independent and use
+  \(O(m^3\log m)\) compact work. Population enumeration, normalization, and
+  dense expansion are certificate operations. The finite result does not
+  establish a cap growth rate, behavior at \(m>28\), promise recognition,
+  or general factoring.
+- Next selected milestone: M41 separately tests additive cap 105 and
+  multiplicative cap 108 on the complete \(m=29\) population.
+
+### M40 Korean summary
+
+M40에서는 M39의 두 공개 상한이 \(m=28\)에서 주는 cap 88과 90을
+각각 검사했습니다. 두 cap 모두 같은 여섯 소수의 15개 충돌 pair를
+남깁니다. selector 포함관계와 새 descriptor의 exact transition으로
+이후 충돌을 첫 bucket 안에서 완전 추적했으며, cap 103에서도
+\(\{11867,12791\}\)이 충돌하지만 cap 104의 새 coordinate 다섯
+개가 원래 bucket을 모두 분리합니다.
+
+따라서 \(9\le m\le28\)에서 \(m+76\)은 작동하며 최소 공통 정수
+offset은 76입니다. 곱셈형 경계는 정확히 \(c>103/28\)이고
+\(26/7\)은 고정 성공 witness입니다. 이는 유한하고
+인수분해 의존적인 balanced-semiprime 약속 정리입니다. \(m>28\),
+asymptotic cap 성장률, 약속 인식, 일반 고전적 다항 시간 정수분해는
+여전히 증명되지 않았습니다.
+
 ## M39 outcome
 
 - Date: 2026-07-29.

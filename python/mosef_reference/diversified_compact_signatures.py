@@ -10,7 +10,7 @@ from itertools import combinations
 from .baseline import is_prime
 from .compact_support_signatures import minimum_candidate_count
 from .exceptional_cofactor_schedule import exceptional_cofactor_overlap
-from .exceptional_cyclotomic import evaluate_exceptional_cyclotomic
+from .exceptional_cyclotomic import compact_exceptional_cofactor_residue
 from .length_indexed_cofactor_schedule import balanced_prime_population
 
 PRIMITIVE_EXIT_KINDS = (
@@ -156,32 +156,90 @@ def primitive_exit_mask(
     ):
         raise ValueError("prime must be prime")
 
-    overlap = exceptional_cofactor_overlap(
+    overlap_resultant = exceptional_cofactor_overlap(
         descriptor.first_factor,
         descriptor.second_factor,
         descriptor.family,
+    ).cyclotomic_cofactor_resultant
+    return _primitive_exit_mask_from_resultant(
+        descriptor,
+        prime,
+        overlap_resultant,
     )
+
+
+def _binary_power_sum(base: int, modulus: int, exponent: int) -> tuple[int, int]:
+    """Return ``(base**exponent, S_exponent(base))`` modulo ``modulus``."""
+    power = base % modulus
+    geometric_sum = 1 % modulus
+    for bit in bin(exponent)[3:]:
+        geometric_sum = geometric_sum * (1 + power) % modulus
+        power = power * power % modulus
+        if bit == "1":
+            geometric_sum = (geometric_sum + power) % modulus
+            power = power * base % modulus
+    return power, geometric_sum
+
+
+def _primitive_exit_mask_from_resultant(
+    descriptor: ExceptionalSelectorDescriptor,
+    prime: int,
+    overlap_resultant: int,
+) -> int:
+    """Evaluate a validated primitive mask without allocating audit objects."""
     if descriptor.base % prime == 0:
         return 1
 
-    evaluation = evaluate_exceptional_cyclotomic(
-        descriptor.base,
+    normalized_base = descriptor.base % prime
+    first_power, first_sum = _binary_power_sum(
+        normalized_base,
         prime,
         descriptor.first_factor,
-        descriptor.second_factor,
-        descriptor.family,
     )
+    _, second_sum = _binary_power_sum(
+        first_power,
+        prime,
+        descriptor.second_factor,
+    )
+    first_coefficient = 1 if descriptor.family == "phi4" else 2
+    aggregate_hit = (
+        first_coefficient * first_sum + second_sum
+    ) % prime == 0
+    if descriptor.family == "phi4":
+        cyclotomic_residue = (
+            normalized_base * normalized_base + 1
+        ) % prime
+    else:
+        cyclotomic_residue = (
+            normalized_base * normalized_base - normalized_base + 1
+        ) % prime
+    cyclotomic_hit = cyclotomic_residue == 0
+    cofactor_hit = (
+        compact_exceptional_cofactor_residue(
+            normalized_base,
+            prime,
+            descriptor.first_factor,
+            descriptor.second_factor,
+            descriptor.family,
+        )
+        == 0
+        if cyclotomic_hit
+        else aggregate_hit
+    )
+    first_public_bound_hit = descriptor.second_factor % prime == 0
+    second_public_bound_hit = (
+        first_coefficient * descriptor.second_factor
+    ) % prime == 0
     support = (
         False,
-        evaluation.first_quotient_gcd == prime,
-        evaluation.second_quotient_gcd == prime,
-        evaluation.first_public_bound_gcd == prime,
-        evaluation.second_public_bound_gcd == prime,
-        evaluation.cyclotomic_gcd == prime,
-        overlap.cyclotomic_cofactor_resultant % prime == 0,
-        evaluation.cofactor_gcd == prime,
+        first_sum == 0,
+        second_sum == 0,
+        first_public_bound_hit,
+        second_public_bound_hit,
+        cyclotomic_hit,
+        overlap_resultant % prime == 0,
+        cofactor_hit,
     )
-    aggregate_hit = evaluation.aggregate_gcd == prime
     if aggregate_hit != (support[5] or support[7]):
         raise AssertionError("aggregate support is not cyclotomic-or-cofactor")
     if support[1] and support[7] and not support[3]:
@@ -197,21 +255,35 @@ def _raw_support_columns(
     descriptors: tuple[ExceptionalSelectorDescriptor, ...],
     primes: tuple[int, ...],
 ) -> tuple[tuple[str, str, int], ...]:
-    masks: dict[tuple[str, str], int] = {
-        (descriptor.key, kind): 0
-        for kind in PRIMITIVE_EXIT_KINDS
-        for descriptor in descriptors
-    }
-    for prime_index, prime in enumerate(primes):
-        for descriptor in descriptors:
-            exit_mask = primitive_exit_mask(descriptor, prime)
-            for kind_index, kind in enumerate(PRIMITIVE_EXIT_KINDS):
-                if exit_mask & (1 << kind_index):
-                    masks[(descriptor.key, kind)] |= 1 << prime_index
+    descriptor_count = len(descriptors)
+    masks = [0] * (len(PRIMITIVE_EXIT_KINDS) * descriptor_count)
+    for descriptor_index, descriptor in enumerate(descriptors):
+        overlap_resultant = exceptional_cofactor_overlap(
+            descriptor.first_factor,
+            descriptor.second_factor,
+            descriptor.family,
+        ).cyclotomic_cofactor_resultant
+        for prime_index, prime in enumerate(primes):
+            exit_mask = _primitive_exit_mask_from_resultant(
+                descriptor,
+                prime,
+                overlap_resultant,
+            )
+            while exit_mask:
+                lowest_bit = exit_mask & -exit_mask
+                kind_index = lowest_bit.bit_length() - 1
+                masks[kind_index * descriptor_count + descriptor_index] |= (
+                    1 << prime_index
+                )
+                exit_mask ^= lowest_bit
     return tuple(
-        (descriptor.key, kind, masks[(descriptor.key, kind)])
-        for kind in PRIMITIVE_EXIT_KINDS
-        for descriptor in descriptors
+        (
+            descriptor.key,
+            kind,
+            masks[kind_index * descriptor_count + descriptor_index],
+        )
+        for kind_index, kind in enumerate(PRIMITIVE_EXIT_KINDS)
+        for descriptor_index, descriptor in enumerate(descriptors)
     )
 
 

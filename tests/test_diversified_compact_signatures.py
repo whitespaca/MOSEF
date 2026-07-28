@@ -11,9 +11,59 @@ from python.mosef_reference.diversified_compact_signatures import (
     greedy_separating_column_indices,
     primitive_exit_mask,
 )
+from python.mosef_reference.exceptional_cofactor_schedule import (
+    exceptional_cofactor_overlap,
+)
+from python.mosef_reference.exceptional_cyclotomic import (
+    evaluate_exceptional_cyclotomic,
+)
 
 
 class DiversifiedCompactSignatureTests(unittest.TestCase):
+    def test_direct_primitive_masks_match_full_audit_objects(self) -> None:
+        primes = (2, 3, 5, 7, 11, 13, 17, 19, 107, 109, 211)
+        for descriptor in diversified_exceptional_selector(20):
+            overlap = exceptional_cofactor_overlap(
+                descriptor.first_factor,
+                descriptor.second_factor,
+                descriptor.family,
+            )
+            for prime in primes:
+                if descriptor.base % prime == 0:
+                    expected = 1
+                else:
+                    evaluation = evaluate_exceptional_cyclotomic(
+                        descriptor.base,
+                        prime,
+                        descriptor.first_factor,
+                        descriptor.second_factor,
+                        descriptor.family,
+                    )
+                    support = (
+                        False,
+                        evaluation.first_quotient_gcd == prime,
+                        evaluation.second_quotient_gcd == prime,
+                        evaluation.first_public_bound_gcd == prime,
+                        evaluation.second_public_bound_gcd == prime,
+                        evaluation.cyclotomic_gcd == prime,
+                        (
+                            overlap.cyclotomic_cofactor_resultant
+                            % prime
+                            == 0
+                        ),
+                        evaluation.cofactor_gcd == prime,
+                    )
+                    expected = sum(
+                        1 << index
+                        for index, hit in enumerate(support)
+                        if hit
+                    )
+                self.assertEqual(
+                    primitive_exit_mask(descriptor, prime),
+                    expected,
+                    (descriptor, prime),
+                )
+
     def test_public_selector_is_deterministic_and_valid(self) -> None:
         descriptors = diversified_exceptional_selector(12)
         self.assertEqual(len(descriptors), 110)
@@ -356,6 +406,70 @@ class DiversifiedCompactSignatureTests(unittest.TestCase):
             for prime_index in range(len(primes))
         )
         self.assertEqual(signatures, (4, 1, 0, 2, 8, 16))
+
+    def test_m40_caps_88_and_90_fail_and_five_new_columns_repair(self) -> None:
+        additive = diversified_selector_profile(
+            28,
+            88,
+            compute_minimum_certificate=False,
+        )
+        primes = (11867, 12791, 13633, 13967, 14051, 15559)
+        self.assertEqual(additive.collision_buckets, (primes,))
+        cap_88_keys = {
+            descriptor.key
+            for descriptor in diversified_exceptional_selector(28, 88)
+        }
+        for descriptor in diversified_exceptional_selector(28, 90):
+            if descriptor.key in cap_88_keys:
+                continue
+            self.assertEqual(
+                len(
+                    {
+                        primitive_exit_mask(descriptor, prime)
+                        for prime in primes
+                    }
+                ),
+                1,
+                descriptor.key,
+            )
+
+        sources = (
+            (ExceptionalSelectorDescriptor("phi4", 95, 35, 7), 7),
+            (ExceptionalSelectorDescriptor("phi6", 59, 75, 92), 7),
+            (ExceptionalSelectorDescriptor("phi4", 55, 27, 97), 7),
+            (ExceptionalSelectorDescriptor("phi4", 31, 43, 91), 7),
+            (ExceptionalSelectorDescriptor("phi4", 15, 99, 104), 7),
+        )
+        patterns = tuple(
+            tuple(
+                int(
+                    bool(
+                        primitive_exit_mask(descriptor, prime)
+                        & (1 << kind_index)
+                    )
+                )
+                for prime in primes
+            )
+            for descriptor, kind_index in sources
+        )
+        self.assertEqual(
+            patterns,
+            (
+                (0, 0, 0, 0, 0, 1),
+                (0, 0, 0, 0, 1, 0),
+                (0, 0, 0, 1, 0, 0),
+                (0, 0, 1, 0, 0, 0),
+                (0, 1, 0, 0, 0, 0),
+            ),
+        )
+        signatures = tuple(
+            sum(
+                pattern[prime_index] << source_index
+                for source_index, pattern in enumerate(patterns)
+            )
+            for prime_index in range(len(primes))
+        )
+        self.assertEqual(signatures, (0, 16, 8, 4, 2, 1))
 
     def test_invalid_inputs(self) -> None:
         for call in (
