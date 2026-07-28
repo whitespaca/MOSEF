@@ -794,3 +794,20 @@
 - Scope: this refutes two fixed linear formulas at one new length. It does not
   prove a future recurrence, a superlinear cap requirement, an asymptotic
   rate, density, recognition, or general factoring.
+
+## NR-032 - The M34 repaired caps remain noninjective through cap 46
+
+- Date: 2026-07-28.
+- Status: `REFUTED` claim `REF-031`.
+- Hypothesis tested: the public selector \(L=m+17\), proved only through
+  \(m=22\), remains injective on the complete \(m=23\) balanced population.
+- Exact obstruction: \(L=40\) gives 5,148 descriptors and 41,184 raw
+  coordinates, but \(\{2411,2477,2741,2777,2837\}\) share one signature and
+  produce ten failed pairs. The M34 multiplier \(173/100\) gives the same cap.
+- Persistent predecessor: caps 41 through 46 also fail; at cap 46 the pair
+  \(\{2411,2777\}\) still collides across all 7,470 descriptors.
+- Positive boundary: cap 47 is injective on all 109 population primes, so
+  \(m+24\) is the smallest common integer-offset schedule through length 23.
+- Scope: this refutes two fixed linear formulas at one new length. It does not
+  prove a future recurrence, a superlinear cap requirement, an asymptotic
+  rate, density, recognition, or general factoring.
