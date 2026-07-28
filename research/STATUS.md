@@ -1,5 +1,78 @@
 # Research Status
 
+## M45 outcome
+
+- Date: 2026-07-29.
+- Branch: `research/20260729-m45-length-33-caps`.
+- Base: M44 squash merge
+  `0632ce7f42e9cb8b91f3bbda0fc11fb67699574b`.
+- Start commit `f53d28740fd9d2dff9e41c1b485e71eb3598ff13` is pushed. Draft
+  PR #56 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/56`.
+- The complete \(m=33\) balanced population has 2,410 primes and 2,902,845
+  unordered pairs. Both inherited caps fail: cap 168 leaves one 12-prime
+  bucket and 66 pairs, while cap 172 leaves one eight-prime bucket and
+  28 pairs.
+- Lossless exact partition refinement confines all later collisions to the
+  cap-172 bucket. The cap-172--195 collision counts are
+  \(28,28,28,15,15,10,10,6,6,6,6,6,3,3,3,3,1,1,1,1,1,1,1,0\).
+- The sole cap-194 collision is \(\{80309,92671\}\), and cap 195 is
+  injective. Therefore \(L_{33}^{\star}=195\).
+- The unique new nonconstant primitive source
+  `phi4:195:91:20:cofactor` has pattern \((1,0)\). It appends to 2,409
+  predecessor coordinates to give a 2,410-coordinate certificate separating
+  all 2,902,845 pairs. The minimum incremental repair size is one; no minimum
+  claim is made for the full certificate.
+- `THM-018` proves the smallest common finite additive offset through length
+  33 is 162, so the repaired public schedule is \(m+162\).
+- `BAR-039` proves the exact multiplicative coefficients through length 33
+  are \(c>194/33\). The Farey-adjacent witness \(147/25\), larger by
+  \(1/825\), gives cap 195.
+- `REF-041` and NR-042 record that neither inherited M44 formula survives
+  length 33. No recurrence, asymptotic rate, density, recognizer, or general
+  factoring conclusion is inferred.
+- ADR-049 preserves the exact partition method and requires a complete final
+  repair-coordinate census rather than treating a first witness as unique.
+- EXP-0044 checks 158,193,605 optimized public local exits, 158,945,206
+  optimized cap-195 local exits, 1,707,792 independent transition exits,
+  224,896 repair coordinates, 2,410 construction coordinates, and 2,902,845
+  certificate pairs.
+- Registered schema SHA-256:
+  `a9ba5df141ecefdf9c7a946bd5bf7f17dd44c5748b843385f6e1f0165e311cd2`.
+  Registered summary SHA-256:
+  `2a3d7c347eeea57c36fd3a585744a30818a5ff0543840607f91514e1786feb23`.
+- Independent differential validation passed 16 Rust/C# command
+  comparisons, four dense vectors, 866,180 public-cap descriptor checks,
+  1,707,792 transition local exits, 224,896 repair-coordinate checks, and
+  2,902,845 construction-certificate pairs.
+- Final gates passed: foundation and bilingual publication checks
+  (187 claims and 43 experiment hashes), 230 Python tests and 206 subtests
+  in 295.58 seconds with the cache provider disabled, compileall, Ruff,
+  strict mypy over 26 source files, Rust formatting/Clippy and 36 tests, and
+  a warning-free C# Release build.
+- XeLaTeX produced warning-free 101-page English and 34-page Korean PDFs.
+  Rendered title, M45 result, proof, reproduction, and claim-appendix pages
+  have no clipping, overlap, missing glyph, malformed mathematics, or
+  unreadable text. Stable artifact SHA-256 values are
+  `a7133ce0dc09636374e118331b64dfb4f7a828fb9eadd846851e136cc629502e`
+  and
+  `382af9e3fb1bcceaa4c92cc1497b2361d961b9273a4d74077c1c7eff4c1d5b6d`.
+- Next selected milestone: M46 separately tests additive cap 196 and
+  multiplicative cap 200 on the complete \(m=34\) population.
+
+### M45 Korean summary
+
+M45에서는 \(m=33\)의 완전 balanced-prime 모집단 2,410개에 대해 기존
+공개 상한 \(m+135=168\)과 \(\lceil26m/5\rceil=172\)를 각각 검사했다.
+cap 168은 12-prime bucket과 66개 pair를, cap 172는 8-prime bucket과
+28개 pair를 남겨 두 공식 모두 실패한다. 정확한 동치분할 전이는
+cap 194까지 \(\{80309,92671\}\)을 남기고 cap 195에서 처음 단사가
+된다. 유일한 새 좌표 `phi4:195:91:20:cofactor`는 패턴 \((1,0)\)으로
+마지막 pair를 분리한다. 따라서 \(L_{33}^{\star}=195\), 최소 증분
+repair 크기는 하나, 유한 envelope는 \(m+162\)와 \(c>194/33\)이다.
+이는 \(m>33\), asymptotic cap 성장률, 약속 인식, 또는 일반 고전적
+다항 시간 정수분해를 증명하지 않는다.
+
 ## M44 outcome
 
 - Date: 2026-07-29.

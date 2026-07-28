@@ -190,3 +190,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-038 | PROVED | Exact length-32 cap-167 threshold and repaired finite envelopes | `research/proofs/THM-017-BAR-038-length-32-envelope.md` |
 | REF-040 | REFUTED | Either inherited public cap remains injective at length 32 | `research/NEGATIVE_RESULTS.md` NR-041 |
 | EMP-043 | EMPIRICAL | Length-32 finite-envelope audit | `research/experiments/EXP-0043-m44-length-32-cap.md` |
+| THM-018 | PROVED | Finite balanced-semiprime construction through input length 33 | `research/proofs/THM-018-BAR-039-length-33-envelope.md` |
+| BAR-039 | PROVED | Exact length-33 cap-195 threshold and repaired finite envelopes | `research/proofs/THM-018-BAR-039-length-33-envelope.md` |
+| REF-041 | REFUTED | Either inherited public cap remains injective at length 33 | `research/NEGATIVE_RESULTS.md` NR-042 |
+| EMP-044 | EMPIRICAL | Length-33 finite-envelope audit | `research/experiments/EXP-0044-m45-length-33-cap.md` |
