@@ -1,6 +1,6 @@
 # Research Status
 
-## M41 execution snapshot
+## M41 outcome
 
 - Date: 2026-07-29.
 - Branch: `research/20260729-m41-length-29-caps`.
@@ -9,19 +9,86 @@
 - Start commit `6a234cf1b8436a1755fcf3ab630ca76a9c694672` is pushed. Draft
   PR #52 targets `main`:
   `https://github.com/whitespaca/MOSEF/pull/52`.
-- Active question: do the repaired public schedules \(L_+(m)=m+76\) and
-  \(L_{26}(m)=\lceil26m/7\rceil\), certified only through \(m=28\),
-  remain injective on the complete balanced population at \(m=29\)?
-- The formulas give distinct caps 105 and 108. The first falsification task
-  is to evaluate both exact selectors independently, identify every complete
-  collision bucket, and search monotonically for the first repairing cap if
-  neither is injective.
-- Both formulas are fixed before \(N\) and preserve
-  \(O(m^3\log m)\) compact work. Population enumeration, normalization, and
-  dense expansion remain certificate operations rather than a public
-  promise recognizer.
-- No outcome at \(m=29\), later length, or asymptotic cap rate is claimed in
-  this snapshot.
+- The repaired schedules give distinct caps \(m+76=105\) and
+  \(\lceil26m/7\rceil=108\). Complete lossless raw-prefix profiles show that
+  both caps are injective on all 685 balanced primes.
+- Adjacent exact profiles establish the lower threshold: cap 102 has the sole
+  collision \(\{18979,21031\}\), while cap 103 is injective. Therefore
+  \(L_{29}^{\star}=103\).
+- The complete cap-103 normalization reduces 766,224 raw coordinates to
+  1,555 nonconstant distinct columns. Selecting 1,527 representative
+  cap-102 columns and appending the unique new pair-distinguishing coordinate
+  `phi4:87:95:103:cofactor` gives a 1,528-coordinate certificate separating
+  all 234,270 population pairs.
+- The minimum incremental repair size is one: the cap-102 collision proves
+  that no zero-coordinate repair is possible, and the displayed coordinate
+  assigns the final pair the pattern \((0,1)\).
+- `THM-014` is `PROVED`: \(L=m+76\) is injective on every complete balanced
+  population for \(9\le m\le29\), and 76 remains the smallest common integer
+  offset because the controlling row is still \(m=28\).
+- `BAR-035` is `PROVED`: the exact multiplicative coefficients through
+  length 29 remain \(c>103/28\). The length-29 local endpoint
+  \(102/29\) is smaller, and the witness \(26/7\) gives cap 108.
+- `REF-037` is `REFUTED`: \(L_{29}^{\star}=103<104=L_{28}^{\star}\), so
+  exact thresholds need not be nondecreasing across these different complete
+  balanced populations. No decreasing or asymptotic trend is inferred.
+- ADR-045 uses one lossless byte per descriptor-prime mask to compare exact
+  raw prefixes at caps 102, 103, 105, and 108 without probabilistic hashing,
+  followed by an independent full normalized cap-103 profile.
+- EXP-0040 checked four raw-prefix profiles, one full normalized profile,
+  75,200,670 raw-prefix local exits, 65,607,930 repair-profile local exits,
+  234,270 normalization equivalences, 5,989 new repair descriptors, 11,978
+  tracked-pair exits, 47,912 new primitive-coordinate checks, one
+  distinguishing coordinate, 1,528 construction coordinates, and 234,270
+  certificate pairs.
+- Independent validation passed 16 Rust/C# command comparisons, four dense
+  vectors, 234,270 independent construction pairs, 89,789 predecessor
+  descriptor checks, 47,912 repair-coordinate checks, and 191,556 successful
+  schedule-inclusion checks.
+- Registered schema SHA-256:
+  `5be568844cbf1cbf766d32d20d1aee1c6c2708c92ec71db33a5e12e7c6547566`.
+  Registered EXP-0040 summary SHA-256:
+  `a9d61b984cf77c3c875ddbcdfaa2d6c6d1cd9bd6939d4c35ba4e1433a91d1589`.
+- Final gates passed: foundation and bilingual publication checks
+  (171 claims and 39 experiment hashes), 226 Python tests and 206 subtests
+  in 166.24 seconds with the cache provider disabled, compileall, Ruff,
+  strict mypy over 26 source files, Rust formatting/Clippy and 36 tests, and
+  a warning-free C# Release build.
+- XeLaTeX produced final-warning-free 94-page English and 28-page Korean
+  PDFs. Rendered bilingual titles, the M41 result and evidence, complete
+  proof, reproduction, and claim-appendix pages had no clipping, overlap,
+  missing glyph, malformed mathematics, or unreadable text. Stable artifact
+  SHA-256 values are
+  `7b5788292139a4252f0300cddecbd714560c787845c09180951bd91ec684a003`
+  and
+  `10dc9610c376c9550680f2de2d9cc0c4c49b26aefd9b72fadacf1ce9528a8004`.
+- Both formulas remain factorization independent and use
+  \(O(m^3\log m)\) compact work. Population enumeration, raw-prefix
+  comparison, normalization, and dense expansion are certificate operations.
+  The finite result does not establish a cap growth rate, behavior at
+  \(m>29\), promise recognition, or general factoring.
+- Next selected milestone: M42 separately tests additive cap 106 and
+  multiplicative cap 112 on the complete \(m=30\) population.
+
+### M41 Korean summary
+
+M41에서는 \(m=29\)의 완전 balanced prime 모집단 685개에 대해 공개
+상한 \(m+76=105\)와 \(\lceil26m/7\rceil=108\)을 각각 전수
+검사했습니다. 두 상한은 모두 단사입니다. 인접한 정확 계산에서는 cap
+102가 \(\{18979,21031\}\) 한 쌍만 충돌시키고 cap 103은 모든 소수를
+분리하므로 \(L_{29}^{\star}=103\)입니다.
+
+cap 102의 대표 좌표 1,527개에
+`phi4:87:95:103:cofactor` 한 좌표를 추가한 1,528-coordinate
+certificate가 234,270개 모든 쌍을 분리합니다. 따라서 새 좌표 한 개가
+필요충분합니다. 길이 29의 local offset은 74이지만 길이 28의 offset
+76이 더 크므로, \(9\le m\le29\)의 최소 공통 additive offset은
+여전히 76이고 곱셈 경계도 \(c>103/28\)로 유지됩니다.
+
+\(L_{29}^{\star}=103<104=L_{28}^{\star}\)이므로 서로 다른 완전
+모집단 사이에서 threshold가 반드시 증가한다는 가설은 반박됩니다.
+그러나 이 유한 반례는 감소 추세나 asymptotic cap 법칙, promise
+인식, 일반 고전적 다항시간 정수분해를 증명하지 않습니다.
 
 ## M40 outcome
 

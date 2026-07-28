@@ -893,3 +893,20 @@
   against the original full audit-object path, all historical M33--M39
   collision regressions, and the frozen M39 audit pass. This is an
   implementation optimization, not a new complexity or factoring claim.
+
+## ADR-045 - Audit several caps with lossless raw-signature prefixes
+
+- Date: 2026-07-29.
+- Decision: for M41, order descriptors by their exact first public cap and
+  store the eight primitive charged exits for each descriptor as one byte per
+  population prime. Compare complete byte prefixes at caps 102, 103, 105,
+  and 108, then independently materialize the normalized cap-103 profile.
+- Rationale: equality of packed bytes is exactly equality of all eight raw
+  coordinates; no probabilistic hash is used. One pass through the cap-108
+  selector therefore compares both pre-registered schedules and the adjacent
+  threshold profiles without four redundant full normalizations.
+- Consequence: the audit proves cap 102 has one collision and caps 103, 105,
+  and 108 are injective. The separate normalized cap-103 profile and
+  independently reconstructed 1,528-coordinate certificate provide a second
+  representation. This is a finite certificate strategy, not an asymptotic
+  algorithm or a public promise recognizer.

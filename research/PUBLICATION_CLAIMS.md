@@ -174,3 +174,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-034 | PROVED | Exact length-28 collision ladder and cap-104 repair | `research/proofs/THM-013-BAR-034-length-28-envelope.md` |
 | REF-036 | REFUTED | Either M39 repaired cap as injective at length 28 | `research/NEGATIVE_RESULTS.md` NR-037 |
 | EMP-039 | EMPIRICAL | Length-28 finite-envelope audit | `research/experiments/EXP-0039-m40-length-28-cap.md` |
+| THM-014 | PROVED | Finite balanced-semiprime construction through input length 29 | `research/proofs/THM-014-BAR-035-length-29-envelope.md` |
+| BAR-035 | PROVED | Exact length-29 cap-103 threshold and stable finite envelopes | `research/proofs/THM-014-BAR-035-length-29-envelope.md` |
+| REF-037 | REFUTED | Exact thresholds as nondecreasing from length 28 to 29 | `research/NEGATIVE_RESULTS.md` NR-038 |
+| EMP-040 | EMPIRICAL | Length-29 finite-envelope audit | `research/experiments/EXP-0040-m41-length-29-cap.md` |

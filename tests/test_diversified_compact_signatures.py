@@ -471,6 +471,48 @@ class DiversifiedCompactSignatureTests(unittest.TestCase):
         )
         self.assertEqual(signatures, (0, 16, 8, 4, 2, 1))
 
+    def test_m41_cap_103_has_one_new_final_pair_coordinate(self) -> None:
+        primes = (18979, 21031)
+        cap_102 = diversified_exceptional_selector(29, 102)
+        cap_103 = diversified_exceptional_selector(29, 103)
+        self.assertEqual(len(cap_102), 89789)
+        self.assertEqual(len(cap_103), 95778)
+        self.assertEqual(
+            len(diversified_exceptional_selector(29, 105)),
+            99424,
+        )
+        self.assertEqual(
+            len(diversified_exceptional_selector(29, 108)),
+            109782,
+        )
+        for descriptor in cap_102:
+            self.assertEqual(
+                primitive_exit_mask(descriptor, primes[0]),
+                primitive_exit_mask(descriptor, primes[1]),
+                descriptor.key,
+            )
+
+        old_keys = {descriptor.key for descriptor in cap_102}
+        distinguishing: list[tuple[str, int, tuple[int, int]]] = []
+        for descriptor in cap_103:
+            if descriptor.key in old_keys:
+                continue
+            masks = tuple(
+                primitive_exit_mask(descriptor, prime) for prime in primes
+            )
+            for kind_index in range(8):
+                pattern = tuple(
+                    int(bool(mask & (1 << kind_index))) for mask in masks
+                )
+                if pattern[0] != pattern[1]:
+                    distinguishing.append(
+                        (descriptor.key, kind_index, pattern)
+                    )
+        self.assertEqual(
+            distinguishing,
+            [("phi4:87:95:103", 7, (0, 1))],
+        )
+
     def test_invalid_inputs(self) -> None:
         for call in (
             lambda: diversified_exceptional_selector(8),

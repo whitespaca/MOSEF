@@ -930,3 +930,25 @@
 - Scope: this refutes two fixed linear formulas at one new length. It does not
   prove a future recurrence, a superlinear cap requirement, an asymptotic
   rate, density, recognition, or general factoring.
+
+## NR-038 - Exact selector thresholds need not increase with input length
+
+- Date: 2026-07-29.
+- Status: `REFUTED` claim `REF-037`.
+- Hypothesis tested: the exact first-injective cap \(L_m^\star\) is
+  nondecreasing from the complete balanced population at length 28 to the
+  complete balanced population at length 29.
+- Counterexample: M40 proves \(L_{28}^\star=104\). M41 gives the adjacent
+  exact profiles at length 29: cap 102 has the sole collision
+  \(\{18979,21031\}\), while cap 103 is injective on all 685 primes. Hence
+  \(L_{29}^\star=103<104=L_{28}^\star\).
+- Mechanism boundary: raw selector inclusion is monotone in the cap for a
+  fixed population. It says nothing about monotonicity after replacing the
+  population by the different prime interval at the next input length.
+- Surviving schedules: the pre-registered caps 105 and 108 are both
+  injective at length 29. Because the length-29 local offset 74 and endpoint
+  \(102/29\) are below the controlling length-28 values 76 and \(103/28\),
+  the finite public envelopes through length 29 remain unchanged.
+- Scope: this is one finite adjacent-length counterexample. It does not prove
+  a decreasing trend, oscillation, bounded cap, asymptotic rate, density,
+  recognition, or general factoring.
