@@ -224,6 +224,45 @@ class DiversifiedCompactSignatureTests(unittest.TestCase):
         self.assertTrue(repaired.injective)
         self.assertEqual(repaired.collision_pair_count, 0)
 
+    def test_m37_repaired_caps_fail_and_cap_65_repairs(self) -> None:
+        additive = diversified_selector_profile(
+            25,
+            52,
+            compute_minimum_certificate=False,
+        )
+        multiplicative = diversified_selector_profile(
+            25,
+            53,
+            compute_minimum_certificate=False,
+        )
+        repaired = diversified_selector_profile(
+            25,
+            65,
+            compute_minimum_certificate=False,
+        )
+        self.assertEqual(
+            additive.collision_buckets,
+            (
+                (
+                    4133,
+                    4297,
+                    4337,
+                    4423,
+                    4663,
+                    5011,
+                    5179,
+                    5233,
+                    5297,
+                ),
+            ),
+        )
+        self.assertEqual(
+            multiplicative.collision_buckets,
+            ((4297, 4337, 4423, 4663, 5011, 5179, 5233, 5297),),
+        )
+        self.assertTrue(repaired.injective)
+        self.assertEqual(repaired.collision_pair_count, 0)
+
     def test_invalid_inputs(self) -> None:
         for call in (
             lambda: diversified_exceptional_selector(8),
