@@ -1,5 +1,25 @@
 # Research Status
 
+## M41 execution snapshot
+
+- Date: 2026-07-29.
+- Branch: `research/20260729-m41-length-29-caps`.
+- Base: M40 squash merge
+  `0c4895a50749f58ab1c04cef688ebecc1c318db3`.
+- Active question: do the repaired public schedules \(L_+(m)=m+76\) and
+  \(L_{26}(m)=\lceil26m/7\rceil\), certified only through \(m=28\),
+  remain injective on the complete balanced population at \(m=29\)?
+- The formulas give distinct caps 105 and 108. The first falsification task
+  is to evaluate both exact selectors independently, identify every complete
+  collision bucket, and search monotonically for the first repairing cap if
+  neither is injective.
+- Both formulas are fixed before \(N\) and preserve
+  \(O(m^3\log m)\) compact work. Population enumeration, normalization, and
+  dense expansion remain certificate operations rather than a public
+  promise recognizer.
+- No outcome at \(m=29\), later length, or asymptotic cap rate is claimed in
+  this snapshot.
+
 ## M40 outcome
 
 - Date: 2026-07-29.
