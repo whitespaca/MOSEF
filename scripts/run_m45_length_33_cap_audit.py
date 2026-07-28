@@ -213,10 +213,10 @@ EXPECTED_TRANSITIONS = {
 def _first_cap(descriptor: ExceptionalSelectorDescriptor) -> int:
     return int(
         max(
-        INPUT_LENGTH,
-        descriptor.first_factor,
-        descriptor.second_factor,
-        descriptor.base,
+            INPUT_LENGTH,
+            descriptor.first_factor,
+            descriptor.second_factor,
+            descriptor.base,
         )
     )
 
