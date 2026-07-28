@@ -1,37 +1,82 @@
 # Research Status
 
-## M32 execution snapshot
+## M32 outcome
 
 - Date: 2026-07-28.
 - Branch: `research/20260728-m32-widened-selector-cap`.
 - Base checkpoint: M31 completion PR #42 was squash-merged into `main` as
   `3e98fe1450f2d3f808f12f8291296ad2bfe01e09`.
-- Start commit `4c92b2039a5e82b728b2d4305db6628030d3b2df` is pushed. Draft
-  PR #43 targets `main`:
+- Draft PR #43 targets `main`:
   `https://github.com/whitespaca/MOSEF/pull/43`.
-- Active question: what factorization-independent public cap \(L(m)\ge m\)
-  first repairs the M31 collision populations, and what polynomial degree and
-  complete charged-exit cost does that cap require?
-- Candidate grammar: \(\mathcal T_{m,L}\) contains every valid exceptional
-  descriptor with \(2\le A,B,g\le L(m)\), where the integer-valued function
-  \(L\) is fixed publicly before \(N\). The baseline families are
-  \(L_t(m)=m+t\) and \(L_c(m)=\lceil cm\rceil\) for fixed public \(t,c\).
-- Cost boundary: the descriptor count is at most \(2(L(m)-1)^3\), and each
-  compact evaluator uses \(O(\log L(m))\) composition steps. A cap counts as
-  polynomial only after its encoding, constructor, every nonunit base/stage
-  branch, GCD, output, and extraction cost are charged in \(m\).
-- Monotonicity target: increasing \(L\) appends raw charged exits, so the
-  underlying prime-equivalence relation can only refine. Normalized column
-  counts need not themselves be monotone; only pair separation is.
-- First bounded task: search \(t=0,1,\ldots\) for the smallest additive cap
-  that separates each complete M31 collision range \(16\le m\le20\), then
-  translate the thresholds into small fixed multiplicative caps before
-  considering \(L(m)=m^2\).
-- Falsification priority: retain duplicate nonzero signatures, all-unit
-  buckets, nonunit bases when \(L(m)\) reaches a population prime, hidden
-  factor-dependent cap selection, redundant derived exits, and
-  superpolynomial descriptor growth. Any threshold found is finite evidence
-  until converted into an explicit complete certificate.
+- `DEF-032` separates input length \(m\) from a public cap \(L(m)\ge m\)
+  fixed before \(N\). It includes every valid exceptional descriptor through
+  \(L\), charges all eight primitive exits and derived outputs, and makes the
+  nonunit-base GCD branch total before skipping the unit-only continuation.
+- Raw selector inclusion proves monotone pair separation as \(L\) grows.
+  Normalized column counts are not assumed monotone; DEF-031's exact
+  normalization equivalence transfers the raw relation at each cap.
+- The exact minimal caps at \(m=16,17,18,19,20\) are
+  \(19,19,27,27,31\). Complete threshold certificates use
+  \(10,16,20,26,40\) normalized coordinates, respectively. Each predecessor
+  cap has an independently checked collision bucket.
+- `THM-005` is `PROVED` on the complete finite balanced-semiprime promise
+  \(9\le m\le20\): the public schedule \(L=m+11\) is injective and the
+  integer offset 11 is minimal on this range. At \(m=20,L=30\), primes
+  \(809,827\) collide, refuting `REF-028`.
+- `BAR-026` is `PROVED` for the finite M32 grammar: a multiplicative cap
+  \(\lceil cm\rceil\) covers all five new thresholds exactly when \(c>3/2\).
+  The infimum is not attained; \(c=3/2\) fails at \(m=20,L=30\), while the
+  fixed public witness \(151/100\) works on the registered range.
+- The descriptor count is at most \(2(L-1)^3\), so any polynomially bounded
+  computable cap has polynomial total construction, compact evaluation, GCD,
+  output, and extraction cost. For the two linear schedules the compact work
+  is \(O(m^3\log m)\).
+- EXP-0031 checked 38 cap profiles, 35,421 descriptor instances, 1,206,359
+  local exit profiles, 283,368 raw and 1,289 normalized coordinates, 17,330
+  monotonicity pair checks, 3,860 normalization equivalences, and 1,930
+  construction-certificate pairs.
+- Independent validation passed 64 Rust/C# command comparisons, one explicit
+  nonunit-base branch, five threshold profiles, 1,930 dense construction
+  pairs, and 5,314 dense predecessor collision-descriptor cases.
+- Registered schema SHA-256:
+  `24f506ce7cb7ad9b10f8150f064441dbc1450f7402c72a6d228a363834eb9203`.
+  Registered EXP-0031 summary SHA-256:
+  `5cdc44356ae8ed81d395b033e86403691205c6552bc8da3bf4414b47842463d8`.
+- Final gates passed: foundation and bilingual publication checks
+  (134 claims and 30 experiment hashes), 216 Python tests plus 206 subtests,
+  compileall, Ruff, strict mypy over 26 source files, Rust formatting/Clippy
+  and 36 tests, and a warning-free C# Release build.
+- Regression gates passed: 58 baseline comparisons, the registered M29 audit
+  and 34 comparisons, the registered M30 audit and 34 comparisons, the
+  registered M31 audit plus 72 cross-language command checks, 12 profiles,
+  and 104 dense pairs, and the complete M32 audit and differential check.
+- XeLaTeX produced a final-warning-free 80-page English PDF and 17-page
+  Korean PDF. Rendered visual QA of both titles, the M32 table, theorem,
+  proof, complexity transition, limits, and claim appendix found no clipping,
+  overlap, missing glyph, or unreadable text. Stable artifacts are
+  `output/pdf/mosef-paper.pdf` and `output/pdf/mosef-paper-ko.pdf`.
+- General classical polynomial-time factoring, an asymptotic injective cap,
+  balanced-promise recognition, and every length \(m>20\) remain open.
+- Next selected milestone: M33 tests the two fixed public linear caps at
+  \(m\ge21\), recording either continued finite injectivity or the first exact
+  recurrence collision before widening the threshold again.
+
+### M32 Korean summary
+
+M32에서는 입력 길이 \(m\)과 공개 selector 상한 \(L(m)\)을 분리했습니다.
+상한은 입력 \(N\)이나 미지의 소인수를 보기 전에 고정되며, base GCD를
+포함한 모든 분기를 비용에 넣었습니다. \(m=16,17,18,19,20\)에서 처음
+단사인 정확한 상한은 각각 \(19,19,27,27,31\)입니다.
+
+따라서 \(9\le m\le20\)의 완전한 balanced semiprime 유한 범위에서는
+\(L=m+11\)이 모든 서로 다른 소수쌍을 분리하며, 정수 가산 상수 11은
+이 범위에서 최소입니다. \(m=20,L=30\)에서는 \(809\)와 \(827\)이
+여전히 충돌합니다. 곱셈형 상한 \(\lceil cm\rceil\)은 이 유한 범위를
+덮으려면 정확히 \(c>3/2\)여야 하며, \(c=3/2\) 자체는 실패합니다.
+
+이 결과는 명시된 유한 promise에 대한 정리일 뿐입니다. \(m>20\)에서의
+단사성, promise 인식, 모든 자연수에 대한 고전적 다항 시간 인수분해는
+증명하지 않았고 현재도 열린 문제입니다.
 
 ## M31 outcome
 

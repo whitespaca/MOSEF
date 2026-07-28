@@ -743,3 +743,25 @@
   selector. M32 must vary the public range or formula explicitly and charge
   the resulting polynomial degree before interpreting any repaired finite
   signature.
+
+## ADR-036 - Separate the public cap from input length and certify thresholds
+
+- Date: 2026-07-28.
+- Decision: parameterize the exceptional selector by a public cap \(L(m)\)
+  independent of the unknown factors. Search complete integer caps, prove
+  monotonicity using raw selector inclusion, and certify each first injective
+  cap with both a predecessor collision and an injective coordinate sublist.
+- Rationale: normalized column counts can rise, fall, or merge as the cap
+  changes, so normalized-count monotonicity is not a valid proof. Raw
+  descriptors are nested, and DEF-031 normalization preserves pair separation
+  at each fixed cap. A checked predecessor collision plus this inclusion
+  proves threshold minimality without trusting an optimizer.
+- Cost and branch semantics: at most \(2(L-1)^3\) descriptors are constructed,
+  and all base, stage, bound, cyclotomic, resultant, cofactor, aggregate, GCD,
+  output, and extraction costs remain charged. A nonunit base terminates at
+  its public base GCD and does not enter the unit-only continuation.
+- Consequence: \(m+11\) is the smallest common integer-offset schedule through
+  \(m=20\), while multiplicative coefficients have infimum \(3/2\) but no
+  smallest admissible endpoint. M33 must test whether a fixed public linear
+  cap continues to work beyond the finite M32 range before any asymptotic
+  interpretation.

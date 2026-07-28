@@ -58,6 +58,7 @@ from .diversified_compact_signatures import (
     NormalizedSupportColumn,
     diversified_exceptional_selector,
     diversified_selector_profile,
+    greedy_separating_column_indices,
     primitive_exit_mask,
 )
 from .dyadic_telescope import (
@@ -323,6 +324,7 @@ __all__ = [
     "generic_multiplication_lower_bound",
     "geometric_sum_coefficients",
     "global_hit_primes",
+    "greedy_separating_column_indices",
     "has_distinct_order_separator_property",
     "has_n_divisor_property",
     "hit_primes",

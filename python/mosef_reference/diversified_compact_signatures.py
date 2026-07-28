@@ -57,6 +57,7 @@ class DiversifiedSelectorProfile:
     """Exact normalized pair accounting on one balanced-prime population."""
 
     input_length: int
+    selector_cap: int
     population_primes: tuple[int, ...]
     descriptor_count: int
     raw_coordinate_count: int
@@ -86,15 +87,35 @@ def _validate_input_length(input_length: int) -> None:
         raise ValueError("input_length must be an integer at least nine")
 
 
+def _validate_selector_cap(input_length: int, selector_cap: int) -> None:
+    _validate_input_length(input_length)
+    if (
+        isinstance(selector_cap, bool)
+        or not isinstance(selector_cap, int)
+        or selector_cap < input_length
+    ):
+        raise ValueError(
+            "selector_cap must be an integer at least input_length"
+        )
+
+
 def diversified_exceptional_selector(
     input_length: int,
+    selector_cap: int | None = None,
 ) -> tuple[ExceptionalSelectorDescriptor, ...]:
-    """Construct every valid ``(family, A, B, g)`` with entries at most ``m``."""
-    _validate_input_length(input_length)
+    """Construct every valid public descriptor through ``selector_cap``.
+
+    The default ``selector_cap=m`` preserves the M31 selector.  Separating the
+    public cap from the balanced-population input length supports the M32
+    widened-cap audit without using either unknown factor.
+    """
+    if selector_cap is None:
+        selector_cap = input_length
+    _validate_selector_cap(input_length, selector_cap)
     descriptors: list[ExceptionalSelectorDescriptor] = []
     for family in ("phi4", "phi6"):
-        for first_factor in range(2, input_length + 1):
-            for second_factor in range(2, input_length + 1):
+        for first_factor in range(2, selector_cap + 1):
+            for second_factor in range(2, selector_cap + 1):
                 if first_factor == second_factor:
                     continue
                 valid = (
@@ -108,7 +129,7 @@ def diversified_exceptional_selector(
                 )
                 if not valid:
                     continue
-                for base in range(2, input_length + 1):
+                for base in range(2, selector_cap + 1):
                     descriptors.append(
                         ExceptionalSelectorDescriptor(
                             family=family,
@@ -267,16 +288,63 @@ def _minimum_separating_subset(
     return None
 
 
+def greedy_separating_column_indices(
+    profile: DiversifiedSelectorProfile,
+) -> tuple[int, ...] | None:
+    """Return a deterministic separating certificate when one exists.
+
+    This avoids the exponential minimum-subset search during widened-cap
+    threshold audits.  Each step chooses the lowest-index column that
+    separates the largest number of pairs not yet separated.
+    """
+    if not isinstance(profile, DiversifiedSelectorProfile):
+        raise ValueError("profile must be a DiversifiedSelectorProfile")
+    population_size = len(profile.population_primes)
+    unresolved = {
+        (first, second)
+        for first in range(population_size)
+        for second in range(first + 1, population_size)
+    }
+    selected: list[int] = []
+    remaining = set(range(len(profile.normalized_columns)))
+    while unresolved:
+        best_index: int | None = None
+        best_pairs: set[tuple[int, int]] = set()
+        for column_index in sorted(remaining):
+            mask = profile.normalized_columns[column_index].support_mask
+            separated = {
+                (first, second)
+                for first, second in unresolved
+                if bool(mask & (1 << first))
+                != bool(mask & (1 << second))
+            }
+            if len(separated) > len(best_pairs):
+                best_index = column_index
+                best_pairs = separated
+        if best_index is None:
+            return None
+        selected.append(best_index)
+        remaining.remove(best_index)
+        unresolved.difference_update(best_pairs)
+    return tuple(selected)
+
+
 def diversified_selector_profile(
     input_length: int,
+    selector_cap: int | None = None,
+    *,
+    compute_minimum_certificate: bool = True,
 ) -> DiversifiedSelectorProfile:
     """Construct, normalize, and audit the public selector at one length."""
-    descriptors = diversified_exceptional_selector(input_length)
+    if selector_cap is None:
+        selector_cap = input_length
+    _validate_selector_cap(input_length, selector_cap)
+    if not isinstance(compute_minimum_certificate, bool):
+        raise ValueError("compute_minimum_certificate must be Boolean")
+    descriptors = diversified_exceptional_selector(input_length, selector_cap)
     primes = balanced_prime_population(input_length)
     if len(primes) < 2:
         raise ValueError("balanced population must contain at least two primes")
-    if min(primes) <= input_length:
-        raise AssertionError("balanced primes must exceed every selector entry")
 
     raw_columns = _raw_support_columns(descriptors, primes)
     columns, constant_count, duplicate_count = _normalize_columns(
@@ -325,6 +393,7 @@ def diversified_selector_profile(
     injective = len(counts) == len(primes)
     return DiversifiedSelectorProfile(
         input_length=input_length,
+        selector_cap=selector_cap,
         population_primes=primes,
         descriptor_count=len(descriptors),
         raw_coordinate_count=len(raw_columns),
@@ -341,7 +410,7 @@ def diversified_selector_profile(
         injective=injective,
         minimum_separating_column_indices=(
             _minimum_separating_subset(columns, len(primes))
-            if injective
+            if injective and compute_minimum_certificate
             else None
         ),
         cofactor_novel_column_count=len(cofactor_columns),

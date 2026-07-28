@@ -26,7 +26,7 @@
 \renewcommand{\abstractname}{초록}
 
 \title{고전적 정수분해를 위한 차수 분리 지수:\\
-네 개의 제한 정리와 열아홉 개의 구조적 장벽}
+다섯 개의 제한 정리와 스무 개의 구조적 장벽}
 \author{MOSEF 연구 프로그램}
 \date{2026년 7월 28일}
 
@@ -44,15 +44,16 @@ Las Vegas 정리, 하나의 완전한 유리 root-of-unity 분류 정리,
 명시적 지수 목록, 압축 표현, 산술 회로, 기하급수 quotient, 예외적
 cyclotomic cofactor 일정에 대한 구조적 장벽들이다.
 
-이번 M31 결과는 입력 \(N\)을 받기 전에 두 exceptional family와
-\(2\le A,B,g\le m\)의 모든 유효 descriptor를 선택하는 명시적
-다항 selector를 분석한다. 모든 primitive exit를 비용에 포함하고,
-상수 support column을 제거하고 중복 column을 합치는 정규화가
-모든 pair outcome을 보존함을 증명한다. 완전 유한 certificate는
-\(9\le m\le15\)의 balanced population에서 단사성을 증명한다.
-그러나 \(m=16\)에서는 소수 \(191,227,233\)이 270개 descriptor의
-모든 charged exit에서 충돌한다. 양성 결과는 인수분해에 의존하는
-유한 약속 정리이고, 음성 결과는 이 정확한 selector만 반박한다.
+M31은 \(2\le A,B,g\le m\)의 다변화 selector가
+\(9\le m\le15\)에서 단사이지만 \(m=16\)에서
+\(191,227,233\)을 분리하지 못함을 증명했다. M32는 입력 길이와
+공개 상한 \(L(m)\)을 분리하고, \(m=16,\ldots,20\)에서 처음 단사인
+상한이 정확히 \(19,19,27,27,31\)임을 증명한다. 따라서
+\(L=m+11\)은 \(9\le m\le20\)의 완전 유한 balanced promise에서
+작동하며, 정수 가산 상수 11은 이 범위에서 최소이다.
+\(L=\lceil cm\rceil\)의 정확한 유한 경계는 \(c>3/2\)이고,
+끝점은 \(m=20\)의 \(\{809,827\}\) 충돌 때문에 실패한다.
+이 양성 결과는 인수분해에 의존하는 유한 약속 정리이다.
 일반 고전적 다항 시간 정수분해 알고리즘이나 모든 다항 selector의
 하한은 주장하지 않는다.
 \end{abstract}
@@ -74,7 +75,7 @@ MOSEF는 ``Multi-Group Order-Separating Exponent Factoring'' 연구
 
 영문 원고 \path{paper/main.tex}는 모든 과거 정리와 증명의 상세
 기록이다. 이 한국어 동반 원고는 동일한 claim ID와 상태를 사용하고,
-현재 M31 결과의 정의, 정리, 증명, 실험, 한계 및 재현 절차를
+현재 M32 결과의 정의, 정리, 증명, 실험, 한계 및 재현 절차를
 자기완결적으로 제공한다.
 
 \section{모형과 기본 판정}
@@ -556,6 +557,92 @@ THM-004의 완전 유한 증명이다. \(m=16\)에서는 270개 descriptor의
 pair product가 모두 실패한다. 이것이 BAR-025를 증명하고 REF-027을
 반박한다. 다른 selector나 무한 범위에 대한 결론은 없다.
 
+\section{M32: 넓어진 공개 상한의 유한 구성과 정확한 경계}
+
+\claimstatus{DEF-032}{DEFINITION}.
+\(m\ge9\)와 공개 정수 \(L(m)\ge m\)에 대해, 입력 \(N\)을 받기 전에
+\(\mathcal T_{m,L}\)을 고정한다. 이 selector는
+\(2\le A,B,g\le L(m)\)인 모든 유효 exceptional descriptor를
+포함하고 DEF-031의 여덟 primitive exit를 모두 비용에 넣는다.
+base가 nonunit이면 먼저 base GCD를 처리하고 unit-only continuation을
+건너뛴다. 상한은 미지의 소인수나 support signature를 보지 않는다.
+
+\(L\le L'\)이면 raw selector는
+\(\mathcal T_{m,L}\subseteq\mathcal T_{m,L'}\)이므로 한 번 분리된
+prime pair는 다시 합쳐지지 않는다. normalized column 수 자체는
+단조일 필요가 없지만, 각 고정 cap의 정확한 정규화 동치가 raw
+pair-separation 단조성을 보존한다.
+
+완전 탐색으로 얻은 첫 단사 상한은 다음과 같다.
+
+\begin{center}
+\begin{tabular}{rrrrrl}
+\toprule
+\(m\) & \(|\mathcal P_m|\) & 최소 \(L\) & \(L-m\) &
+certificate & \(L-1\)의 충돌 \\
+\midrule
+16 & 12 & 19 & 3  & 10 & \(191,227,233\) \\
+17 & 18 & 19 & 2  & 16 & \(277,317;\ 263,349\) \\
+18 & 25 & 27 & 9  & 20 & \(503,509\) \\
+19 & 31 & 27 & 8  & 26 & \(569,719\) \\
+20 & 44 & 31 & 11 & 40 & \(809,827\) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\claimstatus{THM-005}{PROVED}.
+공개 상한 \(L(m)=m+11\)은 \(9\le m\le20\)의 모든 완전 balanced
+population에서 단사 signature를 만든다. 따라서 서로 다른
+\(p,q\in\mathcal P_m\)의 모든 \(N=pq\)에서 어떤 charged GCD가
+proper factor를 노출한다. 가산 상수 11은 이 유한 범위에서
+최소이다. \(m=20,L=30\)에서는 \(809,827\)이 여전히 충돌한다.
+
+\claimstatus{BAR-026}{PROVED}.
+\(L_c(m)=\lceil cm\rceil\)이 다섯 새 임계값을 모두 덮는 정확한
+조건은 \(c>3/2\)이다. 따라서 \(3/2\)는 달성되지 않는 infimum이며
+유효한 최소 계수가 아니다. 끝점은 \(m=20,L=30\)에서 실패하고,
+\(c=151/100\)은 하나의 고정 공개 witness이다.
+
+\claimstatus{REF-028}{REFUTED}.
+\(L=m+10\)이 \(9\le m\le20\) 전체에서 충분하다는 가설은
+\(\{809,827\}\) 충돌로 반박된다.
+
+\claimstatus{EMP-031}{EMPIRICAL}.
+EXP-0031은 cap profile 38개, local exit profile 1,206,359개,
+raw coordinate 283,368개와 normalized coordinate 1,289개,
+단조성 pair 검사 17,330개, 정규화 동치 3,860개, construction
+certificate pair 1,930개를 검사했다. 독립 검증은 Rust/C\# command
+64회, nonunit-base 분기 1회, dense construction pair 1,930개,
+dense predecessor collision-descriptor 5,314개를 통과했다.
+summary SHA-256은
+\[
+\texttt{\seqsplit{5cdc44356ae8ed81d395b033e86403691205c6552bc8da3bf4414b47842463d8}}
+\]
+이고, 등록 schema SHA-256은
+\[
+\texttt{\seqsplit{24f506ce7cb7ad9b10f8150f064441dbc1450f7402c72a6d228a363834eb9203}}
+\]
+이다.
+
+\subsection{THM-005와 BAR-026의 증명}
+
+각 길이에서 \(m\)부터 표시된 임계값까지 모든 정수 cap을 검사했다.
+임계값 직전에는 독립 dense evaluator가 충돌 bucket의 모든 prime에
+대해 모든 descriptor의 branch-total mask가 같음을 확인했다. 더
+작은 selector는 그 직전 selector의 부분집합이므로 모두 실패한다.
+임계값에서는 등록된 공개 coordinate sublist의 packed signature가
+완전 population에서 pairwise distinct이다.
+
+\(9\le m\le15\)에서는 THM-004가 이미 \(L=m\)에서 단사성을 준다.
+\(16\le m\le20\)에서는 \(m+11\)이 각 정확한 임계값 이상이므로
+단조성과 BAR-024가 THM-005를 증명한다. \(m+10\)은 length 20에서
+실패하므로 11이 최소이다.
+
+\(\lceil cm\rceil\ge L_m^\star\)는
+\(c>(L_m^\star-1)/m\)와 동치이다. 다섯 비율의 최댓값은
+\(30/20=3/2\)이므로 BAR-026의 strict endpoint가 나온다. 이 증명은
+\(m>20\)의 단사성을 말하지 않는다.
+
 \section{구현과 bit complexity}
 
 \(B_m=2^m+3\)과 \(E_m=3\cdot2^m+5\)의 이진 표현 길이는 \(O(m)\)이다.
@@ -573,6 +660,12 @@ selector의 construction, evaluation, GCD, output, extraction 비용은
 다항식이다. population enumeration, support normalization, dense
 certificate expansion은 증명 절차이며 공개 recognizer 비용에
 숨기지 않는다.
+M32에서는 이 경계가 \(2(L(m)-1)^3\)이고 compact work는
+\(O(L(m)^3\log L(m))\)이다. 따라서 polynomial하게 bounded되고
+계산 가능한 \(L(m)\)은 전체 비용도 polynomial하게 유지한다.
+\(m+11\)과 \(\lceil151m/100\rceil\)은 모두
+\(O(m^3\log m)\) compact step을 사용한다. 이 비용 경계 자체는
+검사하지 않은 길이의 단사성을 뜻하지 않는다.
 
 소수 \(p\)가 주어진 local profile 함수는 증명과 differential test를
 위한 분석 도구이다. 실제 factorization 후보는 \(p\)를 받지 않고
@@ -610,25 +703,23 @@ canonical summary SHA-256은
 
 \section{한계와 다음 연구 문제}
 
-BAR-023, BAR-024, BAR-025가 증명하지 않은 사항은 다음과 같다.
+BAR-023부터 BAR-026까지가 증명하지 않은 사항은 다음과 같다.
 
 \begin{itemize}
 \item balanced population에서 \(H_m\)의 asymptotic density;
 \item \(H_m\)을 factorization 없이 명시적으로 출력하는 recognizer;
-\item \(m\)보다 넓은 다항 cap이나 다른 formula가 단사 signature를
-  만드는 구체적인 compact constructor;
+\item \(m>20\)에서 \(m+11\), \(\lceil151m/100\rceil\), 또는 다른
+  polynomial cap의 단사성;
 \item \(N\)-dependent 또는 adaptive schedule의 하한;
 \item repeated-prime 입력 전체에 대한 이번 square-free signature
   count의 직접 확장;
 \item 일반 arithmetic circuit 또는 일반 고전적 정수분해의 하한.
 \end{itemize}
 
-다음 M32의 bounded question은 더 넓은 공개 cap \(L(m)\)을 정확히
-parameterize하고 그 다항 차수와 모든 exit 비용을 센 뒤, M31의
-유한 충돌을 factor-dependent support recognition 없이 복구하는
-가장 작은 범위를 찾는 것이다. 먼저 \(L(m)=m+t\)와
-\(L(m)=\lceil cm\rceil\)의 작은 공개 계열을 \(16\le m\le20\)에서
-falsification-first 방식으로 검사한다.
+다음 M33의 bounded question은 M32가 고정한 두 공개 선형 상한
+\(m+11\)과 \(\lceil151m/100\rceil\)을 \(m=21\)부터의 완전 balanced
+population에서 검사하여 첫 재발 충돌 또는 새 repair threshold를
+기록하는 것이다. M32의 유한 표를 asymptotic 정리로 외삽하지 않는다.
 
 \section{결론}
 
@@ -638,8 +729,10 @@ M29는 compact exact lift의 크기와 prime-factor separation을
 balanced promise에서 단사성을 증명했다. 같은 selector는
 \(m=16\)에서 \(191,227,233\)을 분리하지 못한다. union coverage나
 후보 수 하한만으로는 충분하지 않고, 모든 pair를 분리하려면
-signature 사상이 단사여야 한다. M31 결과도 더 넓은
-polynomial selector의 가능성을 닫지 않는다.
+signature 사상이 단사여야 한다. M32는 공개 상한을 넓혀
+\(m+11\)이 \(9\le m\le20\)에서 작동함을 증명하고, 정확한 최소
+임계값과 \(c>3/2\)의 strict multiplicative 경계를 확정했다.
+이는 \(m>20\)의 단사성을 증명하지 않는다.
 
 일반 고전적 다항 시간 정수분해 알고리즘도, 그러한 알고리즘의
 일반적 불가능성도 여기서 주장하지 않는다. 검증된 기여는 정확한
@@ -675,6 +768,9 @@ python scripts/check_m30_compact_support_signature_differential.py
 python scripts/run_m31_diversified_compact_signature_audit.py `
   --input-length-min 9 --input-length-max 20
 python scripts/check_m31_diversified_compact_signature_differential.py
+python scripts/run_m32_widened_selector_cap_audit.py
+python scripts/generate_m32_widened_selector_schema.py
+python scripts/check_m32_widened_selector_cap_differential.py
 python scripts/generate_korean_claim_appendix.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex

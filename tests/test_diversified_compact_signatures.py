@@ -8,6 +8,7 @@ from python.mosef_reference.diversified_compact_signatures import (
     ExceptionalSelectorDescriptor,
     diversified_exceptional_selector,
     diversified_selector_profile,
+    greedy_separating_column_indices,
     primitive_exit_mask,
 )
 
@@ -30,6 +31,20 @@ class DiversifiedCompactSignatureTests(unittest.TestCase):
             )
         )
 
+    def test_widened_public_selector_is_nested_and_factor_independent(self) -> None:
+        baseline = diversified_exceptional_selector(16)
+        widened = diversified_exceptional_selector(16, 17)
+        self.assertTrue(set(baseline).issubset(widened))
+        self.assertGreater(len(widened), len(baseline))
+        self.assertTrue(
+            all(
+                2 <= descriptor.first_factor <= 17
+                and 2 <= descriptor.second_factor <= 17
+                and 2 <= descriptor.base <= 17
+                for descriptor in widened
+            )
+        )
+
     def test_primitive_exit_mask_has_stable_bit_order(self) -> None:
         descriptor = ExceptionalSelectorDescriptor("phi4", 3, 7, 2)
         self.assertEqual(primitive_exit_mask(descriptor, 107), 1 << 7)
@@ -40,6 +55,13 @@ class DiversifiedCompactSignatureTests(unittest.TestCase):
                 19,
             ),
             1 << 1,
+        )
+        self.assertEqual(
+            primitive_exit_mask(
+                ExceptionalSelectorDescriptor("phi4", 3, 7, 19),
+                19,
+            ),
+            1,
         )
 
     def test_registered_finite_construction_boundary(self) -> None:
@@ -88,10 +110,43 @@ class DiversifiedCompactSignatureTests(unittest.TestCase):
             profile.separated_pair_count,
         )
 
+    def test_greedy_certificate_handles_widened_cap(self) -> None:
+        profile = diversified_selector_profile(
+            16,
+            19,
+            compute_minimum_certificate=False,
+        )
+        indices = greedy_separating_column_indices(profile)
+        self.assertIsNotNone(indices)
+        signatures = tuple(
+            sum(
+                1 << output_index
+                for output_index, column_index in enumerate(indices or ())
+                if profile.normalized_columns[column_index].support_mask
+                & (1 << prime_index)
+            )
+            for prime_index in range(len(profile.population_primes))
+        )
+        self.assertEqual(len(set(signatures)), len(signatures))
+        self.assertIsNone(
+            greedy_separating_column_indices(
+                diversified_selector_profile(
+                    16,
+                    compute_minimum_certificate=False,
+                )
+            )
+        )
+
     def test_invalid_inputs(self) -> None:
         for call in (
             lambda: diversified_exceptional_selector(8),
+            lambda: diversified_exceptional_selector(16, 15),
+            lambda: diversified_exceptional_selector(16, True),
             lambda: diversified_selector_profile(True),
+            lambda: diversified_selector_profile(
+                16,
+                compute_minimum_certificate=1,  # type: ignore[arg-type]
+            ),
             lambda: primitive_exit_mask(
                 ExceptionalSelectorDescriptor("phi4", 3, 7, 2),
                 9,
@@ -99,6 +154,9 @@ class DiversifiedCompactSignatureTests(unittest.TestCase):
             lambda: primitive_exit_mask(  # type: ignore[arg-type]
                 ("phi4", 3, 7, 2),
                 107,
+            ),
+            lambda: greedy_separating_column_indices(  # type: ignore[arg-type]
+                ("not", "a", "profile")
             ),
         ):
             with self.subTest(call=call), self.assertRaises(ValueError):

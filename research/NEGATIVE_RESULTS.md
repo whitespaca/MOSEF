@@ -733,3 +733,26 @@
   rule out a larger polynomial parameter/base range, a different public
   formula, \(N\)-dependent or adaptive schedules, asymptotic injectivity,
   general classical factoring, or broader arithmetic circuits.
+
+## NR-029 - A uniform additive widening by ten still collides
+
+- Date: 2026-07-28.
+- Status: `REFUTED` claim `REF-028`.
+- Hypothesis tested: the factorization-independent widened selector containing
+  every valid exceptional descriptor through \(L(m)=m+10\) is injective on
+  every complete balanced population for \(9\le m\le20\).
+- Exact obstruction: at \(m=20\), the cap is 30. The 1,943 descriptors yield
+  15,544 raw primitive coordinates and 56 normalized nonconstant columns, but
+  primes \(809\) and \(827\) have the same complete signature. Their product
+  therefore receives only unit or full-collision GCDs from the entire
+  schedule.
+- Positive boundary: cap 31 is injective on the complete 44-prime population.
+  Across \(16\le m\le20\), the exact minimal caps are
+  \(19,19,27,27,31\), so \(m+11\) is the smallest common integer-offset
+  schedule on the registered range.
+- Evidence: the compact audit checks every cap from \(m\) to the threshold.
+  An independent dense evaluator checks all 1,943 predecessor descriptors on
+  the collision pair and the complete cap-31 construction certificate.
+- Scope: the witness refutes only \(m+10\) on the stated finite range. It does
+  not refute \(m+11\) asymptotically, a different linear or polynomial cap,
+  adaptive schedules, a density theorem, a recognizer, or general factoring.

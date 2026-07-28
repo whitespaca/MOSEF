@@ -136,3 +136,8 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-025 | PROVED | Exact normalization equivalence and length-16 collision | `research/proofs/THM-004-BAR-025-diversified-selector.md` |
 | REF-027 | REFUTED | The parameter-and-base box through m as universally injective | `research/NEGATIVE_RESULTS.md` NR-028 |
 | EMP-030 | EMPIRICAL | Bounded diversified-selector and certificate audit | `research/experiments/EXP-0030-m31-diversified-compact-signatures.md` |
+| DEF-032 | DEFINITION | Widened public exceptional-selector cap and branch-total exits | `research/proofs/THM-005-BAR-026-widened-selector-cap.md` |
+| THM-005 | PROVED | Finite balanced-semiprime construction for input lengths 9 through 20 | `research/proofs/THM-005-BAR-026-widened-selector-cap.md` |
+| BAR-026 | PROVED | Exact finite cap thresholds, monotonicity, and multiplicative endpoint | `research/proofs/THM-005-BAR-026-widened-selector-cap.md` |
+| REF-028 | REFUTED | The additive cap m plus 10 as sufficient through length 20 | `research/NEGATIVE_RESULTS.md` NR-029 |
+| EMP-031 | EMPIRICAL | Bounded widened-cap threshold and certificate audit | `research/experiments/EXP-0031-m32-widened-selector-cap.md` |
