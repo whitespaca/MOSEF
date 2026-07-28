@@ -55,6 +55,9 @@
   proof, complexity transition, limits, and claim appendix found no clipping,
   overlap, missing glyph, or unreadable text. Stable artifacts are
   `output/pdf/mosef-paper.pdf` and `output/pdf/mosef-paper-ko.pdf`.
+- M32 proof, implementation, registered experiment, and bilingual-paper core
+  commit: `c98f0a704bdd4c2f5f5cc5758893e9a35f86c905`. Draft PR #43 will
+  be updated with this validated payload before review and merge.
 - General classical polynomial-time factoring, an asymptotic injective cap,
   balanced-promise recognition, and every length \(m>20\) remain open.
 - Next selected milestone: M33 tests the two fixed public linear caps at
