@@ -54,6 +54,9 @@
   `0313695ae070ecaea9eb6c5477119d79b76f391b35285b7fbf118a3db49e1059`
   and
   `5929b60506605803380d542baba151fabb545476b7ae5370dbffc7c87ead4b47`.
+- M34 proof, implementation, registered experiment, and bilingual-paper core
+  commit:
+  `f1c0c6b3da647d40c7d476ee05b9afa696805178`.
 - The formulas remain factorization independent and use
   \(O(m^3\log m)\) compact work. The finite result does not establish a cap
   growth rate, behavior at \(m>22\), promise recognition, or general
