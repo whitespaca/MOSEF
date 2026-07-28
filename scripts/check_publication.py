@@ -58,6 +58,7 @@ REQUIRED_SECTIONS = (
     "A diversified finite construction and scoped collision",
     "A widened-cap finite construction and exact threshold",
     "The first linear-cap recurrence and repair",
+    "The next finite-envelope jump",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -99,6 +100,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:THM-004-BAR-025}",
     r"\label{proof:THM-005-BAR-026}",
     r"\label{proof:THM-006-BAR-027}",
+    r"\label{proof:THM-007-BAR-028}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -172,6 +174,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0032-m33-linear-cap-recurrence.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0033-m34-next-envelope.md",
 )
 
 
@@ -317,7 +323,14 @@ def main() -> int:
             )
             errors += 1
         if record.name.startswith(
-            ("EXP-0028", "EXP-0029", "EXP-0030", "EXP-0031", "EXP-0032")
+            (
+                "EXP-0028",
+                "EXP-0029",
+                "EXP-0030",
+                "EXP-0031",
+                "EXP-0032",
+                "EXP-0033",
+            )
         ) and (
             summary_hash not in korean_paper_text.lower()
         ):
@@ -352,6 +365,9 @@ def main() -> int:
         "M33: 첫 선형 상한 재발",
         "THM-006",
         "1031,1231,1319,1433",
+        "M34: 다음 유한 envelope",
+        "THM-007",
+        "1481,1511,1571,1663,1721,1747,1867,1931,2029",
     )
     for phrase in required_korean:
         if phrase not in korean_paper_text:

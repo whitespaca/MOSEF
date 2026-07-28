@@ -779,3 +779,17 @@
 - Consequence: through length 21 the envelopes move from 11 to 12 and from
   \(3/2\) to \(32/21\). M34 must test the repaired formulas at \(m=22\)
   before inferring any further pattern.
+
+## ADR-038 - Freeze the complete cap transition when the repair gap widens
+
+- Date: 2026-07-28.
+- Decision: for M34, register every complete cap profile from the failed
+  public cap 34 through the first injective cap 39 rather than retaining only
+  the two endpoints.
+- Rationale: the collision count falls through
+  \(37,15,10,6,1,0\). Preserving that ladder distinguishes a genuine exact
+  threshold from an optimizer artifact and provides monotonicity checks at
+  every widening step.
+- Consequence: the finite envelopes through length 22 are now 17 and
+  \(19/11\). They remain finite maxima, not evidence of an asymptotic growth
+  law. M35 must test the repaired formulas at \(m=23\).

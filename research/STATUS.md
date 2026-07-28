@@ -1,6 +1,6 @@
 # Research Status
 
-## M34 execution snapshot
+## M34 outcome
 
 - Date: 2026-07-28.
 - Branch: `research/20260728-m34-next-envelope`.
@@ -9,18 +9,69 @@
 - Start commit `b3312dbe39d6d33753bc0ccd160a8af5011c5069` is pushed. Draft
   PR #45 targets `main`:
   `https://github.com/whitespaca/MOSEF/pull/45`.
-- Active question: do the repaired public schedules \(L_+(m)=m+12\) and
-  \(L_{153}(m)=\lceil153m/100\rceil\), certified only through \(m=21\),
-  remain injective on the complete balanced population at \(m=22\)?
-- Both formulas give cap 34 at \(m=22\). The first falsification task is to
-  evaluate that exact selector, minimize any complete collision bucket, and
-  search monotonically for the first repairing cap if needed.
-- Both formulas are fixed before \(N\) and preserve
-  \(O(m^3\log m)\) compact work. Population enumeration, normalization, and
-  dense expansion remain certificate operations rather than a public
-  promise recognizer.
-- No outcome at \(m=22\), later length, or asymptotic cap rate is claimed in
-  this snapshot.
+- At \(m=22\), both M33 formulas \(m+12\) and
+  \(\lceil153m/100\rceil\) give cap 34. The complete 80-prime population has
+  a nine-prime collision bucket and a two-prime bucket, producing 37 failed
+  pairs across all 2,838 descriptors and 22,704 raw coordinates.
+- Caps 35 through 38 remain noninjective. Their collision-pair counts are
+  \(15,10,6,1\); the final cap-38 collision is \(\{1481,1571\}\) across all
+  3,996 descriptors.
+- Cap 39 has 5,016 descriptors, 115 normalized columns, and 80 distinct
+  signatures. A 73-coordinate certificate separates all 3,160 population
+  pairs. The cap-38 collision and raw selector inclusion prove that 39 is the
+  exact first injective cap at length 22.
+- `THM-007` is `PROVED`: \(L=m+17\) is injective on every complete balanced
+  population for \(9\le m\le22\), and 17 is the smallest common integer
+  offset on this finite range.
+- `BAR-028` is `PROVED`: the exact multiplicative coefficients covering the
+  finite thresholds through length 22 are \(c>19/11\). The old
+  \(153/100\) witness fails; \(173/100\) is a fixed succeeding witness.
+- EXP-0033 checked six cap profiles, 80 primes, 23,190 descriptor instances,
+  1,855,200 local exits, 185,520 raw and 578 normalized coordinates, 15,800
+  monotonicity checks, 18,960 normalization equivalences, and 3,160
+  construction-certificate pairs.
+- Independent validation passed 16 Rust/C# command comparisons, 3,160 dense
+  construction pairs, 5,676 dense failed-schedule descriptor-bucket cases,
+  and 3,996 dense predecessor collision-descriptor cases.
+- Registered schema SHA-256:
+  `36bd038cd325dc4bb151ffd366b1d47ed670f4ef4b7871343e14624d52fc2968`.
+  Registered EXP-0033 summary SHA-256:
+  `5f60b3e2d688697ce30a6b40b39d6adbd8fe365cca4dc8e36994090aa2a54b39`.
+- Final gates passed: foundation and bilingual publication checks
+  (143 claims and 32 experiment hashes), 218 Python tests plus 206 subtests,
+  compileall, Ruff, strict mypy over 26 source files, Rust formatting/Clippy
+  and 36 tests, and a warning-free C# Release build.
+- Regression gates passed: 58 baseline comparisons, the registered M29 audit
+  and 34 comparisons, the M30 audit and 34 comparisons, the M31 audit with
+  72 command checks, 12 profiles, and 104 dense pairs, the M32 audit with
+  64 command checks, 1,930 dense construction pairs, and 5,314 dense
+  predecessor checks, and the complete M33 and M34 audits and differential
+  checks.
+- XeLaTeX produced final-warning-free 83-page English and 19-page Korean
+  PDFs. Rendered title, theorem, evidence, proof, reproduction, and claim
+  appendix pages had no clipping, overlap, missing glyph, or unreadable text.
+  Stable artifact SHA-256 values are
+  `0313695ae070ecaea9eb6c5477119d79b76f391b35285b7fbf118a3db49e1059`
+  and
+  `5929b60506605803380d542baba151fabb545476b7ae5370dbffc7c87ead4b47`.
+- The formulas remain factorization independent and use
+  \(O(m^3\log m)\) compact work. The finite result does not establish a cap
+  growth rate, behavior at \(m>22\), promise recognition, or general
+  factoring.
+- Next selected milestone: M35 tests \(m+17\) and
+  \(\lceil173m/100\rceil\) on the complete \(m=23\) population.
+
+### M34 Korean summary
+
+M34에서는 M33의 두 공개 선형 상한을 \(m=22\)에서 반증 검사했습니다.
+두 공식은 모두 \(L=34\)가 되고, 두 collision bucket에 37개 실패 pair가
+남습니다. cap 35부터 38까지도 충돌하며, cap 39에서야 완전한 80-prime
+population이 단사가 됩니다.
+
+따라서 \(9\le m\le22\)에서는 \(m+17\)이 작동하며 가산 상수 17이
+최소입니다. 곱셈형 상한의 정확한 유한 경계는 \(c>19/11\)입니다.
+이 결과는 다음 길이나 asymptotic 성장률, promise 인식, 일반 정수분해를
+증명하지 않습니다.
 
 ## M33 outcome
 

@@ -26,7 +26,7 @@
 \renewcommand{\abstractname}{초록}
 
 \title{고전적 정수분해를 위한 차수 분리 지수:\\
-여섯 개의 제한 정리와 스물한 개의 구조적 장벽}
+일곱 개의 제한 정리와 스물두 개의 구조적 장벽}
 \author{MOSEF 연구 프로그램}
 \date{2026년 7월 28일}
 
@@ -57,6 +57,9 @@ M31은 \(2\le A,B,g\le m\)의 다변화 selector가
 32가 되고, \(1031,1231,1319,1433\)이 다시 충돌한다. cap 33은
 57개 전체 population에서 단사이므로 유한 경계는 \(m+12\)와
 \(c>32/21\)로 이동한다.
+\(m=22\)에서는 두 복구 공식이 모두 34가 되어 37개 pair가 충돌한다.
+cap 35부터 38까지도 실패하고 cap 39에서 80개 전체 population이
+단사가 된다. 따라서 유한 경계는 \(m+17\)과 \(c>19/11\)로 이동한다.
 이 양성 결과는 인수분해에 의존하는 유한 약속 정리이다.
 일반 고전적 다항 시간 정수분해 알고리즘이나 모든 다항 selector의
 하한은 주장하지 않는다.
@@ -79,7 +82,7 @@ MOSEF는 ``Multi-Group Order-Separating Exponent Factoring'' 연구
 
 영문 원고 \path{paper/main.tex}는 모든 과거 정리와 증명의 상세
 기록이다. 이 한국어 동반 원고는 동일한 claim ID와 상태를 사용하고,
-현재 M33 결과의 정의, 정리, 증명, 실험, 한계 및 재현 절차를
+현재 M34 결과의 정의, 정리, 증명, 실험, 한계 및 재현 절차를
 자기완결적으로 제공한다.
 
 \section{모형과 기본 판정}
@@ -707,6 +710,64 @@ M32의 \(t_{20}^\star=11\)에 새 offset 12를 결합하면
 \((33-1)/21=32/21\)은 \(3/2\)보다 크므로 BAR-027의 strict 조건이
 나온다. 이후 길이나 asymptotic rate에 대한 결론은 없다.
 
+\section{M34: 다음 유한 envelope의 도약}
+
+\claimstatus{BAR-028}{PROVED}.
+\(m=22\)에서 M33의 두 복구 공식은 모두 cap 34이다. 완전한 80-prime
+population에는
+\[
+\{1481,1511,1571,1663,1721,1747,1867,1931,2029\},
+\qquad
+\{1907,1999\}
+\]
+의 두 collision bucket이 있고, 37개 pair product가 2,838개 모든
+descriptor에서 실패한다. cap 35부터 38까지의 collision pair 수는
+각각 \(15,10,6,1\)이며 cap 38의 마지막 충돌은
+\(\{1481,1571\}\)이다.
+
+cap 39에서는 5,016개 descriptor와 115개 normalized column이 80개
+서로 다른 signature를 만든다. 73-coordinate certificate가 모든
+3,160 pair를 분리하므로 \(L_{22}^\star=39\)이다.
+
+\claimstatus{THM-007}{PROVED}.
+\(L=m+17\)은 \(9\le m\le22\)의 모든 완전 balanced population에서
+단사이며, 17은 이 유한 범위의 최소 공통 정수 offset이다. 곱셈형
+상한의 정확한 유한 조건은 \(c>19/11\)이다. \(153/100\)은 실패하고
+\(173/100\)은 하나의 고정 성공 witness이다.
+
+\claimstatus{REF-030}{REFUTED}.
+M33의 \(m+12\) schedule이 다음 길이에서도 단사라는 가설은 거짓이다.
+
+\claimstatus{EMP-033}{EMPIRICAL}.
+EXP-0033은 local exit 1,855,200개, raw coordinate 185,520개,
+normalized coordinate 578개, 단조성 검사 15,800개, 정규화 동치
+18,960개, construction pair 3,160개를 검사했다. 독립 검증은
+Rust/C\# command 16회, dense construction pair 3,160개, dense
+failed-schedule descriptor-bucket 5,676개, dense predecessor
+collision-descriptor 3,996개를 통과했다. summary SHA-256은
+\[
+\texttt{\seqsplit{5f60b3e2d688697ce30a6b40b39d6adbd8fe365cca4dc8e36994090aa2a54b39}}
+\]
+이고 schema SHA-256은
+\[
+\texttt{\seqsplit{36bd038cd325dc4bb151ffd366b1d47ed670f4ef4b7871343e14624d52fc2968}}
+\]
+이다.
+
+\subsection{THM-007과 BAR-028의 증명}
+
+독립 dense evaluator는 cap 34의 2,838개 모든 descriptor에서 두
+collision bucket이 그대로임을 확인했다. cap 38에서도 3,996개 모든
+descriptor에 대해 \(1481,1571\)이 충돌한다. cap 39의 등록된
+73-coordinate sublist는 80개 prime에 서로 다른 packed signature를
+주며, 3,160개 모든 pair를 검사했다. cap 38이 충돌하고 더 작은
+selector는 그 부분집합이므로 39가 정확한 첫 cap이다.
+
+M33의 \(t_{21}^\star=12\)에 새 offset 17을 결합하면
+\(t_{22}^\star=17\)이고 THM-007이 따른다. 새 곱셈 경계
+\((39-1)/22=19/11\)은 \(32/21\)보다 크므로 BAR-028의 strict 조건이
+나온다. 이후 길이나 asymptotic rate에 대한 결론은 없다.
+
 \section{구현과 bit complexity}
 
 \(B_m=2^m+3\)과 \(E_m=3\cdot2^m+5\)의 이진 표현 길이는 \(O(m)\)이다.
@@ -727,7 +788,7 @@ certificate expansion은 증명 절차이며 공개 recognizer 비용에
 M32에서는 이 경계가 \(2(L(m)-1)^3\)이고 compact work는
 \(O(L(m)^3\log L(m))\)이다. 따라서 polynomial하게 bounded되고
 계산 가능한 \(L(m)\)은 전체 비용도 polynomial하게 유지한다.
-M32와 M33의 네 선형 공식은 모두 \(O(m^3\log m)\) compact step을
+M32부터 M34까지의 여섯 선형 공식은 모두 \(O(m^3\log m)\) compact step을
 사용한다. 이 비용 경계 자체는 검사하지 않은 길이의 단사성을
 뜻하지 않는다.
 
@@ -772,7 +833,7 @@ BAR-023부터 BAR-026까지가 증명하지 않은 사항은 다음과 같다.
 \begin{itemize}
 \item balanced population에서 \(H_m\)의 asymptotic density;
 \item \(H_m\)을 factorization 없이 명시적으로 출력하는 recognizer;
-\item \(m>21\)에서 \(m+12\), \(\lceil153m/100\rceil\), 또는 다른
+\item \(m>22\)에서 \(m+17\), \(\lceil173m/100\rceil\), 또는 다른
   polynomial cap의 단사성;
 \item \(N\)-dependent 또는 adaptive schedule의 하한;
 \item repeated-prime 입력 전체에 대한 이번 square-free signature
@@ -780,8 +841,8 @@ BAR-023부터 BAR-026까지가 증명하지 않은 사항은 다음과 같다.
 \item 일반 arithmetic circuit 또는 일반 고전적 정수분해의 하한.
 \end{itemize}
 
-다음 M34의 bounded question은 복구된 두 공개 선형 상한
-\(m+12\)와 \(\lceil153m/100\rceil\)을 \(m=22\)의 완전 balanced
+다음 M35의 bounded question은 복구된 두 공개 선형 상한
+\(m+17\)과 \(\lceil173m/100\rceil\)을 \(m=23\)의 완전 balanced
 population에서 검사하고 유한 envelope를 갱신하는 것이다.
 
 \section{결론}
@@ -796,8 +857,10 @@ signature 사상이 단사여야 한다. M32는 공개 상한을 넓혀
 \(m+11\)이 \(9\le m\le20\)에서 작동함을 증명하고, 정확한 최소
 임계값과 \(c>3/2\)의 strict multiplicative 경계를 확정했다.
 M33은 두 공식이 \(m=21\)에서 즉시 다시 충돌함을 증명하고,
-\(m+12\)와 \(c>32/21\)로 그 유한 길이를 복구했다. 이는
-\(m>21\)의 단사성이나 cap 성장률을 증명하지 않는다.
+\(m+12\)와 \(c>32/21\)로 그 유한 길이를 복구했다.
+M34는 두 복구 공식이 \(m=22\)에서 다시 충돌하고 cap 35부터
+38까지도 실패함을 증명한 뒤, \(m+17\)과 \(c>19/11\)로 유한 범위를
+복구했다. 이는 \(m>22\)의 단사성이나 cap 성장률을 증명하지 않는다.
 
 일반 고전적 다항 시간 정수분해 알고리즘도, 그러한 알고리즘의
 일반적 불가능성도 여기서 주장하지 않는다. 검증된 기여는 정확한
@@ -839,6 +902,9 @@ python scripts/check_m32_widened_selector_cap_differential.py
 python scripts/run_m33_linear_cap_recurrence_audit.py
 python scripts/generate_m33_linear_cap_recurrence_schema.py
 python scripts/check_m33_linear_cap_recurrence_differential.py
+python scripts/run_m34_next_envelope_audit.py
+python scripts/generate_m34_next_envelope_schema.py
+python scripts/check_m34_next_envelope_differential.py
 python scripts/generate_korean_claim_appendix.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
