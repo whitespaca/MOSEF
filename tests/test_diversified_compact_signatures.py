@@ -407,6 +407,70 @@ class DiversifiedCompactSignatureTests(unittest.TestCase):
         )
         self.assertEqual(signatures, (4, 1, 0, 2, 8, 16))
 
+    def test_m40_caps_88_and_90_fail_and_five_new_columns_repair(self) -> None:
+        additive = diversified_selector_profile(
+            28,
+            88,
+            compute_minimum_certificate=False,
+        )
+        primes = (11867, 12791, 13633, 13967, 14051, 15559)
+        self.assertEqual(additive.collision_buckets, (primes,))
+        cap_88_keys = {
+            descriptor.key
+            for descriptor in diversified_exceptional_selector(28, 88)
+        }
+        for descriptor in diversified_exceptional_selector(28, 90):
+            if descriptor.key in cap_88_keys:
+                continue
+            self.assertEqual(
+                len(
+                    {
+                        primitive_exit_mask(descriptor, prime)
+                        for prime in primes
+                    }
+                ),
+                1,
+                descriptor.key,
+            )
+
+        sources = (
+            (ExceptionalSelectorDescriptor("phi4", 95, 35, 7), 7),
+            (ExceptionalSelectorDescriptor("phi6", 59, 75, 92), 7),
+            (ExceptionalSelectorDescriptor("phi4", 55, 27, 97), 7),
+            (ExceptionalSelectorDescriptor("phi4", 31, 43, 91), 7),
+            (ExceptionalSelectorDescriptor("phi4", 15, 99, 104), 7),
+        )
+        patterns = tuple(
+            tuple(
+                int(
+                    bool(
+                        primitive_exit_mask(descriptor, prime)
+                        & (1 << kind_index)
+                    )
+                )
+                for prime in primes
+            )
+            for descriptor, kind_index in sources
+        )
+        self.assertEqual(
+            patterns,
+            (
+                (0, 0, 0, 0, 0, 1),
+                (0, 0, 0, 0, 1, 0),
+                (0, 0, 0, 1, 0, 0),
+                (0, 0, 1, 0, 0, 0),
+                (0, 1, 0, 0, 0, 0),
+            ),
+        )
+        signatures = tuple(
+            sum(
+                pattern[prime_index] << source_index
+                for source_index, pattern in enumerate(patterns)
+            )
+            for prime_index in range(len(primes))
+        )
+        self.assertEqual(signatures, (0, 16, 8, 4, 2, 1))
+
     def test_invalid_inputs(self) -> None:
         for call in (
             lambda: diversified_exceptional_selector(8),
