@@ -1,5 +1,19 @@
 # Research Status
 
+## M44 work snapshot
+
+- Date: 2026-07-29.
+- Branch: `research/20260729-m44-length-32-caps`.
+- Base: M43 squash merge
+  `ef0750dd74ccfdc60060e690225f8126292ea7f4`.
+- Active bounded question: on the complete \(m=32\) balanced-prime
+  population, test the repaired factorization-independent caps
+  \(m+113=145\) and \(\lceil60m/13\rceil=148\) separately, then determine
+  the exact adjacent threshold and either construct a complete separating
+  certificate or preserve the smallest collision.
+- Claim boundary: no inference to \(m>32\), an asymptotic cap law, promise
+  recognition, or general classical polynomial-time factoring is permitted.
+
 ## M43 outcome
 
 - Date: 2026-07-29.
