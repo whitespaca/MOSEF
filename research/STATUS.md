@@ -1,5 +1,102 @@
 # Research Status
 
+## M42 outcome
+
+- Date: 2026-07-29.
+- Branch: `research/20260729-m42-length-30-caps`.
+- Base: M41 squash merge
+  `6c8282847aa7667315833581586b5a056e479989`.
+- Start commit `2ac95f6db41cb22d2ff7297f94f9d34fcfa3727d` is pushed. Draft
+  PR #53 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/53`.
+- M42 proof, implementation, registered experiment, and bilingual-paper core
+  commit: `ad565cf3a0d78a3469920d6b958248008ead5181`.
+- The complete \(m=30\) balanced population has 927 primes and 429,201
+  unordered pairs. The inherited public caps both fail: cap 106 leaves one
+  14-prime bucket and 91 pairs, while cap 112 leaves one nine-prime bucket
+  and 36 pairs.
+- Raw selector inclusion confines every later collision to the cap-112
+  bucket. Exact transition profiles at caps 112 through 123 give collision
+  counts \(36,36,36,21,21,21,15,10,10,3,3,0\).
+- The sole cap-122 collision bucket is
+  \(\{28591,29209,29387\}\), while cap 123 is injective. Therefore
+  \(L_{30}^{\star}=123\).
+- The complete cap-123 normalization reduces 1,317,600 raw coordinates to
+  2,503 nonconstant distinct columns. Selecting 2,401 cap-122 representative
+  columns and appending the two unique new cofactor patterns
+  `phi4:123:59:87:cofactor` \(=(0,0,1)\) and
+  `phi4:79:123:54:cofactor` \(=(1,0,0)\) gives a 2,403-coordinate
+  certificate separating all 429,201 pairs.
+- The minimum incremental repair size is two: one binary coordinate cannot
+  separate three primes, and the displayed two coordinates assign distinct
+  repair signatures \(2,0,1\).
+- `THM-015` is `PROVED`: \(L=m+93\) is injective on every complete balanced
+  population for \(9\le m\le30\), and 93 is the smallest common integer
+  offset because cap 122 fails at length 30.
+- `BAR-036` is `PROVED`: the exact multiplicative coefficients through
+  length 30 are \(c>61/15\). The endpoint gives failed cap 122, while the
+  fixed witness \(49/12\) gives cap 123.
+- `REF-038` is `REFUTED`: neither inherited M41 formula survives the new
+  complete population. No recurrence or asymptotic rate is inferred.
+- ADR-046 combines two lossless public-cap raw profiles with a complete
+  nine-prime bucket transition and one independent full cap-123 normalized
+  profile.
+- EXP-0041 checked 112,980,906 raw-prefix local exits, 385,398 transition
+  local exits, 152,676,900 repair-profile local exits, 429,201 normalization
+  equivalences, 88,240 repair-coordinate cases, two minimum repair
+  coordinates, 2,403 construction coordinates, and 429,201 certificate
+  pairs.
+- Independent validation passed 16 Rust/C# command comparisons, four dense
+  vectors, 222,258 public-cap descriptor checks, 385,398 transition
+  local-exit checks, 88,240 repair-coordinate checks, and 429,201
+  construction-certificate pairs.
+- Registered schema SHA-256:
+  `cd6ca83c68b901a8b9f9572724e33e71d847d0399192691c1868ebdf7982ea9a`.
+  Registered EXP-0041 summary SHA-256:
+  `37e7339ee919f6497857ac20c45f37c34aa03a2aef6d80bf0779b95db50f2c0d`.
+- Final gates passed: foundation and bilingual publication checks
+  (175 claims and 40 experiment hashes), 227 Python tests in 170.66 seconds
+  with the cache provider disabled, compileall, Ruff, strict mypy over 26
+  source files, Rust formatting/Clippy and 36 tests, and a warning-free C#
+  Release build.
+- XeLaTeX produced final-warning-free 95-page English and 30-page Korean
+  PDFs. Rendered bilingual titles, the M42 result and evidence, complete
+  proof, reproduction, and claim-appendix pages had no clipping, overlap,
+  missing glyph, malformed mathematics, or unreadable text. Stable artifact
+  SHA-256 values are
+  `cd9942a2445e42de5ce467a495c592c928a2b766a7b2e1fdf83011c2eeec5cbe`
+  and
+  `78e73a301c63eb86a4e4184050799d8c34ac52abe510cffb64667bef74a19108`.
+- Both repaired formulas remain factorization independent and use
+  \(O(m^3\log m)\) compact work. Population enumeration, raw-prefix
+  comparison, normalization, and dense expansion are certificate operations.
+  The finite result does not establish a cap growth rate, behavior at
+  \(m>30\), promise recognition, or general factoring.
+- Next selected milestone: M43 separately tests additive cap 124 and
+  multiplicative cap 127 on the complete \(m=31\) population.
+
+### M42 Korean summary
+
+M42에서는 \(m=30\)의 완전 balanced prime 모집단 927개에 대해 기존
+공개 상한 \(m+76=106\)과 \(\lceil26m/7\rceil=112\)을 각각 전수
+검사했습니다. cap 106은 14개 소수의 91쌍, cap 112는 9개 소수의
+36쌍을 남기므로 두 공식 모두 실패합니다.
+
+cap 112 이후의 완전 transition은 충돌 pair 수를
+\(36,36,36,21,21,21,15,10,10,3,3,0\)으로 줄입니다. cap 122의
+마지막 충돌은 \(\{28591,29209,29387\}\)이고 cap 123은
+단사이므로 \(L_{30}^{\star}=123\)입니다. cap 122 대표 좌표
+2,401개에 서로 다른 unit pattern 두 개를 추가한 2,403-coordinate
+certificate가 429,201개 모든 쌍을 분리합니다. 세 소수는 한 bit로
+분리할 수 없으므로 새 좌표 두 개가 필요충분합니다.
+
+따라서 \(9\le m\le30\)의 최소 공통 additive offset은 93으로
+증가하고, 정확한 곱셈 경계는 \(c>61/15\)가 됩니다.
+\(49/12\)은 cap 123을 주는 고정 성공 witness입니다. 이는 유한하고
+인수분해 의존적인 balanced-semiprime 약속 정리이며, \(m>30\),
+asymptotic cap 성장률, 약속 인식, 일반 고전적 다항 시간 정수분해는
+여전히 증명되지 않았습니다.
+
 ## M41 outcome
 
 - Date: 2026-07-29.
