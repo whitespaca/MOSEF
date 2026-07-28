@@ -310,6 +310,53 @@ class DiversifiedCompactSignatureTests(unittest.TestCase):
             3,
         )
 
+    def test_m39_cap_72_fails_and_five_new_columns_repair(self) -> None:
+        additive = diversified_selector_profile(
+            27,
+            72,
+            compute_minimum_certificate=False,
+        )
+        primes = (9463, 9791, 10607, 10939, 11087, 11213)
+        self.assertEqual(additive.collision_buckets, (primes,))
+
+        sources = (
+            (ExceptionalSelectorDescriptor("phi4", 11, 15, 73), 2),
+            (ExceptionalSelectorDescriptor("phi4", 15, 87, 83), 7),
+            (ExceptionalSelectorDescriptor("phi4", 63, 75, 24), 7),
+            (ExceptionalSelectorDescriptor("phi6", 35, 75, 46), 7),
+            (ExceptionalSelectorDescriptor("phi6", 53, 81, 78), 7),
+        )
+        patterns = tuple(
+            tuple(
+                int(
+                    bool(
+                        primitive_exit_mask(descriptor, prime)
+                        & (1 << kind_index)
+                    )
+                )
+                for prime in primes
+            )
+            for descriptor, kind_index in sources
+        )
+        self.assertEqual(
+            patterns,
+            (
+                (0, 1, 0, 0, 0, 0),
+                (0, 0, 0, 1, 0, 0),
+                (1, 0, 0, 0, 0, 0),
+                (0, 0, 0, 0, 1, 0),
+                (0, 0, 0, 0, 0, 1),
+            ),
+        )
+        signatures = tuple(
+            sum(
+                pattern[prime_index] << source_index
+                for source_index, pattern in enumerate(patterns)
+            )
+            for prime_index in range(len(primes))
+        )
+        self.assertEqual(signatures, (4, 1, 0, 2, 8, 16))
+
     def test_invalid_inputs(self) -> None:
         for call in (
             lambda: diversified_exceptional_selector(8),

@@ -15,9 +15,9 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
-Nine Restricted Theorems and Twenty-Four Structural Barriers}
+Twelve Restricted Theorems and Twenty-Seven Structural Barriers}
 \author{MOSEF Research Program}
-\date{28 July 2026}
+\date{29 July 2026}
 
 \begin{document}
 \maketitle
@@ -194,6 +194,14 @@ finite envelopes become \(m+24\) and the strict condition \(c>2\).
 At \(m=24\), the repairs separate into caps 48 and 49, but both fail. Cap 50
 also fails, while cap 51 is injective on all 146 balanced primes. The finite
 envelopes become \(m+27\) and the strict condition \(c>25/12\).
+At \(m=25\), caps 52 and 53 fail and a collision persists through cap 64;
+cap 65 repairs the complete population, moving the finite envelopes to
+\(m+40\) and \(c>64/25\). At \(m=26\), caps 66 and 67 fail and the final
+triple persists through cap 70; two new cap-71 coordinates repair the range,
+giving \(m+45\) and \(c>35/13\). At \(m=27\), caps 72 and 73 fail and a
+pair persists through cap 86. Five explicit cap-87 coordinates repair all
+365 balanced primes, so the finite envelopes become \(m+60\) and
+\(c>86/27\). None of these finite thresholds is an asymptotic rate.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -332,7 +340,10 @@ algorithm. Its contributions are:
   construction \(m+40\) and strict coefficient boundary \(c>64/25\);
 \item separate audits of the distinct caps 66 and 67 at length 26 plus an
   incremental two-coordinate cap-71 repair, yielding the finite construction
-  \(m+45\) and strict coefficient boundary \(c>35/13\); and
+  \(m+45\) and strict coefficient boundary \(c>35/13\);
+\item separate audits of the distinct caps 72 and 73 at length 27 plus the
+  exact cap-72-bucket transition through cap 87, yielding the finite
+  construction \(m+60\) and strict coefficient boundary \(c>86/27\); and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
@@ -2631,6 +2642,70 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:THM-011-BAR-032} gives the complete finite proof.
 
+\section{The length-27 finite envelope}
+
+\claimstatus{BAR-033}{PROVED}. At \(m=27\), the repaired M38 schedules give
+distinct caps:
+\[
+m+45=72,\qquad
+\left\lceil\frac{27m}{10}\right\rceil=73.
+\]
+At cap 72, the six primes
+\(\{9463,9791,10607,10939,11087,11213\}\) share one signature, so 15
+pair products fail all 31,950 descriptors. Cap 73 separates \(9791\), but
+the remaining five-prime bucket produces ten failed pairs across all 32,400
+descriptors.
+
+Raw selector inclusion confines all later collisions to the first bucket.
+The exact cap-72 through cap-87 transition has collision-pair counts
+\[
+15,10,10,3,3,3,3,3,3,1,1,1,1,1,1,0.
+\]
+The pair \(\{10607,10939\}\) still collides across all 52,360 cap-86
+descriptors. The descriptors added through cap 87 induce exactly five
+distinct nonconstant patterns on the original bucket. Representatives are
+\[
+\begin{array}{c|cccccc}
+\text{source}&9463&9791&10607&10939&11087&11213\\
+\hline
+\texttt{phi4:11:15:73:second\_stage}&0&1&0&0&0&0\\
+\texttt{phi4:15:87:83:cofactor}&0&0&0&1&0&0\\
+\texttt{phi4:63:75:24:cofactor}&1&0&0&0&0&0\\
+\texttt{phi6:35:75:46:cofactor}&0&0&0&0&1&0\\
+\texttt{phi6:53:81:78:cofactor}&0&0&0&0&0&1
+\end{array}
+\]
+Appending them to the 625 cap-72 normalized columns gives a 630-coordinate
+certificate separating all 66,430 population pairs. Each new pattern is
+necessary for this incremental repair. Thus \(L_{27}^\star=87\).
+
+\claimstatus{THM-012}{PROVED}. The public cap \(L=m+60\) is injective on
+every complete balanced population for \(9\le m\le27\), and offset 60 is
+minimal on this range. The exact multiplicative coefficients covering the
+finite thresholds through length 27 are \(c>86/27\): the endpoint gives
+failed cap 86, while \(16/5\) is one fixed succeeding witness.
+
+\claimstatus{REF-035}{REFUTED}. Neither M38 repaired schedule remains
+injective at the next length.
+
+\claimstatus{EMP-038}{EMPIRICAL}. EXP-0038 checked 11,661,750 full-profile
+local exits, 255,600 raw and 625 normalized coordinates, 66,430
+normalization equivalences, 25,842 new transition descriptors, 155,052
+tracked transition exits, 206,736 raw pattern checks, 235 nonconstant raw
+coordinates, five distinct repair patterns, five new repair coordinates,
+and 66,430 construction pairs. Independent validation added 16 Rust/C\#
+command comparisons, 66,430 dense construction pairs, 31,950 dense
+additive-cap checks, 32,400 dense multiplicative-cap checks, and 52,360
+dense predecessor checks. The summary SHA-256 is
+\[
+\texttt{\seqsplit{4de3a4d7f8474e91ee2e488807149b73e67c1a541018434383db8ede79ce0208}},
+\]
+and the schema SHA-256 is
+\[
+\texttt{\seqsplit{252126eeb4de40e6c8940d23516419e8f6f4b11dbebe8a84bd8d2cdcf59757cd}}.
+\]
+Appendix \ref{proof:THM-012-BAR-033} gives the complete finite proof.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -2670,7 +2745,7 @@ DEF-032 replaces \(m\) in the descriptor bound by a public cap \(L(m)\):
 there are at most \(2(L(m)-1)^3\) descriptors and
 \(O(L(m)^3\log L(m))\) compact modular steps. Every polynomially bounded,
 polynomial-time computable cap therefore preserves polynomial total bit
-complexity. In particular, all fourteen M32--M38 linear formulas use
+complexity. In particular, all sixteen M32--M39 linear formulas use
 \(O(m^3\log m)\) compact steps. This cost statement does not imply
 injectivity outside the certified finite range.
 
@@ -3291,7 +3366,10 @@ and preserves a collision through cap 64, while THM-010 repairs the finite
 range with \(m+40\) and moves the strict endpoint to \(64/25\). BAR-032
 refutes both distinct M37 caps at \(m=26\) and preserves a collision through
 cap 70, while THM-011 repairs the finite range with \(m+45\) and moves the
-strict endpoint to \(35/13\). These results do not decide \(m>26\), an
+strict endpoint to \(35/13\). BAR-033 refutes both distinct M38 caps at
+\(m=27\) and preserves a collision through cap 86, while THM-012 repairs the
+finite range with \(m+60\) and moves the strict endpoint to \(86/27\).
+These results do not decide \(m>27\), an
 asymptotic linear cap, an \(N\)-dependent or adaptive schedule, coverage on
 another explicit promise, asymptotic density, or probability. Longer
 chains, adaptive coefficients, several interacting rational values,
@@ -3311,8 +3389,8 @@ outside BAR-008's explicit-list model has a proved factor-scale
 arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
 evaluate a sufficiently rich formal batch at polynomial total construction,
 evaluation, and extraction cost. The next bounded case is to test the repaired
-public formulas \(m+45\) and \(\lceil27m/10\rceil\) on the complete
-\(m=27\) balanced population, where they give distinct caps 72 and 73,
+public formulas \(m+60\) and \(\lceil16m/5\rceil\) on the complete
+\(m=28\) balanced population, where they give distinct caps 88 and 90,
 without extrapolating a rate.
 
 \section{Conclusion}
@@ -3447,7 +3525,9 @@ THM-009 repairs the finite range with \(m+27\) and \(c>25/12\). BAR-031
 records the length-25 collision ladder through cap 64, and THM-010 repairs
 the finite range with \(m+40\) and \(c>64/25\). BAR-032 records the
 length-26 collision ladder through cap 70, and THM-011 repairs the finite
-range with \(m+45\) and \(c>35/13\). Lengths above 26, \(N\)-dependent and
+range with \(m+45\) and \(c>35/13\). BAR-033 records the length-27
+collision ladder through cap 86, and THM-012 repairs the finite range with
+\(m+60\) and \(c>86/27\). Lengths above 27, \(N\)-dependent and
 adaptive questions, success density, general
 rational/compositional circuits, and other models remain research targets,
 not claimed factoring breakthroughs.
@@ -5572,6 +5652,49 @@ multiplicative threshold is
 The endpoint gives failed cap 70, while \(27/10\) gives cap 71. No later
 length or asymptotic rate follows. \(\square\)
 
+\subsection{Proof of THM-012 and BAR-033}
+\label{proof:THM-012-BAR-033}
+
+At \(m=27\), the fixed M38 formulas give distinct caps 72 and 73.
+Independent dense evaluation of all 31,950 cap-72 descriptors confirms equal
+branch-total masks on the six-prime set
+\[
+\{9463,9791,10607,10939,11087,11213\}.
+\]
+This proves all 15 failures. Independent evaluation of all 32,400 cap-73
+descriptors confirms the remaining five-prime bucket and its ten failures,
+refuting REF-035.
+
+The cap-72 complete profile has no other collision. Raw selector inclusion
+therefore confines every later collision to that bucket. Evaluating every
+new descriptor exactly once gives the cap-72 through cap-87 collision-pair
+counts
+\[
+15,10,10,3,3,3,3,3,3,1,1,1,1,1,1,0.
+\]
+At cap 86, independent dense evaluation of all 52,360 descriptors preserves
+\(\{10607,10939\}\). The complete cap-72 normalized signature already
+separates every other pair.
+
+The 25,842 descriptors added through cap 87 contribute 206,736 primitive
+raw coordinates. Exactly 235 are nonconstant on the original bucket, and
+they induce only the five unit patterns displayed in the main text. The five
+registered representatives assign signatures \(4,1,0,2,8,16\). Appending
+them to the 625 cap-72 columns therefore gives pairwise distinct packed
+signatures on all 365 primes, and the dense verifier checks all 66,430
+pairs. Omitting any one of the five unit patterns makes its isolated prime
+share the all-zero new signature of \(10607\), proving minimum incremental
+repair size five. Thus \(L_{27}^\star=87\) exactly.
+
+M38 gives \(t_{26}^\star=45\), so the new offset 60 gives
+\(t_{27}^\star=60\), proving THM-012 by raw monotonicity. The new strict
+multiplicative threshold is
+\[
+\frac{L_{27}^\star-1}{27}=\frac{86}{27}.
+\]
+The endpoint gives failed cap 86, while \(16/5\) gives cap 87. No later
+length or asymptotic rate follows. \(\square\)
+
 \clearpage
 \section{Reproduction appendix}
 
@@ -5720,6 +5843,11 @@ The registered experiment cores and canonical summary hashes are:
   \texttt{\seqsplit{c3b758e046f9e6ae722352bd54be62521a32608c43a4fc95237f2e89229a094c}},
   certificate-vector hash
   \texttt{\seqsplit{68f7e9b710be7960b78c11e4bef06119f00d75a6df2074ed8976f211e6b32a97}}.
+\item EXP-0038, M39 milestone commit recorded in \path{research/STATUS.md},
+  summary hash
+  \texttt{\seqsplit{4de3a4d7f8474e91ee2e488807149b73e67c1a541018434383db8ede79ce0208}},
+  certificate-vector hash
+  \texttt{\seqsplit{252126eeb4de40e6c8940d23516419e8f6f4b11dbebe8a84bd8d2cdcf59757cd}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -5865,6 +5993,9 @@ python scripts/check_m37_length_25_cap_differential.py
 python scripts/run_m38_length_26_cap_audit.py
 python scripts/generate_m38_length_26_cap_schema.py
 python scripts/check_m38_length_26_cap_differential.py
+python scripts/run_m39_length_27_cap_audit.py
+python scripts/generate_m39_length_27_cap_schema.py
+python scripts/check_m39_length_27_cap_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -5876,7 +6007,7 @@ through EXP-0019 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. EXP-0020
-through EXP-0037 use the same deterministic finite-enumeration policy. The
+through EXP-0038 use the same deterministic finite-enumeration policy. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.
 
 \bibliographystyle{plain}

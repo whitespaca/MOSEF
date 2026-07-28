@@ -854,3 +854,21 @@
   envelopes through length 26 become \(m+45\) and \(c>35/13\); no
   asymptotic rate is inferred. M39 must test the repaired caps 72 and 73 at
   \(m=27\).
+
+## ADR-043 - Use one complete profile and an incremental raw transition
+
+- Date: 2026-07-29.
+- Decision: for M39, materialize the complete cap-72 population profile
+  once, then evaluate each descriptor added through cap 87 exactly once on
+  the sole six-prime collision bucket.
+- Rationale: raw selector inclusion guarantees that cap widening cannot
+  merge a pair already separated at cap 72. The incremental transition is
+  therefore complete for every later collision while avoiding redundant
+  full-profile normalization at fifteen larger caps.
+- Consequence: 235 nonconstant new raw coordinates collapse to five unit
+  patterns on the bucket. Appending one representative of each pattern to
+  the 625 cap-72 normalized columns gives a 630-coordinate construction
+  certificate. All five new coordinates are minimum for this incremental
+  repair, although the full certificate is not claimed minimum. The finite
+  envelopes through length 27 become \(m+60\) and \(c>86/27\); no
+  asymptotic rate is inferred. M40 must test caps 88 and 90 at \(m=28\).
