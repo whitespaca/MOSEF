@@ -1,0 +1,95 @@
+{
+  "schema_version": "1.0.0",
+  "primitive_exit_bit_order": [
+    "base",
+    "first_stage",
+    "second_stage",
+    "first_public_bound",
+    "second_public_bound",
+    "cyclotomic",
+    "overlap_resultant",
+    "cofactor"
+  ],
+  "primitive_exit_vectors": [
+    {"family": "phi4", "first_factor": 3, "second_factor": 7, "base": 7, "prime": 19, "expected_mask": 2},
+    {"family": "phi4", "first_factor": 7, "second_factor": 3, "base": 7, "prime": 19, "expected_mask": 4},
+    {"family": "phi4", "first_factor": 3, "second_factor": 7, "base": 4, "prime": 17, "expected_mask": 32},
+    {"family": "phi4", "first_factor": 7, "second_factor": 3, "base": 2, "prime": 17, "expected_mask": 64},
+    {"family": "phi4", "first_factor": 7, "second_factor": 3, "base": 9, "prime": 19, "expected_mask": 128},
+    {"family": "phi4", "first_factor": 11, "second_factor": 3, "base": 2, "prime": 41, "expected_mask": 192},
+    {"family": "phi4", "first_factor": 7, "second_factor": 3, "base": 4, "prime": 17, "expected_mask": 224},
+    {"family": "phi4", "first_factor": 3, "second_factor": 7, "base": 2, "prime": 7, "expected_mask": 158},
+    {"family": "phi6", "first_factor": 5, "second_factor": 3, "base": 2, "prime": 31, "expected_mask": 2},
+    {"family": "phi6", "first_factor": 5, "second_factor": 9, "base": 4, "prime": 19, "expected_mask": 4},
+    {"family": "phi6", "first_factor": 5, "second_factor": 9, "base": 8, "prime": 19, "expected_mask": 32},
+    {"family": "phi6", "first_factor": 5, "second_factor": 3, "base": 2, "prime": 19, "expected_mask": 64},
+    {"family": "phi6", "first_factor": 5, "second_factor": 3, "base": 7, "prime": 19, "expected_mask": 68},
+    {"family": "phi6", "first_factor": 5, "second_factor": 3, "base": 8, "prime": 19, "expected_mask": 96},
+    {"family": "phi6", "first_factor": 5, "second_factor": 3, "base": 9, "prime": 23, "expected_mask": 128},
+    {"family": "phi6", "first_factor": 5, "second_factor": 3, "base": 5, "prime": 19, "expected_mask": 192},
+    {"family": "phi6", "first_factor": 5, "second_factor": 3, "base": 2, "prime": 3, "expected_mask": 56},
+    {"family": "phi6", "first_factor": 5, "second_factor": 3, "base": 3, "prime": 2, "expected_mask": 16}
+  ],
+  "selector_profiles": [
+    {"input_length": 9, "population_size": 2, "descriptor_count": 32, "normalized_coordinate_count": 2, "distinct_signature_count": 2, "collision_pair_count": 0, "minimum_certificate_size": 1},
+    {"input_length": 10, "population_size": 3, "descriptor_count": 36, "normalized_coordinate_count": 3, "distinct_signature_count": 3, "collision_pair_count": 0, "minimum_certificate_size": 2},
+    {"input_length": 11, "population_size": 3, "descriptor_count": 100, "normalized_coordinate_count": 4, "distinct_signature_count": 3, "collision_pair_count": 0, "minimum_certificate_size": 2},
+    {"input_length": 12, "population_size": 4, "descriptor_count": 110, "normalized_coordinate_count": 4, "distinct_signature_count": 4, "collision_pair_count": 0, "minimum_certificate_size": 3},
+    {"input_length": 13, "population_size": 6, "descriptor_count": 120, "normalized_coordinate_count": 9, "distinct_signature_count": 6, "collision_pair_count": 0, "minimum_certificate_size": 4},
+    {"input_length": 14, "population_size": 7, "descriptor_count": 130, "normalized_coordinate_count": 7, "distinct_signature_count": 7, "collision_pair_count": 0, "minimum_certificate_size": 6},
+    {"input_length": 15, "population_size": 11, "descriptor_count": 252, "normalized_coordinate_count": 12, "distinct_signature_count": 11, "collision_pair_count": 0, "minimum_certificate_size": 10},
+    {"input_length": 16, "population_size": 12, "descriptor_count": 270, "normalized_coordinate_count": 10, "distinct_signature_count": 10, "collision_pair_count": 3, "minimum_certificate_size": 0},
+    {"input_length": 17, "population_size": 18, "descriptor_count": 336, "normalized_coordinate_count": 21, "distinct_signature_count": 16, "collision_pair_count": 2, "minimum_certificate_size": 0},
+    {"input_length": 18, "population_size": 25, "descriptor_count": 357, "normalized_coordinate_count": 22, "distinct_signature_count": 21, "collision_pair_count": 10, "minimum_certificate_size": 0},
+    {"input_length": 19, "population_size": 31, "descriptor_count": 522, "normalized_coordinate_count": 25, "distinct_signature_count": 21, "collision_pair_count": 55, "minimum_certificate_size": 0},
+    {"input_length": 20, "population_size": 44, "descriptor_count": 551, "normalized_coordinate_count": 33, "distinct_signature_count": 30, "collision_pair_count": 105, "minimum_certificate_size": 0}
+  ],
+  "construction_certificates": [
+    {
+      "input_length": 9,
+      "primes": [17, 19],
+      "column_sources": ["phi4:3:7:7:first_stage"],
+      "restricted_signatures": [0, 1]
+    },
+    {
+      "input_length": 10,
+      "primes": [23, 29, 31],
+      "column_sources": ["phi4:3:7:5:first_stage", "phi4:7:3:7:first_stage"],
+      "restricted_signatures": [0, 2, 1]
+    },
+    {
+      "input_length": 11,
+      "primes": [37, 41, 43],
+      "column_sources": ["phi4:3:7:6:first_stage", "phi4:3:7:10:first_stage"],
+      "restricted_signatures": [2, 0, 1]
+    },
+    {
+      "input_length": 12,
+      "primes": [47, 53, 59, 61],
+      "column_sources": ["phi6:5:3:9:first_stage", "phi4:3:11:11:cofactor", "phi4:11:3:3:cofactor"],
+      "restricted_signatures": [0, 2, 4, 1]
+    },
+    {
+      "input_length": 13,
+      "primes": [67, 71, 73, 79, 83, 89],
+      "column_sources": ["phi4:3:7:8:first_stage", "phi6:5:3:5:first_stage", "phi4:3:11:4:second_stage", "phi4:3:7:8:cofactor"],
+      "restricted_signatures": [4, 2, 1, 8, 0, 12]
+    },
+    {
+      "input_length": 14,
+      "primes": [97, 101, 103, 107, 109, 113, 127],
+      "column_sources": ["phi4:7:3:2:first_stage", "phi4:3:7:10:cyclotomic", "phi4:3:7:2:cofactor", "phi4:7:3:11:cofactor", "phi4:11:7:2:cofactor", "phi6:5:3:7:cofactor"],
+      "restricted_signatures": [32, 2, 16, 4, 0, 8, 1]
+    },
+    {
+      "input_length": 15,
+      "primes": [131, 137, 139, 149, 151, 157, 163, 167, 173, 179, 181],
+      "column_sources": ["phi4:3:7:12:first_stage", "phi4:15:3:2:first_stage", "phi4:15:3:5:first_stage", "phi4:3:11:2:overlap_resultant", "phi4:3:11:10:cofactor", "phi4:11:3:9:cofactor", "phi4:11:7:13:cofactor", "phi4:11:15:3:cofactor", "phi4:15:11:15:cofactor", "phi6:5:3:4:cofactor"],
+      "restricted_signatures": [64, 256, 128, 8, 2, 1, 0, 32, 512, 16, 4]
+    }
+  ],
+  "collision_certificate": {
+    "input_length": 16,
+    "primes": [191, 227, 233]
+  }
+}

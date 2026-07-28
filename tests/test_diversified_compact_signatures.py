@@ -1,0 +1,109 @@
+"""Exact tests for the M31 diversified exceptional selector."""
+
+from __future__ import annotations
+
+import unittest
+
+from python.mosef_reference.diversified_compact_signatures import (
+    ExceptionalSelectorDescriptor,
+    diversified_exceptional_selector,
+    diversified_selector_profile,
+    primitive_exit_mask,
+)
+
+
+class DiversifiedCompactSignatureTests(unittest.TestCase):
+    def test_public_selector_is_deterministic_and_valid(self) -> None:
+        descriptors = diversified_exceptional_selector(12)
+        self.assertEqual(len(descriptors), 110)
+        self.assertEqual(descriptors, diversified_exceptional_selector(12))
+        self.assertEqual(
+            descriptors[0],
+            ExceptionalSelectorDescriptor("phi4", 3, 7, 2),
+        )
+        self.assertTrue(
+            all(
+                2 <= descriptor.first_factor <= 12
+                and 2 <= descriptor.second_factor <= 12
+                and 2 <= descriptor.base <= 12
+                for descriptor in descriptors
+            )
+        )
+
+    def test_primitive_exit_mask_has_stable_bit_order(self) -> None:
+        descriptor = ExceptionalSelectorDescriptor("phi4", 3, 7, 2)
+        self.assertEqual(primitive_exit_mask(descriptor, 107), 1 << 7)
+        self.assertEqual(primitive_exit_mask(descriptor, 109), 0)
+        self.assertEqual(
+            primitive_exit_mask(
+                ExceptionalSelectorDescriptor("phi4", 3, 7, 7),
+                19,
+            ),
+            1 << 1,
+        )
+
+    def test_registered_finite_construction_boundary(self) -> None:
+        level_nine = diversified_selector_profile(9)
+        self.assertTrue(level_nine.injective)
+        self.assertEqual(level_nine.collision_pair_count, 0)
+        self.assertEqual(level_nine.minimum_separating_column_indices, (0,))
+
+        level_fifteen = diversified_selector_profile(15)
+        self.assertTrue(level_fifteen.injective)
+        self.assertEqual(level_fifteen.population_primes[-1], 181)
+        self.assertEqual(len(level_fifteen.normalized_columns), 12)
+        self.assertEqual(
+            len(level_fifteen.minimum_separating_column_indices or ()),
+            10,
+        )
+
+        level_sixteen = diversified_selector_profile(16)
+        self.assertFalse(level_sixteen.injective)
+        self.assertEqual(level_sixteen.collision_pair_count, 3)
+        self.assertEqual(level_sixteen.collision_buckets, ((191, 227, 233),))
+
+    def test_normalization_removes_constants_and_duplicates(self) -> None:
+        profile = diversified_selector_profile(14)
+        self.assertEqual(profile.raw_coordinate_count, 1040)
+        self.assertEqual(profile.constant_coordinate_count, 1014)
+        self.assertEqual(profile.duplicate_coordinate_count, 19)
+        self.assertEqual(len(profile.normalized_columns), 7)
+        self.assertEqual(
+            profile.constant_coordinate_count
+            + profile.duplicate_coordinate_count
+            + len(profile.normalized_columns),
+            profile.raw_coordinate_count,
+        )
+        self.assertEqual(
+            profile.separated_pair_count + profile.collision_pair_count,
+            profile.pair_count,
+        )
+
+    def test_cofactor_novelty_is_pair_marginal_not_raw_hit_count(self) -> None:
+        profile = diversified_selector_profile(16)
+        self.assertEqual(profile.cofactor_novel_column_count, 3)
+        self.assertEqual(profile.cofactor_novel_pair_count, 12)
+        self.assertLessEqual(
+            profile.cofactor_novel_pair_count,
+            profile.separated_pair_count,
+        )
+
+    def test_invalid_inputs(self) -> None:
+        for call in (
+            lambda: diversified_exceptional_selector(8),
+            lambda: diversified_selector_profile(True),
+            lambda: primitive_exit_mask(
+                ExceptionalSelectorDescriptor("phi4", 3, 7, 2),
+                9,
+            ),
+            lambda: primitive_exit_mask(  # type: ignore[arg-type]
+                ("phi4", 3, 7, 2),
+                107,
+            ),
+        ):
+            with self.subTest(call=call), self.assertRaises(ValueError):
+                call()
+
+
+if __name__ == "__main__":
+    unittest.main()

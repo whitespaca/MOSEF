@@ -1,42 +1,83 @@
 # Research Status
 
-## M31 execution snapshot
+## M31 outcome
 
 - Date: 2026-07-28.
 - Branch: `research/20260728-m31-diversified-compact-signatures`.
-- Active question: can a polynomial public selector over the \(\Phi_4\) and
-  \(\Phi_6\) exceptional families, several bases, and several parameter pairs
-  assign injective signatures to every balanced-prime population, or does a
-  rigorously scoped collision remain?
-- Dependency: M30 is complete on
-  `research/20260728-m30-compact-support-signatures`; proof/implementation
-  commit `9b9b87092d8ba919fc539a43aeddb18d8269f45f` and status checkpoint
-  `fa8e5dd` are pushed. Completion Draft PR #40 targets `main`:
-  `https://github.com/whitespaca/MOSEF/pull/40`.
-- Base checkpoint: M31 starts from the M30 completion-PR status commit
-  `fa8e5dd`.
-- Start commit `e6e3bf0edfeefc6f65fdab35152101771c0c2670` is pushed. Draft
-  PR #41 stacks M31 on the M30 completion branch:
-  `https://github.com/whitespaca/MOSEF/pull/41`.
-- First bounded task: define a factorization-independent selector grammar for
-  descriptors
-  \((\text{family},A,B,g)\), with every list fixed from the input length
-  before \(N\), and charge candidate count, integer encodings, compact
-  evaluation, all public prechecks, GCDs, outputs, and extraction.
-- Normalization priority: use BAR-020 and BAR-021 to separate direct stage,
-  removed cyclotomic, compact cofactor, aggregate, and public resultant exits.
-  A cofactor-support coordinate must not count success already exposed by a
-  charged direct or overlap precheck.
-- Falsification priority: search for duplicate all-unit and nonzero
-  signatures, denominator-prime exceptions, repeated or redundant
-  coordinates, selectors that depend on hidden factors, and schedules whose
-  descriptor or total evaluation cost is superpolynomial. Finite injectivity
-  is not an asymptotic construction.
-- Acceptance target: either a factorization-independent restricted
-  construction with complete compact cost and recognition accounting, or a
-  scoped collision/barrier with deterministic bounded audit, independent
-  implementation, synchronized English/Korean paper sections, and no general
-  factoring claim.
+- M30 completion PR #40 merged into `main` as
+  `869a150675dc02b21c3ff12350031c27b51c6ff7`. The earlier stacked M31 start
+  PR #41 was merged only into the M30 research branch, so this completion
+  branch merged current `origin/main` at `70a8832` before final validation.
+- `DEF-031` fixes a factorization-independent selector containing every valid
+  exceptional descriptor \((\text{family},A,B,g)\) with
+  \(2\le A,B,g\le m\), chosen before \(N\). It charges the base, both stages,
+  both public bounds, direct cyclotomic exit, public overlap resultant,
+  independent cofactor exit, all GCDs, outputs, and extraction.
+- Analytical normalization deletes constant primitive support columns and
+  merges duplicates. Aggregate and overlap exits remain charged but are
+  Boolean functions of primitive columns, so this normalization preserves
+  every pair outcome and does not remove work from the public algorithm.
+- `THM-004` is `PROVED`: for every \(9\le m\le15\), the normalized selector
+  signature is injective on the complete balanced population
+  \(\mathcal P_m\). Complete separating certificates use respectively
+  \(1,2,2,3,4,6,10\) coordinates and the independent dense verifier checked
+  all 104 promised prime pairs. This is a finite factor-dependent promise
+  theorem, not an asymptotic constructor or promise recognizer.
+- `BAR-025` is `PROVED`: at \(m=16\), 270 descriptors yield 2,160 raw
+  primitive columns. Removing 2,054 constants and merging 96 duplicates
+  leaves ten normalized columns, but \(191,227,233\) have identical
+  signatures. All three pair products therefore fail every charged exit.
+  This is an exact obstruction for the DEF-031 box, not for all polynomial
+  selectors.
+- `REF-027` is `REFUTED` and NR-028 preserves the boundary: taking both
+  exceptional families and every parameter and base through \(m\) is not
+  injective at every input length. Wider public ranges, different formulas,
+  adaptive schedules, density, recognition, and general factoring remain
+  open.
+- EXP-0030 exhaustively checked 12 input lengths, 166 balanced primes, 2,816
+  descriptors, 63,953 local profiles, 22,528 raw and 152 normalized
+  coordinates, 2,034 normalization pair equivalences, 705 marginal cofactor
+  separations, and 175 finite collision pairs. The selector was injective for
+  \(9\le m\le15\) and noninjective for \(16\le m\le20\).
+- Registered schema SHA-256:
+  `f27e1681525d9c71f488c07457ed998cd43a8ea85ccac5b6e8e1b1e7227e93d0`.
+  Registered EXP-0030 summary SHA-256:
+  `423a86409f38a4be1382e611ca94d3e2b08abfe7c1923133ab195db9c3716ae8`.
+- Final gates passed: foundation and bilingual publication checks
+  (129 claims and 29 experiment hashes), 214 Python tests, compileall, Ruff,
+  mypy, Rust formatting/Clippy and 36 tests, warning-free C# Release build,
+  58 baseline comparisons, 34 M29 regression comparisons, the registered M30
+  audit and 34 M30 comparisons, the registered M31 audit, 72 M31
+  cross-language command checks, 12 profile checks, and 104 independent dense
+  certificate pair checks.
+- XeLaTeX produced a warning-free 78-page English PDF and 15-page Korean PDF.
+  Visual QA of the title, M31 theorem and scoped collision, full proofs,
+  limitation/next-work sections, reproduction commands, hashes, and Korean
+  claim table found no clipping, overlap, missing glyph, or unreadable text.
+  Stable artifacts are `output/pdf/mosef-paper.pdf` and
+  `output/pdf/mosef-paper-ko.pdf`.
+- Next selected milestone: M32 will parameterize a wider public cap \(L(m)\),
+  charge its polynomial degree, and audit the smallest additive and
+  multiplicative ranges that repair or preserve the M31 collisions on
+  \(16\le m\le20\) without factor-dependent support recognition.
+
+### M31 Korean summary
+
+M31에서는 입력 \(N\)을 받기 전에 두 exceptional family와
+\(2\le A,B,g\le m\)의 모든 유효 descriptor를 선택하는 공개 다항
+selector를 정의했습니다. 모든 primitive exit를 비용에 포함하고,
+상수 support column 제거와 중복 column 병합이 모든 pair outcome을
+보존함을 증명했습니다.
+
+\(9\le m\le15\)의 완전한 balanced population에서는 정규화 signature가
+단사이며, 104개 소수쌍을 independent dense evaluator로 다시
+검사했습니다. 반면 \(m=16\)에서는 \(191,227,233\)이 270개
+descriptor의 모든 charged exit에서 같은 signature를 가져 세
+semiprime 쌍이 모두 실패합니다. 양성 결과는 인수분해에 의존하는
+유한 약속 정리이고, 음성 결과는 정확히 \(2\le A,B,g\le m\)인
+selector에만 적용됩니다. 일반 고전적 다항 시간 정수분해 알고리즘,
+모든 다항 selector의 하한, asymptotic density 또는 공개 promise
+recognizer는 주장하지 않습니다.
 
 ## M30 outcome
 

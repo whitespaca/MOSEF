@@ -15,7 +15,7 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
-Three Restricted Theorems and Eighteen Structural Barriers}
+Four Restricted Theorems and Nineteen Structural Barriers}
 \author{MOSEF Research Program}
 \date{28 July 2026}
 
@@ -166,6 +166,13 @@ pairs give a proper GCD, while same-side pairs are unit or full-collision
 failures. Thus one candidate cannot cover every pair when \(s\ge3\), no
 matter how long its exact lift is. This is not a multi-candidate or adaptive
 schedule lower bound.
+We finally give an explicit diversified polynomial selector containing both
+exceptional families and every valid \(2\le A,B,g\le m\). Exact support-column
+normalization preserves every charged pair outcome. Complete finite
+certificates prove injectivity on the balanced populations for
+\(9\le m\le15\), while \(191,227,233\) collide across all 270 descriptors at
+\(m=16\). The positive result is a bounded factor-dependent promise theorem,
+and the collision refutes only this selector, not all polynomial selectors.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -276,7 +283,14 @@ algorithm. Its contributions are:
 \item an exact prime-divisibility criterion for that compact family,
   including its quotient exceptions and consecutive-support GCD, together
   with a one-signature-cut barrier that counts every proper, unit, and full
-  pair outcome; and
+  pair outcome;
+\item an exact multi-candidate criterion equating universal square-free pair
+  separation with injective prime signatures, including sharp information
+  and collision-count lower bounds;
+\item a factorization-independent diversified selector with complete finite
+  construction certificates for input lengths 9 through 15, exact
+  support-column normalization, and a complete length-16 collision
+  certificate for the same selector; and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
@@ -2158,14 +2172,79 @@ compact schedule: it uses \(m-1\) candidates and
 \(O(m^2)\) total descriptor bits and modular composition steps, followed by
 \(m-1\) GCDs.
 
-\claimstatus{EMP-029}{EMPIRICAL}. EXP-0029 checked 38,860 complete signature
-assignments, 366,284 direct pairs, 12 tight collision minima, 82,019 balanced
+\claimstatus{EMP-029}{EMPIRICAL}. The deterministic EXP-0029 audit checked
+38,860 complete signature assignments, 366,284 direct pairs, 12 tight
+collision minima, 82,019 balanced
 primes, 2,978,644 canonical-prefix coordinates, 2,034 explicit balanced
 pairs, and 34 selected Python/Rust/C\# comparisons, with zero failures. The
 prefix was noninjective at every registered length \(9\le m\le40\). At
 \(m=40\), all 22,394 primes had zero signature and all 250,734,421 pairs
 collided. These are finite results for one prefix, not an asymptotic theorem
 about that prefix or an obstruction to all polynomial compact schedules.
+
+\section{A diversified finite construction and scoped collision}
+
+\claimstatus{DEF-031}{DEFINITION}. For \(m\ge9\), before receiving \(N\),
+let \(\mathcal T_m\) contain every valid exceptional descriptor
+\((i,A,B,g)\) with \(2\le A,B,g\le m\). For each descriptor retain the base,
+both quotient stages, both public stage-overlap bounds, direct cyclotomic,
+public cyclotomic/cofactor resultant, and independently evaluated cofactor as
+primitive support coordinates. Aggregate support is cyclotomic OR cofactor
+support, and the remaining overlap exits are Boolean functions of these
+primitive coordinates.
+
+On the balanced population
+\[
+\mathcal P_m=\{p\text{ prime}:2^{m-1}\le p^2<2^m\},
+\]
+normalize by deleting constant support columns and merging duplicate columns.
+This does not delete any public GCD: it only replaces the analytical signature
+by an equivalent basis. Two primes have equal normalized signatures exactly
+when every charged primitive and derived exit treats them equally.
+
+\claimstatus{THM-004}{PROVED}. For each \(9\le m\le15\), the normalized
+signature of \(\mathcal T_m\) is injective on \(\mathcal P_m\). Therefore the
+public selector exposes a proper factor of every square-free
+\(N=pq\) with distinct \(p,q\in\mathcal P_m\). Complete separating
+certificates use respectively
+\[
+1,2,2,3,4,6,10
+\]
+normalized coordinates. These are exhaustive finite certificates for a
+factor-dependent balanced promise, not an asymptotic construction or promise
+recognizer. Appendix \ref{proof:THM-004-BAR-025} gives the proof and
+certificate boundary.
+
+\claimstatus{BAR-025}{PROVED}. At \(m=16\), the 270 descriptors produce
+2,160 raw primitive columns. Removing 2,054 constants and merging 96
+duplicates leaves ten normalized columns, but
+\[
+\nu_{16}(191)=\nu_{16}(227)=\nu_{16}(233).
+\]
+Consequently the three pair products receive only unit or full-collision
+GCDs from every charged exit. An independent dense evaluator checked every
+descriptor and all eight primitive exit types. This refutes only the exact
+box \(2\le A,B,g\le m\).
+
+\claimstatus{REF-027}{REFUTED}. Diversifying both exceptional families and
+every parameter and base through \(m\) is not sufficient for injectivity at
+all lengths. The length-16 collision is exact; larger polynomial ranges and
+different selector formulas remain open.
+
+\claimstatus{EMP-030}{EMPIRICAL}. EXP-0030 checked 12 input lengths, 166
+balanced primes, 2,816 descriptors, 63,953 local exit profiles, 22,528 raw
+and 152 normalized columns, 2,034 normalization equivalences, 705 marginal
+cofactor separations, 72 Rust/C\# command comparisons, 12 profile checks, and
+104 dense certificate pair checks. The selector was injective for
+\(9\le m\le15\) and noninjective for \(16\le m\le20\). The canonical summary
+SHA-256 is
+\[
+\texttt{\seqsplit{423a86409f38a4be1382e611ca94d3e2b08abfe7c1923133ab195db9c3716ae8}}.
+\]
+The registered certificate-vector SHA-256 is
+\[
+\texttt{\seqsplit{f27e1681525d9c71f488c07457ed998cd43a8ea85ccac5b6e8e1b1e7227e93d0}}.
+\]
 
 \section{Algorithms and bit-complexity synthesis}
 
@@ -2195,6 +2274,13 @@ algorithm. BAR-024 preserves that boundary for several candidates. For the
 canonical prefix \(C_2,\ldots,C_m\), summing the per-level descriptor and
 binary-evaluation costs gives \(O(m^2)\), while exact injectivity remains a
 factor-dependent semantic property.
+The DEF-031 selector contains at most \(2(m-1)^3\) descriptors. Each has
+\(O(\log m)\) public encoding bits and
+\(O(\log A+\log B)=O(\log m)\) compact modular composition steps. The full
+selector therefore has polynomial construction, evaluation, GCD, output, and
+extraction cost. Population enumeration, support normalization, and dense
+certificate expansion are proof operations and are not counted as a public
+recognizer.
 
 \begin{center}
 \scriptsize
@@ -2794,10 +2880,11 @@ modular evaluation does not imply that materialized budget. BAR-023 then
 classifies one compact lift directly and proves that its one-bit support cut
 cannot separate every pair, even if its support is broad. BAR-024 gives the
 exact several-candidate injectivity criterion, candidate lower bounds, and
-collision minimum. It does not construct an injective compact schedule or
-rule out diversified families, bases, and parameters, an \(N\)-dependent or
-adaptive schedule, coverage on another explicit promise, density, or
-probability. Longer
+collision minimum. THM-004 constructs one diversified selector only on the
+complete finite promise range \(9\le m\le15\), and BAR-025 proves that the
+same selector already collides at \(m=16\). These results do not decide a
+wider polynomial range, an \(N\)-dependent or adaptive schedule, coverage on
+another explicit promise, asymptotic density, or probability. Longer
 chains, adaptive coefficients, several interacting rational values,
 unrelated bases, other groups, and general signed arithmetic circuits remain
 outside.
@@ -2814,11 +2901,10 @@ outside BAR-008's explicit-list model has a proved factor-scale
 \(d\pm1\) yield guarantee, and whether a precisely defined specialized
 arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
 evaluate a sufficiently rich formal batch at polynomial total construction,
-evaluation, and extraction cost. The next bounded case is to define exact
-factorization-independent selectors over diversified exceptional families,
-bases, and parameters, then determine whether one polynomial compact list
-makes the signatures injective on a balanced population or exhibits a
-scoped collision.
+evaluation, and extraction cost. The next bounded case is to parameterize a
+wider public cap \(L(m)\), charge its polynomial degree, and determine the
+smallest factorization-independent range that repairs the M31 finite
+collisions without using factor-dependent support recognition.
 
 \section{Conclusion}
 
@@ -2937,9 +3023,12 @@ the exact multi-candidate criterion: universal pair separation is equivalent
 to signature injectivity, with sharp information and collision-count lower
 bounds. REF-026 blocks replacing injectivity by union coverage. The
 canonical polynomial prefix failed injectivity only in the registered finite
-box; diversified compact schedules, \(N\)-dependent and adaptive questions,
-success density, general rational/compositional circuits, and other models
-remain research targets, not claimed factoring breakthroughs.
+box. DEF-031 then supplies one explicit diversified polynomial selector.
+THM-004 proves its complete finite promise range through \(m=15\), while
+BAR-025 gives the exact collision triple at \(m=16\). Widened polynomial
+ranges, \(N\)-dependent and adaptive questions, success density, general
+rational/compositional circuits, and other models remain research targets,
+not claimed factoring breakthroughs.
 
 \appendix
 
@@ -4790,6 +4879,53 @@ The canonical-prefix observations in EXP-0029 are finite and are not used in
 this proof. No recognizer, density theorem, general factoring conclusion, or
 general circuit lower bound follows. \(\square\)
 
+\subsection{Proof of THM-004 and BAR-025}
+\label{proof:THM-004-BAR-025}
+
+For \(m\ge9\), construct \(\mathcal T_m\) exactly as in DEF-031. There are at
+most two families, \((m-1)^2\) ordered parameter pairs, and \(m-1\) bases, so
+\[
+|\mathcal T_m|\le2(m-1)^3.
+\]
+Every parameter and base has \(O(\log m)\) bits. BAR-020 evaluates each
+cofactor in \(O(\log A+\log B)\) modular steps, and BAR-021 computes each
+public resultant with \(O(\log m)\)-bit arithmetic. Thus construction and
+all charged evaluations, GCDs, outputs, and extraction have polynomial bit
+cost in the \(m\)-bit input.
+
+If \(p\in\mathcal P_m\), then \(p\ge2^{(m-1)/2}>m\); the final inequality
+holds at \(m=9\) and persists by induction. Hence every scheduled base and
+public parameter is smaller than the odd population prime. All unit-only
+exceptional evaluations are therefore defined on the promised inputs.
+
+For any charged integer \(z\), write \(h_z(p)=\mathbf1_{p\mid z}\).
+Constant columns distinguish no pair, and duplicate columns have the same
+equality relation as one copy. Aggregate support equals the OR of the
+cyclotomic and cofactor columns, while an overlap support is an AND of its
+constituent columns. Therefore equality of normalized signatures is
+equivalent to equality across all charged exits. BAR-024 now proves that the
+selector succeeds on \(pq\) exactly when the normalized signatures differ.
+
+The registered certificate enumerates every prime in each complete
+\(\mathcal P_m\) for \(9\le m\le15\). Its population sizes are
+\[
+2,3,3,4,6,7,11,
+\]
+and the checked restricted signatures are pairwise distinct using
+\[
+1,2,2,3,4,6,10
+\]
+public columns, respectively. The dense verifier expands every selected
+cofactor, recomputes the exact column residues, and checks all 104 pairs.
+This proves THM-004 by complete finite exhaustion.
+
+At \(m=16\), direct dense evaluation of all eight primitive exits for every
+one of the 270 descriptors gives identical masks for \(191,227,233\).
+Derived aggregate and overlap coordinates are then identical as well.
+BAR-024 makes each of their three pair products a failure, proving BAR-025
+and refuting REF-027. The certificate contains no statement about another
+selector or an unbounded range. \(\square\)
+
 \clearpage
 \section{Reproduction appendix}
 
@@ -4898,6 +5034,11 @@ The registered experiment cores and canonical summary hashes are:
 \item EXP-0029, M30 milestone commit recorded in \path{research/STATUS.md},
   hash
   \texttt{\seqsplit{74db38bf2f8ebeb088b3773fc1d94207cca0c1a73f7efb7a58a82f387dac5212}}.
+\item EXP-0030, M31 milestone commit recorded in \path{research/STATUS.md},
+  summary hash
+  \texttt{\seqsplit{423a86409f38a4be1382e611ca94d3e2b08abfe7c1923133ab195db9c3716ae8}},
+  certificate-vector hash
+  \texttt{\seqsplit{f27e1681525d9c71f488c07457ed998cd43a8ea85ccac5b6e8e1b1e7227e93d0}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -5019,6 +5160,9 @@ python scripts/run_m30_compact_support_signature_audit.py `
   --assignment-candidate-max 3 --assignment-population-max 5 `
   --input-length-min 9 --input-length-max 40 --pair-check-max 20
 python scripts/check_m30_compact_support_signature_differential.py
+python scripts/run_m31_diversified_compact_signature_audit.py `
+  --input-length-min 9 --input-length-max 20
+python scripts/check_m31_diversified_compact_signature_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -5030,7 +5174,7 @@ through EXP-0019 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. EXP-0020
-through EXP-0029 use the same deterministic finite-enumeration policy. The
+through EXP-0030 use the same deterministic finite-enumeration policy. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.
 
 \bibliographystyle{plain}
