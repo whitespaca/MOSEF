@@ -9,6 +9,8 @@
 - Start commit `0248758e779d3120b51efe6db0c438ea33782b54` is pushed. Draft
   PR #51 targets `main`:
   `https://github.com/whitespaca/MOSEF/pull/51`.
+- M40 proof, implementation, registered experiment, and bilingual-paper core
+  commit: `c3a37c7bc7e58adde25d8e845b5b09e22df33dc3`.
 - At \(m=28\), the M39 formulas give distinct caps:
   \(m+60=88\) and \(\lceil16m/5\rceil=90\). The complete 507-prime
   population at cap 88 has the sole collision bucket
