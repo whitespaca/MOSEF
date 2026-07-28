@@ -1,6 +1,6 @@
 # Research Status
 
-## M36 execution snapshot
+## M36 outcome
 
 - Date: 2026-07-28.
 - Branch: `research/20260728-m36-distinct-caps`.
@@ -9,19 +9,67 @@
 - Start commit `4159b7fb29aed5c40db388cfeaf66febf9817323` is pushed. Draft
   PR #47 targets `main`:
   `https://github.com/whitespaca/MOSEF/pull/47`.
-- Active question: do the repaired public schedules \(L_+(m)=m+24\) and
-  \(L_{201}(m)=\lceil201m/100\rceil\), certified only through \(m=23\),
-  remain injective on the complete balanced population at \(m=24\)?
-- The formulas now give distinct caps 48 and 49. The first falsification task
-  is to evaluate both exact selectors independently, minimize every complete
-  collision bucket, and search monotonically for the first repairing cap if
-  neither is injective.
-- Both formulas are fixed before \(N\) and preserve
-  \(O(m^3\log m)\) compact work. Population enumeration, normalization, and
-  dense expansion remain certificate operations rather than a public
-  promise recognizer.
-- No outcome at \(m=24\), later length, or asymptotic cap rate is claimed in
-  this snapshot.
+- At \(m=24\), the M35 formulas give distinct caps:
+  \(m+24=48\) and \(\lceil201m/100\rceil=49\). The complete 146-prime
+  population at cap 48 has the collision bucket
+  \(\{3049,3643,3769,3863,4057\}\), producing ten failed pairs across all
+  9,212 descriptors and 73,696 raw coordinates.
+- Cap 49 removes \(3769\), but \(\{3049,3643,3863,4057\}\) still produces
+  six failed pairs across all 9,408 descriptors. Cap 50 preserves the same
+  bucket across all 9,604 descriptors.
+- Cap 51 has 11,400 descriptors, 240 normalized columns, and 146 distinct
+  signatures. A 130-coordinate certificate separates all 10,585 population
+  pairs, so 51 is the exact first injective cap at length 24.
+- `THM-009` is `PROVED`: \(L=m+27\) is injective on every complete balanced
+  population for \(9\le m\le24\), and 27 is the smallest common integer
+  offset on this finite range.
+- `BAR-030` is `PROVED`: the exact multiplicative coefficients covering the
+  finite thresholds through length 24 are \(c>25/12\). The endpoint gives
+  failed cap 50; \(209/100\) is a fixed succeeding witness.
+- EXP-0035 checked four cap profiles, 146 primes, 39,624 descriptor
+  instances, 5,785,104 local exits, 316,992 raw and 888 normalized
+  coordinates, 31,755 monotonicity checks, 42,340 normalization
+  equivalences, and 10,585 construction-certificate pairs.
+- Independent validation passed 16 Rust/C# command comparisons, 10,585
+  dense construction pairs, 9,212 dense additive-cap cases, 9,408 dense
+  multiplicative-cap cases, and 9,604 dense predecessor cases.
+- Registered schema SHA-256:
+  `3709d2e2a35212103ad838f83a25152e996cb33b9b5786d9642935a8d2ccfbcb`.
+  Registered EXP-0035 summary SHA-256:
+  `7e66da1e71bf93b7c18d614581197c40b42ab9bf1da787dd318f76b77a16bda5`.
+- Final gates passed: foundation and bilingual publication checks
+  (151 claims and 34 experiment hashes), 220 Python tests with the cache
+  provider disabled, compileall, Ruff, strict mypy over 26 source files,
+  Rust formatting/Clippy and 36 tests, and a warning-free C# Release build.
+- The complete M36 audit and independent differential suite passed, including
+  16 cross-language command checks and the dense construction, two failed-cap,
+  and predecessor-collision checks reported above.
+- XeLaTeX produced final-warning-free 86-page English and 21-page Korean
+  PDFs. Rendered title, M36 result, complexity, conclusion, proof,
+  reproduction, and claim-appendix pages had no clipping, overlap, missing
+  glyph, malformed mathematics, or unreadable text. Stable artifact SHA-256
+  values are
+  `c87c9130da437b04a05ae5b1d44fab59df72052d30f8fa1121c7a3ed96ad3833`
+  and
+  `d6f79f58f5e8db537a28ed98a034a02033b72bac2f6629947ce097f8da6f3460`.
+- The formulas remain factorization independent and use
+  \(O(m^3\log m)\) compact work. The finite result does not establish a cap
+  growth rate, behavior at \(m>24\), promise recognition, or general
+  factoring.
+- Next selected milestone: M37 separately tests additive cap 52 and
+  multiplicative cap 53 on the complete \(m=25\) population.
+
+### M36 Korean summary
+
+M36에서는 M35의 두 공개 선형 상한을 \(m=24\)에서 각각 검사했습니다.
+가산 공식의 cap 48에는 다섯 소수의 열 개 충돌 pair가 남고, 곱셈
+공식의 cap 49와 그 다음 cap 50에는 네 소수의 여섯 충돌 pair가
+남습니다. cap 51에서야 완전한 146-prime population이 단사가 됩니다.
+
+따라서 \(9\le m\le24\)에서는 \(m+27\)이 작동하며 가산 상수 27이
+최소입니다. 곱셈형 상한의 정확한 유한 경계는 \(c>25/12\)입니다.
+이 결과는 다음 길이나 asymptotic 성장률, promise 인식, 일반
+정수분해를 증명하지 않습니다.
 
 ## M35 outcome
 

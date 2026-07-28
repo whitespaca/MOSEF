@@ -805,3 +805,17 @@
 - Consequence: \(201/100\) is a concrete succeeding witness through length
   23, while the finite result remains silent about every later length. M36
   must test the now-distinct caps 48 and 49 at \(m=24\).
+
+## ADR-040 - Audit the distinct caps separately and retain a strict endpoint
+
+- Date: 2026-07-28.
+- Decision: preserve separate cap-48 and cap-49 failure certificates before
+  combining them into the new finite envelope, and state the M36
+  multiplicative boundary as \(c>25/12\), not \(c\ge25/12\).
+- Rationale: the two M35 formulas no longer coincide at \(m=24\). Cap 48 has
+  a five-prime collision bucket, while caps 49 and 50 have a four-prime
+  bucket. Since \(\lceil(25/12)\cdot24\rceil=50\), the endpoint fails and
+  the first injective cap is 51.
+- Consequence: \(209/100\) is a concrete succeeding witness through length
+  24, while the finite result remains silent about every later length. M37
+  must separately test additive cap 52 and multiplicative cap 53 at \(m=25\).
