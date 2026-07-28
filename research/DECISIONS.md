@@ -910,3 +910,23 @@
   independently reconstructed 1,528-coordinate certificate provide a second
   representation. This is a finite certificate strategy, not an asymptotic
   algorithm or a public promise recognizer.
+
+## ADR-046 - Combine public raw prefixes with complete bucket transitions
+
+- Date: 2026-07-29.
+- Decision: for M42, compute lossless full-population raw prefixes only at
+  the two pre-registered public caps 106 and 112. After cap 112, use raw
+  selector inclusion to evaluate each newly admitted descriptor only on the
+  complete nine-prime collision bucket through cap 123. Independently
+  materialize and normalize the complete cap-123 profile.
+- Rationale: the public-cap profiles must independently falsify both inherited
+  formulas on all 927 primes. Once a complete cap-112 equivalence class is
+  known, widening cannot merge any already separated pair, so the exact
+  bucket transition is complete without eleven redundant full-population
+  profiles.
+- Consequence: the audit proves both public caps fail, tracks the exact
+  \(36,36,36,21,21,21,15,10,10,3,3,0\) collision ladder, and constructs a
+  2,403-coordinate cap-123 certificate from 2,401 cap-122 representatives
+  plus two minimum repair coordinates. The finite envelopes become \(m+93\)
+  and \(c>61/15\). This is a finite certificate strategy, not an asymptotic
+  algorithm or a public promise recognizer.

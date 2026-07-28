@@ -952,3 +952,29 @@
 - Scope: this is one finite adjacent-length counterexample. It does not prove
   a decreasing trend, oscillation, bounded cap, asymptotic rate, density,
   recognition, or general factoring.
+
+## NR-039 - Both inherited M41 caps fail at length 30
+
+- Date: 2026-07-29.
+- Status: `REFUTED` claim `REF-038`.
+- Hypothesis tested: either public selector \(L=m+76\) or
+  \(L=\lceil26m/7\rceil\), proved only through \(m=29\), remains injective
+  on the complete \(m=30\) balanced population.
+- Additive obstruction: cap 106 gives 100,380 descriptors and 803,040 raw
+  coordinates, but one 14-prime bucket shares a signature and produces 91
+  failed pairs.
+- Multiplicative obstruction: cap 112 gives 121,878 descriptors and 975,024
+  raw coordinates, but one nine-prime bucket shares a signature and produces
+  36 failed pairs.
+- Persistent predecessor: cap-112 completeness and raw selector inclusion
+  confine every later collision to the nine-prime bucket. Exact incremental
+  evaluation leaves \(\{28591,29209,29387\}\) colliding across all 153,670
+  cap-122 descriptors.
+- Positive boundary: the two unique new nonconstant cap-123 cofactor
+  patterns assign the final triple repair signatures \(2,0,1\). The cap-122
+  representatives already separate every other pair, so cap 123 is
+  injective. The smallest common integer-offset schedule through length 30 is
+  \(m+93\), and the exact multiplicative condition is \(c>61/15\).
+- Scope: this refutes two fixed linear formulas at one new length. It does
+  not prove a future recurrence, a superlinear cap requirement, an
+  asymptotic rate, density, recognition, or general factoring.
