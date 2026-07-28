@@ -774,3 +774,23 @@
 - Scope: this refutes two fixed linear formulas at one new length. It does not
   prove repeated future collisions, a superlinear cap requirement, a density
   theorem, a recognizer, or general factoring.
+
+## NR-031 - The M33 repaired caps require a five-step wider repair
+
+- Date: 2026-07-28.
+- Status: `REFUTED` claim `REF-030`.
+- Hypothesis tested: the public selector \(L=m+12\), proved only through
+  \(m=21\), remains injective on the complete \(m=22\) balanced population.
+- Exact obstruction: \(L=34\) gives 2,838 descriptors and 22,704 raw
+  coordinates, but two collision buckets contain 37 failed prime pairs. The
+  M33 multiplier \(153/100\) gives the same cap and fails identically.
+- Persistent predecessor: caps 35 through 38 also fail; at cap 38 the pair
+  \(\{1481,1571\}\) still collides across all 3,996 descriptors.
+- Positive boundary: cap 39 is injective on all 80 population primes, so
+  \(m+17\) is the smallest common integer-offset schedule through length 22.
+- Evidence: an independent dense evaluator checks every cap-34 descriptor on
+  both complete collision buckets, every cap-38 descriptor on its final pair,
+  and all 3,160 pairs in the cap-39 certificate.
+- Scope: this refutes two fixed linear formulas at one new length. It does not
+  prove a future recurrence, a superlinear cap requirement, an asymptotic
+  rate, density, recognition, or general factoring.
