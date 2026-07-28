@@ -6,6 +6,9 @@
 - Branch: `research/20260728-m36-distinct-caps`.
 - Base: M35 squash merge
   `b4d6fba2509a9a0cc334b7dfa195e01c119869a0`.
+- Start commit `4159b7fb29aed5c40db388cfeaf66febf9817323` is pushed. Draft
+  PR #47 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/47`.
 - Active question: do the repaired public schedules \(L_+(m)=m+24\) and
   \(L_{201}(m)=\lceil201m/100\rceil\), certified only through \(m=23\),
   remain injective on the complete balanced population at \(m=24\)?
