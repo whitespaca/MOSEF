@@ -1,14 +1,28 @@
 # Research Status
 
+## M46 work snapshot
+
+- Date: 2026-07-29.
+- Branch: `research/20260729-m46-length-34-caps`.
+- Base: M45 squash merge
+  `0975334e2443adbbc67c62eeaf41f13b2eb3eb65`.
+- M46 is evaluating the complete \(m=34\) balanced-prime population under
+  the inherited additive cap \(34+162=196\) and multiplicative cap
+  \(\lceil147\cdot34/25\rceil=200\).
+- The audit will retain every non-singleton exact raw-signature class, compare
+  the two public caps separately, and, if either fails, continue cap by cap to
+  the first injective schedule. No recurrence or asymptotic conclusion is
+  assumed in advance.
+
 ## M45 outcome
 
 - Date: 2026-07-29.
 - Branch: `research/20260729-m45-length-33-caps`.
 - Base: M44 squash merge
   `0632ce7f42e9cb8b91f3bbda0fc11fb67699574b`.
-- Start commit `f53d28740fd9d2dff9e41c1b485e71eb3598ff13` is pushed. Draft
-  PR #56 targets `main`:
-  `https://github.com/whitespaca/MOSEF/pull/56`.
+- PR #56 was independently reviewed, passed every available local and remote
+  gate, and was squash-merged as
+  `0975334e2443adbbc67c62eeaf41f13b2eb3eb65`.
 - The complete \(m=33\) balanced population has 2,410 primes and 2,902,845
   unordered pairs. Both inherited caps fail: cap 168 leaves one 12-prime
   bucket and 66 pairs, while cap 172 leaves one eight-prime bucket and
