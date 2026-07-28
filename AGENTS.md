@@ -46,6 +46,17 @@ Ask for human action only when one of these conditions is unavoidable:
 
 Do not ask for preferences that can be resolved by the project constitution, existing code, literature, tests, or conservative defaults.
 
+## Autonomous Delivery
+
+- Perform all work on a separate branch.
+- After implementation, run all relevant tests and builds.
+- Review the complete diff against the base branch.
+- If any P0 or P1 issue is found, fix it and repeat the tests and review.
+- Once verification passes, commit the changes and push the branch.
+- If no pull request exists, create one using `gh pr create --fill`.
+- Enable automatic merging with `gh pr merge --auto --squash --delete-branch`.
+- Never bypass failing required checks or unresolved merge conflicts.
+
 ## Research integrity rules
 
 These rules are absolute.
