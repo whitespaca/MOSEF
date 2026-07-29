@@ -26,7 +26,7 @@
 \renewcommand{\abstractname}{초록}
 
 \title{고전적 정수분해를 위한 차수 분리 지수:\\
-열여덟 개의 제한 정리와 서른다섯 개의 구조적 장벽}
+열여덟 개의 제한 정리와 서른여섯 개의 구조적 장벽}
 \author{MOSEF 연구 프로그램}
 \date{2026년 7월 29일}
 
@@ -119,6 +119,11 @@ pair-overlap integer를 유도한다. 이 식은 polynomial-size level list의
 span이 \((1/2-\varepsilon)m\) 이하이면 compact evaluation이
 polynomial이어도 결국 duplicate balanced-prime signature가 생김을
 증명한다.
+M49는 \(h+1\)개 level의 공통 hit를 그 offset 최대공약수에 해당하는
+overlap integer 하나로 축약한다. 이 최대공약수는 전체 span의
+\(1/h\) 이하이므로, \(h>2C\)를 고정하면 span \(\Delta_m\le Cm\)인
+모든 polynomial-size, polynomial-cost public list가 결국
+비단사임을 증명한다.
 이 양성 결과는 인수분해에 의존하는 유한 약속 정리이다.
 일반 고전적 다항 시간 정수분해 알고리즘이나 모든 다항 selector의
 하한은 주장하지 않는다.
@@ -141,7 +146,7 @@ MOSEF는 ``Multi-Group Order-Separating Exponent Factoring'' 연구
 
 영문 원고 \path{paper/main.tex}는 모든 과거 정리와 증명의 상세
 기록이다. 이 한국어 동반 원고는 동일한 claim ID와 상태를 사용하고,
-현재 M46 결과의 정의, 정리, 증명, 실험, 한계 및 재현 절차를
+현재 M49 결과의 정의, 정리, 증명, 실험, 한계 및 재현 절차를
 자기완결적으로 제공한다.
 
 \section{모형과 기본 판정}
@@ -1927,6 +1932,99 @@ collision이 강제되고, injective profile은 없었다. summary SHA-256은
 \]
 이다.
 
+\section{M49: 선형 폭 encoded compact-gap 장벽}
+
+\claimstatus{DEF-036}{DEFINITION}.
+고정 정수 \(h\ge1\)에 대해 compact-gap signature의 Hamming weight가
+\(h+1\) 이상인 balanced prime 집합을 \(K_{m,h}\)라 한다.
+\(K_{m,h}\) 밖에서 가능한 signature 수는
+\[
+\sum_{j=0}^{h}\binom{r_m}{j}
+\tag{M49.1}
+\]
+이하이다. 이 고중량 집합은 분석 원장이며 public constructor의
+입력이 아니다.
+
+하나의 소수 \(p>7\)이
+\(t_0<t_1<\cdots<t_h\)를 모두 hit한다고 하자.
+\(d_i=t_i-t_0\), \(q=\gcd(d_1,\ldots,d_h)\)라 두면 M48의 pair
+관계로 \(x=3\cdot32^{-1}\pmod p\)에 대해
+\[
+x^{2^{d_i}-1}=-1\pmod p
+\]
+이다. 또한
+\[
+\gcd_i(2^{d_i}-1)=2^q-1
+\]
+이고 각 quotient \((2^{d_i}-1)/(2^q-1)\)은 홀수이다. 따라서
+Bezout 계수의 합도 홀수여야 하며 음의 부호가 보존되어
+\[
+p\mid R_q=3^{2^q-1}+32^{2^q-1}
+\tag{M49.2}
+\]
+를 얻는다. \(d_i/q\)는 서로 다른 \(h\)개의 양의 정수이므로
+\[
+q\le\left\lfloor\frac{\Delta_m}{h}\right\rfloor.
+\tag{M49.3}
+\]
+
+\claimstatus{BAR-043}{PROVED}.
+\(b_m=\lfloor(m-1)/2\rfloor\)라 하면 모든 \((h+1)\)-level subset에
+대한 square-free support product와 (M49.2)--(M49.3)으로
+\[
+|K_{m,h}|
+\le U_{m,h}:=
+\left\lfloor
+\frac{\binom{r_m}{h+1}
+\left(5(2^{\lfloor\Delta_m/h\rfloor}-1)+1\right)}
+{b_m}
+\right\rfloor.
+\tag{M49.4}
+\]
+따라서
+\[
+|\mathcal P_m|-U_{m,h}>
+\sum_{j=0}^{h}\binom{r_m}{j}
+\tag{M49.5}
+\]
+이면 두 complete signature가 같고 그 balanced semiprime은 모든
+후보 GCD에서 실패한다.
+
+\(r_m\le m^a\), \(\Delta_m\le Cm\)이고 전체 compact evaluation과
+GCD 비용이 polynomial이라고 하자. 고정 정수 \(h>2C\)를 택하면
+\[
+U_{m,h}
+=O\!\left(m^{a(h+1)-1}2^{(C/h)m}\right)
+\]
+이고 이는
+\(|\mathcal P_m|=\Omega(2^{m/2}/m)\)보다 지수적으로 작다.
+(M49.1)은 polynomial이므로 (M49.5)가 결국 성립한다. 따라서 이
+정확한 family에서 어떤 고정 선형 span을 가진 polynomial-size,
+polynomial-cost public list도 충분히 큰 모든 balanced population에서
+단사일 수 없다.
+
+\claimstatus{REF-045}{REFUTED}.
+linearly wide encoded compact-gap list가 모든 충분히 큰 balanced
+population을 분리한다는 가설은 거짓이다. superlinear span, 다른
+compact family, adaptive schedule, 일반 factorization은 claim 밖이다.
+
+\claimstatus{EMP-048}{EMPIRICAL}.
+EXP-0048은 span \(m\) 또는 \(2m\)인 public window 12개,
+balanced-prime signature 62,128개, coordinate 3,645,232개,
+common-support GCD-gap witness 3개, independent pair formula 12개를
+검사했다. injective profile과 등록된 threshold 이상의 고중량 prime은
+모두 0개였다. 유한 profile 중 (M49.5)만으로 collision이 강제되는
+것도 0개이므로, 이 유한 관측은 점근 증명으로 사용하지 않는다.
+summary SHA-256은
+\[
+\texttt{\seqsplit{958223f09db3abd12b46fcda81cc22a553158c1cc92ef4918ad8f2bc9a3202a9}}
+\]
+이고 schema SHA-256은
+\[
+\texttt{\seqsplit{970fb769aa2d307ff691ad19ee1226bae89ad860363fb726348b8d80144239ad}}
+\]
+이다.
+
 \section{구현과 bit complexity}
 
 \(B_m=2^m+3\)과 \(E_m=3\cdot2^m+5\)의 이진 표현 길이는 \(O(m)\)이다.
@@ -1964,6 +2062,11 @@ BAR-042는 exponential exact cofactor를 materialize하지 않고,
 pairwise common support를 gap-dependent overlap integer에 charge한다.
 따라서 polynomial cost와 theorem은 양립하며, obstruction은 exact
 output 크기가 아니라 short level span이다.
+DEF-036과 BAR-043은 같은 public 비용 원장을 유지한다. 바뀌는 것은
+분석용 common-support charge뿐이다. \(h+1\)개 hit를 하나의 GCD-gap
+overlap integer로 축약하며, 고정 선형 span의 상수에 대해 선택하는
+고정 \(h\)는 인수 정보나 새로운 asymptotic 실행 비용을 추가하지
+않는다.
 
 소수 \(p\)가 주어진 local profile 함수는 증명과 differential test를
 위한 분석 도구이다. 실제 factorization 후보는 \(p\)를 받지 않고
@@ -2001,13 +2104,14 @@ canonical summary SHA-256은
 
 \section{한계와 다음 연구 문제}
 
-BAR-041까지가 증명하지 않은 사항은 다음과 같다.
+BAR-043까지가 증명하지 않은 사항은 다음과 같다.
 
 \begin{itemize}
 \item balanced population에서 \(H_m\)의 asymptotic density;
 \item \(H_m\)을 factorization 없이 명시적으로 출력하는 recognizer;
-\item exponentially large numeric parameter의 polynomial-bit encoding을
-  사용하는 compact selector의 단사성;
+\item superlinear level span을 사용하는 encoded compact-gap selector의
+  단사성;
+\item 다른 base, exceptional family 또는 compact grammar의 단사성;
 \item 이후 각 길이에서 finite threshold \(L_m^\star\)가 존재하는지와
   임의의 fixed polynomial cap의 첫 실패 길이;
 \item \(N\)-dependent 또는 adaptive schedule의 하한;
@@ -2016,11 +2120,11 @@ BAR-041까지가 증명하지 않은 사항은 다음과 같다.
 \item 일반 arithmetic circuit 또는 일반 고전적 정수분해의 하한.
 \end{itemize}
 
-다음 bounded question은 gap이 \(m/2\), \(m\), 또는 더 큰 polynomial
-scale에 놓이는 wide-span compact-gap list가 실제 multi-hit signature를
-충분히 만드는지 묻는다. 이 경계에서는 pairwise bit bound가
-inconclusive이므로, exact cofactor를 열거하지 않고 magnitude slack과
-actual common support를 구분하며 higher-order overlap을 검사해야 한다.
+BAR-043은 exact \(A=3,B_t=2^t+3,g=2\) family의 모든 고정 선형
+span만 닫는다. \(\Delta_m/m\)이 무한히 커지면 고정 \(h\)로
+high-weight overlap을 balanced population보다 지수적으로 작게 만드는
+이번 비교는 더 이상 충분하지 않다. M49 뒤에는 사용자 지시에 따라
+작업을 일시정지하며 다음 milestone은 시작하지 않는다.
 
 \section{결론}
 
@@ -2072,9 +2176,11 @@ numeric DEF-032 cap도 이 유한 성공을 모든 충분히 큰 balanced
 population으로 확장하지 못함을 증명한다. polynomial-bit exponential
 parameter는 그 exact-output proof를 피하지만, BAR-042는 exact
 compact-gap subfamily의 level span이
-\((1/2-\varepsilon)m\) 아래이면 역시 실패함을 증명한다. wide-span
-encoded list, adaptive schedule, 다른 compact 문법은 여전히 열린
-범위다.
+\((1/2-\varepsilon)m\) 아래이면 역시 실패함을 증명한다. BAR-043은
+\(h+1\)중 공통 hit를 public gap의 최대공약수에 해당하는 overlap
+integer로 축약하여 모든 고정 선형 span \(Cm\)까지 이 실패 정리를
+확장한다. superlinear encoded list, adaptive schedule, 다른 compact
+문법은 여전히 열린 범위다.
 
 일반 고전적 다항 시간 정수분해 알고리즘도, 그러한 알고리즘의
 일반적 불가능성도 여기서 주장하지 않는다. 검증된 기여는 정확한
@@ -2161,6 +2267,9 @@ python scripts/check_m47_polynomial_cap_support_differential.py
 python scripts/run_m48_compact_gap_overlap_audit.py
 python scripts/generate_m48_compact_gap_overlap_schema.py
 python scripts/check_m48_compact_gap_overlap_differential.py
+python scripts/run_m49_wide_span_compact_gap_audit.py
+python scripts/generate_m49_wide_span_compact_gap_schema.py
+python scripts/check_m49_wide_span_compact_gap_differential.py
 python scripts/generate_korean_claim_appendix.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex

@@ -206,3 +206,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-042 | PROVED | Every polynomial short-span compact-gap selector is eventually noninjective | `research/proofs/BAR-042-compact-gap-overlap-budget.md` |
 | REF-044 | REFUTED | A short-span encoded compact-gap list separates all large populations | `research/NEGATIVE_RESULTS.md` NR-045 |
 | EMP-047 | EMPIRICAL | Shifted compact-gap overlap and signature audit | `research/experiments/EXP-0047-m48-compact-gap-overlap.md` |
+| DEF-036 | DEFINITION | High-weight compact-gap signature ledger | `research/proofs/BAR-043-wide-span-high-weight-overlap.md` |
+| BAR-043 | PROVED | Every polynomial linearly wide compact-gap selector is eventually noninjective | `research/proofs/BAR-043-wide-span-high-weight-overlap.md` |
+| REF-045 | REFUTED | A linearly wide encoded compact-gap list separates all large populations | `research/NEGATIVE_RESULTS.md` NR-046 |
+| EMP-048 | EMPIRICAL | Wide-span higher-overlap and signature audit | `research/experiments/EXP-0048-m49-wide-span-compact-gap.md` |

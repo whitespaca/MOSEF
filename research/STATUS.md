@@ -1,5 +1,76 @@
 # Research Status
 
+## M49 outcome
+
+- Date: 2026-07-29.
+- Branch: `research/20260729-m49-wide-span-compact-gaps`.
+- Base: M48 squash merge
+  `8d13c1544bb87c1d756bd2fde1458aee69af4ddb`.
+- `DEF-036` records primes whose compact-gap signatures have weight at least
+  \(h+1\), and counts all remaining signatures by the exact Hamming-ball
+  capacity \(\sum_{j=0}^{h}\binom{r_m}{j}\).
+- If one prime hits levels \(t_0<\cdots<t_h\), `BAR-043` proves that it
+  divides
+  \[
+  R_q=3^{2^q-1}+32^{2^q-1},
+  \qquad
+  q=\gcd(t_1-t_0,\ldots,t_h-t_0)\le\Delta_m/h.
+  \]
+  The proof uses the odd quotients
+  \((2^{d_i}-1)/(2^q-1)\) to preserve the negative overlap sign under
+  Bezout reduction.
+- For every fixed linear span \(\Delta_m\le Cm\), choosing a fixed integer
+  \(h>2C\) makes the possible high-weight population exponentially smaller
+  than the inspected \(\Omega(2^{m/2}/m)\) balanced population. The
+  low-weight Hamming-ball capacity is polynomial, so duplicate signatures
+  are eventually unavoidable.
+- `REF-045` and NR-046 therefore refute every polynomial-size,
+  polynomial-cost, linearly wide public level list from this exact
+  \(A=3,B_t=2^t+3,g=2\) family.
+- EXP-0048 checks 12 span-\(m\) and span-\(2m\) profiles at input lengths
+  20, 24, 28, 32, 36, and 40: 62,128 balanced-prime signatures,
+  3,645,232 coordinates, three common-support witnesses, and 12 independent
+  pair formulas. No profile is injective and no prime reaches the registered
+  high-weight threshold. No finite profile satisfies the conservative
+  theorem inequality; the asymptotic claim comes only from the proof.
+- Registered schema SHA-256:
+  `970fb769aa2d307ff691ad19ee1226bae89ad860363fb726348b8d80144239ad`.
+  Registered summary SHA-256:
+  `958223f09db3abd12b46fcda81cc22a553158c1cc92ef4918ad8f2bc9a3202a9`.
+- Final gates passed: foundation and bilingual publication checks
+  (203 claims and 47 experiment hashes), 242 Python tests in 375.22 seconds,
+  compileall, Ruff, strict mypy over 28 source files, Rust
+  formatting/Clippy and 36 tests, and a warning-free C# Release build. The
+  independent M49 checker passed all three common-support, 12 profile,
+  3,645,232 coordinate, and 12 pair-formula checks.
+- XeLaTeX produced warning-free 111-page English and 40-page Korean PDFs.
+  Rendered title, M49 result, proof, reproduction, and Korean claim-appendix
+  pages have no clipping, overlap, missing glyph, malformed mathematics, or
+  unreadable text. Stable artifact SHA-256 values are
+  `c9ff791064a5e5e87bb3af689610518d5fb978be474c3130373455c0f04b487f`
+  and
+  `57dd9428338a54f7dccea04a9e32a10deac88d006c1fdae90c7781256ecc81fb`.
+- The result does not cover superlinear level spans, other bases or compact
+  grammars, adaptive or input-dependent schedules, arbitrary circuits, or
+  general factoring.
+- Work pauses after the completed M49 delivery by explicit user instruction;
+  no M50 milestone is started.
+
+### M49 Korean summary
+
+M49는 `BAR-042`가 남긴 \(m/2\) 이상의 폭을 고차 공통지지 관계로
+처리했다. 하나의 소수가 \(h+1\)개 level을 동시에 hit하면, 첫 level과의
+차이들의 최대공약수 \(q\)에 대응하는 단 하나의 overlap 정수
+\(R_q=3^{2^q-1}+32^{2^q-1}\)를 나누며 \(q\le\Delta_m/h\)이다. 따라서
+어떤 고정 선형 폭 \(\Delta_m\le Cm\)에도 \(h>2C\)를 고정하면 고중량
+signature를 가질 수 있는 소수 수는 balanced population보다 지수적으로
+작고, 나머지 저중량 signature 공간은 다항식 크기에 불과하다. 이로써
+해당 compact-gap family의 모든 다항식 크기·다항식 비용 선형 폭
+selector는 점근적으로 injective일 수 없음을 증명했다. 다만 superlinear
+폭, 다른 compact grammar, adaptive schedule 및 일반 소인수분해 문제는
+여전히 해결되지 않았다. M49 전달 후에는 사용자 지시에 따라 연구를
+일시정지한다.
+
 ## M48 outcome
 
 - Date: 2026-07-29.
