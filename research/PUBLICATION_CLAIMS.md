@@ -224,3 +224,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | REF-048 | REFUTED | A below-\(1/2\) boundary compact-gap list separates all large populations | `research/NEGATIVE_RESULTS.md` NR-049 |
 | OPEN-005 | OPEN | Uniform \(c=1/2\) endpoint after distinct-gap charging | `research/proofs/BAR-046-distinct-gap-union.md` |
 | EMP-051 | EMPIRICAL | Exact subset-versus-distinct-gap audit | `research/experiments/EXP-0051-m53-distinct-gap.md` |
+| DEF-040 | DEFINITION | Realizable GCD-gap set of selected level subsets | `research/proofs/BAR-047-realizable-gap-sharpness.md` |
+| BAR-047 | PROVED | The universal realizable-gap upper envelope is exactly attainable | `research/proofs/BAR-047-realizable-gap-sharpness.md` |
+| REF-049 | REFUTED | Realizability alone uniformly shrinks the maximum GCD gap | `research/NEGATIVE_RESULTS.md` NR-050 |
+| EMP-052 | EMPIRICAL | Exact realizable-gap sharpness audit | `research/experiments/EXP-0052-m54-realizable-gap.md` |

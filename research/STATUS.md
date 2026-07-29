@@ -1,5 +1,53 @@
 # Research Status
 
+## M54 outcome
+
+- Date: 2026-07-30.
+- Branch: `research/20260730-m54-realizable-gap-endpoint`.
+- Base: M53 squash merge
+  `027144c1f47283edf58e5175e1fd90920a45e49f`.
+- Research question: can charging only GCD gaps realized by selected
+  \((h_m+1)\)-subsets make the BAR-046 maximum gap uniformly smaller?
+- Result: `BAR-047` proves
+  \(\max\mathcal G_h(T)\le\lfloor\Delta/h\rfloor\) and constructs the
+  equality family \(T=\{s,s+q,\ldots,s+hq\}\) for every \(h,q\ge1\).
+  Its maximum-density containing interval has \(r=\Delta+1\) and realizes
+  the same gap.
+- Method conclusion: realizability pruning cannot universally improve the
+  leading maximum-gap exponent by a fixed factor or little-o term. This does
+  not provide a balanced prime divisor of \(R_q\) or an injective endpoint
+  selector.
+- EXP-0052 passes 96 extremal equality and dense-interval witnesses, 32 complete ambient
+  profiles, 544 subset-GCD enumerations, and 256 sequence-hash checks.
+- Registered canonical summary SHA-256:
+  `fc09459c7cc6b93a2be7b8255e28fc64f3637e3b9a015ef45757f4b91a7da96c`.
+- Registered schema file SHA-256:
+  `69c181a7529a6f8a42534146b293add4abe32c3bf845a2da7764d59ad77bcf1c`.
+- Final gates passed:
+  - foundation and bilingual publication checks over 221 claims and 51
+    experiment hashes;
+  - 255 Python tests in 344.875 seconds, compileall, Ruff, and strict mypy
+    over 28 source files;
+  - Rust formatting/Clippy and 36 tests, plus a warning-free C# Release build;
+  - baseline 58-check, M53, and M54 independent differential checks;
+  - warning-free 119-page English and 47-page Korean XeLaTeX builds, with
+    visual inspection of the M54 theorem, proof, and Korean section.
+- Stable English PDF SHA-256:
+  `27cb85a5d5fcf38c026b1b2df1b87e86dc819eb943e07e0437174aec2c86700c`.
+- Stable Korean PDF SHA-256:
+  `a6954dc944ee7c6ad082dcfbb072c5dd0b87dde86841150ac105fc87dc20f5e9`.
+
+### M54 Korean summary
+
+M54는 실제 \((h+1)\)-subset이 만드는 GCD gap만 남기면 BAR-046의
+최대 gap 상한을 보편적으로 줄일 수 있는지 검사했다. 모든 실현 gap은
+\(\lfloor\Delta/h\rfloor\) 이하이지만, 등차수열
+\(\{s,s+q,\ldots,s+hq\}\)가 이 상한을 정확히 달성한다. 따라서
+realizability만으로 uniform \(c=1/2\) 끝점을 닫을 strict slack은
+얻을 수 없다. 이 결과는 geometry ledger의 sharpness일 뿐
+\(R_q\)의 balanced prime divisor 존재나 단사 construction을 뜻하지
+않는다.
+
 ## M53 outcome
 
 - Date: 2026-07-30.

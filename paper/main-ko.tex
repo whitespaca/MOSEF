@@ -2324,6 +2324,57 @@ finite noncertificate 15개를 검사했다. summary SHA-256은
 \]
 이다.
 
+\section{M54: realizable GCD gap의 sharpness}
+
+\claimstatus{DEF-040}{DEFINITION}.
+span이 \(\Delta\)인 서로 다른 공개 level 집합 \(T\)와
+\(1\le h<|T|\)에 대하여
+\[
+\mathcal G_h(T)=
+\left\{\gcd(u_1-u_0,\ldots,u_h-u_0):
+\{u_0<\cdots<u_h\}\subseteq T\right\}
+\tag{M54.1}
+\]
+로 둔다. 모든 \(q\in\mathcal G_h(T)\)는
+\[
+q\le\left\lfloor\frac{\Delta}{h}\right\rfloor
+\tag{M54.2}
+\]
+를 만족한다.
+
+\claimstatus{BAR-047}{PROVED}.
+이 상한은 보편적으로 정확하다. 모든 \(h,q\ge1\), \(s\ge2\)에 대해
+factor-independent 공개 list
+\[
+T_{h,q,s}=\{s,s+q,\ldots,s+hq\}
+\tag{M54.3}
+\]
+는 span \(hq\)와 GCD gap \(q=\Delta/h\)를 실현한다. 따라서
+realizability만으로 BAR-046의 최대 gap을 고정 비율만큼 줄이거나
+\(o(\Delta/h)\)로 만들 수 없다.
+maximum-density interval \(\{s,s+1,\ldots,s+hq\}\)도 (M54.3)을
+포함하고 \(r=\Delta+1\)에서 같은 equality를 유지한다.
+
+\claimstatus{REF-049}{REFUTED}.
+unrealizable gap을 제거하는 것만으로 uniform \(c=1/2\) 끝점에 strict
+slack이 생긴다는 가설은 거짓이다. 다만 (M54.3)은 \(R_q\)가 balanced
+population prime을 가진다는 것을 증명하지 않으므로 injective endpoint
+construction이 아니다.
+
+\claimstatus{EMP-052}{EMPIRICAL}.
+EXP-0052는 extremal progression witness 96개와 완전한 six-level
+profile 32개를 검사하고 subset GCD 544개 및 sequence hash 256개를
+독립 재구성했다. summary SHA-256은
+\[
+\texttt{\seqsplit{fc09459c7cc6b93a2be7b8255e28fc64f3637e3b9a015ef45757f4b91a7da96c}}
+\]
+이고 schema file SHA-256은
+\[
+\texttt{\seqsplit{69c181a7529a6f8a42534146b293add4abe32c3bf845a2da7764d59ad77bcf1c}}
+\]
+이다. 다음 단계는 \(R_q\) 사이의 shared divisor와 primitive part를
+정확히 계산하는 것이다.
+
 \section{compact-step과 표준 bit-operation complexity}
 
 \subsection{비용 단위와 online/offline 경계}

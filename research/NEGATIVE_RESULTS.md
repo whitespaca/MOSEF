@@ -1221,3 +1221,21 @@
 - Scope: the uniform \(c=1/2\) endpoint, larger worst-packed constants,
   unrealizable-gap refinements, other families, and general factoring remain
   open.
+
+## NR-050 - Realizable-gap pruning cannot shrink the worst-case exponent
+
+- Date: 2026-07-30.
+- Status: `REFUTED` claim `REF-049`.
+- Hypothesis tested: every public level list has maximum realizable
+  \((h+1)\)-subset GCD gap uniformly smaller than
+  \(\lfloor\Delta/h\rfloor\), providing strict endpoint slack.
+- Counterexample: for every \(h,q\ge1\), the factor-independent arithmetic
+  progression \(\{2,2+q,\ldots,2+hq\}\) has span \(hq\) and realizes GCD gap
+  \(q=\Delta/h\). The maximum-density interval \(\{2,3,\ldots,2+hq\}\)
+  contains that progression and retains equality with \(r=\Delta+1\).
+- Consequence: deleting unrealizable gaps can improve particular finite
+  ledgers but not the leading worst-case exponent used by BAR-046.
+- Scope: this does not prove that the extremal overlap integer contains a
+  balanced population prime. Shared-divisor or primitive-part refinements,
+  other list restrictions, other families, and general factoring remain
+  open.

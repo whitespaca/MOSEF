@@ -34,6 +34,7 @@ python scripts/check_m49_wide_span_compact_gap_differential.py
 python scripts/check_m51_subquadratic_span_differential.py
 python scripts/check_m52_boundary_constant_differential.py
 python scripts/check_m53_distinct_gap_differential.py
+python scripts/check_m54_realizable_gap_differential.py
 ```
 
 These commands recompute registered masks, identities, collision or

@@ -3823,6 +3823,53 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:BAR-046} gives the complete proof.
 
+\section{Sharpness of realizable GCD gaps}
+
+\claimstatus{DEF-040}{DEFINITION}. For a distinct public level set \(T\) of
+span \(\Delta\) and \(1\le h<|T|\), define
+\[
+\mathcal G_h(T)=
+\left\{\gcd(u_1-u_0,\ldots,u_h-u_0):
+\{u_0<\cdots<u_h\}\subseteq T\right\}.
+\tag{M54.1}
+\]
+Every \(q\in\mathcal G_h(T)\) obeys
+\[
+q\le\left\lfloor\frac{\Delta}{h}\right\rfloor,
+\tag{M54.2}
+\]
+because the \(h\) positive normalized offsets are distinct.
+
+\claimstatus{BAR-047}{PROVED}. The envelope (M54.2) is universally sharp.
+For every \(h,q\ge1\) and \(s\ge2\), the factor-independent public list
+\[
+T_{h,q,s}=\{s,s+q,\ldots,s+hq\}
+\tag{M54.3}
+\]
+has span \(hq\) and realizes GCD gap \(q=\Delta/h\). Consequently,
+realizability alone cannot replace the BAR-046 maximum gap by a fixed
+constant factor smaller than \(\Delta/h\), nor by \(o(\Delta/h)\).
+The maximum-density interval \(\{s,s+1,\ldots,s+hq\}\) contains (M54.3),
+has \(r=\Delta+1\), and retains the same equality.
+
+\claimstatus{REF-049}{REFUTED}. Pruning unrealizable gaps does not
+universally supply strict slack at \(c=1/2\). This is a method barrier, not
+an endpoint construction: (M54.3) does not prove that \(R_q\) contains a
+balanced population prime.
+
+\claimstatus{EMP-052}{EMPIRICAL}. EXP-0052 verified 96 extremal progression
+witnesses and 32 complete six-level profiles, enumerating 544 subset GCDs
+and independently reconstructing 256 sequence hashes. The summary SHA-256 is
+\[
+\texttt{\seqsplit{fc09459c7cc6b93a2be7b8255e28fc64f3637e3b9a015ef45757f4b91a7da96c}},
+\]
+and the schema file SHA-256 is
+\[
+\texttt{\seqsplit{69c181a7529a6f8a42534146b293add4abe32c3bf845a2da7764d59ad77bcf1c}}.
+\]
+Appendix \ref{proof:BAR-047} gives the complete proof. Shared divisors and
+primitive parts of the \(R_q\)'s remain the next endpoint target.
+
 \section{Compact-step and bit-operation complexity}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -7437,6 +7484,22 @@ If \(\ell_m/\log_2m\to a>1\), the low coefficient is
 is nonempty exactly under (M53.7). The \(a\le1\) cases follow as in
 BAR-045. At uniform \(c=1/2\), the two strict conditions meet at \(x=1\);
 the all-gap ledger has no fixed slack, so OPEN-005 remains open. \(\square\)
+
+\subsection{Proof of BAR-047}
+\label{proof:BAR-047}
+
+Let \(q\in\mathcal G_h(T)\) be witnessed by
+\(u_0<\cdots<u_h\). Write \(u_i-u_0=qv_i\). The positive integers
+\(v_1<\cdots<v_h\) are distinct, so \(v_h\ge h\), and therefore
+\[
+hq\le qv_h=u_h-u_0\le\Delta.
+\]
+This proves (M54.2). Conversely, (M54.3) has span \(hq\), and the GCD of
+its offsets \(q,2q,\ldots,hq\) is \(q\). Equality holds for every positive
+\(h,q\). The containing interval \(\{s,\ldots,s+hq\}\) has maximum packing
+density and the same realized gap. Any universal fixed-factor or little-o
+improvement would fail on this family. This proves BAR-047 and REF-049. The construction asserts only
+geometric realizability and supplies no prime divisor of \(R_q\). \(\square\)
 
 \clearpage
 \section{Reproduction appendix}
