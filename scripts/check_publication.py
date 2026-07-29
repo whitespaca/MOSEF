@@ -65,6 +65,7 @@ REQUIRED_SECTIONS = (
     "Linearly wide encoded compact-gap barrier",
     "Subquadratic encoded compact-gap barrier",
     "Packing-aware compact-gap boundary constants",
+    "Distinct-GCD-gap high-weight charging",
     "Compact-step and bit-operation complexity",
     "Reproducible experimental methodology",
     "Results",
@@ -124,6 +125,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-043}",
     r"\label{proof:BAR-044}",
     r"\label{proof:BAR-045}",
+    r"\label{proof:BAR-046}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -269,6 +271,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0050-m52-boundary-constant.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0051-m53-distinct-gap.md",
 )
 
 
@@ -560,6 +566,10 @@ def main() -> int:
         "BAR-045",
         "c=1/8",
         "89e5465e4f1bf4d577d77d3c7624682405ecf7b8aa208432916cab2e90a8d3aa",
+        "M53: distinct-GCD-gap high-weight charge",
+        "BAR-046",
+        "c=1/2",
+        "7b066fc90a8925934886c5e6ee9b819a4dda95bb00c32732430eda3b5d58376b",
     )
     for phrase in required_korean:
         if phrase not in korean_paper_text:

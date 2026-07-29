@@ -266,7 +266,9 @@ span \(O(m^{2-\varepsilon})\), fixed \(\varepsilon>0\), is eventually
 noninjective. Charging the mandatory distinct-level packing
 \(r_m\le\Delta_m+1\) sharpens the boundary: every fixed
 \(\Delta_m\le(c+o(1))m^2/\lceil\log_2(r_m+1)\rceil\) with \(c<1/8\)
-is also eventually noninjective. The endpoint \(c=1/8\) remains open.
+is also eventually noninjective. Deduplicating high-weight charges by their
+GCD gap removes the subset exponent and expands this uniform range to
+\(c<1/2\). The endpoint \(c=1/2\) remains open.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -286,9 +288,9 @@ This paper treats the proposed Multi-Group Order-Separating Exponent Factoring
 (MOSEF) direction as a falsifiable research program rather than a presumed
 algorithm.
 
-The title deliberately avoids a numerical claim count. At the M52 source
+The title deliberately avoids a numerical claim count. At the M53 source
 snapshot the internal ledger identifiers run through \texttt{THM-019} and
-\texttt{BAR-045}, but those sequences are heterogeneous: they include two
+\texttt{BAR-046}, but those sequences are heterogeneous: they include two
 restricted factoring theorems, an algebraic classification, nested finite
 promise theorems, extraction reductions, and scoped obstructions. Counting
 only some of those categories as ``restricted theorems'' or ``structural
@@ -464,7 +466,10 @@ Its contributions are:
 \item a packing-aware constant refinement proving eventual noninjectivity
   for every fixed boundary constant \(c<1/8\), together with the sharper
   growth-rate threshold \(c<a/[16(a-1)]\) when
-  \(\log r_m/\log m\to a>1\); and
+  \(\log r_m/\log m\to a>1\);
+\item a distinct-GCD-gap refinement removing repeated subset charges,
+  expanding the uniform range to \(c<1/2\) and the growth-refined range to
+  \(c<a/[4(a-1)]\); and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
@@ -3719,11 +3724,11 @@ c<\frac{a}{16(a-1)}.
 family cannot remain injective on every sufficiently large balanced
 population.
 
-\claimstatus{OPEN-004}{OPEN}. At \(c=1/8\), the optimized leading
-coefficient in (M52.6) equals \(1/2\), so the present upper ledger has no
-fixed exponential slack. This is not an injective construction. Shared
-overlap divisors or reduced subset multiplicity may still close the endpoint
-or part of the range above it.
+\claimstatus{OPEN-004}{REFUTED}. At M52, the optimized leading coefficient
+in (M52.6) equalled \(1/2\), so that particular upper ledger had no fixed
+exponential slack. M53 refutes the claim that the \(c=1/8\) endpoint remains
+unresolved under every sound BAR-043 reuse: deduplicating subset charges by
+their GCD gap closes the endpoint and the full range \(c<1/2\).
 
 \claimstatus{EMP-050}{EMPIRICAL}. EXP-0050 checked 20 exact packed boundary
 profiles, 20 packing and rational-coefficient classifications, 60
@@ -3739,6 +3744,84 @@ and the schema SHA-256 is
 \]
 Finite certificate presence or absence is not used as the asymptotic proof.
 Appendix \ref{proof:BAR-045} gives the complete proof.
+
+\section{Distinct-GCD-gap high-weight charging}
+
+\claimstatus{DEF-039}{DEFINITION}. Keep the M52 rational order \(h_m\), and
+put
+\[
+D_m=\left\lfloor\frac{\Delta_m}{h_m}\right\rfloor.
+\tag{M53.1}
+\]
+Instead of charging one overlap integer for every
+\((h_m+1)\)-subset, charge each distinct
+\[
+R_q=3^{2^q-1}+32^{2^q-1},
+\qquad 1\le q\le D_m,
+\tag{M53.2}
+\]
+only once. The exact prefix bit budget is
+\[
+\sum_{q=1}^{D_m}\bigl(5(2^q-1)+1\bigr)
+=5\cdot2^{D_m+1}-10-4D_m.
+\tag{M53.3}
+\]
+
+\claimstatus{BAR-046}{PROVED}. If a balanced prime hits \(h_m+1\) levels,
+BAR-043 maps any selected hit subset to one GCD gap
+\(q\le\Delta_m/h_m\) and proves that the prime divides \(R_q\). Subsets
+with the same \(q\) therefore do not require separate charges. The
+high-weight population satisfies
+\[
+\log_2(V_{m,h_m}+1)
+\le D_m+O(\log m)
+\le\left(\frac{c}{x}+o(1)\right)m.
+\tag{M53.4}
+\]
+The packing-aware low-weight bound remains
+\[
+\log_2\left(\sum_{j=0}^{h_m}\binom{r_m}{j}\right)
+\le\left(\frac{x}{2}+o(1)\right)m.
+\tag{M53.5}
+\]
+For \(0<c<1/2\), choose a rational \(x\) with
+\[
+2c<x<1.
+\tag{M53.6}
+\]
+Both ledgers then have exponents strictly below \(m/2\), so the balanced
+population forces a duplicate complete signature and a failed semiprime
+pair.
+
+If \(\ell_m/\log_2m\to a\), every fixed \(c\) is excluded for \(a\le1\).
+For \(1<a\le2\), the refined range is
+\[
+c<\frac{a}{4(a-1)}.
+\tag{M53.7}
+\]
+
+\claimstatus{REF-048}{REFUTED}. A below-\(1/2\) worst-packed boundary list
+in this exact family cannot remain injective on every sufficiently large
+balanced population.
+
+\claimstatus{OPEN-005}{OPEN}. At uniform \(c=1/2\), (M53.4) requires
+\(x>1\), while (M53.5) requires \(x<1\). The missing strict slack is not an
+injective construction. The ledger still charges every \(q\le D_m\), even
+if no selected level subset realizes that GCD gap.
+
+\claimstatus{EMP-051}{EMPIRICAL}. EXP-0051 checked 40 exact profiles, 40
+packing checks, 40 strict subset-to-distinct-gap reductions, 120
+exact-integer hashes, 32 theorem-eligible classifications, 25 finite
+collision certificates, and 15 finite noncertificates. The summary SHA-256
+is
+\[
+\texttt{\seqsplit{7b066fc90a8925934886c5e6ee9b819a4dda95bb00c32732430eda3b5d58376b}},
+\]
+and the schema SHA-256 is
+\[
+\texttt{\seqsplit{2828e1c7fcc2deb9e4bc182b5fad74f831626d1728e9376103d56d5e35ce5ac5}}.
+\]
+Appendix \ref{proof:BAR-046} gives the complete proof.
 
 \section{Compact-step and bit-operation complexity}
 
@@ -3855,6 +3938,9 @@ DEF-038 and BAR-045 additionally charge the necessary list-packing
 inequality \(r_m\le\Delta_m+1\). The rational multiplier \(x\) is an
 offline proof constant, and the exact finite ledger still retains every
 \(\binom{r_m}{h_m+1}\) high-weight subset.
+DEF-039 and BAR-046 leave the evaluator unchanged again. They only
+deduplicate offline proof charges that point to the same public overlap
+integer \(R_q\); no support oracle or new runtime branch is introduced.
 
 \subsection{Certificate-generation cost}
 
@@ -4543,10 +4629,11 @@ charging high-weight signatures to GCD-gap overlap integers. BAR-044 then
 uses a growing public-geometry overlap order to close every span with
 \(\Delta_m\log_2(r_m+1)=o(m^2)\), including polynomial
 \(O(m^{2-\varepsilon})\) spans. BAR-045 closes the explicit boundary range
-\(c<1/8\) after charging distinct-level packing. These results do not cover
-the endpoint \(c=1/8\), larger boundary constants, quadratic or larger spans, other
+\(c<1/8\) after charging distinct-level packing, and BAR-046 removes repeated
+subset charges to close \(c<1/2\). These results do not cover
+the endpoint \(c=1/2\), larger worst-packed constants, quadratic or larger spans, other
 encoded bases or compact grammars, \(N\)-dependent or adaptive schedules, or
-arbitrary circuits. The bounded EXP-0048 through EXP-0050 profiles validate the
+arbitrary circuits. The bounded EXP-0048 through EXP-0051 profiles validate the
 implementation but do not establish the asymptotic theorems.
 
 The authoritative Rust layer is bounded to \texttt{u64}; validation primality
@@ -4562,9 +4649,9 @@ outside BAR-008's explicit-list model has a proved factor-scale
 arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
 evaluate a sufficiently rich formal batch at polynomial total construction,
 evaluation, and extraction cost. For the compact-gap line, the remaining
-boundary starts at the exact \(c=1/8\) endpoint. The next target is whether
-shared overlap divisors or repeated-subset charging can reduce the present
-union-bound overcount there.
+boundary starts at the exact \(c=1/2\) endpoint. The next target is whether
+restricting to GCD gaps actually realizable by selected levels can reduce the
+remaining all-gap overcount.
 
 \section{Conclusion}
 
@@ -4589,9 +4676,10 @@ breakthrough. BAR-041 rules out every polynomial numeric cap in the exact
 DEF-032 grammar, BAR-042 rules out short-span encoded compact-gap lists, and
 BAR-043 rules out every fixed linear span, and BAR-044 rules out every
 polynomial subquadratic span in that exact compact family. BAR-045 also rules
-out every fixed boundary constant \(c<1/8\). These are not lower
+out every fixed boundary constant \(c<1/8\), and BAR-046 expands that range
+to \(c<1/2\). These are not lower
 bounds for all polynomial selectors or for classical factoring. The
-\(c=1/8\) endpoint, larger boundary constants, quadratic and larger encoded lists,
+\(c=1/2\) endpoint, larger worst-packed constants, quadratic and larger encoded lists,
 other compact grammars, adaptive public constructions, promise recognition,
 and broader group channels remain open research targets.
 
@@ -7305,7 +7393,50 @@ If \(\ell_m/\log_2m\to a>1\), the entropy coefficient \(1/2\) sharpens to
 \((a-1)x/a+c/x\) yields (M52.7). For \(a=1\) the entropy term is
 \(o(m)\), and for \(a<1\) the full \(2^{r_m}\) space is already
 subexponential. At \(c=1/8\), the uniform minimum is exactly \(1/2\);
-the proof supplies no strict slack and OPEN-004 remains open. \(\square\)
+this proof alone supplies no strict slack; BAR-046 below supplies the
+distinct-gap refinement that refutes OPEN-004. \(\square\)
+
+\subsection{Proof of BAR-046}
+\label{proof:BAR-046}
+
+Let \(h_m\) and \(D_m\) be as in (M52.1) and (M53.1). If a balanced prime
+\(p>7\) hits \(h_m+1\) levels, choose any such hit subset. BAR-043 maps it
+to
+\[
+q=\gcd(t_1-t_0,\ldots,t_{h_m}-t_0)
+\le\Delta_m/h_m
+\]
+and proves \(p\mid R_q\). Hence every high-weight prime divides one of the
+distinct integers \(R_1,\ldots,R_{D_m}\), regardless of how many subsets
+produce the same \(q\).
+
+The sum of their bit bounds is
+\[
+\sum_{q=1}^{D_m}\bigl(5(2^q-1)+1\bigr)
+=5\cdot2^{D_m+1}-10-4D_m.
+\]
+Dividing by the minimum balanced-prime logarithm
+\(\lfloor(m-1)/2\rfloor\) gives (M53.4). Under (M52.2),
+\[
+D_m\le\Delta_m/h_m
+\le(c/x+o(1))m.
+\]
+
+The low-weight proof from BAR-045 is unchanged and gives (M53.5), unless
+the complete signature space is already \(2^{o(m)}\). For \(c<1/2\), a
+rational \(x\) with \(2c<x<1\) makes the high and low leading coefficients
+strictly below \(1/2\). BAR-041's population lower bound then forces a
+duplicate complete signature, and BAR-024 supplies the failed semiprime pair.
+This proves BAR-046 and REF-048.
+
+If \(\ell_m/\log_2m\to a>1\), the low coefficient is
+\(x(a-1)/a\). The interval
+\[
+2c<x<\frac{a}{2(a-1)}
+\]
+is nonempty exactly under (M53.7). The \(a\le1\) cases follow as in
+BAR-045. At uniform \(c=1/2\), the two strict conditions meet at \(x=1\);
+the all-gap ledger has no fixed slack, so OPEN-005 remains open. \(\square\)
 
 \clearpage
 \section{Reproduction appendix}
@@ -7520,6 +7651,11 @@ The registered experiment cores and canonical summary hashes are:
   \texttt{\seqsplit{89e5465e4f1bf4d577d77d3c7624682405ecf7b8aa208432916cab2e90a8d3aa}},
   boundary-constant schema hash
   \texttt{\seqsplit{8265f5d4839f892640fe3c3530229bf08d584228850d9c07c35ce9208ac79f52}}.
+\item EXP-0051, M53 milestone commit recorded in \path{research/STATUS.md},
+  summary hash
+  \texttt{\seqsplit{7b066fc90a8925934886c5e6ee9b819a4dda95bb00c32732430eda3b5d58376b}},
+  distinct-gap schema hash
+  \texttt{\seqsplit{2828e1c7fcc2deb9e4bc182b5fad74f831626d1728e9376103d56d5e35ce5ac5}}.
 \end{itemize}
 
 The M50 publication projection
@@ -7714,6 +7850,9 @@ python scripts/check_m51_subquadratic_span_differential.py
 python scripts/run_m52_boundary_constant_audit.py
 python scripts/generate_m52_boundary_constant_schema.py
 python scripts/check_m52_boundary_constant_differential.py
+python scripts/run_m53_distinct_gap_audit.py
+python scripts/generate_m53_distinct_gap_schema.py
+python scripts/check_m53_distinct_gap_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -7725,7 +7864,7 @@ through EXP-0019 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. EXP-0020
-through EXP-0050 use the same deterministic finite-enumeration policy. The
+through EXP-0051 use the same deterministic finite-enumeration policy. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.
 
 \bibliographystyle{plain}

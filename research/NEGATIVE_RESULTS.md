@@ -1202,3 +1202,22 @@
 - Scope: the endpoint \(c=1/8\) and larger constants remain open because the
   current leading upper coefficient has no strict slack there. This is a
   negative result for one exact family, not a general factoring lower bound.
+
+## NR-049 - Distinct-gap charging closes every constant below one half
+
+- Date: 2026-07-30.
+- Status: `REFUTED` claim `REF-048`.
+- Hypothesis tested: for some fixed \(c<1/2\), a polynomial-cost public
+  DEF-035 list with
+  \(\Delta_m\le(c+o(1))m^2/\lceil\log_2(r_m+1)\rceil\) can remain injective
+  on all sufficiently large balanced populations.
+- Duplicate-charge obstruction: every prime hitting \(h_m+1\) levels divides
+  one \(R_q\) with \(q\le\Delta_m/h_m\). Charging the distinct \(R_q\)'s once
+  removes the former \(\binom{r_m}{h_m+1}\) high-weight multiplicity.
+- Coefficient obstruction: with \(h_m=\lceil xm/\ell_m\rceil\), the
+  high-weight exponent is at most \((c/x+o(1))m\), and packing bounds the
+  low-weight exponent by \((x/2+o(1))m\). A rational \(2c<x<1\) makes both
+  strictly smaller than the balanced-population exponent \(1/2\).
+- Scope: the uniform \(c=1/2\) endpoint, larger worst-packed constants,
+  unrealizable-gap refinements, other families, and general factoring remain
+  open.

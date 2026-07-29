@@ -11,6 +11,7 @@ from python.mosef_reference.compact_gap_overlap_budget import (
     compact_gap_boundary_overlap_order,
     compact_gap_common_support_gap,
     compact_gap_common_support_integer,
+    compact_gap_distinct_gap_ledger,
     compact_gap_exponent,
     compact_gap_high_weight_population_upper_bound,
     compact_gap_high_weight_profile,
@@ -18,6 +19,7 @@ from python.mosef_reference.compact_gap_overlap_budget import (
     compact_gap_overlap_bit_bound,
     compact_gap_overlap_integer,
     compact_gap_overlap_population_upper_bound,
+    compact_gap_overlap_prefix_bit_bound,
     compact_gap_overlap_profile,
     compact_gap_variable_order_profile,
 )
@@ -182,6 +184,22 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
         self.assertEqual(ledger.low_weight_signature_capacity, 8)
         self.assertEqual(ledger.maximum_common_gap, 0)
 
+    def test_distinct_gap_prefix_and_ledger_remove_subset_overcount(self) -> None:
+        self.assertEqual(compact_gap_overlap_prefix_bit_bound(0), 0)
+        self.assertEqual(
+            compact_gap_overlap_prefix_bit_bound(2),
+            compact_gap_overlap_bit_bound(1)
+            + compact_gap_overlap_bit_bound(2),
+        )
+        boundary = compact_gap_boundary_ledger(1024, 819, 3276, 52)
+        distinct = compact_gap_distinct_gap_ledger(1024, 819, 3276, 52)
+        self.assertEqual(distinct.maximum_common_gap, 63)
+        self.assertEqual(distinct.distinct_gap_count, 63)
+        self.assertLess(
+            distinct.high_weight_population_upper_bound,
+            boundary.high_weight_population_upper_bound,
+        )
+
     def test_invalid_inputs(self) -> None:
         invalid_calls = (
             lambda: compact_gap_exponent(True),
@@ -203,6 +221,7 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
             lambda: compact_gap_boundary_overlap_order(12, 3, 0, 1),
             lambda: compact_gap_boundary_ledger(12, 4, 2, 1),
             lambda: compact_gap_boundary_ledger(12, 4, 8, 5),
+            lambda: compact_gap_overlap_prefix_bit_bound(False),
         )
         for call in invalid_calls:
             with self.subTest(call=call), self.assertRaises(ValueError):

@@ -1129,3 +1129,17 @@
 - Consequence: BAR-045 reaches explicit boundary constants while leaving
   \(c=1/8\) honestly open. M53 will test whether the remaining subset
   overcount can be reduced; no injective endpoint construction is inferred.
+
+## ADR-057 - Deduplicate high-weight charges by their GCD gap
+
+- Date: 2026-07-30.
+- Decision: replace the M52 high-weight sum over every
+  \((h_m+1)\)-subset by one charge for each possible GCD gap
+  \(1\le q\le\lfloor\Delta_m/h_m\rfloor\).
+- Rationale: BAR-043 maps every high-weight prime to an overlap integer
+  \(R_q\), and subsets with the same \(q\) do not create distinct support
+  integers. The prefix bit budget is
+  \(5\cdot2^{D_m+1}-10-4D_m\), eliminating the binomial subset exponent.
+- Consequence: BAR-046 expands the uniform closed range from \(c<1/8\) to
+  \(c<1/2\). The endpoint remains open because the high and low coefficient
+  requirements meet without slack; M54 will audit which gaps are realizable.

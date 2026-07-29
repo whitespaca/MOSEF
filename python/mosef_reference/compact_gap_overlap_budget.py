@@ -79,6 +79,23 @@ class CompactGapBoundaryLedger:
     theorem_forces_collision: bool
 
 
+@dataclass(frozen=True)
+class CompactGapDistinctGapLedger:
+    """Exact M53 ledger charging each possible GCD gap only once."""
+
+    input_length: int
+    candidate_count: int
+    level_span: int
+    overlap_order: int
+    high_weight_threshold: int
+    maximum_common_gap: int
+    distinct_gap_count: int
+    high_weight_population_upper_bound: int
+    low_weight_signature_capacity: int
+    conservative_population_lower_bound: int
+    theorem_forces_collision: bool
+
+
 def _validate_level(level: int) -> None:
     if isinstance(level, bool) or not isinstance(level, int) or level < 2:
         raise ValueError("level must be an integer at least two")
@@ -122,6 +139,19 @@ def compact_gap_overlap_bit_bound(level_gap: int) -> int:
     ):
         raise ValueError("level_gap must be a positive integer")
     return 5 * ((1 << level_gap) - 1) + 1
+
+
+def compact_gap_overlap_prefix_bit_bound(maximum_gap: int) -> int:
+    """Sum the M48 overlap bit bounds for gaps one through ``maximum_gap``."""
+    if (
+        isinstance(maximum_gap, bool)
+        or not isinstance(maximum_gap, int)
+        or maximum_gap < 0
+    ):
+        raise ValueError("maximum_gap must be a nonnegative integer")
+    if maximum_gap == 0:
+        return 0
+    return 5 * ((1 << (maximum_gap + 1)) - 2) - 4 * maximum_gap
 
 
 def compact_gap_overlap_population_upper_bound(
@@ -308,6 +338,52 @@ def compact_gap_boundary_ledger(
         conservative_population_lower_bound=population_lower_bound,
         theorem_forces_collision=(
             population_lower_bound - high_weight_bound > low_weight_capacity
+        ),
+    )
+
+
+def compact_gap_distinct_gap_ledger(
+    input_length: int,
+    candidate_count: int,
+    level_span: int,
+    overlap_order: int,
+) -> CompactGapDistinctGapLedger:
+    """Replace M52 subset charging by the exact M53 distinct-gap union."""
+    boundary = compact_gap_boundary_ledger(
+        input_length,
+        candidate_count,
+        level_span,
+        overlap_order,
+    )
+    if overlap_order == candidate_count:
+        maximum_common_gap = 0
+        high_weight_bound = 0
+    else:
+        maximum_common_gap = level_span // overlap_order
+        population_prime_bits = (input_length - 1) // 2
+        high_weight_bound = (
+            compact_gap_overlap_prefix_bit_bound(maximum_common_gap)
+            // population_prime_bits
+        )
+    return CompactGapDistinctGapLedger(
+        input_length=input_length,
+        candidate_count=candidate_count,
+        level_span=level_span,
+        overlap_order=overlap_order,
+        high_weight_threshold=overlap_order + 1,
+        maximum_common_gap=maximum_common_gap,
+        distinct_gap_count=maximum_common_gap,
+        high_weight_population_upper_bound=high_weight_bound,
+        low_weight_signature_capacity=(
+            boundary.low_weight_signature_capacity
+        ),
+        conservative_population_lower_bound=(
+            boundary.conservative_population_lower_bound
+        ),
+        theorem_forces_collision=(
+            boundary.conservative_population_lower_bound
+            - high_weight_bound
+            > boundary.low_weight_signature_capacity
         ),
     )
 

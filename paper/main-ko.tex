@@ -137,7 +137,9 @@ family의 모든 polynomial subquadratic span
 \(O(m^{2-\varepsilon})\)도 결국 비단사다.
 서로 다른 level의 packing \(r_m\le\Delta_m+1\)까지 포함하면
 \(\Delta_m\le(c+o(1))m^2/\lceil\log_2(r_m+1)\rceil\)인 모든
-고정 \(c<1/8\)도 결국 비단사다. 정확한 \(c=1/8\) endpoint는
+고정 \(c<1/8\)도 결국 비단사다. high-weight charge를 GCD gap별로
+deduplicate하면 subset 지수가 사라져 이 범위는 \(c<1/2\)로
+확장된다. 정확한 \(c=1/2\) endpoint는
 여전히 열려 있다.
 이 양성 결과는 인수분해에 의존하는 유한 약속 정리이다.
 일반 고전적 다항 시간 정수분해 알고리즘이나 모든 다항 selector의
@@ -161,11 +163,11 @@ MOSEF는 ``Multi-Group Order-Separating Exponent Factoring'' 연구
 
 영문 원고 \path{paper/main.tex}는 모든 과거 정리와 증명의 상세
 기록이다. 이 한국어 동반 원고는 동일한 claim ID와 상태를 사용하고,
-현재 M52 결과의 정의, 정리, 증명, 실험, 한계 및 재현 절차를
+현재 M53 결과의 정의, 정리, 증명, 실험, 한계 및 재현 절차를
 자기완결적으로 제공한다.
 
-제목은 claim 개수의 숫자 집계를 사용하지 않는다. M52 snapshot의
-authoritative ledger는 \texttt{THM-019}와 \texttt{BAR-045}까지
+제목은 claim 개수의 숫자 집계를 사용하지 않는다. M53 snapshot의
+authoritative ledger는 \texttt{THM-019}와 \texttt{BAR-046}까지
 이어지지만, 이 ID에는 제한 factoring 정리, 대수적 분류, 서로 포개진
 유한 promise 정리, extraction reduction, scoped obstruction이 함께
 들어 있다. 그러므로 임의의 집계 규칙 대신 stable claim ID와 status가
@@ -2222,11 +2224,12 @@ c<\frac{a}{16(a-1)}
 이 exact family에서 \(c<1/8\)인 boundary list가 모든 충분히 큰
 balanced population에서 단사라는 가설은 거짓이다.
 
-\claimstatus{OPEN-004}{OPEN}.
-\(c=1/8\)에서는 (M52.6)의 최솟값이 정확히 \(1/2\)이므로 현재 upper
-ledger에 고정 exponential slack이 없다. 이는 injective construction이
-아니다. shared overlap divisor 또는 subset multiplicity 개선이
-endpoint나 그 위의 일부 구간을 닫을 가능성은 남아 있다.
+\claimstatus{OPEN-004}{REFUTED}.
+M52에서는 \(c=1/8\)일 때 (M52.6)의 최솟값이 정확히 \(1/2\)이어서
+그 upper ledger에 고정 exponential slack이 없었다. M53은 subset
+charge를 GCD gap별로 deduplicate하여 endpoint와 전체 \(c<1/2\)
+구간을 닫으므로, 모든 sound BAR-043 reuse 뒤에도 \(c=1/8\)이 열린다는
+주장을 반증한다.
 
 \claimstatus{EMP-050}{EMPIRICAL}.
 EXP-0050은 exact packed boundary profile 20개, packing 및 rational
@@ -2241,6 +2244,85 @@ growth-rate threshold 5개를 검사했다. summary SHA-256은
 \texttt{\seqsplit{8265f5d4839f892640fe3c3530229bf08d584228850d9c07c35ce9208ac79f52}}
 \]
 이다. 유한 certificate의 존재나 부재를 점근 증명으로 사용하지 않는다.
+
+\section{M53: distinct-GCD-gap high-weight charge}
+
+\claimstatus{DEF-039}{DEFINITION}.
+M52의 rational order \(h_m\)을 유지하고
+\[
+D_m=\left\lfloor\frac{\Delta_m}{h_m}\right\rfloor
+\tag{M53.1}
+\]
+로 둔다. 각 \((h_m+1)\)-subset마다 overlap integer를 charge하는 대신
+\[
+R_q=3^{2^q-1}+32^{2^q-1},\qquad 1\le q\le D_m
+\tag{M53.2}
+\]
+를 gap별로 한 번씩만 charge한다. exact prefix bit budget은
+\[
+\sum_{q=1}^{D_m}\bigl(5(2^q-1)+1\bigr)
+=5\cdot2^{D_m+1}-10-4D_m
+\tag{M53.3}
+\]
+이다.
+
+\claimstatus{BAR-046}{PROVED}.
+balanced prime이 \(h_m+1\)개 level을 hit하면 BAR-043은 선택한 hit
+subset을 \(q\le\Delta_m/h_m\)인 하나의 GCD gap으로 보내고 그 prime이
+\(R_q\)를 나눔을 증명한다. 같은 \(q\)를 만드는 subset은 별도 charge가
+필요 없다. 따라서 high-weight population은
+\[
+\log_2(V_{m,h_m}+1)
+\le D_m+O(\log m)
+\le\left(\frac{c}{x}+o(1)\right)m
+\tag{M53.4}
+\]
+을 만족한다. packing-aware low-weight bound는
+\[
+\log_2\left(\sum_{j=0}^{h_m}\binom{r_m}{j}\right)
+\le\left(\frac{x}{2}+o(1)\right)m
+\tag{M53.5}
+\]
+이다. \(0<c<1/2\)이면 rational
+\[
+2c<x<1
+\tag{M53.6}
+\]
+을 고를 수 있다. 두 ledger의 지수가 모두 \(m/2\)보다 작으므로
+balanced population은 duplicate complete signature와 실패하는
+semiprime pair를 강제한다.
+
+\(\ell_m/\log_2m\to a\)이면 \(a\le1\)에서 모든 fixed \(c\)가
+배제된다. \(1<a\le2\)에서는
+\[
+c<\frac{a}{4(a-1)}
+\tag{M53.7}
+\]
+가 배제된다.
+
+\claimstatus{REF-048}{REFUTED}.
+이 exact family에서 \(c<1/2\)인 worst-packed boundary list가 모든
+충분히 큰 balanced population에서 단사라는 가설은 거짓이다.
+
+\claimstatus{OPEN-005}{OPEN}.
+uniform \(c=1/2\)에서는 high-weight 조건이 \(x>1\), low-weight
+조건이 \(x<1\)을 요구한다. strict slack의 부재는 injective
+construction이 아니다. 현재 ledger는 실제 level subset이 만들지
+못하는 \(q\le D_m\)도 모두 charge한다.
+
+\claimstatus{EMP-051}{EMPIRICAL}.
+EXP-0051은 exact profile 40개, packing check 40개, strict
+subset-to-distinct-gap reduction 40개, exact-integer hash 120개,
+theorem-eligible 분류 32개, finite collision certificate 25개,
+finite noncertificate 15개를 검사했다. summary SHA-256은
+\[
+\texttt{\seqsplit{7b066fc90a8925934886c5e6ee9b819a4dda95bb00c32732430eda3b5d58376b}}
+\]
+이고 schema SHA-256은
+\[
+\texttt{\seqsplit{2828e1c7fcc2deb9e4bc182b5fad74f831626d1728e9376103d56d5e35ce5ac5}}
+\]
+이다.
 
 \section{compact-step과 표준 bit-operation complexity}
 
@@ -2326,6 +2408,9 @@ DEF-038과 BAR-045는 추가로 필수 list-packing
 \(r_m\le\Delta_m+1\)을 charge한다. rational multiplier \(x\)는 offline
 proof constant이고, exact finite ledger는 모든
 \(\binom{r_m}{h_m+1}\) high-weight subset을 그대로 유지한다.
+DEF-039와 BAR-046도 public evaluator를 바꾸지 않는다. 같은 public
+overlap integer \(R_q\)를 가리키는 offline proof charge만
+deduplicate하며 support oracle이나 새 runtime branch를 추가하지 않는다.
 
 \subsection{offline certificate 비용}
 
@@ -2399,12 +2484,12 @@ computer-assisted selector 정리는 balanced square-free semiprime,
 asymptotic growth law가 아니다. compact modular step 수와 보수적인
 표준 bit-operation 상한도 서로 다른 원장이다.
 
-BAR-045까지가 증명하지 않은 사항은 다음과 같다.
+BAR-046까지가 증명하지 않은 사항은 다음과 같다.
 
 \begin{itemize}
 \item balanced population에서 \(H_m\)의 asymptotic density;
 \item \(H_m\)을 factorization 없이 명시적으로 출력하는 recognizer;
-\item exact \(c=1/8\) endpoint와 그보다 큰 boundary constant를 갖는
+\item exact \(c=1/2\) endpoint와 그보다 큰 worst-packed boundary constant를 갖는
   encoded compact-gap selector, 그리고 quadratic 이상 span의 단사성;
 \item 다른 base, exceptional family 또는 compact grammar의 단사성;
 \item 이후 각 길이에서 finite threshold \(L_m^\star\)가 존재하는지와
@@ -2415,11 +2500,11 @@ BAR-045까지가 증명하지 않은 사항은 다음과 같다.
 \item 일반 arithmetic circuit 또는 일반 고전적 정수분해의 하한.
 \end{itemize}
 
-BAR-045는 exact \(A=3,B_t=2^t+3,g=2\) family에서
-\(\Delta_m\le(c+o(1))m^2/\log_2(r_m+1)\), \(c<1/8\)인 모든
-경계를 닫는다. 남은 첫 경계는 정확한 \(c=1/8\) endpoint이며,
-shared overlap divisor나 repeated-subset charge가 현재 union-bound
-overcount를 줄일 수 있는지가 다음 연구 문제다.
+BAR-046은 exact \(A=3,B_t=2^t+3,g=2\) family에서
+\(\Delta_m\le(c+o(1))m^2/\log_2(r_m+1)\), \(c<1/2\)인 모든
+경계를 닫는다. 남은 첫 경계는 정확한 \(c=1/2\) endpoint이며,
+실제 selected level이 만들 수 있는 GCD gap만 charge하면 남은
+all-gap overcount를 줄일 수 있는지가 다음 연구 문제다.
 
 \section{결론}
 
@@ -2446,9 +2531,9 @@ BAR-041은 exact DEF-032 grammar의 모든 polynomial numeric cap을,
 BAR-042는 short-span encoded compact-gap list를, BAR-043은 그 exact
 compact family의 모든 고정 선형 span을, BAR-044는 모든 polynomial
 subquadratic span을, BAR-045는 모든 fixed \(c<1/8\) boundary를
-배제한다. 이는 모든 polynomial selector나 일반
+배제하고, BAR-046은 그 범위를 \(c<1/2\)로 확장한다. 이는 모든 polynomial selector나 일반
 고전적 정수분해의 lower bound가 아니다.
-\(c=1/8\) endpoint, 더 큰 boundary constant, quadratic 이상 encoded list, 다른
+\(c=1/2\) endpoint, 더 큰 worst-packed boundary constant, quadratic 이상 encoded list, 다른
 compact grammar, adaptive public construction, promise recognition,
 더 넓은 group channel은 열린 연구 목표다.
 
@@ -2551,6 +2636,9 @@ python scripts/check_m51_subquadratic_span_differential.py
 python scripts/run_m52_boundary_constant_audit.py
 python scripts/generate_m52_boundary_constant_schema.py
 python scripts/check_m52_boundary_constant_differential.py
+python scripts/run_m53_distinct_gap_audit.py
+python scripts/generate_m53_distinct_gap_schema.py
+python scripts/check_m53_distinct_gap_differential.py
 python scripts/generate_korean_claim_appendix.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
