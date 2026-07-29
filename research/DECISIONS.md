@@ -1094,3 +1094,23 @@
 - Rollback condition: if any frozen source schema changes, regenerate the M50
   artifact and both tables, rerun the minimal and semantic checks, and review
   every affected manuscript statement before publication.
+
+## ADR-055 - Balance overlap depth against public span
+
+- Date: 2026-07-30.
+- Decision: replace BAR-043's fixed analytical overlap order by the public
+  variable order
+  \(h_m=\min\{r_m,\lceil\sqrt{\Delta_m/
+  \lceil\log_2(r_m+1)\rceil}\rceil\}\). Apply the exact existing high-weight
+  union bound when \(h_m<r_m\), and count the full signature space when the
+  order reaches \(r_m\).
+- Rationale: the logarithms of the high-weight union and low-weight Hamming
+  ledgers are respectively controlled by
+  \(h_m\log r_m+\Delta_m/h_m\) and \(h_m\log r_m\). Balancing the terms makes
+  both \(o(m)\) whenever
+  \(\Delta_m\log_2(r_m+1)=o(m^2)\), without deleting the growing subset
+  multiplicity or introducing factor data.
+- Consequence: BAR-044 closes every polynomial subquadratic span
+  \(O(m^{2-\varepsilon})\) in the exact compact-gap family. The full
+  \(\Theta(m^2/\log m)\) constant boundary, quadratic spans, other compact
+  grammars, adaptive schedules, and general factoring remain open.

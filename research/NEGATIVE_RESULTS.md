@@ -1154,3 +1154,29 @@
   \(O(m)\) span. It does not refute superlinear spans, other bases or compact
   grammars, adaptive or input-dependent schedules, arbitrary circuits, or a
   general classical factoring algorithm.
+
+## NR-047 - Every polynomial subquadratic-span compact-gap list fails
+
+- Date: 2026-07-30.
+- Status: `REFUTED` claim `REF-046`.
+- Hypothesis tested: for some fixed \(\varepsilon>0\), polynomially many
+  public candidates \(A=3,B_t=2^t+3,g=2\), with polynomial branch-total
+  evaluation cost and level span \(O(m^{2-\varepsilon})\), can separate every
+  sufficiently large complete balanced-prime population.
+- Variable-order obstruction: set
+  \[
+  \ell_m=\lceil\log_2(r_m+1)\rceil,\qquad
+  h_m=\min\{r_m,\lceil\sqrt{\Delta_m/\ell_m}\rceil\}.
+  \]
+  If \(h_m=r_m\), the complete signature space is \(2^{o(m)}\). Otherwise,
+  the exact BAR-043 high-weight union bound has logarithm
+  \(O(h_m\log r_m+\Delta_m/h_m)=o(m)\), and the low-weight Hamming capacity
+  also has logarithm \(o(m)\).
+- Population obstruction: the balanced population has size
+  \(2^{m/2-O(\log m)}\). Therefore the union of the high-weight exception set
+  and all remaining signature cells is eventually too small, forcing a
+  duplicate signature and failed balanced semiprime pair.
+- Scope: the sharper condition is
+  \(\Delta_m\log_2(r_m+1)=o(m^2)\). The result does not settle constants at
+  \(\Theta(m^2/\log m)\), quadratic or larger spans, other bases or compact
+  grammars, adaptive schedules, arbitrary circuits, or general factoring.

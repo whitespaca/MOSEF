@@ -6,6 +6,7 @@ import math
 import unittest
 
 from python.mosef_reference.compact_gap_overlap_budget import (
+    compact_gap_balanced_overlap_order,
     compact_gap_common_support_gap,
     compact_gap_common_support_integer,
     compact_gap_exponent,
@@ -16,6 +17,7 @@ from python.mosef_reference.compact_gap_overlap_budget import (
     compact_gap_overlap_integer,
     compact_gap_overlap_population_upper_bound,
     compact_gap_overlap_profile,
+    compact_gap_variable_order_profile,
 )
 
 
@@ -119,6 +121,42 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
             0,
         )
 
+    def test_balanced_variable_overlap_order(self) -> None:
+        self.assertEqual(compact_gap_balanced_overlap_order(21, 89), 5)
+        self.assertEqual(compact_gap_balanced_overlap_order(1, 0), 1)
+        for candidate_count, level_span in ((21, 89), (41, 252), (41, 636)):
+            with self.subTest(
+                candidate_count=candidate_count,
+                level_span=level_span,
+            ):
+                order = compact_gap_balanced_overlap_order(
+                    candidate_count,
+                    level_span,
+                )
+                logarithmic_scale = candidate_count.bit_length()
+                self.assertGreaterEqual(
+                    order * order * logarithmic_scale,
+                    level_span,
+                )
+                if order > 1:
+                    self.assertLess(
+                        (order - 1) ** 2 * logarithmic_scale,
+                        level_span,
+                    )
+
+    def test_variable_order_profile_is_conservative(self) -> None:
+        levels = tuple(
+            20 + (index * 89) // 20
+            for index in range(21)
+        )
+        profile = compact_gap_variable_order_profile(20, levels)
+        self.assertEqual(profile.high_weight_threshold, 6)
+        self.assertLessEqual(
+            profile.high_weight_prime_count,
+            profile.high_weight_population_upper_bound,
+        )
+        self.assertFalse(profile.injective)
+
     def test_invalid_inputs(self) -> None:
         invalid_calls = (
             lambda: compact_gap_exponent(True),
@@ -135,6 +173,8 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
                 1,
             ),
             lambda: compact_gap_high_weight_profile(12, (2, 3), False),
+            lambda: compact_gap_balanced_overlap_order(2, 0),
+            lambda: compact_gap_balanced_overlap_order(False, 1),
         )
         for call in invalid_calls:
             with self.subTest(call=call), self.assertRaises(ValueError):

@@ -1,5 +1,60 @@
 # Research Status
 
+## M51 outcome
+
+- Date: 2026-07-30.
+- Branch: `research/20260730-m51-superlinear-span-cost`.
+- Base: M50 squash merge
+  `4911cfbf247d09a0b0c2ffab990eda5060ea6cee`.
+- Research question: can BAR-043's fixed higher-overlap order be balanced
+  against a superlinear public span without hiding subset multiplicity,
+  factor access, or superpolynomial evaluation cost?
+- Result: `DEF-037` chooses a public-geometry analytical order
+  \(h_m\asymp\sqrt{\Delta_m/\log(r_m+1)}\). `BAR-044` proves eventual
+  noninjectivity when
+  \(\Delta_m\log_2(r_m+1)=o(m^2)\), including every polynomial-size
+  \(O(m^{2-\varepsilon})\) span for fixed \(\varepsilon>0\).
+- Exact scope retained: one factor-independent
+  \(A=3,B_t=2^t+3,g=2\) compact-gap family. The
+  \(\Theta(m^2/\log m)\) constant boundary, quadratic and larger spans,
+  other compact grammars, adaptive schedules, and general factoring remain
+  open.
+- EXP-0049 passes 12 superlinear profiles, 62,128 balanced-prime
+  signatures, 2,450,864 coordinates, and 12 independent variable-order and
+  pair reconstructions. No finite profile is injective or satisfies the
+  conservative asymptotic inequality; the proof does not extrapolate those
+  observations.
+- Registered canonical summary SHA-256:
+  `cf4874600194e17b654bd40e29c33b96babff4860758e79c19f7e76981c63fd2`.
+- Registered schema file SHA-256:
+  `4552818335844443ca9781ab44008a68f18288fdbc557b32c71c4de362cf3003`.
+- Final gates passed:
+  - foundation, M50 generated-artifact, and bilingual publication checks over
+    207 claims and 48 experiment hashes;
+  - 251 Python tests in 339.801 seconds, compileall, Ruff, and strict mypy over
+    28 source files;
+  - Rust formatting/Clippy and 36 tests, plus a warning-free C# Release build;
+  - the baseline 58-check cross-language differential and the M46--M49 and
+    M51 independent checkers, including 2,450,864 M51 coordinate checks;
+  - warning-free 112-page English and 43-page Korean XeLaTeX builds, with
+    visual inspection of the M51 theorem, appendix proof, Korean theorem, and
+    Korean reproduction/limitations pages.
+- Stable English PDF SHA-256:
+  `c6bf9c2c7ec173e45bad5485d15ece9571022c6441e5037107f0011a2e3802c9`.
+- Stable Korean PDF SHA-256:
+  `6c2e465b02f0e151904da516115d86b9c72345cafea3ebf7d2cd5d6602a0be8f`.
+
+### M51 Korean summary
+
+M51은 BAR-043의 고정 overlap 차수 대신 공개 level 목록의 span과 후보 수만
+사용하는 \(h_m\asymp\sqrt{\Delta_m/\log(r_m+1)}\)를 택한다. 증가하는
+subset 수를 그대로 비용에 포함해도
+\(\Delta_m\log_2(r_m+1)=o(m^2)\)이면 고중량 예외 집합과 저중량
+signature 공간이 모두 \(2^{o(m)}\)임을 증명한다. 따라서 정확한
+compact-gap family에서 모든 polynomial subquadratic span은 결국
+단사일 수 없다. 이는 일반 정수분해 lower bound가 아니며
+\(\Theta(m^2/\log m)\) 경계와 다른 문법은 여전히 열린 문제다.
+
 ## M50 outcome
 
 - Date: 2026-07-30.
