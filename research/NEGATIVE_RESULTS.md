@@ -1129,3 +1129,28 @@
   shifts of the whole public level window. It does not refute lists whose
   span approaches or exceeds \(m/2\), other compact families, adaptive
   schedules, or general classical factoring.
+
+## NR-046 - Every linearly wide compact-gap list fails asymptotically
+
+- Date: 2026-07-29.
+- Status: `REFUTED` claim `REF-045`.
+- Hypothesis tested: polynomially many public candidates
+  \(A=3,B_t=2^t+3,g=2\), with polynomial branch-total evaluation cost and
+  any fixed linear level span \(\Delta_m\le Cm\), can separate every
+  sufficiently large complete balanced-prime population.
+- Higher-overlap obstruction: a prime hitting \(h+1\) levels divides
+  \[
+  R_q=3^{2^q-1}+32^{2^q-1},
+  \qquad
+  q=\gcd(t_1-t_0,\ldots,t_h-t_0)\le\Delta_m/h.
+  \]
+  For any fixed \(h>2C\), the union of all possible high-weight primes is
+  exponentially smaller than the balanced population.
+- Population obstruction: outside that union, signatures have weight at
+  most \(h\), so a polynomial-size list supplies only
+  \(\sum_{j=0}^{h}\binom{r_m}{j}\) cells. Eventually a duplicate signature
+  and failed balanced semiprime pair are unavoidable.
+- Scope: this refutes only the exact public compact-gap family with
+  \(O(m)\) span. It does not refute superlinear spans, other bases or compact
+  grammars, adaptive or input-dependent schedules, arbitrary circuits, or a
+  general classical factoring algorithm.

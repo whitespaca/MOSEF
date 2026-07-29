@@ -70,6 +70,7 @@ REQUIRED_SECTIONS = (
     "The length-31 finite envelope",
     "The length-32 finite envelope",
     "The length-33 finite envelope",
+    "Linearly wide encoded compact-gap barrier",
     "Algorithms and bit-complexity synthesis",
     "Reproducible experimental methodology",
     "Results",
@@ -126,6 +127,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:THM-019-BAR-040}",
     r"\label{proof:BAR-041}",
     r"\label{proof:BAR-042}",
+    r"\label{proof:BAR-043}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -259,6 +261,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0047-m48-compact-gap-overlap.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0048-m49-wide-span-compact-gap.md",
 )
 
 
@@ -425,6 +431,7 @@ def main() -> int:
                 "EXP-0045",
                 "EXP-0046",
                 "EXP-0047",
+                "EXP-0048",
             )
         ) and (
             summary_hash not in korean_paper_text.lower()
@@ -505,6 +512,9 @@ def main() -> int:
         "M48: short-span encoded compact-gap 장벽",
         "BAR-042",
         "1,636,992",
+        "M49: 선형 폭 encoded compact-gap 장벽",
+        "BAR-043",
+        "3,645,232",
     )
     for phrase in required_korean:
         if phrase not in korean_paper_text:

@@ -6,7 +6,12 @@ import math
 import unittest
 
 from python.mosef_reference.compact_gap_overlap_budget import (
+    compact_gap_common_support_gap,
+    compact_gap_common_support_integer,
     compact_gap_exponent,
+    compact_gap_high_weight_population_upper_bound,
+    compact_gap_high_weight_profile,
+    compact_gap_low_weight_signature_capacity,
     compact_gap_overlap_bit_bound,
     compact_gap_overlap_integer,
     compact_gap_overlap_population_upper_bound,
@@ -49,6 +54,24 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
                 with self.subTest(first=first, second=second):
                     self.assertEqual(overlap % residual, 0)
 
+    def test_common_support_gcd_collapses_many_levels(self) -> None:
+        self.assertEqual(compact_gap_common_support_gap((4, 8, 12, 16)), 4)
+        self.assertEqual(
+            compact_gap_common_support_integer((4, 8, 12, 16)),
+            compact_gap_overlap_integer(4),
+        )
+        for prime, levels in (
+            (11, (4, 8, 12, 16)),
+            (179, (6, 17, 28)),
+            (409, (9, 17, 25)),
+        ):
+            with self.subTest(prime=prime, levels=levels):
+                self.assertTrue(all(_compact_cofactor(level) % prime == 0 for level in levels))
+                self.assertEqual(
+                    compact_gap_common_support_integer(levels) % prime,
+                    0,
+                )
+
     def test_registered_profile_is_conservative(self) -> None:
         profile = compact_gap_overlap_profile(14, (14, 15, 16))
         self.assertEqual(profile.population_size, 7)
@@ -76,6 +99,26 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
         )
         self.assertLessEqual(exact_union_bound, span_bound)
 
+    def test_high_weight_capacity_and_profile(self) -> None:
+        self.assertEqual(
+            compact_gap_low_weight_signature_capacity(5, 3),
+            1 + 5 + math.comb(5, 2),
+        )
+        levels = tuple(range(20, 41))
+        profile = compact_gap_high_weight_profile(20, levels, 4)
+        self.assertLessEqual(
+            profile.high_weight_prime_count,
+            profile.high_weight_population_upper_bound,
+        )
+        self.assertEqual(
+            profile.injective,
+            profile.collision_pair_count == 0,
+        )
+        self.assertEqual(
+            compact_gap_high_weight_population_upper_bound(20, (2, 3), 3),
+            0,
+        )
+
     def test_invalid_inputs(self) -> None:
         invalid_calls = (
             lambda: compact_gap_exponent(True),
@@ -84,6 +127,14 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
             lambda: compact_gap_overlap_population_upper_bound(8, (2, 3)),
             lambda: compact_gap_overlap_population_upper_bound(12, (3, 2)),
             lambda: compact_gap_overlap_profile(12, (2, 2)),
+            lambda: compact_gap_common_support_gap((2,)),
+            lambda: compact_gap_low_weight_signature_capacity(0, 3),
+            lambda: compact_gap_high_weight_population_upper_bound(
+                12,
+                (2, 3),
+                1,
+            ),
+            lambda: compact_gap_high_weight_profile(12, (2, 3), False),
         )
         for call in invalid_calls:
             with self.subTest(call=call), self.assertRaises(ValueError):

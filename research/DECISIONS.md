@@ -1051,3 +1051,23 @@
   \((1/2-\varepsilon)m\) and polynomial total evaluation work. Wide-span
   lists at the half-length boundary or beyond remain open and become the
   next falsification target.
+
+## ADR-053 - Charge high-weight support to the GCD of public gaps
+
+- Date: 2026-07-29.
+- Decision: for each fixed \(h\), charge a prime hitting \(h+1\) compact-gap
+  levels to the single overlap integer \(R_q\), where \(q\) is the GCD of
+  the \(h\) offsets from the first selected level. Bound all such primes by
+  a union over \((h+1)\)-subsets, then count the remaining signatures by the
+  exact Hamming ball of radius \(h\).
+- Rationale: pairwise overlap alone pays for the full public span and stops
+  below the half-length boundary. The common-support relations preserve
+  their negative sign under GCD reduction because every quotient
+  \((2^d-1)/(2^q-1)\) is odd. Also \(h\) distinct positive multiples of
+  \(q\) force \(q\le\Delta/h\), recovering an exponential gap while keeping
+  all factors and support sets outside the public algorithm.
+- Consequence: BAR-043 rules out every polynomial-size, polynomial-cost
+  list from this exact family with any fixed linear span \(Cm\). The finite
+  union bound remains deliberately conservative, and superlinear spans,
+  adaptive schedules, other compact grammars, and general factoring remain
+  unresolved. Work pauses after M49 by user instruction.

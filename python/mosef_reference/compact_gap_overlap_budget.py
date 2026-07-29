@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import math
 from collections import Counter
 from dataclasses import dataclass
 from itertools import combinations
@@ -31,6 +32,31 @@ class CompactGapOverlapProfile:
     separated_pair_count: int
     collision_pair_count: int
     overlap_population_upper_bound: int
+    low_weight_signature_capacity: int
+    theorem_forces_collision: bool
+    injective: bool
+    maximum_bucket_size: int
+
+
+@dataclass(frozen=True)
+class CompactGapHighWeightProfile:
+    """Finite high-weight signature accounting for one wide-span level list."""
+
+    input_length: int
+    candidate_levels: tuple[int, ...]
+    high_weight_threshold: int
+    population_size: int
+    candidate_count: int
+    level_span: int
+    compact_evaluation_level_sum: int
+    distinct_signature_count: int
+    zero_signature_count: int
+    high_weight_prime_count: int
+    maximum_signature_weight: int
+    pair_count: int
+    separated_pair_count: int
+    collision_pair_count: int
+    high_weight_population_upper_bound: int
     low_weight_signature_capacity: int
     theorem_forces_collision: bool
     injective: bool
@@ -102,6 +128,82 @@ def compact_gap_overlap_population_upper_bound(
     )
 
 
+def compact_gap_common_support_gap(
+    candidate_levels: tuple[int, ...],
+) -> int:
+    """Return the GCD of offsets in one common-support level subset."""
+    _validate_levels(candidate_levels)
+    if len(candidate_levels) < 2:
+        raise ValueError("at least two candidate levels are required")
+    first = candidate_levels[0]
+    return math.gcd(*(level - first for level in candidate_levels[1:]))
+
+
+def compact_gap_common_support_integer(
+    candidate_levels: tuple[int, ...],
+) -> int:
+    """Return the overlap integer forced by a common-support level subset."""
+    return compact_gap_overlap_integer(
+        compact_gap_common_support_gap(candidate_levels)
+    )
+
+
+def compact_gap_low_weight_signature_capacity(
+    candidate_count: int,
+    high_weight_threshold: int,
+) -> int:
+    """Count signatures whose weight is below ``high_weight_threshold``."""
+    if (
+        isinstance(candidate_count, bool)
+        or not isinstance(candidate_count, int)
+        or candidate_count < 1
+    ):
+        raise ValueError("candidate_count must be a positive integer")
+    if (
+        isinstance(high_weight_threshold, bool)
+        or not isinstance(high_weight_threshold, int)
+        or high_weight_threshold < 2
+    ):
+        raise ValueError("high_weight_threshold must be at least two")
+    return sum(
+        math.comb(candidate_count, weight)
+        for weight in range(min(high_weight_threshold, candidate_count + 1))
+    )
+
+
+def compact_gap_high_weight_population_upper_bound(
+    input_length: int,
+    candidate_levels: tuple[int, ...],
+    high_weight_threshold: int,
+) -> int:
+    """Union-bound primes that can hit ``high_weight_threshold`` candidates."""
+    if (
+        isinstance(input_length, bool)
+        or not isinstance(input_length, int)
+        or input_length < 9
+    ):
+        raise ValueError("input_length must be an integer at least nine")
+    _validate_levels(candidate_levels)
+    if (
+        isinstance(high_weight_threshold, bool)
+        or not isinstance(high_weight_threshold, int)
+        or high_weight_threshold < 2
+    ):
+        raise ValueError("high_weight_threshold must be at least two")
+    candidate_count = len(candidate_levels)
+    if high_weight_threshold > candidate_count:
+        return 0
+    population_prime_bits = (input_length - 1) // 2
+    maximum_common_gap = (
+        candidate_levels[-1] - candidate_levels[0]
+    ) // (high_weight_threshold - 1)
+    return (
+        math.comb(candidate_count, high_weight_threshold)
+        * compact_gap_overlap_bit_bound(maximum_common_gap)
+        // population_prime_bits
+    )
+
+
 def compact_gap_overlap_profile(
     input_length: int,
     candidate_levels: tuple[int, ...],
@@ -152,6 +254,76 @@ def compact_gap_overlap_profile(
         low_weight_signature_capacity=low_weight_capacity,
         theorem_forces_collision=(
             len(primes) - overlap_bound > low_weight_capacity
+        ),
+        injective=accounting.injective,
+        maximum_bucket_size=max(counts.values()),
+    )
+
+
+def compact_gap_high_weight_profile(
+    input_length: int,
+    candidate_levels: tuple[int, ...],
+    high_weight_threshold: int,
+) -> CompactGapHighWeightProfile:
+    """Compute exact wide-span signatures and the high-weight support bound."""
+    if (
+        isinstance(input_length, bool)
+        or not isinstance(input_length, int)
+        or input_length < 9
+    ):
+        raise ValueError("input_length must be an integer at least nine")
+    _validate_levels(candidate_levels)
+    if (
+        isinstance(high_weight_threshold, bool)
+        or not isinstance(high_weight_threshold, int)
+        or high_weight_threshold < 2
+    ):
+        raise ValueError("high_weight_threshold must be at least two")
+    primes = balanced_prime_population(input_length)
+    if len(primes) < 2:
+        raise ValueError("balanced population must contain at least two primes")
+    signatures = tuple(
+        phi4_compact_signature(candidate_levels, prime) for prime in primes
+    )
+    accounting = signature_pair_accounting(
+        signatures,
+        len(candidate_levels),
+    )
+    counts = Counter(signatures)
+    weights = tuple(signature.bit_count() for signature in signatures)
+    high_weight_count = sum(
+        weight >= high_weight_threshold for weight in weights
+    )
+    high_weight_bound = compact_gap_high_weight_population_upper_bound(
+        input_length,
+        candidate_levels,
+        high_weight_threshold,
+    )
+    if high_weight_count > high_weight_bound:
+        raise AssertionError("M49 high-weight population bound failed")
+    low_weight_capacity = compact_gap_low_weight_signature_capacity(
+        len(candidate_levels),
+        high_weight_threshold,
+    )
+    return CompactGapHighWeightProfile(
+        input_length=input_length,
+        candidate_levels=candidate_levels,
+        high_weight_threshold=high_weight_threshold,
+        population_size=len(primes),
+        candidate_count=len(candidate_levels),
+        level_span=candidate_levels[-1] - candidate_levels[0],
+        compact_evaluation_level_sum=sum(candidate_levels),
+        distinct_signature_count=len(counts),
+        zero_signature_count=counts.get(0, 0),
+        high_weight_prime_count=high_weight_count,
+        maximum_signature_weight=max(weights),
+        pair_count=accounting.pair_count,
+        separated_pair_count=accounting.separated_pair_count,
+        collision_pair_count=accounting.collision_pair_count,
+        high_weight_population_upper_bound=high_weight_bound,
+        low_weight_signature_capacity=low_weight_capacity,
+        theorem_forces_collision=(
+            len(primes) - high_weight_bound > low_weight_capacity
         ),
         injective=accounting.injective,
         maximum_bucket_size=max(counts.values()),
