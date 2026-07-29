@@ -1114,3 +1114,18 @@
   \(O(m^{2-\varepsilon})\) in the exact compact-gap family. The full
   \(\Theta(m^2/\log m)\) constant boundary, quadratic spans, other compact
   grammars, adaptive schedules, and general factoring remain open.
+
+## ADR-056 - Charge distinct-level packing before optimizing boundary entropy
+
+- Date: 2026-07-30.
+- Decision: at the M51 boundary, retain the exact high/low ledgers but choose
+  \(h_m=\lceil xm/\ell_m\rceil\) and use the mandatory list-geometry
+  inequality \(r_m\le\Delta_m+1\) before applying binomial entropy bounds.
+- Rationale: packing forces
+  \(\log_2(e r_m/h_m)\le(1/2+o(1))\ell_m\) uniformly. The resulting
+  high-weight coefficient is \(x/2+c/x\), minimized at \(\sqrt{2c}\), so the
+  exact-family range \(c<1/8\) closes without pretending that \(r_m\) and
+  \(\Delta_m\) are independent.
+- Consequence: BAR-045 reaches explicit boundary constants while leaving
+  \(c=1/8\) honestly open. M53 will test whether the remaining subset
+  overcount can be reduced; no injective endpoint construction is inferred.

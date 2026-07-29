@@ -1180,3 +1180,25 @@
   \(\Delta_m\log_2(r_m+1)=o(m^2)\). The result does not settle constants at
   \(\Theta(m^2/\log m)\), quadratic or larger spans, other bases or compact
   grammars, adaptive schedules, arbitrary circuits, or general factoring.
+
+## NR-048 - Boundary constants below one eighth do not escape
+
+- Date: 2026-07-30.
+- Status: `REFUTED` claim `REF-047`.
+- Hypothesis tested: for some fixed \(c<1/8\), a polynomial-cost public list
+  in the exact DEF-035 family with
+  \[
+  \Delta_m\le(c+o(1))
+  \frac{m^2}{\lceil\log_2(r_m+1)\rceil}
+  \]
+  can remain injective on every sufficiently large balanced population.
+- Packing obstruction: distinct integer levels force
+  \(r_m\le\Delta_m+1\). This makes the exact binomial entropy contribution at
+  most \((x/2+o(1))m\) for
+  \(h_m=\lceil xm/\lceil\log_2(r_m+1)\rceil\rceil\).
+- Overlap obstruction: the retained high-weight gap contribution is at most
+  \((c/x+o(1))m\). Optimizing gives the leading coefficient
+  \(\sqrt{2c}<1/2\), strictly below the balanced-population exponent.
+- Scope: the endpoint \(c=1/8\) and larger constants remain open because the
+  current leading upper coefficient has no strict slack there. This is a
+  negative result for one exact family, not a general factoring lower bound.

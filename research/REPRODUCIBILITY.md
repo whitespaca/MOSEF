@@ -32,6 +32,7 @@ python scripts/check_m47_polynomial_cap_support_differential.py
 python scripts/check_m48_compact_gap_overlap_differential.py
 python scripts/check_m49_wide_span_compact_gap_differential.py
 python scripts/check_m51_subquadratic_span_differential.py
+python scripts/check_m52_boundary_constant_differential.py
 ```
 
 These commands recompute registered masks, identities, collision or
@@ -115,9 +116,10 @@ tables or the Korean claim appendix.
 
 ## Determinism and environment
 
-The M31--M49 and M51 searches are deterministic finite enumerations and record no
-random seed. Source schemas use sorted JSON serialization and canonical
-SHA-256 values. Wall time can vary; mathematical rows and hashes must not.
+The M31--M49 and M51--M52 searches are deterministic finite enumerations and
+record no random seed. Source schemas use sorted JSON serialization and
+canonical SHA-256 values. Wall time can vary; mathematical rows and hashes
+must not.
 
 The repository baseline is Windows/PowerShell, Python 3.12, Rust/Cargo,
 .NET, and MiKTeX XeLaTeX. Exact tool versions and host details for the latest

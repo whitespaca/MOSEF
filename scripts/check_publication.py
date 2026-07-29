@@ -64,6 +64,7 @@ REQUIRED_SECTIONS = (
     "Supplementary finite threshold audit trail",
     "Linearly wide encoded compact-gap barrier",
     "Subquadratic encoded compact-gap barrier",
+    "Packing-aware compact-gap boundary constants",
     "Compact-step and bit-operation complexity",
     "Reproducible experimental methodology",
     "Results",
@@ -122,6 +123,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-042}",
     r"\label{proof:BAR-043}",
     r"\label{proof:BAR-044}",
+    r"\label{proof:BAR-045}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -263,6 +265,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0049-m51-subquadratic-span.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0050-m52-boundary-constant.md",
 )
 
 
@@ -550,6 +556,10 @@ def main() -> int:
         "Delta_m",
         "o(m^2)",
         "3,645,232",
+        "M52: packing-aware compact-gap 경계 상수",
+        "BAR-045",
+        "c=1/8",
+        "89e5465e4f1bf4d577d77d3c7624682405ecf7b8aa208432916cab2e90a8d3aa",
     )
     for phrase in required_korean:
         if phrase not in korean_paper_text:

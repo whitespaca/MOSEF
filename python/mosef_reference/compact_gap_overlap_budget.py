@@ -63,6 +63,22 @@ class CompactGapHighWeightProfile:
     maximum_bucket_size: int
 
 
+@dataclass(frozen=True)
+class CompactGapBoundaryLedger:
+    """Exact M52 entropy ledger using only public list geometry."""
+
+    input_length: int
+    candidate_count: int
+    level_span: int
+    overlap_order: int
+    high_weight_threshold: int
+    maximum_common_gap: int
+    high_weight_population_upper_bound: int
+    low_weight_signature_capacity: int
+    conservative_population_lower_bound: int
+    theorem_forces_collision: bool
+
+
 def _validate_level(level: int) -> None:
     if isinstance(level, bool) or not isinstance(level, int) or level < 2:
         raise ValueError("level must be an integer at least two")
@@ -200,6 +216,100 @@ def compact_gap_balanced_overlap_order(
     if overlap_order * overlap_order < quotient:
         overlap_order += 1
     return min(candidate_count, max(1, overlap_order))
+
+
+def compact_gap_boundary_overlap_order(
+    input_length: int,
+    candidate_count: int,
+    multiplier_numerator: int,
+    multiplier_denominator: int,
+) -> int:
+    """Return ``ceil(x*m/ell)`` capped by ``r`` for rational ``x``."""
+    for name, value in (
+        ("input_length", input_length),
+        ("candidate_count", candidate_count),
+        ("multiplier_numerator", multiplier_numerator),
+        ("multiplier_denominator", multiplier_denominator),
+    ):
+        if isinstance(value, bool) or not isinstance(value, int) or value < 1:
+            raise ValueError(f"{name} must be a positive integer")
+    logarithmic_scale = candidate_count.bit_length()
+    numerator = multiplier_numerator * input_length
+    denominator = multiplier_denominator * logarithmic_scale
+    order = (numerator + denominator - 1) // denominator
+    return min(candidate_count, max(1, order))
+
+
+def compact_gap_boundary_ledger(
+    input_length: int,
+    candidate_count: int,
+    level_span: int,
+    overlap_order: int,
+) -> CompactGapBoundaryLedger:
+    """Compute the exact M52 high/low ledger without enumerating levels."""
+    if (
+        isinstance(input_length, bool)
+        or not isinstance(input_length, int)
+        or input_length < 10
+    ):
+        raise ValueError("input_length must be an integer at least ten")
+    if (
+        isinstance(candidate_count, bool)
+        or not isinstance(candidate_count, int)
+        or candidate_count < 1
+    ):
+        raise ValueError("candidate_count must be a positive integer")
+    if (
+        isinstance(level_span, bool)
+        or not isinstance(level_span, int)
+        or level_span < candidate_count - 1
+    ):
+        raise ValueError(
+            "level_span must fit a strictly increasing integer level list"
+        )
+    if (
+        isinstance(overlap_order, bool)
+        or not isinstance(overlap_order, int)
+        or overlap_order < 1
+        or overlap_order > candidate_count
+    ):
+        raise ValueError(
+            "overlap_order must be between one and candidate_count"
+        )
+
+    high_weight_threshold = overlap_order + 1
+    low_weight_capacity = compact_gap_low_weight_signature_capacity(
+        candidate_count,
+        high_weight_threshold,
+    )
+    if overlap_order == candidate_count:
+        maximum_common_gap = 0
+        high_weight_bound = 0
+    else:
+        maximum_common_gap = level_span // overlap_order
+        population_prime_bits = (input_length - 1) // 2
+        high_weight_bound = (
+            math.comb(candidate_count, high_weight_threshold)
+            * compact_gap_overlap_bit_bound(maximum_common_gap)
+            // population_prime_bits
+        )
+    population_lower_bound = (
+        (1 << (input_length // 2)) // (81 * input_length)
+    )
+    return CompactGapBoundaryLedger(
+        input_length=input_length,
+        candidate_count=candidate_count,
+        level_span=level_span,
+        overlap_order=overlap_order,
+        high_weight_threshold=high_weight_threshold,
+        maximum_common_gap=maximum_common_gap,
+        high_weight_population_upper_bound=high_weight_bound,
+        low_weight_signature_capacity=low_weight_capacity,
+        conservative_population_lower_bound=population_lower_bound,
+        theorem_forces_collision=(
+            population_lower_bound - high_weight_bound > low_weight_capacity
+        ),
+    )
 
 
 def compact_gap_high_weight_population_upper_bound(

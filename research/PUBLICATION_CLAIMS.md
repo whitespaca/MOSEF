@@ -214,3 +214,8 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-044 | PROVED | Every polynomial subquadratic-span compact-gap selector is eventually noninjective | `research/proofs/BAR-044-subquadratic-span-overlap.md` |
 | REF-046 | REFUTED | A polynomial subquadratic-span encoded compact-gap list separates all large populations | `research/NEGATIVE_RESULTS.md` NR-047 |
 | EMP-049 | EMPIRICAL | Variable-order superlinear-span signature audit | `research/experiments/EXP-0049-m51-subquadratic-span.md` |
+| DEF-038 | DEFINITION | Packing-aware rational boundary-order ledger | `research/proofs/BAR-045-boundary-constant-entropy.md` |
+| BAR-045 | PROVED | Every exact compact-gap list below the uniform \(c=1/8\) boundary is eventually noninjective | `research/proofs/BAR-045-boundary-constant-entropy.md` |
+| REF-047 | REFUTED | A below-\(1/8\) boundary compact-gap list separates all large populations | `research/NEGATIVE_RESULTS.md` NR-048 |
+| OPEN-004 | OPEN | Exact \(c=1/8\) endpoint and larger boundary constants | `research/proofs/BAR-045-boundary-constant-entropy.md` |
+| EMP-050 | EMPIRICAL | Exact packed boundary-ledger audit | `research/experiments/EXP-0050-m52-boundary-constant.md` |
