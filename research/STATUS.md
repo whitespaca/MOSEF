@@ -1,5 +1,23 @@
 # Research Status
 
+## M49 work snapshot
+
+- Date: 2026-07-29.
+- Branch: `research/20260729-m49-wide-span-compact-gaps`.
+- Base: M48 squash merge
+  `8d13c1544bb87c1d756bd2fde1458aee69af4ddb`.
+- M49 asks whether public compact-gap level lists with span at or beyond the
+  half-length boundary can realize enough genuine multi-hit signatures to
+  evade `BAR-042`, while keeping the complete modular-evaluation and GCD
+  ledger polynomial.
+- The falsification-first audit will compare gaps near \(m/2\), \(m\), and
+  polynomially spaced levels, record signature weights and collision buckets,
+  and derive exact higher-order overlap conditions before promoting any
+  asymptotic claim.
+- Pairwise overlap integers become too large for `BAR-042`'s population
+  comparison in this range. Their magnitude will not be treated as evidence
+  of actual support, and bounded sparsity will not be extrapolated.
+
 ## M48 outcome
 
 - Date: 2026-07-29.
