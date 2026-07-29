@@ -6,6 +6,7 @@ import unittest
 
 from python.mosef_reference.diversified_compact_signatures import (
     ExceptionalSelectorDescriptor,
+    _primitive_exit_mask_from_resultant,
     diversified_exceptional_selector,
     diversified_selector_profile,
     greedy_separating_column_indices,
@@ -680,6 +681,63 @@ class DiversifiedCompactSignatureTests(unittest.TestCase):
         self.assertEqual(
             distinguishing,
             [("phi4:195:91:20", 7, (1, 0))],
+        )
+
+    def test_m46_cap_201_has_one_new_final_pair_coordinate(self) -> None:
+        primes = (97927, 99527)
+        cap_200 = diversified_exceptional_selector(34, 200)
+        cap_201 = diversified_exceptional_selector(34, 201)
+        self.assertEqual(len(cap_200), 704261)
+        self.assertEqual(len(cap_201), 714400)
+        self.assertEqual(
+            len(diversified_exceptional_selector(34, 196)),
+            664560,
+        )
+        for descriptor in cap_200:
+            resultant = exceptional_cofactor_overlap(
+                descriptor.first_factor,
+                descriptor.second_factor,
+                descriptor.family,
+            ).cyclotomic_cofactor_resultant
+            masks = tuple(
+                _primitive_exit_mask_from_resultant(
+                    descriptor,
+                    prime,
+                    resultant,
+                )
+                for prime in primes
+            )
+            self.assertEqual(len(set(masks)), 1, descriptor.key)
+
+        old_keys = {descriptor.key for descriptor in cap_200}
+        distinguishing: list[tuple[str, int, tuple[int, int]]] = []
+        for descriptor in cap_201:
+            if descriptor.key in old_keys:
+                continue
+            resultant = exceptional_cofactor_overlap(
+                descriptor.first_factor,
+                descriptor.second_factor,
+                descriptor.family,
+            ).cyclotomic_cofactor_resultant
+            masks = tuple(
+                _primitive_exit_mask_from_resultant(
+                    descriptor,
+                    prime,
+                    resultant,
+                )
+                for prime in primes
+            )
+            for kind_index in range(8):
+                pattern = tuple(
+                    int(bool(mask & (1 << kind_index))) for mask in masks
+                )
+                if len(set(pattern)) > 1:
+                    distinguishing.append(
+                        (descriptor.key, kind_index, pattern)
+                    )
+        self.assertEqual(
+            distinguishing,
+            [("phi6:149:201:45", 7, (1, 0))],
         )
 
     def test_invalid_inputs(self) -> None:

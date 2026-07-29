@@ -995,3 +995,24 @@
   2,410-coordinate certificate is explicit and independently checkable. This
   remains a finite certificate method, not an asymptotic selector
   construction, a public promise recognizer, or a general factoring result.
+
+## ADR-050 - Register both length-34 public caps before adjacent repair
+
+- Date: 2026-07-29.
+- Decision: retain exact non-singleton equivalence-partition refinement for
+  M46, record the distinct cap-196 and cap-200 public profiles, then restrict
+  the transition to the complete cap-200 collision pair. Audit every newly
+  admitted cap-201 primitive coordinate rather than stopping at the first
+  separating witness.
+- Rationale: the cap-200 partition proves that every prime outside
+  \(\{97927,99527\}\) is already a singleton and cannot merge after
+  coordinate appending. The restricted transition is therefore exact.
+  Separately enumerating all 81,112 new primitive coordinates establishes
+  uniqueness of the repair source instead of silently promoting a
+  first-found witness.
+- Consequence: the audit proves both public-cap failures, the adjacent
+  cap-200/cap-201 threshold, and the unique one-coordinate incremental
+  repair. The 3,298-coordinate certificate is explicit and independently
+  checkable. This remains a finite certificate method, not an asymptotic
+  selector construction, a public promise recognizer, or a general factoring
+  result.
