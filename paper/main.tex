@@ -15,7 +15,7 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
-Seventeen Restricted Theorems and Thirty-Two Structural Barriers}
+Eighteen Restricted Theorems and Thirty-Three Structural Barriers}
 \author{MOSEF Research Program}
 \date{29 July 2026}
 
@@ -230,6 +230,11 @@ fail with respectively 66 and 28 colliding pairs. The final pair persists
 through cap 194, and the unique new cap-195 cofactor coordinate separates
 it. Hence \(L_{33}^{\star}=195\), the finite envelopes become \(m+162\)
 and \(c>194/33\), and the minimum incremental repair size is one.
+At \(m=34\), the repaired caps 196 and 200 fail with respectively three and
+one colliding pairs. The last pair is separated by the unique new cap-201
+cofactor coordinate. Hence \(L_{34}^{\star}=201\), the finite envelopes
+become \(m+167\) and \(c>100/17\), and the minimum incremental repair size
+is one.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -394,7 +399,11 @@ algorithm. Its contributions are:
 \item exact partition-refinement audits of the failed caps 168 and 172 at
   length 33, the complete cap-172-bucket transition through cap 195, and a
   minimum one-coordinate repair, yielding the finite construction \(m+162\)
-  and strict coefficient boundary \(c>194/33\); and
+  and strict coefficient boundary \(c>194/33\);
+\item exact partition-refinement audits of the failed caps 196 and 200 at
+  length 34 plus the adjacent cap-200/cap-201 transition and a minimum
+  one-coordinate repair, yielding the finite construction \(m+167\) and
+  strict coefficient boundary \(c>100/17\); and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
@@ -3163,6 +3172,60 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:THM-018-BAR-039} gives the complete finite proof.
 
+\section{The length-34 finite envelope}
+
+\claimstatus{BAR-040}{PROVED}. At \(m=34\), the inherited M45 schedules give
+\[
+m+162=196,\qquad
+\left\lceil\frac{147m}{25}\right\rceil=200.
+\]
+Both fail on the complete 3,299-prime population. Cap 196 has 664,560
+descriptors and leaves the bucket
+\(\{97927,99527,127877\}\), with three failed pairs. Cap 200 has 704,261
+descriptors and leaves only \(\{97927,99527\}\).
+
+Lossless partition refinement confines every later collision to that complete
+cap-200 pair. Cap 201 adds 10,139 descriptors, and exactly one of their
+81,112 primitive coordinates is nonconstant:
+\[
+\begin{array}{c|rr}
+\text{source}&97927&99527\\
+\hline
+\texttt{phi6:149:201:45:cofactor}&1&0.
+\end{array}
+\]
+The 3,297 cap-200 construction coordinates separate every other pair.
+Appending this bit gives a 3,298-coordinate certificate separating all
+5,440,051 pairs. Thus \(L_{34}^{\star}=201\), and the one-coordinate
+incremental repair is minimum. The full certificate is not claimed minimum.
+
+\claimstatus{THM-019}{PROVED}. The public cap \(L=m+167\) is injective on
+every complete balanced population for \(9\le m\le34\), and offset 167 is
+minimal because cap 200 fails at length 34. The exact multiplicative
+coefficients through length 34 are \(c>100/17\). The endpoint gives cap 200,
+while the Farey-adjacent \(53/9\), larger by \(1/153\), gives cap 201.
+
+\claimstatus{REF-042}{REFUTED}. Neither inherited M45 formula remains
+injective on the new complete population. This finite recurrence implies no
+future recurrence or asymptotic cap law.
+
+\claimstatus{EMP-045}{EMPIRICAL}. EXP-0045 checked 306,350,153 optimized
+public local exits, 306,366,391 optimized cap-201 local exits, 16,238
+optimized and 20,278 independent transition exits, 81,112 repair
+coordinates, 3,298 construction coordinates, and 5,440,051 construction
+pairs. Independent validation added 16 Rust/C\# command comparisons, four
+dense vectors, 1,368,821 public-cap descriptor checks, 81,112 independent
+repair-coordinate checks, and 5,440,051 independent construction pairs. The
+summary SHA-256 is
+\[
+\texttt{\seqsplit{52c7899c6d93a747b52fa531e4261ba842acbceb06ae28f420005f8606c85a11}},
+\]
+and the schema SHA-256 is
+\[
+\texttt{\seqsplit{34942d674d0451b219bde70fc65909ef3baa6516b08d61df36bf6ea91e8cde61}}.
+\]
+Appendix \ref{proof:THM-019-BAR-040} gives the complete finite proof.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -3202,7 +3265,7 @@ DEF-032 replaces \(m\) in the descriptor bound by a public cap \(L(m)\):
 there are at most \(2(L(m)-1)^3\) descriptors and
 \(O(L(m)^3\log L(m))\) compact modular steps. Every polynomially bounded,
 polynomial-time computable cap therefore preserves polynomial total bit
-complexity. In particular, all twenty-eight M32--M45 linear formulas use
+complexity. In particular, all thirty M32--M46 linear formulas use
 \(O(m^3\log m)\) compact steps. This cost statement does not imply
 injectivity outside the certified finite range.
 
@@ -3841,8 +3904,10 @@ and \(c>143/31\). BAR-038 refutes both inherited schedules at \(m=32\),
 preserves the last pair through cap 166, and repairs the finite envelopes
 with \(m+135\) and \(c>83/16\). BAR-039 refutes both inherited schedules
 at \(m=33\), preserves the last pair through cap 194, and repairs the
-finite envelopes with \(m+162\) and \(c>194/33\). These results do not
-decide \(m>33\), an
+finite envelopes with \(m+162\) and \(c>194/33\). BAR-040 refutes both
+inherited schedules at \(m=34\), preserves one pair at cap 200, and repairs
+the finite envelopes at cap 201 with \(m+167\) and \(c>100/17\). These
+results do not decide \(m>34\), an
 asymptotic linear cap, an \(N\)-dependent or adaptive schedule, coverage on
 another explicit promise, asymptotic density, or probability. Longer
 chains, adaptive coefficients, several interacting rational values,
@@ -3861,10 +3926,11 @@ outside BAR-008's explicit-list model has a proved factor-scale
 \(d\pm1\) yield guarantee, and whether a precisely defined specialized
 arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
 evaluate a sufficiently rich formal batch at polynomial total construction,
-evaluation, and extraction cost. The next bounded case is to test the repaired
-public formulas \(m+135\) and \(\lceil26m/5\rceil\) on the complete
-\(m=33\) balanced population, where they give distinct caps 168 and 172,
-without extrapolating a rate.
+evaluation, and extraction cost. The next bounded theoretical case asks
+whether the exact pair-separation condition admits a uniform polynomial cap
+for all balanced prime pairs, or whether an explicit infinite obstruction
+family survives every such public cap. No finite threshold table is treated
+as evidence for either asymptotic alternative.
 
 \section{Conclusion}
 
@@ -4014,8 +4080,10 @@ and \(c>143/31\). BAR-038 records the length-32 failures through cap 166,
 the unique one-coordinate cap-167 repair, and the new finite envelopes
 \(m+135\) and \(c>83/16\). BAR-039 records the length-33 failures through
 cap 194, the unique one-coordinate cap-195 repair, and the new finite
-envelopes \(m+162\) and \(c>194/33\). Lengths above 33, \(N\)-dependent and
-adaptive questions, success density, general
+envelopes \(m+162\) and \(c>194/33\). BAR-040 records the length-34
+failures at caps 196 and 200, the unique one-coordinate cap-201 repair, and
+the new finite envelopes \(m+167\) and \(c>100/17\). Lengths above 34,
+\(N\)-dependent and adaptive questions, success density, general
 rational/compositional circuits, and other models remain research targets,
 not claimed factoring breakthroughs.
 
@@ -6433,6 +6501,41 @@ Thus the exact finite condition is \(c>194/33\). The endpoint fails at cap
 194, while \(147/25>194/33\) by exactly \(1/825\) and gives cap 195. No
 later length or asymptotic rate follows. \(\square\)
 
+\subsection{Proof of THM-019 and BAR-040}
+\label{proof:THM-019-BAR-040}
+
+At \(m=34\), exact raw-signature partition refinement gives complete cap-196
+and cap-200 partitions. Their sole nontrivial buckets have sizes three and
+two, hence three and one failed pairs. Both inherited M45 schedules
+therefore fail, proving REF-042.
+
+Raw selector inclusion confines every later collision to the complete
+cap-200 pair. Exact evaluation of all 10,139 newly admitted cap-201
+descriptors on that pair makes the partition injective. Hence
+\(L_{34}^{\star}=201\).
+
+Recording each varying primitive bit produces 3,297 cap-200 coordinates
+whose signatures separate every other pair. Exhaustive independent
+evaluation of all 81,112 primitive coordinates added at cap 201 finds
+exactly one nonconstant pattern:
+\[
+\texttt{phi6:149:201:45:cofactor}=(1,0).
+\]
+Appending it gives distinct signatures on all 3,299 primes, and the
+independent verifier checks all 5,440,051 unordered pairs. Cap 200 excludes
+a zero-coordinate repair and the displayed bit succeeds, so the minimum
+incremental repair size is one.
+
+The new additive offset \(201-34=167\) is larger than every earlier row, so
+\(m+167\) is the smallest common offset through length 34, proving THM-019.
+The new multiplicative endpoint is
+\[
+\frac{L_{34}^{\star}-1}{34}=\frac{100}{17}>\frac{194}{33}.
+\]
+Thus the exact finite condition is \(c>100/17\). The endpoint fails at cap
+200, while \(53/9>100/17\) by exactly \(1/153\) and gives cap 201. No later
+length or asymptotic rate follows. \(\square\)
+
 \clearpage
 \section{Reproduction appendix}
 
@@ -6616,6 +6719,11 @@ The registered experiment cores and canonical summary hashes are:
   \texttt{\seqsplit{2a3d7c347eeea57c36fd3a585744a30818a5ff0543840607f91514e1786feb23}},
   certificate-vector hash
   \texttt{\seqsplit{a9ba5df141ecefdf9c7a946bd5bf7f17dd44c5748b843385f6e1f0165e311cd2}}.
+\item EXP-0045, M46 milestone commit recorded in \path{research/STATUS.md},
+  summary hash
+  \texttt{\seqsplit{52c7899c6d93a747b52fa531e4261ba842acbceb06ae28f420005f8606c85a11}},
+  certificate-vector hash
+  \texttt{\seqsplit{34942d674d0451b219bde70fc65909ef3baa6516b08d61df36bf6ea91e8cde61}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -6782,6 +6890,9 @@ python scripts/check_m44_length_32_cap_differential.py
 python scripts/run_m45_length_33_cap_audit.py
 python scripts/generate_m45_length_33_cap_schema.py
 python scripts/check_m45_length_33_cap_differential.py
+python scripts/run_m46_length_34_cap_audit.py
+python scripts/generate_m46_length_34_cap_schema.py
+python scripts/check_m46_length_34_cap_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}

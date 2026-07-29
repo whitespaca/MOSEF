@@ -1,18 +1,77 @@
 # Research Status
 
-## M46 work snapshot
+## M46 outcome
 
 - Date: 2026-07-29.
 - Branch: `research/20260729-m46-length-34-caps`.
 - Base: M45 squash merge
   `0975334e2443adbbc67c62eeaf41f13b2eb3eb65`.
-- M46 is evaluating the complete \(m=34\) balanced-prime population under
-  the inherited additive cap \(34+162=196\) and multiplicative cap
-  \(\lceil147\cdot34/25\rceil=200\).
-- The audit will retain every non-singleton exact raw-signature class, compare
-  the two public caps separately, and, if either fails, continue cap by cap to
-  the first injective schedule. No recurrence or asymptotic conclusion is
-  assumed in advance.
+- Start commit `3110dcd557ae5b819af5636a0adb6b05bd7af762` is pushed. Draft
+  PR #57 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/57`.
+- The complete \(m=34\) balanced population has 3,299 primes and 5,440,051
+  unordered pairs. Both inherited caps fail. Cap 196 leaves
+  \(\{97927,99527,127877\}\) and three pairs; cap 200 leaves
+  \(\{97927,99527\}\) and one pair.
+- Lossless exact partition refinement confines the post-cap-200 transition to
+  the last pair. Cap 200 is noninjective and cap 201 is injective, so
+  \(L_{34}^{\star}=201\).
+- The unique new nonconstant primitive source
+  `phi6:149:201:45:cofactor` has pattern \((1,0)\). It appends to 3,297
+  predecessor coordinates to give a 3,298-coordinate certificate separating
+  all 5,440,051 pairs. The minimum incremental repair size is one; no minimum
+  claim is made for the full certificate.
+- `THM-019` proves the smallest common finite additive offset through length
+  34 is 167, so the repaired public schedule is \(m+167\).
+- `BAR-040` proves the exact multiplicative coefficients through length 34
+  are \(c>100/17\). The Farey-adjacent witness \(53/9\), larger by
+  \(1/153\), gives cap 201.
+- `REF-042` and NR-043 record that neither inherited M45 formula survives
+  length 34. No recurrence, asymptotic rate, density, recognizer, or general
+  factoring conclusion is inferred.
+- ADR-050 preserves the exact partition method, registers the two distinct
+  public caps, and requires a complete final repair-coordinate census.
+- EXP-0045 checks 306,350,153 optimized public local exits, 306,366,391
+  optimized cap-201 local exits, 20,278 independent transition exits, 81,112
+  repair coordinates, 3,298 construction coordinates, and 5,440,051
+  certificate pairs.
+- Registered schema SHA-256:
+  `34942d674d0451b219bde70fc65909ef3baa6516b08d61df36bf6ea91e8cde61`.
+  Registered summary SHA-256:
+  `52c7899c6d93a747b52fa531e4261ba842acbceb06ae28f420005f8606c85a11`.
+- Independent differential validation passed 16 Rust/C# command
+  comparisons, four dense vectors, 1,368,821 public-cap descriptor checks,
+  20,278 transition local exits, 81,112 repair-coordinate checks, and
+  5,440,051 construction-certificate pairs.
+- Final gates passed: foundation and bilingual publication checks
+  (191 claims and 44 experiment hashes), 231 Python tests and 206 subtests
+  in 316.03 seconds with the cache provider disabled, compileall, Ruff,
+  strict mypy over 26 source files, Rust formatting/Clippy and 36 tests, and
+  a warning-free C# Release build.
+- XeLaTeX produced warning-free 104-page English and 36-page Korean PDFs.
+  Rendered title, M46 result, proof, reproduction, and claim-appendix pages
+  have no clipping, overlap, missing glyph, malformed mathematics, or
+  unreadable text. Stable artifact SHA-256 values are
+  `c820e693157a9e70c493f11e965295771315bdab04e73709437314e141e58dfa`
+  and
+  `b72056d1bbc52bccb8f61a825b1fde5b90e46d083cc812703f1b140c1d827785`.
+- Next selected milestone: M47 tests the asymptotic feasibility of every
+  polynomially bounded DEF-032 cap by charging the total exact prime-support
+  bit budget instead of extrapolating the finite threshold table.
+
+### M46 Korean summary
+
+M46에서는 \(m=34\)의 완전 balanced-prime 모집단 3,299개에 대해 기존
+공개 상한 \(m+162=196\)과
+\(\lceil147m/25\rceil=200\)을 각각 검사했다. cap 196은
+\(\{97927,99527,127877\}\)과 세 충돌 pair를, cap 200은
+\(\{97927,99527\}\) 한 pair를 남기므로 두 공식 모두 실패한다.
+cap 201에서 추가되는 81,112개 primitive coordinate 중
+`phi6:149:201:45:cofactor`만 패턴 \((1,0)\)으로 마지막 pair를
+분리한다. 따라서 \(L_{34}^{\star}=201\), 최소 증분 repair 크기는
+하나, 유한 envelope는 \(m+167\)과 \(c>100/17\)이다. 이는
+\(m>34\), asymptotic cap 성장, 약속 인식, 또는 일반 고전적 다항 시간
+정수분해를 증명하지 않는다.
 
 ## M45 outcome
 
