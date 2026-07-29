@@ -1016,3 +1016,20 @@
   checkable. This remains a finite certificate method, not an asymptotic
   selector construction, a public promise recognizer, or a general factoring
   result.
+
+## ADR-051 - Charge exact lifts analytically without changing the compact path
+
+- Date: 2026-07-29.
+- Decision: define an analytical exact-output ledger for all eight DEF-032
+  primitive integers, including continuation values skipped by nonunit-base
+  branches, while leaving the public compact modular implementation
+  unchanged. Use the complete union support only as an upper bound.
+- Rationale: a polynomial numeric cap bounds \(A,B,g\) themselves, so the
+  exact lifts have polynomial bit length even though the public evaluator
+  need not materialize them. Overcharging skipped values and duplicates makes
+  the support obstruction conservative and avoids confusing it with a public
+  factoring or support-enumeration step.
+- Consequence: the exact ledger proves BAR-041 for every polynomial numeric
+  DEF-032 cap. The decision does not extend the result to the BAR-022 compact
+  gap, where an exponentially large numeric parameter has only polynomial
+  encoding length, or to other compact descriptor grammars.

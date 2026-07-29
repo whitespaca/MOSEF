@@ -124,6 +124,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:THM-017-BAR-038}",
     r"\label{proof:THM-018-BAR-039}",
     r"\label{proof:THM-019-BAR-040}",
+    r"\label{proof:BAR-041}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -249,6 +250,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0045-m46-length-34-cap.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0046-m47-polynomial-cap-support.md",
 )
 
 
@@ -413,6 +418,7 @@ def main() -> int:
                 "EXP-0043",
                 "EXP-0044",
                 "EXP-0045",
+                "EXP-0046",
             )
         ) and (
             summary_hash not in korean_paper_text.lower()
@@ -487,6 +493,9 @@ def main() -> int:
         "M46: 길이 34의 유한 envelope",
         "THM-019",
         "97927,99527,127877",
+        "M47: polynomial numeric-cap support 장벽",
+        "BAR-041",
+        "1.25506",
     )
     for phrase in required_korean:
         if phrase not in korean_paper_text:

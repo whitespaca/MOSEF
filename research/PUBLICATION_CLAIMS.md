@@ -198,3 +198,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-040 | PROVED | Exact length-34 cap-201 threshold and repaired finite envelopes | `research/proofs/THM-019-BAR-040-length-34-envelope.md` |
 | REF-042 | REFUTED | Either inherited public cap remains injective at length 34 | `research/NEGATIVE_RESULTS.md` NR-043 |
 | EMP-045 | EMPIRICAL | Length-34 finite-envelope audit | `research/experiments/EXP-0045-m46-length-34-cap.md` |
+| DEF-034 | DEFINITION | Exact-output support budget for a DEF-032 numeric cap | `research/proofs/BAR-041-polynomial-cap-support-budget.md` |
+| BAR-041 | PROVED | No polynomial numeric DEF-032 cap is asymptotically injective | `research/proofs/BAR-041-polynomial-cap-support-budget.md` |
+| REF-043 | REFUTED | A polynomial numeric DEF-032 cap separates all large balanced populations | `research/NEGATIVE_RESULTS.md` NR-044 |
+| EMP-046 | EMPIRICAL | Polynomial-cap exact-output support audit | `research/experiments/EXP-0046-m47-polynomial-cap-support.md` |

@@ -15,7 +15,7 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
-Eighteen Restricted Theorems and Thirty-Three Structural Barriers}
+Eighteen Restricted Theorems and Thirty-Four Structural Barriers}
 \author{MOSEF Research Program}
 \date{29 July 2026}
 
@@ -235,6 +235,12 @@ one colliding pairs. The last pair is separated by the unique new cap-201
 cofactor coordinate. Hence \(L_{34}^{\star}=201\), the finite envelopes
 become \(m+167\) and \(c>100/17\), and the minimum incremental repair size
 is one.
+Finally, we prove that this finite success cannot extend asymptotically
+within the same polynomial numeric-cap grammar. The eight exact primitive
+integers have total bit budget \(O(L^5\log L)\), while explicit
+Rosser--Schoenfeld bounds give exponentially many balanced primes. Thus every
+polynomially bounded DEF-032 cap eventually leaves two primes with the same
+all-zero signature.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -403,7 +409,10 @@ algorithm. Its contributions are:
 \item exact partition-refinement audits of the failed caps 196 and 200 at
   length 34 plus the adjacent cap-200/cap-201 transition and a minimum
   one-coordinate repair, yielding the finite construction \(m+167\) and
-  strict coefficient boundary \(c>100/17\); and
+  strict coefficient boundary \(c>100/17\);
+\item an exact-output support-budget theorem proving that no polynomially
+  bounded numeric cap can make DEF-032 injective on every sufficiently large
+  balanced-prime population; and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
@@ -3226,6 +3235,79 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:THM-019-BAR-040} gives the complete finite proof.
 
+\section{Polynomial numeric-cap support barrier}
+
+\claimstatus{DEF-034}{DEFINITION}. For a DEF-032 cap \(L\), let \(W(m,L)\)
+be the sum of the bit lengths of the eight positive exact primitive integers
+over every descriptor. Let \(H_{m,L}\) be the balanced population primes
+dividing at least one of them. This analytical ledger overcharges
+continuation values skipped by nonunit-base branches and therefore only
+enlarges the possible support.
+
+Put \(b=\operatorname{bitlength}(L)\). The per-descriptor bit bounds for
+base, first stage, second stage, first bound, second bound, cyclotomic,
+resultant, and cofactor are respectively
+\[
+b,\quad Lb,\quad L^2b,\quad b,\quad b+1,\quad
+2b+1,\quad4b+2,\quad L^2b+1.
+\]
+The geometric sums are smaller than \(g^A\) and \(g^{AB}\). The two
+resultant remainder coefficients have magnitude at most \(L^2\), and the
+positive exact cofactor is smaller than \(2g^{AB}\). Since there are at most
+\(2(L-1)^3\) descriptors,
+\[
+W(m,L)\le
+2(L-1)^3(2L^2b+Lb+9b+5)
+=O(L^5\log L).
+\tag{M47.1}
+\]
+
+\claimstatus{BAR-041}{PROVED}. Every \(p\in\mathcal P_m\) is at least
+\(2^{\lfloor(m-1)/2\rfloor}\). The square-free product of all primes in
+\(H_{m,L}\) divides the product of the charged exact integers, so
+\[
+\left\lfloor\frac{m-1}{2}\right\rfloor |H_{m,L}|
+\le W(m,L).
+\]
+Rosser and Schoenfeld's inspected inequalities
+\cite{rosser1962approximate} give
+\[
+\frac{x}{\log x}<\pi(x)\ (x\ge17),\qquad
+\pi(x)<1.25506\frac{x}{\log x}\ (x>1).
+\]
+Because \(1.25506/\sqrt2<8/9\), applying them at
+\(x=2^{m/2}\) yields
+\[
+|\mathcal P_m|>
+\frac{2^{m/2}}{81\log(2^{m/2})}
+\qquad(m\ge10).
+\tag{M47.2}
+\]
+For every polynomially bounded numeric cap \(L(m)\), (M47.1) is polynomial in
+\(m\), while (M47.2) is exponential up to a polynomial factor. Eventually at
+least two balanced primes lie outside \(H_{m,L(m)}\). Both have the all-zero
+primitive signature, so no derived aggregate or overlap coordinate can
+separate their product. Thus no such cap is asymptotically injective.
+
+\claimstatus{REF-043}{REFUTED}. A polynomial numeric DEF-032 cap cannot
+separate every sufficiently large complete balanced population. This does
+not cover polynomial-bit encodings of exponentially large numeric
+parameters, adaptive or input-dependent schedules, other compact grammars,
+or general factoring algorithms.
+
+\claimstatus{EMP-046}{EMPIRICAL}. EXP-0046 materialized 963 descriptors and
+7,704 exact primitive values at caps 9, 12, 16, and 20. Independent
+reconstruction checked every value, 25,346 branch-support cases, and 31
+balanced populations from lengths 10 through 40. The summary SHA-256 is
+\[
+\texttt{\seqsplit{b9c97e8161d3470ad61d20fd9ee8834888e5f0139e1b3fd5b3fbe3b2a6463093}},
+\]
+and the schema SHA-256 is
+\[
+\texttt{\seqsplit{a37f9d495de85943a69a6c3fbc122c9f09fbce0f78316c32163c380a782ef525}}.
+\]
+Appendix \ref{proof:BAR-041} gives the complete asymptotic proof.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -3267,7 +3349,12 @@ there are at most \(2(L(m)-1)^3\) descriptors and
 polynomial-time computable cap therefore preserves polynomial total bit
 complexity. In particular, all thirty M32--M46 linear formulas use
 \(O(m^3\log m)\) compact steps. This cost statement does not imply
-injectivity outside the certified finite range.
+injectivity outside the certified finite range. BAR-041 supplies the missing
+negative statement for this exact grammar: a polynomial numeric cap also
+forces only \(O(L^5\log L)\) total exact-output support bits, which is
+insufficient for all large balanced populations. This conclusion relies on
+the numeric bound \(A,B,g\le L\); it does not apply when exponentially large
+parameters have polynomial-length encodings.
 
 \begin{center}
 \scriptsize
@@ -3906,13 +3993,13 @@ with \(m+135\) and \(c>83/16\). BAR-039 refutes both inherited schedules
 at \(m=33\), preserves the last pair through cap 194, and repairs the
 finite envelopes with \(m+162\) and \(c>194/33\). BAR-040 refutes both
 inherited schedules at \(m=34\), preserves one pair at cap 200, and repairs
-the finite envelopes at cap 201 with \(m+167\) and \(c>100/17\). These
-results do not decide \(m>34\), an
-asymptotic linear cap, an \(N\)-dependent or adaptive schedule, coverage on
-another explicit promise, asymptotic density, or probability. Longer
-chains, adaptive coefficients, several interacting rational values,
-unrelated bases, other groups, and general signed arithmetic circuits remain
-outside.
+the finite envelopes at cap 201 with \(m+167\) and \(c>100/17\). BAR-041
+then proves that every polynomial numeric DEF-032 cap eventually fails; the
+finite table is not extrapolated to obtain this conclusion. The result does
+not identify the first failure of an arbitrary cap, prove that a threshold
+exists at every later length, or cover an \(N\)-dependent or adaptive
+schedule, exponentially large encoded parameters, another compact grammar,
+another promise, or general signed arithmetic circuits.
 
 The authoritative Rust layer is bounded to \texttt{u64}; validation primality
 uses trial division and is not itself the polynomial-time procedure imported
@@ -3926,11 +4013,11 @@ outside BAR-008's explicit-list model has a proved factor-scale
 \(d\pm1\) yield guarantee, and whether a precisely defined specialized
 arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
 evaluate a sufficiently rich formal batch at polynomial total construction,
-evaluation, and extraction cost. The next bounded theoretical case asks
-whether the exact pair-separation condition admits a uniform polynomial cap
-for all balanced prime pairs, or whether an explicit infinite obstruction
-family survives every such public cap. No finite threshold table is treated
-as evidence for either asymptotic alternative.
+evaluation, and extraction cost. The next bounded case asks whether a
+polynomial-size public list of polynomial-bit but exponentially large
+exceptional parameters can evade BAR-041 while retaining branch-total
+polynomial modular cost. It begins with BAR-022's \(B=2^t+3\) compact gap and
+does not enumerate up to the numeric parameter.
 
 \section{Conclusion}
 
@@ -4082,10 +4169,12 @@ the unique one-coordinate cap-167 repair, and the new finite envelopes
 cap 194, the unique one-coordinate cap-195 repair, and the new finite
 envelopes \(m+162\) and \(c>194/33\). BAR-040 records the length-34
 failures at caps 196 and 200, the unique one-coordinate cap-201 repair, and
-the new finite envelopes \(m+167\) and \(c>100/17\). Lengths above 34,
-\(N\)-dependent and adaptive questions, success density, general
-rational/compositional circuits, and other models remain research targets,
-not claimed factoring breakthroughs.
+the new finite envelopes \(m+167\) and \(c>100/17\). BAR-041 proves that no
+polynomial numeric DEF-032 cap extends these finite constructions to all
+sufficiently large balanced populations. Polynomial-bit encodings of
+exponentially large parameters, \(N\)-dependent and adaptive questions,
+success density, general rational/compositional circuits, and other models
+remain research targets, not claimed factoring breakthroughs.
 
 \appendix
 
@@ -6536,6 +6625,64 @@ Thus the exact finite condition is \(c>100/17\). The endpoint fails at cap
 200, while \(53/9>100/17\) by exactly \(1/153\) and gives cap 201. No later
 length or asymptotic rate follows. \(\square\)
 
+\subsection{Proof of BAR-041}
+\label{proof:BAR-041}
+
+Fix a valid descriptor with \(2\le A,B,g\le L\), and put
+\(b=\operatorname{bitlength}(L)\). The positive geometric sums satisfy
+\[
+S_A(g)<g^A<2^{Lb},\qquad
+S_B(g^A)<g^{AB}<2^{L^2b}.
+\]
+The direct cyclotomic is at most \(g^2+1<2^{2b+1}\). In both exceptional
+families, inspection of the exact linear remainder formulas shows that each
+remainder coefficient has magnitude at most \(L^2\); their quadratic norm
+is positive and at most \(3L^4<2^{4b+2}\). Finally,
+\[
+0<C_i(g)
+\le\alpha_iS_A(g)+S_B(g^A)
+<2g^{AB}<2^{L^2b+1}.
+\]
+Together with the base and two public-bound rows, the eight bit lengths sum
+to at most \(2L^2b+Lb+9b+5\). Multiplying by the descriptor upper bound
+\(2(L-1)^3\) proves (M47.1).
+
+Let \(H_{m,L}\) be the population primes dividing at least one charged exact
+integer. Each such prime is at least
+\(2^{\lfloor(m-1)/2\rfloor}\), and their square-free product divides the
+product of the exact integers. Taking base-two logarithms gives
+\[
+\left\lfloor\frac{m-1}{2}\right\rfloor |H_{m,L}|
+\le W(m,L).
+\]
+
+For \(x=2^{m/2}\), neither endpoint \(x,x/\sqrt2\) is prime: one is a power
+of two and the other is nonintegral. Hence
+\[
+|\mathcal P_m|=\pi(x)-\pi(x/\sqrt2).
+\]
+The inspected Rosser--Schoenfeld bounds apply for \(m\ge10\). Moreover,
+\[
+128\cdot50000^2-81\cdot62753^2
+=1{,}026{,}940{,}271>0,
+\]
+so \(1.25506/\sqrt2<8/9\). Since \(m/(m-1)\le10/9\),
+\[
+|\mathcal P_m|
+>\frac{x}{\log x}
+\left(1-\frac{1.25506}{\sqrt2}\frac{m}{m-1}\right)
+>\frac{x}{81\log x},
+\]
+which is (M47.2).
+
+If \(L(m)\le Cm^d\) eventually, (M47.1) and the support inequality bound
+\(|H_{m,L(m)}|\) by a polynomial in \(m\), whereas (M47.2) is exponential up
+to a polynomial factor. Eventually two population primes lie outside the
+union support. The base branch and every continuation primitive are zero on
+both signatures; derived coordinates are Boolean functions of those bits.
+BAR-024 therefore gives a failed square-free pair. This proves BAR-041 and
+REF-043 with the stated grammar-specific scope. \(\square\)
+
 \clearpage
 \section{Reproduction appendix}
 
@@ -6724,6 +6871,11 @@ The registered experiment cores and canonical summary hashes are:
   \texttt{\seqsplit{52c7899c6d93a747b52fa531e4261ba842acbceb06ae28f420005f8606c85a11}},
   certificate-vector hash
   \texttt{\seqsplit{34942d674d0451b219bde70fc65909ef3baa6516b08d61df36bf6ea91e8cde61}}.
+\item EXP-0046, M47 milestone commit recorded in \path{research/STATUS.md},
+  summary hash
+  \texttt{\seqsplit{b9c97e8161d3470ad61d20fd9ee8834888e5f0139e1b3fd5b3fbe3b2a6463093}},
+  exact-output schema hash
+  \texttt{\seqsplit{a37f9d495de85943a69a6c3fbc122c9f09fbce0f78316c32163c380a782ef525}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -6893,6 +7045,9 @@ python scripts/check_m45_length_33_cap_differential.py
 python scripts/run_m46_length_34_cap_audit.py
 python scripts/generate_m46_length_34_cap_schema.py
 python scripts/check_m46_length_34_cap_differential.py
+python scripts/run_m47_polynomial_cap_support_audit.py
+python scripts/generate_m47_polynomial_cap_support_schema.py
+python scripts/check_m47_polynomial_cap_support_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -6904,7 +7059,7 @@ through EXP-0019 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. EXP-0020
-through EXP-0044 use the same deterministic finite-enumeration policy. The
+through EXP-0046 use the same deterministic finite-enumeration policy. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.
 
 \bibliographystyle{plain}
