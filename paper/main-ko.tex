@@ -135,7 +135,10 @@ M51은 분석 차수를
 Hamming-ball signature 공간이 모두 \(2^{o(m)}\)이므로, 이 exact
 family의 모든 polynomial subquadratic span
 \(O(m^{2-\varepsilon})\)도 결국 비단사다.
-\(\Theta(m^2/\log m)\)의 상수 경계는 여전히 열려 있다.
+서로 다른 level의 packing \(r_m\le\Delta_m+1\)까지 포함하면
+\(\Delta_m\le(c+o(1))m^2/\lceil\log_2(r_m+1)\rceil\)인 모든
+고정 \(c<1/8\)도 결국 비단사다. 정확한 \(c=1/8\) endpoint는
+여전히 열려 있다.
 이 양성 결과는 인수분해에 의존하는 유한 약속 정리이다.
 일반 고전적 다항 시간 정수분해 알고리즘이나 모든 다항 selector의
 하한은 주장하지 않는다.
@@ -158,11 +161,11 @@ MOSEF는 ``Multi-Group Order-Separating Exponent Factoring'' 연구
 
 영문 원고 \path{paper/main.tex}는 모든 과거 정리와 증명의 상세
 기록이다. 이 한국어 동반 원고는 동일한 claim ID와 상태를 사용하고,
-현재 M51 결과의 정의, 정리, 증명, 실험, 한계 및 재현 절차를
+현재 M52 결과의 정의, 정리, 증명, 실험, 한계 및 재현 절차를
 자기완결적으로 제공한다.
 
-제목은 claim 개수의 숫자 집계를 사용하지 않는다. M51 snapshot의
-authoritative ledger는 \texttt{THM-019}와 \texttt{BAR-044}까지
+제목은 claim 개수의 숫자 집계를 사용하지 않는다. M52 snapshot의
+authoritative ledger는 \texttt{THM-019}와 \texttt{BAR-045}까지
 이어지지만, 이 ID에는 제한 factoring 정리, 대수적 분류, 서로 포개진
 유한 promise 정리, extraction reduction, scoped obstruction이 함께
 들어 있다. 그러므로 임의의 집계 규칙 대신 stable claim ID와 status가
@@ -2154,6 +2157,91 @@ signature 62,128개, coordinate 2,450,864개, variable-order balance
 \]
 이다.
 
+\section{M52: packing-aware compact-gap 경계 상수}
+
+\claimstatus{DEF-038}{DEFINITION}.
+\(\ell_m=\lceil\log_2(r_m+1)\rceil\)라 하고, 고정 rational \(x>0\)에
+대해
+\[
+\widehat h_m=\left\lceil\frac{x m}{\ell_m}\right\rceil,\qquad
+h_m=\min\{r_m,\widehat h_m\}
+\tag{M52.1}
+\]
+로 둔다. \(h_m<r_m\)이면 threshold \(h_m+1\)에서 exact M49
+high-weight union과 low-weight Hamming ledger를 유지한다.
+\(h_m=r_m\)이면 \(2^{r_m}\)개 전체 signature를 센다. 이 분석 선택은
+공개 list geometry만 사용한다.
+
+\claimstatus{BAR-045}{PROVED}.
+exact DEF-035 list의 branch-total 비용이 polynomial이고, 고정
+\(c>0\)에 대해
+\[
+\Delta_m\le(c+o(1))\frac{m^2}{\ell_m}
+\tag{M52.2}
+\]
+라고 하자. 서로 다른 정수 level은
+\[
+r_m\le\Delta_m+1,\qquad
+\ell_m\le2\log_2m-\log_2\ell_m+O(1)
+\tag{M52.3}
+\]
+을 강제한다. \(h_m\ge r_m/2\)이면 전체 signature 공간이
+\(2^{o(m)}\)이다. 그렇지 않으면 standard binomial entropy bound로
+\[
+\log_2\frac{e r_m}{h_m}
+\le\left(\frac12+o(1)\right)\ell_m
+\tag{M52.4}
+\]
+이고, low-weight capacity의 로그는 \((x/2+o(1))m\) 이하이다.
+exact high-weight union bound도
+\[
+\log_2(U_{m,h_m}+1)
+\le\left(\frac{x}{2}+\frac{c}{x}+o(1)\right)m
+\tag{M52.5}
+\]
+을 만족한다. \(0<c<1/8\)이면
+\[
+\min_{x>0}\left(\frac{x}{2}+\frac{c}{x}\right)
+=\sqrt{2c}<\frac12
+\tag{M52.6}
+\]
+이므로 두 ledger는
+\(|\mathcal P_m|=2^{m/2-O(\log m)}\)보다 지수적으로 작다. 따라서
+duplicate complete signature와 실패하는 balanced semiprime pair가
+존재한다.
+
+추가로 \(\ell_m/\log_2m\to a\)이면 packing 때문에 \(a\le2\)다.
+\(a\le1\)에서는 모든 fixed \(c\)가 배제되고, \(1<a\le2\)에서는
+\[
+c<\frac{a}{16(a-1)}
+\tag{M52.7}
+\]
+가 배제된다.
+
+\claimstatus{REF-047}{REFUTED}.
+이 exact family에서 \(c<1/8\)인 boundary list가 모든 충분히 큰
+balanced population에서 단사라는 가설은 거짓이다.
+
+\claimstatus{OPEN-004}{OPEN}.
+\(c=1/8\)에서는 (M52.6)의 최솟값이 정확히 \(1/2\)이므로 현재 upper
+ledger에 고정 exponential slack이 없다. 이는 injective construction이
+아니다. shared overlap divisor 또는 subset multiplicity 개선이
+endpoint나 그 위의 일부 구간을 닫을 가능성은 남아 있다.
+
+\claimstatus{EMP-050}{EMPIRICAL}.
+EXP-0050은 exact packed boundary profile 20개, packing 및 rational
+coefficient 분류 20개, exact-integer hash 60개, below-endpoint finite
+collision certificate 12개, endpoint-or-above noncertificate 8개,
+growth-rate threshold 5개를 검사했다. summary SHA-256은
+\[
+\texttt{\seqsplit{89e5465e4f1bf4d577d77d3c7624682405ecf7b8aa208432916cab2e90a8d3aa}}
+\]
+이고 schema SHA-256은
+\[
+\texttt{\seqsplit{8265f5d4839f892640fe3c3530229bf08d584228850d9c07c35ce9208ac79f52}}
+\]
+이다. 유한 certificate의 존재나 부재를 점근 증명으로 사용하지 않는다.
+
 \section{compact-step과 표준 bit-operation complexity}
 
 \subsection{비용 단위와 online/offline 경계}
@@ -2234,6 +2322,10 @@ DEF-037과 BAR-044도 public evaluator를 바꾸지 않는다. 증가하는
 parameter이며, 증명은 \(\binom{r_m}{h_m+1}\) subset multiplicity를
 그대로 비용에 포함한다. span이 polynomial이라는 사실만으로는
 충분하지 않고 전체 branch-total public 비용이 polynomial이어야 한다.
+DEF-038과 BAR-045는 추가로 필수 list-packing
+\(r_m\le\Delta_m+1\)을 charge한다. rational multiplier \(x\)는 offline
+proof constant이고, exact finite ledger는 모든
+\(\binom{r_m}{h_m+1}\) high-weight subset을 그대로 유지한다.
 
 \subsection{offline certificate 비용}
 
@@ -2307,13 +2399,13 @@ computer-assisted selector 정리는 balanced square-free semiprime,
 asymptotic growth law가 아니다. compact modular step 수와 보수적인
 표준 bit-operation 상한도 서로 다른 원장이다.
 
-BAR-044까지가 증명하지 않은 사항은 다음과 같다.
+BAR-045까지가 증명하지 않은 사항은 다음과 같다.
 
 \begin{itemize}
 \item balanced population에서 \(H_m\)의 asymptotic density;
 \item \(H_m\)을 factorization 없이 명시적으로 출력하는 recognizer;
-\item \(\Delta_m\log_2(r_m+1)=\Theta(m^2)\)인 encoded compact-gap
-  selector의 정확한 상수 경계와 quadratic 이상 span의 단사성;
+\item exact \(c=1/8\) endpoint와 그보다 큰 boundary constant를 갖는
+  encoded compact-gap selector, 그리고 quadratic 이상 span의 단사성;
 \item 다른 base, exceptional family 또는 compact grammar의 단사성;
 \item 이후 각 길이에서 finite threshold \(L_m^\star\)가 존재하는지와
   임의의 fixed polynomial cap의 첫 실패 길이;
@@ -2323,11 +2415,11 @@ BAR-044까지가 증명하지 않은 사항은 다음과 같다.
 \item 일반 arithmetic circuit 또는 일반 고전적 정수분해의 하한.
 \end{itemize}
 
-BAR-044는 exact \(A=3,B_t=2^t+3,g=2\) family에서
-\(\Delta_m\log_2(r_m+1)=o(m^2)\)인 모든 span을 닫는다. 남은 첫
-경계는 \(\Theta(m^2/\log(r_m+1))\)의 explicit constant 영역이며,
-현재 union bound가 어느 상수까지 population slack을 유지하는지가
-다음 연구 문제다.
+BAR-045는 exact \(A=3,B_t=2^t+3,g=2\) family에서
+\(\Delta_m\le(c+o(1))m^2/\log_2(r_m+1)\), \(c<1/8\)인 모든
+경계를 닫는다. 남은 첫 경계는 정확한 \(c=1/8\) endpoint이며,
+shared overlap divisor나 repeated-subset charge가 현재 union-bound
+overcount를 줄일 수 있는지가 다음 연구 문제다.
 
 \section{결론}
 
@@ -2353,9 +2445,10 @@ cost다.
 BAR-041은 exact DEF-032 grammar의 모든 polynomial numeric cap을,
 BAR-042는 short-span encoded compact-gap list를, BAR-043은 그 exact
 compact family의 모든 고정 선형 span을, BAR-044는 모든 polynomial
-subquadratic span을 배제한다. 이는 모든 polynomial selector나 일반
+subquadratic span을, BAR-045는 모든 fixed \(c<1/8\) boundary를
+배제한다. 이는 모든 polynomial selector나 일반
 고전적 정수분해의 lower bound가 아니다.
-\(\Theta(m^2/\log m)\) 상수 경계, quadratic 이상 encoded list, 다른
+\(c=1/8\) endpoint, 더 큰 boundary constant, quadratic 이상 encoded list, 다른
 compact grammar, adaptive public construction, promise recognition,
 더 넓은 group channel은 열린 연구 목표다.
 
@@ -2455,6 +2548,9 @@ python scripts/check_m49_wide_span_compact_gap_differential.py
 python scripts/run_m51_subquadratic_span_audit.py
 python scripts/generate_m51_subquadratic_span_schema.py
 python scripts/check_m51_subquadratic_span_differential.py
+python scripts/run_m52_boundary_constant_audit.py
+python scripts/generate_m52_boundary_constant_schema.py
+python scripts/check_m52_boundary_constant_differential.py
 python scripts/generate_korean_claim_appendix.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex

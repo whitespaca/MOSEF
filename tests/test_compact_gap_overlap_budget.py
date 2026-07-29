@@ -7,6 +7,8 @@ import unittest
 
 from python.mosef_reference.compact_gap_overlap_budget import (
     compact_gap_balanced_overlap_order,
+    compact_gap_boundary_ledger,
+    compact_gap_boundary_overlap_order,
     compact_gap_common_support_gap,
     compact_gap_common_support_integer,
     compact_gap_exponent,
@@ -157,6 +159,29 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
         )
         self.assertFalse(profile.injective)
 
+    def test_boundary_order_and_exact_ledger(self) -> None:
+        order = compact_gap_boundary_overlap_order(1024, 819, 1, 4)
+        self.assertEqual(order, 26)
+        ledger = compact_gap_boundary_ledger(1024, 819, 3276, order)
+        self.assertEqual(ledger.high_weight_threshold, 27)
+        self.assertEqual(ledger.maximum_common_gap, 126)
+        self.assertGreater(
+            ledger.conservative_population_lower_bound,
+            0,
+        )
+        self.assertEqual(
+            ledger.theorem_forces_collision,
+            ledger.conservative_population_lower_bound
+            - ledger.high_weight_population_upper_bound
+            > ledger.low_weight_signature_capacity,
+        )
+
+    def test_boundary_ledger_switches_to_full_signature_space(self) -> None:
+        ledger = compact_gap_boundary_ledger(20, 3, 9, 3)
+        self.assertEqual(ledger.high_weight_population_upper_bound, 0)
+        self.assertEqual(ledger.low_weight_signature_capacity, 8)
+        self.assertEqual(ledger.maximum_common_gap, 0)
+
     def test_invalid_inputs(self) -> None:
         invalid_calls = (
             lambda: compact_gap_exponent(True),
@@ -175,6 +200,9 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
             lambda: compact_gap_high_weight_profile(12, (2, 3), False),
             lambda: compact_gap_balanced_overlap_order(2, 0),
             lambda: compact_gap_balanced_overlap_order(False, 1),
+            lambda: compact_gap_boundary_overlap_order(12, 3, 0, 1),
+            lambda: compact_gap_boundary_ledger(12, 4, 2, 1),
+            lambda: compact_gap_boundary_ledger(12, 4, 8, 5),
         )
         for call in invalid_calls:
             with self.subTest(call=call), self.assertRaises(ValueError):

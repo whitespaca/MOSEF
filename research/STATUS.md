@@ -1,5 +1,58 @@
 # Research Status
 
+## M52 outcome
+
+- Date: 2026-07-30.
+- Branch: `research/20260730-m52-boundary-constants`.
+- Base: M51 squash merge
+  `66fc37459cb28d491bed6cff4ff341d6362039e7`.
+- Research question: which constants at
+  \(\Delta_m=\Theta(m^2/\log(r_m+1))\) are excluded by the exact
+  higher-overlap ledger?
+- Result: `BAR-045` combines distinct-level packing
+  \(r_m\le\Delta_m+1\) with the rational order
+  \(h_m=\lceil xm/\ell_m\rceil\). The uniform leading exponent
+  \(x/2+c/x\) has minimum \(\sqrt{2c}\), proving eventual noninjectivity for
+  every fixed \(0<c<1/8\) in the exact family.
+- Growth-refined result: if
+  \(\ell_m/\log_2m\to a\), every fixed \(c\) is excluded for \(a\le1\), while
+  \(c<a/[16(a-1)]\) is excluded for \(1<a\le2\).
+- `OPEN-004` preserves \(c=1/8\) and larger constants. The loss of strict
+  ledger slack is not an injective construction.
+- EXP-0050 passes 20 exact profiles, 60 exact-integer hash checks,
+  12 below-endpoint finite collision certificates, eight endpoint-or-above
+  noncertificates, and five growth thresholds.
+- Registered canonical summary SHA-256:
+  `89e5465e4f1bf4d577d77d3c7624682405ecf7b8aa208432916cab2e90a8d3aa`.
+- Registered schema file SHA-256:
+  `8265f5d4839f892640fe3c3530229bf08d584228850d9c07c35ce9208ac79f52`.
+- Final gates passed:
+  - foundation, M50 generated-artifact, and bilingual publication checks over
+    212 claims and 49 experiment hashes;
+  - 253 Python tests in 338.090 seconds, compileall, Ruff, and strict mypy over
+    28 source files;
+  - Rust formatting/Clippy and 36 tests, plus a warning-free C# Release build;
+  - the baseline 58-check cross-language differential and the M49, M51, and
+    M52 independent checkers, including 60 exact M52 integer-hash checks;
+  - warning-free 114-page English and 45-page Korean XeLaTeX builds, with
+    visual inspection of the M52 theorem, appendix proof, and both Korean
+    theorem pages.
+- Stable English PDF SHA-256:
+  `031e95be7d05d7752a8d6b58dfda524d319e81d99a5f12a72d41106bee53d9f8`.
+- Stable Korean PDF SHA-256:
+  `28a2dbce6b3b59195117671c77f33cc63aac2b60abef7230efa55c1d54b65960`.
+
+### M52 Korean summary
+
+M52는 서로 다른 정수 level을 쓰는 목록이 반드시
+\(r_m\le\Delta_m+1\)을 만족한다는 packing 제약을 먼저 비용에 넣는다.
+\(\Delta_m\le(c+o(1))m^2/\ell_m\)에서
+\(h_m=\lceil xm/\ell_m\rceil\)를 쓰면 exact high-weight 장부의 지수는
+\((x/2+c/x+o(1))m\) 이하이고, 최솟값은 \(\sqrt{2c}\)다. 따라서
+exact compact-gap family에서 모든 고정 \(c<1/8\)은 결국 단사일 수
+없다. \(c=1/8\)은 현재 장부의 한계일 뿐 양성 construction이 아니며
+M53의 열린 문제로 유지한다.
+
 ## M51 outcome
 
 - Date: 2026-07-30.
