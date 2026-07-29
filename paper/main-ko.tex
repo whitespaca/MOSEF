@@ -26,9 +26,9 @@
 \renewcommand{\abstractname}{초록}
 
 \title{고전적 정수분해를 위한 차수 분리 지수:\\
-열여덟 개의 제한 정리와 서른여섯 개의 구조적 장벽}
+유한 약속 정리, 구조적 장벽, 재현 가능한 인증서}
 \author{MOSEF 연구 프로그램}
-\date{2026년 7월 29일}
+\date{2026년 7월 30일}
 
 \begin{document}
 \maketitle
@@ -37,7 +37,12 @@
 이 논문은 이진 입력 길이
 \(m=\lceil\log_2N\rceil\)을 복잡도 기준으로 삼아, 고전적 정수분해를
 위한 차수 분리 지수 계열을 연구한다. 일반 정수분해의 고전적 다항
-시간 알고리즘이 존재한다고 가정하지 않는다. 저장소에서 검증된
+시간 알고리즘이 존재한다고 가정하지 않는다. MOSEF는 완성된 일반
+알고리즘이 아니라 연구 프로그램의 이름이다. 현재 selector 계열의
+가장 강한 양성 결과는 balanced square-free semiprime과
+\(9\le m\le34\)에 한정된 computer-assisted finite promise theorem이다.
+그 family-relative threshold는 \(m>34\)의 단사성, 점근 성장률, 또는
+모든 selector 가운데의 최소값을 뜻하지 않는다. 저장소에서 검증된
 결과는 인수분해에 의존하는 두 개의 유전적 약속 클래스에 대한
 Las Vegas 정리, 하나의 완전한 유리 root-of-unity 분류 정리,
 하나의 완전 유한 balanced-semiprime 약속 정리, 그리고
@@ -149,6 +154,13 @@ MOSEF는 ``Multi-Group Order-Separating Exponent Factoring'' 연구
 현재 M49 결과의 정의, 정리, 증명, 실험, 한계 및 재현 절차를
 자기완결적으로 제공한다.
 
+제목은 claim 개수의 숫자 집계를 사용하지 않는다. M49 snapshot의
+authoritative ledger는 \texttt{THM-019}와 \texttt{BAR-043}까지
+이어지지만, 이 ID에는 제한 factoring 정리, 대수적 분류, 서로 포개진
+유한 promise 정리, extraction reduction, scoped obstruction이 함께
+들어 있다. 그러므로 임의의 집계 규칙 대신 stable claim ID와 status가
+기여 목록을 정의한다.
+
 \section{모형과 기본 판정}
 
 \subsection{입력 길이와 차수 분리}
@@ -250,7 +262,7 @@ modular evaluation을 가지면서 exact cofactor 길이가 exponential이다.
 없다. M29는 exact 크기가 아니라 prime support와 GCD collision을
 직접 분석한다.
 
-\section{M29: compact cofactor prime-support 장벽}
+\section{M29: compact cofactor support와 단일 좌표 한계}
 
 \subsection{정의와 정확한 판정}
 
@@ -395,7 +407,7 @@ level에서는 support가 넓어질수록 hit--hit full collision도 늘어난�
 여러 후보가 multi-bit signature를 만드는 경우는 M30의 별도
 연구 문제이다.
 
-\section{M30: compact 다중 지지 signature 장벽}
+\section{M30: support signature의 일반 분리 이론}
 
 \subsection{정의와 필요충분조건}
 
@@ -522,7 +534,7 @@ summary SHA-256은
 selector에 대한 불가능성 정리가 아니며 일반 고전적 다항 시간
 정수분해의 불가능성도 뜻하지 않는다.
 
-\section{M31: 다변화 selector의 유한 구성과 한정된 충돌}
+\section{M31: 공개 selector family와 support 정규화}
 
 \claimstatus{DEF-031}{DEFINITION}.
 \(m\ge9\)에 대하여 입력 \(N\)을 받기 전에
@@ -628,7 +640,7 @@ THM-004의 완전 유한 증명이다. \(m=16\)에서는 270개 descriptor의
 pair product가 모두 실패한다. 이것이 BAR-025를 증명하고 REF-027을
 반박한다. 다른 selector나 무한 범위에 대한 결론은 없다.
 
-\section{M32: 넓어진 공개 상한의 유한 구성과 정확한 경계}
+\section{M32: selector 계산과 첫 family-relative threshold}
 
 \claimstatus{DEF-032}{DEFINITION}.
 \(m\ge9\)와 공개 정수 \(L(m)\ge m\)에 대해, 입력 \(N\)을 받기 전에
@@ -644,22 +656,9 @@ prime pair는 다시 합쳐지지 않는다. normalized column 수 자체는
 단조일 필요가 없지만, 각 고정 cap의 정확한 정규화 동치가 raw
 pair-separation 단조성을 보존한다.
 
-완전 탐색으로 얻은 첫 단사 상한은 다음과 같다.
-
-\begin{center}
-\begin{tabular}{rrrrrl}
-\toprule
-\(m\) & \(|\mathcal P_m|\) & 최소 \(L\) & \(L-m\) &
-certificate & \(L-1\)의 충돌 \\
-\midrule
-16 & 12 & 19 & 3  & 10 & \(191,227,233\) \\
-17 & 18 & 19 & 2  & 16 & \(277,317;\ 263,349\) \\
-18 & 25 & 27 & 9  & 20 & \(503,509\) \\
-19 & 31 & 27 & 8  & 26 & \(569,719\) \\
-20 & 44 & 31 & 11 & 40 & \(809,827\) \\
-\bottomrule
-\end{tabular}
-\end{center}
+\(m=16,\ldots,20\)의 첫 단사 상한은 아래의 단일 통합 표에
+포함한다. 수치는 수작업으로 옮기지 않고 등록된 M32 schema에서
+생성한다.
 
 \claimstatus{THM-005}{PROVED}.
 공개 상한 \(L(m)=m+11\)은 \(9\le m\le20\)의 모든 완전 balanced
@@ -714,7 +713,7 @@ summary SHA-256은
 \(30/20=3/2\)이므로 BAR-026의 strict endpoint가 나온다. 이 증명은
 \(m>20\)의 단사성을 말하지 않는다.
 
-\section{M33: 첫 선형 상한 재발과 복구}
+\section{유한 약속 정리와 family-relative threshold 종합}
 
 \claimstatus{DEF-033}{DEFINITION}.
 존재할 때 \(L_m^\star\)를 \(\mathcal P_m\)에서 처음 단사인 최소 공개
@@ -725,6 +724,48 @@ c_M^\star=\max\frac{L_m^\star-1}{m}
 \]
 로 둔다. 이는 각각 공통 가산 상수와 strict 곱셈 계수 infimum이며,
 asymptotic 성장률이 아니다.
+
+\paragraph{통합 결과의 범위.}
+여기서 최소화하는 대상은 DEF-032의 공개 family
+\(\mathcal T_{m,L}\) 안의 cap \(L\)이다. 따라서 아래의 ``최소 cap'',
+``정확한 threshold'', ``strict endpoint''는 모두 완전 등록 balanced
+population 위의 family-relative 양이다. THM-019는 포개진 유한
+certificate를 결합하여 \(m+167\)이 \(9\le m\le34\)에서 성공함을
+보인다. 이는 \(m>34\)의 단사성, \(N\)만으로 balanced factor promise를
+인식하는 방법, 다른 selector에 대한 최소성, 또는 점근 cap 법칙을
+주장하지 않는다.
+
+\paragraph{통합 certificate 표.}
+다음 표는
+\texttt{scripts/generate\_m50\_finite\_threshold\_summary.py}가 등록된
+M31--M46 schema 16개에서 생성한다. \(\Delta\) 좌표 열은 최소
+incremental repair를 별도로 인증한 경우에만 숫자를 적는다.
+``n.c.''는 별도 인증 없음이지 0이라는 뜻이 아니다.
+\(m=9,\ldots,15\)에서는 \(L=m\)이 DEF-032 정의역 하한이므로 family
+내 predecessor가 없다.
+
+\input{paper/tables/finite-threshold-summary-ko.tex}
+
+\noindent\textbf{유한 범위 경고.}
+이 표는 검사한 유한 모집단과 정의된
+\(\mathcal T_{m,L}\) selector family에 대한 결과이며, asymptotic
+rate 또는 일반 정수분해 복잡도를 나타내지 않는다. 특히
+\(m+167\)과 \(c>100/17\)은 \(m>34\)의 상한이 아니다.
+
+\paragraph{대표 collision 및 incremental repair 사례.}
+\(m=16\)에서는 최초 bucket \(\{191,227,233\}\)이 남아 입력 길이와
+공개 cap을 분리해야 한다. \(m=28\)에서는
+\(\{11867,12791\}\)이 cap 103까지 남고 cap 104에서 최소 새 좌표
+다섯 개가 필요하다. \(L_{29}^{\star}=103<L_{28}^{\star}=104\)이므로
+서로 다른 모집단의 threshold는 단조가 아니다. 마지막으로
+\(m=34\)의 predecessor cap 200은 \(\{97927,99527\}\) 한 쌍을 남기고,
+cap 201의 인증된 새 좌표 하나가 이를 복구한다. 이 사례들은 유한
+incremental repair를 설명할 뿐 이후 threshold의 확률 또는 점근
+모형이 아니다.
+
+\section{유한 threshold 상세 audit 보충 기록}
+
+\subsection{M33: 길이 21 재발과 복구}
 
 \claimstatus{BAR-027}{PROVED}.
 \(m=21\)에서 M32의 두 공식은 모두 cap 32이다. 2,511개 descriptor와
@@ -774,7 +815,7 @@ M32의 \(t_{20}^\star=11\)에 새 offset 12를 결합하면
 \((33-1)/21=32/21\)은 \(3/2\)보다 크므로 BAR-027의 strict 조건이
 나온다. 이후 길이나 asymptotic rate에 대한 결론은 없다.
 
-\section{M34: 다음 유한 envelope의 도약}
+\subsection{M34: 길이 22 유한 envelope의 도약}
 
 \claimstatus{BAR-028}{PROVED}.
 \(m=22\)에서 M33의 두 복구 공식은 모두 cap 34이다. 완전한 80-prime
@@ -832,7 +873,7 @@ M33의 \(t_{21}^\star=12\)에 새 offset 17을 결합하면
 \((39-1)/22=19/11\)은 \(32/21\)보다 크므로 BAR-028의 strict 조건이
 나온다. 이후 길이나 asymptotic rate에 대한 결론은 없다.
 
-\section{M35: 길이 23의 유한 envelope}
+\subsection{M35: 길이 23의 유한 envelope}
 
 \claimstatus{BAR-029}{PROVED}.
 \(m=23\)에서 M34의 두 복구 공식은 모두 cap 40이다.
@@ -886,7 +927,7 @@ M34의 \(t_{22}^\star=17\)에 새 offset 24를 결합하면
 \((47-1)/23=2\)에서 끝점은 cap 46으로 실패하므로 BAR-029의 strict
 조건이 나온다. 이후 길이나 asymptotic rate에 대한 결론은 없다.
 
-\section{M36: 길이 24의 서로 다른 cap}
+\subsection{M36: 길이 24의 서로 다른 cap}
 
 \claimstatus{BAR-030}{PROVED}.
 \(m=24\)에서 M35의 두 복구 공식은 서로 다른 cap을 준다.
@@ -949,7 +990,7 @@ M35의 \(t_{23}^\star=24\)에 새 offset 27을 결합하면
 strict 조건이 나온다. 이후 길이나 asymptotic rate에 대한 결론은
 없다.
 
-\section{M37: 길이 25의 유한 envelope}
+\subsection{M37: 길이 25의 유한 envelope}
 
 \claimstatus{BAR-031}{PROVED}.
 \(m=25\)에서 M36의 두 복구 공식은 서로 다른 cap을 준다.
@@ -1023,7 +1064,7 @@ M36의 \(t_{24}^\star=27\)에 새 offset 40을 결합하면
 \((65-1)/25=64/25\)에서 끝점은 cap 64로 실패하므로 BAR-031의 strict
 조건이 나온다. 이후 길이나 asymptotic rate에 대한 결론은 없다.
 
-\section{M38: 길이 26의 유한 envelope}
+\subsection{M38: 길이 26의 유한 envelope}
 
 \claimstatus{BAR-032}{PROVED}.
 \(m=26\)에서 M37의 두 복구 공식은 서로 다른 cap을 준다.
@@ -1100,7 +1141,7 @@ M37의 \(t_{25}^\star=40\)에 새 offset 45를 결합하면
 strict 조건이 나온다. 이후 길이나 asymptotic rate에 대한 결론은
 없다.
 
-\section{M39: 길이 27의 유한 envelope}
+\subsection{M39: 길이 27의 유한 envelope}
 
 \claimstatus{BAR-033}{PROVED}.
 \(m=27\)에서 M38의 두 복구 공식은 서로 다른 cap을 준다.
@@ -1179,7 +1220,7 @@ M38의 \(t_{26}^\star=45\)에 새 offset 60을 결합하면
 strict 조건이 나온다. 이후 길이나 asymptotic rate에 대한 결론은
 없다.
 
-\section{M40: 길이 28의 유한 envelope}
+\subsection{M40: 길이 28의 유한 envelope}
 
 \claimstatus{BAR-034}{PROVED}.
 \(m=28\)에서 M39의 두 복구 공식은 서로 다른 cap을 준다.
@@ -1271,7 +1312,7 @@ M39의 \(t_{27}^\star=60\)에 새 offset 76을 결합하면
 strict 조건이 나온다. 이후 길이나 asymptotic rate에 대한 결론은
 없다.
 
-\section{M41: 길이 29의 유한 envelope}
+\subsection{M41: 길이 29의 유한 envelope}
 
 \claimstatus{BAR-035}{PROVED}.
 \(m=29\)에서 M40의 두 공개 공식은 서로 다른 cap을 준다.
@@ -1351,7 +1392,7 @@ pair를 분리한다. 따라서 cap 103은 정확한 첫 성공 cap이다.
 모집단에서 threshold가 104에서 103으로 감소한 사실은 REF-037을
 반박하지만 이후 길이에 대한 추세를 주지 않는다.
 
-\section{M42: 길이 30의 유한 envelope}
+\subsection{M42: 길이 30의 유한 envelope}
 
 \claimstatus{BAR-036}{PROVED}.
 \(m=30\)에서 M41의 두 공개 공식은 서로 다른 cap을 준다.
@@ -1437,7 +1478,7 @@ cap 123의 완전 normalized profile도 927개 소수를 분리한다. cap 122
 이다. 따라서 두 finite envelope가 모두 길이 30의 값으로 이동한다.
 이후 길이나 asymptotic rate에 대한 결론은 없다.
 
-\section{M43: 길이 31의 유한 envelope}
+\subsection{M43: 길이 31의 유한 envelope}
 
 \claimstatus{BAR-037}{PROVED}.
 \(m=31\)에서 M42의 두 공개 공식은 서로 다른 cap을 준다.
@@ -1530,7 +1571,7 @@ repair signature \(1,0\)을 주므로 최소성도 따른다.
 이다. 따라서 두 finite envelope가 모두 길이 31의 값으로 이동한다.
 이후 길이나 asymptotic rate에 대한 결론은 없다.
 
-\section{M44: 길이 32의 유한 envelope}
+\subsection{M44: 길이 32의 유한 envelope}
 
 \claimstatus{BAR-038}{PROVED}.
 \(m=32\)에서 M43의 두 공개 공식은 서로 다른 cap을 준다.
@@ -1630,7 +1671,7 @@ cap 145와 148의 정확한 raw-signature 동치분할은 위 비자명 bucket�
 이다. 따라서 두 finite envelope가 모두 길이 32의 값으로 이동한다.
 이후 길이나 asymptotic rate에 대한 결론은 없다.
 
-\section{M45: 길이 33의 유한 envelope}
+\subsection{M45: 길이 33의 유한 envelope}
 
 \claimstatus{BAR-039}{PROVED}.
 \(m=33\)에서 M44의 두 공개 공식은 서로 다른 cap을 준다.
@@ -1708,7 +1749,7 @@ pair 2,902,845개를 추가했다. summary SHA-256은
 이다. 따라서 두 finite envelope가 모두 길이 33의 값으로 이동한다.
 이후 길이나 asymptotic rate에 대한 결론은 없다.
 
-\section{M46: 길이 34의 유한 envelope}
+\subsection{M46: 길이 34의 유한 envelope}
 
 \claimstatus{BAR-040}{PROVED}.
 \(m=34\)에서 M45의 두 공개 공식은 서로 다른 cap을 준다.
@@ -2025,7 +2066,23 @@ summary SHA-256은
 \]
 이다.
 
-\section{구현과 bit complexity}
+\section{compact-step과 표준 bit-operation complexity}
+
+\subsection{비용 단위와 online/offline 경계}
+
+\(\mathsf{Mod}(m)\)을 \(m\)-bit modulus에 대한 한 번의 곱셈과 reduction의
+보수적 bit-operation 상한, \(\mathsf{Gcd}(m)\)을 한 번의 GCD 상한으로
+둔다. compact-step 원장은 이런 연산의 호출 횟수를 세며 그 자체가
+bit-operation bound는 아니다. 교과서적 산술로 충분한 상한은
+\(\mathsf{Mod}(m)=O(m^2)\)와 \(\mathsf{Gcd}(m)=O(m^2)\)이다.
+
+online evaluator는 \(m,N\)과 공개 cap으로 descriptor를 만들고, compact
+residue를 계산하고, 모든 nonunit/failed-inversion 분기와 GCD를 처리한
+뒤 proper factor를 출력한다. population 목록, 미지의 인수, local
+order, analytical signature, normalized coordinate, certificate를 입력으로
+받지 않는다. population enumeration, exact-lift materialization, support
+normalization, cap search, dense expansion, certificate 선택, pairwise
+injectivity audit, hash 생성은 offline certificate/proof procedure다.
 
 \(B_m=2^m+3\)과 \(E_m=3\cdot2^m+5\)의 이진 표현 길이는 \(O(m)\)이다.
 M26의 geometric-sum recurrence는 exact \(C_m\)을 만들지 않고
@@ -2042,18 +2099,35 @@ selector의 construction, evaluation, GCD, output, extraction 비용은
 다항식이다. population enumeration, support normalization, dense
 certificate expansion은 증명 절차이며 공개 recognizer 비용에
 숨기지 않는다.
-M32에서는 이 경계가 \(2(L(m)-1)^3\)이고 compact work는
-\(O(L(m)^3\log L(m))\)이다. 따라서 polynomial하게 bounded되고
-계산 가능한 \(L(m)\)은 전체 비용도 polynomial하게 유지한다.
-M32부터 M46까지의 서른 개 선형 공식은 모두
-\(O(m^3\log m)\) compact step을
-사용한다. 이 비용 경계 자체는 검사하지 않은 길이의 단사성을
-뜻하지 않는다. BAR-041은 이 정확한 문법에 대한 음성 결론을 준다.
-polynomial numeric cap은 exact-output support bit도
-\(O(L^5\log L)\)로 제한하므로 모든 큰 balanced population을 분리할
-수 없다. 이 결론은 \(A,B,g\le L\)이라는 numeric 경계에 의존하며,
-exponentially large parameter의 polynomial-bit encoding에는 적용하지
-않는다.
+\subsection{DEF-032 공개 selector의 표준 비용 전개}
+
+M32에서는 descriptor 수가
+\[
+D(m,L)\le2(L(m)-1)^3
+\]
+이고 공개 field 생성은 \(O(D(m,L)\log L)\) bit를 쓴다. descriptor
+하나는 \(O(\log L)\) compact modular operation, 상수 개수의 GCD,
+retained residue 또는 GCD마다 \(O(m)\) output bit를 사용한다. 따라서
+online bit-operation의 보수적 상한은
+\[
+O\!\left(
+D(m,L)\bigl(
+\log L\,\mathsf{Mod}(m)+\mathsf{Gcd}(m)+m+\log L
+\bigr)\right)
+\]
+이다. 교과서적 산술을 대입하면
+\[
+O(L^3m^2\log L)
+\]
+이고, 유한 정리의 선형 cap에서는 \(O(m^5\log m)\)이다. 기존
+\(O(m^3\log m)\)은 compact modular step 수이며 표준 bit-operation
+bound가 아니다. 어느 비용 경계도 \(m>34\)의 단사성을 뜻하지 않는다.
+
+BAR-041의 \(O(L^5\log L)\) exact-output support budget은 별도 offline
+분석 원장이다. 이는 online evaluator 비용에 exact lift를 몰래
+추가한 것이 아니며, \(A,B,g\le L\)인 exact numeric-cap grammar에만
+적용된다. exponentially large parameter의 polynomial-bit encoding에는
+적용하지 않는다.
 
 DEF-035는 이 escape를 명시적으로 다룬다. level \(t\)의 ordinary binary
 parameter와 modular recurrence는 \(O(t)\) bit와 step을 사용하므로,
@@ -2068,6 +2142,17 @@ overlap integer로 축약하며, 고정 선형 span의 상수에 대해 선택�
 고정 \(h\)는 인수 정보나 새로운 asymptotic 실행 비용을 추가하지
 않는다.
 
+\subsection{offline certificate 비용}
+
+M31--M46 audit는 완전 유한 prime population을 열거하고, cap을
+탐색하고, branch-total mask를 다시 계산하고, collision bucket을
+refine하고, 선택된 경우 dense cofactor를 전개한다. 이 finite
+certificate 비용은 online recognizer 비용이 아니며 실행 횟수와
+wall time은 각 EXP 기록에 남는다. 최소 외부 checker는 큰 탐색을
+다시 실행하지 않고 frozen source hash와 표 projection을 검증한다.
+전체 semantic 경로와 offline certificate의 trust boundary는
+\path{research/CERTIFICATE_TRUST_MODEL.md}에 기록한다.
+
 소수 \(p\)가 주어진 local profile 함수는 증명과 differential test를
 위한 분석 도구이다. 실제 factorization 후보는 \(p\)를 받지 않고
 \[
@@ -2077,6 +2162,24 @@ overlap integer로 축약하며, 고정 선형 span의 상수에 대해 선택�
 unknown local roots는 실행 시간에 숨겨져 있지 않다.
 
 \section{재현 가능한 실험}
+
+Python은 전체 유한 certificate를 생성하는 arbitrary-precision semantic
+implementation이다. 후반 Python checker는 direct mask formula를 다시
+작성했지만 공개 descriptor specification과 일부 protocol helper를
+공유한다. Rust와 C\#은 선택된 arithmetic/branch vector를 독립적으로
+재구성하지만 M44--M46의 모든 population pair를 열거하지는 않는다.
+따라서 세 구현을 완전한 clean-room proof 세 개라고 부르지 않는다.
+generator/verifier 역할, population membership, 최소 trust base,
+source hash, 남은 신뢰 가정은
+\path{research/CERTIFICATE_TRUST_MODEL.md}에 기록한다.
+
+M31--M46의 통합 artifact와 영문·국문 표는 같은 26개 row에서 생성되며
+다음 최소 경로로 검사한다.
+
+\begin{verbatim}
+python scripts/generate_m50_finite_threshold_summary.py --check
+python scripts/check_m50_finite_threshold_summary.py
+\end{verbatim}
 
 \textbf{EMP-028 [EMPIRICAL].}
 EXP-0028은 다음을 deterministic하게 검사했다.
@@ -2104,6 +2207,13 @@ canonical summary SHA-256은
 
 \section{한계와 다음 연구 문제}
 
+computer-assisted selector 정리는 balanced square-free semiprime,
+\(9\le m\le34\), exact \(\mathcal T_{m,L}\) family에만 적용된다.
+\(L_m^\star\)는 모든 selector가 아니라 이 family 내부 최소값이다.
+\(m+167\), \(c>100/17\), 표의 offset 변화는 \(m>34\)의 상한이나
+asymptotic growth law가 아니다. compact modular step 수와 보수적인
+표준 bit-operation 상한도 서로 다른 원장이다.
+
 BAR-043까지가 증명하지 않은 사항은 다음과 같다.
 
 \begin{itemize}
@@ -2124,75 +2234,54 @@ BAR-043은 exact \(A=3,B_t=2^t+3,g=2\) family의 모든 고정 선형
 span만 닫는다. \(\Delta_m/m\)이 무한히 커지면 고정 \(h\)로
 high-weight overlap을 balanced population보다 지수적으로 작게 만드는
 이번 비교는 더 이상 충분하지 않다. M49 뒤에는 사용자 지시에 따라
-작업을 일시정지하며 다음 milestone은 시작하지 않는다.
+먼저 publication feedback을 M50에서 반영하고, 이후 이 열린 경계부터
+본 연구를 재개한다.
 
 \section{결론}
 
-M29는 compact exact lift의 크기와 prime-factor separation을
-분리했고, M30은 여러 후보의 정확한 결합 조건을 확정했다. M31은
-명시적 다변화 다항 selector를 구성해 \(9\le m\le15\)의 완전 유한
-balanced promise에서 단사성을 증명했다. 같은 selector는
-\(m=16\)에서 \(191,227,233\)을 분리하지 못한다. union coverage나
-후보 수 하한만으로는 충분하지 않고, 모든 pair를 분리하려면
-signature 사상이 단사여야 한다. M32는 공개 상한을 넓혀
-\(m+11\)이 \(9\le m\le20\)에서 작동함을 증명하고, 정확한 최소
-임계값과 \(c>3/2\)의 strict multiplicative 경계를 확정했다.
-M33은 두 공식이 \(m=21\)에서 즉시 다시 충돌함을 증명하고,
-\(m+12\)와 \(c>32/21\)로 그 유한 길이를 복구했다.
-M34는 두 복구 공식이 \(m=22\)에서 다시 충돌하고 cap 35부터
-38까지도 실패함을 증명한 뒤, \(m+17\)과 \(c>19/11\)로 유한 범위를
-복구했다. M35는 두 공식이 \(m=23\)에서 다시 충돌하고 cap 46까지
-실패함을 증명한 뒤, \(m+24\)와 \(c>2\)로 유한 범위를 복구했다.
-M36은 서로 다른 cap 48과 49가 모두 실패하고 cap 50도 실패함을
-증명한 뒤, \(m+27\)과 \(c>25/12\)로 유한 범위를 복구했다.
-M37은 서로 다른 cap 52와 53이 모두 실패하고 cap 64까지 충돌이
-남음을 증명한 뒤, \(m+40\)과 \(c>64/25\)로 유한 범위를 복구했다.
-M38은 서로 다른 cap 66과 67이 모두 실패하고 cap 70까지 충돌이
-남음을 증명한 뒤, \(m+45\)와 \(c>35/13\)로 유한 범위를 복구했다.
-M39는 서로 다른 cap 72와 73이 모두 실패하고 cap 86까지 충돌이
-남음을 증명한 뒤, \(m+60\)과 \(c>86/27\)로 유한 범위를 복구했다.
-M40은 서로 다른 cap 88과 90이 같은 여섯-prime 충돌을 남기고 cap
-103까지 마지막 pair가 남음을 증명한 뒤, \(m+76\)과
-\(c>103/28\)로 유한 범위를 복구했다. M41은 cap 105와 108이 모두
-길이 29에서 단사이고 정확한 threshold는 103임을 증명했다. 또한
-\(L_{29}^{\star}<L_{28}^{\star}\)이므로 adjacent-length threshold
-단조성은 거짓이지만, 유한 envelope는 그대로 유지된다.
-M42에서는 두 기존 공식이 cap 106과 112에서 모두 실패하고 cap 122까지
-마지막 triple이 남는다. cap 123의 두 새 좌표가 이를 분리하므로
-유한 envelope는 \(m+93\)과 \(c>61/15\)로 복구된다.
-M43에서는 두 복구 공식이 cap 124와 127에서 다시 실패하고 cap 143까지
-마지막 pair가 남는다. cap 144의 유일한 새 좌표가 이를 분리하므로
-유한 envelope는 \(m+113\)과 \(c>143/31\)로 복구된다.
-M44에서는 두 복구 공식이 cap 145와 148에서 다시 실패하고 cap 166까지
-마지막 pair가 남는다. cap 167의 유일한 새 좌표가 이를 분리하므로
-유한 envelope는 \(m+135\)와 \(c>83/16\)로 복구된다.
-M45에서는 두 복구 공식이 cap 168과 172에서 다시 실패하고 cap 194까지
-마지막 pair가 남는다. cap 195의 유일한 새 좌표가 이를 분리하므로
-유한 envelope는 \(m+162\)와 \(c>194/33\)으로 복구된다.
-M46에서는 두 복구 공식이 cap 196과 200에서 다시 실패한다. cap 200의
-마지막 pair는 cap 201의 유일한 새 좌표로 분리되므로 유한 envelope는
-\(m+167\)과 \(c>100/17\)로 복구된다. BAR-041은 어떤 polynomial
-numeric DEF-032 cap도 이 유한 성공을 모든 충분히 큰 balanced
-population으로 확장하지 못함을 증명한다. polynomial-bit exponential
-parameter는 그 exact-output proof를 피하지만, BAR-042는 exact
-compact-gap subfamily의 level span이
-\((1/2-\varepsilon)m\) 아래이면 역시 실패함을 증명한다. BAR-043은
-\(h+1\)중 공통 hit를 public gap의 최대공약수에 해당하는 overlap
-integer로 축약하여 모든 고정 선형 span \(Cm\)까지 이 실패 정리를
-확장한다. superlinear encoded list, adaptive schedule, 다른 compact
-문법은 여전히 열린 범위다.
+MOSEF는 완성된 일반 정수분해 알고리즘이 아니라 반증 가능한 연구
+프로그램이다. 현재의 지속 가능한 기여는 exact order-separation
+semantics, support-signature injectivity와 collision count, 제한 약속
+정리, 명시적으로 비용을 센 selector/circuit family의 scoped barrier,
+재현 가능한 유한 certificate다.
 
-일반 고전적 다항 시간 정수분해 알고리즘도, 그러한 알고리즘의
-일반적 불가능성도 여기서 주장하지 않는다. 검증된 기여는 정확한
-closed form, exceptional prime 판정, consecutive GCD, exact
-multi-signature pair count, sharp candidate lower bound, 유한
-construction certificate와 한정된 collision certificate, 독립 구현,
-재현 가능한 finite audit이다.
+\(\mathcal T_{m,L}\) family의 가장 강한 selector 양성 결과는 balanced
+square-free semiprime과 \(9\le m\le34\)에 한정된
+computer-assisted finite promise theorem이다. 통합 표는
+family-relative threshold, predecessor collision bucket, 인증된
+incremental repair를 보여 주지만 \(m>34\)의 단사성이나 점근 cap
+법칙을 주지 않는다. 각 인증 범위에서 필요한 조건은 모든
+balanced-prime의 signature 사상이 단사라는 것이며, 이는 일반 입력
+인식기가 아니라 유한 promise certificate의 성질이다. compact
+evaluator의 \(O(L^3\log L)\) modular
+step과 보수적 \(O(L^3m^2\log L)\) 표준 bit-operation upper bound는
+구분되며, offline population/certificate generation은 별도 proof
+cost다.
+
+BAR-041은 exact DEF-032 grammar의 모든 polynomial numeric cap을,
+BAR-042는 short-span encoded compact-gap list를, BAR-043은 그 exact
+compact family의 모든 고정 선형 span을 배제한다. 이는 모든
+polynomial selector나 일반 고전적 정수분해의 lower bound가 아니다.
+superlinear encoded list, 다른 compact grammar, adaptive public
+construction, promise recognition, 더 넓은 group channel은 열린 연구
+목표다.
+
 
 \section{재현 명령}
 
+M50 통합 artifact
+\path{schemas/m50-finite-threshold-summary-v1.json}은 source schema
+16개와 family-relative threshold row 26개를 고정한다. canonical
+summary SHA-256은
+\texttt{\seqsplit{1fb6185f73b4bc2243dc2f339c1e823d7c849acd7bf33ef5f288af4baa9d00b3}}
+이다. 이는 기존 M31--M46 evidence의 review index이며 새 experiment나
+claim 승격이 아니다.
+
 \begin{verbatim}
 python scripts/validate_foundation.py
+python scripts/generate_korean_claim_appendix.py --check
+python scripts/generate_m50_finite_threshold_summary.py --check
+python scripts/check_m50_finite_threshold_summary.py
 python scripts/check_publication.py
 python -m unittest discover -s tests -v
 python -m compileall -q python scripts tests

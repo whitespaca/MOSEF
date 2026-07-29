@@ -5,6 +5,7 @@
 \usepackage{amssymb}
 \usepackage{array}
 \usepackage{booktabs}
+\usepackage{longtable}
 \usepackage[margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
 \usepackage{seqsplit}
@@ -14,18 +15,24 @@
 \newcommand{\poly}{\operatorname{poly}}
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
-\title{Order-Separating Exponents for Classical Integer Factorization:
-Eighteen Restricted Theorems and Thirty-Six Structural Barriers}
+\title{Order-Separating Exponents for Classical Integer Factorization:\\
+Finite Promise Theorems, Structural Barriers, and Reproducible Certificates}
 \author{MOSEF Research Program}
-\date{29 July 2026}
+\date{30 July 2026}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
 We study order-separating exponent families for classical integer
-factorization, measuring complexity in the binary input length. We first give
-exact support and prime-power valuation semantics for candidates of the form
+factorization, measuring complexity in the binary input length. MOSEF names
+the research program, not a completed general factoring algorithm. The
+strongest positive selector result reported here is a computer-assisted
+finite promise theorem for one public factorization-independent selector
+family on balanced square-free semiprimes with \(9\le m\le34\). Its
+family-relative thresholds do not imply injectivity for \(m>34\), an
+asymptotic growth law, or a minimum over all selectors. We first give exact
+support and prime-power valuation semantics for candidates of the form
 \(\gcd(g^d-1,N)\), including every failure branch. On a factor-dependent but
 explicit hereditary semismooth-asymmetry promise class, we prove that fresh
 uniform bases yield a Las Vegas complete-factorization algorithm with
@@ -267,7 +274,19 @@ polynomially many bit operations in \(\log N\).
 
 This paper treats the proposed Multi-Group Order-Separating Exponent Factoring
 (MOSEF) direction as a falsifiable research program rather than a presumed
-algorithm. Its contributions are:
+algorithm.
+
+The title deliberately avoids a numerical claim count. At the M49 source
+snapshot the internal ledger identifiers run through \texttt{THM-019} and
+\texttt{BAR-043}, but those sequences are heterogeneous: they include two
+restricted factoring theorems, an algebraic classification, nested finite
+promise theorems, extraction reductions, and scoped obstructions. Counting
+only some of those categories as ``restricted theorems'' or ``structural
+barriers'' would require a convention external to the authoritative ledger.
+Stable claim IDs and statuses, rather than a title aggregate, define the
+paper's contribution inventory.
+
+Its contributions are:
 
 \begin{itemize}
 \item exact support and capped-valuation criteria for multiplicative
@@ -515,6 +534,19 @@ For \(Q=1\), \(\varepsilon=-1\) is the nonsplit \(p+1\) branch and
 \(\varepsilon=+1\) the split \(p-1\) branch
 \cite{williams1982pplusone}. The zero-discriminant prime component is outside
 this statement.
+
+Relative to the repository's Pollard \(p-1\) and Williams-style \(p+1\)
+baselines, the present work does not claim a faster general algorithm. Those
+baselines motivate local order divisibility tests; the paper's narrower
+contribution is to formalize when such tests actually separate prime factors,
+to count failures by support-signature collision buckets, to isolate compact
+cyclotomic/cofactor evaluation from exact-output cost, and to provide scoped
+barriers and finite certificates for explicitly defined public families.
+Product trees and batch GCDs are treated as charged evaluation mechanisms,
+not as a source of unproved separator coverage. The inspected bibliography is
+not a complete priority survey of cyclotomic extraction, cofactor evaluation,
+or batch-GCD formulations. A broader historical priority survey is outside
+the present scope, and no priority claim is made.
 
 \claimstatus{EXT-005}{PROVED, IMPORTED}. Rosser and Schoenfeld's Theorem 3
 corollary gives, for the \(n\)-th prime,
@@ -2186,7 +2218,7 @@ failures. At level 14, 19 public-integer encoding bits described a
 49,156-bit exact cofactor. These finite data imply no asymptotic population
 or prime-support density.
 
-\section{A compact cofactor prime-support barrier}
+\section{Compact cofactor support and the single-coordinate limit}
 
 \claimstatus{DEF-029}{DEFINITION}. For \(m\ge2\), let \(C_m=C_4(2)\) for
 the public tuple
@@ -2251,7 +2283,7 @@ comparisons, with zero failures. No same-index balanced support hit occurred
 through input length 40. This last observation is finite evidence, not an
 asymptotic zero-support theorem.
 
-\section{A compact multi-support signature barrier}
+\section{Support signatures: separation, collisions, and candidate lower bounds}
 
 \claimstatus{DEF-030}{DEFINITION}. At input length \(m\), a
 factorization-independent constructor fixes a finite ordered list of compact
@@ -2319,7 +2351,7 @@ prefix was noninjective at every registered length \(9\le m\le40\). At
 collided. These are finite results for one prefix, not an asymptotic theorem
 about that prefix or an obstruction to all polynomial compact schedules.
 
-\section{A diversified finite construction and scoped collision}
+\section{Public selector family and support normalization}
 
 \claimstatus{DEF-031}{DEFINITION}. For \(m\ge9\), before receiving \(N\),
 let \(\mathcal T_m\) contain every valid exceptional descriptor
@@ -2383,7 +2415,7 @@ The registered certificate-vector SHA-256 is
 \texttt{\seqsplit{f27e1681525d9c71f488c07457ed998cd43a8ea85ccac5b6e8e1b1e7227e93d0}}.
 \]
 
-\section{A widened-cap finite construction and exact threshold}
+\section{Selector evaluation and the first finite thresholds}
 
 \claimstatus{DEF-032}{DEFINITION}. For \(m\ge9\) and a public integer
 \(L(m)\ge m\) fixed before receiving \(N\), let
@@ -2398,22 +2430,9 @@ therefore stays separated. Normalized column counts need not be monotone,
 but the exact fixed-cap normalization equivalence transfers this raw
 monotonicity to pair outcomes.
 
-The complete first-injective-cap certificates are:
-
-\begin{center}
-\begin{tabular}{rrrrrrl}
-\toprule
-\(m\) & \(|\mathcal P_m|\) & \(L^\star\) & \(L^\star-m\) &
-descriptors & certificate & collision at \(L^\star-1\) \\
-\midrule
-16 & 12 & 19 & 3  & 522   & 10 & \(191,227,233\) \\
-17 & 18 & 19 & 2  & 522   & 16 & \(277,317;\ 263,349\) \\
-18 & 25 & 27 & 9  & 1,612 & 20 & \(503,509\) \\
-19 & 31 & 27 & 8  & 1,612 & 26 & \(569,719\) \\
-20 & 44 & 31 & 11 & 2,430 & 40 & \(809,827\) \\
-\bottomrule
-\end{tabular}
-\end{center}
+The first-injective-cap rows for \(m=16,\ldots,20\) are included in the
+single integrated finite-threshold table below. They are generated from the
+registered M32 schema rather than copied by hand.
 
 \claimstatus{THM-005}{PROVED}. The public cap \(L(m)=m+11\) has an
 injective signature on every complete balanced population for
@@ -2447,7 +2466,7 @@ and the registered schema SHA-256 is
 Appendix \ref{proof:THM-005-BAR-026} proves the finite theorem and exact
 threshold boundary. Neither the audit nor the proof addresses \(m>20\).
 
-\section{The first linear-cap recurrence and repair}
+\section{Finite promise theorem and family-relative threshold synthesis}
 
 \claimstatus{DEF-033}{DEFINITION}. When it exists, let \(L_m^\star\) be the
 least cap whose DEF-032 selector is injective on \(\mathcal P_m\). On a
@@ -2455,6 +2474,50 @@ complete finite range through \(M\), define the common additive envelope
 \(t_M^\star=\max(L_m^\star-m)\) and strict multiplicative infimum
 \(c_M^\star=\max((L_m^\star-1)/m)\). These finite envelopes are not
 asymptotic rates.
+
+\paragraph{Scope of the integrated result.}
+The exact object minimized is the cap \(L\) inside the public
+\(\mathcal T_{m,L}\) family of DEF-032. Thus ``minimal cap,'' ``exact
+threshold,'' and ``strict endpoint'' below always mean family-relative
+quantities on the complete registered balanced population. THM-019 combines
+the nested finite certificates to show that the cap \(m+167\) succeeds on the
+finite window \(9\le m\le34\). It does not assert injectivity at \(m>34\),
+recognize the balanced factor promise from \(N\), minimize over other
+selectors, or establish an asymptotic cap law.
+
+\paragraph{Integrated certificate table.}
+The following table is generated from the 16 registered M31--M46 schemas by
+\texttt{scripts/generate\_m50\_finite\_threshold\_summary.py}. The
+\(\Delta\)-coordinate column reports a minimum incremental repair only when
+that quantity was separately certified; ``n.c.'' means not separately
+certified, not zero. Rows at \(m=9,\ldots,15\) sit at the DEF-032 domain floor
+\(L=m\), so no in-family predecessor exists.
+
+\input{paper/tables/finite-threshold-summary-en.tex}
+
+\noindent\textbf{Finite-scope warning.}
+This table concerns the inspected finite populations and the defined
+\(\mathcal T_{m,L}\) selector family only. It is not an asymptotic rate, a
+standard-complexity benchmark for general factoring, or evidence of
+injectivity beyond \(m=34\). In particular, \(m+167\) and
+\(c>100/17\) are finite envelopes, not bounds for \(m>34\).
+
+\paragraph{Representative collision and repair cases.}
+Four cases expose the mechanism more clearly than the full chronology.
+First, at \(m=16\) the base selector leaves the initial bucket
+\(\{191,227,233\}\), motivating a public cap distinct from input length.
+Second, the large finite jump at \(m=28\) leaves
+\(\{11867,12791\}\) through cap 103 and needs five separately certified new
+coordinates at cap 104. Third,
+\(L_{29}^{\star}=103<L_{28}^{\star}=104\), so thresholds on different
+populations are not monotone. Finally, at \(m=34\) the predecessor cap 200
+leaves exactly \(\{97927,99527\}\), and one certified new coordinate at cap
+201 repairs that final pair. These cases describe finite incremental repair;
+they provide no stochastic or asymptotic model for later thresholds.
+
+\section{Supplementary finite threshold audit trail}
+
+\subsection{Audit record: length 21 recurrence and repair}
 
 \claimstatus{BAR-027}{PROVED}. At \(m=21\), both M32 schedules give cap 32:
 \[
@@ -2492,7 +2555,7 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:THM-006-BAR-027} gives the complete finite proof.
 
-\section{The next finite-envelope jump}
+\subsection{Audit record: length 22 finite-envelope jump}
 
 \claimstatus{BAR-028}{PROVED}. At \(m=22\), both repaired M33 schedules give
 cap 34:
@@ -2537,7 +2600,7 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:THM-007-BAR-028} gives the complete finite proof.
 
-\section{The length-23 finite envelope}
+\subsection{Audit record: length 23 finite envelope}
 
 \claimstatus{BAR-029}{PROVED}. At \(m=23\), both repaired M34 schedules give
 cap 40:
@@ -2577,7 +2640,7 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:THM-008-BAR-029} gives the complete finite proof.
 
-\section{The length-24 distinct-cap envelope}
+\subsection{Audit record: length 24 distinct-cap envelope}
 
 \claimstatus{BAR-030}{PROVED}. At \(m=24\), the repaired M35 schedules give
 distinct caps:
@@ -2621,7 +2684,7 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:THM-009-BAR-030} gives the complete finite proof.
 
-\section{The length-25 finite envelope}
+\subsection{Audit record: length 25 finite envelope}
 
 \claimstatus{BAR-031}{PROVED}. At \(m=25\), the repaired M36 schedules give
 distinct caps:
@@ -2671,7 +2734,7 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:THM-010-BAR-031} gives the complete finite proof.
 
-\section{The length-26 finite envelope}
+\subsection{Audit record: length 26 finite envelope}
 
 \claimstatus{BAR-032}{PROVED}. At \(m=26\), the repaired M37 schedules give
 distinct caps:
@@ -2726,7 +2789,7 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:THM-011-BAR-032} gives the complete finite proof.
 
-\section{The length-27 finite envelope}
+\subsection{Audit record: length 27 finite envelope}
 
 \claimstatus{BAR-033}{PROVED}. At \(m=27\), the repaired M38 schedules give
 distinct caps:
@@ -2790,7 +2853,7 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:THM-012-BAR-033} gives the complete finite proof.
 
-\section{The length-28 finite envelope}
+\subsection{Audit record: length 28 finite envelope}
 
 \claimstatus{BAR-034}{PROVED}. At \(m=28\), the repaired M39 schedules give
 distinct caps:
@@ -2854,7 +2917,7 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:THM-013-BAR-034} gives the complete finite proof.
 
-\section{The length-29 finite envelope}
+\subsection{Audit record: length 29 finite envelope}
 
 \claimstatus{BAR-035}{PROVED}. At \(m=29\), the repaired M40 schedules give
 distinct caps:
@@ -2920,7 +2983,7 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:THM-014-BAR-035} gives the complete finite proof.
 
-\section{The length-30 finite envelope}
+\subsection{Audit record: length 30 finite envelope}
 
 \claimstatus{BAR-036}{PROVED}. At \(m=30\), the inherited M41 schedules give
 distinct caps:
@@ -2986,7 +3049,7 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:THM-015-BAR-036} gives the complete finite proof.
 
-\section{The length-31 finite envelope}
+\subsection{Audit record: length 31 finite envelope}
 
 \claimstatus{BAR-037}{PROVED}. At \(m=31\), the inherited M42 schedules give
 distinct caps:
@@ -3057,7 +3120,7 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:THM-016-BAR-037} gives the complete finite proof.
 
-\section{The length-32 finite envelope}
+\subsection{Audit record: length 32 finite envelope}
 
 \claimstatus{BAR-038}{PROVED}. At \(m=32\), the inherited M43 schedules give
 distinct caps:
@@ -3135,7 +3198,7 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:THM-017-BAR-038} gives the complete finite proof.
 
-\section{The length-33 finite envelope}
+\subsection{Audit record: length 33 finite envelope}
 
 \claimstatus{BAR-039}{PROVED}. At \(m=33\), the inherited M44 schedules give
 \[
@@ -3196,7 +3259,7 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:THM-018-BAR-039} gives the complete finite proof.
 
-\section{The length-34 finite envelope}
+\subsection{Audit record: length 34 finite envelope}
 
 \claimstatus{BAR-040}{PROVED}. At \(m=34\), the inherited M45 schedules give
 \[
@@ -3490,11 +3553,31 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:BAR-043} gives the complete proof.
 
-\section{Algorithms and bit-complexity synthesis}
+\section{Compact-step and bit-operation complexity}
 
 The mathematical results use distinct algorithmic and analytical scopes that
 must not
 be conflated.
+
+\subsection{Cost units and the online/offline boundary}
+
+Let \(\mathsf{Mod}(m)\) denote a conservative bit-operation upper bound for
+one multiplication followed by reduction modulo an \(m\)-bit modulus, and
+let \(\mathsf{Gcd}(m)\) denote the corresponding bound for one GCD. The
+compact-step ledger counts calls to such operations; it is not itself a
+bit-operation bound. Textbook arithmetic gives the sufficient bounds
+\(\mathsf{Mod}(m)=O(m^2)\) and
+\(\mathsf{Gcd}(m)=O(m^2)\). Faster multiplication may improve these terms,
+but no tighter backend-dependent bound is required by the finite theorem.
+
+The online public evaluator constructs descriptors from \(m\) and the public
+cap, evaluates compact residues modulo \(N\), processes every failed
+inversion or nonunit branch, computes the charged GCDs, and outputs/extracts
+any proper factor. It receives no population list, factor, local order,
+analytical signature, normalized column, or certificate. Population
+enumeration, exact-lift materialization, support normalization, cap search,
+dense expansion, certificate-column selection, pairwise injectivity checks,
+and hash generation belong to the offline proof procedure.
 
 For one exceptional tuple, the compact cofactor evaluator uses
 \(O(\log A+\log B)\) modular operations. The stage-overlap descriptors store
@@ -3525,18 +3608,44 @@ selector therefore has polynomial construction, evaluation, GCD, output, and
 extraction cost. Population enumeration, support normalization, and dense
 certificate expansion are proof operations and are not counted as a public
 recognizer.
-DEF-032 replaces \(m\) in the descriptor bound by a public cap \(L(m)\):
-there are at most \(2(L(m)-1)^3\) descriptors and
-\(O(L(m)^3\log L(m))\) compact modular steps. Every polynomially bounded,
-polynomial-time computable cap therefore preserves polynomial total bit
-complexity. In particular, all thirty M32--M46 linear formulas use
-\(O(m^3\log m)\) compact steps. This cost statement does not imply
-injectivity outside the certified finite range. BAR-041 supplies the missing
-negative statement for this exact grammar: a polynomial numeric cap also
-forces only \(O(L^5\log L)\) total exact-output support bits, which is
-insufficient for all large balanced populations. This conclusion relies on
-the numeric bound \(A,B,g\le L\); it does not apply when exponentially large
-parameters have polynomial-length encodings.
+\subsection{The DEF-032 public selector}
+
+DEF-032 replaces \(m\) in the descriptor bound by a public numeric cap
+\(L=L(m)\). The selector has
+\[
+D(m,L)\le2(L-1)^3
+\]
+descriptors. Enumerating their public fields writes
+\(O(D(m,L)\log L)\) descriptor bits. Each descriptor uses
+\(O(\log L)\) compact modular operations, a constant number of charged GCDs,
+and \(O(m)\) output bits per retained residue or GCD result. Consequently a
+conservative online bit-operation bound is
+\[
+O\!\left(
+ D(m,L)\bigl(
+   \log L\,\mathsf{Mod}(m)
+   +\mathsf{Gcd}(m)
+   +m+\log L
+ \bigr)
+\right).
+\]
+With textbook arithmetic this is
+\[
+O\!\left(L^3m^2\log L\right).
+\]
+For every polynomially bounded, polynomial-time computable numeric cap this
+is polynomial in \(m\); for the linear caps in the finite theorem it becomes
+the conservative bound \(O(m^5\log m)\). The previously used
+\(O(m^3\log m)\) expression refers only to compact modular steps, not to
+standard bit operations. Neither bound implies injectivity outside the
+certified finite range.
+
+BAR-041 uses a different, offline analytical ledger. It bounds the total
+exact-output support budget by \(O(L^5\log L)\) to prove an asymptotic
+collision for the exact numeric-cap grammar. That exact-output quantity is
+not added to the online evaluator, and the conclusion relies on the numeric
+bound \(A,B,g\le L\). It does not cover polynomial-bit encodings of
+exponentially large parameters.
 
 DEF-035 makes that escape explicit. At compact level \(t\), the ordinary
 binary parameters and modular recurrence use \(O(t)\) bits and steps, so a
@@ -3549,6 +3658,19 @@ DEF-036 and BAR-043 keep the same public cost ledger. They change only the
 analytical charging of common support: \(h+1\) hits collapse to a single
 GCD-gap overlap integer. The fixed \(h\) used for any fixed linear-span
 constant adds no public factor input or asymptotic evaluation cost.
+
+\subsection{Certificate-generation cost}
+
+The finite theorem does not claim that its proof-generation procedure is an
+online polynomial-time recognizer. The M31--M46 audits enumerate the complete
+bounded prime population, search caps, recompute branch-total masks, refine
+collision buckets, and in selected cases expand dense cofactors. Their
+recorded operation counts and wall times are finite certificate costs. They
+may be much larger than the public evaluator and are not hidden inside the
+online complexity statement. The minimal publication checker verifies
+frozen source hashes and table projections without rerunning those searches;
+the full semantic path is documented in
+\texttt{research/CERTIFICATE\_TRUST\_MODEL.md}.
 
 \begin{center}
 \scriptsize
@@ -3682,6 +3804,20 @@ products, and C\# uses \texttt{BigInteger} for selected vectors. A passing
 differential check establishes agreement only on those registered vectors.
 The experiment records name the core commit, exact command, bounds, pruning,
 toolchain manifest, and canonical summary hash.
+
+The implementations are not described as three complete clean-room proofs.
+Python produces the full finite certificates; later Python checkers use a
+separately written direct mask formula but share the public descriptor
+specification and selected protocol helpers. Rust and C\# independently
+reconstruct selected arithmetic and branch vectors, not every late
+full-population pair. The generator/verifier split, minimum trusted checker,
+population reconstruction, source hashes, and residual assumptions are
+specified in \texttt{research/CERTIFICATE\_TRUST\_MODEL.md}. The consolidated
+M50 artifact and both table fragments are checked with:
+\begin{verbatim}
+python scripts/generate_m50_finite_threshold_summary.py --check
+python scripts/check_m50_finite_threshold_summary.py
+\end{verbatim}
 
 The baseline suite includes modular exponentiation, trial division,
 perfect-power detection, validation primality, bounded Pollard rho, Pollard
@@ -4007,6 +4143,15 @@ THM-001 applies only to a factor-dependent hereditary promise and provides
 neither a membership recognizer nor a density theorem. Its unbounded splitter
 may not terminate outside the promise.
 
+The computer-assisted selector theorem is also strictly finite and
+family-relative. Its population is the balanced square-free semiprime promise,
+its inspected window is \(9\le m\le34\), and \(L_m^\star\) minimizes only
+inside the exact \(\mathcal T_{m,L}\) family. Neither \(m+167\) nor
+\(c>100/17\) is an asymptotic upper bound. The threshold table supplies no
+growth law, no result for \(m>34\), no minimum over all polynomial selectors,
+and no standard-complexity result for general factoring. The compact-step
+count and the conservative bit-operation upper bound are separate quantities.
+
 THM-002 has the same promise-versus-recognition boundary for a different,
 odd \(p+1\)-asymmetry class. It requires a fresh exact uniform parameter at
 every attempt, supplies no outside-promise termination or density guarantee,
@@ -4221,166 +4366,31 @@ because work is paused after M49.
 
 \section{Conclusion}
 
-Order-separating exponent research must distinguish hitting an order from
-separating prime-power components. Fresh randomized bases turn a
-factor-dependent \(p-1\) asymmetry into an expected-polynomial Las Vegas
-theorem on one hereditary promise class. An exact Lucas root count turns fresh
-uniform parameters and a \(p+1\) asymmetry into a second restricted theorem.
-Divisor coverage alone still fails because signatures can collide, and the
-natural conjugate Lucas map still fails as an independent channel because it
-algebraically squares the multiplicative residue. A common \(p-1/p+1\)
-schedule also covers no balanced-semiprime pair once every factor exceeds its
-largest exponent by more than one, and its promised fraction is bounded by
-the schedule's divisor hit set. Charging exponent encodings sharpens this:
-a polynomial-size explicit list with \(o(k\log k)\)-bit members has a
-subexponential global hit set, so its promised fraction vanishes on every
-stipulated exponentially large common-input-length prime population. Merely
-making an exponent numerically larger than the factors does not help unless
-the required \(p\pm1\) divisor structure is present. Nor does short symbolic
-syntax alone help in DEF-010: formal exponent bit length grows by at most one
-per charged multiplication, so the tower descriptor \(2^{2^s}\) still costs
-exactly \(2^s\) multiplications. At the exact boundary, the optimized divisor
-budget transfers the exponent-length coefficient \(c\) into a
-\(2^{ck+o(k)}\) hit-set bound. This still vanishes below a stipulated
-population coefficient \(\alpha\). Primorials show exponential total divisor
-capacity at boundary cost, but BAR-007 shows that only a subexponential subset
-can hit \(O(k)\)-bit target primes. BAR-008 shows that squareful and
-noninitial-support exponents do not change that conclusion anywhere in the
-common explicit \(O(k\log k)\)-bit schedule model. Thus neither total
-capacity, multiplicity, support placement, nor node count alone supplies a
-prime-yield guarantee. Adding charged same-base ratios does not change this:
-signed exponent magnitude still grows by at most one bit per node, negative
-outputs duplicate their positive absolute exponents, and zero outputs give
-only full collisions. A compact selector also does not compress a standard
-leaf-materialized product tree: \(n\) leaves still require \(n-1\) internal
-multiplications, and a root GCD can mask but cannot create individual
-proper-factor success.
-Dyadic exact division also fails to turn one compressed geometric quotient
-into an exponential test family: its \(2^t\) monomials have only one
-aggregate value, and every proper extraction success implies a proper
-denominator or one of \(t\) dyadic-factor GCDs.
-Allowing an arbitrary public exponent makes that single value computable in
-only \(O(\log M)\) modular operations, but BAR-013 still reduces every
-quotient success to the endpoint, an already successful denominator, or the
-public \(\gcd(M,N)\).
-The two-stage cancellation in BAR-014 also adds no hidden path: a unit
-intermediate denominator preserves the numerator GCD, a proper one already
-factors \(N\), and a full one reduces the quotient to the public
-\(\gcd(B,N)\), while the composed denominator independently follows BAR-013.
-BAR-015 iterates that certificate without changing the conclusion: every
-stage retains the same trichotomy, and a proper GCD of the quotient product
-implies a proper GCD at an explicit stage quotient. Telescoping may mask a
-stage success as a full collision, but it cannot create a new one in this
-product-only model.
-BAR-016 marks the first failure of that implication under the next charged
-operation: at \(N=9\), subtracting two unit quotient stages produces residue
-\(3\) and exposes the factor \(3\). This is an exact extraction separation,
-not evidence of a universal signed schedule.
-BAR-017 then resolves the symmetric repeated-factor subfamily exactly:
-the difference is the product of a unit base, the endpoint
-\(X^{A-1}-1\), and a positive cofactor \(H_A\). Local valuations add, and
-the endpoint gives a total extraction trichotomy. The \(N=9\) witness is an
-endpoint success, but \(N=55,g=2,A=3\) confirms that the unit-endpoint
-cofactor branch can independently expose a proper factor.
-BAR-018 extends the accounting to unequal factors and general public
-coefficients. The first prefix has a total rational/proper/public trichotomy,
-while the normalized difference factors through
-\(XS_{\gcd(A-1,B-1)}\). This natural factor is not complete: the \(N=25\)
-witness leaves it a unit and extracts factor \(5\) through the residual
-cofactor. BAR-019 then isolates coefficient content and overlap with each
-charged stage by exact resultants. The \(\Phi_4\) witness shows that these
-public bounds are not a boundary-only cyclotomic classification. THM-003
-then closes that rational root-of-unity question: Galois phase and norm
-restrictions leave only the common-step ratio \(-1\), the order-four ratio
-\(1\), and the order-six ratio \(2\).
+MOSEF remains a falsifiable research program, not a completed general
+factoring algorithm. Its durable contributions are exact order-separation
+semantics, support-signature injectivity and collision counts, restricted
+promise theorems, scoped barriers for explicitly charged selector and circuit
+families, and reproducible finite certificates.
 
-These results do not resolve general classical factoring. They replace
-plausible shortcuts with exact obligations: recognizable or explicitly
-promised input structure, injective rather than merely nonempty signatures,
-genuinely nonsplit rather than conjugately re-encoded group parameters, and
-divisor-rich schedules whose representation, construction, and evaluation
-costs are all accounted for. The exact \(\Theta(k\log k)\) straight-line
-boundary now has a subcritical coefficient obstruction and an explicit
-capacity witness. At factor scale, BAR-008 closes every fixed coefficient
-inside the common polynomial-size explicit schedule and stated DEF-010
-model, while BAR-009 extends the transfer to the charged same-base
-addition-subtraction unit branch. BAR-010 closes the standard
-leaf-materialized product-tree case. BAR-011 then permits shared product
-subcircuits and exponential unfolded repetition, but proves that repetition
-does not synthesize a distinct exponent test or a proper factor absent from
-the explicit atoms. BAR-012 then adds one exact division and dyadic
-composition pattern while retaining only \(t+1\) explicit success
-components. BAR-013 removes the dyadic restriction for one geometric sum but
-retains the endpoint/denominator/public-exponent trichotomy. BAR-014 adds one
-certified two-stage cancellation but reduces it to the rational numerator,
-intermediate denominator, public multiplier, and composed-denominator paths.
-BAR-015 permits a finite public quotient chain and product aggregation while
-retaining the same explicit exits. BAR-016 then proves that one charged
-cross-stage signed combination can create a genuinely new proper GCD.
-BAR-017 supplies the exact endpoint/cofactor valuation criterion for its
-symmetric repeated-factor subfamily, and BAR-018 supplies the unequal
-first-prefix and common-step reductions. BAR-019 further isolates content and
-stage overlap. THM-003 completely classifies its rational root-of-unity
-ratios. BAR-020 gives exact compact evaluators for the two exceptional
-cofactors and proves that their residual GCD paths are genuine. BAR-021 adds
-exact local profiles and overlap resultants and proves that every fixed finite
-joint base/parameter schedule misses infinitely many square-free semiprimes.
-BAR-022 then counts same-length misses for every materialized
-length-indexed support and proves the necessary bit budget. REF-024 prevents
-misusing that result against the compact evaluator: one valid \(O(m)\)-bit
-tuple represents an exponentially long exact cofactor. BAR-023 analyzes that
-tuple without materialization: it gives the exact prime criterion,
-consecutive GCD 16, and the complete support-cut count. One candidate cannot
-separate every pair in a population of at least three primes. BAR-024 gives
-the exact multi-candidate criterion: universal pair separation is equivalent
-to signature injectivity, with sharp information and collision-count lower
-bounds. REF-026 blocks replacing injectivity by union coverage. The
-canonical polynomial prefix failed injectivity only in the registered finite
-box. DEF-031 then supplies one explicit diversified polynomial selector.
-THM-004 proves its complete finite promise range through \(m=15\), while
-BAR-025 gives the exact collision triple at \(m=16\). DEF-032 then widens
-the selector without factor access. THM-005 proves the public \(m+11\)
-construction through \(m=20\), and BAR-026 gives exact minimal caps plus the
-strict \(c>3/2\) finite multiplicative boundary. BAR-027 records the immediate
-length-21 recurrence, and THM-006 repairs the finite range with \(m+12\) and
-\(c>32/21\). BAR-028 records the length-22 collision ladder, and THM-007
-repairs the finite range with \(m+17\) and \(c>19/11\). BAR-029 records the
-length-23 collision ladder, and THM-008 repairs the finite range with \(m+24\)
-and \(c>2\). BAR-030 records the distinct-cap length-24 collision ladder, and
-THM-009 repairs the finite range with \(m+27\) and \(c>25/12\). BAR-031
-records the length-25 collision ladder through cap 64, and THM-010 repairs
-the finite range with \(m+40\) and \(c>64/25\). BAR-032 records the
-length-26 collision ladder through cap 70, and THM-011 repairs the finite
-range with \(m+45\) and \(c>35/13\). BAR-033 records the length-27
-collision ladder through cap 86, and THM-012 repairs the finite range with
-\(m+60\) and \(c>86/27\). BAR-034 records the length-28 collision ladder
-through cap 103, and THM-013 repairs the finite range with \(m+76\) and
-\(c>103/28\). BAR-035 records that both length-29 public caps succeed,
-proves the exact cap-102/cap-103 boundary and one-coordinate repair, and
-shows that both finite envelopes remain unchanged. REF-037 records the
-finite decrease \(L_{29}^{\star}<L_{28}^{\star}\) without inferring an
-asymptotic trend. BAR-036 records the length-30 failures through cap 122,
-the two-coordinate cap-123 repair, and the new finite envelopes \(m+93\) and
-\(c>61/15\). BAR-037 records the length-31 failures through cap 143, the
-unique one-coordinate cap-144 repair, and the new finite envelopes \(m+113\)
-and \(c>143/31\). BAR-038 records the length-32 failures through cap 166,
-the unique one-coordinate cap-167 repair, and the new finite envelopes
-\(m+135\) and \(c>83/16\). BAR-039 records the length-33 failures through
-cap 194, the unique one-coordinate cap-195 repair, and the new finite
-envelopes \(m+162\) and \(c>194/33\). BAR-040 records the length-34
-failures at caps 196 and 200, the unique one-coordinate cap-201 repair, and
-the new finite envelopes \(m+167\) and \(c>100/17\). BAR-041 proves that no
-polynomial numeric DEF-032 cap extends these finite constructions to all
-sufficiently large balanced populations. Polynomial-bit encodings of
-exponentially large parameters do escape that exact-output proof, but
-BAR-042 rules out the exact compact-gap subfamily when its public level span
-stays below \((1/2-\varepsilon)m\). BAR-043 closes the whole fixed
-linear-span regime: an \(h+1\)-fold common hit collapses to the overlap
-integer at the GCD of its public gaps, and fixed \(h>2C\) defeats span
-\(\Delta_m\le Cm\). Superlinear encoded lists,
-\(N\)-dependent and adaptive questions, success density, general
-rational/compositional circuits, and other models remain research targets,
-not claimed factoring breakthroughs.
+For the public \(\mathcal T_{m,L}\) family, the strongest positive selector
+statement is the computer-assisted finite promise theorem on balanced
+square-free semiprimes for \(9\le m\le34\). The integrated table gives the
+family-relative thresholds, predecessor collision buckets, and certified
+incremental repairs. It establishes neither injectivity for \(m>34\) nor an
+asymptotic cap law. The compact evaluator uses
+\(O(L^3\log L)\) modular steps, while a conservative standard
+bit-operation upper bound is \(O(L^3m^2\log L)\); offline population and
+certificate generation are separate proof costs.
+
+The negative results explain why finite success is not a general
+breakthrough. BAR-041 rules out every polynomial numeric cap in the exact
+DEF-032 grammar, BAR-042 rules out short-span encoded compact-gap lists, and
+BAR-043 rules out every fixed linear span in that exact compact family. These
+are not lower bounds for all polynomial selectors or for classical factoring.
+Superlinear encoded lists, other compact grammars, adaptive public
+constructions, promise recognition, and broader group channels remain open
+research targets.
+
 
 \appendix
 
@@ -7209,10 +7219,20 @@ The registered experiment cores and canonical summary hashes are:
   \texttt{\seqsplit{970fb769aa2d307ff691ad19ee1226bae89ad860363fb726348b8d80144239ad}}.
 \end{itemize}
 
+The M50 publication projection
+\path{schemas/m50-finite-threshold-summary-v1.json} freezes 16 source schemas
+and 26 family-relative threshold rows. Its canonical summary SHA-256 is
+\texttt{\seqsplit{1fb6185f73b4bc2243dc2f339c1e823d7c849acd7bf33ef5f288af4baa9d00b3}}.
+It is a review index over the existing M31--M46 evidence, not a new
+experiment or claim promotion.
+
 The exact reproduction commands are:
 
 \begin{verbatim}
 python scripts/validate_foundation.py
+python scripts/generate_korean_claim_appendix.py --check
+python scripts/generate_m50_finite_threshold_summary.py --check
+python scripts/check_m50_finite_threshold_summary.py
 python scripts/check_publication.py
 python -m unittest discover -s tests -v
 python -m compileall -q python scripts tests
