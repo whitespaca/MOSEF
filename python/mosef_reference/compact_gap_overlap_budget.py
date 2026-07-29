@@ -185,6 +185,54 @@ def compact_gap_common_support_gap(
     return math.gcd(*(level - first for level in candidate_levels[1:]))
 
 
+def compact_gap_realizable_common_gaps(
+    candidate_levels: tuple[int, ...],
+    overlap_order: int,
+) -> tuple[int, ...]:
+    """Enumerate GCD gaps realized by ``overlap_order + 1`` selected levels."""
+    _validate_levels(candidate_levels)
+    if (
+        isinstance(overlap_order, bool)
+        or not isinstance(overlap_order, int)
+        or overlap_order < 1
+        or overlap_order >= len(candidate_levels)
+    ):
+        raise ValueError(
+            "overlap_order must be between one and candidate_count - 1"
+        )
+    gaps = {
+        math.gcd(*(level - subset[0] for level in subset[1:]))
+        for subset in combinations(candidate_levels, overlap_order + 1)
+    }
+    return tuple(sorted(gaps))
+
+
+def compact_gap_maximal_gap_witness(
+    overlap_order: int,
+    common_gap: int,
+    *,
+    initial_level: int = 2,
+) -> tuple[int, ...]:
+    """Construct an arithmetic progression attaining span/order ``common_gap``."""
+    if (
+        isinstance(overlap_order, bool)
+        or not isinstance(overlap_order, int)
+        or overlap_order < 1
+    ):
+        raise ValueError("overlap_order must be a positive integer")
+    if (
+        isinstance(common_gap, bool)
+        or not isinstance(common_gap, int)
+        or common_gap < 1
+    ):
+        raise ValueError("common_gap must be a positive integer")
+    _validate_level(initial_level)
+    return tuple(
+        initial_level + index * common_gap
+        for index in range(overlap_order + 1)
+    )
+
+
 def compact_gap_common_support_integer(
     candidate_levels: tuple[int, ...],
 ) -> int:

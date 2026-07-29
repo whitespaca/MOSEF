@@ -1143,3 +1143,19 @@
 - Consequence: BAR-046 expands the uniform closed range from \(c<1/8\) to
   \(c<1/2\). The endpoint remains open because the high and low coefficient
   requirements meet without slack; M54 will audit which gaps are realizable.
+
+## ADR-058 - Treat realizable-gap pruning as a sharpness test
+
+- Date: 2026-07-30.
+- Decision: define the exact set of GCD gaps realized by
+  \((h+1)\)-subsets and test the maximum before attempting a smaller union
+  ledger.
+- Rationale: the largest overlap integer controls the exponential scale.
+  The arithmetic progression \(\{s,s+q,\ldots,s+hq\}\) realizes
+  \(q=\Delta/h\) exactly; its full containing interval has
+  \(r=\Delta+1\) and retains that witness. Thus no universal constant-factor
+  or little-o reduction follows from realizability alone, even under maximum
+  level packing.
+- Consequence: M54 records a method barrier rather than promoting a failed
+  endpoint proof. M55 will audit shared divisors and primitive parts of the
+  overlap integers \(R_q\).

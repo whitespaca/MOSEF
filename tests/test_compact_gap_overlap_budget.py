@@ -16,11 +16,13 @@ from python.mosef_reference.compact_gap_overlap_budget import (
     compact_gap_high_weight_population_upper_bound,
     compact_gap_high_weight_profile,
     compact_gap_low_weight_signature_capacity,
+    compact_gap_maximal_gap_witness,
     compact_gap_overlap_bit_bound,
     compact_gap_overlap_integer,
     compact_gap_overlap_population_upper_bound,
     compact_gap_overlap_prefix_bit_bound,
     compact_gap_overlap_profile,
+    compact_gap_realizable_common_gaps,
     compact_gap_variable_order_profile,
 )
 
@@ -200,6 +202,21 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
             boundary.high_weight_population_upper_bound,
         )
 
+    def test_realizable_gap_bound_is_attained_by_arithmetic_progressions(
+        self,
+    ) -> None:
+        witness = compact_gap_maximal_gap_witness(4, 7, initial_level=3)
+        self.assertEqual(witness, (3, 10, 17, 24, 31))
+        self.assertEqual(
+            compact_gap_realizable_common_gaps(witness, 4),
+            (7,),
+        )
+        self.assertEqual((witness[-1] - witness[0]) // 4, 7)
+        self.assertEqual(
+            compact_gap_realizable_common_gaps((2, 4, 6, 9, 12), 2),
+            (1, 2, 3),
+        )
+
     def test_invalid_inputs(self) -> None:
         invalid_calls = (
             lambda: compact_gap_exponent(True),
@@ -222,6 +239,9 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
             lambda: compact_gap_boundary_ledger(12, 4, 2, 1),
             lambda: compact_gap_boundary_ledger(12, 4, 8, 5),
             lambda: compact_gap_overlap_prefix_bit_bound(False),
+            lambda: compact_gap_realizable_common_gaps((2, 3), 2),
+            lambda: compact_gap_maximal_gap_witness(0, 1),
+            lambda: compact_gap_maximal_gap_witness(1, False),
         )
         for call in invalid_calls:
             with self.subTest(call=call), self.assertRaises(ValueError):
