@@ -1,23 +1,91 @@
 # Research Status
 
-## M47 work snapshot
+## M47 outcome
 
 - Date: 2026-07-29.
 - Branch: `research/20260729-m47-polynomial-cap-support`.
 - Base: M46 squash merge
   `942302256bbb130df1c9180d3836357009e1a658`.
-- M47 asks whether any polynomially bounded public cap in the exact DEF-032
-  selector can remain injective on every sufficiently large complete
-  balanced-prime population.
-- The falsification-first route charges every nonzero primitive exit to the
-  exact public integer whose prime divisors can activate it, sums the resulting
-  output-bit budget over the complete selector, and compares that support
-  bound with an inspected lower bound for the balanced-prime population.
-- The milestone will audit zero and constant coordinates, exact cofactor
-  division, descriptor multiplicity, polynomial-cap substitution, and the
-  hypotheses of the prime-counting result before promoting any asymptotic
-  barrier. No lower bound for adaptive, input-dependent, or more general
-  factoring algorithms is assumed.
+- Start commit `34f0152fc5e1de875f5f2bc060a5b799a5df3cd0` is pushed. Draft
+  PR #58 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/58`.
+- `DEF-034` defines the exact-output bit ledger \(W(m,L)\) over all eight
+  positive primitive integers emitted by each exact DEF-032 descriptor. For
+  \(b=\operatorname{bitlen}(L)\), every descriptor contributes at most
+  \(2L^2b+Lb+9b+5\) bits and there are at most \(2(L-1)^3\) descriptors.
+  Hence
+  \[
+  W(m,L)\le
+  2(L-1)^3(2L^2b+Lb+9b+5)=O(L^5\log L).
+  \]
+- Every balanced support prime \(p\) has
+  \(\lfloor(m-1)/2\rfloor\) bits, so charging each nonconstant primitive
+  coordinate to an exact nonzero output integer gives
+  \(\lfloor(m-1)/2\rfloor h\le W(m,L)\), where \(h\) is the number of
+  balanced primes occurring anywhere in the complete selector support.
+- The inspected Rosser--Schoenfeld (1962) bounds
+  \(x/\log x<\pi(x)\) for \(x\ge17\) and
+  \(\pi(x)<1.25506x/\log x\) for \(x>1\), together with the exact check
+  \(128\cdot50000^2-81\cdot62753^2=1,026,940,271>0\), imply that the
+  complete balanced-prime population has size
+  \(\Omega(2^{m/2}/m)\).
+- `BAR-041` therefore proves that every factorization-independent DEF-032
+  schedule with polynomial numeric cap \(L(m)\) is eventually noninjective:
+  at least two balanced primes lie outside all primitive support and receive
+  the common all-zero signature. `REF-043` and NR-044 refute the corresponding
+  universal injectivity program for this exact grammar.
+- The scope is deliberately narrow. The result does not cover polynomial-bit
+  encodings of exponentially large numeric parameters, adaptive or
+  input-dependent schedules, other compact grammars, arithmetic circuits, or
+  general classical factoring algorithms. In particular, the compact gap
+  \(B=2^t+3\) from `BAR-022` is outside `BAR-041`.
+- ADR-051 adopts exact-output bit charging because it safely handles zeros,
+  constants, exact cofactor division, duplicate outputs, and descriptor
+  multiplicity without inferring a false lower bound from finite threshold
+  data.
+- EXP-0046 audits 963 descriptors, 7,704 exact primitive values, 25,346
+  branch-support incidences, and 31 independently counted prime populations.
+  The cap-profile exact/upper output-bit totals are
+  \(3,948/742,400\), \(26,076/3,303,542\),
+  \(115,600/18,157,500\), and \(377,063/56,929,700\) for caps
+  9, 12, 16, and 20.
+- Registered schema SHA-256:
+  `a37f9d495de85943a69a6c3fbc122c9f09fbce0f78316c32163c380a782ef525`.
+  Registered summary SHA-256:
+  `b9c97e8161d3470ad61d20fd9ee8834888e5f0139e1b3fd5b3fbe3b2a6463093`.
+- Final gates passed: foundation and bilingual publication checks
+  (195 claims and 45 experiment hashes), 235 Python tests and 221 subtests
+  in 217.27 seconds with the cache provider disabled, compileall, Ruff,
+  strict mypy over 27 source files, Rust formatting/Clippy and 36 tests, and
+  a warning-free C# Release build. The independent M47 differential checker
+  passed all 963 descriptor, 7,704 exact-value, 25,346 branch-support, and
+  31 population checks.
+- XeLaTeX produced warning-free 106-page English and 37-page Korean PDFs.
+  Rendered title, M47 result, proof, reproduction, and claim-appendix pages
+  have no clipping, overlap, missing glyph, malformed mathematics, or
+  unreadable text. Stable artifact SHA-256 values are
+  `73c05d9940fa8a92d1a63f837383259ab52448e302d3af19241d51231f34cd47`
+  and
+  `ce5c957371dd40e3c9c54bb69ca8d402a82c6b5890884bc836c472567fc8426a`.
+- Next selected milestone: M48 tests whether a polynomial-size public selector
+  using polynomial-bit encodings of exponentially large numeric parameters
+  can evade `BAR-041` while retaining polynomial branch-total evaluation.
+
+### M47 Korean summary
+
+M47은 정확한 DEF-032 선택자에서 숫자 cap \(L(m)\) 자체가 다항식으로
+제한되면, 충분히 큰 모든 입력 길이에서 balanced-prime 모집단을 단사적으로
+분리할 수 없음을 증명했다. 핵심은 각 비상수 좌표를 그 좌표를 활성화할 수
+있는 소수를 포함한 정확한 공개 정수 출력에 과금하는 것이다. 전체 출력
+비트 예산은 \(O(L^5\log L)\)이고 각 balanced prime은
+\(\lfloor(m-1)/2\rfloor\)비트를 요구하지만, 전체 balanced-prime 모집단은
+Rosser--Schoenfeld의 점검된 소수 계수 경계에 따라
+\(\Omega(2^{m/2}/m)\)이다. 따라서 다항식 숫자 cap은 결국 적어도 두 소수를
+모든 좌표의 지지집합 밖에 남겨 같은 영벡터 서명을 만든다. 이 장벽은
+지수적으로 큰 숫자를 다항식 길이로 부호화하는 매개변수, 적응형 또는
+입력 의존형 일정, 다른 압축 문법, 산술 회로, 일반 고전 정수분해
+알고리즘에는 적용되지 않는다. 다음 M48은 바로 이 부호화 매개변수의
+회피 가능성을 검증한다.
 
 ## M46 outcome
 

@@ -1,0 +1,204 @@
+{
+  "cap_profiles": [
+    {
+      "descriptor_count": 32,
+      "exact_output_bit_budget": 3948,
+      "maximum_descriptor_bit_budget": 291,
+      "per_descriptor_bit_upper_bound": 725,
+      "raw_coordinate_count": 256,
+      "selector_bound_slack": 738452,
+      "selector_cap": 9,
+      "selector_output_bit_upper_bound": 742400
+    },
+    {
+      "descriptor_count": 110,
+      "exact_output_bit_budget": 26076,
+      "maximum_descriptor_bit_budget": 694,
+      "per_descriptor_bit_upper_bound": 1241,
+      "raw_coordinate_count": 880,
+      "selector_bound_slack": 3277466,
+      "selector_cap": 12,
+      "selector_output_bit_upper_bound": 3303542
+    },
+    {
+      "descriptor_count": 270,
+      "exact_output_bit_budget": 115600,
+      "maximum_descriptor_bit_budget": 1302,
+      "per_descriptor_bit_upper_bound": 2690,
+      "raw_coordinate_count": 2160,
+      "selector_bound_slack": 18041900,
+      "selector_cap": 16,
+      "selector_output_bit_upper_bound": 18157500
+    },
+    {
+      "descriptor_count": 551,
+      "exact_output_bit_budget": 377063,
+      "maximum_descriptor_bit_budget": 2425,
+      "per_descriptor_bit_upper_bound": 4150,
+      "raw_coordinate_count": 4408,
+      "selector_bound_slack": 56552637,
+      "selector_cap": 20,
+      "selector_output_bit_upper_bound": 56929700
+    }
+  ],
+  "caps": [
+    9,
+    12,
+    16,
+    20
+  ],
+  "counts": {
+    "cap_profiles": 4,
+    "descriptors_materialized": 963,
+    "exact_primitive_value_checks": 7704,
+    "population_lengths": 25,
+    "source_integer_inequality_checks": 1
+  },
+  "experiment_id": "EXP-0046",
+  "population_checks": [
+    {
+      "balanced_prime_count": 3,
+      "input_length": 10,
+      "strict_lower_bound_floor": 0
+    },
+    {
+      "balanced_prime_count": 3,
+      "input_length": 11,
+      "strict_lower_bound_floor": 0
+    },
+    {
+      "balanced_prime_count": 4,
+      "input_length": 12,
+      "strict_lower_bound_floor": 0
+    },
+    {
+      "balanced_prime_count": 6,
+      "input_length": 13,
+      "strict_lower_bound_floor": 0
+    },
+    {
+      "balanced_prime_count": 7,
+      "input_length": 14,
+      "strict_lower_bound_floor": 0
+    },
+    {
+      "balanced_prime_count": 11,
+      "input_length": 15,
+      "strict_lower_bound_floor": 0
+    },
+    {
+      "balanced_prime_count": 12,
+      "input_length": 16,
+      "strict_lower_bound_floor": 0
+    },
+    {
+      "balanced_prime_count": 18,
+      "input_length": 17,
+      "strict_lower_bound_floor": 0
+    },
+    {
+      "balanced_prime_count": 25,
+      "input_length": 18,
+      "strict_lower_bound_floor": 1
+    },
+    {
+      "balanced_prime_count": 31,
+      "input_length": 19,
+      "strict_lower_bound_floor": 1
+    },
+    {
+      "balanced_prime_count": 44,
+      "input_length": 20,
+      "strict_lower_bound_floor": 1
+    },
+    {
+      "balanced_prime_count": 57,
+      "input_length": 21,
+      "strict_lower_bound_floor": 2
+    },
+    {
+      "balanced_prime_count": 80,
+      "input_length": 22,
+      "strict_lower_bound_floor": 3
+    },
+    {
+      "balanced_prime_count": 109,
+      "input_length": 23,
+      "strict_lower_bound_floor": 4
+    },
+    {
+      "balanced_prime_count": 146,
+      "input_length": 24,
+      "strict_lower_bound_floor": 6
+    },
+    {
+      "balanced_prime_count": 196,
+      "input_length": 25,
+      "strict_lower_bound_floor": 8
+    },
+    {
+      "balanced_prime_count": 268,
+      "input_length": 26,
+      "strict_lower_bound_floor": 11
+    },
+    {
+      "balanced_prime_count": 365,
+      "input_length": 27,
+      "strict_lower_bound_floor": 15
+    },
+    {
+      "balanced_prime_count": 507,
+      "input_length": 28,
+      "strict_lower_bound_floor": 20
+    },
+    {
+      "balanced_prime_count": 685,
+      "input_length": 29,
+      "strict_lower_bound_floor": 28
+    },
+    {
+      "balanced_prime_count": 927,
+      "input_length": 30,
+      "strict_lower_bound_floor": 38
+    },
+    {
+      "balanced_prime_count": 1280,
+      "input_length": 31,
+      "strict_lower_bound_floor": 53
+    },
+    {
+      "balanced_prime_count": 1750,
+      "input_length": 32,
+      "strict_lower_bound_floor": 72
+    },
+    {
+      "balanced_prime_count": 2410,
+      "input_length": 33,
+      "strict_lower_bound_floor": 100
+    },
+    {
+      "balanced_prime_count": 3299,
+      "input_length": 34,
+      "strict_lower_bound_floor": 137
+    }
+  ],
+  "schema_version": "1.0.0",
+  "source_inequality": {
+    "balanced_consequence": "|P_m|>2^(m/2)/(81*ln(2^(m/2))) for m>=10",
+    "citation": "Rosser-Schoenfeld 1962, Corollary 1, equations (3.5) and (3.6)",
+    "integer_square_margin": 1026940271,
+    "pi_lower_hypothesis": "x>=17",
+    "pi_upper_hypothesis": "x>1",
+    "proved_rational_majorant": "(1.25506/sqrt(2))<8/9",
+    "upper_constant": "1.25506"
+  },
+  "status": "PASS",
+  "summary_sha256": "b9c97e8161d3470ad61d20fd9ee8834888e5f0139e1b3fd5b3fbe3b2a6463093",
+  "uniform_bounds": {
+    "asymptotic": "O(L^5*log(L))",
+    "descriptor_count": "2*(L-1)^3",
+    "per_descriptor": "2*L^2*b+L*b+9*b+5",
+    "total_exact_output_bits": "2*(L-1)^3*(2*L^2*b+L*b+9*b+5)",
+    "width_definition": "b=bit_length(L)"
+  }
+}

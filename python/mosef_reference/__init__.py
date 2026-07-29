@@ -124,6 +124,14 @@ from .nonsplit import (
     witness_event_count,
     witness_event_holds,
 )
+from .polynomial_cap_support_budget import (
+    DescriptorOutputBudget,
+    descriptor_bit_budget_upper_bound,
+    descriptor_output_budget,
+    exact_primitive_exit_integers,
+    selector_descriptor_count_upper_bound,
+    selector_output_bit_budget_upper_bound,
+)
 from .product_dag import (
     ProductDagEvaluation,
     ProductGate,
@@ -226,6 +234,7 @@ __all__ = [
     "CombinedDensityAnalysis",
     "ConjugatePairAnalysis",
     "CoverAnalysis",
+    "DescriptorOutputBudget",
     "DiversifiedSelectorProfile",
     "DyadicTelescopeEvaluation",
     "ExceptionalCofactorLocalProfile",
@@ -283,6 +292,8 @@ __all__ = [
     "conjugate_parameter",
     "cyclotomic_coefficients",
     "cyclotomic_factor_orders",
+    "descriptor_bit_budget_upper_bound",
+    "descriptor_output_budget",
     "direct_combined_asymmetry",
     "direct_lucas_root_count",
     "direct_witness_event_count",
@@ -308,6 +319,7 @@ __all__ = [
     "evaluate_symmetric_quotient_difference",
     "evaluate_unequal_signed_reduction",
     "exact_cyclotomic_root_ratio",
+    "exact_primitive_exit_integers",
     "exceptional_cofactor_coefficients",
     "exceptional_cofactor_overlap",
     "exceptional_cofactor_root_residues",
@@ -367,6 +379,8 @@ __all__ = [
     "rational_root_order_descriptor",
     "repeated_product_program",
     "repeated_squaring_program",
+    "selector_descriptor_count_upper_bound",
+    "selector_output_bit_budget_upper_bound",
     "semismooth_asymmetry_witnesses",
     "signature_count_lower_bound",
     "signature_pair_accounting",

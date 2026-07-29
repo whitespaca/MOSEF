@@ -26,7 +26,7 @@
 \renewcommand{\abstractname}{초록}
 
 \title{고전적 정수분해를 위한 차수 분리 지수:\\
-열여덟 개의 제한 정리와 서른세 개의 구조적 장벽}
+열여덟 개의 제한 정리와 서른네 개의 구조적 장벽}
 \author{MOSEF 연구 프로그램}
 \date{2026년 7월 29일}
 
@@ -109,6 +109,11 @@ pair를 남겨 실패한다. 마지막 pair는 cap 194까지 남고 cap 195의
 실패한다. cap 201의 유일한 새 cofactor 좌표가 마지막 pair를
 분리한다. 따라서 \(L_{34}^{\star}=201\)이고 유한 envelope는
 \(m+167\)과 \(c>100/17\)로 이동한다.
+마지막으로 같은 polynomial numeric-cap 문법은 점근적으로 성공할 수
+없음을 증명한다. 여덟 primitive exact integer의 전체 bit budget은
+\(O(L^5\log L)\)인 반면, 명시적인 Rosser--Schoenfeld 경계는 balanced
+prime이 지수적으로 많음을 준다. 따라서 모든 polynomial DEF-032 cap은
+결국 같은 all-zero signature를 갖는 두 소수를 남긴다.
 이 양성 결과는 인수분해에 의존하는 유한 약속 정리이다.
 일반 고전적 다항 시간 정수분해 알고리즘이나 모든 다항 selector의
 하한은 주장하지 않는다.
@@ -1767,6 +1772,81 @@ threshold를 증명한다. 모든 새 primitive coordinate의 독립 검사는
 이다. 따라서 두 finite envelope가 모두 길이 34의 값으로 이동한다.
 이후 길이나 asymptotic rate에 대한 결론은 없다.
 
+\section{M47: polynomial numeric-cap support 장벽}
+
+\claimstatus{DEF-034}{DEFINITION}.
+DEF-032 cap \(L\)에 대해 모든 descriptor의 여덟 양의 exact primitive
+integer bit 길이 합을 \(W(m,L)\)이라 하자. 그중 하나라도 나누는
+balanced population prime의 집합을 \(H_{m,L}\)이라 한다. 이 분석용
+ledger는 nonunit base 때문에 건너뛴 continuation 값까지 charge하므로
+가능한 support를 과대평가한다.
+
+\(b=\operatorname{bitlength}(L)\)라 하자. base, 두 stage, 두 public
+bound, cyclotomic, resultant, cofactor의 descriptor별 bit 경계는
+\[
+b,\quad Lb,\quad L^2b,\quad b,\quad b+1,\quad
+2b+1,\quad4b+2,\quad L^2b+1
+\]
+이다. geometric sum은 각각 \(g^A\), \(g^{AB}\)보다 작고,
+resultant의 두 remainder coefficient 절댓값은 \(L^2\) 이하이며,
+양의 exact cofactor는 \(2g^{AB}\)보다 작다. descriptor가 최대
+\(2(L-1)^3\)개이므로
+\[
+W(m,L)\le
+2(L-1)^3(2L^2b+Lb+9b+5)
+=O(L^5\log L).
+\tag{M47.1}
+\]
+
+\claimstatus{BAR-041}{PROVED}.
+\(\mathcal P_m\)의 모든 소수는
+\(2^{\lfloor(m-1)/2\rfloor}\) 이상이다. \(H_{m,L}\)의 square-free
+곱은 모든 exact integer의 곱을 나누므로
+\[
+\left\lfloor\frac{m-1}{2}\right\rfloor |H_{m,L}|
+\le W(m,L).
+\]
+SRC-006에서 검사한 Rosser--Schoenfeld 경계는
+\[
+\frac{x}{\log x}<\pi(x)\quad(x\ge17),\qquad
+\pi(x)<1.25506\frac{x}{\log x}\quad(x>1)
+\]
+을 준다. \(1.25506/\sqrt2<8/9\)이므로 \(x=2^{m/2}\)에 적용하면
+\[
+|\mathcal P_m|>
+\frac{2^{m/2}}{81\log(2^{m/2})}
+\qquad(m\ge10).
+\tag{M47.2}
+\]
+모든 polynomial numeric cap \(L(m)\)에 대해 (M47.1)은 \(m\)의
+polynomial이고 (M47.2)는 polynomial factor를 제외하면
+exponential이다. 따라서 충분히 큰 모든 길이에서 적어도 두 balanced
+prime이 \(H_{m,L(m)}\) 밖에 남는다. 이 둘은 모든 primitive
+coordinate에서 all-zero signature를 가지며, derived aggregate나
+overlap coordinate도 둘을 분리하지 못한다.
+
+\claimstatus{REF-043}{REFUTED}.
+어떤 polynomial numeric DEF-032 cap도 모든 충분히 큰 완전 balanced
+population을 분리하지 못한다. 이는 exponentially large numeric
+parameter의 polynomial-bit encoding, adaptive 또는 input-dependent
+schedule, 다른 compact 문법, 일반 factoring algorithm에는 적용하지
+않는다.
+
+\claimstatus{EMP-046}{EMPIRICAL}.
+EXP-0046은 cap 9, 12, 16, 20에서 descriptor 963개와 exact primitive
+value 7,704개를 materialize했다. 독립 재구현은 모든 값,
+branch-support case 25,346개, 길이 10부터 40까지 balanced population
+31개를 검사했다. summary SHA-256은
+\[
+\texttt{\seqsplit{b9c97e8161d3470ad61d20fd9ee8834888e5f0139e1b3fd5b3fbe3b2a6463093}}
+\]
+이고 schema SHA-256은
+\[
+\texttt{\seqsplit{a37f9d495de85943a69a6c3fbc122c9f09fbce0f78316c32163c380a782ef525}}
+\]
+이다. 이 유한 검사는 구현을 검증할 뿐, 점근 결론은 symbolic
+bit-budget 증명과 검사한 소수 계수 경계에서 나온다.
+
 \section{구현과 bit complexity}
 
 \(B_m=2^m+3\)과 \(E_m=3\cdot2^m+5\)의 이진 표현 길이는 \(O(m)\)이다.
@@ -1790,7 +1870,12 @@ M32에서는 이 경계가 \(2(L(m)-1)^3\)이고 compact work는
 M32부터 M46까지의 서른 개 선형 공식은 모두
 \(O(m^3\log m)\) compact step을
 사용한다. 이 비용 경계 자체는 검사하지 않은 길이의 단사성을
-뜻하지 않는다.
+뜻하지 않는다. BAR-041은 이 정확한 문법에 대한 음성 결론을 준다.
+polynomial numeric cap은 exact-output support bit도
+\(O(L^5\log L)\)로 제한하므로 모든 큰 balanced population을 분리할
+수 없다. 이 결론은 \(A,B,g\le L\)이라는 numeric 경계에 의존하며,
+exponentially large parameter의 polynomial-bit encoding에는 적용하지
+않는다.
 
 소수 \(p\)가 주어진 local profile 함수는 증명과 differential test를
 위한 분석 도구이다. 실제 factorization 후보는 \(p\)를 받지 않고
@@ -1828,24 +1913,26 @@ canonical summary SHA-256은
 
 \section{한계와 다음 연구 문제}
 
-BAR-023부터 BAR-026까지가 증명하지 않은 사항은 다음과 같다.
+BAR-041까지가 증명하지 않은 사항은 다음과 같다.
 
 \begin{itemize}
 \item balanced population에서 \(H_m\)의 asymptotic density;
 \item \(H_m\)을 factorization 없이 명시적으로 출력하는 recognizer;
-\item \(m>34\)에서 \(m+167\), \(\lceil53m/9\rceil\), 또는 다른
-  polynomial cap의 단사성;
+\item exponentially large numeric parameter의 polynomial-bit encoding을
+  사용하는 compact selector의 단사성;
+\item 이후 각 길이에서 finite threshold \(L_m^\star\)가 존재하는지와
+  임의의 fixed polynomial cap의 첫 실패 길이;
 \item \(N\)-dependent 또는 adaptive schedule의 하한;
 \item repeated-prime 입력 전체에 대한 이번 square-free signature
   count의 직접 확장;
 \item 일반 arithmetic circuit 또는 일반 고전적 정수분해의 하한.
 \end{itemize}
 
-다음 bounded theoretical question은 모든 balanced prime pair에 대해
-정확한 pair-separation 조건을 만족하는 uniform polynomial cap이
-존재하는지, 또는 모든 그러한 공개 cap을 피하는 명시적 무한 obstruction
-family가 있는지를 묻는다. 유한 threshold 표를 어느 쪽의 asymptotic
-증거로도 사용하지 않는다.
+다음 bounded question은 polynomial-size public list에 polynomial-bit로
+인코딩된 exponentially large exceptional parameter를 넣어 BAR-041을
+피하면서 branch-total modular 비용을 polynomial로 유지할 수 있는지
+묻는다. BAR-022의 \(B=2^t+3\) compact gap에서 시작하며, 그 exponential
+numeric 값까지 열거하지 않는다.
 
 \section{결론}
 
@@ -1892,8 +1979,11 @@ M45에서는 두 복구 공식이 cap 168과 172에서 다시 실패하고 cap 1
 유한 envelope는 \(m+162\)와 \(c>194/33\)으로 복구된다.
 M46에서는 두 복구 공식이 cap 196과 200에서 다시 실패한다. cap 200의
 마지막 pair는 cap 201의 유일한 새 좌표로 분리되므로 유한 envelope는
-\(m+167\)과 \(c>100/17\)로 복구된다. 이는 \(m>34\)의 단사성이나
-cap 성장률을 증명하지 않는다.
+\(m+167\)과 \(c>100/17\)로 복구된다. BAR-041은 어떤 polynomial
+numeric DEF-032 cap도 이 유한 성공을 모든 충분히 큰 balanced
+population으로 확장하지 못함을 증명한다. polynomial-bit exponential
+parameter, adaptive schedule, 다른 compact 문법은 여전히 열린
+범위다.
 
 일반 고전적 다항 시간 정수분해 알고리즘도, 그러한 알고리즘의
 일반적 불가능성도 여기서 주장하지 않는다. 검증된 기여는 정확한
@@ -1974,6 +2064,9 @@ python scripts/check_m45_length_33_cap_differential.py
 python scripts/run_m46_length_34_cap_audit.py
 python scripts/generate_m46_length_34_cap_schema.py
 python scripts/check_m46_length_34_cap_differential.py
+python scripts/run_m47_polynomial_cap_support_audit.py
+python scripts/generate_m47_polynomial_cap_support_schema.py
+python scripts/check_m47_polynomial_cap_support_differential.py
 python scripts/generate_korean_claim_appendix.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex

@@ -1077,3 +1077,29 @@
 - Scope: this refutes two fixed linear formulas at one new length. It does
   not prove a future recurrence, a superlinear cap requirement, an
   asymptotic rate, density, recognition, or general factoring.
+
+## NR-044 - Every polynomial numeric DEF-032 cap fails asymptotically
+
+- Date: 2026-07-29.
+- Status: `REFUTED` claim `REF-043`.
+- Hypothesis tested: some factorization-independent polynomially bounded
+  numeric cap \(L(m)\) makes the complete DEF-032 selector injective on every
+  sufficiently large balanced-prime population.
+- Exact-output obstruction: every descriptor's eight positive primitive
+  integers have at most \(2L^2b+Lb+9b+5\) total bits for
+  \(b=\operatorname{bitlength}(L)\). With at most \(2(L-1)^3\)
+  descriptors, their union support contains only polynomially many balanced
+  primes when \(L(m)\) is polynomial.
+- Population obstruction: the inspected Rosser--Schoenfeld bounds imply
+  \[
+  |\mathcal P_m|>
+  \frac{2^{m/2}}{81\log(2^{m/2})}
+  \qquad(m\ge10).
+  \]
+  Eventually at least two population primes divide none of the exact
+  primitive integers and therefore share the all-zero signature.
+- Scope: this refutes the exact polynomial numeric-cap grammar, including all
+  finite linear schedules studied in M32--M46 as asymptotic candidates. It
+  does not refute polynomial-bit encodings of exponentially large parameters,
+  input-dependent or adaptive schedules, other compact recurrence families,
+  arbitrary circuits, or a general classical factoring algorithm.
