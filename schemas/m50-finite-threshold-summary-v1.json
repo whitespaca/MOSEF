@@ -1,0 +1,758 @@
+{
+  "artifact_id": "ART-M50-FINITE-THRESHOLDS",
+  "finite_window": {
+    "maximum_input_length": 34,
+    "minimum_input_length": 9
+  },
+  "population": "balanced primes P_m",
+  "rows": [
+    {
+      "evidence_ids": [
+        "THM-004",
+        "EMP-030"
+      ],
+      "family_relative_minimal_cap": 9,
+      "input_length": 9,
+      "local_offset": 0,
+      "population_size": 2,
+      "predecessor_collision_buckets": null,
+      "repair_coordinate_count": null,
+      "repair_coordinate_status": "NOT_APPLICABLE_DOMAIN_FLOOR",
+      "source_schema": "schemas/m31-diversified-compact-signature-vectors-v1.json",
+      "strict_endpoint": {
+        "denominator": 9,
+        "numerator": 8,
+        "reduced_denominator": 9,
+        "reduced_numerator": 8
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-004",
+        "EMP-030"
+      ],
+      "family_relative_minimal_cap": 10,
+      "input_length": 10,
+      "local_offset": 0,
+      "population_size": 3,
+      "predecessor_collision_buckets": null,
+      "repair_coordinate_count": null,
+      "repair_coordinate_status": "NOT_APPLICABLE_DOMAIN_FLOOR",
+      "source_schema": "schemas/m31-diversified-compact-signature-vectors-v1.json",
+      "strict_endpoint": {
+        "denominator": 10,
+        "numerator": 9,
+        "reduced_denominator": 10,
+        "reduced_numerator": 9
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-004",
+        "EMP-030"
+      ],
+      "family_relative_minimal_cap": 11,
+      "input_length": 11,
+      "local_offset": 0,
+      "population_size": 3,
+      "predecessor_collision_buckets": null,
+      "repair_coordinate_count": null,
+      "repair_coordinate_status": "NOT_APPLICABLE_DOMAIN_FLOOR",
+      "source_schema": "schemas/m31-diversified-compact-signature-vectors-v1.json",
+      "strict_endpoint": {
+        "denominator": 11,
+        "numerator": 10,
+        "reduced_denominator": 11,
+        "reduced_numerator": 10
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-004",
+        "EMP-030"
+      ],
+      "family_relative_minimal_cap": 12,
+      "input_length": 12,
+      "local_offset": 0,
+      "population_size": 4,
+      "predecessor_collision_buckets": null,
+      "repair_coordinate_count": null,
+      "repair_coordinate_status": "NOT_APPLICABLE_DOMAIN_FLOOR",
+      "source_schema": "schemas/m31-diversified-compact-signature-vectors-v1.json",
+      "strict_endpoint": {
+        "denominator": 12,
+        "numerator": 11,
+        "reduced_denominator": 12,
+        "reduced_numerator": 11
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-004",
+        "EMP-030"
+      ],
+      "family_relative_minimal_cap": 13,
+      "input_length": 13,
+      "local_offset": 0,
+      "population_size": 6,
+      "predecessor_collision_buckets": null,
+      "repair_coordinate_count": null,
+      "repair_coordinate_status": "NOT_APPLICABLE_DOMAIN_FLOOR",
+      "source_schema": "schemas/m31-diversified-compact-signature-vectors-v1.json",
+      "strict_endpoint": {
+        "denominator": 13,
+        "numerator": 12,
+        "reduced_denominator": 13,
+        "reduced_numerator": 12
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-004",
+        "EMP-030"
+      ],
+      "family_relative_minimal_cap": 14,
+      "input_length": 14,
+      "local_offset": 0,
+      "population_size": 7,
+      "predecessor_collision_buckets": null,
+      "repair_coordinate_count": null,
+      "repair_coordinate_status": "NOT_APPLICABLE_DOMAIN_FLOOR",
+      "source_schema": "schemas/m31-diversified-compact-signature-vectors-v1.json",
+      "strict_endpoint": {
+        "denominator": 14,
+        "numerator": 13,
+        "reduced_denominator": 14,
+        "reduced_numerator": 13
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-004",
+        "EMP-030"
+      ],
+      "family_relative_minimal_cap": 15,
+      "input_length": 15,
+      "local_offset": 0,
+      "population_size": 11,
+      "predecessor_collision_buckets": null,
+      "repair_coordinate_count": null,
+      "repair_coordinate_status": "NOT_APPLICABLE_DOMAIN_FLOOR",
+      "source_schema": "schemas/m31-diversified-compact-signature-vectors-v1.json",
+      "strict_endpoint": {
+        "denominator": 15,
+        "numerator": 14,
+        "reduced_denominator": 15,
+        "reduced_numerator": 14
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-005",
+        "BAR-026",
+        "EMP-031"
+      ],
+      "family_relative_minimal_cap": 19,
+      "input_length": 16,
+      "local_offset": 3,
+      "population_size": 12,
+      "predecessor_collision_buckets": [
+        [
+          191,
+          227,
+          233
+        ]
+      ],
+      "repair_coordinate_count": null,
+      "repair_coordinate_status": "NOT_SEPARATELY_CERTIFIED",
+      "source_schema": "schemas/m32-widened-selector-cap-v1.json",
+      "strict_endpoint": {
+        "denominator": 16,
+        "numerator": 18,
+        "reduced_denominator": 8,
+        "reduced_numerator": 9
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-005",
+        "BAR-026",
+        "EMP-031"
+      ],
+      "family_relative_minimal_cap": 19,
+      "input_length": 17,
+      "local_offset": 2,
+      "population_size": 18,
+      "predecessor_collision_buckets": [
+        [
+          277,
+          317
+        ],
+        [
+          263,
+          349
+        ]
+      ],
+      "repair_coordinate_count": null,
+      "repair_coordinate_status": "NOT_SEPARATELY_CERTIFIED",
+      "source_schema": "schemas/m32-widened-selector-cap-v1.json",
+      "strict_endpoint": {
+        "denominator": 17,
+        "numerator": 18,
+        "reduced_denominator": 17,
+        "reduced_numerator": 18
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-005",
+        "BAR-026",
+        "EMP-031"
+      ],
+      "family_relative_minimal_cap": 27,
+      "input_length": 18,
+      "local_offset": 9,
+      "population_size": 25,
+      "predecessor_collision_buckets": [
+        [
+          503,
+          509
+        ]
+      ],
+      "repair_coordinate_count": null,
+      "repair_coordinate_status": "NOT_SEPARATELY_CERTIFIED",
+      "source_schema": "schemas/m32-widened-selector-cap-v1.json",
+      "strict_endpoint": {
+        "denominator": 18,
+        "numerator": 26,
+        "reduced_denominator": 9,
+        "reduced_numerator": 13
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-005",
+        "BAR-026",
+        "EMP-031"
+      ],
+      "family_relative_minimal_cap": 27,
+      "input_length": 19,
+      "local_offset": 8,
+      "population_size": 31,
+      "predecessor_collision_buckets": [
+        [
+          569,
+          719
+        ]
+      ],
+      "repair_coordinate_count": null,
+      "repair_coordinate_status": "NOT_SEPARATELY_CERTIFIED",
+      "source_schema": "schemas/m32-widened-selector-cap-v1.json",
+      "strict_endpoint": {
+        "denominator": 19,
+        "numerator": 26,
+        "reduced_denominator": 19,
+        "reduced_numerator": 26
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-005",
+        "BAR-026",
+        "EMP-031"
+      ],
+      "family_relative_minimal_cap": 31,
+      "input_length": 20,
+      "local_offset": 11,
+      "population_size": 44,
+      "predecessor_collision_buckets": [
+        [
+          809,
+          827
+        ]
+      ],
+      "repair_coordinate_count": null,
+      "repair_coordinate_status": "NOT_SEPARATELY_CERTIFIED",
+      "source_schema": "schemas/m32-widened-selector-cap-v1.json",
+      "strict_endpoint": {
+        "denominator": 20,
+        "numerator": 30,
+        "reduced_denominator": 2,
+        "reduced_numerator": 3
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-006",
+        "BAR-027",
+        "EMP-032"
+      ],
+      "family_relative_minimal_cap": 33,
+      "input_length": 21,
+      "local_offset": 12,
+      "population_size": 57,
+      "predecessor_collision_buckets": [
+        [
+          1031,
+          1231,
+          1319,
+          1433
+        ]
+      ],
+      "repair_coordinate_count": null,
+      "repair_coordinate_status": "NOT_SEPARATELY_CERTIFIED",
+      "source_schema": "schemas/m33-linear-cap-recurrence-v1.json",
+      "strict_endpoint": {
+        "denominator": 21,
+        "numerator": 32,
+        "reduced_denominator": 21,
+        "reduced_numerator": 32
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-007",
+        "BAR-028",
+        "EMP-033"
+      ],
+      "family_relative_minimal_cap": 39,
+      "input_length": 22,
+      "local_offset": 17,
+      "population_size": 80,
+      "predecessor_collision_buckets": [
+        [
+          1481,
+          1571
+        ]
+      ],
+      "repair_coordinate_count": null,
+      "repair_coordinate_status": "NOT_SEPARATELY_CERTIFIED",
+      "source_schema": "schemas/m34-next-envelope-v1.json",
+      "strict_endpoint": {
+        "denominator": 22,
+        "numerator": 38,
+        "reduced_denominator": 11,
+        "reduced_numerator": 19
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-008",
+        "BAR-029",
+        "EMP-034"
+      ],
+      "family_relative_minimal_cap": 47,
+      "input_length": 23,
+      "local_offset": 24,
+      "population_size": 109,
+      "predecessor_collision_buckets": [
+        [
+          2411,
+          2777
+        ]
+      ],
+      "repair_coordinate_count": null,
+      "repair_coordinate_status": "NOT_SEPARATELY_CERTIFIED",
+      "source_schema": "schemas/m35-next-envelope-v1.json",
+      "strict_endpoint": {
+        "denominator": 23,
+        "numerator": 46,
+        "reduced_denominator": 1,
+        "reduced_numerator": 2
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-009",
+        "BAR-030",
+        "EMP-035"
+      ],
+      "family_relative_minimal_cap": 51,
+      "input_length": 24,
+      "local_offset": 27,
+      "population_size": 146,
+      "predecessor_collision_buckets": [
+        [
+          3049,
+          3643,
+          3863,
+          4057
+        ]
+      ],
+      "repair_coordinate_count": null,
+      "repair_coordinate_status": "NOT_SEPARATELY_CERTIFIED",
+      "source_schema": "schemas/m36-distinct-cap-v1.json",
+      "strict_endpoint": {
+        "denominator": 24,
+        "numerator": 50,
+        "reduced_denominator": 12,
+        "reduced_numerator": 25
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-010",
+        "BAR-031",
+        "EMP-036"
+      ],
+      "family_relative_minimal_cap": 65,
+      "input_length": 25,
+      "local_offset": 40,
+      "population_size": 196,
+      "predecessor_collision_buckets": [
+        [
+          5011,
+          5179
+        ]
+      ],
+      "repair_coordinate_count": null,
+      "repair_coordinate_status": "NOT_SEPARATELY_CERTIFIED",
+      "source_schema": "schemas/m37-length-25-cap-v1.json",
+      "strict_endpoint": {
+        "denominator": 25,
+        "numerator": 64,
+        "reduced_denominator": 25,
+        "reduced_numerator": 64
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-011",
+        "BAR-032",
+        "EMP-037"
+      ],
+      "family_relative_minimal_cap": 71,
+      "input_length": 26,
+      "local_offset": 45,
+      "population_size": 268,
+      "predecessor_collision_buckets": [
+        [
+          7187,
+          7229,
+          7649
+        ]
+      ],
+      "repair_coordinate_count": 2,
+      "repair_coordinate_status": "CERTIFIED_MINIMUM",
+      "source_schema": "schemas/m38-length-26-cap-v1.json",
+      "strict_endpoint": {
+        "denominator": 26,
+        "numerator": 70,
+        "reduced_denominator": 13,
+        "reduced_numerator": 35
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-012",
+        "BAR-033",
+        "EMP-038"
+      ],
+      "family_relative_minimal_cap": 87,
+      "input_length": 27,
+      "local_offset": 60,
+      "population_size": 365,
+      "predecessor_collision_buckets": [
+        [
+          10607,
+          10939
+        ]
+      ],
+      "repair_coordinate_count": 5,
+      "repair_coordinate_status": "CERTIFIED_MINIMUM",
+      "source_schema": "schemas/m39-length-27-cap-v1.json",
+      "strict_endpoint": {
+        "denominator": 27,
+        "numerator": 86,
+        "reduced_denominator": 27,
+        "reduced_numerator": 86
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-013",
+        "BAR-034",
+        "EMP-039"
+      ],
+      "family_relative_minimal_cap": 104,
+      "input_length": 28,
+      "local_offset": 76,
+      "population_size": 507,
+      "predecessor_collision_buckets": [
+        [
+          11867,
+          12791
+        ]
+      ],
+      "repair_coordinate_count": 5,
+      "repair_coordinate_status": "CERTIFIED_MINIMUM",
+      "source_schema": "schemas/m40-length-28-cap-v1.json",
+      "strict_endpoint": {
+        "denominator": 28,
+        "numerator": 103,
+        "reduced_denominator": 28,
+        "reduced_numerator": 103
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-014",
+        "BAR-035",
+        "EMP-040"
+      ],
+      "family_relative_minimal_cap": 103,
+      "input_length": 29,
+      "local_offset": 74,
+      "population_size": 685,
+      "predecessor_collision_buckets": [
+        [
+          18979,
+          21031
+        ]
+      ],
+      "repair_coordinate_count": 1,
+      "repair_coordinate_status": "CERTIFIED_MINIMUM",
+      "source_schema": "schemas/m41-length-29-cap-v1.json",
+      "strict_endpoint": {
+        "denominator": 29,
+        "numerator": 102,
+        "reduced_denominator": 29,
+        "reduced_numerator": 102
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-015",
+        "BAR-036",
+        "EMP-041"
+      ],
+      "family_relative_minimal_cap": 123,
+      "input_length": 30,
+      "local_offset": 93,
+      "population_size": 927,
+      "predecessor_collision_buckets": [
+        [
+          28591,
+          29209,
+          29387
+        ]
+      ],
+      "repair_coordinate_count": 2,
+      "repair_coordinate_status": "CERTIFIED_MINIMUM",
+      "source_schema": "schemas/m42-length-30-cap-v1.json",
+      "strict_endpoint": {
+        "denominator": 30,
+        "numerator": 122,
+        "reduced_denominator": 15,
+        "reduced_numerator": 61
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-016",
+        "BAR-037",
+        "EMP-042"
+      ],
+      "family_relative_minimal_cap": 144,
+      "input_length": 31,
+      "local_offset": 113,
+      "population_size": 1280,
+      "predecessor_collision_buckets": [
+        [
+          37483,
+          44963
+        ]
+      ],
+      "repair_coordinate_count": 1,
+      "repair_coordinate_status": "CERTIFIED_MINIMUM",
+      "source_schema": "schemas/m43-length-31-cap-v1.json",
+      "strict_endpoint": {
+        "denominator": 31,
+        "numerator": 143,
+        "reduced_denominator": 31,
+        "reduced_numerator": 143
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-017",
+        "BAR-038",
+        "EMP-043"
+      ],
+      "family_relative_minimal_cap": 167,
+      "input_length": 32,
+      "local_offset": 135,
+      "population_size": 1750,
+      "predecessor_collision_buckets": [
+        [
+          59699,
+          63463
+        ]
+      ],
+      "repair_coordinate_count": 1,
+      "repair_coordinate_status": "CERTIFIED_MINIMUM",
+      "source_schema": "schemas/m44-length-32-cap-v1.json",
+      "strict_endpoint": {
+        "denominator": 32,
+        "numerator": 166,
+        "reduced_denominator": 16,
+        "reduced_numerator": 83
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-018",
+        "BAR-039",
+        "EMP-044"
+      ],
+      "family_relative_minimal_cap": 195,
+      "input_length": 33,
+      "local_offset": 162,
+      "population_size": 2410,
+      "predecessor_collision_buckets": [
+        [
+          80309,
+          92671
+        ]
+      ],
+      "repair_coordinate_count": 1,
+      "repair_coordinate_status": "CERTIFIED_MINIMUM",
+      "source_schema": "schemas/m45-length-33-cap-v1.json",
+      "strict_endpoint": {
+        "denominator": 33,
+        "numerator": 194,
+        "reduced_denominator": 33,
+        "reduced_numerator": 194
+      }
+    },
+    {
+      "evidence_ids": [
+        "THM-019",
+        "BAR-040",
+        "EMP-045"
+      ],
+      "family_relative_minimal_cap": 201,
+      "input_length": 34,
+      "local_offset": 167,
+      "population_size": 3299,
+      "predecessor_collision_buckets": [
+        [
+          97927,
+          99527
+        ]
+      ],
+      "repair_coordinate_count": 1,
+      "repair_coordinate_status": "CERTIFIED_MINIMUM",
+      "source_schema": "schemas/m46-length-34-cap-v1.json",
+      "strict_endpoint": {
+        "denominator": 34,
+        "numerator": 200,
+        "reduced_denominator": 17,
+        "reduced_numerator": 100
+      }
+    }
+  ],
+  "schema_version": "1.0.0",
+  "scope": "Complete finite family-relative thresholds only; no asymptotic rate, promise recognizer, all-selector lower bound, or general factoring conclusion.",
+  "selector_family": "DEF-032 T_{m,L}",
+  "source_snapshot_commit": "e286a0042ca2cda57fdc31e143ecc65605ea57fd",
+  "sources": [
+    {
+      "embedded_summary_sha256": null,
+      "file_sha256": "4dde22f43861298264813d09d83f584d923a650df1a5bdecb678b7c8bef39789",
+      "path": "schemas/m31-diversified-compact-signature-vectors-v1.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "embedded_summary_sha256": "5cdc44356ae8ed81d395b033e86403691205c6552bc8da3bf4414b47842463d8",
+      "file_sha256": "24f506ce7cb7ad9b10f8150f064441dbc1450f7402c72a6d228a363834eb9203",
+      "path": "schemas/m32-widened-selector-cap-v1.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "embedded_summary_sha256": "3b6536eaf343951ca0efb50aae08f1b32f36f89e896a9f5a9f2cc6286f1ffa88",
+      "file_sha256": "5947cc85d8664fcb1433d7d748a7d7be0be81098c49ddd433cc0645313c77b80",
+      "path": "schemas/m33-linear-cap-recurrence-v1.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "embedded_summary_sha256": "5f60b3e2d688697ce30a6b40b39d6adbd8fe365cca4dc8e36994090aa2a54b39",
+      "file_sha256": "36bd038cd325dc4bb151ffd366b1d47ed670f4ef4b7871343e14624d52fc2968",
+      "path": "schemas/m34-next-envelope-v1.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "embedded_summary_sha256": "e797c329c0935dbed73a810723764755eacc117527394e1d82ab0b792a69d06d",
+      "file_sha256": "65f97c06c59b60bbf649fdb7146a59c51ab33f7002445344a168be88a3ad459e",
+      "path": "schemas/m35-next-envelope-v1.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "embedded_summary_sha256": "7e66da1e71bf93b7c18d614581197c40b42ab9bf1da787dd318f76b77a16bda5",
+      "file_sha256": "3709d2e2a35212103ad838f83a25152e996cb33b9b5786d9642935a8d2ccfbcb",
+      "path": "schemas/m36-distinct-cap-v1.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "embedded_summary_sha256": "56e595f3096bebd46184f221d0a81844eeaa8d5b4c46b0f2ccbbecad3be6d5d7",
+      "file_sha256": "d85d081243f5ae32b38405e35e8921ff3378ccd5bbb19c63eb135b79c4b61524",
+      "path": "schemas/m37-length-25-cap-v1.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "embedded_summary_sha256": "c3b758e046f9e6ae722352bd54be62521a32608c43a4fc95237f2e89229a094c",
+      "file_sha256": "68f7e9b710be7960b78c11e4bef06119f00d75a6df2074ed8976f211e6b32a97",
+      "path": "schemas/m38-length-26-cap-v1.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "embedded_summary_sha256": "4de3a4d7f8474e91ee2e488807149b73e67c1a541018434383db8ede79ce0208",
+      "file_sha256": "252126eeb4de40e6c8940d23516419e8f6f4b11dbebe8a84bd8d2cdcf59757cd",
+      "path": "schemas/m39-length-27-cap-v1.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "embedded_summary_sha256": "2059fbfc2eff0bfe710427cea5de920362f5dfa6bbf34e3f2143e1513633f0c6",
+      "file_sha256": "7f45ad32c1abb3d09d0b47c4659b2e3555af7126fa534b786b5a0d0504ed4414",
+      "path": "schemas/m40-length-28-cap-v1.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "embedded_summary_sha256": "a9d61b984cf77c3c875ddbcdfaa2d6c6d1cd9bd6939d4c35ba4e1433a91d1589",
+      "file_sha256": "99ca4b60f7dc1f77204ccf675bf874ef0650c97c85d47a75c6380314c63669d3",
+      "path": "schemas/m41-length-29-cap-v1.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "embedded_summary_sha256": "37e7339ee919f6497857ac20c45f37c34aa03a2aef6d80bf0779b95db50f2c0d",
+      "file_sha256": "cd6ca83c68b901a8b9f9572724e33e71d847d0399192691c1868ebdf7982ea9a",
+      "path": "schemas/m42-length-30-cap-v1.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "embedded_summary_sha256": "c15234f614eb9602b6b704700a9660c4a0d486d7e2f965e59af2967eb2cf6888",
+      "file_sha256": "d333d0cebe6c79e2c7a02629be8c3c6a2ea84cb651e184a4cd3a08d1bef969db",
+      "path": "schemas/m43-length-31-cap-v1.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "embedded_summary_sha256": "6d09e1831de30009de0e770dea2d17271e8e00ccff0c09ecd11aba42fdc55b13",
+      "file_sha256": "a05de0bf7941d2c44bf0d5d79488f90f467c33cb5a8ec986ca5de0aa5f39aa21",
+      "path": "schemas/m44-length-32-cap-v1.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "embedded_summary_sha256": "2a3d7c347eeea57c36fd3a585744a30818a5ff0543840607f91514e1786feb23",
+      "file_sha256": "a9ba5df141ecefdf9c7a946bd5bf7f17dd44c5748b843385f6e1f0165e311cd2",
+      "path": "schemas/m45-length-33-cap-v1.json",
+      "schema_version": "1.0.0"
+    },
+    {
+      "embedded_summary_sha256": "52c7899c6d93a747b52fa531e4261ba842acbceb06ae28f420005f8606c85a11",
+      "file_sha256": "34942d674d0451b219bde70fc65909ef3baa6516b08d61df36bf6ea91e8cde61",
+      "path": "schemas/m46-length-34-cap-v1.json",
+      "schema_version": "1.0.0"
+    }
+  ],
+  "summary_sha256": "1fb6185f73b4bc2243dc2f339c1e823d7c849acd7bf33ef5f288af4baa9d00b3"
+}

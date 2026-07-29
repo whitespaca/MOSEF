@@ -13,6 +13,9 @@ PAPER = ROOT / "paper" / "main.tex"
 KOREAN_PAPER = ROOT / "paper" / "main-ko.tex"
 KOREAN_CLAIMS = ROOT / "paper" / "claim-status-ko.tex"
 MATRIX = ROOT / "research" / "PUBLICATION_CLAIMS.md"
+M50_ARTIFACT = ROOT / "schemas" / "m50-finite-threshold-summary-v1.json"
+M50_TABLE_EN = ROOT / "paper" / "tables" / "finite-threshold-summary-en.tex"
+M50_TABLE_KO = ROOT / "paper" / "tables" / "finite-threshold-summary-ko.tex"
 
 CLAIM_ROW = re.compile(r"^\| ([A-Z]+-\d+) \| ([A-Z]+) \|", re.MULTILINE)
 PAPER_CLAIM = re.compile(r"\\claimstatus\{([A-Z]+-\d+)\}\{([^}]+)\}")
@@ -53,25 +56,14 @@ REQUIRED_SECTIONS = (
     "Compact extraction from the exceptional cofactors",
     "A fixed exceptional-cofactor schedule barrier",
     "A length-indexed materialized-support barrier",
-    "A compact cofactor prime-support barrier",
-    "A compact multi-support signature barrier",
-    "A diversified finite construction and scoped collision",
-    "A widened-cap finite construction and exact threshold",
-    "The first linear-cap recurrence and repair",
-    "The next finite-envelope jump",
-    "The length-23 finite envelope",
-    "The length-24 distinct-cap envelope",
-    "The length-25 finite envelope",
-    "The length-26 finite envelope",
-    "The length-27 finite envelope",
-    "The length-28 finite envelope",
-    "The length-29 finite envelope",
-    "The length-30 finite envelope",
-    "The length-31 finite envelope",
-    "The length-32 finite envelope",
-    "The length-33 finite envelope",
+    "Compact cofactor support and the single-coordinate limit",
+    "Support signatures: separation, collisions, and candidate lower bounds",
+    "Public selector family and support normalization",
+    "Selector evaluation and the first finite thresholds",
+    "Finite promise theorem and family-relative threshold synthesis",
+    "Supplementary finite threshold audit trail",
     "Linearly wide encoded compact-gap barrier",
-    "Algorithms and bit-complexity synthesis",
+    "Compact-step and bit-operation complexity",
     "Reproducible experimental methodology",
     "Results",
     "Limitations and open problems",
@@ -372,6 +364,19 @@ def main() -> int:
     if r"\input{paper/claim-status-ko.tex}" not in korean_paper_text:
         fail("Korean manuscript does not include its generated claim appendix")
         errors += 1
+    if r"\input{paper/tables/finite-threshold-summary-en.tex}" not in paper_text:
+        fail("English manuscript does not include the generated M50 table")
+        errors += 1
+    if (
+        r"\input{paper/tables/finite-threshold-summary-ko.tex}"
+        not in korean_paper_text
+    ):
+        fail("Korean manuscript does not include the generated M50 table")
+        errors += 1
+    for generated in (M50_ARTIFACT, M50_TABLE_EN, M50_TABLE_KO):
+        if not generated.exists():
+            fail(f"missing M50 generated artifact: {generated.relative_to(ROOT)}")
+            errors += 1
 
     for section in REQUIRED_SECTIONS:
         if rf"\section{{{section}}}" not in paper_text:
@@ -448,26 +453,46 @@ def main() -> int:
         "the channels fail independently",
     )
     lower_paper = paper_text.lower()
+    normalized_paper = " ".join(lower_paper.split())
     for phrase in forbidden:
         if phrase in lower_paper:
             fail(f"forbidden overclaim phrase: {phrase!r}")
             errors += 1
+    required_scope_phrases = (
+        "mosef names the research program",
+        "computer-assisted finite promise theorem",
+        "family-relative thresholds",
+        "not an asymptotic rate",
+        "compact modular steps, not to standard bit operations",
+    )
+    for phrase in required_scope_phrases:
+        if phrase not in normalized_paper:
+            fail(f"English manuscript omits required scope phrase: {phrase!r}")
+            errors += 1
+    forbidden_title_counts = (
+        "eighteen restricted theorems",
+        "thirty-six structural barriers",
+    )
+    for phrase in forbidden_title_counts:
+        if phrase in lower_paper:
+            fail(f"English title-count wording remains: {phrase!r}")
+            errors += 1
 
     required_korean = (
         "고전적 정수분해",
-        "M29: compact cofactor prime-support 장벽",
+        "M29: compact cofactor support와 단일 좌표 한계",
         "일반 정수분해",
         "M30",
         "signature 사상이 단사",
-        "M31: 다변화 selector",
+        "M31: 공개 selector family와 support 정규화",
         "191,227,233",
-        "M32: 넓어진 공개 상한",
+        "M32: selector 계산과 첫 family-relative threshold",
         "THM-005",
         "809,827",
-        "M33: 첫 선형 상한 재발",
+        "M33: 길이 21 재발과 복구",
         "THM-006",
         "1031,1231,1319,1433",
-        "M34: 다음 유한 envelope",
+        "M34: 길이 22 유한 envelope의 도약",
         "THM-007",
         "1481,1511,1571,1663,1721,1747,1867,1931,2029",
         "M35: 길이 23의 유한 envelope",
@@ -527,6 +552,20 @@ def main() -> int:
     for phrase in forbidden_korean:
         if phrase in korean_paper_text:
             fail(f"Korean manuscript contains overclaim phrase: {phrase!r}")
+            errors += 1
+    required_korean_scope = (
+        "computer-assisted finite promise theorem",
+        "family-relative threshold",
+        "표준 bit-operation",
+        "offline certificate",
+    )
+    for phrase in required_korean_scope:
+        if phrase not in korean_paper_text:
+            fail(f"Korean manuscript omits scope phrase: {phrase!r}")
+            errors += 1
+    for phrase in ("열여덟 개의 제한 정리", "서른여섯 개의 구조적 장벽"):
+        if phrase in korean_paper_text:
+            fail(f"Korean title-count wording remains: {phrase!r}")
             errors += 1
 
     if errors:

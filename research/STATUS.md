@@ -1,5 +1,80 @@
 # Research Status
 
+## M50 outcome
+
+- Date: 2026-07-30.
+- Branch: `research/20260730-m50-publication-feedback`.
+- Base: M49 squash merge
+  `e286a0042ca2cda57fdc31e143ecc65605ea57fd`.
+- Research question: can the current M29--M49 paper and
+  computer-assisted finite promise theorem be made externally reviewable
+  without changing any mathematical claim status?
+- The supplied feedback is treated as a publication-integrity milestone, not
+  a request for a new general factoring claim.
+- Evidence target:
+  - one machine-readable \(m=9..34\) family-relative threshold artifact
+    generated from the 16 registered M31--M46 schemas;
+  - English and Korean tables generated from the same 26 rows;
+  - explicit compact-step versus standard bit-operation accounting;
+  - explicit online evaluator versus offline certificate/proof procedure;
+  - a minimum checker path and documented language-implementation overlap;
+  - removal of unstable numerical claim counts from both titles;
+  - structural synthesis of the repeated finite threshold audits while
+    preserving detailed evidence.
+- Falsification checks:
+  - reject any source row whose repair profile is noninjective;
+  - reject any mismatch in source file or embedded summary hashes;
+  - reject missing or duplicate lengths, wrong local offsets or strict
+    endpoints, hand-divergent bilingual rows, or missing scope warnings;
+  - do not infer an incremental-repair minimum where the source milestone did
+    not separately certify one.
+- The initial M50 artifact has schema version `1.0.0`, 26 rows, 16 frozen
+  sources, and canonical summary SHA-256
+  `1fb6185f73b4bc2243dc2f339c1e823d7c849acd7bf33ef5f288af4baa9d00b3`.
+- Final gates passed:
+  - foundation and bilingual publication checks over 203 claims and 47
+    experiment hashes;
+  - the generator check, stdlib-only minimum checker, and seven M50 unit tests;
+  - 249 Python tests in 339.450 seconds, compileall, Ruff, and strict mypy over
+    28 source files;
+  - Rust formatting/Clippy and 36 tests, plus a warning-free C# Release build;
+  - the baseline 58-check cross-language differential and the M46--M49
+    independent checkers, including 5,440,051 M46 certificate-pair checks,
+    1,636,992 M48 coordinates, and 3,645,232 M49 coordinates.
+- XeLaTeX produced warning-free 111-page English and 41-page Korean PDFs.
+  Rendered title, integrated-table, complexity/trust-boundary, conclusion, and
+  reproduction pages have no clipping, overlap, missing glyph, or malformed
+  mathematics.
+- Stable file SHA-256 values are:
+  - M50 JSON:
+    `2f9974d45a350f65694bd048bf67dae4b27a90493b07ecd895c251d102aab75b`;
+  - English PDF:
+    `235bf1a9e073251a132f19b8aab43b775edf7f3c99069357be2a128ad664b3cb`;
+  - Korean PDF:
+    `ce018b74285714f6e8e2a9eceaf7a8e978ec29662b8db11c508cdd137a59f7cf`.
+- Validated environment: Microsoft Windows `10.0.26200` x64,
+  PowerShell `5.1.26100.8875`, Python `3.12.8`, Ruff `0.16.0`, mypy
+  `2.3.0`, Rust/Cargo `1.84.0`, .NET SDK `8.0.420`, Git
+  `2.55.0.windows.1`, Latexmk `4.87`, and XeTeX
+  `3.141592653-2.6-0.999997` (MiKTeX 25.4).
+- No `research/CLAIMS.md` or `research/PUBLICATION_CLAIMS.md` status or
+  statement has changed.
+- After M50 delivery and merge, autonomous mathematical research resumes at
+  M51. Per the latest user instruction, the bounded milestone loop continues
+  through M80 and pauses only after M80 is completed.
+
+### M50 Korean summary
+
+M50은 새로운 정수분해 정리를 주장하지 않고 M29--M49의 유한 증거를 외부
+검토 가능한 형태로 재구성했다. M31--M46의 등록 스키마 16개에서
+\(m=9,\ldots,34\)의 family-relative threshold 26행을 자동 생성하고,
+영문·국문 논문이 동일한 표를 사용하도록 했다. compact-step과 표준
+bit-operation, online evaluator와 offline certificate 생성 비용을 분리했으며,
+최소 검증기와 certificate 신뢰 경계를 문서화했다. 전체 249개 Python 테스트,
+Rust/C# 검증, M46--M49 독립 대조, 무경고 영문 111쪽·국문 41쪽 PDF 빌드와
+대표 페이지 시각 검수를 통과했다. 일반 고전적 다항시간 정수분해는 여전히
+해결되지 않았고 어떤 claim status도 승격하지 않았다.
+
 ## M49 outcome
 
 - Date: 2026-07-29.

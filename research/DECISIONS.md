@@ -1071,3 +1071,26 @@
   union bound remains deliberately conservative, and superlinear spans,
   adaptive schedules, other compact grammars, and general factoring remain
   unresolved. Work pauses after M49 by user instruction.
+
+## ADR-054 - Separate finite theorem synthesis from source certificates
+
+- Date: 2026-07-30.
+- Decision: preserve the 16 M31--M46 source schemas unchanged and generate one
+  26-row M50 publication artifact plus English and Korean table fragments
+  from them. Freeze every source file by SHA-256 and provide a separate
+  stdlib-only projection checker. Keep full semantic recomputation in the
+  original per-milestone differential checkers.
+- Rationale: a hand-maintained table would duplicate thresholds, populations,
+  predecessor buckets, and evidence IDs across two papers. Re-running every
+  late population audit is too expensive for the minimum reviewer path, while
+  trusting only prose is too weak. A layered trust model makes the cheap
+  integrity check and the expensive semantic check explicit.
+- Consequence: the integrated table is a review index, not a new experiment
+  or mathematical claim. `n.c.` is used where early milestones did not
+  separately prove a minimum incremental-repair coordinate count. Compact
+  modular steps, standard bit operations, online evaluation, and offline
+  certificate generation are reported in separate ledgers. The paper title
+  no longer uses an unstable numerical theorem/barrier aggregate.
+- Rollback condition: if any frozen source schema changes, regenerate the M50
+  artifact and both tables, rerun the minimal and semantic checks, and review
+  every affected manuscript statement before publication.
