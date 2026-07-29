@@ -21,6 +21,7 @@ from .compact_cofactor_prime_support import (
 )
 from .compact_gap_overlap_budget import (
     CompactGapBoundaryLedger,
+    CompactGapDistinctGapLedger,
     CompactGapHighWeightProfile,
     CompactGapOverlapProfile,
     compact_gap_balanced_overlap_order,
@@ -28,6 +29,7 @@ from .compact_gap_overlap_budget import (
     compact_gap_boundary_overlap_order,
     compact_gap_common_support_gap,
     compact_gap_common_support_integer,
+    compact_gap_distinct_gap_ledger,
     compact_gap_exponent,
     compact_gap_high_weight_population_upper_bound,
     compact_gap_high_weight_profile,
@@ -35,6 +37,7 @@ from .compact_gap_overlap_budget import (
     compact_gap_overlap_bit_bound,
     compact_gap_overlap_integer,
     compact_gap_overlap_population_upper_bound,
+    compact_gap_overlap_prefix_bit_bound,
     compact_gap_overlap_profile,
     compact_gap_variable_order_profile,
 )
@@ -252,6 +255,7 @@ __all__ = [
     "CandidateOutcome",
     "CombinedDensityAnalysis",
     "CompactGapBoundaryLedger",
+    "CompactGapDistinctGapLedger",
     "CompactGapHighWeightProfile",
     "CompactGapOverlapProfile",
     "ConjugatePairAnalysis",
@@ -316,6 +320,7 @@ __all__ = [
     "compact_gap_boundary_overlap_order",
     "compact_gap_common_support_gap",
     "compact_gap_common_support_integer",
+    "compact_gap_distinct_gap_ledger",
     "compact_gap_exponent",
     "compact_gap_high_weight_population_upper_bound",
     "compact_gap_high_weight_profile",
@@ -323,6 +328,7 @@ __all__ = [
     "compact_gap_overlap_bit_bound",
     "compact_gap_overlap_integer",
     "compact_gap_overlap_population_upper_bound",
+    "compact_gap_overlap_prefix_bit_bound",
     "compact_gap_overlap_profile",
     "compact_gap_variable_order_profile",
     "conjugate_parameter",

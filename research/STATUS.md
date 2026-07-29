@@ -1,5 +1,57 @@
 # Research Status
 
+## M53 outcome
+
+- Date: 2026-07-30.
+- Branch: `research/20260730-m53-distinct-gap-ledger`.
+- Base: M52 squash merge
+  `963ccf4fe038d047565a9362200280dd2b10686d`.
+- Research question: can repeated \((h_m+1)\)-subset charges be deduplicated
+  by their common GCD gap and close the M52 endpoint?
+- Candidate result: `BAR-046` charges each possible overlap integer
+  \(R_q\), \(1\le q\le\lfloor\Delta_m/h_m\rfloor\), once. The high-weight
+  exponent falls from \(x/2+c/x\) to \(c/x\), while the low-weight exponent
+  remains \(x/2\).
+- Uniform conclusion: every fixed \(0<c<1/2\) is excluded by a rational
+  \(2c<x<1\). If \(\ell_m/\log_2m\to a\), the refined range is every fixed
+  \(c\) for \(a\le1\), and \(c<a/[4(a-1)]\) for \(1<a\le2\).
+- `OPEN-005` preserves the uniform \(c=1/2\) endpoint. The current ledger
+  charges gaps that may not be realizable by any selected level subset, so a
+  noncertificate is not an injective construction.
+- EXP-0051 passes 40 profiles, 40 strict subset reductions, 120
+  exact-integer hash checks, 25 finite collision certificates, and 15 finite
+  noncertificates.
+- Registered canonical summary SHA-256:
+  `7b066fc90a8925934886c5e6ee9b819a4dda95bb00c32732430eda3b5d58376b`.
+- Registered schema file SHA-256:
+  `2828e1c7fcc2deb9e4bc182b5fad74f831626d1728e9376103d56d5e35ce5ac5`.
+- Final gates passed:
+  - foundation and bilingual publication checks over 217 claims and 50
+    experiment hashes;
+  - 254 Python tests in 223.114 seconds, compileall, Ruff, and strict mypy over
+    28 source files;
+  - Rust formatting/Clippy and 36 tests, plus a warning-free C# Release build;
+  - the baseline 58-check cross-language differential and the M49, M51, M52,
+    and M53 independent checkers, including 120 exact M53 integer-hash checks
+    and 40 strict subset-to-gap reductions;
+  - warning-free 117-page English and 46-page Korean XeLaTeX builds, with
+    visual inspection of the M53 theorem, appendix proof, and Korean theorem
+    page.
+- Stable English PDF SHA-256:
+  `3a58f35b25ca5198a2cb4011058dd7671c838be57a80a231f3d93b006a240e83`.
+- Stable Korean PDF SHA-256:
+  `62f9bba7d2d1418063cab68ecc400064e3532cd9fbf87bd0f289ea0925c8ca94`.
+
+### M53 Korean summary
+
+M53은 \(h_m+1\)개 subset마다 같은 overlap integer를 반복 charge하지
+않고 가능한 GCD gap \(q\le\Delta_m/h_m\)마다 \(R_q\)를 한 번만
+charge한다. 그 결과 high-weight 지수는 \((c/x+o(1))m\), low-weight
+지수는 \((x/2+o(1))m\)이 된다. 따라서 rational \(2c<x<1\)이 존재하는
+모든 fixed \(c<1/2\)에서 exact compact-gap list는 결국 단사일 수
+없다. \(c=1/2\) endpoint는 현재 장부에서 strict slack이 없고, 실제
+subset이 만들 수 없는 gap도 포함하므로 M54의 열린 문제로 남긴다.
+
 ## M52 outcome
 
 - Date: 2026-07-30.

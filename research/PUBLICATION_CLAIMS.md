@@ -217,5 +217,10 @@ the evidence and scope remain authoritative in the full claims ledger.
 | DEF-038 | DEFINITION | Packing-aware rational boundary-order ledger | `research/proofs/BAR-045-boundary-constant-entropy.md` |
 | BAR-045 | PROVED | Every exact compact-gap list below the uniform \(c=1/8\) boundary is eventually noninjective | `research/proofs/BAR-045-boundary-constant-entropy.md` |
 | REF-047 | REFUTED | A below-\(1/8\) boundary compact-gap list separates all large populations | `research/NEGATIVE_RESULTS.md` NR-048 |
-| OPEN-004 | OPEN | Exact \(c=1/8\) endpoint and larger boundary constants | `research/proofs/BAR-045-boundary-constant-entropy.md` |
+| OPEN-004 | REFUTED | The exact \(c=1/8\) endpoint remains unresolved under all BAR-043 refinements | `research/proofs/BAR-046-distinct-gap-union.md` |
 | EMP-050 | EMPIRICAL | Exact packed boundary-ledger audit | `research/experiments/EXP-0050-m52-boundary-constant.md` |
+| DEF-039 | DEFINITION | Distinct GCD-gap high-weight ledger | `research/proofs/BAR-046-distinct-gap-union.md` |
+| BAR-046 | PROVED | Every exact compact-gap list below the uniform \(c=1/2\) boundary is eventually noninjective | `research/proofs/BAR-046-distinct-gap-union.md` |
+| REF-048 | REFUTED | A below-\(1/2\) boundary compact-gap list separates all large populations | `research/NEGATIVE_RESULTS.md` NR-049 |
+| OPEN-005 | OPEN | Uniform \(c=1/2\) endpoint after distinct-gap charging | `research/proofs/BAR-046-distinct-gap-union.md` |
+| EMP-051 | EMPIRICAL | Exact subset-versus-distinct-gap audit | `research/experiments/EXP-0051-m53-distinct-gap.md` |
