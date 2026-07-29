@@ -257,6 +257,13 @@ hits \(h+1\) levels, it divides the overlap integer indexed by the greatest
 common divisor of their \(h\) offsets, which is at most one \(h\)-th of the
 full span. Choosing fixed \(h>2C\) rules out every polynomial-size,
 polynomial-cost list with span at most \(Cm\).
+A variable analytical order
+\(h_m\asymp\sqrt{\Delta_m/\log(r_m+1)}\) sharpens the same exact bound:
+whenever \(\Delta_m\log_2(r_m+1)=o(m^2)\), both the high-weight exception
+set and the remaining Hamming-ball signature capacity are \(2^{o(m)}\).
+Thus every polynomial-size, polynomial-cost list in this exact family with
+span \(O(m^{2-\varepsilon})\), fixed \(\varepsilon>0\), is eventually
+noninjective. The \(\Theta(m^2/\log m)\) constant boundary remains open.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -276,9 +283,9 @@ This paper treats the proposed Multi-Group Order-Separating Exponent Factoring
 (MOSEF) direction as a falsifiable research program rather than a presumed
 algorithm.
 
-The title deliberately avoids a numerical claim count. At the M49 source
+The title deliberately avoids a numerical claim count. At the M51 source
 snapshot the internal ledger identifiers run through \texttt{THM-019} and
-\texttt{BAR-043}, but those sequences are heterogeneous: they include two
+\texttt{BAR-044}, but those sequences are heterogeneous: they include two
 restricted factoring theorems, an algebraic classification, nested finite
 promise theorems, extraction reductions, and scoped obstructions. Counting
 only some of those categories as ``restricted theorems'' or ``structural
@@ -446,7 +453,11 @@ Its contributions are:
   eventually noninjective;
 \item a higher-order overlap theorem reducing every \(h+1\)-fold common
   support event to the overlap integer at the GCD of its public gaps, thereby
-  proving eventual noninjectivity for every fixed linear level span; and
+  proving eventual noninjectivity for every fixed linear level span;
+\item a variable-order refinement balancing subset multiplicity against
+  level span, proving eventual noninjectivity whenever
+  \(\Delta_m\log_2(r_m+1)=o(m^2)\), including every fixed polynomial
+  subquadratic span; and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
@@ -3553,6 +3564,89 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:BAR-043} gives the complete proof.
 
+\section{Subquadratic encoded compact-gap barrier}
+
+\claimstatus{DEF-037}{DEFINITION}. For a public DEF-035 list, put
+\[
+\ell_m=\left\lceil\log_2(r_m+1)\right\rceil,\qquad
+\widehat h_m=
+\max\left\{1,
+\left\lceil\sqrt{\frac{\Delta_m}{\ell_m}}\right\rceil
+\right\},
+\qquad
+h_m=\min\{r_m,\widehat h_m\}.
+\tag{M51.1}
+\]
+When \(h_m<r_m\), apply the exact DEF-036 ledger at threshold \(h_m+1\).
+When \(h_m=r_m\), count all \(2^{r_m}\) signatures directly. This is an
+analytical order chosen only from public list geometry; it is not supplied
+to the online evaluator and uses no support or factor information.
+
+\claimstatus{BAR-044}{PROVED}. Suppose the public list has polynomial size
+and polynomial charged descriptor, compact-evaluation, GCD, output, and
+extraction cost, and suppose
+\[
+\Delta_m\log_2(r_m+1)=o(m^2).
+\tag{M51.2}
+\]
+Polynomial size gives \(\ell_m=O(\log m)\), while (M51.1) gives
+\[
+\widehat h_m\ell_m
+\le\sqrt{\Delta_m\ell_m}+\ell_m=o(m),
+\qquad
+\frac{\Delta_m}{\widehat h_m}
+\le\sqrt{\Delta_m\ell_m}=o(m).
+\tag{M51.3}
+\]
+If \(h_m=r_m\), the full signature space has size
+\(2^{r_m}\le2^{\widehat h_m}=2^{o(m)}\). Otherwise
+\(h_m=\widehat h_m<r_m\), and the exact M49 union bound satisfies
+\[
+\log_2(U_{m,h_m}+1)
+\le
+(h_m+1)\log_2 r_m+\frac{\Delta_m}{h_m}+O(\log m)
+=o(m).
+\tag{M51.4}
+\]
+The remaining Hamming ball obeys
+\[
+\sum_{j=0}^{h_m}\binom{r_m}{j}
+\le(h_m+1)r_m^{h_m}=2^{o(m)}.
+\tag{M51.5}
+\]
+Since
+\(|\mathcal P_m|=2^{m/2-O(\log m)}\), the population eventually exceeds
+the sum of the two ledgers. Equation (M49.5) then forces a duplicate complete
+signature and a failed balanced semiprime pair.
+
+For polynomial \(r_m\), every fixed
+\(\Delta_m=O(m^{2-\varepsilon})\), \(\varepsilon>0\), satisfies (M51.2).
+Thus every such polynomial-size, polynomial-cost list in this exact family
+is eventually noninjective.
+
+\claimstatus{REF-046}{REFUTED}. A polynomial subquadratic-span encoded
+compact-gap list cannot separate every sufficiently large balanced
+population. The full \(\Theta(m^2/\log m)\) constant boundary, quadratic or
+larger spans, other compact families, adaptive schedules, and general
+factoring remain outside the claim.
+
+\claimstatus{EMP-049}{EMPIRICAL}. EXP-0049 checked 12 public lists with
+spans \(\lfloor m^{3/2}\rfloor\) or \(\lfloor m^{7/4}\rfloor\),
+62,128 balanced-prime signatures, 2,450,864 coordinates, 12 exact
+variable-order balances, and 12 independent pair formulas. No profile is
+injective and no prime reaches its registered high-weight threshold. None
+of the finite profiles satisfies the conservative inequality (M49.5), so
+their collisions are not used as the asymptotic proof. The summary SHA-256
+is
+\[
+\texttt{\seqsplit{cf4874600194e17b654bd40e29c33b96babff4860758e79c19f7e76981c63fd2}},
+\]
+and the schema SHA-256 is
+\[
+\texttt{\seqsplit{4552818335844443ca9781ab44008a68f18288fdbc557b32c71c4de362cf3003}}.
+\]
+Appendix \ref{proof:BAR-044} gives the complete proof.
+
 \section{Compact-step and bit-operation complexity}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -3658,6 +3752,12 @@ DEF-036 and BAR-043 keep the same public cost ledger. They change only the
 analytical charging of common support: \(h+1\) hits collapse to a single
 GCD-gap overlap integer. The fixed \(h\) used for any fixed linear-span
 constant adds no public factor input or asymptotic evaluation cost.
+DEF-037 and BAR-044 likewise leave the public evaluator unchanged.
+The growing \(h_m\) is an offline proof parameter computed from
+\((r_m,\Delta_m)\); the proof retains the full
+\(\binom{r_m}{h_m+1}\) subset multiplicity. Polynomial span is not by itself
+enough: polynomial branch-total construction, compact evaluation, GCD,
+output, and extraction cost remain explicit hypotheses.
 
 \subsection{Certificate-generation cost}
 
@@ -4342,11 +4442,14 @@ another promise, or general signed arithmetic circuits.
 
 BAR-042 handles the encoded compact-gap family below the half-length span,
 and BAR-043 extends the same exact family to every fixed linear span by
-charging high-weight signatures to GCD-gap overlap integers. Neither result
-covers superlinear span, other encoded bases or compact grammars,
-\(N\)-dependent or adaptive schedules, or arbitrary circuits. The bounded
-EXP-0048 profiles validate the implementation but do not establish the
-asymptotic theorem.
+charging high-weight signatures to GCD-gap overlap integers. BAR-044 then
+uses a growing public-geometry overlap order to close every span with
+\(\Delta_m\log_2(r_m+1)=o(m^2)\), including polynomial
+\(O(m^{2-\varepsilon})\) spans. These results do not cover the full
+\(\Theta(m^2/\log m)\) constant boundary, quadratic or larger spans, other
+encoded bases or compact grammars, \(N\)-dependent or adaptive schedules, or
+arbitrary circuits. The bounded EXP-0048 and EXP-0049 profiles validate the
+implementation but do not establish the asymptotic theorems.
 
 The authoritative Rust layer is bounded to \texttt{u64}; validation primality
 uses trial division and is not itself the polynomial-time procedure imported
@@ -4361,8 +4464,9 @@ outside BAR-008's explicit-list model has a proved factor-scale
 arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
 evaluate a sufficiently rich formal batch at polynomial total construction,
 evaluation, and extraction cost. For the compact-gap line, the remaining
-boundary begins at superlinear level span; no next milestone is started here,
-because work is paused after M49.
+boundary starts at \(\Delta_m\log_2(r_m+1)=\Theta(m^2)\). The next target is
+the explicit constant regime near \(m^2/\log(r_m+1)\), where the present
+union bound may or may not retain enough population slack.
 
 \section{Conclusion}
 
@@ -4385,11 +4489,12 @@ certificate generation are separate proof costs.
 The negative results explain why finite success is not a general
 breakthrough. BAR-041 rules out every polynomial numeric cap in the exact
 DEF-032 grammar, BAR-042 rules out short-span encoded compact-gap lists, and
-BAR-043 rules out every fixed linear span in that exact compact family. These
-are not lower bounds for all polynomial selectors or for classical factoring.
-Superlinear encoded lists, other compact grammars, adaptive public
-constructions, promise recognition, and broader group channels remain open
-research targets.
+BAR-043 rules out every fixed linear span, and BAR-044 rules out every
+polynomial subquadratic span in that exact compact family. These are not lower
+bounds for all polynomial selectors or for classical factoring. The
+\(\Theta(m^2/\log m)\) constant boundary, quadratic and larger encoded lists,
+other compact grammars, adaptive public constructions, promise recognition,
+and broader group channels remain open research targets.
 
 
 \appendix
@@ -7014,6 +7119,53 @@ lengths and the conclusion follows directly from the same population lower
 bound. This proves BAR-043 and REF-045 with the stated exact-family and
 linear-span scope. \(\square\)
 
+\subsection{Proof of BAR-044}
+\label{proof:BAR-044}
+
+Let
+\(\ell_m=\lceil\log_2(r_m+1)\rceil\) and let
+\(\widehat h_m\) and \(h_m\) be as in (M51.1). The finite M49 argument is
+valid for every integer \(h\) separately, so an input-length-dependent
+choice does not change (M49.4) or omit the
+\(\binom{r_m}{h+1}\) subset multiplicity.
+
+Assume polynomial list size and charged cost together with (M51.2).
+Then \(\ell_m=O(\log m)\) and
+\[
+\widehat h_m\ell_m
+\le
+\sqrt{\Delta_m\ell_m}+\ell_m=o(m),
+\qquad
+\Delta_m/\widehat h_m
+\le\sqrt{\Delta_m\ell_m}=o(m).
+\]
+If \(h_m=r_m\), then \(r_m\le\widehat h_m=o(m)\), so only
+\(2^{o(m)}\) complete signatures exist.
+
+Otherwise \(h_m=\widehat h_m<r_m\). From (M49.4),
+\(\binom{r}{h+1}\le r^{h+1}\), and the overlap bit bound,
+\[
+\log_2(U_{m,h_m}+1)
+\le
+(h_m+1)\log_2r_m+\Delta_m/h_m+O(\log m)=o(m).
+\]
+Also
+\[
+\sum_{j=0}^{h_m}\binom{r_m}{j}
+\le(h_m+1)r_m^{h_m}=2^{o(m)}.
+\]
+In either case the available signature ledgers are asymptotically smaller
+than BAR-041's
+\(|\mathcal P_m|=2^{m/2-O(\log m)}\) lower bound. Thus two population
+primes share a complete signature, and BAR-024 supplies the failed balanced
+semiprime pair.
+
+Finally, \(r_m\le m^a\) and
+\(\Delta_m=O(m^{2-\varepsilon})\) imply
+\(\Delta_m\log_2(r_m+1)=O(m^{2-\varepsilon}\log m)=o(m^2)\).
+This proves BAR-044 and REF-046 with the stated exact-family and
+subquadratic-span scope. \(\square\)
+
 \clearpage
 \section{Reproduction appendix}
 
@@ -7217,6 +7369,11 @@ The registered experiment cores and canonical summary hashes are:
   \texttt{\seqsplit{958223f09db3abd12b46fcda81cc22a553158c1cc92ef4918ad8f2bc9a3202a9}},
   wide-span schema hash
   \texttt{\seqsplit{970fb769aa2d307ff691ad19ee1226bae89ad860363fb726348b8d80144239ad}}.
+\item EXP-0049, M51 milestone commit recorded in \path{research/STATUS.md},
+  summary hash
+  \texttt{\seqsplit{cf4874600194e17b654bd40e29c33b96babff4860758e79c19f7e76981c63fd2}},
+  subquadratic-span schema hash
+  \texttt{\seqsplit{4552818335844443ca9781ab44008a68f18288fdbc557b32c71c4de362cf3003}}.
 \end{itemize}
 
 The M50 publication projection
@@ -7405,6 +7562,9 @@ python scripts/check_m48_compact_gap_overlap_differential.py
 python scripts/run_m49_wide_span_compact_gap_audit.py
 python scripts/generate_m49_wide_span_compact_gap_schema.py
 python scripts/check_m49_wide_span_compact_gap_differential.py
+python scripts/run_m51_subquadratic_span_audit.py
+python scripts/generate_m51_subquadratic_span_schema.py
+python scripts/check_m51_subquadratic_span_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -7416,7 +7576,7 @@ through EXP-0019 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. EXP-0020
-through EXP-0048 use the same deterministic finite-enumeration policy. The
+through EXP-0049 use the same deterministic finite-enumeration policy. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.
 
 \bibliographystyle{plain}

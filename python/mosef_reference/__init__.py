@@ -22,6 +22,7 @@ from .compact_cofactor_prime_support import (
 from .compact_gap_overlap_budget import (
     CompactGapHighWeightProfile,
     CompactGapOverlapProfile,
+    compact_gap_balanced_overlap_order,
     compact_gap_common_support_gap,
     compact_gap_common_support_integer,
     compact_gap_exponent,
@@ -32,6 +33,7 @@ from .compact_gap_overlap_budget import (
     compact_gap_overlap_integer,
     compact_gap_overlap_population_upper_bound,
     compact_gap_overlap_profile,
+    compact_gap_variable_order_profile,
 )
 from .compact_support_signatures import (
     Phi4PrefixSignatureProfile,
@@ -305,6 +307,7 @@ __all__ = [
     "combined_asymmetry",
     "combined_signature",
     "compact_exceptional_cofactor_residue",
+    "compact_gap_balanced_overlap_order",
     "compact_gap_common_support_gap",
     "compact_gap_common_support_integer",
     "compact_gap_exponent",
@@ -315,6 +318,7 @@ __all__ = [
     "compact_gap_overlap_integer",
     "compact_gap_overlap_population_upper_bound",
     "compact_gap_overlap_profile",
+    "compact_gap_variable_order_profile",
     "conjugate_parameter",
     "cyclotomic_coefficients",
     "cyclotomic_factor_orders",

@@ -210,3 +210,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-043 | PROVED | Every polynomial linearly wide compact-gap selector is eventually noninjective | `research/proofs/BAR-043-wide-span-high-weight-overlap.md` |
 | REF-045 | REFUTED | A linearly wide encoded compact-gap list separates all large populations | `research/NEGATIVE_RESULTS.md` NR-046 |
 | EMP-048 | EMPIRICAL | Wide-span higher-overlap and signature audit | `research/experiments/EXP-0048-m49-wide-span-compact-gap.md` |
+| DEF-037 | DEFINITION | Variable overlap-order ledger for public compact-gap lists | `research/proofs/BAR-044-subquadratic-span-overlap.md` |
+| BAR-044 | PROVED | Every polynomial subquadratic-span compact-gap selector is eventually noninjective | `research/proofs/BAR-044-subquadratic-span-overlap.md` |
+| REF-046 | REFUTED | A polynomial subquadratic-span encoded compact-gap list separates all large populations | `research/NEGATIVE_RESULTS.md` NR-047 |
+| EMP-049 | EMPIRICAL | Variable-order superlinear-span signature audit | `research/experiments/EXP-0049-m51-subquadratic-span.md` |

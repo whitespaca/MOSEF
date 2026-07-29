@@ -63,6 +63,7 @@ REQUIRED_SECTIONS = (
     "Finite promise theorem and family-relative threshold synthesis",
     "Supplementary finite threshold audit trail",
     "Linearly wide encoded compact-gap barrier",
+    "Subquadratic encoded compact-gap barrier",
     "Compact-step and bit-operation complexity",
     "Reproducible experimental methodology",
     "Results",
@@ -120,6 +121,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-041}",
     r"\label{proof:BAR-042}",
     r"\label{proof:BAR-043}",
+    r"\label{proof:BAR-044}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -257,6 +259,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0048-m49-wide-span-compact-gap.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0049-m51-subquadratic-span.md",
 )
 
 
@@ -539,6 +545,10 @@ def main() -> int:
         "1,636,992",
         "M49: 선형 폭 encoded compact-gap 장벽",
         "BAR-043",
+        "M51: subquadratic encoded compact-gap 장벽",
+        "BAR-044",
+        "Delta_m",
+        "o(m^2)",
         "3,645,232",
     )
     for phrase in required_korean:

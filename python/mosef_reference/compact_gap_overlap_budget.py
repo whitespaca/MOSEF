@@ -171,6 +171,37 @@ def compact_gap_low_weight_signature_capacity(
     )
 
 
+def compact_gap_balanced_overlap_order(
+    candidate_count: int,
+    level_span: int,
+) -> int:
+    """Choose the M51 variable overlap order from the public list geometry.
+
+    The returned ``h`` is the smallest integer, capped by the candidate
+    count, with ``h**2 * ceil(log2(candidate_count + 1)) >= level_span``.
+    """
+    if (
+        isinstance(candidate_count, bool)
+        or not isinstance(candidate_count, int)
+        or candidate_count < 1
+    ):
+        raise ValueError("candidate_count must be a positive integer")
+    if (
+        isinstance(level_span, bool)
+        or not isinstance(level_span, int)
+        or level_span < candidate_count - 1
+    ):
+        raise ValueError(
+            "level_span must fit a strictly increasing integer level list"
+        )
+    logarithmic_scale = candidate_count.bit_length()
+    quotient = (level_span + logarithmic_scale - 1) // logarithmic_scale
+    overlap_order = math.isqrt(quotient)
+    if overlap_order * overlap_order < quotient:
+        overlap_order += 1
+    return min(candidate_count, max(1, overlap_order))
+
+
 def compact_gap_high_weight_population_upper_bound(
     input_length: int,
     candidate_levels: tuple[int, ...],
@@ -327,4 +358,21 @@ def compact_gap_high_weight_profile(
         ),
         injective=accounting.injective,
         maximum_bucket_size=max(counts.values()),
+    )
+
+
+def compact_gap_variable_order_profile(
+    input_length: int,
+    candidate_levels: tuple[int, ...],
+) -> CompactGapHighWeightProfile:
+    """Evaluate the M51 public-list profile at its balanced overlap order."""
+    _validate_levels(candidate_levels)
+    overlap_order = compact_gap_balanced_overlap_order(
+        len(candidate_levels),
+        candidate_levels[-1] - candidate_levels[0],
+    )
+    return compact_gap_high_weight_profile(
+        input_length,
+        candidate_levels,
+        overlap_order + 1,
     )
