@@ -1,5 +1,24 @@
 # Research Status
 
+## M47 work snapshot
+
+- Date: 2026-07-29.
+- Branch: `research/20260729-m47-polynomial-cap-support`.
+- Base: M46 squash merge
+  `942302256bbb130df1c9180d3836357009e1a658`.
+- M47 asks whether any polynomially bounded public cap in the exact DEF-032
+  selector can remain injective on every sufficiently large complete
+  balanced-prime population.
+- The falsification-first route charges every nonzero primitive exit to the
+  exact public integer whose prime divisors can activate it, sums the resulting
+  output-bit budget over the complete selector, and compares that support
+  bound with an inspected lower bound for the balanced-prime population.
+- The milestone will audit zero and constant coordinates, exact cofactor
+  division, descriptor multiplicity, polynomial-cap substitution, and the
+  hypotheses of the prime-counting result before promoting any asymptotic
+  barrier. No lower bound for adaptive, input-dependent, or more general
+  factoring algorithms is assumed.
+
 ## M46 outcome
 
 - Date: 2026-07-29.
