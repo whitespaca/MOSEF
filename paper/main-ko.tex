@@ -26,7 +26,7 @@
 \renewcommand{\abstractname}{초록}
 
 \title{고전적 정수분해를 위한 차수 분리 지수:\\
-열여덟 개의 제한 정리와 서른네 개의 구조적 장벽}
+열여덟 개의 제한 정리와 서른다섯 개의 구조적 장벽}
 \author{MOSEF 연구 프로그램}
 \date{2026년 7월 29일}
 
@@ -114,6 +114,11 @@ pair를 남겨 실패한다. 마지막 pair는 cap 194까지 남고 cap 195의
 \(O(L^5\log L)\)인 반면, 명시적인 Rosser--Schoenfeld 경계는 balanced
 prime이 지수적으로 많음을 준다. 따라서 모든 polynomial DEF-032 cap은
 결국 같은 all-zero signature를 갖는 두 소수를 남긴다.
+\(B_t=2^t+3\) compact escape에 대해서는 level gap만으로 정해지는 exact
+pair-overlap integer를 유도한다. 이 식은 polynomial-size level list의
+span이 \((1/2-\varepsilon)m\) 이하이면 compact evaluation이
+polynomial이어도 결국 duplicate balanced-prime signature가 생김을
+증명한다.
 이 양성 결과는 인수분해에 의존하는 유한 약속 정리이다.
 일반 고전적 다항 시간 정수분해 알고리즘이나 모든 다항 selector의
 하한은 주장하지 않는다.
@@ -1847,6 +1852,81 @@ branch-support case 25,346개, 길이 10부터 40까지 balanced population
 이다. 이 유한 검사는 구현을 검증할 뿐, 점근 결론은 symbolic
 bit-budget 증명과 검사한 소수 계수 경계에서 나온다.
 
+\section{M48: short-span encoded compact-gap 장벽}
+
+\claimstatus{DEF-035}{DEFINITION}.
+각 입력 길이 \(m\)에서 exact compact candidate
+\[
+A=3,\qquad B_t=2^t+3,\qquad g=2
+\]
+의 증가하는 public level list
+\(\Lambda_m=(t_{m,1},\ldots,t_{m,r_m})\)를 고른다. compact ledger는
+\(O(\sum_jt_{m,j})\) modular recurrence work, descriptor bit, 모든 GCD와
+extraction을 charge한다. 따라서 \(\sum_jt_{m,j}=\operatorname{poly}(m)\)
+이면 \(B_t\)의 numeric 값이 exponential이어도 branch-total cost는
+polynomial이다.
+
+\(E_t=3\cdot2^t+5\)라 하자. \(p>7\)이 level \(t<u\)의 두 compact
+cofactor를 나누면 BAR-023에 의해
+\(2^{E_t}\equiv2^{E_u}\equiv-3\pmod p\)이다. \(d=u-t\),
+\(k=2^d-1\)이면 \(E_u=2^dE_t-5k\)이므로
+\[
+p\mid R_d:=3^k+32^k,\qquad
+\operatorname{bitlength}(R_d)\le5(2^d-1)+1.
+\tag{M48.1}
+\]
+
+\claimstatus{BAR-042}{PROVED}.
+두 좌표 이상을 hit하는 balanced prime 집합을 \(J_m\), 그리고
+\(b_m=\lfloor(m-1)/2\rfloor\)라 하자. square-free support product를
+(M48.1)에 적용하면
+\[
+|J_m|\le U_m:=
+\sum_{i<j}
+\left\lfloor
+\frac{5(2^{t_{m,j}-t_{m,i}}-1)+1}{b_m}
+\right\rfloor.
+\tag{M48.2}
+\]
+\(J_m\) 밖에서는 all-zero와 \(r_m\)개의 one-hot signature만 가능하다.
+따라서
+\[
+|\mathcal P_m|-U_m>r_m+1
+\tag{M48.3}
+\]
+이면 complete signature가 같은 두 소수가 존재하고 그 balanced
+semiprime은 모든 GCD에서 실패한다.
+
+고정된 \(a\ge0,\varepsilon>0\)에 대해
+\(r_m\le m^a\)이고 level span
+\(\Delta_m\le(1/2-\varepsilon)m\)이면
+\[
+U_m=O\!\left(m^{2a-1}2^{(1/2-\varepsilon)m}\right).
+\]
+반면 검사된 소수 계수 경계는
+\(|\mathcal P_m|=\Omega(2^{m/2}/m)\)을 주므로 (M48.3)이 결국 성립한다.
+따라서 모든 such short-span compact-gap selector는 비단사다.
+
+\claimstatus{REF-044}{REFUTED}.
+polynomial-size short-span encoded compact-gap list는 모든 충분히 큰
+balanced population을 분리할 수 없다. span이 \(m/2\)에 접근하거나
+이를 넘는 list, 다른 compact family, adaptive schedule, 일반
+factorization은 이 claim 밖이다.
+
+\claimstatus{EMP-047}{EMPIRICAL}.
+EXP-0047은 shifted public window 42개, balanced-prime signature
+163,794개, coordinate 1,636,992개, exact overlap integer 11개, nontrivial
+common-support witness 3개를 검사했다. 40개 profile은 (M48.3)만으로
+collision이 강제되고, injective profile은 없었다. summary SHA-256은
+\[
+\texttt{\seqsplit{48b95a0e1acb799fce06e2aa25492eebc432daef6c6e8c14abd962ef0c7170d2}}
+\]
+이고 schema SHA-256은
+\[
+\texttt{\seqsplit{c1a659a6081df2b46f492379b97c9b624f0041772068d19e89337550c19eaa8e}}
+\]
+이다.
+
 \section{구현과 bit complexity}
 
 \(B_m=2^m+3\)과 \(E_m=3\cdot2^m+5\)의 이진 표현 길이는 \(O(m)\)이다.
@@ -1876,6 +1956,14 @@ polynomial numeric cap은 exact-output support bit도
 수 없다. 이 결론은 \(A,B,g\le L\)이라는 numeric 경계에 의존하며,
 exponentially large parameter의 polynomial-bit encoding에는 적용하지
 않는다.
+
+DEF-035는 이 escape를 명시적으로 다룬다. level \(t\)의 ordinary binary
+parameter와 modular recurrence는 \(O(t)\) bit와 step을 사용하므로,
+public list의 compact cost는 \(O(\sum_jt_{m,j})\)와 GCD cost다.
+BAR-042는 exponential exact cofactor를 materialize하지 않고,
+pairwise common support를 gap-dependent overlap integer에 charge한다.
+따라서 polynomial cost와 theorem은 양립하며, obstruction은 exact
+output 크기가 아니라 short level span이다.
 
 소수 \(p\)가 주어진 local profile 함수는 증명과 differential test를
 위한 분석 도구이다. 실제 factorization 후보는 \(p\)를 받지 않고
@@ -1928,11 +2016,11 @@ BAR-041까지가 증명하지 않은 사항은 다음과 같다.
 \item 일반 arithmetic circuit 또는 일반 고전적 정수분해의 하한.
 \end{itemize}
 
-다음 bounded question은 polynomial-size public list에 polynomial-bit로
-인코딩된 exponentially large exceptional parameter를 넣어 BAR-041을
-피하면서 branch-total modular 비용을 polynomial로 유지할 수 있는지
-묻는다. BAR-022의 \(B=2^t+3\) compact gap에서 시작하며, 그 exponential
-numeric 값까지 열거하지 않는다.
+다음 bounded question은 gap이 \(m/2\), \(m\), 또는 더 큰 polynomial
+scale에 놓이는 wide-span compact-gap list가 실제 multi-hit signature를
+충분히 만드는지 묻는다. 이 경계에서는 pairwise bit bound가
+inconclusive이므로, exact cofactor를 열거하지 않고 magnitude slack과
+actual common support를 구분하며 higher-order overlap을 검사해야 한다.
 
 \section{결론}
 
@@ -1982,7 +2070,10 @@ M46에서는 두 복구 공식이 cap 196과 200에서 다시 실패한다. cap 
 \(m+167\)과 \(c>100/17\)로 복구된다. BAR-041은 어떤 polynomial
 numeric DEF-032 cap도 이 유한 성공을 모든 충분히 큰 balanced
 population으로 확장하지 못함을 증명한다. polynomial-bit exponential
-parameter, adaptive schedule, 다른 compact 문법은 여전히 열린
+parameter는 그 exact-output proof를 피하지만, BAR-042는 exact
+compact-gap subfamily의 level span이
+\((1/2-\varepsilon)m\) 아래이면 역시 실패함을 증명한다. wide-span
+encoded list, adaptive schedule, 다른 compact 문법은 여전히 열린
 범위다.
 
 일반 고전적 다항 시간 정수분해 알고리즘도, 그러한 알고리즘의
@@ -2067,6 +2158,9 @@ python scripts/check_m46_length_34_cap_differential.py
 python scripts/run_m47_polynomial_cap_support_audit.py
 python scripts/generate_m47_polynomial_cap_support_schema.py
 python scripts/check_m47_polynomial_cap_support_differential.py
+python scripts/run_m48_compact_gap_overlap_audit.py
+python scripts/generate_m48_compact_gap_overlap_schema.py
+python scripts/check_m48_compact_gap_overlap_differential.py
 python scripts/generate_korean_claim_appendix.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex

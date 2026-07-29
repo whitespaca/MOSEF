@@ -15,7 +15,7 @@
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 
 \title{Order-Separating Exponents for Classical Integer Factorization:
-Eighteen Restricted Theorems and Thirty-Four Structural Barriers}
+Eighteen Restricted Theorems and Thirty-Five Structural Barriers}
 \author{MOSEF Research Program}
 \date{29 July 2026}
 
@@ -241,6 +241,10 @@ integers have total bit budget \(O(L^5\log L)\), while explicit
 Rosser--Schoenfeld bounds give exponentially many balanced primes. Thus every
 polynomially bounded DEF-032 cap eventually leaves two primes with the same
 all-zero signature.
+For the compact escape \(B_t=2^t+3\), we derive an exact pair-overlap integer
+depending only on the level gap. It proves that every polynomial-size level
+list with span at most \((1/2-\varepsilon)m\) also eventually has duplicate
+balanced-prime signatures, despite polynomial compact evaluation.
 Deterministic bounded searches and independent Python, Rust, and C\#
 implementations audit these statements but are not used as proofs. No general
 polynomial-time classical factoring algorithm or lower bound is claimed.
@@ -412,7 +416,10 @@ algorithm. Its contributions are:
   strict coefficient boundary \(c>100/17\);
 \item an exact-output support-budget theorem proving that no polynomially
   bounded numeric cap can make DEF-032 injective on every sufficiently large
-  balanced-prime population; and
+  balanced-prime population;
+\item an exact overlap theorem proving that polynomial-size compact
+  \(B_t=2^t+3\) lists with level span below the half-length boundary are also
+  eventually noninjective; and
 \item deterministic falsification searches, canonical vectors, and
   cross-language checks whose finite scope and hashes are recorded explicitly.
 \end{itemize}
@@ -3308,6 +3315,82 @@ and the schema SHA-256 is
 \]
 Appendix \ref{proof:BAR-041} gives the complete asymptotic proof.
 
+\section{Short-span encoded compact-gap barrier}
+
+\claimstatus{DEF-035}{DEFINITION}. For each input length \(m\), let
+\(\Lambda_m=(t_{m,1},\ldots,t_{m,r_m})\) be a strictly increasing public
+list of levels for the exact compact candidates
+\[
+A=3,\qquad B_t=2^t+3,\qquad g=2.
+\]
+The compact ledger charges \(O(\sum_jt_{m,j})\) modular recurrence work,
+all descriptor bits, \(r_m\) GCDs, and extraction. Thus
+\(\sum_jt_{m,j}=\operatorname{poly}(m)\) gives polynomial branch-total cost
+even though \(B_t\) is exponentially large numerically.
+
+Put \(E_t=3\cdot2^t+5\). If \(p>7\) divides compact cofactors at levels
+\(t<u\), then BAR-023 gives
+\(2^{E_t}\equiv2^{E_u}\equiv-3\pmod p\). With
+\[
+d=u-t,\qquad k=2^d-1,
+\]
+the identity \(E_u=2^dE_t-5k\) implies
+\[
+p\mid R_d:=3^k+32^k,\qquad
+\operatorname{bitlength}(R_d)\le5(2^d-1)+1.
+\tag{M48.1}
+\]
+
+\claimstatus{BAR-042}{PROVED}. Let \(J_m\) contain the balanced primes
+hitting at least two coordinates, and put
+\(b_m=\lfloor(m-1)/2\rfloor\). The square-free support product and
+(M48.1) give
+\[
+|J_m|\le U_m:=
+\sum_{i<j}
+\left\lfloor
+\frac{5(2^{t_{m,j}-t_{m,i}}-1)+1}{b_m}
+\right\rfloor.
+\tag{M48.2}
+\]
+Outside \(J_m\), only the all-zero and \(r_m\) one-hot signatures occur.
+Hence
+\[
+|\mathcal P_m|-U_m>r_m+1
+\tag{M48.3}
+\]
+forces a duplicate complete signature and a failed balanced semiprime.
+
+If \(r_m\le m^a\) and the level span satisfies
+\(\Delta_m\le(1/2-\varepsilon)m\) for fixed
+\(\varepsilon>0\), then
+\[
+U_m=O\!\left(m^{2a-1}2^{(1/2-\varepsilon)m}\right).
+\]
+The inspected lower bound
+\(|\mathcal P_m|=\Omega(2^{m/2}/m)\) makes (M48.3) hold eventually.
+Therefore every such short-span compact-gap selector is noninjective.
+
+\claimstatus{REF-044}{REFUTED}. A polynomial-size short-span encoded
+compact-gap list cannot separate every sufficiently large balanced
+population. Lists whose span approaches or exceeds \(m/2\), other compact
+families, adaptive schedules, and general factoring remain outside the
+claim.
+
+\claimstatus{EMP-047}{EMPIRICAL}. EXP-0047 checked 42 shifted public
+windows, 163,794 balanced-prime signatures, 1,636,992 coordinates, 11 exact
+overlap integers, and three nontrivial common-support witnesses. Forty
+profiles satisfy (M48.3) directly, and none is injective. The summary
+SHA-256 is
+\[
+\texttt{\seqsplit{48b95a0e1acb799fce06e2aa25492eebc432daef6c6e8c14abd962ef0c7170d2}},
+\]
+and the schema SHA-256 is
+\[
+\texttt{\seqsplit{c1a659a6081df2b46f492379b97c9b624f0041772068d19e89337550c19eaa8e}}.
+\]
+Appendix \ref{proof:BAR-042} gives the complete proof.
+
 \section{Algorithms and bit-complexity synthesis}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -3355,6 +3438,14 @@ forces only \(O(L^5\log L)\) total exact-output support bits, which is
 insufficient for all large balanced populations. This conclusion relies on
 the numeric bound \(A,B,g\le L\); it does not apply when exponentially large
 parameters have polynomial-length encodings.
+
+DEF-035 makes that escape explicit. At compact level \(t\), the ordinary
+binary parameters and modular recurrence use \(O(t)\) bits and steps, so a
+public list costs \(O(\sum_jt_{m,j})\) plus its GCDs. BAR-042 does not charge
+the exponentially long exact cofactors. It instead charges their pairwise
+common prime support to a gap-dependent compact overlap integer. Polynomial
+cost therefore remains compatible with the theorem; short span, rather than
+exact output size, is the obstruction.
 
 \begin{center}
 \scriptsize
@@ -4014,10 +4105,11 @@ outside BAR-008's explicit-list model has a proved factor-scale
 arithmetic circuit, without the DEF-015 leaf-materialization requirement, can
 evaluate a sufficiently rich formal batch at polynomial total construction,
 evaluation, and extraction cost. The next bounded case asks whether a
-polynomial-size public list of polynomial-bit but exponentially large
-exceptional parameters can evade BAR-041 while retaining branch-total
-polynomial modular cost. It begins with BAR-022's \(B=2^t+3\) compact gap and
-does not enumerate up to the numeric parameter.
+wide-span public compact-gap list, with gaps near \(m/2\), \(m\), or larger
+polynomial scales, can create enough genuine multi-hit signatures to evade
+BAR-042. The pairwise bit bound becomes inconclusive at that boundary, so the
+next audit must distinguish magnitude slack from actual common support and
+test higher-order overlaps without enumerating an exact cofactor.
 
 \section{Conclusion}
 
@@ -4172,9 +4264,12 @@ failures at caps 196 and 200, the unique one-coordinate cap-201 repair, and
 the new finite envelopes \(m+167\) and \(c>100/17\). BAR-041 proves that no
 polynomial numeric DEF-032 cap extends these finite constructions to all
 sufficiently large balanced populations. Polynomial-bit encodings of
-exponentially large parameters, \(N\)-dependent and adaptive questions,
-success density, general rational/compositional circuits, and other models
-remain research targets, not claimed factoring breakthroughs.
+exponentially large parameters do escape that exact-output proof, but
+BAR-042 rules out the exact compact-gap subfamily when its public level span
+stays below \((1/2-\varepsilon)m\). Wide-span encoded lists,
+\(N\)-dependent and adaptive questions, success density, general
+rational/compositional circuits, and other models remain research targets,
+not claimed factoring breakthroughs.
 
 \appendix
 
@@ -6683,6 +6778,53 @@ both signatures; derived coordinates are Boolean functions of those bits.
 BAR-024 therefore gives a failed square-free pair. This proves BAR-041 and
 REF-043 with the stated grammar-specific scope. \(\square\)
 
+\subsection{Proof of BAR-042}
+\label{proof:BAR-042}
+
+For \(2\le t<u\), put \(d=u-t\) and \(k=2^d-1\). Every balanced population
+prime at \(m\ge9\) is greater than seven, so BAR-023's generic criterion
+applies. If \(p\) divides both \(C_t\) and \(C_u\), then
+\[
+2^{E_t}\equiv2^{E_u}\equiv-3\pmod p,
+\qquad E_u=2^dE_t-5k.
+\]
+Consequently
+\[
+-3\equiv(-3)^{2^d}32^{-k}\pmod p.
+\]
+Multiplication by \(32^k\) and division by the unit \(-3\) give
+\[
+32^k\equiv(-3)^{2^d-1}=-3^k\pmod p,
+\]
+because \(k\) is odd. Thus \(p\mid R_d=3^k+32^k\). Also
+\[
+0<R_d<2\cdot32^k=2^{5k+1},
+\]
+which proves (M48.1).
+
+For candidate pair \(i<j\), the square-free product of balanced primes
+hitting both coordinates divides \(R_{t_{m,j}-t_{m,i}}\). Every such prime
+is at least \(2^{b_m}\), so its count is at most the corresponding summand
+in (M48.2). Taking the union over all pairs proves (M48.2), conservatively
+overcounting primes that hit three or more coordinates.
+
+Every prime outside \(J_m\) has signature weight at most one. There are only
+\(r_m+1\) such binary vectors. If (M48.3) holds, two primes outside \(J_m\)
+share a signature; BAR-024 converts that duplicate into a failed
+square-free balanced pair.
+
+Finally, if \(r_m\le m^a\) and
+\(\Delta_m\le(1/2-\varepsilon)m\), then (M48.2) is at most
+\[
+\binom{r_m}{2}
+\frac{5(2^{\Delta_m}-1)+1}{b_m}
+=O\!\left(m^{2a-1}2^{(1/2-\varepsilon)m}\right).
+\]
+BAR-041's inspected prime-counting consequence gives
+\(|\mathcal P_m|=\Omega(2^{m/2}/m)\). Their ratio is
+\(O(m^{2a}2^{-\varepsilon m})\to0\), so (M48.3) holds eventually. This
+proves BAR-042 and REF-044 with the stated short-span scope. \(\square\)
+
 \clearpage
 \section{Reproduction appendix}
 
@@ -6876,6 +7018,11 @@ The registered experiment cores and canonical summary hashes are:
   \texttt{\seqsplit{b9c97e8161d3470ad61d20fd9ee8834888e5f0139e1b3fd5b3fbe3b2a6463093}},
   exact-output schema hash
   \texttt{\seqsplit{a37f9d495de85943a69a6c3fbc122c9f09fbce0f78316c32163c380a782ef525}}.
+\item EXP-0047, M48 milestone commit recorded in \path{research/STATUS.md},
+  summary hash
+  \texttt{\seqsplit{48b95a0e1acb799fce06e2aa25492eebc432daef6c6e8c14abd962ef0c7170d2}},
+  compact-overlap schema hash
+  \texttt{\seqsplit{c1a659a6081df2b46f492379b97c9b624f0041772068d19e89337550c19eaa8e}}.
 \end{itemize}
 
 The exact reproduction commands are:
@@ -7048,6 +7195,9 @@ python scripts/check_m46_length_34_cap_differential.py
 python scripts/run_m47_polynomial_cap_support_audit.py
 python scripts/generate_m47_polynomial_cap_support_schema.py
 python scripts/check_m47_polynomial_cap_support_differential.py
+python scripts/run_m48_compact_gap_overlap_audit.py
+python scripts/generate_m48_compact_gap_overlap_schema.py
+python scripts/check_m48_compact_gap_overlap_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -7059,7 +7209,7 @@ through EXP-0019 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. EXP-0020
-through EXP-0046 use the same deterministic finite-enumeration policy. The
+through EXP-0047 use the same deterministic finite-enumeration policy. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.
 
 \bibliographystyle{plain}

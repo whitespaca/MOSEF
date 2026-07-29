@@ -125,6 +125,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:THM-018-BAR-039}",
     r"\label{proof:THM-019-BAR-040}",
     r"\label{proof:BAR-041}",
+    r"\label{proof:BAR-042}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -254,6 +255,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0046-m47-polynomial-cap-support.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0047-m48-compact-gap-overlap.md",
 )
 
 
@@ -419,6 +424,7 @@ def main() -> int:
                 "EXP-0044",
                 "EXP-0045",
                 "EXP-0046",
+                "EXP-0047",
             )
         ) and (
             summary_hash not in korean_paper_text.lower()
@@ -496,6 +502,9 @@ def main() -> int:
         "M47: polynomial numeric-cap support 장벽",
         "BAR-041",
         "1.25506",
+        "M48: short-span encoded compact-gap 장벽",
+        "BAR-042",
+        "1,636,992",
     )
     for phrase in required_korean:
         if phrase not in korean_paper_text:
