@@ -1,5 +1,89 @@
 # Research Status
 
+## M48 outcome
+
+- Date: 2026-07-29.
+- Branch: `research/20260729-m48-encoded-parameter-escape`.
+- Base: M47 squash merge
+  `886d572acbe07f707ad4e0dde66592cfc9612b23`.
+- Start commit `b9da929664960929f0249acca11cac04e6436296` is pushed. Draft
+  PR #59 targets `main`:
+  `https://github.com/whitespaca/MOSEF/pull/59`.
+- `DEF-035` defines a public increasing list of exact compact \(\Phi_4\)
+  candidates \(A=3,B_t=2^t+3,g=2\), with descriptor, modular recurrence,
+  GCD, and extraction cost charged. Polynomial branch-total cost requires
+  \(\sum_jt_{m,j}=\operatorname{poly}(m)\), not merely a polynomial number
+  of descriptors.
+- If a prime \(p>7\) hits levels \(t<u\), `BAR-042` proves
+  \[
+  p\mid R_{u-t}:=
+  3^{2^{u-t}-1}+32^{2^{u-t}-1},
+  \]
+  whose bit length is at most \(5(2^{u-t}-1)+1\). The relation depends only
+  on the public gap and is invariant under a common level shift.
+- Let \(J_m\) contain balanced primes hitting at least two candidates. Exact
+  square-free support charging gives
+  \[
+  |J_m|\le
+  \sum_{i<j}
+  \left\lfloor
+  \frac{5(2^{t_{m,j}-t_{m,i}}-1)+1}
+       {\lfloor(m-1)/2\rfloor}
+  \right\rfloor.
+  \]
+  Outside \(J_m\), only the all-zero and \(r_m\) one-hot signatures occur.
+- Combining this bound with `BAR-041`'s inspected
+  \(\Omega(2^{m/2}/m)\) balanced-population lower bound proves that every
+  polynomial-size list with span
+  \(\Delta_m\le(1/2-\varepsilon)m\) is eventually noninjective.
+  `REF-044` and NR-045 therefore refute the exact short-span encoded
+  compact-gap program.
+- The theorem does not cover level spans approaching or exceeding \(m/2\),
+  other bases or exceptional families, adaptive or input-dependent
+  schedules, other compact grammars, or general factoring.
+- ADR-052 keeps descriptor/evaluation cost, exponentially long exact
+  cofactors, and analytical overlap support in separate ledgers. It charges
+  only the exact pair-overlap consequence and never materializes a cofactor.
+- EXP-0047 checks 42 shifted quarter-span profiles, 163,794 balanced-prime
+  signatures, 1,636,992 coordinates, 11 exact overlap integers, three
+  nontrivial common-support witnesses, and 42 independent pair formulas.
+  Forty profiles satisfy the finite theorem inequality; none is injective.
+- Registered schema SHA-256:
+  `c1a659a6081df2b46f492379b97c9b624f0041772068d19e89337550c19eaa8e`.
+  Registered summary SHA-256:
+  `48b95a0e1acb799fce06e2aa25492eebc432daef6c6e8c14abd962ef0c7170d2`.
+- Final gates passed: foundation and bilingual publication checks
+  (199 claims and 46 experiment hashes), 240 Python tests and 249 subtests
+  in 261.31 seconds with the cache provider disabled, compileall, Ruff,
+  strict mypy over 28 source files, Rust formatting/Clippy and 36 tests, and
+  a warning-free C# Release build. The independent M48 checker passed all 11
+  overlap, 42 profile, 1,636,992 coordinate, 42 pair-formula, and three
+  common-support checks.
+- XeLaTeX produced warning-free 108-page English and 39-page Korean PDFs.
+  Rendered title, M48 result, proof, reproduction, and claim-appendix pages
+  have no clipping, overlap, missing glyph, malformed mathematics, or
+  unreadable text. Stable artifact SHA-256 values are
+  `42e0c72dc99507c1ebd13cc8d49dc225a45a7bea680a693aff084f52bf504396`
+  and
+  `036aa00e7fe3c8ee4d76013f3c941f0d0f763f73ba9259f206bd8513c15a374d`.
+- Next selected milestone: M49 tests wide-span encoded level lists at and
+  beyond the half-length boundary, where the pairwise magnitude bound becomes
+  inconclusive and higher-order overlap structure is required.
+
+### M48 Korean summary
+
+M48은 \(B_t=2^t+3\) compact candidate를 polynomial 개 사용하더라도,
+public level span이 \((1/2-\varepsilon)m\) 이하이면 충분히 큰 balanced
+population을 단사적으로 분리할 수 없음을 증명했다. 두 level을 동시에
+hit하는 소수는 level gap만으로 정해지는 exact overlap integer
+\(3^{2^d-1}+32^{2^d-1}\)를 나누므로 multi-hit prime 전체를 보수적으로
+상계할 수 있다. 나머지 소수에는 all-zero와 one-hot signature만
+가능하며, 그 수보다 balanced prime이 지수적으로 많아 duplicate
+signature가 생긴다. 이 결과는 exponential exact cofactor를
+materialize하지 않으며 shifted window에도 그대로 적용된다. 다만 span이
+\(m/2\)에 접근하거나 이를 넘는 wide-span list, 다른 compact family,
+adaptive schedule, 일반 정수분해는 열린 범위로 남고 M49에서 다룬다.
+
 ## M47 outcome
 
 - Date: 2026-07-29.

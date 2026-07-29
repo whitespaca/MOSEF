@@ -202,3 +202,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-041 | PROVED | No polynomial numeric DEF-032 cap is asymptotically injective | `research/proofs/BAR-041-polynomial-cap-support-budget.md` |
 | REF-043 | REFUTED | A polynomial numeric DEF-032 cap separates all large balanced populations | `research/NEGATIVE_RESULTS.md` NR-044 |
 | EMP-046 | EMPIRICAL | Polynomial-cap exact-output support audit | `research/experiments/EXP-0046-m47-polynomial-cap-support.md` |
+| DEF-035 | DEFINITION | Public compact-gap level selector and multi-hit support set | `research/proofs/BAR-042-compact-gap-overlap-budget.md` |
+| BAR-042 | PROVED | Every polynomial short-span compact-gap selector is eventually noninjective | `research/proofs/BAR-042-compact-gap-overlap-budget.md` |
+| REF-044 | REFUTED | A short-span encoded compact-gap list separates all large populations | `research/NEGATIVE_RESULTS.md` NR-045 |
+| EMP-047 | EMPIRICAL | Shifted compact-gap overlap and signature audit | `research/experiments/EXP-0047-m48-compact-gap-overlap.md` |

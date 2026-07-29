@@ -1103,3 +1103,29 @@
   does not refute polynomial-bit encodings of exponentially large parameters,
   input-dependent or adaptive schedules, other compact recurrence families,
   arbitrary circuits, or a general classical factoring algorithm.
+
+## NR-045 - Short-span encoded compact-gap lists fail asymptotically
+
+- Date: 2026-07-29.
+- Status: `REFUTED` claim `REF-044`.
+- Hypothesis tested: polynomially many public candidates
+  \(A=3,B_t=2^t+3,g=2\), with polynomial branch-total evaluation cost and
+  level span at most \((1/2-\varepsilon)m\), can separate every sufficiently
+  large complete balanced-prime population.
+- Overlap obstruction: a prime \(p>7\) hitting levels \(t<u\) must divide
+  \[
+  R_{u-t}=3^{2^{u-t}-1}+32^{2^{u-t}-1}.
+  \]
+  Its bit length is at most \(5(2^{u-t}-1)+1\). Summing over candidate pairs
+  bounds all multi-hit balanced primes by
+  \(O(m^{2a-1}2^{(1/2-\varepsilon)m})\) when the list has at most \(m^a\)
+  candidates.
+- Population obstruction: the balanced population is
+  \(\Omega(2^{m/2}/m)\). After removing every possible multi-hit prime, more
+  than \(r_m+1\) primes remain but only the zero and \(r_m\) one-hot
+  signatures are available. A duplicate signature and failed semiprime pair
+  are unavoidable.
+- Scope: this refutes the exact short-span compact-gap class, including common
+  shifts of the whole public level window. It does not refute lists whose
+  span approaches or exceeds \(m/2\), other compact families, adaptive
+  schedules, or general classical factoring.

@@ -19,6 +19,14 @@ from .compact_cofactor_prime_support import (
     phi4_pair_outcome,
     phi4_prime_divisibility_profile,
 )
+from .compact_gap_overlap_budget import (
+    CompactGapOverlapProfile,
+    compact_gap_exponent,
+    compact_gap_overlap_bit_bound,
+    compact_gap_overlap_integer,
+    compact_gap_overlap_population_upper_bound,
+    compact_gap_overlap_profile,
+)
 from .compact_support_signatures import (
     Phi4PrefixSignatureProfile,
     SignaturePairAccounting,
@@ -232,6 +240,7 @@ __all__ = [
     "CandidateKind",
     "CandidateOutcome",
     "CombinedDensityAnalysis",
+    "CompactGapOverlapProfile",
     "ConjugatePairAnalysis",
     "CoverAnalysis",
     "DescriptorOutputBudget",
@@ -289,6 +298,11 @@ __all__ = [
     "combined_asymmetry",
     "combined_signature",
     "compact_exceptional_cofactor_residue",
+    "compact_gap_exponent",
+    "compact_gap_overlap_bit_bound",
+    "compact_gap_overlap_integer",
+    "compact_gap_overlap_population_upper_bound",
+    "compact_gap_overlap_profile",
     "conjugate_parameter",
     "cyclotomic_coefficients",
     "cyclotomic_factor_orders",

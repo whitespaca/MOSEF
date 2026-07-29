@@ -1033,3 +1033,21 @@
   DEF-032 cap. The decision does not extend the result to the BAR-022 compact
   gap, where an exponentially large numeric parameter has only polynomial
   encoding length, or to other compact descriptor grammars.
+
+## ADR-052 - Charge compact-gap pair overlaps by level span
+
+- Date: 2026-07-29.
+- Decision: for the exact \(A=3,B_t=2^t+3,g=2\) family, charge primes with
+  signature Hamming weight at least two to the pair-overlap integer
+  \(R_d=3^{2^d-1}+32^{2^d-1}\), where \(d\) is the public level gap. Keep
+  descriptor/evaluation cost, exact cofactor magnitude, and analytical
+  support as separate ledgers.
+- Rationale: the individual compact cofactors are exponentially long, so
+  BAR-041's exact-output budget is unavailable. Their common support still
+  obeys an exact shift-invariant divisibility relation. After removing the
+  conservatively bounded multi-hit set, only zero and one-hot signatures
+  remain and can be counted without a support oracle.
+- Consequence: BAR-042 rules out every polynomial-size level list with span
+  \((1/2-\varepsilon)m\) and polynomial total evaluation work. Wide-span
+  lists at the half-length boundary or beyond remain open and become the
+  next falsification target.
