@@ -1,5 +1,23 @@
 # Research Status
 
+## M48 work snapshot
+
+- Date: 2026-07-29.
+- Branch: `research/20260729-m48-encoded-parameter-escape`.
+- Base: M47 squash merge
+  `886d572acbe07f707ad4e0dde66592cfc9612b23`.
+- M48 asks whether a polynomial-size public selector can use polynomial-bit
+  encodings of exponentially large numeric parameters to evade `BAR-041`
+  while retaining polynomial branch-total modular evaluation cost.
+- The falsification-first route begins with the `BAR-022` compact gap
+  \(B=2^t+3\), restricts diversification to a polynomial-size public
+  parameter list, and separately charges descriptor encoding, modular
+  evaluation, and exact prime support. It will not enumerate up to the
+  exponential numeric value.
+- Candidate promotion requires either an exact support/collision theorem or a
+  complete finite falsification with explicit scope. No success on bounded
+  populations will be extrapolated to a general factoring theorem.
+
 ## M47 outcome
 
 - Date: 2026-07-29.
