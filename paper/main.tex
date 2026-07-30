@@ -4118,6 +4118,102 @@ and the schema file SHA-256 is
 \]
 Appendix \ref{proof:BAR-052} gives the proof.
 
+\section{M60--M80: residue barriers and separator synthesis}
+
+\claimstatus{BAR-053}{PROVED}. With
+\(\mathcal D_{m,q}=\{d\mid2^q-1:d\ge\delta_m\}\), every balanced prime
+divisor of \(R_q\) lies in
+\[
+\bigcup_{d\in\mathcal D_{m,q}}\{x:x\equiv1\pmod{2d}\}.
+\tag{M60.1}
+\]
+On an interval of length \(H\), its size is at most
+\(\sum_d(\lfloor H/(2d)\rfloor+1)\).
+\claimstatus{REF-055}{REFUTED}. This elementary sum is not uniformly
+subleading at the endpoint.
+
+\claimstatus{BAR-054}{PROVED}. For \(a\ge8\), take
+\[
+k_a=\left\lfloor\frac{2^{a-4}}a\right\rfloor,\quad
+q_a=ak_a,\quad m_a=2q_a,\quad d_a=2^a-1.
+\tag{M61.1}
+\]
+Then \(d_a\mid2^{q_a}-1\), \(d_a\ge\delta_{m_a}\), and
+\(2d_a=\Theta(m_a)\), leaving one necessary class with
+\(\Theta(2^{m_a/2}/m_a)\) integer capacity.
+\claimstatus{REF-056}{REFUTED}. Size plus elementary residues alone do not
+close the endpoint; no prime occurrence is inferred.
+
+\claimstatus{BAR-055}{PROVED}. The union is unchanged after retaining only
+divisibility-minimal \(d\), since \(d\mid e\) makes
+\(1\bmod2e\subseteq1\bmod2d\).
+\claimstatus{BAR-056}{PROVED}. Rebucketing by
+\(\operatorname{ord}_d(2)\) exactly reindexes the same union.
+\claimstatus{REF-057}{REFUTED}. Reindexing alone does not prune support.
+
+\claimstatus{BAR-057}{PROVED}. For fixed \(K\) binary channels, the
+low-weight capacity is \(\sum_{j\le h}\binom{Kr}{j}\). Fixed \(K\) changes
+the endpoint logarithm by only \(o(m)\), preserving the leading \(1/2\)
+balance.
+\claimstatus{OPEN-006}{OPEN}. Polynomially growing channel counts can
+change it by \(\Theta(m)\); this work neither constructs nor excludes them.
+
+\claimstatus{DEF-046}{DEFINITION}. A UCSS is a deterministic
+public-before-input constructor of polynomially many polynomial-length,
+polynomial-evaluable, branch-total descriptors with injective divisibility
+signatures on every declared prime window. It receives no factor, offline
+prime list, or nonuniform advice.
+
+\claimstatus{COND-002}{CONDITIONAL}. Balanced UCSS factors every square-free
+balanced semiprime by a proper coordinate GCD.
+\claimstatus{COND-003}{CONDITIONAL}. Uniform schedules for all \(O(m)\)
+factor-bit windows cover every square-free semiprime.
+\claimstatus{BAR-058}{PROVED}. Exact primality and perfect-power
+preprocessing preserves polynomial recursion and multiplicity output.
+\claimstatus{COND-004}{CONDITIONAL}. If UCSS separates a prime divisor from
+the residual complement at every non-power composite, recursive GCD
+splitting gives general deterministic classical polynomial-time factoring.
+The UCSS premise is not proved.
+
+\claimstatus{BAR-059}{PROVED}. Construction, encoding, evaluation,
+inversion branches, GCDs, recursion, and output must all have polynomial bit
+cost.
+\claimstatus{REF-058}{REFUTED}. Finite tables do not establish uniformity.
+
+\claimstatus{DEF-047}{DEFINITION}. With
+\(L_m=\{2,\ldots,m+12\}\), let \(\mathcal R\) contain square-free
+\(m\)-bit semiprimes whose factors have distinct Phi4 signatures on this
+fixed public list.
+\claimstatus{THM-020}{PROVED}. The compact Phi4 GCD scan factors every input
+in \(\mathcal R\) in polynomial time.
+\claimstatus{BAR-060}{PROVED}. Unit/full GCDs continue, failed inversions
+expose denominator GCDs, and proper GCDs stop. This result is unconditional
+but restricted.
+
+\claimstatus{REF-059}{REFUTED}. The current fixed-channel results do not
+prove UCSS, and this is not an impossibility theorem.
+\claimstatus{BAR-061}{PROVED}. The dependency graph separates the
+unconditional restricted, conditional general, and open branches.
+
+\claimstatus{EMP-058}{EMPIRICAL}. EXP-0058 checked 32 residue profiles,
+271 admissible-divisor profiles, 85,812 residue candidates, 10 separator
+profiles, 94 separated pairs, 94 proper factors, and 42 row hashes. The
+summary SHA-256 is
+\[
+\texttt{\seqsplit{98c64e889c9554562f1c934cbbb123fa9e91e8e0fc8a906e4bb7807352670e37}},
+\]
+and the schema SHA-256 is
+\[
+\texttt{\seqsplit{fedb065411473ae130f4360b16318df21979d30875675a14c9cf7da4d7f31603}}.
+\]
+\claimstatus{BAR-062}{PROVED}. M79 adversarial review checks scope,
+uniformity, branches, bit costs, recursion, and bilingual dependencies.
+
+\claimstatus{BAR-063}{PROVED}. At M80, general classical polynomial-time
+factoring remains unproved. We have THM-020 on a restricted class, COND-004
+under UCSS, and exact barriers explaining why the present route does not
+discharge UCSS. Appendix \ref{proof:THM-020-BAR-063} gives the synthesis.
+
 \section{Compact-step and bit-operation complexity}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -7860,6 +7956,24 @@ The asymptotic statements follow from \(p\ge2^{(m-1)/2}\).
 For \(m\ge9\), \(\delta_m\le m+1\le
 2^{\lfloor m/2\rfloor}-1\), so the endpoint remains compatible with size
 alone. This supplies no divisor of \(R_D\). \(\square\)
+
+\subsection{Proof of THM-020 and BAR-063}
+\label{proof:THM-020-BAR-063}
+
+BAR-053--BAR-057 follow from BAR-052, arithmetic-progression counting,
+residue-class nesting, exact order rebucketing, and substitution of \(Kr\)
+for \(r\) in the Hamming capacity; full details are in the registered
+M60--M80 proof record.
+
+For THM-020, distinct factor signatures give a public coordinate on which
+exactly one of \(p,q\) divides the compact candidate. Its GCD with
+\(N=pq\) is therefore proper. DEF-047 charges polynomial descriptor,
+evaluation, and GCD cost, while BAR-060 handles every nonproper branch.
+The same argument proves COND-002 under DEF-046; trying all public windows
+and applying exact preprocessing proves COND-003 and COND-004 under their
+stated UCSS premise. No step constructs UCSS. Thus the restricted theorem
+is unconditional, the general theorem is conditional, and the original
+general goal remains open. \(\square\)
 
 \clearpage
 \section{Reproduction appendix}

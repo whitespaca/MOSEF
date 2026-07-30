@@ -248,3 +248,27 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-052 | PROVED | Balanced overlap primes obey exact size and residue constraints | `research/proofs/BAR-052-half-order-size-residue.md` |
 | REF-054 | REFUTED | Size lower bounds alone remove the endpoint overlap gap | `research/NEGATIVE_RESULTS.md` NR-055 |
 | EMP-057 | EMPIRICAL | Balanced half-order size and residue audit | `research/experiments/EXP-0057-m59-half-order-size.md` |
+| BAR-053 | PROVED | Exact divisor-indexed residue union | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| REF-055 | REFUTED | Elementary residue sum is uniformly subleading | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| BAR-054 | PROVED | Endpoint-compatible linear residue modulus | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| REF-056 | REFUTED | Size plus elementary residues close the endpoint | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| BAR-055 | PROVED | Minimal-divisor antichain preserves the residue union | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| BAR-056 | PROVED | First-period buckets exactly reindex half-orders | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| REF-057 | REFUTED | First-period rebucketing shrinks support | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| BAR-057 | PROVED | Fixed channel count preserves the endpoint leading balance | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| OPEN-006 | OPEN | Polynomial-channel compact separator boundary | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| DEF-046 | DEFINITION | Uniform compact support separator | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| COND-002 | CONDITIONAL | UCSS factors balanced square-free semiprimes | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| COND-003 | CONDITIONAL | Window-indexed UCSS factors all square-free semiprimes | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| BAR-058 | PROVED | Exact preprocessing preserves conditional polynomial recursion | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| COND-004 | CONDITIONAL | UCSS implies general polynomial-time factoring | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| BAR-059 | PROVED | Complete compact descriptor bit-cost ledger | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| REF-058 | REFUTED | Finite separator tables establish uniformity | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| DEF-047 | DEFINITION | Restricted Phi4-separable semiprime class | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| THM-020 | PROVED | Polynomial-time factoring on the restricted Phi4 class | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| BAR-060 | PROVED | Restricted algorithm is branch-total | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| REF-059 | REFUTED | Current fixed-channel results prove UCSS | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| BAR-061 | PROVED | Final claim dependency graph is status-separated | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| EMP-058 | EMPIRICAL | Residue and restricted-separator synthesis audit | `research/experiments/EXP-0058-m60-m80-synthesis.md` |
+| BAR-062 | PROVED | M79 adversarial scope review | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| BAR-063 | PROVED | M80 final scoped synthesis | `research/proofs/M60-M80-residue-separator-synthesis.md` |

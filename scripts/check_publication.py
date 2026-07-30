@@ -135,6 +135,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-050}",
     r"\label{proof:BAR-051}",
     r"\label{proof:BAR-052}",
+    r"\label{proof:THM-020-BAR-063}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -308,6 +309,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0057-m59-half-order-size.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0058-m60-m80-synthesis.md",
 )
 
 
@@ -621,6 +626,11 @@ def main() -> int:
         "M59: balanced overlap prime의 큰 half-order",
         "BAR-052",
         "b3ebb32c0d59bae938475391af569ee9b166972d03cb106c1c6085f6d2dd625e",
+        "M60--M80: residue barrier와 separator 종합",
+        "THM-020",
+        "COND-004",
+        "BAR-063",
+        "98c64e889c9554562f1c934cbbb123fa9e91e8e0fc8a906e4bb7807352670e37",
     )
     for phrase in required_korean:
         if phrase not in korean_paper_text:
