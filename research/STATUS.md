@@ -1,5 +1,56 @@
 # Research Status
 
+## M55 outcome
+
+- Date: 2026-07-30.
+- Branch: `research/20260730-m55-overlap-gcd-lcm`.
+- Base: M54 squash merge
+  `500ab0b276800d1d035512e7eab2411ee199ecae`.
+- Research question: can exact shared-divisor removal make the overlap-prefix
+  prime-support ledger asymptotically smaller than its largest term?
+- Result: `BAR-048` proves
+  \(\gcd(R_a,R_b)=R_{\gcd(a,b)}\) and
+  \(R_a\mid R_b\Longleftrightarrow a\mid b\).
+- Exact LCM conclusion: for
+  \(L_D=\operatorname{lcm}(R_1,\ldots,R_D)\),
+  \[
+  5(2^D-1)<\log_2L_D
+  \le5\cdot2^{D+1}-10-4D.
+  \]
+  Thus \(\log_2L_D=\Theta(2^D)\); de-duplication changes finite constants
+  but not the leading \(D+O(\log m)\) high-weight exponent.
+- EXP-0053 passes 144 pair-GCD identities, 144 divisibility equivalences,
+  12 prefix LCM profiles, 12 largest-value lower bounds, and 168 exact
+  integer-hash checks.
+- Registered canonical summary SHA-256:
+  `b82926a482dd133d94a3e89f041d23ec225ea2d9d30061d25f6e75c017b01534`.
+- Registered schema file SHA-256:
+  `d9dd97ea9f29b3b9fb3042992b01a181b39d5c8a8a8ebe7d57d296c3745faeb3`.
+- Final gates passed:
+  - foundation and bilingual publication checks over 225 claims and 52
+    experiment hashes;
+  - 256 Python tests in 344.056 seconds, compileall, Ruff, and strict mypy
+    over 28 source files;
+  - Rust formatting/Clippy and 36 tests, plus a warning-free C# Release build;
+  - baseline 58-check, M54, and M55 independent differential checks;
+  - warning-free 119-page English and 47-page Korean XeLaTeX builds, with
+    visual inspection of the M55 theorem, proof, and Korean section.
+- Stable English PDF SHA-256:
+  `5438232a464dd9b52b16b52290adccea3a08856be454965e1a9f2d3db0b82c5b`.
+- Stable Korean PDF SHA-256:
+  `5666ca1ac3dbe1cd404f971cf39870931c2de0331acf0b01ab2955e872ab18b2`.
+
+### M55 Korean summary
+
+M55는 overlap integer \(R_q\) 사이의 shared divisor를 exact GCD와
+prefix LCM으로 모두 제거했다. \(\gcd(R_a,R_b)=R_{\gcd(a,b)}\)이고
+\(R_a\mid R_b\)는 정확히 \(a\mid b\)와 동치이다. 그러나 exact
+union-support ledger \(L_D\)는 마지막 항 \(R_D\)를 포함하므로
+\(\log_2L_D=\Theta(2^D)\)가 유지된다. 따라서 shared divisor
+deduplication만으로 uniform \(c=1/2\) 끝점의 strict slack을 얻을 수
+없다. 이는 balanced prime occurrence에 대한 정리가 아니며 일반
+고전적 인수분해는 여전히 열린 문제이다.
+
 ## M54 outcome
 
 - Date: 2026-07-30.

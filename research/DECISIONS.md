@@ -1159,3 +1159,16 @@
 - Consequence: M54 records a method barrier rather than promoting a failed
   endpoint proof. M55 will audit shared divisors and primitive parts of the
   overlap integers \(R_q\).
+
+## ADR-059 - Replace product charging by the exact prefix LCM
+
+- Date: 2026-07-30.
+- Decision: compute shared prime support through
+  \(L_D=\operatorname{lcm}(R_1,\ldots,R_D)\), after first proving the exact
+  pair identity \(\gcd(R_a,R_b)=R_{\gcd(a,b)}\).
+- Rationale: an LCM is the smallest exact integer whose prime support covers
+  the union, so it removes all duplicate prime powers without heuristic
+  independence assumptions.
+- Consequence: \(R_D\mid L_D\) keeps
+  \(\log_2L_D=\Theta(2^D)\). Shared-divisor accounting improves finite
+  constants but cannot by itself change the BAR-046 leading exponent.

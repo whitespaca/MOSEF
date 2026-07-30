@@ -2375,6 +2375,54 @@ profile 32개를 검사하고 subset GCD 544개 및 sequence hash 256개를
 이다. 다음 단계는 \(R_q\) 사이의 shared divisor와 primitive part를
 정확히 계산하는 것이다.
 
+\section{M55: exact overlap GCD와 prefix LCM}
+
+\claimstatus{DEF-041}{DEFINITION}.
+\[
+R_q=3^{2^q-1}+32^{2^q-1},
+\qquad
+L_D=\operatorname{lcm}(R_1,\ldots,R_D)
+\tag{M55.1}
+\]
+로 둔다. LCM은 prime support union을 덮는 가장 작은 exact integer
+ledger이므로 duplicate prime power를 모두 제거한다.
+
+\claimstatus{BAR-048}{PROVED}.
+odd-power sum GCD identity와 Mersenne exponent identity로
+\[
+\gcd(R_a,R_b)=R_{\gcd(a,b)},
+\qquad
+R_a\mid R_b\Longleftrightarrow a\mid b
+\tag{M55.2}
+\]
+를 얻는다. 그러나 \(R_D\mid L_D\mid\prod_{q\le D}R_q\)이므로
+\[
+5(2^D-1)<\log_2L_D
+\le5\cdot2^{D+1}-10-4D
+\tag{M55.3}
+\]
+이다. 따라서 exact shared-divisor removal 뒤에도
+\(\log_2L_D=\Theta(2^D)\)이고 BAR-046의 high-weight logarithmic
+exponent \(D+O(\log m)\)은 바뀌지 않는다.
+
+\claimstatus{REF-050}{REFUTED}.
+shared divisor가 exact prefix support ledger를 \(2^{o(2^D)}\)로
+줄인다는 가설은 거짓이다. 이는 어떤 balanced prime divisor가 실제로
+나타나는지 제한하는 다른 정리를 배제하지 않는다.
+
+\claimstatus{EMP-053}{EMPIRICAL}.
+EXP-0053은 ordered pair-GCD identity 144개, divisibility equivalence
+144개, prefix LCM 12개, largest-value lower bound 12개, exact-integer
+hash 168개를 독립 재구성했다. summary SHA-256은
+\[
+\texttt{\seqsplit{b82926a482dd133d94a3e89f041d23ec225ea2d9d30061d25f6e75c017b01534}}
+\]
+이고 schema file SHA-256은
+\[
+\texttt{\seqsplit{d9dd97ea9f29b3b9fb3042992b01a181b39d5c8a8a8ebe7d57d296c3745faeb3}}
+\]
+이다.
+
 \section{compact-step과 표준 bit-operation complexity}
 
 \subsection{비용 단위와 online/offline 경계}
