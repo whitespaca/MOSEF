@@ -8,8 +8,8 @@ Its priorities are adopted in the following bounded sequence.
 | 1 | Correct `ceil(log2 N)` and audit every exact finite statement | M81 | DONE |
 | 2 | Split the monograph into promise, cyclotomic, and certificate papers | M82 | DONE |
 | 3 | Add an inspected-source related-work and novelty matrix | M83 | DONE |
-| 4 | Foreground unrecognized hereditary promises and bounded total wrappers | M84 | PLANNED |
-| 5 | Build a minimal independent semantic certificate checker | M85 | PLANNED |
+| 4 | Foreground unrecognized hereditary promises and bounded total wrappers | M84 | DONE |
+| 5 | Build a minimal independent semantic certificate checker | M85 | ACTIVE |
 
 M81 treats the definition defect as a falsification-first repair. M82 keeps
 the archival monograph authoritative while projecting exactly seven
@@ -26,3 +26,13 @@ monograph. Every row is classified as scoped synthesis with
 `NO_PRIORITY_CLAIM`. The absence of an exact phrase match in bounded searches
 is not used as novelty evidence, and the abstract-only Yao record is not used
 to support a technical theorem statement.
+
+M84 replaces the two unbounded reference loops by positive finite per-node
+cycle budgets. On arbitrary positive inputs each wrapper returns either a
+complete verified prime factorization or `UNRESOLVED`; partial factor lists
+are discarded and invalid candidate factors are rejected. On the respective
+unrecognized hereditary promises, the local unresolved tails are
+\((7/12)^s\) and \((11/12)^s\), while the complete-recursion bounds are the
+capped union bounds \(\min\{1,4m(7/12)^s\}\) and
+\(\min\{1,4m(11/12)^s\}\). No outside-promise success probability or
+membership recognizer is claimed.

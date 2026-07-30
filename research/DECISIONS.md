@@ -1307,3 +1307,25 @@
 - Consequence: content mutations remain detectable, while CRLF/LF conversion
   alone no longer changes the registered source hash. Both independent
   checkers and regression suites enforce the normalized convention.
+
+## ADR-069 - Make bounded promise results all-or-nothing
+
+- Date: 2026-07-31.
+- Decision: expose only `FACTORED` with a complete verified prime multiset or
+  `UNRESOLVED` from the bounded \(p-1\) and nonsplit \(p+1\) wrappers. Use a
+  positive finite budget \(s\) at every randomized composite node, discard
+  partial child results, and state local and complete-recursion probability
+  bounds separately.
+- Rationale: hereditary promise membership is not recognized online, so an
+  exhausted budget cannot certify primality, nonmembership, or absence of a
+  separator. Returning a partial list would invite callers to treat an
+  incomplete result as a factorization. The complete recursion needs a
+  conditional union bound over fewer than \(4m\) invocations, not an
+  independence assumption between nodes.
+- Consequence: both wrappers terminate on every positive input and never
+  report a false factorization. The tails \((7/12)^s\) and \((11/12)^s\), and
+  their capped \(4m\)-multiple bounds, apply only on the corresponding
+  hereditary promises with valid schedules and fresh total sampling. The
+  Python implementation remains an exact small-input reference; its
+  trial-division primality routine is not the polynomial-time implementation
+  assumed by THM-001 and THM-002.

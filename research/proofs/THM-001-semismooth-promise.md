@@ -45,6 +45,13 @@ No termination or polynomial-time claim is made outside the promise. A bounded
 implementation may return `UNRESOLVED` after an explicitly declared trial
 budget without treating that result as a primality or nonmembership decision.
 
+M84 makes this bounded statement executable and total on every positive
+input. With \(s\) complete cycles at each randomized node, the local
+on-promise unresolved probability is at most \((7/12)^s\), and the complete
+factorization unresolved probability is at most
+\(\min\{1,4m(7/12)^s\}\). The all-branch proof is in
+`research/proofs/M84-bounded-total-promise-wrappers.md`.
+
 ## Algorithm
 
 ```text

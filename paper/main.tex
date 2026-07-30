@@ -41,7 +41,10 @@ each complete schedule cycle at a promised residual node. We also prove an
 exact Lucas root-count formula and use fresh uniform, independently
 parameterized Lucas values to obtain a second Las Vegas theorem on a
 hereditary \(p+1\)-asymmetry promise, with at least \(1/12\) split probability
-at a witness trial. We prove a sequence of structural barriers. Divisor
+at a witness trial. Finite per-node budgets make both implementations total
+on arbitrary inputs: they return a complete verified factorization or
+\texttt{UNRESOLVED}, with local on-promise tails \((7/12)^s\) and
+\((11/12)^s\). We prove a sequence of structural barriers. Divisor
 coverage does not imply multiplicative-order separation; the exact missing
 condition is injectivity of divisibility signatures. A natural Lucas
 parameter map \(P=a+a^{-1}\) is also not an independent group channel:
@@ -1053,6 +1056,46 @@ Fresh parameters give a geometric tail with expected cycle count at most
 and the hereditary recursion has \(O(m)\) nodes after exact maximal-power
 preprocessing. Appendix \ref{proof:THM-002} gives the complete exceptional
 branch, termination, recursion, and bit-complexity proof.
+
+\section{M84 bounded total promise wrappers}
+
+Fix a positive per-node cycle budget \(s\). The bounded versions of THM-001
+and THM-002 run deterministic prime, maximal-perfect-power, and even-factor
+preprocessing, execute at most \(s\) complete randomized cycles at each
+remaining composite node, validate every proper divisor, and propagate
+\texttt{UNRESOLVED} without publishing a partial factor list.
+
+For every positive input and every sampler path, either wrapper terminates.
+A `factored' result is always a complete prime factorization. On the
+corresponding hereditary promise, fresh sampling and the existing local
+success lemmas give
+\[
+\Pr[U_{p-1}\mid\text{history}]
+\le\left(\frac7{12}\right)^s,\qquad
+\Pr[U_{p+1}\mid\text{history}]
+\le\left(\frac{11}{12}\right)^s.
+\]
+There are fewer than \(4m\) recursive invocations after charging each
+maximal-power unary node to the following binary-tree node. Consequently,
+\[
+\Pr[U^{\mathrm{complete}}_{p-1}]
+\le\min\left\{1,4m\left(\frac7{12}\right)^s\right\},
+\qquad
+\Pr[U^{\mathrm{complete}}_{p+1}]
+\le\min\left\{1,4m\left(\frac{11}{12}\right)^s\right\}.
+\]
+This union bound uses the conditional local bounds and does not assume
+independence between recursive nodes. Outside the promises, the wrappers
+remain total and never report a false factorization, but no success
+probability is claimed. In particular, \texttt{UNRESOLVED} is neither a
+primality result nor a promise-membership decision. The complete proof and
+reference semantics are in the following files.
+\par\smallskip
+\noindent\begin{minipage}{\linewidth}
+\raggedright\small
+\path{research/proofs/M84-bounded-total-promise-wrappers.md}\\
+\path{python/mosef_reference/promise_wrappers.py}
+\end{minipage}
 
 \section{A combined-promise density barrier}
 
@@ -8359,6 +8402,7 @@ python scripts/generate_korean_claim_appendix.py --check
 python scripts/generate_m50_finite_threshold_summary.py --check
 python scripts/check_m50_finite_threshold_summary.py
 python scripts/check_publication.py
+python scripts/check_m84_promise_wrappers.py
 python -m unittest discover -s tests -v
 python -m compileall -q python scripts tests
 cargo fmt --all --check
