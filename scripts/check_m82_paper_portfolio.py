@@ -94,6 +94,11 @@ def sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
+def sha256_text_file(path: Path) -> str:
+    """Hash UTF-8 text after universal-newline normalization."""
+    return sha256_bytes(path.read_text(encoding="utf-8").encode("utf-8"))
+
+
 def canonical_hash(value: Any) -> str:
     """Hash canonical compact JSON."""
     encoded = json.dumps(
@@ -242,7 +247,7 @@ def validate_manifest(manifest: dict[str, Any]) -> list[str]:
         path = ROOT / relative
         if not path.is_file():
             errors.append(f"hashed source missing: {relative}")
-        elif sha256_bytes(path.read_bytes()) != expected_hash:
+        elif sha256_text_file(path) != expected_hash:
             errors.append(f"source hash mismatch: {relative}")
 
     scope = manifest.get("scope", {})

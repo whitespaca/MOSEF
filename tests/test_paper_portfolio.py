@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import tempfile
 import unittest
 from pathlib import Path
 from types import ModuleType
@@ -102,6 +103,14 @@ class PaperPortfolioTests(unittest.TestCase):
         altered["portfolio_summary_sha256"] = CHECKER.canonical_hash(summary_input)
         errors = CHECKER.validate_manifest(altered)
         self.assertIn("source hash path set mismatch", errors)
+
+    def test_source_hash_normalizes_line_endings(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "source.txt"
+            path.write_bytes(b"alpha\r\nbeta\r\n")
+            crlf_hash = CHECKER.sha256_text_file(path)
+            path.write_bytes(b"alpha\nbeta\n")
+            self.assertEqual(crlf_hash, CHECKER.sha256_text_file(path))
 
 
 if __name__ == "__main__":

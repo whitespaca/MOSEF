@@ -262,6 +262,27 @@ when its two support bits differ, which gives the three counts and the
 strict inequality \(h(s-h)<\binom s2\) for \(s\ge3\).
 \end{claimproof}
 
+\section{Primary-source positioning}
+
+\paragraph{M83-R04: multiplication schedules.}
+Shared multiplication schedules for computing several prescribed powers are
+classical addition-chain context \cite{yao1976evaluation}. Only the official
+abstract of that source was inspected, so it is not used to import a proof,
+lower bound, computation model, or constant. BAR-018 and BAR-019 retain
+self-contained proofs for exponent growth, denominator branches, and
+exact-output charging.
+
+\paragraph{M83-R05: roots of unity and rational relations.}
+Conway--Jones use Galois automorphisms, short vanishing sums of roots of
+unity, and rational cosine relations as established tools
+\cite{conway1976trigonometric}. THM-003 and BAR-020 reconstruct a restricted
+signed depth-two observable as the common-step/\(\Phi_4\)/\(\Phi_6\)
+trichotomy and a division-free evaluator. This is scoped positioning within
+an established method family, not a novelty or priority claim.
+
+The registered M83 matrix records the complete inspected-source boundary.
+An unmatched formula in this bounded audit is not evidence of novelty.
+
 \section{Reproduction and limitations}
 
 \begin{verbatim}
@@ -276,12 +297,14 @@ The corresponding records are EXP-0023 through EXP-0025 under
 \path{research/experiments}.  They validate finite symbolic and modular
 instances; the proofs above are algebraic.
 
-All full proofs, counterexamples, and charged branches remain in
-\archivepaper.  Claim statuses and the focused projection are recorded in
-\path{research/CLAIMS.md} and
-\path{schemas/m82-paper-portfolio-v1.json}.  The paper proves results only
-for the displayed signed geometric-sum grammar.  It supplies no universal
-selector, no prime-support density theorem, and no general factoring
-algorithm.
+The archival monograph retains all full proofs, counterexamples, and charged
+branches; the M82 projection checks focused claim placement. The paper
+proves results only for the displayed signed geometric-sum grammar. It
+supplies no universal selector, prime-support density theorem, or general
+factoring algorithm.
+
+\bibliographystyle{plain}
+\small
+\bibliography{paper/references}
 
 \end{document}

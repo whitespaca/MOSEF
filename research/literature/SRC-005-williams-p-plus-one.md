@@ -12,6 +12,7 @@ Primary source inspected: the official AMS article scan. The scan records
 receipt on 1981-03-30 and revision on 1981-09-28.
 
 - Retrieval date: 2026-07-26.
+- Inspection level: `FULL_ARTICLE`.
 - Result classification: primary-source audit of an imported theorem used by
   the project; no novelty claim.
 - Inspected range: complete article, pages 225--234, with the definitions and

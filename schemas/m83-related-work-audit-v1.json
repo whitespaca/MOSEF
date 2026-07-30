@@ -1,0 +1,205 @@
+{
+  "schema_version": "1.0.0",
+  "milestone": "M83",
+  "generated_date": "2026-07-31",
+  "audit_scope": "BOUNDED_PRIMARY_SOURCE_AUDIT",
+  "sources": [
+    {
+      "source_id": "SRC-008",
+      "citation_key": "pollard1974theorems",
+      "inspection_level": "FULL_ARTICLE",
+      "record": "research/literature/SRC-008-pollard-factorization-primality.md"
+    },
+    {
+      "source_id": "SRC-005",
+      "citation_key": "williams1982pplusone",
+      "inspection_level": "FULL_ARTICLE",
+      "record": "research/literature/SRC-005-williams-p-plus-one.md"
+    },
+    {
+      "source_id": "SRC-009",
+      "citation_key": "katona1966separating",
+      "inspection_level": "PARTIAL_FULL_TEXT",
+      "record": "research/literature/SRC-009-katona-separating-systems.md"
+    },
+    {
+      "source_id": "SRC-010",
+      "citation_key": "conway1976trigonometric",
+      "inspection_level": "FULL_ARTICLE",
+      "record": "research/literature/SRC-010-conway-jones-roots-unity.md"
+    },
+    {
+      "source_id": "SRC-011",
+      "citation_key": "bernstein2004smoothparts",
+      "inspection_level": "FULL_ARTICLE",
+      "record": "research/literature/SRC-011-bernstein-smooth-parts.md"
+    },
+    {
+      "source_id": "SRC-012",
+      "citation_key": "yao1976evaluation",
+      "inspection_level": "ABSTRACT_ONLY",
+      "record": "research/literature/SRC-012-yao-evaluation-powers.md"
+    }
+  ],
+  "rows": [
+    {
+      "row_id": "M83-R01",
+      "paper": "promise-factorization",
+      "claim_ids": [
+        "THM-001"
+      ],
+      "source_ids": [
+        "SRC-008"
+      ],
+      "classification": "SCOPED_SYNTHESIS",
+      "established_en": "Pollard gives the practical smooth-p-1 mechanism, including unit and full-collision branches.",
+      "established_ko": "Pollard는 unit 및 full-collision 분기를 포함한 실용적 smooth-p-1 메커니즘을 제시한다.",
+      "project_en": "The project closes a fresh-sample hereditary-promise recursion with an explicit 5/12 cycle bound and expected bit cost.",
+      "project_ko": "본 연구는 fresh sample을 쓰는 유전적 약속 재귀를 명시적 5/12 cycle 하한과 기대 비트 비용까지 닫는다.",
+      "priority_status": "NO_PRIORITY_CLAIM"
+    },
+    {
+      "row_id": "M83-R02",
+      "paper": "promise-factorization",
+      "claim_ids": [
+        "LEM-003",
+        "THM-002"
+      ],
+      "source_ids": [
+        "SRC-005"
+      ],
+      "classification": "SCOPED_SYNTHESIS",
+      "established_en": "Williams gives the Lucas p+1 mechanism and its split, nonsplit, and zero-discriminant hypotheses.",
+      "established_ko": "Williams는 Lucas p+1 메커니즘과 split, nonsplit, zero-discriminant 가정을 제시한다.",
+      "project_en": "The project proves its exact parameter-root count, preserves degenerate branches, and derives the greater-than-1/12 witness bound.",
+      "project_ko": "본 연구는 정확한 매개변수 root count를 증명하고 퇴화 분기를 보존하며 1/12보다 큰 witness 하한을 유도한다.",
+      "priority_status": "NO_PRIORITY_CLAIM"
+    },
+    {
+      "row_id": "M83-R03",
+      "paper": "promise-and-finite",
+      "claim_ids": [
+        "BAR-001",
+        "BAR-024"
+      ],
+      "source_ids": [
+        "SRC-009"
+      ],
+      "classification": "SCOPED_SYNTHESIS",
+      "established_en": "Binary membership signatures and pair-separating set systems are classical combinatorial objects.",
+      "established_ko": "이진 membership signature와 pair-separating set system은 고전적 조합론 객체이다.",
+      "project_en": "The project specializes injectivity to divisor/support observables, prime-power valuations, and exact proper-GCD semantics.",
+      "project_ko": "본 연구는 단사성을 divisibility/support 관측량, 소수거듭제곱 valuation, 정확한 proper-GCD 의미론에 특수화한다.",
+      "priority_status": "NO_PRIORITY_CLAIM"
+    },
+    {
+      "row_id": "M83-R04",
+      "paper": "cyclotomic-extraction",
+      "claim_ids": [
+        "BAR-018",
+        "BAR-019"
+      ],
+      "source_ids": [
+        "SRC-012"
+      ],
+      "classification": "SCOPED_SYNTHESIS",
+      "established_en": "Shared multiplication schedules for evaluating several powers are classical addition-chain context.",
+      "established_ko": "여러 거듭제곱을 평가하는 공유 곱셈 schedule은 고전적 addition-chain 문맥이다.",
+      "project_en": "The project separately proves its exponent-growth and exact-output charges; the cited source was inspected only at abstract level.",
+      "project_ko": "본 연구의 지수 성장 및 exact-output 과금은 별도 증명이며, 인용 문헌은 초록 수준에서만 확인했다.",
+      "priority_status": "NO_PRIORITY_CLAIM"
+    },
+    {
+      "row_id": "M83-R05",
+      "paper": "cyclotomic-extraction",
+      "claim_ids": [
+        "THM-003",
+        "BAR-020"
+      ],
+      "source_ids": [
+        "SRC-010"
+      ],
+      "classification": "SCOPED_SYNTHESIS",
+      "established_en": "Galois actions, short vanishing sums of roots of unity, and rational cosine relations are established methods.",
+      "established_ko": "Galois 작용, 짧은 root-of-unity 소멸합, 유리 cosine 관계는 확립된 방법이다.",
+      "project_en": "The project reconstructs a restricted signed depth-two common-step/Phi4/Phi6 classification and evaluator.",
+      "project_ko": "본 연구는 제한된 signed depth-two 관측량의 common-step/Phi4/Phi6 분류와 evaluator를 재구성한다.",
+      "priority_status": "NO_PRIORITY_CLAIM"
+    },
+    {
+      "row_id": "M83-R06",
+      "paper": "finite-certificates",
+      "claim_ids": [
+        "THM-004",
+        "THM-005",
+        "THM-014",
+        "THM-019"
+      ],
+      "source_ids": [
+        "SRC-009",
+        "SRC-011"
+      ],
+      "classification": "SCOPED_SYNTHESIS",
+      "established_en": "Separating signatures and product/remainder-tree batch evaluation are established background.",
+      "established_ko": "분리 signature와 product/remainder-tree batch 평가는 확립된 배경이다.",
+      "project_en": "The project gives complete finite, family-relative certificates for one explicit selector through bit length 34.",
+      "project_ko": "본 연구는 하나의 명시적 selector족에 대해 비트길이 34까지 완전한 family-relative 유한 인증서를 준다.",
+      "priority_status": "NO_PRIORITY_CLAIM"
+    },
+    {
+      "row_id": "M83-R07",
+      "paper": "finite-certificates",
+      "claim_ids": [
+        "BAR-041",
+        "BAR-042",
+        "BAR-043",
+        "BAR-044",
+        "BAR-045",
+        "BAR-046"
+      ],
+      "source_ids": [
+        "SRC-009",
+        "SRC-011"
+      ],
+      "classification": "SCOPED_SYNTHESIS",
+      "established_en": "Signature counting and charged batch evaluation are general background tools.",
+      "established_ko": "signature counting과 과금된 batch 평가는 일반적 배경 도구이다.",
+      "project_en": "The proved noninjectivity bounds are restricted to the repository's declared numeric-cap and compact-gap grammars and constant ranges.",
+      "project_ko": "증명된 비단사 경계는 저장소가 선언한 numeric-cap 및 compact-gap 문법과 상수 범위에만 적용된다.",
+      "priority_status": "NO_PRIORITY_CLAIM"
+    }
+  ],
+  "classification_counts": {
+    "established_background_components": 7,
+    "scoped_synthesis_rows": 7,
+    "positively_labeled_plausibly_new_rows": 0
+  },
+  "search_record": "research/literature/M83-primary-source-search.md",
+  "negative_search_rule": "failure to locate an exact match is not evidence of novelty or priority",
+  "source_sha256": {
+    "research/literature/SRC-008-pollard-factorization-primality.md": "92103d61f2a310bdd9b8fb1c66a7eae099053a6866b768626d8b8c8b2b3807c3",
+    "research/literature/SRC-005-williams-p-plus-one.md": "c6447fac56b43320a3204f7a7a5a70734693ee7bc017a252a9d9397886fb346f",
+    "research/literature/SRC-009-katona-separating-systems.md": "b8318e9c3771e519375930f10d598cba64299a79f89d3684e79fda8c277ad917",
+    "research/literature/SRC-010-conway-jones-roots-unity.md": "df1f25c668854e618d6fcea554a75130f7542b2dd5a4b21b52c313b59c2a6b50",
+    "research/literature/SRC-011-bernstein-smooth-parts.md": "1d5117f50835c725ebfc113dc7e4e7cb0893d3dfa09596fa7259e93bda54c756",
+    "research/literature/SRC-012-yao-evaluation-powers.md": "0ad57261aeca453f86b400ccd1c596543838c7c7cb03e6082d093ff0e39176ae",
+    "research/literature/M83-primary-source-search.md": "989bb97f5c7c203af3cf68b5fe76eb48af7bbd0dfc880ebc54dfb5ad2d8edce2",
+    "research/reviews/2026-07-31-m83-source-scope-review.md": "31e2d06c0ba7bbdefbf4a79c52e3154b4e7623f9f9ca07ac29beb086df29c104",
+    "paper/references.bib": "71626c54fb84356438677bc65066206ab1aa664dfeb90c7423392f10ade69460",
+    "paper/main.tex": "241575821bf62cc9cdc2eff191fd1dc4bff4b9a79dc7eec4a3d2f09995e6865d",
+    "paper/main-ko.tex": "6daf65694a3ea1aba915f9adb222b0bc287df304ffc3d4240c486aae854aba92",
+    "paper/focused/promise-factorization-en.tex": "3b268f00acaa2296ac5b1b71e4afa338c84fd91e941d1a3019f1a0572c1dca55",
+    "paper/focused/promise-factorization-ko.tex": "a915b6b3e591041886e7f5283450428f266c3dde9a2f7d4b924bc1ee67d405c2",
+    "paper/focused/cyclotomic-extraction-en.tex": "d3d4e08553f2ad9115cee267ad2184368d4c1edb4ad2fd6644649c537f4bf98f",
+    "paper/focused/cyclotomic-extraction-ko.tex": "d41c5b05acd94196e2458c8a09bbcb25e9b9737e01b0b41e7484cd698ba63cb4",
+    "paper/focused/finite-certificates-en.tex": "b94873691139fa24c98f5c42704f2feea2d44369b705d5ee8bcc9e1d4b5e6269",
+    "paper/focused/finite-certificates-ko.tex": "25a90b9999043799e6625f715f5b39656906fc908ab3918e4809b7b8930e3267"
+  },
+  "scope": {
+    "general_classical_polynomial_time_factoring": "OPEN",
+    "novelty_claims_made": false,
+    "priority_claims_made": false,
+    "finite_certificate_max_input_length": 34
+  },
+  "audit_summary_sha256": "48fb8166fa693209f66c5d0bd6484f6230cf4291141c403f97fcddd79724353d"
+}

@@ -215,6 +215,62 @@ compact modular evaluator가 존재한다는 사실은 그 exact lift가 짧다�
 뜻이 아니다. 반대로 exact lift가 길다는 사실은 서로 다른 소인수가
 많다는 뜻도 아니다.
 
+\section{1차 문헌 관련 연구 및 제한적 포지셔닝}
+
+\paragraph{M83-R01: 유전적 \(p-1\).}
+Pollard의 실용 절차는 unit 및 full-collision 분기를 포함한 고전적
+smooth-\(p-1\) 메커니즘을 확립한다 \cite{pollard1974theorems}.
+그러나 저장소의 유전적 약속, 매 시도의 fresh exact-uniform sampling,
+\(5/12\) 완전 cycle 하한, 완전 재귀의 기대 비트 비용은 진술하지
+않는다. THM-001은 이 확립된 메커니즘 주위의 제한적 종합으로
+포지셔닝하며 우선권을 주장하지 않는다.
+
+\paragraph{M83-R02: 비분할 \(p+1\).}
+Williams는 Lucas 메커니즘과 split, nonsplit, zero-discriminant 가정을
+확립한다 \cite{williams1982pplusone}. LEM-003의 정확한 root count,
+퇴화 분기의 완전한 처리, THM-002의 \(1/12\)보다 큰 witness 하한은
+프로젝트의 자기완결 유도이다. 제한 감사는 문헌 우선권 지위를
+부여하지 않는다.
+
+\paragraph{M83-R03: signature.}
+이진 부분집합 membership signature로 쌍을 분리하는 언어는 고전적
+separating-system 개념이다 \cite{katona1966separating}. BAR-001과
+BAR-024는 이를 divisor/support 좌표, 소수거듭제곱 valuation, 정확한
+proper-GCD 의미론에 특수화한다. 추상 단사성 아이디어는 확립된
+배경이며 산술적 특수화는 명시된 프로젝트 범위를 유지한다.
+
+\paragraph{M83-R04: 곱셈 schedule.}
+여러 지정 거듭제곱을 평가하는 공유 schedule은 고전적 addition-chain
+문맥이다 \cite{yao1976evaluation}. 해당 문헌은 공식 초록만
+확인했으므로 증명, 하한, 계산 모형, 상수를 가져오지 않는다. BAR-018과
+BAR-019의 지수 성장, 분모 분기, exact-output 논증은 자기완결이다.
+
+\paragraph{M83-R05: cyclotomic 기법.}
+Galois 작용, 짧은 root-of-unity 소멸합, 유리 cosine 관계는 확립된
+방법이다 \cite{conway1976trigonometric}. THM-003과 BAR-020은 그
+방법족 안에서 저장소의 제한된 signed depth-two
+common-step/\(\Phi_4\)/\(\Phi_6\) 분류와 evaluator를 재구성한다.
+독창성이나 우선권 지위를 추론하지 않는다.
+
+\paragraph{M83-R06: 유한 인증서.}
+분리 signature와 product/remainder-tree batch 평가는 확립된 배경이다
+\cite{bernstein2004smoothparts}. 이들은 selector를 구성하거나 모집단
+단사성을 증명하지 않는다. THM-004, THM-005, THM-014, THM-019는 하나의
+선언된 selector족에 대해 \(m=34\)까지의 완전한 family-relative 유한
+인증서이다.
+
+\paragraph{M83-R07: 장벽.}
+BAR-041--BAR-046은 signature counting과 과금된 평가를 저장소의 정확한
+numeric-cap 및 compact-gap 문법과 결합한다. support, span, 상수 범위가
+증명된 범위이며 모든 selector의 하한이 아니다. 평가 문맥은 Bernstein
+\cite{bernstein2004smoothparts}에 의해 기록되지만 selector-specific
+비단사 증명은 저장소 내부에 있고 우선권 라벨을 받지 않는다.
+
+전체 비교는
+\path{research/publication/M83-related-work-matrix-ko.md}에 있다. 이는
+제한적 1차 문헌 감사이지 완전한 역사적 priority survey가 아니다.
+동일한 정식화를 찾지 못한 사실은 독창성이나 우선권의 증거가 아니다.
+
 \section{표준 비트길이 교정과 M81 감사}
 
 \claimstatus{REF-060}{REFUTED}. 기존 문서의
@@ -3103,5 +3159,9 @@ statement, hypothesis, evidence, scope와 adversarial review 상태의
 권위 있는 원장은 \path{research/CLAIMS.md}이다.
 
 \input{paper/claim-status-ko.tex}
+
+\bibliographystyle{plain}
+\small
+\bibliography{paper/references}
 
 \end{document}

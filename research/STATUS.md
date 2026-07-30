@@ -1,5 +1,77 @@
 # Research Status
 
+## M83 outcome
+
+- Date: 2026-07-31.
+- Branch: `research/20260731-m83-related-work-audit`.
+- Base: M82 squash merge
+  `b6f01430c569778a9f0092cf69e320186f08d942`.
+- Six source records were admitted at their actual inspection depth: Pollard
+  \(p-1\), Williams \(p+1\), Katona separating systems, Conway--Jones
+  roots-of-unity relations, Bernstein product/remainder-tree evaluation, and
+  Yao multi-power evaluation. The Yao record is explicitly abstract-only and
+  supports context rather than a technical theorem statement.
+- Seven synchronized English/Korean rows compare `THM-001`, `LEM-003` and
+  `THM-002`, `BAR-001` and `BAR-024`, `BAR-018` and `BAR-019`, `THM-003` and
+  `BAR-020`, the finite certificate theorems, and `BAR-041`--`BAR-046` with
+  inspected background. Every row is `SCOPED_SYNTHESIS` and
+  `NO_PRIORITY_CLAIM`; no row is positively labeled plausibly new.
+- The deterministic `schemas/m83-related-work-audit-v1.json` artifact has
+  canonical summary SHA-256
+  `48fb8166fa693209f66c5d0bd6484f6230cf4291141c403f97fcddd79724353d`
+  and file SHA-256
+  `b76dd1e4d463182f5d723e2eb8669a5010e758a5a29bdb8ae6c25b16ccb2c9a2`.
+  Its checker imports no generator code and verifies source hashes,
+  inspection levels, claim membership, bilingual markers, paper citations,
+  classification parity, and the no-priority rule.
+- Verification passed: the M83 checker; nine targeted M83 tests including
+  seven mutation paths and line-ending normalization; the regenerated M82
+  268-claim projection; the foundation and publication checkers; all 286
+  Python tests in 232.38 seconds; Python bytecode compilation; Ruff 0.16.0;
+  strict mypy 2.3.0 over all 30 reference files and both M83 scripts; Rust
+  formatting, Clippy with warnings denied, and all 36 tests; and the
+  warning-free C# Release build.
+- Paper gate: eight converged XeLaTeX builds produced the two archival
+  monographs and six focused papers. Log inspection found no undefined
+  reference or citation, overfull or underfull box, missing glyph, or font
+  warning. Rendered QA covered all affected related-work and bibliography
+  pages with no clipping or overlap. Final PDF SHA-256 values are
+  `ff1ea186e16ead63eb6415ec92a69386c735a68bf09c253416701bcf05b2d06e`
+  (archive English),
+  `a8301d27215e4b78f62e99caf5c226c26abe3b5431069dad2d1e4152f20a3b8a`
+  (archive Korean),
+  `77b97da8974555059a55b95957501ce6a0807b6a47ef7a244d668d17f8b71a6d`
+  and
+  `f50229dcff1a5f7491aff8ac96f0c9e25cfcf823220cc81560febe823b5b9636`
+  (promise pair),
+  `2a2a7b7a714944a6fabbfb93896e30a748504ebfe03096f48fd592a30dd83cc0`
+  and
+  `613b9f293a8752c0f8626d732bd640cb7317f7248586f8034f157c40292a6ed9`
+  (cyclotomic pair), and
+  `bc333d31fa8aac07a17082b8aac1c4ebe1b66486205e405988d58e0757f0bdf3`
+  and
+  `f6446707af7b7024e4ef0d853e8758fc8a1f542caf1b89e86e1b199c64c5fbf6`
+  (finite-certificate pair).
+- Adversarial source-scope review passed after rejecting phrase-search
+  absence as novelty evidence and preventing abstract-only source promotion.
+  This was a bounded internal second pass, not an independent external
+  priority survey.
+- Scope: M83 changes positioning and citations, not mathematical claim
+  status. General classical polynomial-time factoring remains open. M84 is
+  the next highest-priority milestone and will add bounded total wrappers for
+  the two unrecognized hereditary promise algorithms.
+
+### M83 Korean summary
+
+M83은 Pollard \(p-1\), Williams \(p+1\), 분리계, 다중 거듭제곱 평가,
+근의 단위원 관계, 곱/나머지 트리의 1차 문헌을 실제 열람 범위대로
+기록하고, 이를 일곱 개의 영문·국문 비교 행으로 동기화했다. 모든 행은
+`SCOPED_SYNTHESIS`와 `NO_PRIORITY_CLAIM`으로 분류했다. 제한된 검색에서
+정확한 문구가 발견되지 않았다는 사실은 신규성의 근거로 사용하지
+않았고, 초록만 확인한 문헌은 기술 정리의 근거로 승격하지 않았다.
+따라서 이번 마일스톤은 기존 결과의 위치와 인용 근거를 명확히 했지만
+일반 고전적 다항시간 정수 인수분해를 해결했다는 주장은 하지 않는다.
+
 ## M82 outcome
 
 - Date: 2026-07-31.
@@ -23,9 +95,9 @@
 - The deterministic `schemas/m82-paper-portfolio-v1.json` projection covers
   all 268 authoritative claims: 21 focused claims and 247 archival-only
   claims. Its canonical portfolio summary SHA-256 is
-  `8bf1e96dce1a83a6c77540f9958d6ba04a7f05c5cca60ed82cd6cd2aa241949c`;
+  `a23d6ce04d8e78e8d5a80b5f6ab9ea024383eed72cc43397b02abde07ac53e6d`;
   the JSON file SHA-256 is
-  `9170d36ce732cca150c820b0fe284a29fd8fb241fe5e4c92e84167b0ea0586ac`.
+  `787c68b9fa68ec88e145b620343874ef99bfb5c9aa70e9d36364da2ac3090458`.
 - The generator records the claim status sequence, full archive-only list,
   focused source hashes, archival source hashes, reproduction anchors, and
   scope fields. The independent checker imports no generator code.
