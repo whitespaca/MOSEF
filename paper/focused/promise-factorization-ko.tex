@@ -1,0 +1,237 @@
+\documentclass[11pt]{article}
+\input{paper/focused/preamble-ko.tex}
+
+\title{인식되지 않는 유전적 차수 약속 아래의\\
+Las Vegas 완전 인수분해}
+\author{MOSEF 연구 프로그램}
+\date{2026년 7월 31일}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+본 논문은 고전적 \(p-1\) 및 비분할 \(p+1\) 기법에서 얻은 두 개의
+제한적 완전 인수분해 정리를 분리하여 제시한다. 첫 번째 알고리즘은 매
+시도마다 새로운 균등 밑을 뽑으며, 약속된 잔여 노드의 완전한 witness
+cycle마다 적어도 \(5/12\)의 분할 성공 확률을 갖는다. 두 번째 알고리즘은
+독립적인 균등 Lucas 매개변수를 사용하며 witness 시도마다 \(1/12\)보다
+큰 성공 확률을 갖는다. 증명되지 않은 수론적 추측은 가정하지 않지만,
+두 입력류의 membership은 약속될 뿐 알고리즘이 인식하지 못한다. 또한
+약수 포함과 차수 signature 분리를 구별하고, 켤레 Lucas 사상이 독립
+채널이 아님을 증명하며, 공통 schedule의 유한 분포 한계를 제시한다.
+이는 제한 입력 정리이며 임의의 정수에 대한 고전적 다항시간
+인수분해 알고리즘이 아니다.
+\end{abstract}
+
+\section{범위와 계산 모형}
+
+\(N\ge1\)에 대해
+\[
+m=\bits(N)=\lfloor\log_2N\rfloor+1
+\]
+로 둔다. 입력은 이진수이며 schedule 구성, 지수승, GCD, 전처리, 재귀,
+출력의 모든 비용을 \(m\)에 대해 계산한다. 정확한 소수 판정과 최대
+완전거듭제곱 분해를 splitter보다 먼저 수행하고, 보고된 약수는 두
+자식으로 재귀하기 전에 검증한다.
+
+\(B(k),R(k)\)를 다항식으로 유계이고 다항시간에 계산되는 고정된
+비감소 양의 정수 함수라 하고
+\[
+M_B(k)=\operatorname{lcm}(1,\ldots,B(k))
+\]
+로 둔다. 지역 비트 길이가 \(k\)인 합성 비완전거듭제곱 \(K\)에 대해,
+서로 다른 \(p,q\mid K\)와 \(1\le t\le R(k)\)가
+\[
+p-1\mid tM_B(k),\qquad q-1\nmid tM_B(k)
+\]
+를 만족하면 \(p-1\) witness라 한다. 비분할 \(p+1\) witness는 홀수
+잔여 노드에서 \(p+1\mid tM_B(k)\), \(q+1\nmid tM_B(k)\)로 정의한다.
+재귀 중 도달하는 모든 합성 비완전거듭제곱 잔여 노드에 witness가
+존재할 때 약속은 유전적이다. 이 정의는 미지의 소인수에 의존하므로
+온라인 알고리즘은 witness를 받지 않으며 membership을 판정하지도 않는다.
+
+\section{새로운 밑을 이용한 \texorpdfstring{\(p-1\)}{p-1} 인수분해}
+
+\claimstatus{THM-001}{PROVED}. 위의 고정된 \(B,R\)마다, 새로운 균등
+잉여류를 사용하는 고전적 Las Vegas 알고리즘은 유전적 \(p-1\)
+semismooth-asymmetry 약속의 모든 입력을 완전히 인수분해한다. 알고리즘은
+항상 옳고 거의 확실하게 종료하며 기대 비트 복잡도는 입력 길이의
+다항식이다. 약속된 잔여 노드의 한 완전 schedule cycle은 적어도
+\(5/12\)의 확률로 분할한다.
+
+\begin{claimproof}
+잔여 노드 \(K\)에서 \(1\le t\le R(k)\)를 순회한다. 각 \(t\)마다 새로운
+정확한 균등 \(a\bmod K\)를 뽑아 먼저 \(\gcd(a,K)\)를 검사하고, 이어서
+\[
+\gcd\!\left(a^{tM_B(k)}-1,K\right)
+\]
+를 계산한다. witness \(p,q,t\)를 고정하면 모든 unit은 \(p\)에서 1이
+되지만, \(q\)에서 지수에 의해 소거되는 unit은 진부분군이므로 전체
+unit의 절반 이하이다. proper nonunit은 이미 약수를 준다. 따라서
+\[
+\Pr(\text{성공})\ge
+\frac{K-1-\varphi(K)/2}{K}
+\ge\frac{K-1}{2K}\ge\frac5{12}.
+\]
+새로운 표본은 기하 꼬리와 거의 확실한 종료를 준다. 지수 비트 길이는
+\(O(B(k)\log B(k)+\log R(k))\)이고 인수분해 재귀 트리의 노드 수는
+\(O(m)\)이므로 기대 비용은 \(\poly(m)\)이다. 완전한 branch 및 재귀
+증명은 \path{research/proofs/THM-001-semismooth-promise.md}에 있다.
+\end{claimproof}
+
+고정 밑으로 바꾸면 정리가 깨진다. \(N=51\), \(a=2\),
+\(d=\operatorname{lcm}(1,\ldots,8)=840\)에서 \(3-1\mid d\),
+\(17-1\nmid d\)이지만 \(\operatorname{ord}_{17}(2)=8\mid d\)이므로
+\(\gcd(2^{840}-1,51)=51\)인 full collision이 생긴다.
+
+\section{포함은 분리가 아니다}
+
+유한 양의 지수족 \(\Delta\)에 대해
+\[
+\Sigma_\Delta(r)=\{d\in\Delta:r\mid d\}
+\]
+를 정의한다.
+
+\claimstatus{BAR-001}{PROVED}. 약수 포함은 차수 분리를 함의하지 않는다.
+profile \((r_1,\ldots,r_s)\)는 그 signature들이 모두 같지 않을 때와
+그때에만 분리된다. \(\{1,\ldots,n\}\)의 서로 다른 모든 차수 쌍을
+분리하는 필요충분조건은 \(r\mapsto\Sigma_\Delta(r)\)의 단사성이며,
+비어 있지 않은 명시적 signature족은
+\[
+|\Delta|\ge\lceil\log_2(n+1)\rceil
+\]
+을 만족한다.
+
+\begin{claimproof}
+한 지수가 일부 \(r_i\)만 나누는 조건은 그 지수가 일부 signature에만
+속하는 조건과 같다. 따라서 전체 분리는 signature 불일치와 동치이다.
+비어 있지 않은 부분집합은 최대 \(2^{|\Delta|}-1\)개이므로 하한이
+따른다. 최소 반례 \(\Delta=\{2\}\)에서는 차수 1과 2가 모두 포함되지만
+signature가 같고 \(\gcd(5^2-1,6)=6\)이다.
+\end{claimproof}
+
+\section{켤레 채널의 상관}
+
+\(V_0(P,1)=2\), \(V_1(P,1)=P\),
+\(V_{j+1}(P,1)=PV_j(P,1)-V_{j-1}(P,1)\)로 둔다.
+
+\claimstatus{BAR-002}{PROVED}. \(a\)가 \(N\)의 unit이고
+\(P=a+a^{-1}\)이면 모든 \(d\ge0\)에 대해
+\[
+V_d(P,1)-2=a^{-d}(a^d-1)^2,\qquad
+P^2-4=a^{-2}(a^2-1)^2\pmod N.
+\]
+따라서 유도된 Lucas 잉여와 곱셈 잉여는 같은 소수 support를 갖는다.
+지수 2를 보존하면 이 유도 채널은 곱셈족의 성공 영역을 넓히지 못한다.
+
+\begin{claimproof}
+\(a^d+a^{-d}\)가 같은 초기값과 점화식을 만족하므로
+\(V_d(P,1)\)와 같다. 2를 빼고 unit \(a^d\)를 곱하면 제곱 항등식이
+나온다. 판별식 항등식은 \(d=2\)인 경우이다. 소수거듭제곱에서는
+valuation이 두 배가 되어 오히려 분할을 악화시킬 수 있다.
+\((N,a,P,d)=(25,2,15,4)\)에서 곱셈 GCD는 5이지만 Lucas GCD는 25이다.
+\end{claimproof}
+
+\section{독립적인 비분할 \texorpdfstring{\(p+1\)}{p+1} 인수분해}
+
+\claimstatus{LEM-003}{PROVED}. 모든 홀수 소수 \(q\)와 \(d>0\)에 대해
+\[
+\#\{P\in\mathbb F_q:V_d(P,1)=2\}
+=\frac{\gcd(d,q-1)+\gcd(d,q+1)}2.
+\]
+이 중 정확히 \(1+\mathbf1_{2\mid d}\)개가 퇴화 매개변수 \(P=\pm2\)이고,
+정확히 \((q-1)/2\)개가 비제곱 판별식을 갖는다.
+
+\begin{claimproof}
+\(P=z+z^{-1}\)로 매개화하고 \(z\)를 차수 \(q-1\)인
+\(\mathbb F_q^\times\)와 차수 \(q+1\)인
+\(\mathbb F_{q^2}^\times\)의 norm-one 부분군으로 나눈다.
+\(V_d(P,1)=2\)는 \(z^d=1\)과 동치이다. 비퇴화 쌍
+\(\{z,z^{-1}\}\)을 한 번씩 세고 \(z=\pm1\) 고정점을 보정하면 식이
+따른다.
+\end{claimproof}
+
+\claimstatus{THM-002}{PROVED}. 새로운 균등 \(P\bmod K\)를 사용하는
+고전적 Las Vegas 알고리즘은 유전적 비분할 \(p+1\)-asymmetry 약속의
+모든 입력을 완전히 인수분해한다. 항상 옳고 거의 확실하게 종료하며
+기대 비트 복잡도는 다항식이다. witness 시도의 성공 확률은
+\(1/12\)보다 크다.
+
+\begin{claimproof}
+\(\gcd(P^2-4,K)\)의 proper factor를 보존하고, 이 GCD가 full이어도
+\(\gcd(V_d(P,1)-2,K)\)를 별도로 검사한다. witness 소수 \(p\)에서는
+\((p-1)/2\)개의 비분할 매개변수가 수열 값을 2로 만든다. \(q\)에서
+비퇴화 collision 수는 LEM-003에 의해
+\[
+C_q(d)\le(3q-9)/4
+\]
+이다. CRT 사건의 확률은
+\[
+\frac{p-1}{2p}\frac{q-C_q(d)}q>\frac1{12}
+\]
+이다. 새로운 매개변수, 이진 Lucas 평가, 전처리와 재귀는 기하 꼬리와
+다항 기대 비용을 준다. 완전한 증명은
+\path{research/proofs/THM-002-nonsplit-lucas-promise.md}에 있다.
+\end{claimproof}
+
+\section{공통 schedule의 한계}
+
+\[
+\sigma_\Delta(p)=
+\bigl(\mathbf1_{p-1\mid d},\mathbf1_{p+1\mid d}\bigr)_{d\in\Delta}
+\]
+는 미지 소인수에서 평가되는 분석 객체이며 입력 recognizer가 아니다.
+
+\claimstatus{BAR-003}{PROVED}. 서로 다른 홀수 소수 \(p,q\)에 대해 지역
+\(p-1\), \(p+1\) 비대칭 약속의 합집합은
+\(\sigma_\Delta(p)\ne\sigma_\Delta(q)\)와 동치이다. 유한 소수집합
+\(S\)에서 \(s=|S|\), nonzero signature 소수 수를 \(h\),
+\(D=\max\Delta\)라 하면 약속 쌍 비율은
+\[
+\rho_\Delta(S)\le
+\frac{h(2s-h-1)}{s(s-1)}
+\le\min\left\{1,\frac{8|\Delta|\sqrt D}{s-1}\right\}.
+\]
+
+\begin{claimproof}
+서로 다른 signature는 정확히 한 소수 쪽만 포함하는 좌표를 준다.
+nonzero signature에 닿는 쌍을 세면 첫 부등식이 나온다. 각 \(d\)에
+대해 \(p-1\mid d\) 또는 \(p+1\mid d\)인 소수 수는 약수 수로 유계되고
+\(\tau(d)\le2\sqrt d\)이므로 \(h\le4|\Delta|\sqrt D\)이다.
+\end{claimproof}
+
+\claimstatus{BAR-004}{PROVED}. 최대 지수 비트 길이가
+\(o(k\log k)\)인 다항 크기 명시적 지수 목록은 \(p\pm1\) 약수 검사를
+통해 최대 \(2^{o(k)}\)개의 홀수 소수를 hit한다. 별도로 가정된
+\(2^{\alpha k}\) 크기의 공통 길이 소수 모집단에서는 covered-pair
+비율이 0으로 수렴한다.
+
+\begin{claimproof}
+모든 hit은 \(p-1\mid d\) 또는 \(p+1\mid d\)에서 생기므로 전체 수는
+지수들의 약수 수 합의 두 배 이하이다.
+\(\log_2\tau(d)=O(\ell(d)/\log\ell(d))=o(k)\)를 다항 개의 지수에
+합쳐도 \(2^{o(k)}\)이다. BAR-003의 정확한 쌍 경계에 대입하면 된다.
+이는 모든 compact 표현이나 adaptive schedule의 하한이 아니다.
+\end{claimproof}
+
+\section{재현성과 한계}
+
+\begin{verbatim}
+python scripts/run_m3_semismooth_search.py
+python scripts/check_m3_semismooth_differential.py
+python scripts/run_m7_nonsplit_search.py
+python scripts/check_m7_nonsplit_differential.py
+\end{verbatim}
+실험 기록은
+\path{research/experiments/EXP-0003-m3-semismooth-search.md}와
+\path{research/experiments/EXP-0006-m7-nonsplit-lucas.md}에 있다.
+실험은 유한 산술과 branch를 검사하며 확률 하한의 증명을 대체하지 않는다.
+
+전체 증명, 반례, 비용 장부, 부정 결과, claim 의존성은
+\archivepaper, \path{research/CLAIMS.md},
+\path{research/NEGATIVE_RESULTS.md}에 보존된다. 기계 검증되는 투영은
+\path{schemas/m82-paper-portfolio-v1.json}이다. 약속 membership은
+여전히 인식되지 않고 입력 밀도 정리도 없으며, 일반 고전적 다항시간
+인수분해 문제는 열린 상태이다.
+
+\end{document}

@@ -1,0 +1,26 @@
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[margin=1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{seqsplit}
+
+\setmainfont{Times New Roman}
+\setCJKmainfont{Malgun Gothic}
+\setCJKsansfont{Malgun Gothic}
+\setCJKmonofont{Malgun Gothic}
+\xeCJKsetup{CJKspace=true}
+\XeTeXlinebreaklocale "ko"
+\XeTeXlinebreakskip=0pt plus 1pt
+\setlength{\emergencystretch}{2em}
+
+\newcommand{\claimstatus}[2]{\textbf{#1 [#2]}}
+\newcommand{\poly}{\operatorname{poly}}
+\newcommand{\bits}{\operatorname{bitlength}}
+\newcommand{\archivepaper}{\path{paper/main-ko.tex}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newenvironment{claimproof}{\par\noindent\textbf{증명.}}{\hfill\(\square\)\par}
+\renewcommand{\abstractname}{초록}

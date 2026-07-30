@@ -250,6 +250,27 @@ C\# 경로가 표준 정수 비트길이 연산을 사용함을 확인했다. �
 BAR-064의 보조 검증이지 새로운 separator 또는 일반 인수분해
 정리가 아니다.
 
+\section{집중형 영문ㆍ국문 논문 포트폴리오}
+
+archival monograph는 전체 claim과 증명의 권위 있는 기록으로 유지한다.
+독자의 검토와 투고를 위해 M82는 이를 세 개의 집중형 영문ㆍ국문 논문
+쌍으로 투영한다.
+\begin{enumerate}
+\item \path{paper/focused/promise-factorization-ko.tex}는 membership을
+  인식하지 못하는 두 유전적 약속 아래의 Las Vegas 정리를 전면에 둔다.
+\item \path{paper/focused/cyclotomic-extraction-ko.tex}는 유리
+  root-orbit 분류와 compact 예외 cofactor를 분리한다.
+\item \path{paper/focused/finite-certificates-ko.tex}는 유한 selector
+  인증서와 그 selector족에 한정된 점근 장벽을 제시한다.
+\end{enumerate}
+각 논문 쌍은 상태를 바꾸지 않은 대표 claim ID를 정확히 일곱 개씩
+포함한다. 나머지 claim은 삭제하거나 약화하지 않고 archival-only
+근거로 보존한다. 결정적 투영 artifact
+\path{schemas/m82-paper-portfolio-v1.json}는
+\path{research/CLAIMS.md}의 모든 claim을 포괄한다. 독립 checker는
+영문ㆍ국문 claim parity, 재현 anchor, 유한 endpoint \(m=34\), 일반
+고전적 다항시간 인수분해의 OPEN 상태를 함께 강제한다.
+
 \section{M0--M28의 검증 결과 요약}
 
 \subsection{제한적 양의 결과}
@@ -3065,6 +3086,8 @@ python scripts/check_m53_distinct_gap_differential.py
 python scripts/run_m81_bitlength_audit.py
 python scripts/generate_m81_bitlength_schema.py
 python scripts/check_m81_bitlength_differential.py
+python scripts/generate_m82_paper_portfolio.py --check
+python scripts/check_m82_paper_portfolio.py
 python scripts/generate_korean_claim_appendix.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex

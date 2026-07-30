@@ -16,6 +16,21 @@ MATRIX = ROOT / "research" / "PUBLICATION_CLAIMS.md"
 M50_ARTIFACT = ROOT / "schemas" / "m50-finite-threshold-summary-v1.json"
 M50_TABLE_EN = ROOT / "paper" / "tables" / "finite-threshold-summary-en.tex"
 M50_TABLE_KO = ROOT / "paper" / "tables" / "finite-threshold-summary-ko.tex"
+M82_ARTIFACT = ROOT / "schemas" / "m82-paper-portfolio-v1.json"
+M82_FOCUSED_PAIRS = (
+    (
+        ROOT / "paper" / "focused" / "promise-factorization-en.tex",
+        ROOT / "paper" / "focused" / "promise-factorization-ko.tex",
+    ),
+    (
+        ROOT / "paper" / "focused" / "cyclotomic-extraction-en.tex",
+        ROOT / "paper" / "focused" / "cyclotomic-extraction-ko.tex",
+    ),
+    (
+        ROOT / "paper" / "focused" / "finite-certificates-en.tex",
+        ROOT / "paper" / "focused" / "finite-certificates-ko.tex",
+    ),
+)
 
 CLAIM_ROW = re.compile(r"^\| ([A-Z]+-\d+) \| ([A-Z]+) \|", re.MULTILINE)
 PAPER_CLAIM = re.compile(r"\\claimstatus\{([A-Z]+-\d+)\}\{([^}]+)\}")
@@ -31,6 +46,7 @@ REQUIRED_SECTIONS = (
     "Related work and complexity landscape",
     "Model and definitions",
     "Standard bit length and migration audit",
+    "Focused bilingual paper portfolio",
     "Order separators and algorithmic framework",
     "A restricted semismooth-order theorem",
     "Difference coverage versus order separation",
@@ -439,6 +455,44 @@ def main() -> int:
         if not generated.exists():
             fail(f"missing M50 generated artifact: {generated.relative_to(ROOT)}")
             errors += 1
+    if not M82_ARTIFACT.exists():
+        fail(f"missing M82 generated artifact: {M82_ARTIFACT.relative_to(ROOT)}")
+        errors += 1
+    projected_ids: set[str] = set()
+    for english_path, korean_path in M82_FOCUSED_PAIRS:
+        if not english_path.exists() or not korean_path.exists():
+            fail(
+                "missing M82 focused paper pair: "
+                f"{english_path.relative_to(ROOT)}, {korean_path.relative_to(ROOT)}"
+            )
+            errors += 1
+            continue
+        english_matches = PAPER_CLAIM.findall(
+            english_path.read_text(encoding="utf-8")
+        )
+        korean_focused_matches = PAPER_CLAIM.findall(
+            korean_path.read_text(encoding="utf-8")
+        )
+        if english_matches != korean_focused_matches:
+            fail(f"M82 bilingual claim mismatch: {english_path.relative_to(ROOT)}")
+            errors += 1
+        if not 5 <= len(english_matches) <= 7:
+            fail(
+                "M82 focused paper must contain 5--7 representative claims: "
+                f"{english_path.relative_to(ROOT)}"
+            )
+            errors += 1
+        for claim_id, status in english_matches:
+            if claim_id in projected_ids:
+                fail(f"M82 claim projected into multiple papers: {claim_id}")
+                errors += 1
+            projected_ids.add(claim_id)
+            if ledger.get(claim_id) != normalized_status(status):
+                fail(f"M82 focused claim status mismatch: {claim_id}")
+                errors += 1
+    if len(projected_ids) != 21:
+        fail(f"M82 focused projection must contain 21 unique claims, got {len(projected_ids)}")
+        errors += 1
 
     for section in REQUIRED_SECTIONS:
         if rf"\section{{{section}}}" not in paper_text:

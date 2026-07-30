@@ -1259,3 +1259,23 @@
   is odd and the implementations already use standard bit-length operations.
   M82 will normalize notation while splitting the manuscript; no general
   factoring claim changes status.
+
+## ADR-066 - Keep one archival authority and three focused projections
+
+- Date: 2026-07-31.
+- Decision: retain `paper/main.tex`, `paper/main-ko.tex`, and
+  `research/CLAIMS.md` as the complete authoritative record, while publishing
+  three focused bilingual paper pairs for promise factorization, cyclotomic
+  extraction, and finite certificates.
+- Rationale: copying all 268 claim statements and the full milestone
+  chronology into every submission would recreate the readability problem
+  identified by the external review. A checked projection gives each paper
+  seven representative results without silently deleting supporting proofs,
+  barriers, refutations, or experiment anchors.
+- Consequence: `schemas/m82-paper-portfolio-v1.json` records all 21 focused
+  claim placements and all 247 archival-only claims with source hashes.
+  `scripts/check_m82_paper_portfolio.py` independently enforces bilingual
+  status parity, exclusive front-facing placement, exhaustive ledger
+  coverage, reproduction anchors, the finite endpoint, and the OPEN general
+  factoring scope. M83 may change positioning only after inspecting primary
+  sources; it may not infer novelty from this editorial split.
