@@ -1,0 +1,16 @@
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[margin=1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{seqsplit}
+\setlength{\emergencystretch}{2em}
+
+\newcommand{\claimstatus}[2]{\textbf{#1 [#2]}}
+\newcommand{\poly}{\operatorname{poly}}
+\newcommand{\bits}{\operatorname{bitlength}}
+\newcommand{\archivepaper}{\path{paper/main.tex}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newenvironment{claimproof}{\par\noindent\textit{Proof.}}{\hfill\(\square\)\par}

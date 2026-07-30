@@ -1,5 +1,63 @@
 # Research Status
 
+## M82 outcome
+
+- Date: 2026-07-31.
+- Branch: `research/20260731-m82-paper-portfolio`.
+- Base: M81 squash merge
+  `c2260a8e0b5fc30e4ef5cf6133e78c3c82159bb9`.
+- The 126-page English and 54-page Korean archival monographs remain the
+  complete authority. No claim status was promoted, demoted, or removed.
+- Three focused English/Korean paper pairs were created:
+  - promise factorization: THM-001, BAR-001, BAR-002, LEM-003, THM-002,
+    BAR-003, and BAR-004;
+  - cyclotomic extraction: BAR-018, BAR-019, THM-003, BAR-020, BAR-021,
+    BAR-022, and BAR-023;
+  - finite certificates: BAR-024, THM-004, THM-005, THM-014, THM-019,
+    BAR-041, and BAR-046.
+- Each focused pair contains exactly seven representative claim IDs in the
+  same order and status. The promise paper puts unrecognized hereditary
+  membership in its title and abstract. The certificate paper keeps
+  \(9\le m\le34\), family-relative minimality, and nonasymptotic scope
+  explicit.
+- The deterministic `schemas/m82-paper-portfolio-v1.json` projection covers
+  all 268 authoritative claims: 21 focused claims and 247 archival-only
+  claims. Its canonical portfolio summary SHA-256 is
+  `8bf1e96dce1a83a6c77540f9958d6ba04a7f05c5cca60ed82cd6cd2aa241949c`;
+  the JSON file SHA-256 is
+  `9170d36ce732cca150c820b0fe284a29fd8fb241fe5e4c92e84167b0ea0586ac`.
+- The generator records the claim status sequence, full archive-only list,
+  focused source hashes, archival source hashes, reproduction anchors, and
+  scope fields. The independent checker imports no generator code.
+- Verification passed: the independent projection checker; seven regression
+  tests covering a valid projection plus duplicate IDs, status drift, Korean
+  scope removal, summary tampering, authority-path substitution, and
+  source-hash omission; the complete 276-test/277-subtest Python suite;
+  strict mypy over 30 source files and the new M82 scripts; Ruff; compileall;
+  the foundation and publication checks; Rust formatting, Clippy, and all 36
+  tests; and the warning-free Release C# test/build.
+- Paper gate: converged XeLaTeX produced all six focused PDFs (four pages per
+  promise/cyclotomic paper and five pages per certificate paper) and the
+  126-page English and 54-page Korean archives. Log inspection found no
+  undefined references or citations, overfull boxes, missing glyphs, or font
+  warnings. Rendered QA covered every focused title page, both certificate
+  tables, and the new archival portfolio sections.
+- Scope: M82 is an editorial projection milestone. It proves no new
+  factoring theorem, makes no novelty or priority claim, and leaves general
+  classical polynomial-time factoring open. M83 is the next
+  highest-priority milestone and will perform a primary-source related-work
+  audit.
+
+### M82 Korean summary
+
+M82는 268개 claim과 전체 증명을 보존한 archival monograph를 권위 있는
+원본으로 유지하면서, 독자가 핵심 기여를 구별할 수 있도록 약속류
+인수분해, cyclotomic 추출, 유한 인증서의 세 주제를 각각 영문ㆍ국문
+논문으로 분리했다. 각 논문 쌍은 동일한 대표 claim 일곱 개만 전면에
+배치하고 나머지 247개 claim은 archival-only 근거로 추적한다. 유한
+인증서는 여전히 \(m\le34\)의 정의된 selector족에만 적용되며, 일반
+고전적 다항시간 인수분해는 해결되지 않았다.
+
 ## M81 outcome
 
 - Date: 2026-07-31.

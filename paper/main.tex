@@ -687,6 +687,31 @@ and
 The enumeration validates the implementation; the universal statement is
 proved by BAR-064. No separator claim changes status.
 
+\section{Focused bilingual paper portfolio}
+
+The archival manuscript remains the complete claim and proof record.  For
+reader-facing submission, M82 projects it into three focused bilingual paper
+pairs:
+\begin{enumerate}
+\item \path{paper/focused/promise-factorization-en.tex} and its Korean
+  companion foreground the two Las Vegas theorems under unrecognized
+  hereditary promises;
+\item \path{paper/focused/cyclotomic-extraction-en.tex} and its Korean
+  companion isolate the rational root-orbit classification and compact
+  exceptional cofactors;
+\item \path{paper/focused/finite-certificates-en.tex} and its Korean
+  companion present the finite selector certificates and their
+  family-specific asymptotic barriers.
+\end{enumerate}
+Each pair carries exactly seven representative claim IDs with unchanged
+statuses. The remaining ledger claims are retained as archival-only support,
+not deleted or silently weakened. The deterministic projection artifact
+\path{schemas/m82-paper-portfolio-v1.json} covers every claim in
+\path{research/CLAIMS.md}; its generator and independently implemented
+checker also enforce English--Korean claim parity, reproduction anchors,
+the \(m=34\) finite endpoint, and the OPEN status of general classical
+polynomial-time factoring.
+
 \section{Order separators and algorithmic framework}
 
 \claimstatus{LEM-001}{PROVED}. If \(D_N(g,d)\) is nonempty and proper, then
@@ -8460,6 +8485,8 @@ python scripts/check_m53_distinct_gap_differential.py
 python scripts/run_m81_bitlength_audit.py
 python scripts/generate_m81_bitlength_schema.py
 python scripts/check_m81_bitlength_differential.py
+python scripts/generate_m82_paper_portfolio.py --check
+python scripts/check_m82_paper_portfolio.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}

@@ -1,0 +1,269 @@
+\documentclass[11pt]{article}
+\input{paper/focused/preamble-ko.tex}
+
+\title{부호 있는 기하급수 회로의\\
+예외적 Cyclotomic 추출}
+\author{MOSEF 연구 프로그램}
+\date{2026년 7월 31일}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+본 논문은 하나의 부호 있는 깊이 2 기하급수 회로에서 나타나는 유리
+root-of-unity 비율을 완전히 분류하고 두 개의 예외적 이차 cyclotomic
+족을 분리한다. 공통 step 경우를 제외하면 비율 1인 차수 4와 비율 2인
+차수 6만 남는다. 두 quotient cofactor는 나눗셈 없이 로그 개수의
+modular step으로 평가할 수 있고, 직접 cyclotomic, stage, 공개 overlap
+GCD가 모두 unit인 뒤에도 proper factor를 드러낼 수 있다. 정확한
+resultant 공식은 모든 overlap branch를 공개적이고 total하게 만든다.
+동시에 고정된 유한 schedule은 무한히 많은 semiprime을 놓치며, exact
+lift materialization은 compact 평가보다 지수적으로 비쌀 수 있고,
+한 cofactor는 signature 한 비트만 준다는 한계를 증명한다. 이는 특정
+회로 문법의 결과이며 보편 schedule이나 일반 인수분해 알고리즘이 아니다.
+\end{abstract}
+
+\section{비용이 명시된 회로 문법}
+
+\[
+S_M(X)=1+X+\cdots+X^{M-1},\quad
+Q_1=S_A(X),\quad Q_2=S_B(X^A)
+\]
+로 두고, 서로 다른 공개 \(A,B\ge2\)와 0이 아닌 공개 계수에 대해
+\[
+F(X)=c_1Q_1(X)+c_2Q_2(X)
+\]
+를 정의한다. 구성, 두 stage 평가, 계수 축약, 모든 GCD, 실패한 역원,
+독립적인 cyclotomic/cofactor 출구, 요청된 dense/sparse 출력을 모두
+비용에 포함한다. 복잡도는
+\(\bits(N)=\lfloor\log_2N\rfloor+1\)에 대해 계산한다.
+
+\claimstatus{BAR-018}{PROVED}. 두 stage는 \(\mathbb Q[X]\)에서 서로
+소이고
+\[
+\operatorname{Res}(Q_1,Q_2)=B^{A-1}.
+\]
+\(L=Q_1(g)\)가 \(N\)의 unit이면
+\[
+\gcd(F(g),N)=
+\gcd(c_1+c_2Q_2(g)L^{-1},N).
+\]
+proper \(L\)-GCD는 이미 \(N\)을 분해하고, full \(L\)-collision에서는
+aggregate가 공개 값 \(c_2B\)로 축약된다. 또한
+\(h=\gcd(A-1,B-1)\)에 대해
+\[
+Q_2(X)-Q_1(X)=XS_h(X)C_{A,B}(X)
+\]
+이며 두 자연스러운 endpoint와의 다항식 GCD는 정확히 \(S_h(X)\)이다.
+
+\begin{claimproof}
+\[
+Q_2(X)-B=(X-1)Q_1(X)\sum_{j=1}^{B-1}S_j(X^A)
+\]
+를 \(A\)-th root에서 평가하면 서로 소성과 resultant가 나온다. 같은
+항등식을 \(g\)에서 평가하면 세 modular branch가 완전히 분리된다.
+두 endpoint의 root set을 비교하고 monic division을 적용하면 공통
+인수 \(S_h\)가 정확히 얻어진다. 따라서 묵시적인 나눗셈은 없다.
+\end{claimproof}
+
+\section{Primitive residue와 공개 overlap}
+
+\(d=\gcd(|c_1|,|c_2|)\), \(c_i=da_i\),
+\(\gcd(|a_1|,|a_2|)=1\)로 둔다.
+
+\claimstatus{BAR-019}{PROVED}. content \(d\)는 unit, proper, full의
+total GCD 출구를 갖는다. unit branch에서 primitive aggregate
+\(P=a_1Q_1+a_2Q_2\)의 stage resultant는
+\[
+\operatorname{Res}(Q_1,F)=(c_2B)^{A-1},\qquad
+\operatorname{Res}(Q_2,F)=c_1^{A(B-1)}B^{A-1}
+\]
+이고,
+\[
+\gcd(Q_1(g),F(g),N)\mid\gcd(c_2B,N),\quad
+\gcd(Q_2(g),F(g),N)\mid\gcd(c_1B,N).
+\]
+두 stage의 zero set 밖의 root of unity에서는
+\[
+F(\zeta)=0\iff
+c_1(\zeta^A-1)^2+
+c_2(\zeta-1)(\zeta^{AB}-1)=0.
+\]
+
+\begin{claimproof}
+content 분해가 첫 trichotomy를 준다. 각 stage root에서 평가하고
+resultant의 곱셈성을 사용하면 두 거듭제곱이 나온다. Bézout 항등식을
+\(N\)의 각 소인수로 축약하면 overlap은 공개 coefficient--multiplier
+GCD를 나눈다. 유리 stage 식에 두 denominator를 곱하면 마지막 조건이
+된다.
+\end{claimproof}
+
+\((A,B,c_1,c_2)=(3,7,1,1)\)에서는 \(\Phi_4\mid F\)이다. \(N=55,g=2\)
+에서 두 stage와 두 공개 overlap bound가 모두 unit이지만
+\(\gcd(F(2),55)=5\)이므로 경계 인수만으로는 충분하지 않다.
+
+\section{유리 root-orbit의 완전 분류}
+
+두 stage의 zero set 밖에 있는 차수 \(n>1\)의 primitive root \(\zeta\)에
+대해
+\[
+R_{A,B}(\zeta)=-\frac{S_B(\zeta^A)}{S_A(\zeta)}
+\]
+로 둔다.
+
+\claimstatus{THM-003}{PROVED}. 이 비율이 유리수인 경우는 정확히 다음
+세 가지이다.
+\[
+\begin{array}{c|c|c}
+\text{차수 조건}&R_{A,B}(\zeta)&(c_1,c_2)\\ \hline
+n\mid\gcd(A-1,B-1)&-1&(-1,1)\\
+n=4,\ A\equiv B\equiv3\pmod4&1&(1,1)\\
+n=6,\ A\equiv5,\ B\equiv3\pmod6&2&(2,1).
+\end{array}
+\]
+요청된 차수의 인식은 \(A,B,n\)의 이진 길이에 대해 다항시간이다.
+공통 step 족은 \(\gcd(A-1,B-1)\)의 약수라는 compact descriptor로
+남기며, 실제 약수 열거 비용은 별도로 계산한다.
+
+\begin{claimproof}
+Galois 불변성과 켤레는 먼저 \(n\mid A(B-2)+1\)을 강제한다.
+\(bA\equiv1\pmod n\), \(k\equiv b-1\pmod n\)를 택하면
+\[
+R_{A,B}(\zeta)+1=
+\frac{\sin^2(k\pi/n)}{\sin^2(\pi/n)}
+\]
+이다. 이는 유리 대수적 정수이므로 음이 아닌 정수이다. cyclotomic norm
+case split은 공통 step orbit와 두 이차 orbit만 남긴다. 직접 대입으로
+비율과 합동 조건을 확인한다. 위상 합동만으로는 부족하며
+\((A,B,n)=(2,4,5)\)에서는 \((1+\sqrt5)/2\)가 나온다. 전체 증명은
+\path{research/proofs/THM-003-rational-root-orbits.md}에 있다.
+\end{claimproof}
+
+\section{나눗셈 없는 예외적 cofactor}
+
+\[
+\begin{aligned}
+F_4&=S_A(X)+S_B(X^A)=\Phi_4(X)C_4(X),
+&&A\equiv B\equiv3\pmod4,\\
+F_6&=2S_A(X)+S_B(X^A)=\Phi_6(X)C_6(X),
+&&A\equiv5,\ B\equiv3\pmod6
+\end{aligned}
+\]
+로 정의한다.
+
+\claimstatus{BAR-020}{PROVED}. 각 \(C_i\)는 차수 \(A(B-1)-2\)인 monic
+정수 다항식이지만, \(C_i(g)\bmod N\)은 상수 크기 descriptor와
+\(O(\log A+\log B)\)회의 modular 연산으로 나눗셈 없이 평가된다.
+
+\begin{claimproof}
+\(A=4a+3\), \(B=4b+3\)에 대해
+\[
+U_4(4t+3;x)=(1+x)S_t(x^4)+x^{4t},\quad
+D_4(A;x)=S_A(-x^2)
+\]
+로 두고 \(r=A-2\), \(s=A(B-2)\), \(k=(s-r)/2\)라 하면
+\[
+C_4=U_4(A;x)+D_4(A;x)U_4(B;x^A)+x^rS_k(-x^2).
+\]
+차수 6에서는 \(x^2-x+1\)로 나눈 impulse response가 주기 6이므로
+\(D_6(A;x)=\Phi_6(x^A)/\Phi_6(x)\)는 두 개의 주기 6 구간을 갖는다.
+\(H=x^3+2x^2+2x+1\), \(J=x^4+x^3-x-1\)라 하면
+\[
+\begin{split}
+C_6={}&2H(x)S_{a+1}(x^6)\\
+&+D_6(A;x)(H(x^A)S_b(x^{6A})+x^{6Ab})\\
+&+2x^AJ(x)S_{Ab}(x^6).
+\end{split}
+\]
+이진 기하급수 평가가 비용을 증명한다. 정수 곱 항등식은
+prime-power valuation의 가법성을 주므로 direct와 cofactor GCD를
+독립적으로 사용할 수 있다. dense 출력은 여전히
+\(A(B-1)-1\)개 계수 비용을 낸다.
+\end{claimproof}
+
+\section{Overlap 및 schedule 장벽}
+
+\claimstatus{BAR-021}{PROVED}. cofactor GCD는 capped 지역 valuation
+profile이 0이 아니고 full도 아닐 때와 그때에만 proper이다.
+stage/cofactor resultant의 소수 support는 차수 4에서 \(B\), 차수 6에서
+\(2B\)에 포함된다. direct/cofactor overlap은
+\[
+\begin{aligned}
+(u_4,v_4)&=\left(\frac{A(B+2)+1}{4},
+                 \frac{A(B-2)+1}{4}\right),&
+R_4&=u_4^2+v_4^2,\\
+(u_6,v_6)&=\left(-\frac{2(A(B-2)+1)}3,
+                 \frac{A(B+4)+4}3\right),&
+R_6&=u_6^2+u_6v_6+v_6^2
+\end{aligned}
+\]
+로 공개된다. 모든 고정된 유한 public joint schedule은 무한히 많은
+square-free semiprime을 놓친다.
+
+\begin{claimproof}
+유일분해가 valuation 조건을 준다. 제거된 이차식으로 cofactor를
+축약하면 \(u_i+v_iX\)가 되고 그 이차 norm이 \(R_i>0\)이다. 고정
+schedule의 모든 양의 charged exact 값을 곱하면 유한 개 소수만 나눈다.
+그 support 밖의 서로 다른 두 소수를 택하면 모든 charged GCD가 1이다.
+schedule을 입력보다 먼저 고정하는 양화 순서가 핵심이다.
+\end{claimproof}
+
+\claimstatus{BAR-022}{PROVED}. balanced population
+\[
+\mathcal P_m=\{p\text{ prime}:2^{m-1}\le p^2<2^m\}
+\]
+에서 materialized exact lift의 총 비트 예산이 \(W_m\), hit 소수 수가
+\(h_m\), 전체 소수 수가 \(s_m\)이면 정확히
+\(\binom{s_m-h_m}{2}\)개의 쌍에서 모든 materialized GCD가 1이고
+\[
+\left\lfloor\frac{m-1}{2}\right\rfloor h_m\le W_m.
+\]
+모든 쌍을 다루려면 \(h_m\ge s_m-1\)이어야 한다.
+
+\begin{claimproof}
+두 unhit 소수의 곱은 어떤 lift도 나누지 않으므로 모든 GCD가 1이다.
+hit 소수의 square-free 곱은 모든 nonzero lift의 곱을 나누고 각 소수는
+적어도 \(\lfloor(m-1)/2\rfloor\)비트이므로 예산 부등식이 나온다. 이
+materialization 정리는 compact 평가에 그대로 이전되지 않는다.
+\end{claimproof}
+
+\claimstatus{BAR-023}{PROVED}. compact 차수 4 tuple
+\(A=3\), \(B_m=2^m+3\), \(g=2\)에서 \(C_m=C_4(2)\),
+\(E_m=3\cdot2^m+5\)라 하면
+\[
+C_m=\frac{16(2^{E_m}+3)}{35},\qquad
+\gcd(C_m,C_{m+1})=16.
+\]
+\(s\)개 홀수 소수 중 정확히 \(h\)개가 \(C_m\)을 나누면 한 GCD는
+\(h(s-h)\)개 proper 결과, \(\binom h2\)개 full collision,
+\(\binom{s-h}{2}\)개 unit 결과를 갖는다. \(s\ge3\)이면 모든 쌍을
+다룰 수 없다.
+
+\begin{claimproof}
+정확한 \(C_4\) 항등식에 대입하면 closed form이 나온다. 연속 numerator의
+Euclidean 축약과 5, 7의 별도 처리가 GCD 16을 준다. 두 support bit가
+다를 때와 그때에만 쌍이 분리되므로 세 개수가 따르고
+\(h(s-h)<\binom s2\)이다.
+\end{claimproof}
+
+\section{재현성과 한계}
+
+\begin{verbatim}
+python scripts/run_m24_rational_residue_audit.py
+python scripts/check_m24_rational_residue_audit_differential.py
+python scripts/run_m25_rational_root_orbit_audit.py
+python scripts/check_m25_rational_root_orbit_differential.py
+python scripts/run_m26_exceptional_cyclotomic_audit.py
+python scripts/check_m26_exceptional_cyclotomic_differential.py
+\end{verbatim}
+EXP-0023부터 EXP-0025까지의 기록은
+\path{research/experiments}에 있다. 유한 symbolic/modular 검사는
+구현을 검증하며 대수적 증명을 대체하지 않는다.
+
+모든 전체 증명과 반례 및 branch 비용은 \archivepaper{}에 보존된다.
+claim 상태와 집중 논문 투영은 \path{research/CLAIMS.md}와
+\path{schemas/m82-paper-portfolio-v1.json}에 있다. 본 논문은 표시된
+부호 있는 기하급수 문법만 다루며, universal selector, prime-support
+density 정리, 일반 인수분해 알고리즘을 제공하지 않는다.
+
+\end{document}

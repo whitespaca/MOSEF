@@ -1,0 +1,259 @@
+\documentclass[11pt]{article}
+\input{paper/focused/preamble-en.tex}
+\usepackage{longtable}
+
+\title{Computer-Assisted Selector Certificates for\\
+Finite Balanced Semiprime Populations}
+\author{MOSEF Research Program}
+\date{31 July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We give complete finite certificates for one public family of compact
+cyclotomic-cofactor selectors on balanced square-free semiprimes.  For each
+binary length \(9\le m\le34\), exhaustive enumeration proves the least
+family-relative numeric cap \(L_m^\star\) whose prime support signatures are
+injective.  The resulting public cap \(m+167\) succeeds throughout this
+finite window.  The threshold is not monotone across different populations:
+\(L_{29}^\star=103<L_{28}^\star=104\).  The proof separates the mathematical
+signature criterion from the generated certificate, records predecessor
+collisions, and retains exact hashes and rerun commands.  We also prove that
+every polynomial numeric cap in this exact selector grammar eventually
+fails and give a sharper compact-gap barrier below the worst-packed boundary.
+The certificates do not apply to \(m>34\), do not minimize over other
+selector families, and do not solve general integer factoring.
+\end{abstract}
+
+\section{Population, selector, and trust boundary}
+
+Let
+\[
+ \mathcal P_m=\{p\text{ prime}:2^{m-1}\le p^2<2^m\}.
+\]
+Every product of two distinct primes in \(\mathcal P_m\) has standard binary
+length \(m\).  For a public integer cap \(L\ge m\), the selector
+\(\mathcal T_{m,L}\) contains every valid order-four and order-six
+exceptional-cofactor descriptor \((i,A,B,g)\) with
+\(2\le A,B,g\le L\).  It retains eight primitive exits: the base, two
+geometric stages, two public overlap bounds, the direct cyclotomic value,
+the cyclotomic/cofactor resultant, and the independently evaluated cofactor.
+Nonunit bases are processed before unit-only continuation is skipped.
+
+For a population prime \(p\), each nonzero exact exit supplies the support
+bit \(\mathbf1_{p\mid z}\).  Constant columns are deleted and duplicate
+columns merged only in the \emph{analytical certificate}; the online
+algorithm still evaluates its full public GCD list.  The generator,
+registered JSON schemas, independent differential checkers, and the
+publication projection are distinct artifacts.  A separate minimal
+semantic checker is deliberately left to M85.
+
+\section{Signature criterion}
+
+\claimstatus{BAR-024}{PROVED}.  Given \(s\ge2\) population primes and
+\(r\) exact candidate lifts, a pair \(pq\) is split by some candidate if and
+only if the two \(r\)-bit support signatures differ.  If signature bucket
+\(u\) has size \(n_u\), then
+\[
+ F=\sum_u\binom{n_u}{2},\qquad
+ S=\binom s2-F
+\]
+are the exact failed and successful pair counts.  Universal pair coverage
+is equivalent to injectivity and requires
+\[
+ r\ge\lceil\log_2s\rceil,
+\]
+or \(r\ge\lceil\log_2(s+1)\rceil\) when the all-zero signature is forbidden.
+
+\begin{claimproof}
+For one candidate,
+\[
+ \gcd(z,pq)=p^{\mathbf1_{p\mid z}}q^{\mathbf1_{q\mid z}}.
+\]
+Equal zero bits give a unit, equal one bits a full collision, and unequal
+bits a proper factor.  Applying this coordinatewise proves the equivalence
+and bucket count.  There are \(2^r\) signatures, or \(2^r-1\) nonzero
+signatures, giving the lower bounds.  No factor recognizer follows: the
+signatures are proof objects indexed by the enumerated primes.
+\end{claimproof}
+
+\section{Initial and widened finite theorems}
+
+\claimstatus{THM-004}{PROVED}.  For every \(9\le m\le15\), the base selector
+\(\mathcal T_{m,m}\) is injective on the complete population
+\(\mathcal P_m\).  Separating subcertificates use respectively
+\[
+ 1,2,2,3,4,6,10
+\]
+normalized coordinates.
+
+\begin{claimproof}
+The complete population sizes are \(2,3,3,4,6,7,11\).  The registered
+certificate enumerates each prime, evaluates all primitive exits, normalizes
+columns without changing equality, and checks all 104 unordered pairs.
+BAR-024 converts injectivity into a proper public GCD.  At \(m=16\), the
+three primes \(191,227,233\) have identical complete masks, proving that the
+base cap does not extend automatically.
+\end{claimproof}
+
+\claimstatus{THM-005}{PROVED}.  The public cap \(L(m)=m+11\) is injective
+on every complete population for \(9\le m\le20\).  Offset 11 is minimal on
+this finite range: at \(m=20,L=30\), \(809\) and \(827\) collide.
+
+\begin{claimproof}
+Raw selector inclusion makes separation monotone in \(L\).  Complete
+enumeration finds the first injective caps
+\[
+ L_m^\star=19,19,27,27,31\qquad(m=16,\ldots,20).
+\]
+The predecessor masks collide, while registered coordinate subsets are
+injective at each threshold.  The maximum finite offset is
+\(31-20=11\); the length-20 predecessor proves minimality.  The statement
+does not address \(m>20\).
+\end{claimproof}
+
+\section{Exact finite threshold synthesis}
+
+When it exists, let \(L_m^\star\) denote the least cap inside the
+\(\mathcal T_{m,L}\) family that is injective on the complete
+\(\mathcal P_m\).  This is a family-relative finite minimum, not a minimum
+over all selectors and not an asymptotic rate.
+
+\input{paper/tables/finite-threshold-summary-en.tex}
+
+\claimstatus{THM-014}{PROVED}.  At \(m=29\),
+\[
+ L_{29}^\star=103<L_{28}^\star=104.
+\]
+The sole cap-102 collision is \(\{18979,21031\}\), and exactly one newly
+admitted primitive coordinate,
+\[
+\texttt{phi4:87:95:103:cofactor}=(0,1),
+\]
+repairs it.  The smallest common additive envelope through length 29 remains
+\(m+76\).
+
+\begin{claimproof}
+Complete cap-102 profiles have 684 signatures on 685 primes; the named pair
+is the only duplicate.  Raw inclusion proves failure at every lower cap.
+At cap 103, independent evaluation of all 47,912 new primitive coordinates
+finds the displayed bit, and the full signature set is injective.  Zero new
+coordinates cannot repair the predecessor, while one does, proving the
+incremental minimum.  The decrease from the length-28 threshold compares
+different populations and implies no trend.
+\end{claimproof}
+
+\claimstatus{THM-019}{PROVED}.  At \(m=34\),
+\[
+ L_{34}^\star=201.
+\]
+Cap 200 leaves exactly \(\{97927,99527\}\); the single new coordinate
+\[
+ \texttt{phi6:149:201:45:cofactor}=(1,0)
+\]
+repairs it.  Consequently the public cap \(m+167\) is injective throughout
+\(9\le m\le34\), and 167 is the smallest common additive offset on this
+finite window.
+
+\begin{claimproof}
+Complete partition refinement gives one failed pair at cap 200.  Raw
+inclusion proves failure below it.  Evaluation of all 81,112 newly admitted
+primitive coordinates identifies the displayed separator, while the full
+cap-201 certificate distinguishes all 3,299 primes and all 5,440,051 pairs.
+The local offset \(201-34=167\) exceeds all previous table rows; its
+predecessor collision proves finite-window minimality.
+\end{claimproof}
+
+\paragraph{Finite-scope warning.}
+The integrated table contains 26 exact rows, 12,245 primes, and 11,628,152
+unordered prime pairs.  It proves no injectivity for \(m>34\), no formula for
+future thresholds, no balanced-factor membership recognizer, and no
+cryptographic-scale factoring result.
+
+\section{Asymptotic barriers inside the same grammar}
+
+\claimstatus{BAR-041}{PROVED}.  Let \(W(m,L)\) be the total bit length of
+the eight positive exact primitive integers over all descriptors at cap
+\(L\), and let \(H_{m,L}\) be the population primes dividing at least one.
+Then
+\[
+ W(m,L)=O(L^5\log L),\qquad
+ \left\lfloor\frac{m-1}{2}\right\rfloor|H_{m,L}|\le W(m,L).
+\]
+For every polynomially bounded numeric cap \(L(m)\), the complete balanced
+population eventually contains at least two primes outside \(H_{m,L(m)}\).
+They have the same all-zero signature, so the cap is not asymptotically
+injective.
+
+\begin{claimproof}
+There are at most \(2(L-1)^3\) descriptors.  Bounding the exact size of
+each primitive value gives
+\[
+ W(m,L)\le
+ 2(L-1)^3(2L^2\bits(L)+L\bits(L)+9\bits(L)+5).
+\]
+The square-free product of hit primes divides the product of charged values,
+proving the second inequality.  The inspected explicit prime-counting
+bounds give
+\[
+ |\mathcal P_m|>
+ \frac{2^{m/2}}{81\log(2^{m/2})}\qquad(m\ge10).
+\]
+A polynomial support budget is eventually smaller by more than one prime.
+This is a barrier for polynomial \emph{numeric} caps in the exact grammar,
+not for all compact encodings.
+\end{claimproof}
+
+\claimstatus{BAR-046}{PROVED}.  In the encoded compact-gap subfamily
+\[
+ A=3,\quad B_t=2^t+3,\quad g=2,
+\]
+let a public list have polynomial size, polynomial charged cost, level span
+\[
+ \Delta_m\le(c+o(1))
+ \frac{m^2}{\lceil\log_2(r_m+1)\rceil}.
+\]
+If \(0<c<1/2\), its signatures are eventually noninjective on the complete
+balanced population.
+
+\begin{claimproof}
+If a prime hits \(h+1\) levels, their offsets have GCD
+\(q\le\Delta_m/h\), and the prime divides the one public overlap integer
+\[
+ R_q=3^{2^q-1}+32^{2^q-1}.
+\]
+Charging each distinct \(q\) once bounds the high-weight population by an
+exponent \((c/x+o(1))m\), for
+\(h\sim xm/\log_2(r_m+1)\).  The remaining Hamming ball has exponent
+\((x/2+o(1))m\).  Choose rational \(x\) with \(2c<x<1\); both are strictly
+below the balanced-population exponent \(m/2\).  A duplicate signature and
+a failed semiprime pair follow.  Other compact families, adaptive schedules,
+and the endpoint \(c\ge1/2\) remain outside this theorem.
+\end{claimproof}
+
+\section{Certificate reproduction}
+
+The frozen integrated artifact is
+\path{schemas/m50-finite-threshold-summary-v1.json}, with file SHA-256
+\[
+\texttt{\seqsplit{2f9974d45a350f65694bd048bf67dae4b27a90493b07ecd895c251d102aab75b}}.
+\]
+It is regenerated and independently checked by
+\begin{verbatim}
+python scripts/generate_m50_finite_threshold_summary.py --check
+python scripts/check_m50_finite_threshold_summary.py
+\end{verbatim}
+The underlying M31--M46 schemas, generators, differential checkers, commands,
+toolchains, row hashes, and selected cross-language vectors remain under
+\path{schemas}, \path{scripts}, and \path{research/experiments}.
+
+The archival monograph \archivepaper{} retains the complete transition
+chronology and full proofs.  The claim ledger is
+\path{research/CLAIMS.md}; the machine-checked paper projection is
+\path{schemas/m82-paper-portfolio-v1.json}.  Finite computation is used only
+for the explicitly bounded certificate theorems.  BAR-024, BAR-041, and
+BAR-046 have separate mathematical proofs.  General classical
+polynomial-time factoring remains open.
+
+\end{document}

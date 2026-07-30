@@ -1,0 +1,287 @@
+\documentclass[11pt]{article}
+\input{paper/focused/preamble-en.tex}
+
+\title{Cyclotomic Exceptional Extraction in\\
+Signed Geometric-Sum Circuits}
+\author{MOSEF Research Program}
+\date{31 July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We classify the rational root-of-unity ratios arising from one signed
+depth-two geometric-sum circuit and isolate two exceptional quadratic
+cyclotomic families.  Beyond the common-step case, only order four with
+ratio one and order six with ratio two survive.  Their quotient cofactors
+have division-free logarithmic-step modular evaluators and can expose proper
+factors after the direct cyclotomic, stage, and public-overlap GCDs are all
+units.  Exact resultant formulas make every overlap branch public and
+branch-total.  We also prove the quantifier limits: every fixed finite public
+schedule misses infinitely many semiprimes, materializing exact lifts can
+cost exponentially more than compact evaluation, and one cofactor supplies
+only one signature bit.  These results concern a restricted circuit grammar;
+they neither form a universal schedule nor solve general integer factoring.
+\end{abstract}
+
+\section{Charged circuit grammar}
+
+Let
+\[
+ S_M(X)=1+X+\cdots+X^{M-1},\qquad
+ Q_1(X)=S_A(X),\quad Q_2(X)=S_B(X^A),
+\]
+where public \(A,B\ge2\) are unequal.  For nonzero public coefficients set
+\[
+ F(X)=c_1Q_1(X)+c_2Q_2(X).
+\]
+The cost model charges construction, both stage evaluations, coefficient
+reduction, every GCD, every failed inversion, independently evaluated
+cyclotomic and cofactor exits, and every requested dense or sparse output.
+Complexity is measured in
+\(\bits(N)=\lfloor\log_2N\rfloor+1\).
+
+\claimstatus{BAR-018}{PROVED}.  The stages are coprime over
+\(\mathbb Q[X]\), with
+\[
+ \operatorname{Res}(Q_1,Q_2)=B^{A-1}.
+\]
+If \(L=Q_1(g)\) is a unit modulo \(N\), then
+\[
+ \gcd(F(g),N)=
+ \gcd(c_1+c_2Q_2(g)L^{-1},N).
+\]
+A proper \(L\)-GCD already factors \(N\), while a full \(L\)-collision
+reduces the aggregate to the public value \(c_2B\).  Moreover, for
+\(h=\gcd(A-1,B-1)\),
+\[
+ Q_2(X)-Q_1(X)=XS_h(X)C_{A,B}(X),
+\]
+and its polynomial GCD with either natural endpoint is exactly \(S_h(X)\).
+
+\begin{claimproof}
+The identity
+\[
+ Q_2(X)-B=(X-1)Q_1(X)\sum_{j=1}^{B-1}S_j(X^A)
+\]
+gives coprimality and the resultant by evaluation at the \(A\)-th roots
+other than one.  It also gives the three modular branches after evaluating
+at \(g\).  Root-set comparison with \(X^{A-1}-1\) and
+\(X^{B-1}-1\), followed by monic division, yields the exact common factor
+\(S_h\).  Each modular denominator branch is therefore explicit; no silent
+division is used.
+\end{claimproof}
+
+\section{Primitive residues and public overlap}
+
+Write \(d=\gcd(|c_1|,|c_2|)\) and \(c_i=da_i\), with
+\(\gcd(|a_1|,|a_2|)=1\).
+
+\claimstatus{BAR-019}{PROVED}.  The content \(d\) has a total unit, proper,
+or full GCD exit.  On the unit branch, the primitive aggregate
+\(P=a_1Q_1+a_2Q_2\) has exact stage resultants
+\[
+ \operatorname{Res}(Q_1,F)=(c_2B)^{A-1},\qquad
+ \operatorname{Res}(Q_2,F)=c_1^{A(B-1)}B^{A-1},
+\]
+and therefore
+\[
+ \gcd(Q_1(g),F(g),N)\mid\gcd(c_2B,N),\quad
+ \gcd(Q_2(g),F(g),N)\mid\gcd(c_1B,N).
+\]
+At a root of unity away from both stages,
+\[
+ F(\zeta)=0\iff
+ c_1(\zeta^A-1)^2+
+ c_2(\zeta-1)(\zeta^{AB}-1)=0.
+\]
+
+\begin{claimproof}
+Content factorization proves the first trichotomy.  Resultant
+multiplicativity and evaluation on each stage root give the displayed
+powers.  Bézout identities specialize modulo every prime divisor of \(N\),
+so the overlap divides the public coefficient--multiplier GCD.  Multiplying
+the rational stage equation by
+\((\zeta-1)(\zeta^A-1)\) gives the final criterion.
+\end{claimproof}
+
+The boundary factors are not exhaustive.  With
+\((A,B,c_1,c_2)=(3,7,1,1)\), \(\Phi_4\mid F\); at \(N=55,g=2\), both
+stages and both public overlap bounds are units but
+\(\gcd(F(2),55)=5\).
+
+\section{Complete rational root-orbit classification}
+
+For primitive \(\zeta\) of order \(n>1\), outside both stage zero sets, put
+\[
+ R_{A,B}(\zeta)=-\frac{S_B(\zeta^A)}{S_A(\zeta)}.
+\]
+
+\claimstatus{THM-003}{PROVED}.  The ratio is rational exactly in the
+following cases:
+\[
+\begin{array}{c|c|c}
+\text{order condition}&R_{A,B}(\zeta)&(c_1,c_2)\\ \hline
+n\mid\gcd(A-1,B-1)&-1&(-1,1)\\
+n=4,\ A\equiv B\equiv3\pmod4&1&(1,1)\\
+n=6,\ A\equiv5,\ B\equiv3\pmod6&2&(2,1).
+\end{array}
+\]
+Requested-order recognition is polynomial in the binary lengths of
+\(A,B,n\).  The common-step family stays compactly described by the divisors
+of \(\gcd(A-1,B-1)\); enumerating those divisors is separately charged.
+
+\begin{claimproof}
+Galois invariance and conjugation first force
+\(n\mid A(B-2)+1\).  Choosing \(bA\equiv1\pmod n\) and
+\(k\equiv b-1\pmod n\) gives
+\[
+ R_{A,B}(\zeta)+1
+ =\left|\frac{1-\zeta^k}{1-\zeta}\right|^2
+ =\frac{\sin^2(k\pi/n)}{\sin^2(\pi/n)}.
+\]
+This is a rational algebraic integer, hence a nonnegative integer.
+Cyclotomic norms reduce the possibilities to the common-step orbit and the
+two quadratic orbits.  Direct substitution gives the displayed ratios and
+congruences.  The phase congruence alone is insufficient:
+\((A,B,n)=(2,4,5)\) yields \((1+\sqrt5)/2\).
+The complete norm case split is in
+\path{research/proofs/THM-003-rational-root-orbits.md}.
+\end{claimproof}
+
+\section{Division-free exceptional cofactors}
+
+Define
+\[
+\begin{aligned}
+F_4&=S_A(X)+S_B(X^A)=\Phi_4(X)C_4(X),
+ &&A\equiv B\equiv3\pmod4,\\
+F_6&=2S_A(X)+S_B(X^A)=\Phi_6(X)C_6(X),
+ &&A\equiv5,\ B\equiv3\pmod6.
+\end{aligned}
+\]
+
+\claimstatus{BAR-020}{PROVED}.  Each \(C_i\) is a monic integer polynomial
+of degree \(A(B-1)-2\), yet \(C_i(g)\bmod N\) has a constant-size descriptor
+and can be evaluated without modular division in
+\(O(\log A+\log B)\) modular operations.
+
+\begin{claimproof}
+For \(A=4a+3\), \(B=4b+3\), set
+\[
+ U_4(4t+3;x)=(1+x)S_t(x^4)+x^{4t},\quad
+ D_4(A;x)=S_A(-x^2),
+\]
+and \(r=A-2\), \(s=A(B-2)\), \(k=(s-r)/2\).  Exact block division gives
+\[
+ C_4=U_4(A;x)+D_4(A;x)U_4(B;x^A)+x^rS_k(-x^2).
+\]
+For the order-six case, division by \(x^2-x+1\) has a period-six impulse
+response; the quotient \(D_6(A;x)=\Phi_6(x^A)/\Phi_6(x)\) therefore has two
+period-six segments.  With
+\(H=x^3+2x^2+2x+1\), \(J=x^4+x^3-x-1\),
+\[
+\begin{split}
+C_6={}&2H(x)S_{a+1}(x^6)\\
+&+D_6(A;x)(H(x^A)S_b(x^{6A})+x^{6Ab})\\
+&+2x^AJ(x)S_{Ab}(x^6).
+\end{split}
+\]
+Binary geometric-sum evaluation proves the cost.  The integer identities
+give additive prime-power valuations, so direct and cofactor GCDs remain
+independently valid even on full-collision branches.  Dense output still
+costs \(A(B-1)-1\) coefficients.
+\end{claimproof}
+
+\section{Overlap and schedule barriers}
+
+\claimstatus{BAR-021}{PROVED}.  The cofactor GCD is proper exactly when its
+capped local valuation profile is nonzero and not full.  The exact
+stage/cofactor resultants have prime support in \(B\) for order four and
+\(2B\) for order six.  Direct/cofactor overlap is controlled by
+\[
+\begin{aligned}
+(u_4,v_4)&=\left(\frac{A(B+2)+1}{4},
+                      \frac{A(B-2)+1}{4}\right),&
+R_4&=u_4^2+v_4^2,\\
+(u_6,v_6)&=\left(-\frac{2(A(B-2)+1)}3,
+                      \frac{A(B+4)+4}3\right),&
+R_6&=u_6^2+u_6v_6+v_6^2.
+\end{aligned}
+\]
+Every fixed finite public joint schedule misses infinitely many square-free
+semiprimes.
+
+\begin{claimproof}
+The valuation criterion follows from unique factorization.  Reducing the
+cofactors modulo the removed quadratic gives \(u_i+v_iX\); the quadratic
+norms are exactly \(R_i>0\), and resultant multiplicativity gives the stage
+supports.  For a fixed schedule, multiply all positive charged exact values.
+Only finitely many primes divide the product.  Any two distinct primes
+outside that support form a semiprime on which every charged GCD is one.
+The quantifier order fixes the schedule before the input.
+\end{claimproof}
+
+\claimstatus{BAR-022}{PROVED}.  For the balanced population
+\[
+ \mathcal P_m=\{p\text{ prime}:2^{m-1}\le p^2<2^m\},
+\]
+suppose materialized exact lifts have total bit budget \(W_m\) and hit
+\(h_m\) of \(s_m=|\mathcal P_m|\) primes.  Exactly
+\(\binom{s_m-h_m}{2}\) pairs make every materialized GCD one, and
+\[
+ \left\lfloor\frac{m-1}{2}\right\rfloor h_m\le W_m.
+\]
+Universal population coverage requires \(h_m\ge s_m-1\).
+
+\begin{claimproof}
+Pairs of unhit primes divide no lift and force every GCD to one.  The
+square-free product of all hit primes divides the product of the nonzero
+lifts, and every population prime has at least
+\(\lfloor(m-1)/2\rfloor\) bits.  Taking binary lengths proves the budget.
+This materialization theorem does not transfer to compact evaluation.
+\end{claimproof}
+
+\claimstatus{BAR-023}{PROVED}.  For the compact order-four tuple
+\(A=3\), \(B_m=2^m+3\), \(g=2\), let \(C_m=C_4(2)\) and
+\(E_m=3\cdot2^m+5\).  Then
+\[
+ C_m=\frac{16(2^{E_m}+3)}{35},\qquad
+ \gcd(C_m,C_{m+1})=16.
+\]
+For a population of \(s\) odd primes, if exactly \(h\) divide \(C_m\), the
+single GCD has \(h(s-h)\) proper outcomes,
+\(\binom h2\) full collisions, and \(\binom{s-h}{2}\) unit outcomes.  It
+cannot cover every pair when \(s\ge3\).
+
+\begin{claimproof}
+Substitution into the exact \(C_4\) identity gives the closed form.
+Euclidean reduction of the two consecutive numerators gives the GCD 16,
+after checking denominator primes 5 and 7 separately.  A pair splits exactly
+when its two support bits differ, which gives the three counts and the
+strict inequality \(h(s-h)<\binom s2\) for \(s\ge3\).
+\end{claimproof}
+
+\section{Reproduction and limitations}
+
+\begin{verbatim}
+python scripts/run_m24_rational_residue_audit.py
+python scripts/check_m24_rational_residue_audit_differential.py
+python scripts/run_m25_rational_root_orbit_audit.py
+python scripts/check_m25_rational_root_orbit_differential.py
+python scripts/run_m26_exceptional_cyclotomic_audit.py
+python scripts/check_m26_exceptional_cyclotomic_differential.py
+\end{verbatim}
+The corresponding records are EXP-0023 through EXP-0025 under
+\path{research/experiments}.  They validate finite symbolic and modular
+instances; the proofs above are algebraic.
+
+All full proofs, counterexamples, and charged branches remain in
+\archivepaper.  Claim statuses and the focused projection are recorded in
+\path{research/CLAIMS.md} and
+\path{schemas/m82-paper-portfolio-v1.json}.  The paper proves results only
+for the displayed signed geometric-sum grammar.  It supplies no universal
+selector, no prime-support density theorem, and no general factoring
+algorithm.
+
+\end{document}

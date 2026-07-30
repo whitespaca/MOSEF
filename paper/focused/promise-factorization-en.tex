@@ -1,0 +1,267 @@
+\documentclass[11pt]{article}
+\input{paper/focused/preamble-en.tex}
+
+\title{Las Vegas Complete Factorization under Unrecognized\\
+Hereditary Order Promises}
+\author{MOSEF Research Program}
+\date{31 July 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We isolate two classical complete-factorization theorems whose hypotheses
+are hereditary order asymmetries.  The first uses fresh uniform bases in a
+\(p-1\) schedule and succeeds with probability at least \(5/12\) per complete
+witness cycle.  The second uses fresh uniform Lucas parameters in a nonsplit
+\(p+1\) schedule and succeeds with probability greater than \(1/12\) at a
+witness trial.  No unproved number-theoretic conjecture is assumed, but
+membership in either class is promised and is not recognized by the
+algorithms.  We also separate divisor coverage from order-signature
+injectivity, prove that the conjugate Lucas map supplies no independent
+channel, and record the finite-density limitation of a common schedule.
+These are restricted-input results.  They do not give a classical
+polynomial-time algorithm for factoring arbitrary integers.
+\end{abstract}
+
+\section{Scope and model}
+
+For \(N\ge1\), write
+\[
+  m=\bits(N)=\lfloor\log_2N\rfloor+1.
+\]
+The input is given in binary, and all construction, exponentiation, GCD,
+preprocessing, recursion, and output costs are charged in \(m\).  Exact
+primality testing and maximal-perfect-power decomposition are performed
+before a splitter is invoked.  A reported divisor is checked before the
+two children are recursively processed.
+
+Let \(B(k)\) and \(R(k)\) be fixed, nondecreasing, polynomially bounded
+integer functions computable in \(\poly(k)\) time, and let
+\[
+  M_B(k)=\operatorname{lcm}(1,\ldots,B(k)).
+\]
+A composite non-perfect-power residual \(K\), of local length \(k\), has a
+\(p-1\) witness when distinct \(p,q\mid K\) and \(1\le t\le R(k)\) obey
+\[
+  p-1\mid tM_B(k),\qquad q-1\nmid tM_B(k).
+\]
+The nonsplit \(p+1\) witness replaces these divisibilities by
+\[
+  p+1\mid tM_B(k),\qquad q+1\nmid tM_B(k),
+\]
+and is applied only to odd residuals.  A promise is \emph{hereditary} when
+the corresponding witness exists at every composite non-perfect-power
+residual reached by recursion.  These definitions depend on unknown prime
+factors: the online algorithm is not given the witness and does not decide
+membership.
+
+\section{Fresh-base \texorpdfstring{\(p-1\)}{p-1} factorization}
+
+\claimstatus{THM-001}{PROVED}.  For every fixed pair \(B,R\) above, fresh
+uniform residues give a classical Las Vegas algorithm that completely
+factors every input in the hereditary \(p-1\) semismooth-asymmetry promise,
+is always correct, terminates almost surely, and has expected bit complexity
+polynomial in the input length.  At a promised residual, one complete
+schedule cycle splits with probability at least \(5/12\).
+
+\begin{claimproof}
+At residual \(K\), enumerate \(1\le t\le R(k)\).  For each \(t\), sample a
+fresh exact uniform \(a\bmod K\), retain a proper \(\gcd(a,K)\), and otherwise
+compute
+\[
+  \gcd\!\left(a^{tM_B(k)}-1,K\right).
+\]
+Fix a witness \(p,q,t\).  Every unit becomes one modulo \(p\).  The subgroup
+of units modulo \(q\) killed by the exponent is proper, hence has at most
+half the units.  Proper nonunits already expose a divisor, so success at the
+witness trial has probability at least
+\[
+ \frac{K-1-\varphi(K)/2}{K}
+ \ge \frac{K-1}{2K}\ge\frac5{12}.
+\]
+Fresh samples yield a geometric tail and almost-sure termination.  The
+exponent has bit length
+\[
+O(B(k)\log B(k)+\log R(k)).
+\]
+Binary powering, GCD, exact
+preprocessing, and the \(O(m)\)-node factor tree therefore give expected
+\(\poly(m)\) bit cost.  Every output is a checked proper divisor, so the
+algorithm is always correct.  The fully expanded branch and recursion proof
+is archived at \path{research/proofs/THM-001-semismooth-promise.md}.
+\end{claimproof}
+
+Freshness cannot be dropped: for \(N=51\), base \(2\), and
+\(d=\operatorname{lcm}(1,\ldots,8)=840\), the prime \(3\) is covered and
+\(17\) is not, but \(\operatorname{ord}_{17}(2)=8\mid d\), producing the
+full collision \(\gcd(2^{840}-1,51)=51\).
+
+\section{Coverage is not separation}
+
+For a finite positive exponent family \(\Delta\), define the divisibility
+signature
+\[
+  \Sigma_\Delta(r)=\{d\in\Delta:r\mid d\}.
+\]
+
+\claimstatus{BAR-001}{PROVED}.  Divisor coverage does not imply order
+separation.  A profile \((r_1,\ldots,r_s)\) is separated exactly when its
+signatures are not all equal.  Every order in \(\{1,\ldots,n\}\) is separated
+from every distinct order exactly when \(r\mapsto\Sigma_\Delta(r)\) is
+injective, and an explicit nonempty injective signature family satisfies
+\[
+  |\Delta|\ge\lceil\log_2(n+1)\rceil.
+\]
+
+\begin{claimproof}
+An exponent separates the profile precisely when it belongs to some but not
+all of the sets \(\Sigma_\Delta(r_i)\); this is equivalent to unequal
+signatures.  Injectivity is therefore necessary and sufficient for every
+distinct pair.  Nonempty signatures occupy at most \(2^{|\Delta|}-1\)
+subsets, proving the lower bound.  The smallest counterexample is
+\(\Delta=\{2\}\): both orders one and two are covered but have the same
+signature, and \(\gcd(5^2-1,6)=6\).
+\end{claimproof}
+
+\section{The conjugate channel is correlated}
+
+Let \(V_0(P,1)=2\), \(V_1(P,1)=P\), and
+\(V_{j+1}(P,1)=PV_j(P,1)-V_{j-1}(P,1)\).
+
+\claimstatus{BAR-002}{PROVED}.  If \(a\) is a unit modulo \(N\) and
+\(P=a+a^{-1}\), then for every \(d\ge0\),
+\[
+ V_d(P,1)-2=a^{-d}(a^d-1)^2,\qquad
+ P^2-4=a^{-2}(a^2-1)^2\pmod N.
+\]
+Thus the derived Lucas residue has the same prime support as the
+multiplicative residue.  When exponent two is retained, the derived channel
+cannot enlarge the multiplicative family's success domain.
+
+\begin{claimproof}
+The sequence \(a^d+a^{-d}\) has the displayed initial values and recurrence,
+so it equals \(V_d(P,1)\).  Subtraction of two and multiplication by the unit
+\(a^d\) gives the square identity.  The discriminant identity is the case
+\(d=2\).  Units and squares preserve prime support.  At prime powers,
+valuations double and cap at the modulus valuation, so the map can worsen a
+split; \((N,a,P,d)=(25,2,15,4)\) gives multiplicative GCD \(5\) but Lucas
+GCD \(25\).
+\end{claimproof}
+
+\section{Independent nonsplit \texorpdfstring{\(p+1\)}{p+1} factorization}
+
+\claimstatus{LEM-003}{PROVED}.  For every odd prime \(q\) and \(d>0\),
+\[
+ \#\{P\in\mathbb F_q:V_d(P,1)=2\}
+ =\frac{\gcd(d,q-1)+\gcd(d,q+1)}2.
+\]
+Exactly \(1+\mathbf1_{2\mid d}\) roots are the degenerate parameters
+\(P=\pm2\), and exactly \((q-1)/2\) parameters have nonsquare discriminant.
+
+\begin{claimproof}
+Parameterize a root by \(P=z+z^{-1}\).  Split \(z\) between
+\(\mathbb F_q^\times\), of order \(q-1\), and the norm-one subgroup of
+\(\mathbb F_{q^2}^\times\), of order \(q+1\).  The equality \(V_d(P,1)=2\)
+is \(z^d=1\).  Each nondegenerate pair \(\{z,z^{-1}\}\) maps to one \(P\);
+the fixed points \(z=\pm1\) contribute the stated correction.  Counting
+roots in the two cyclic groups and simplifying yields the formula.  The
+quadratic character count for \(P^2-4\) gives the nonsplit count.
+\end{claimproof}
+
+\claimstatus{THM-002}{PROVED}.  Fresh uniform parameters \(P\bmod K\) give a
+classical Las Vegas complete-factorization algorithm on the hereditary
+nonsplit \(p+1\)-asymmetry promise.  It is always correct, terminates almost
+surely, and has expected polynomial bit complexity.  A witness trial
+succeeds with probability greater than \(1/12\).
+
+\begin{claimproof}
+Retain a proper discriminant GCD \(\gcd(P^2-4,K)\), and independently retain
+a proper sequence GCD
+\(\gcd(V_d(P,1)-2,K)\), even when the discriminant GCD is full.  At the
+witness prime \(p\), \((p-1)/2\) nonsplit parameters force the sequence to
+two.  At \(q\), LEM-003 bounds the nondegenerate colliding parameters by
+\[
+ C_q(d)=\frac{\gcd(d,q-1)+\gcd(d,q+1)}2-2
+ \le\frac{3q-9}{4}.
+\]
+CRT therefore gives probability
+\[
+ \frac{p-1}{2p}\frac{q-C_q(d)}q>\frac1{12}.
+\]
+Fresh parameters give the geometric tail.  Binary Lucas evaluation uses
+the exponent's polynomial bit length, and the preprocessing and recursion
+argument is the one used for THM-001.  The full proof is
+\path{research/proofs/THM-002-nonsplit-lucas-promise.md}.
+\end{claimproof}
+
+\section{A common-schedule limitation}
+
+For an odd prime \(p\), define
+\[
+ \sigma_\Delta(p)=
+ \bigl(\mathbf1_{p-1\mid d},\mathbf1_{p+1\mid d}\bigr)_{d\in\Delta}.
+\]
+This is a factor-dependent analytical object, not an input recognizer.
+
+\claimstatus{BAR-003}{PROVED}.  For distinct odd primes \(p,q\), the union
+of the local \(p-1\) and \(p+1\) asymmetry promises holds exactly when
+\(\sigma_\Delta(p)\ne\sigma_\Delta(q)\).  On a finite prime set \(S\), if
+\(s=|S|\), \(h\) signatures are nonzero, and \(D=\max\Delta\), the promised
+pair fraction obeys
+\[
+ \rho_\Delta(S)\le
+ \frac{h(2s-h-1)}{s(s-1)}
+ \le \min\left\{1,\frac{8|\Delta|\sqrt D}{s-1}\right\}.
+\]
+
+\begin{claimproof}
+Unequal signatures are exactly a coordinate that covers one prime side but
+not the other.  At most \(h(2s-h-1)/2\) unordered pairs touch a nonzero
+signature, giving the first bound.  Each \(d\) can be divisible by at most
+\(\tau(d)\) values of \(p-1\) and at most \(\tau(d)\) values of \(p+1\);
+\(\tau(d)\le2\sqrt d\) yields \(h\le4|\Delta|\sqrt D\) and the second bound.
+The statement is finite-distribution and schedule-specific.
+\end{claimproof}
+
+\claimstatus{BAR-004}{PROVED}.  An explicit polynomial-size exponent list
+whose maximum exponent bit length is \(o(k\log k)\) hits at most
+\(2^{o(k)}\) odd primes through the \(p\pm1\) divisibility tests.  Hence its
+covered-pair fraction vanishes on any separately stipulated
+\(2^{\alpha k}\)-size common-length prime population.
+
+\begin{claimproof}
+Every hit has \(p-1\mid d\) or \(p+1\mid d\), so the number of hit primes is
+at most twice the total divisor count.  The standard maximal-order bound
+\(\log_2\tau(d)=O(\ell(d)/\log\ell(d))\), with
+\(\ell(d)=o(k\log k)\), is \(o(k)\).  A polynomial number of exponents
+therefore has \(2^{o(k)}\) total divisor support.  Substitution in the exact
+pair bound of BAR-003 proves the conclusion.  This is not a lower bound for
+all compact representations or adaptive schedules.
+\end{claimproof}
+
+\section{Reproduction, limitations, and archival map}
+
+The deterministic finite audits supporting the two probability proofs are
+rerun by
+\begin{verbatim}
+python scripts/run_m3_semismooth_search.py
+python scripts/check_m3_semismooth_differential.py
+python scripts/run_m7_nonsplit_search.py
+python scripts/check_m7_nonsplit_differential.py
+\end{verbatim}
+Their records are
+\path{research/experiments/EXP-0003-m3-semismooth-search.md} and
+\path{research/experiments/EXP-0006-m7-nonsplit-lucas.md}.  The experiments
+check finite arithmetic and branches; they are not proofs of the probability
+bounds.
+
+The full formal proofs, counterexamples, cost ledgers, negative results, and
+claim dependencies remain in \archivepaper,
+\path{research/CLAIMS.md}, and \path{research/NEGATIVE_RESULTS.md}.
+The machine-checked projection is
+\path{schemas/m82-paper-portfolio-v1.json}.  Promise membership remains
+unrecognized, no input-density theorem is supplied, and no claim here solves
+general classical polynomial-time factorization.
+
+\end{document}

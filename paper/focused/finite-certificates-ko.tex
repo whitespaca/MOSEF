@@ -1,0 +1,245 @@
+\documentclass[11pt]{article}
+\input{paper/focused/preamble-ko.tex}
+\usepackage{longtable}
+
+\title{유한 Balanced Semiprime 모집단을 위한\\
+Computer-Assisted Selector 인증서}
+\author{MOSEF 연구 프로그램}
+\date{2026년 7월 31일}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+본 논문은 balanced square-free semiprime에 적용되는 하나의 공개
+compact cyclotomic-cofactor selector족에 대해 완전한 유한 인증서를
+제시한다. 각 이진 길이 \(9\le m\le34\)에서 완전 열거를 통해 prime
+support signature가 단사인 최소 family-relative numeric cap
+\(L_m^\star\)를 증명한다. 공개 cap \(m+167\)은 이 유한 구간 전체에서
+성공한다. 서로 다른 모집단의 threshold는 단조가 아니며
+\(L_{29}^\star=103<L_{28}^\star=104\)이다. 수학적 signature 판정과
+생성된 인증서를 분리하고, predecessor collision, 정확한 hash, 재현
+명령을 보존한다. 같은 문법에서 모든 polynomial numeric cap은
+점근적으로 실패하며, worst-packed 경계 아래의 compact-gap 장벽도
+증명한다. 인증서는 \(m>34\)에 적용되지 않고 다른 selector족 가운데
+최소도 아니며 일반 정수분해 문제를 해결하지 않는다.
+\end{abstract}
+
+\section{모집단, selector, 신뢰 경계}
+
+\[
+\mathcal P_m=\{p\text{ prime}:2^{m-1}\le p^2<2^m\}
+\]
+로 둔다. \(\mathcal P_m\)의 서로 다른 두 소수의 곱은 표준 이진 길이가
+\(m\)이다. 공개 cap \(L\ge m\)에 대해 \(\mathcal T_{m,L}\)은
+\(2\le A,B,g\le L\)인 모든 유효한 차수 4 및 차수 6 예외적 cofactor
+descriptor \((i,A,B,g)\)를 포함한다. base, 두 geometric stage, 두 공개
+overlap bound, direct cyclotomic 값, cyclotomic/cofactor resultant,
+독립 평가된 cofactor의 여덟 primitive 출구를 보존한다. nonunit base는
+unit-only continuation을 건너뛰기 전에 처리한다.
+
+모집단 소수 \(p\)에서 각 nonzero exact 출구는 support bit
+\(\mathbf1_{p\mid z}\)를 준다. 상수 열 삭제와 중복 열 병합은 분석
+인증서에서만 수행하며, 온라인 알고리즘은 여전히 전체 공개 GCD 목록을
+평가한다. generator, 등록 JSON schema, 독립 differential checker,
+publication projection은 서로 다른 artifact이다. generator code를
+import하지 않는 최소 semantic checker는 M85의 별도 과제로 남긴다.
+
+\section{Signature 판정}
+
+\claimstatus{BAR-024}{PROVED}. \(s\ge2\)개의 모집단 소수와 \(r\)개의
+exact candidate lift가 있을 때, \(pq\)는 두 \(r\)-bit support
+signature가 다를 때와 그때에만 어떤 candidate에 의해 분리된다.
+signature bucket \(u\)의 크기가 \(n_u\)이면 실패 및 성공 쌍 수는
+\[
+F=\sum_u\binom{n_u}{2},\qquad
+S=\binom s2-F
+\]
+이다. 모든 쌍의 분리는 단사성과 동치이고
+\[
+r\ge\lceil\log_2s\rceil
+\]
+을 필요로 한다. all-zero signature를 금지하면
+\(r\ge\lceil\log_2(s+1)\rceil\)이다.
+
+\begin{claimproof}
+한 candidate에 대해
+\[
+\gcd(z,pq)=p^{\mathbf1_{p\mid z}}q^{\mathbf1_{q\mid z}}.
+\]
+두 bit가 0이면 unit, 둘 다 1이면 full collision, 서로 다르면 proper
+factor이다. 좌표별로 적용하면 동치와 bucket count가 나온다.
+\(2^r\)개의 signature 또는 \(2^r-1\)개의 nonzero signature를 세면
+하한이 따른다. signature는 열거된 소수에 대한 증명 객체이며 factor
+recognizer가 아니다.
+\end{claimproof}
+
+\section{초기 및 확장 유한 정리}
+
+\claimstatus{THM-004}{PROVED}. 모든 \(9\le m\le15\)에서 base selector
+\(\mathcal T_{m,m}\)은 완전 모집단 \(\mathcal P_m\) 위에서 단사이다.
+분리 subcertificate의 normalized coordinate 수는 각각
+\[
+1,2,2,3,4,6,10
+\]
+이다.
+
+\begin{claimproof}
+완전 모집단 크기는 \(2,3,3,4,6,7,11\)이다. 등록 인증서는 각 소수를
+열거하고 모든 primitive 출구를 평가한 뒤, equality를 바꾸지 않도록
+열을 normalize하고 104개 unordered pair를 전부 검사한다. BAR-024가
+단사성을 proper public GCD로 바꾼다. \(m=16\)에서는
+\(191,227,233\)의 완전 mask가 같아 base cap의 자동 연장을 반박한다.
+\end{claimproof}
+
+\claimstatus{THM-005}{PROVED}. 공개 cap \(L(m)=m+11\)은
+\(9\le m\le20\)의 모든 완전 모집단에서 단사이다. 이 유한 구간에서
+offset 11은 최소이며, \(m=20,L=30\)에서 \(809,827\)이 충돌한다.
+
+\begin{claimproof}
+raw selector inclusion은 \(L\)에 대한 분리의 단조성을 준다. 완전 열거로
+\[
+L_m^\star=19,19,27,27,31\qquad(m=16,\ldots,20)
+\]
+을 얻는다. 각 predecessor mask는 충돌하고 threshold의 등록 coordinate
+부분집합은 단사이다. 최대 유한 offset은 \(31-20=11\)이며 길이 20의
+predecessor가 최소성을 증명한다. \(m>20\)은 주장하지 않는다.
+\end{claimproof}
+
+\section{정확한 유한 threshold 종합}
+
+\(L_m^\star\)는 정의된 \(\mathcal T_{m,L}\)족 안에서 완전
+\(\mathcal P_m\)에 대해 단사인 최소 cap이다. 이는 family-relative
+유한 최소값이며 모든 selector 가운데의 최소나 점근 rate가 아니다.
+
+\input{paper/tables/finite-threshold-summary-ko.tex}
+
+\claimstatus{THM-014}{PROVED}. \(m=29\)에서
+\[
+L_{29}^\star=103<L_{28}^\star=104.
+\]
+cap 102의 유일한 collision은 \(\{18979,21031\}\)이고 새로 허용된 정확히
+한 primitive coordinate
+\[
+\texttt{phi4:87:95:103:cofactor}=(0,1)
+\]
+가 이를 복구한다. 길이 29까지의 최소 공통 additive envelope는
+\(m+76\)으로 유지된다.
+
+\begin{claimproof}
+완전 cap-102 profile은 685개 소수에 684개 signature를 가지며 표시한
+쌍만 중복된다. raw inclusion은 모든 더 작은 cap의 실패를 준다. cap
+103에서 새 47,912개 primitive coordinate를 독립 평가하면 표시한 bit가
+나오고 전체 signature가 단사가 된다. 0개 coordinate로 predecessor를
+고칠 수 없고 1개로 충분하므로 incremental minimum도 1이다. 길이 28과
+29의 threshold 감소는 서로 다른 모집단을 비교하므로 추세가 아니다.
+\end{claimproof}
+
+\claimstatus{THM-019}{PROVED}. \(m=34\)에서
+\[
+L_{34}^\star=201.
+\]
+cap 200은 정확히 \(\{97927,99527\}\)을 남기고 한 개의 새 coordinate
+\[
+\texttt{phi6:149:201:45:cofactor}=(1,0)
+\]
+가 이를 복구한다. 따라서 공개 cap \(m+167\)은
+\(9\le m\le34\) 전체에서 단사이며, 167은 이 유한 창의 최소 공통
+additive offset이다.
+
+\begin{claimproof}
+완전 partition refinement는 cap 200에서 실패 쌍 하나를 준다. raw
+inclusion은 그 아래의 실패를 증명한다. 새 81,112개 primitive
+coordinate를 평가하면 표시한 separator가 나오고 cap-201 인증서는
+3,299개 소수와 5,440,051개 쌍을 모두 구별한다. 지역 offset
+\(201-34=167\)은 이전 모든 행보다 크고 predecessor collision은
+유한-window 최소성을 증명한다.
+\end{claimproof}
+
+\paragraph{유한 범위 경고.}
+통합 표는 26개 정확한 행, 12,245개 소수, 11,628,152개 unordered
+prime pair를 포함한다. \(m>34\)에서의 단사성, 미래 threshold 공식,
+balanced-factor membership recognizer, 암호학적 규모의 인수분해
+결과를 전혀 주장하지 않는다.
+
+\section{같은 문법 내부의 점근 장벽}
+
+\claimstatus{BAR-041}{PROVED}. cap \(L\)의 모든 descriptor에서 여덟
+양의 exact primitive 정수의 총 비트 길이를 \(W(m,L)\), 그중 하나
+이상을 나누는 모집단 소수집합을 \(H_{m,L}\)라 하면
+\[
+W(m,L)=O(L^5\log L),\qquad
+\left\lfloor\frac{m-1}{2}\right\rfloor|H_{m,L}|\le W(m,L).
+\]
+모든 polynomially bounded numeric cap \(L(m)\)에 대해 완전 balanced
+모집단에는 결국 \(H_{m,L(m)}\) 밖의 소수가 둘 이상 존재한다. 두
+signature가 모두 0이므로 cap은 점근적으로 단사가 아니다.
+
+\begin{claimproof}
+descriptor 수는 최대 \(2(L-1)^3\)이고 각 primitive 값의 exact 크기를
+합치면
+\[
+W(m,L)\le
+2(L-1)^3(2L^2\bits(L)+L\bits(L)+9\bits(L)+5).
+\]
+hit 소수의 square-free 곱이 charged 값들의 곱을 나누므로 두 번째
+부등식이 나온다. 검토된 명시적 소수계수 경계는
+\[
+|\mathcal P_m|>
+\frac{2^{m/2}}{81\log(2^{m/2})}\qquad(m\ge10)
+\]
+을 준다. 다항 support 예산은 결국 모집단보다 둘 이상 작다. 이는
+정확한 문법의 polynomial numeric cap 장벽이며 모든 compact encoding의
+장벽이 아니다.
+\end{claimproof}
+
+\claimstatus{BAR-046}{PROVED}. encoded compact-gap 부분족
+\[
+A=3,\quad B_t=2^t+3,\quad g=2
+\]
+에서 공개 목록의 크기와 charged cost가 다항식이고 level span이
+\[
+\Delta_m\le(c+o(1))
+\frac{m^2}{\lceil\log_2(r_m+1)\rceil}
+\]
+을 만족한다고 하자. \(0<c<1/2\)이면 signature는 완전 balanced
+모집단에서 결국 단사가 아니다.
+
+\begin{claimproof}
+한 소수가 \(h+1\)개 level을 hit하면 offset들의 GCD
+\(q\le\Delta_m/h\)에 대해 그 소수는 하나의 공개 overlap 정수
+\[
+R_q=3^{2^q-1}+32^{2^q-1}
+\]
+를 나눈다. 서로 다른 \(q\)를 한 번씩만 charge하면 high-weight
+모집단 지수는 \((c/x+o(1))m\) 이하이다. 여기서
+\(h\sim xm/\log_2(r_m+1)\)이다. 나머지 Hamming ball의 지수는
+\((x/2+o(1))m\) 이하이다. \(2c<x<1\)인 유리수 \(x\)를 택하면 둘 다
+balanced 모집단 지수 \(m/2\)보다 작아 duplicate signature가 생긴다.
+다른 compact족, adaptive schedule, \(c\ge1/2\) endpoint는 범위 밖이다.
+\end{claimproof}
+
+\section{인증서 재현}
+
+동결된 통합 artifact는
+\path{schemas/m50-finite-threshold-summary-v1.json}이며 파일 SHA-256은
+\[
+\texttt{\seqsplit{2f9974d45a350f65694bd048bf67dae4b27a90493b07ecd895c251d102aab75b}}
+\]
+이다. 다음 명령이 이를 재생성하고 독립 검사한다.
+\begin{verbatim}
+python scripts/generate_m50_finite_threshold_summary.py --check
+python scripts/check_m50_finite_threshold_summary.py
+\end{verbatim}
+기초 M31--M46 schema, generator, differential checker, 명령, toolchain,
+row hash, 선택된 cross-language vector는 \path{schemas}, \path{scripts},
+\path{research/experiments}에 보존된다.
+
+archival monograph \archivepaper{}는 전체 전이 chronology와 완전 증명을
+보존한다. claim 장부는 \path{research/CLAIMS.md}, 기계 검증되는 논문
+투영은 \path{schemas/m82-paper-portfolio-v1.json}이다. 유한 계산은
+명시적으로 bounded된 인증서 정리에만 사용된다. BAR-024, BAR-041,
+BAR-046은 별도 수학적 증명을 갖는다. 일반 고전적 다항시간 인수분해는
+열린 문제이다.
+
+\end{document}
