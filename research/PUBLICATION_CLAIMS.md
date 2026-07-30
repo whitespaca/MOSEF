@@ -228,3 +228,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-047 | PROVED | The universal realizable-gap upper envelope is exactly attainable | `research/proofs/BAR-047-realizable-gap-sharpness.md` |
 | REF-049 | REFUTED | Realizability alone uniformly shrinks the maximum GCD gap | `research/NEGATIVE_RESULTS.md` NR-050 |
 | EMP-052 | EMPIRICAL | Exact realizable-gap sharpness audit | `research/experiments/EXP-0052-m54-realizable-gap.md` |
+| DEF-041 | DEFINITION | Exact overlap-prefix LCM support ledger | `research/proofs/BAR-048-overlap-gcd-lcm.md` |
+| BAR-048 | PROVED | Exact overlap GCDs and prefix LCM retain the leading exponent | `research/proofs/BAR-048-overlap-gcd-lcm.md` |
+| REF-050 | REFUTED | Shared divisors make the overlap-support ledger subleading | `research/NEGATIVE_RESULTS.md` NR-051 |
+| EMP-053 | EMPIRICAL | Pair-GCD and prefix-LCM arithmetic audit | `research/experiments/EXP-0053-m55-overlap-gcd.md` |

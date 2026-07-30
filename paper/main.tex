@@ -3870,6 +3870,53 @@ and the schema file SHA-256 is
 Appendix \ref{proof:BAR-047} gives the complete proof. Shared divisors and
 primitive parts of the \(R_q\)'s remain the next endpoint target.
 
+\section{Exact overlap GCDs and prefix LCM scale}
+
+\claimstatus{DEF-041}{DEFINITION}. Put
+\[
+R_q=3^{2^q-1}+32^{2^q-1},
+\qquad
+L_D=\operatorname{lcm}(R_1,\ldots,R_D).
+\tag{M55.1}
+\]
+The LCM is the smallest exact integer ledger covering the union of prime
+support, so it removes all duplicate prime powers.
+
+\claimstatus{BAR-048}{PROVED}. The sum-of-odd-powers GCD identity and the
+Mersenne exponent identity give
+\[
+\gcd(R_a,R_b)=R_{\gcd(a,b)},
+\qquad
+R_a\mid R_b\Longleftrightarrow a\mid b.
+\tag{M55.2}
+\]
+Nevertheless \(R_D\mid L_D\mid\prod_{q\le D}R_q\), whence
+\[
+5(2^D-1)<\log_2L_D
+\le5\cdot2^{D+1}-10-4D.
+\tag{M55.3}
+\]
+Thus \(\log_2L_D=\Theta(2^D)\). Exact shared-divisor removal improves
+finite constants but leaves the BAR-046 high-weight logarithmic exponent
+\(D+O(\log m)\) unchanged.
+
+\claimstatus{REF-050}{REFUTED}. Shared divisors do not make the exact
+overlap-prefix union-support ledger \(2^{o(2^D)}\). This does not rule out
+a different theorem restricting which balanced prime divisors can occur.
+
+\claimstatus{EMP-053}{EMPIRICAL}. EXP-0053 checked 144 ordered pair-GCD
+identities, 144 divisibility equivalences, 12 prefix LCMs, 12 largest-value
+lower bounds, and 168 independently reconstructed exact-integer hashes. The
+summary SHA-256 is
+\[
+\texttt{\seqsplit{b82926a482dd133d94a3e89f041d23ec225ea2d9d30061d25f6e75c017b01534}},
+\]
+and the schema file SHA-256 is
+\[
+\texttt{\seqsplit{d9dd97ea9f29b3b9fb3042992b01a181b39d5c8a8a8ebe7d57d296c3745faeb3}}.
+\]
+Appendix \ref{proof:BAR-048} gives the complete proof.
+
 \section{Compact-step and bit-operation complexity}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -7500,6 +7547,30 @@ its offsets \(q,2q,\ldots,hq\) is \(q\). Equality holds for every positive
 density and the same realized gap. Any universal fixed-factor or little-o
 improvement would fail on this family. This proves BAR-047 and REF-049. The construction asserts only
 geometric realizability and supplies no prime divisor of \(R_q\). \(\square\)
+
+\subsection{Proof of BAR-048}
+\label{proof:BAR-048}
+
+For coprime \(X,Y\) and positive odd \(r,s\), put
+\(d=\gcd(r,s)\), \(U=X^d\), \(V=Y^d\),
+\(u=r/d\), and \(v=s/d\). The integer \(U+V\) divides both odd powers.
+Conversely, modulo any common prime power \(p^e\), \(UV\) is a unit and
+\(z=UV^{-1}\) satisfies \(z^u=z^v=-1\). Choose
+\(\alpha u+\beta v=1\). Since \(u,v\) are odd, \(\alpha+\beta\) is odd, so
+\[
+z=(-1)^{\alpha+\beta}=-1\pmod{p^e}.
+\]
+Therefore the common prime power divides \(U+V\), proving
+\[
+\gcd(X^r+Y^r,X^s+Y^s)=X^d+Y^d.
+\]
+Apply this with \(X=3,Y=32\) and use
+\(\gcd(2^a-1,2^b-1)=2^{\gcd(a,b)}-1\) to obtain (M55.2).
+
+Finally, \(R_D\mid L_D\), while the product of the prefix terms is an LCM
+multiple. Since \(R_D>32^{2^D-1}\), the lower bound in (M55.3) follows;
+the upper bound is the exact M53 prefix bit budget. This proves BAR-048 and
+REF-050. No balanced-prime occurrence is inferred. \(\square\)
 
 \clearpage
 \section{Reproduction appendix}

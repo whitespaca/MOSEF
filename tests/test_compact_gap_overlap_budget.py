@@ -18,7 +18,9 @@ from python.mosef_reference.compact_gap_overlap_budget import (
     compact_gap_low_weight_signature_capacity,
     compact_gap_maximal_gap_witness,
     compact_gap_overlap_bit_bound,
+    compact_gap_overlap_gcd,
     compact_gap_overlap_integer,
+    compact_gap_overlap_lcm_prefix,
     compact_gap_overlap_population_upper_bound,
     compact_gap_overlap_prefix_bit_bound,
     compact_gap_overlap_profile,
@@ -217,6 +219,26 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
             (1, 2, 3),
         )
 
+    def test_overlap_gcd_identity_and_lcm_prefix(self) -> None:
+        for first_gap in range(1, 7):
+            for second_gap in range(1, 7):
+                self.assertEqual(
+                    compact_gap_overlap_gcd(first_gap, second_gap),
+                    compact_gap_overlap_integer(
+                        math.gcd(first_gap, second_gap)
+                    ),
+                )
+        prefix = compact_gap_overlap_lcm_prefix(6)
+        for gap in range(1, 7):
+            self.assertEqual(
+                prefix % compact_gap_overlap_integer(gap),
+                0,
+            )
+        self.assertGreaterEqual(
+            prefix.bit_length(),
+            compact_gap_overlap_integer(6).bit_length(),
+        )
+
     def test_invalid_inputs(self) -> None:
         invalid_calls = (
             lambda: compact_gap_exponent(True),
@@ -242,6 +264,8 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
             lambda: compact_gap_realizable_common_gaps((2, 3), 2),
             lambda: compact_gap_maximal_gap_witness(0, 1),
             lambda: compact_gap_maximal_gap_witness(1, False),
+            lambda: compact_gap_overlap_gcd(0, 1),
+            lambda: compact_gap_overlap_lcm_prefix(False),
         )
         for call in invalid_calls:
             with self.subTest(call=call), self.assertRaises(ValueError):

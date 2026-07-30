@@ -1239,3 +1239,20 @@
   balanced population prime. Shared-divisor or primitive-part refinements,
   other list restrictions, other families, and general factoring remain
   open.
+
+## NR-051 - Exact shared-divisor removal keeps the overlap-prefix scale
+
+- Date: 2026-07-30.
+- Status: `REFUTED` claim `REF-050`.
+- Hypothesis tested: duplicate prime divisors among
+  \(R_1,\ldots,R_D\) make their exact union-support integer exponentially
+  smaller than the largest overlap integer and provide \(c=1/2\) slack.
+- Exact obstruction:
+  \(\gcd(R_a,R_b)=R_{\gcd(a,b)}\), while the exact prefix LCM \(L_D\)
+  contains \(R_D\) and is bounded above by the product of all prefix terms.
+  Therefore \(\log_2L_D=\Theta(2^D)\).
+- Consequence: exact de-duplication changes constants, not the leading
+  \(D+O(\log m)\) logarithm of the high-weight population upper bound.
+- Scope: this is not a lower bound on every possible prime-distribution
+  argument. The \(c=1/2\) endpoint, other families, and general factoring
+  remain open.

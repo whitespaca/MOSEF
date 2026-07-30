@@ -130,6 +130,41 @@ def compact_gap_overlap_integer(level_gap: int) -> int:
     return int(pow(3, odd_exponent) + pow(32, odd_exponent))
 
 
+def compact_gap_overlap_gcd(
+    first_gap: int,
+    second_gap: int,
+) -> int:
+    """Return the exact GCD of two M48 overlap integers."""
+    if (
+        isinstance(first_gap, bool)
+        or not isinstance(first_gap, int)
+        or first_gap < 1
+        or isinstance(second_gap, bool)
+        or not isinstance(second_gap, int)
+        or second_gap < 1
+    ):
+        raise ValueError("both gaps must be positive integers")
+    return math.gcd(
+        compact_gap_overlap_integer(first_gap),
+        compact_gap_overlap_integer(second_gap),
+    )
+
+
+def compact_gap_overlap_lcm_prefix(maximum_gap: int) -> int:
+    """Return the exact LCM of ``R_1`` through ``R_maximum_gap``."""
+    if (
+        isinstance(maximum_gap, bool)
+        or not isinstance(maximum_gap, int)
+        or maximum_gap < 1
+    ):
+        raise ValueError("maximum_gap must be a positive integer")
+    result = 1
+    for gap in range(1, maximum_gap + 1):
+        value = compact_gap_overlap_integer(gap)
+        result = result // math.gcd(result, value) * value
+    return result
+
+
 def compact_gap_overlap_bit_bound(level_gap: int) -> int:
     """Bound the bit length of the exact pair-overlap integer."""
     if (
