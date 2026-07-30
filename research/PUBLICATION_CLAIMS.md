@@ -244,3 +244,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-051 | PROVED | A prime's overlap-index occurrence set is exactly periodic | `research/proofs/BAR-051-overlap-prime-order-periodicity.md` |
 | REF-053 | REFUTED | Occurrence periodicity de-duplicates beyond the exact prefix LCM | `research/NEGATIVE_RESULTS.md` NR-054 |
 | EMP-056 | EMPIRICAL | Finite overlap-prime order and periodicity audit | `research/experiments/EXP-0056-m58-overlap-prime-order.md` |
+| DEF-045 | DEFINITION | Balanced half-order size thresholds | `research/proofs/BAR-052-half-order-size-residue.md` |
+| BAR-052 | PROVED | Balanced overlap primes obey exact size and residue constraints | `research/proofs/BAR-052-half-order-size-residue.md` |
+| REF-054 | REFUTED | Size lower bounds alone remove the endpoint overlap gap | `research/NEGATIVE_RESULTS.md` NR-055 |
+| EMP-057 | EMPIRICAL | Balanced half-order size and residue audit | `research/experiments/EXP-0057-m59-half-order-size.md` |

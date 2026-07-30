@@ -1218,3 +1218,14 @@
   factorization heuristic. The periodic repeats are already removed by the
   prefix LCM, so M59 must quantify possible first-occurrence half-orders
   rather than count inherited hits again.
+
+## ADR-063 - Separate half-order size pruning from residue counting
+
+- Date: 2026-07-30.
+- Decision: derive \(p<33^{d_p}\) and \(2d_p\mid p-1\), but assess
+  first-gap pruning from the unconditional size inequality before applying
+  any prime-distribution estimate.
+- Rationale: summing residue classes over \(d\mid2^q-1\) is a distinct
+  counting problem and must not be hidden inside the size theorem.
+- Consequence: BAR-052 gives linear half-order and logarithmic first-gap
+  floors; M60 will audit the residue-class union bound.

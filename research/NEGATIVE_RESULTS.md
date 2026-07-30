@@ -1308,3 +1308,17 @@
 - Scope: no asymptotic statement about how many balanced primes have each
   first period is proved. OPEN-005, other families, adaptive algorithms, and
   general factoring remain open.
+
+## NR-055 - The half-order size floor does not remove the endpoint gap
+
+- Date: 2026-07-30.
+- Status: `REFUTED` claim `REF-054`.
+- Hypothesis tested: the balanced half-order lower bound deletes
+  \(q=\lfloor m/2\rfloor\) from the support ledger.
+- Exact obstruction: BAR-052 yields only \(d_p=\Omega(m)\) and
+  \(q=\Omega(\log m)\). For every \(m\ge9\), the size-admissible interval
+  \(\delta_m\le d\le2^{\lfloor m/2\rfloor}-1\) is nonempty.
+- Consequence: size alone cannot delete the largest prefix-LCM term.
+- Scope: compatibility is not occurrence. Residue classes, Mersenne
+  divisors, prime distribution, other families, and general factoring
+  remain open.

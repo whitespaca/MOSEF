@@ -39,6 +39,7 @@ python scripts/check_m55_overlap_gcd_differential.py
 python scripts/check_m56_dense_prefix_differential.py
 python scripts/check_m57_endpoint_zero_slack_differential.py
 python scripts/check_m58_overlap_prime_order_differential.py
+python scripts/check_m59_half_order_size_differential.py
 ```
 
 These commands recompute registered masks, identities, collision or

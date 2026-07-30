@@ -4081,6 +4081,43 @@ and the schema file SHA-256 is
 Appendix \ref{proof:BAR-051} gives the complete proof. The finite hit
 fraction is not an asymptotic density theorem.
 
+\section{Balanced overlap primes have large half-orders}
+
+\claimstatus{DEF-045}{DEFINITION}. Put
+\(\ell_m=\lceil\sqrt{2^{m-1}}\rceil\), let \(\delta_m\) be the least odd
+\(d\ge3\) with \(33^d>\ell_m\), and set
+\(\kappa_m=\lceil\log_2(\delta_m+1)\rceil\).
+
+\claimstatus{BAR-052}{PROVED}. If a balanced prime \(p>7\) divides
+\(R_q\), then
+\[
+p<33^{d_p},\quad p\equiv1\pmod{2d_p},\quad
+d_p\ge\delta_m,\quad q\ge\kappa_m.
+\tag{M59.1}
+\]
+Thus \(d_p>(m-1)/(2\log_2 33)\) and
+\(q\ge\log_2m-O(1)\). Indeed
+\(p\mid3^{d_p}+32^{d_p}<33^{d_p}\),
+\(2d_p\mid p-1\), and \(d_p\mid2^q-1\).
+
+\claimstatus{REF-054}{REFUTED}. Size alone does not delete
+\(D=\lfloor m/2\rfloor\): it removes only \(q<\kappa_m=O(\log m)\),
+while \(\delta_m\le m+1\le2^D-1\) for \(m\ge9\). This is compatibility,
+not existence of a prime divisor.
+
+\claimstatus{EMP-057}{EMPIRICAL}. EXP-0057 checked 20 complete balanced
+windows, 1,894 prime profiles, 622 eligible odd half-orders, 622 strict
+size inequalities, 622 residue conditions, and 1,894 independently
+reconstructed profile hashes. The summary SHA-256 is
+\[
+\texttt{\seqsplit{b3ebb32c0d59bae938475391af569ee9b166972d03cb106c1c6085f6d2dd625e}},
+\]
+and the schema file SHA-256 is
+\[
+\texttt{\seqsplit{0e40a80364951c2bfda5f4d09769e71d7d6686bb826899f0a7e7e3bf05d60599}}.
+\]
+Appendix \ref{proof:BAR-052} gives the proof.
+
 \section{Compact-step and bit-operation complexity}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -7805,6 +7842,24 @@ contrary to \(p>7\). Thus (M58.3) holds. Finally, BAR-048's exact
 divisibility identity (M58.4) shows that all inherited periodic repeats are
 already absent from the prefix-LCM union support. This proves BAR-051 and
 REF-053, without bounding the distribution of first periods. \(\square\)
+
+\subsection{Proof of BAR-052}
+\label{proof:BAR-052}
+
+BAR-051 gives \(z_p^{d_p}=-1\), hence
+\(p\mid3^{d_p}+32^{d_p}\). The case \(d_p=1\) would give \(p\mid35\),
+so \(d_p\ge3\), and the binomial theorem gives
+\[
+p\le3^{d_p}+32^{d_p}<33^{d_p}.
+\]
+Lagrange's theorem gives \(2d_p\mid p-1\). Since \(p\ge\ell_m\),
+the definition of \(\delta_m\) gives \(d_p\ge\delta_m\).
+Finally \(d_p\mid2^q-1\) implies
+\(q\ge\lceil\log_2(d_p+1)\rceil\ge\kappa_m\).
+The asymptotic statements follow from \(p\ge2^{(m-1)/2}\).
+For \(m\ge9\), \(\delta_m\le m+1\le
+2^{\lfloor m/2\rfloor}-1\), so the endpoint remains compatible with size
+alone. This supplies no divisor of \(R_D\). \(\square\)
 
 \clearpage
 \section{Reproduction appendix}

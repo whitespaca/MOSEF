@@ -15,6 +15,7 @@ from python.mosef_reference.compact_gap_overlap_budget import (
     compact_gap_distinct_gap_ledger,
     compact_gap_endpoint_dense_ledger,
     compact_gap_exponent,
+    compact_gap_half_order_constraints,
     compact_gap_high_weight_population_upper_bound,
     compact_gap_high_weight_profile,
     compact_gap_low_weight_signature_capacity,
@@ -29,6 +30,9 @@ from python.mosef_reference.compact_gap_overlap_budget import (
     compact_gap_overlap_profile,
     compact_gap_realizable_common_gaps,
     compact_gap_variable_order_profile,
+)
+from python.mosef_reference.length_indexed_cofactor_schedule import (
+    balanced_prime_population,
 )
 
 
@@ -262,6 +266,29 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
                 )
         self.assertGreaterEqual(len(hit_profiles), 2)
 
+    def test_half_order_size_and_residue_constraints(self) -> None:
+        checked_hits = 0
+        for input_length in range(9, 17):
+            for prime in balanced_prime_population(input_length):
+                profile = compact_gap_half_order_constraints(
+                    input_length,
+                    prime,
+                )
+                self.assertTrue(profile.balanced_window_holds)
+                self.assertTrue(profile.strict_size_bound_holds)
+                self.assertTrue(profile.residue_class_holds)
+                if profile.odd_half_order:
+                    checked_hits += 1
+                    self.assertGreaterEqual(
+                        profile.odd_half_order,
+                        profile.minimum_size_odd_half_order,
+                    )
+                    self.assertGreaterEqual(
+                        profile.first_occurrence_gap,
+                        profile.minimum_size_gap,
+                    )
+        self.assertGreater(checked_hits, 0)
+
     def test_dense_interval_realizes_the_complete_gap_prefix(self) -> None:
         for level_span in range(2, 11):
             levels = tuple(range(2, level_span + 3))
@@ -335,6 +362,8 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
             lambda: compact_gap_overlap_lcm_prefix(False),
             lambda: compact_gap_overlap_prime_occurrence(7, 3),
             lambda: compact_gap_overlap_prime_occurrence(11, 0),
+            lambda: compact_gap_half_order_constraints(8, 17),
+            lambda: compact_gap_half_order_constraints(9, 23),
             lambda: compact_gap_dense_interval_realizable_gaps(4, 5),
             lambda: compact_gap_endpoint_dense_ledger(5, 1),
             lambda: compact_gap_endpoint_dense_ledger(6, False),
