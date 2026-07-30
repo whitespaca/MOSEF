@@ -2423,6 +2423,52 @@ hash 168개를 독립 재구성했다. summary SHA-256은
 \]
 이다.
 
+\section{M56: dense interval의 complete gap prefix}
+
+\claimstatus{DEF-042}{DEFINITION}.
+\[
+I_{s,\Delta}=\{s,s+1,\ldots,s+\Delta\},
+\qquad 1\le h\le\Delta
+\tag{M56.1}
+\]
+에 대해 DEF-040의 realizable GCD gap set
+\(\mathcal G_h(I_{s,\Delta})\)를 사용한다.
+
+\claimstatus{BAR-049}{PROVED}.
+정확한 집합은
+\[
+\mathcal G_h(I_{s,\Delta})
+=\left\{1,2,\ldots,
+\left\lfloor\frac{\Delta}{h}\right\rfloor\right\}
+\tag{M56.2}
+\]
+이다. BAR-047이 upper inclusion을 주고, 오른쪽의 모든 \(q\)에 대해
+\[
+\{s,s+q,\ldots,s+hq\}\subseteq I_{s,\Delta}
+\tag{M56.3}
+\]
+이며 offset GCD가 정확히 \(q\)이다. 따라서 \(r=\Delta+1\)인 maximum
+packing에서 BAR-046의 complete prefix는 exact realizability
+ledger이다.
+
+\claimstatus{REF-051}{REFUTED}.
+maximum-density interval의 realizable gap이 sparse하다는 가설은
+거짓이다. 이 정리는 subset을 제공할 뿐 balanced prime의 공통 hit를
+제공하지 않는다.
+
+\claimstatus{EMP-054}{EMPIRICAL}.
+EXP-0054는 constructive profile 96개, explicit witness 624개,
+exhaustive profile 49개, subset GCD 14,755개, sequence hash 241개를
+독립 재구성했다. summary SHA-256은
+\[
+\texttt{\seqsplit{7a15643f88dcb66825845e76b27fdbe174f5f0458c89cdc9a608e15a6abef27a}}
+\]
+이고 schema file SHA-256은
+\[
+\texttt{\seqsplit{bc406d68888a9e649d945d9e8d942d48ec30588146b4487067212a5b363c164f}}
+\]
+이다.
+
 \section{compact-step과 표준 bit-operation complexity}
 
 \subsection{비용 단위와 online/offline 경계}

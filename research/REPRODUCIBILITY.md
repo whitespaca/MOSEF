@@ -36,6 +36,7 @@ python scripts/check_m52_boundary_constant_differential.py
 python scripts/check_m53_distinct_gap_differential.py
 python scripts/check_m54_realizable_gap_differential.py
 python scripts/check_m55_overlap_gcd_differential.py
+python scripts/check_m56_dense_prefix_differential.py
 ```
 
 These commands recompute registered masks, identities, collision or

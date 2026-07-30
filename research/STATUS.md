@@ -1,5 +1,53 @@
 # Research Status
 
+## M56 outcome
+
+- Date: 2026-07-30.
+- Branch: `research/20260730-m56-dense-full-prefix`.
+- Base: M55 squash merge
+  `3a9c6f7`.
+- Research question: does maximum level packing realize only a sparse subset
+  of the BAR-046 gap prefix?
+- Result: `BAR-049` proves the exact equality
+  \[
+  \mathcal G_h(\{s,\ldots,s+\Delta\})
+  =\{1,\ldots,\lfloor\Delta/h\rfloor\}.
+  \]
+  Every gap \(q\) is witnessed by
+  \(\{s,s+q,\ldots,s+hq\}\).
+- Consequence: realizability filtering deletes no charged gap for the dense
+  interval. This does not imply that a balanced prime hits each witness or
+  divides each overlap integer.
+- EXP-0054 passes 96 constructive profiles, 624 explicit witnesses, 49
+  exhaustive profiles, 14,755 subset-GCD enumerations, and 241 sequence
+  hashes.
+- Registered canonical summary SHA-256:
+  `7a15643f88dcb66825845e76b27fdbe174f5f0458c89cdc9a608e15a6abef27a`.
+- Registered schema file SHA-256:
+  `bc406d68888a9e649d945d9e8d942d48ec30588146b4487067212a5b363c164f`.
+- Validation: the targeted 15-test module, the 257-test Python suite
+  (347.565 s), Ruff, mypy, compileall, M0 foundation, the 58-check baseline
+  differential, EXP-0053 and EXP-0054 differentials, publication consistency
+  (229 claims and 53 experiment hashes), Rust formatting/clippy and 36 tests,
+  and the Release C# build all pass.
+- Paper gate: warning-free XeLaTeX produced 120 English pages and 48 Korean
+  pages. The SHA-256 values are
+  `c61e590ed9ae3d2e525d3f90ad45b12ddbc052968c7e56225ef58e7b68472f01`
+  and
+  `219e6a5ecbd38d5c3a4321e6309e2a24b89f7cc40ddf301dec3593b4ee6cdb2a`,
+  respectively; rendered inspection covered the English theorem and appendix
+  proof and the Korean theorem page.
+
+### M56 Korean summary
+
+M56은 maximum-density interval이 BAR-046에서 charge한 GCD gap prefix
+전체를 실제로 실현함을 증명했다. 각
+\(q\le\lfloor\Delta/h\rfloor\)에 대해
+\(\{s,s+q,\ldots,s+hq\}\)가 interval 안에 있고 offset GCD가 정확히
+\(q\)이다. 따라서 dense worst-packed geometry에서는 unrealizable
+gap을 제거해도 장부가 전혀 줄지 않는다. 다만 이는 gap의 기하학적
+실현일 뿐 balanced prime의 공통 hit나 일반 인수분해 정리가 아니다.
+
 ## M55 outcome
 
 - Date: 2026-07-30.

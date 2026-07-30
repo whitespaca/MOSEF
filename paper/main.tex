@@ -3917,6 +3917,49 @@ and the schema file SHA-256 is
 \]
 Appendix \ref{proof:BAR-048} gives the complete proof.
 
+\section{Dense intervals realize the complete gap prefix}
+
+\claimstatus{DEF-042}{DEFINITION}. For
+\[
+I_{s,\Delta}=\{s,s+1,\ldots,s+\Delta\},
+\qquad 1\le h\le\Delta,
+\tag{M56.1}
+\]
+use \(\mathcal G_h(I_{s,\Delta})\) for the DEF-040 realizable GCD gaps.
+
+\claimstatus{BAR-049}{PROVED}. The exact set is
+\[
+\mathcal G_h(I_{s,\Delta})
+=\left\{1,2,\ldots,
+\left\lfloor\frac{\Delta}{h}\right\rfloor\right\}.
+\tag{M56.2}
+\]
+BAR-047 gives the upper inclusion. Conversely, for every integer \(q\) in
+the right side,
+\[
+\{s,s+q,\ldots,s+hq\}\subseteq I_{s,\Delta}
+\tag{M56.3}
+\]
+has offset GCD exactly \(q\). Thus at maximum packing
+\(r=\Delta+1\), the complete BAR-046 prefix is an exact realizability
+ledger.
+
+\claimstatus{REF-051}{REFUTED}. A maximum-density interval does not leave a
+sparse set of realizable gaps. Equation (M56.2) supplies subsets, not
+balanced primes hitting those subsets.
+
+\claimstatus{EMP-054}{EMPIRICAL}. EXP-0054 checked 96 constructive profiles,
+624 explicit witnesses, 49 exhaustive profiles, 14,755 subset GCDs, and 241
+independently reconstructed sequence hashes. The summary SHA-256 is
+\[
+\texttt{\seqsplit{7a15643f88dcb66825845e76b27fdbe174f5f0458c89cdc9a608e15a6abef27a}},
+\]
+and the schema file SHA-256 is
+\[
+\texttt{\seqsplit{bc406d68888a9e649d945d9e8d942d48ec30588146b4487067212a5b363c164f}}.
+\]
+Appendix \ref{proof:BAR-049} gives the complete proof.
+
 \section{Compact-step and bit-operation complexity}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -7571,6 +7614,18 @@ Finally, \(R_D\mid L_D\), while the product of the prefix terms is an LCM
 multiple. Since \(R_D>32^{2^D-1}\), the lower bound in (M55.3) follows;
 the upper bound is the exact M53 prefix bit budget. This proves BAR-048 and
 REF-050. No balanced-prime occurrence is inferred. \(\square\)
+
+\subsection{Proof of BAR-049}
+\label{proof:BAR-049}
+
+BAR-047 gives
+\(\mathcal G_h(I_{s,\Delta})
+\subseteq\{1,\ldots,\lfloor\Delta/h\rfloor\}\).
+For the reverse inclusion, fix \(q\le\lfloor\Delta/h\rfloor\). Then
+\(hq\le\Delta\), so (M56.3) lies in the interval. Its offsets are
+\(q,2q,\ldots,hq\), whose GCD is \(q\). Every prefix integer is therefore
+realized. This proves BAR-049 and REF-051. The proof makes no claim that a
+balanced prime divides \(R_q\) or hits the witnessing levels. \(\square\)
 
 \clearpage
 \section{Reproduction appendix}

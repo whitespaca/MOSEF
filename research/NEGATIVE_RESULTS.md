@@ -1256,3 +1256,18 @@
 - Scope: this is not a lower bound on every possible prime-distribution
   argument. The \(c=1/2\) endpoint, other families, and general factoring
   remain open.
+
+## NR-052 - Dense intervals do not have a sparse realizable-gap set
+
+- Date: 2026-07-30.
+- Status: `REFUTED` claim `REF-051`.
+- Hypothesis tested: even at maximum list packing, only a sparse subset of
+  \(q\le\lfloor\Delta/h\rfloor\) is realized, shrinking the BAR-046 prefix.
+- Exact obstruction: the dense interval contains
+  \(\{s,s+q,\ldots,s+hq\}\) for every such \(q\), so its realizable-gap set
+  is the complete integer prefix.
+- Consequence: realizability filtering deletes no charged gap in the
+  worst-packed interval geometry.
+- Scope: the result supplies subsets, not balanced primes hitting them. The
+  \(c=1/2\) endpoint, prime-occurrence restrictions, other families, and
+  general factoring remain open.
