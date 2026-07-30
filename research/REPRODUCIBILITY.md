@@ -37,6 +37,7 @@ python scripts/check_m53_distinct_gap_differential.py
 python scripts/check_m54_realizable_gap_differential.py
 python scripts/check_m55_overlap_gcd_differential.py
 python scripts/check_m56_dense_prefix_differential.py
+python scripts/check_m57_endpoint_zero_slack_differential.py
 ```
 
 These commands recompute registered masks, identities, collision or
@@ -120,7 +121,7 @@ tables or the Korean claim appendix.
 
 ## Determinism and environment
 
-The M31--M49 and M51--M53 searches are deterministic finite enumerations and
+The M31--M49 and M51--M57 searches are deterministic finite enumerations and
 record no random seed. Source schemas use sorted JSON serialization and
 canonical SHA-256 values. Wall time can vary; mathematical rows and hashes
 must not.

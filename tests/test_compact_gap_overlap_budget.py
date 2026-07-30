@@ -13,6 +13,7 @@ from python.mosef_reference.compact_gap_overlap_budget import (
     compact_gap_common_support_integer,
     compact_gap_dense_interval_realizable_gaps,
     compact_gap_distinct_gap_ledger,
+    compact_gap_endpoint_dense_ledger,
     compact_gap_exponent,
     compact_gap_high_weight_population_upper_bound,
     compact_gap_high_weight_profile,
@@ -255,6 +256,35 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
                     ),
                 )
 
+    def test_endpoint_dense_family_blocks_every_threshold_side(self) -> None:
+        for scale_exponent in range(6, 13):
+            level_span = (1 << scale_exponent) - 2
+            radicand = 2 * scale_exponent * level_span
+            input_length = math.isqrt(radicand)
+            if input_length * input_length < radicand:
+                input_length += 1
+            switch_order = (2 * level_span) // input_length
+            high = compact_gap_endpoint_dense_ledger(
+                scale_exponent,
+                switch_order,
+            )
+            low = compact_gap_endpoint_dense_ledger(
+                scale_exponent,
+                switch_order + 1,
+            )
+            self.assertEqual(
+                high.logarithmic_scale,
+                scale_exponent,
+            )
+            self.assertGreaterEqual(
+                high.maximum_common_gap,
+                input_length // 2,
+            )
+            self.assertTrue(high.high_ledger_consumes_population)
+            self.assertTrue(low.low_ledger_consumes_population)
+            self.assertTrue(high.certificate_blocked)
+            self.assertTrue(low.certificate_blocked)
+
     def test_invalid_inputs(self) -> None:
         invalid_calls = (
             lambda: compact_gap_exponent(True),
@@ -283,6 +313,8 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
             lambda: compact_gap_overlap_gcd(0, 1),
             lambda: compact_gap_overlap_lcm_prefix(False),
             lambda: compact_gap_dense_interval_realizable_gaps(4, 5),
+            lambda: compact_gap_endpoint_dense_ledger(5, 1),
+            lambda: compact_gap_endpoint_dense_ledger(6, False),
         )
         for call in invalid_calls:
             with self.subTest(call=call), self.assertRaises(ValueError):

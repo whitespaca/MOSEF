@@ -1271,3 +1271,23 @@
 - Scope: the result supplies subsets, not balanced primes hitting them. The
   \(c=1/2\) endpoint, prime-occurrence restrictions, other families, and
   general factoring remain open.
+
+## NR-053 - Endpoint threshold tuning does not rescue the exact two-ledger certificate
+
+- Date: 2026-07-30.
+- Status: `REFUTED` claim `REF-052`.
+- Hypothesis tested: after exact shared-divisor removal, optimizing the
+  overlap threshold \(h\), including an input-length-dependent choice,
+  creates lower-order slack at \(c=1/2\).
+- Exact obstruction: on the DEF-043 dense endpoint family,
+  \(h\le\lfloor2\Delta/m\rfloor\) leaves
+  \(D=\lfloor\Delta/h\rfloor\ge\lfloor m/2\rfloor\), so \(R_D\mid L_D\)
+  makes the high-weight ledger at least as large as the population bound.
+  For larger \(h\), the exact Hamming capacity exceeds
+  \(2^{m/2+\Omega(m\log\lambda/\lambda)}\).
+- Consequence: every threshold is blocked within the BAR-046 LCM/Hamming
+  certificate. The fixed coefficient maximum is at least \(1/2\), with
+  equality only at \(x=1\).
+- Scope: certificate failure is not endpoint injectivity. Prime-occurrence
+  restrictions, different invariants or families, adaptive algorithms, and
+  general factoring remain open.

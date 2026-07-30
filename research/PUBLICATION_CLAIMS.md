@@ -236,3 +236,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-049 | PROVED | A dense interval realizes the complete GCD-gap prefix | `research/proofs/BAR-049-dense-full-gap-prefix.md` |
 | REF-051 | REFUTED | Dense maximum packing leaves only sparse realizable gaps | `research/NEGATIVE_RESULTS.md` NR-052 |
 | EMP-054 | EMPIRICAL | Constructive and exhaustive dense-prefix audit | `research/experiments/EXP-0054-m56-dense-prefix.md` |
+| DEF-043 | DEFINITION | Endpoint-dense exact LCM/Hamming ledger family | `research/proofs/BAR-050-endpoint-zero-slack.md` |
+| BAR-050 | PROVED | Every threshold is blocked in the exact endpoint two-ledger certificate | `research/proofs/BAR-050-endpoint-zero-slack.md` |
+| REF-052 | REFUTED | LCM de-duplication and threshold tuning always yield endpoint lower-order slack | `research/NEGATIVE_RESULTS.md` NR-053 |
+| EMP-055 | EMPIRICAL | Endpoint switch and rational-coefficient audit | `research/experiments/EXP-0055-m57-endpoint-zero-slack.md` |
