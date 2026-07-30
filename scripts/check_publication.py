@@ -132,6 +132,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-047}",
     r"\label{proof:BAR-048}",
     r"\label{proof:BAR-049}",
+    r"\label{proof:BAR-050}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -293,6 +294,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0054-m56-dense-prefix.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0055-m57-endpoint-zero-slack.md",
 )
 
 
@@ -597,6 +602,9 @@ def main() -> int:
         "M56: dense interval",
         "BAR-049",
         "7a15643f88dcb66825845e76b27fdbe174f5f0458c89cdc9a608e15a6abef27a",
+        "M57: endpoint LCM/Hamming certificate",
+        "BAR-050",
+        "c5f4a07e514e9307c66b3868a954925bd15ece3b48a2375ed834d8d7db37052f",
     )
     for phrase in required_korean:
         if phrase not in korean_paper_text:

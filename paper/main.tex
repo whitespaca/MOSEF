@@ -3806,8 +3806,10 @@ balanced population.
 
 \claimstatus{OPEN-005}{OPEN}. At uniform \(c=1/2\), (M53.4) requires
 \(x>1\), while (M53.5) requires \(x<1\). The missing strict slack is not an
-injective construction. The ledger still charges every \(q\le D_m\), even
-if no selected level subset realizes that GCD gap.
+injective construction. M54--M57 show that worst-case realizability,
+exact LCM de-duplication, and threshold lower-order terms do not repair this
+certificate; restrictions on which balanced primes actually occur remain
+open.
 
 \claimstatus{EMP-051}{EMPIRICAL}. EXP-0051 checked 40 exact profiles, 40
 packing checks, 40 strict subset-to-distinct-gap reductions, 120
@@ -3959,6 +3961,72 @@ and the schema file SHA-256 is
 \texttt{\seqsplit{bc406d68888a9e649d945d9e8d942d48ec30588146b4487067212a5b363c164f}}.
 \]
 Appendix \ref{proof:BAR-049} gives the complete proof.
+
+\section{The endpoint LCM/Hamming certificate has zero threshold slack}
+
+\claimstatus{DEF-043}{DEFINITION}. For every integer \(\lambda\ge6\), put
+\[
+\Delta_\lambda=2^\lambda-2,\qquad
+r_\lambda=2^\lambda-1,\qquad
+m_\lambda=\left\lceil\sqrt{2\lambda\Delta_\lambda}\right\rceil.
+\tag{M57.1}
+\]
+Use a dense public interval and the exact BAR-048 prefix-LCM charge together
+with the low-weight Hamming capacity at threshold \(h+1\). Here
+\(\ell_\lambda=\lambda\) and
+\[
+\Delta_\lambda\le\frac{m_\lambda^2}{2\ell_\lambda},
+\tag{M57.2}
+\]
+so the family lies at the uniform \(c=1/2\) boundary.
+
+\claimstatus{BAR-050}{PROVED}. Put
+\[
+H_\lambda=
+\left\lfloor\frac{2\Delta_\lambda}{m_\lambda}\right\rfloor.
+\tag{M57.3}
+\]
+For every threshold \(h\), the exact two-ledger collision certificate is
+blocked on this family. If \(h\le H_\lambda\), then
+\(D=\lfloor\Delta_\lambda/h\rfloor\ge\lfloor m_\lambda/2\rfloor\);
+since \(R_D\mid L_D\), the LCM charge already matches or exceeds the
+conservative balanced-population lower bound. If \(h>H_\lambda\), Hamming
+monotonicity and \(\binom rh\ge(r/h)^h\) give
+\[
+\log_2\sum_{j=0}^{h}\binom{r_\lambda}{j}
+\ge
+\frac{m_\lambda}{2}
++\Omega\left(
+\frac{m_\lambda\log\lambda}{\lambda}
+\right).
+\tag{M57.4}
+\]
+Thus even an \(m\)-dependent threshold cannot create lower-order slack.
+For a fixed \(h=\lceil xm/\ell\rceil\), the same leading obstruction is
+\[
+\max\left\{\frac{1}{2x},\frac{x}{2}\right\}\ge\frac12,
+\tag{M57.5}
+\]
+with equality only at \(x=1\).
+
+\claimstatus{REF-052}{REFUTED}. Exact LCM de-duplication plus threshold
+tuning does not always rescue the \(c=1/2\) collision certificate.
+This is failure of a sufficient certificate, not endpoint injectivity.
+The status of OPEN-005 remains OPEN.
+
+\claimstatus{EMP-055}{EMPIRICAL}. EXP-0055 checked 17 endpoint scales,
+34 switch-side profiles, 17 threshold dichotomies, 47 reduced rational
+coefficient profiles, and 102 independently reconstructed integer hashes.
+The summary SHA-256 is
+\[
+\texttt{\seqsplit{c5f4a07e514e9307c66b3868a954925bd15ece3b48a2375ed834d8d7db37052f}},
+\]
+and the schema file SHA-256 is
+\[
+\texttt{\seqsplit{da399a83a6152ced97e66a1cd747f803b912973f169927f328cf87b7ab22bc1b}}.
+\]
+Appendix \ref{proof:BAR-050} gives the complete proof. No balanced-prime
+occurrence or general factoring conclusion is inferred.
 
 \section{Compact-step and bit-operation complexity}
 
@@ -7626,6 +7694,42 @@ For the reverse inclusion, fix \(q\le\lfloor\Delta/h\rfloor\). Then
 \(q,2q,\ldots,hq\), whose GCD is \(q\). Every prefix integer is therefore
 realized. This proves BAR-049 and REF-051. The proof makes no claim that a
 balanced prime divides \(R_q\) or hits the witnessing levels. \(\square\)
+
+\subsection{Proof of BAR-050}
+\label{proof:BAR-050}
+
+The parameter identities in (M57.1) give
+\(\ell_\lambda=\lambda\), (M57.2), and
+\[
+\log_2m_\lambda
+=\frac{\lambda}{2}
++\frac12\log_2(2\lambda)+o(1).
+\]
+If \(h\le H_\lambda\), then
+\(\Delta_\lambda/h\ge m_\lambda/2\), proving the stated bound on \(D\).
+BAR-048 gives
+\(\log_2L_D>5(2^D-1)\). Dividing this bit charge by the minimum balanced
+prime length \(\lfloor(m_\lambda-1)/2\rfloor\) leaves more than
+\(2^{\lfloor m_\lambda/2\rfloor}/(81m_\lambda)\) for all sufficiently
+large \(\lambda\), so the high-weight ledger alone consumes the registered
+population lower bound.
+
+Otherwise let \(h_0=H_\lambda+1\). Then
+\[
+h_0=\frac{m_\lambda}{\lambda}+O(1),
+\qquad
+\frac{r_\lambda}{h_0}
+=\frac{m_\lambda}{2}(1+o(1)).
+\]
+The Hamming capacity is monotone in \(h\), and
+\(\binom{r_\lambda}{h_0}\ge
+(r_\lambda/h_0)^{h_0}\). Substitution gives (M57.4), which exceeds the
+population logarithm \(m_\lambda/2-O(\log m_\lambda)\). These cases cover
+every, possibly \(\lambda\)-dependent, threshold. Equation (M57.5) follows
+because \(x\ge1\) makes \(x/2\ge1/2\), while \(x\le1\) makes
+\(1/(2x)\ge1/2\), with joint equality only at one. This proves BAR-050 and
+REF-052. It proves no occurrence statement for balanced prime divisors of
+the \(R_q\). \(\square\)
 
 \clearpage
 \section{Reproduction appendix}

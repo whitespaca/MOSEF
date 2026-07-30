@@ -96,6 +96,27 @@ class CompactGapDistinctGapLedger:
     theorem_forces_collision: bool
 
 
+@dataclass(frozen=True)
+class CompactGapEndpointLedger:
+    """Exact M57 endpoint witness and two-ledger obstruction profile."""
+
+    scale_exponent: int
+    input_length: int
+    candidate_count: int
+    level_span: int
+    logarithmic_scale: int
+    overlap_order: int
+    switch_order: int
+    maximum_common_gap: int
+    lcm_bit_length_lower_bound: int
+    high_weight_charge_lower_bound: int
+    low_weight_signature_capacity: int
+    conservative_population_lower_bound: int
+    high_ledger_consumes_population: bool
+    low_ledger_consumes_population: bool
+    certificate_blocked: bool
+
+
 def _validate_level(level: int) -> None:
     if isinstance(level, bool) or not isinstance(level, int) or level < 2:
         raise ValueError("level must be an integer at least two")
@@ -491,6 +512,87 @@ def compact_gap_distinct_gap_ledger(
             - high_weight_bound
             > boundary.low_weight_signature_capacity
         ),
+    )
+
+
+def compact_gap_endpoint_dense_ledger(
+    scale_exponent: int,
+    overlap_order: int,
+) -> CompactGapEndpointLedger:
+    """Evaluate the exact M57 endpoint-dense witness at one threshold."""
+    if (
+        isinstance(scale_exponent, bool)
+        or not isinstance(scale_exponent, int)
+        or scale_exponent < 6
+    ):
+        raise ValueError("scale_exponent must be an integer at least six")
+
+    level_span = (1 << scale_exponent) - 2
+    candidate_count = level_span + 1
+    if (
+        isinstance(overlap_order, bool)
+        or not isinstance(overlap_order, int)
+        or overlap_order < 1
+        or overlap_order > candidate_count
+    ):
+        raise ValueError(
+            "overlap_order must be between one and candidate_count"
+        )
+
+    radicand = 2 * scale_exponent * level_span
+    input_length = math.isqrt(radicand)
+    if input_length * input_length < radicand:
+        input_length += 1
+    switch_order = (2 * level_span) // input_length
+    maximum_common_gap = (
+        0
+        if overlap_order == candidate_count
+        else level_span // overlap_order
+    )
+    lcm_bit_length_lower_bound = (
+        0
+        if maximum_common_gap == 0
+        else 5 * ((1 << maximum_common_gap) - 1) + 1
+    )
+    balanced_prime_bits = (input_length - 1) // 2
+    high_weight_charge_lower_bound = (
+        lcm_bit_length_lower_bound // balanced_prime_bits
+    )
+    low_weight_signature_capacity = (
+        compact_gap_low_weight_signature_capacity(
+            candidate_count,
+            overlap_order + 1,
+        )
+    )
+    conservative_population_lower_bound = (
+        (1 << (input_length // 2)) // (81 * input_length)
+    )
+    high_consumes = (
+        high_weight_charge_lower_bound
+        >= conservative_population_lower_bound
+    )
+    low_consumes = (
+        low_weight_signature_capacity
+        >= conservative_population_lower_bound
+    )
+    return CompactGapEndpointLedger(
+        scale_exponent=scale_exponent,
+        input_length=input_length,
+        candidate_count=candidate_count,
+        level_span=level_span,
+        logarithmic_scale=candidate_count.bit_length(),
+        overlap_order=overlap_order,
+        switch_order=switch_order,
+        maximum_common_gap=maximum_common_gap,
+        lcm_bit_length_lower_bound=lcm_bit_length_lower_bound,
+        high_weight_charge_lower_bound=high_weight_charge_lower_bound,
+        low_weight_signature_capacity=low_weight_signature_capacity,
+        conservative_population_lower_bound=(
+            conservative_population_lower_bound
+        ),
+        high_ledger_consumes_population=high_consumes,
+        low_ledger_consumes_population=low_consumes,
+        certificate_blocked=high_consumes or low_consumes,
     )
 
 

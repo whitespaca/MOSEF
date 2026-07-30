@@ -1185,3 +1185,21 @@
   geometry for dense intervals, but this alone supplies no common prime.
 - Consequence: M56 closes the realizability-pruning route without converting
   geometric witnesses into unsupported balanced-prime claims.
+
+## ADR-061 - Test endpoint slack on an exact dense witness family
+
+- Date: 2026-07-30.
+- Decision: define
+  \(r_\lambda=2^\lambda-1\),
+  \(\Delta_\lambda=2^\lambda-2\), and
+  \(m_\lambda=\lceil\sqrt{2\lambda\Delta_\lambda}\rceil\), then compare the
+  exact prefix-LCM charge and exact low-weight Hamming capacity on the two
+  sides of \(h=\lfloor2\Delta_\lambda/m_\lambda\rfloor\).
+- Rationale: the family has exact logarithmic scale \(\lambda\), saturates
+  the \(c=1/2\) boundary, and permits a threshold-uniform dichotomy. Below
+  the switch the largest LCM term already consumes the population ledger;
+  above it the Hamming ball does.
+- Consequence: BAR-050 rules out lower-order rescue inside this exact
+  sufficient certificate without claiming endpoint injectivity. M58 will
+  examine which primes can actually occur in the overlap integers, the main
+  information discarded by the LCM ledger.

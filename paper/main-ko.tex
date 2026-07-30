@@ -2469,6 +2469,74 @@ exhaustive profile 49개, subset GCD 14,755개, sequence hash 241개를
 \]
 이다.
 
+\section{M57: endpoint LCM/Hamming certificate의 zero slack}
+
+\claimstatus{DEF-043}{DEFINITION}.
+모든 정수 \(\lambda\ge6\)에 대해
+\[
+\Delta_\lambda=2^\lambda-2,\qquad
+r_\lambda=2^\lambda-1,\qquad
+m_\lambda=\left\lceil\sqrt{2\lambda\Delta_\lambda}\right\rceil
+\tag{M57.1}
+\]
+로 두고 dense public interval을 사용한다. exact BAR-048 prefix-LCM
+charge와 threshold \(h+1\)의 low-weight Hamming capacity를 함께
+계산한다. 이 family는 \(\ell_\lambda=\lambda\)이고
+\[
+\Delta_\lambda\le\frac{m_\lambda^2}{2\ell_\lambda}
+\tag{M57.2}
+\]
+이므로 uniform \(c=1/2\) endpoint에 놓인다.
+
+\claimstatus{BAR-050}{PROVED}.
+\[
+H_\lambda=
+\left\lfloor\frac{2\Delta_\lambda}{m_\lambda}\right\rfloor
+\tag{M57.3}
+\]
+로 두면 모든 threshold \(h\)에서 exact two-ledger collision
+certificate가 막힌다. \(h\le H_\lambda\)이면
+\(D=\lfloor\Delta_\lambda/h\rfloor\ge\lfloor m_\lambda/2\rfloor\)이고
+\(R_D\mid L_D\)이므로 LCM charge가 conservative balanced-population
+lower bound를 이미 소진한다. \(h>H_\lambda\)이면 Hamming
+monotonicity와 \(\binom rh\ge(r/h)^h\)에서
+\[
+\log_2\sum_{j=0}^{h}\binom{r_\lambda}{j}
+\ge
+\frac{m_\lambda}{2}
++\Omega\left(
+\frac{m_\lambda\log\lambda}{\lambda}
+\right)
+\tag{M57.4}
+\]
+를 얻는다. 따라서 \(m\)-dependent threshold도 lower-order slack을
+만들지 못한다. fixed \(h=\lceil xm/\ell\rceil\)의 leading balance는
+\[
+\max\left\{\frac{1}{2x},\frac{x}{2}\right\}\ge\frac12
+\tag{M57.5}
+\]
+이고 equality는 \(x=1\)에서만 성립한다.
+
+\claimstatus{REF-052}{REFUTED}.
+exact LCM de-duplication과 threshold tuning이 \(c=1/2\) collision
+certificate를 항상 구한다는 가설은 거짓이다. 이는 sufficient
+certificate의 실패이지 endpoint injectivity가 아니다.
+OPEN-005의 status는 OPEN으로 유지된다.
+
+\claimstatus{EMP-055}{EMPIRICAL}.
+EXP-0055는 endpoint scale 17개, switch-side profile 34개, threshold
+dichotomy 17개, reduced rational coefficient profile 47개, independently
+reconstructed integer hash 102개를 검사했다. summary SHA-256은
+\[
+\texttt{\seqsplit{c5f4a07e514e9307c66b3868a954925bd15ece3b48a2375ed834d8d7db37052f}}
+\]
+이고 schema file SHA-256은
+\[
+\texttt{\seqsplit{da399a83a6152ced97e66a1cd747f803b912973f169927f328cf87b7ab22bc1b}}
+\]
+이다. 이 결과는 balanced-prime occurrence나 일반 정수분해 결론을
+주지 않는다.
+
 \section{compact-step과 표준 bit-operation complexity}
 
 \subsection{비용 단위와 online/offline 경계}

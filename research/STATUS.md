@@ -1,5 +1,57 @@
 # Research Status
 
+## M57 outcome
+
+- Date: 2026-07-30.
+- Branch: `research/20260730-m57-endpoint-zero-slack`.
+- Base: M56 squash merge
+  `61d42ba1561d719270196c187c7d0a7abef57c6a`.
+- Research question: can exact LCM de-duplication and an optimized,
+  input-length-dependent overlap threshold produce lower-order slack at the
+  uniform \(c=1/2\) endpoint?
+- Result: `BAR-050` constructs the endpoint-dense family
+  \[
+  r_\lambda=2^\lambda-1,\quad
+  \Delta_\lambda=2^\lambda-2,\quad
+  m_\lambda=\lceil\sqrt{2\lambda\Delta_\lambda}\rceil
+  \]
+  and proves a threshold-uniform method barrier. For
+  \(h\le\lfloor2\Delta/m\rfloor\), the exact LCM charge already consumes the
+  conservative population ledger. For larger \(h\), the Hamming capacity is
+  \(2^{m/2+\Omega(m\log\lambda/\lambda)}\).
+- Consequence: the fixed leading balance
+  \(\max\{1/(2x),x/2\}\ge1/2\) has equality only at \(x=1\), and lower-order
+  terms on the dense witness do not rescue the BAR-046 certificate.
+  `OPEN-005` remains open: certificate failure is not endpoint injectivity.
+- EXP-0055 passes 17 scales, 34 endpoint profiles, 17 switch dichotomies,
+  47 rational coefficient profiles, and 102 independently reconstructed
+  integer hashes.
+- Registered canonical summary SHA-256:
+  `c5f4a07e514e9307c66b3868a954925bd15ece3b48a2375ed834d8d7db37052f`.
+- Registered schema file SHA-256:
+  `da399a83a6152ced97e66a1cd747f803b912973f169927f328cf87b7ab22bc1b`.
+- Validation: the targeted 16-test module, the 258-test Python suite
+  (338.322 s), Ruff, mypy, compileall, M0 foundation, EXP-0055 differential,
+  publication consistency (233 claims and 54 experiment hashes), Rust
+  formatting/clippy and 36 tests, and the Release C# build all pass.
+- Paper gate: warning-free XeLaTeX produced 121 English pages and 49 Korean
+  pages. The SHA-256 values are
+  `46e818dccf4f7e8942106452365da0a3405c59532264a292fc0cd09cd3d9195d`
+  and
+  `e5ea73c679e7300d637c2e046f698cbc70e9cdd236af3db0fc08ff606de9e774`,
+  respectively; rendered inspection covered the English theorem and
+  appendix proof and the Korean theorem page.
+
+### M57 Korean summary
+
+M57은 \(c=1/2\) endpoint를 정확히 포화하는 dense public list family를
+구성하고, 모든 threshold \(h\)에서 BAR-046의 exact LCM/Hamming
+certificate가 막힘을 증명했다. 작은 \(h\)에서는 \(R_D\)를 포함하는
+LCM charge가 population ledger를 이미 소진하고, 큰 \(h\)에서는
+low-weight Hamming capacity가 population보다 커진다. 이는 해당
+certificate의 zero-slack barrier이지 endpoint signature의 injectivity,
+balanced prime occurrence, 또는 일반 정수분해 난이도 정리가 아니다.
+
 ## M56 outcome
 
 - Date: 2026-07-30.
