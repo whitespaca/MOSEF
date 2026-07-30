@@ -240,3 +240,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-050 | PROVED | Every threshold is blocked in the exact endpoint two-ledger certificate | `research/proofs/BAR-050-endpoint-zero-slack.md` |
 | REF-052 | REFUTED | LCM de-duplication and threshold tuning always yield endpoint lower-order slack | `research/NEGATIVE_RESULTS.md` NR-053 |
 | EMP-055 | EMPIRICAL | Endpoint switch and rational-coefficient audit | `research/experiments/EXP-0055-m57-endpoint-zero-slack.md` |
+| DEF-044 | DEFINITION | Overlap-prime ratio order and occurrence period | `research/proofs/BAR-051-overlap-prime-order-periodicity.md` |
+| BAR-051 | PROVED | A prime's overlap-index occurrence set is exactly periodic | `research/proofs/BAR-051-overlap-prime-order-periodicity.md` |
+| REF-053 | REFUTED | Occurrence periodicity de-duplicates beyond the exact prefix LCM | `research/NEGATIVE_RESULTS.md` NR-054 |
+| EMP-056 | EMPIRICAL | Finite overlap-prime order and periodicity audit | `research/experiments/EXP-0056-m58-overlap-prime-order.md` |

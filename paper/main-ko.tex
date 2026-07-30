@@ -2537,6 +2537,60 @@ reconstructed integer hash 102개를 검사했다. summary SHA-256은
 이다. 이 결과는 balanced-prime occurrence나 일반 정수분해 결론을
 주지 않는다.
 
+\section{M58: overlap-prime occurrence의 exact order periodicity}
+
+\claimstatus{DEF-044}{DEFINITION}.
+prime \(p>7\)에 대해
+\[
+z_p=3\cdot32^{-1}\pmod p,\qquad
+t_p=\operatorname{ord}_p(z_p)
+\tag{M58.1}
+\]
+로 둔다. \(t_p=2d_p\)이고 \(d_p\)가 odd이면
+\(a_p=\operatorname{ord}_{d_p}(2)\)로 둔다.
+
+\claimstatus{BAR-051}{PROVED}.
+모든 \(q\ge1\)에 대해
+\[
+p\mid R_q
+\quad\Longleftrightarrow\quad
+t_p=2d_p,\quad d_p\text{ odd},\quad d_p\mid2^q-1
+\tag{M58.2}
+\]
+이다. 따라서 nonempty occurrence-level set은 정확히
+\[
+\{q\ge1:p\mid R_q\}
+=\{a_p,2a_p,3a_p,\ldots\}
+\tag{M58.3}
+\]
+이다. \(n=2^q-1\)로 쓰면 \(z_p^n=-1\)은
+\(t_p\mid2n\)이고 \(t_p\nmid n\)인 것과 같고, odd \(n\) 때문에
+order의 2-adic valuation이 정확히 1이 된다.
+
+\claimstatus{REF-053}{REFUTED}.
+이 periodicity를 인식해도 BAR-048보다 더 de-duplicate되지는 않는다.
+inherited repeat은 정확히
+\[
+R_a\mid R_q\quad\Longleftrightarrow\quad a\mid q
+\tag{M58.4}
+\]
+이고 exact prefix LCM이 이미 흡수한다. 가능한 first period를 제한하는
+별도의 정리는 여전히 유효할 수 있다.
+
+\claimstatus{EMP-056}{EMPIRICAL}.
+EXP-0056은 11 이상 50,000 이하 prime 5,129개, gap 16까지 direct
+divisibility 82,064건, finite-window hit prime 44개, periodic hit position
+74개, independently reconstructed sequence hash 5,129개를 검사했다.
+summary SHA-256은
+\[
+\texttt{\seqsplit{41eb014eb5071fae4c7a33a98f66e5b7d0529c47cab832dd89fc8b493ed9b485}}
+\]
+이고 schema file SHA-256은
+\[
+\texttt{\seqsplit{6ed0636dd95d3ab5a677cedc9859eebcf0148d4628b4ded61a1226f64edca0c8}}
+\]
+이다. finite hit fraction은 asymptotic density theorem이 아니다.
+
 \section{compact-step과 표준 bit-operation complexity}
 
 \subsection{비용 단위와 online/offline 경계}

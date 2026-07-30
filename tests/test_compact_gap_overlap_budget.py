@@ -25,6 +25,7 @@ from python.mosef_reference.compact_gap_overlap_budget import (
     compact_gap_overlap_lcm_prefix,
     compact_gap_overlap_population_upper_bound,
     compact_gap_overlap_prefix_bit_bound,
+    compact_gap_overlap_prime_occurrence,
     compact_gap_overlap_profile,
     compact_gap_realizable_common_gaps,
     compact_gap_variable_order_profile,
@@ -241,6 +242,26 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
             compact_gap_overlap_integer(6).bit_length(),
         )
 
+    def test_overlap_prime_occurrence_is_periodic_by_exact_order(self) -> None:
+        hit_profiles = []
+        for prime in (11, 13, 17, 31, 41, 71, 179, 409, 1171):
+            profile = compact_gap_overlap_prime_occurrence(prime, 12)
+            self.assertTrue(profile.characterization_holds)
+            if profile.direct_occurrence_gaps:
+                hit_profiles.append(profile)
+                self.assertEqual(
+                    profile.ratio_order,
+                    2 * profile.odd_half_order,
+                )
+                self.assertEqual(profile.odd_half_order % 2, 1)
+                self.assertTrue(
+                    all(
+                        gap % profile.occurrence_period == 0
+                        for gap in profile.direct_occurrence_gaps
+                    )
+                )
+        self.assertGreaterEqual(len(hit_profiles), 2)
+
     def test_dense_interval_realizes_the_complete_gap_prefix(self) -> None:
         for level_span in range(2, 11):
             levels = tuple(range(2, level_span + 3))
@@ -312,6 +333,8 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
             lambda: compact_gap_maximal_gap_witness(1, False),
             lambda: compact_gap_overlap_gcd(0, 1),
             lambda: compact_gap_overlap_lcm_prefix(False),
+            lambda: compact_gap_overlap_prime_occurrence(7, 3),
+            lambda: compact_gap_overlap_prime_occurrence(11, 0),
             lambda: compact_gap_dense_interval_realizable_gaps(4, 5),
             lambda: compact_gap_endpoint_dense_ledger(5, 1),
             lambda: compact_gap_endpoint_dense_ledger(6, False),

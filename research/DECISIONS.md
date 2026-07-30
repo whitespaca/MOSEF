@@ -1203,3 +1203,18 @@
   sufficient certificate without claiming endpoint injectivity. M58 will
   examine which primes can actually occur in the overlap integers, the main
   information discarded by the LCM ledger.
+
+## ADR-062 - Classify overlap-prime occurrence by exact ratio order
+
+- Date: 2026-07-30.
+- Decision: for each prime \(p>7\), replace direct factorization of growing
+  \(R_q\) by the exact order of \(3\cdot32^{-1}\pmod p\), and derive the
+  full occurrence-level set from the half-order \(d_p\).
+- Rationale: \(p\mid R_q\) is equivalent to
+  \((3/32)^{2^q-1}=-1\pmod p\). This holds exactly when the ratio order is
+  \(2d_p\) with odd \(d_p\mid2^q-1\), making all occurrence levels multiples
+  of \(\operatorname{ord}_{d_p}(2)\).
+- Consequence: BAR-051 exposes exact periodic structure without a
+  factorization heuristic. The periodic repeats are already removed by the
+  prefix LCM, so M59 must quantify possible first-occurrence half-orders
+  rather than count inherited hits again.
