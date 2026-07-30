@@ -1242,3 +1242,20 @@
 - Consequence: M80 pauses with general factoring still open, while preserving
   THM-020 as a genuine restricted-class algorithm and COND-004 as a complete
   conditional reduction.
+
+## ADR-065 - Migrate every live length parameter to standard bit length
+
+- Date: 2026-07-31.
+- Decision: define input length only as
+  \(\operatorname{bitlength}(N)=\lfloor\log_2N\rfloor+1\), retain
+  \(\lceil\log_2N\rceil\) only under the explicit legacy symbol used in the
+  M81 refutation, and audit exact artifacts before changing any frozen data.
+- Rationale: the former expression is one too small exactly at powers of two.
+  The error does not justify discarding valid odd-semiprime results, but exact
+  public schedules, perfect-power handling, and random-bit endpoints cannot
+  rely on asymptotic equivalence.
+- Consequence: powers \(2^e\) receive the correct length \(e+1\). The
+  M31--M46 populations and hashes remain frozen because every certified input
+  is odd and the implementations already use standard bit-length operations.
+  M82 will normalize notation while splitting the manuscript; no general
+  factoring claim changes status.

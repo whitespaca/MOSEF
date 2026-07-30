@@ -18,7 +18,7 @@
 \title{Order-Separating Exponents for Classical Integer Factorization:\\
 Finite Promise Theorems, Structural Barriers, and Reproducible Certificates}
 \author{MOSEF Research Program}
-\date{30 July 2026}
+\date{31 July 2026}
 
 \begin{document}
 \maketitle
@@ -593,7 +593,9 @@ divisibility, simultaneous two-channel conclusion, or M12 prime-yield result.
 
 \claimstatus{DEF-001}{DEFINITION}. The input length is
 \[
-m=\left\lceil\log_2N\right\rceil.
+m=\operatorname{bitlength}(N)
+=\left\lfloor\log_2N\right\rfloor+1
+=\left\lceil\log_2(N+1)\right\rceil.
 \]
 A bound polynomial in \(N\), \(\sqrt N\), or an enumerated group size is not
 therefore polynomial in the input length.
@@ -641,6 +643,49 @@ construction, exponent, evaluation, and recursion bounds.
 \claimstatus{OPEN-003}{OPEN}. It also remains unknown here whether a
 factorization-independent valuation-separating family satisfying the same
 bounds exists for every composite input, including prime powers.
+
+\section{Standard bit length and migration audit}
+
+\claimstatus{REF-060}{REFUTED}. The former identification of
+\(\lceil\log_2N\rceil\) with the standard binary bit length fails exactly at
+positive powers of two. The smallest witnesses are \(N=1,2,4,8\).
+
+\claimstatus{BAR-064}{PROVED}. For every \(N\ge1\),
+\[
+\operatorname{bitlength}(N)-\lceil\log_2N\rceil
+=
+\begin{cases}
+1,&N\text{ is a power of two},\\
+0,&\text{otherwise}.
+\end{cases}
+\]
+The two parameters differ by at most one, so the correction does not change a
+polynomial-versus-superpolynomial asymptotic classification. It does change
+exact indices for \(2^e\), and all live schedule, recursion, perfect-power,
+and random-bit parameters therefore use the standard bit length.
+
+Every frozen balanced selector input is an odd semiprime. From
+\(2^{m-1}\le p^2,q^2<2^m\) we obtain
+\(2^{m-1}\le pq<2^m\); because \(pq\) is not a power of two, both the standard
+length and the former index equal \(m\) on this restricted domain. Thus the
+M31--M46 populations and the 26-row M50 certificate summary remain unchanged.
+Appendix \ref{proof:BAR-064} gives the complete proof and migration boundary.
+
+\claimstatus{EMP-059}{EMPIRICAL}. EXP-0059 independently checked all
+1,048,576 positive integers through \(2^{20}\), finding exactly the 21 powers
+\(2^0,\ldots,2^{20}\) as discrepancies. It reconstructed all 26 frozen M50
+rows, totaling 12,245 population primes and 11,628,152 distinct pairs, and
+confirmed the standard integer-length operations in the Python, Rust, and
+C\# paths. The canonical summary and schema SHA-256 values are
+\[
+\texttt{\seqsplit{19435b38800bd75dec6fb628731eaa94a9fc5d0a9898cbf02e0edeec5d4ac709}}
+\]
+and
+\[
+\texttt{\seqsplit{fd3ab80dfca08de5620db8f8d86b60ba2648a626d859579a8e4d5a8404150a46}}.
+\]
+The enumeration validates the implementation; the universal statement is
+proved by BAR-064. No separator claim changes status.
 
 \section{Order separators and algorithmic framework}
 
@@ -706,7 +751,7 @@ M_B(k)=\operatorname{lcm}(1,2,\ldots,B(k)).
 \]
 
 \claimstatus{DEF-004}{DEFINITION}. A composite non-perfect-power \(K\), with
-\(k=\lceil\log_2K\rceil\), has a semismooth-asymmetry witness when distinct
+\(k=\operatorname{bitlength}(K)\), has a semismooth-asymmetry witness when distinct
 primes \(p,q\mid K\) and \(1\le t\le R(k)\) satisfy
 \[
 p-1\mid tM_B(k),\qquad q-1\nmid tM_B(k).
@@ -1576,7 +1621,7 @@ A unit denominator permits extended-GCD division; a proper denominator is
 returned as a factor; and a full denominator is recorded as a collision.
 The division-free value \(Q\) remains defined in every case.
 
-Let \(k=\lceil\log_2N\rceil\),
+Let \(k=\operatorname{bitlength}(N)\),
 \(\ell=\lfloor\log_2M\rfloor+1\), and
 \(b=\lceil\log_2(|g|+1)\rceil\). Base and exponent encodings, base reduction,
 the precheck, binary construction, operations, outputs, GCDs, division, and
@@ -5077,7 +5122,28 @@ and broader group channels remain open research targets.
 
 \appendix
 
-\section{Full proofs of the separator criteria}
+\section{Full proofs of the standard bit length and separator criteria}
+
+\subsection{Proof of BAR-064}\label{proof:BAR-064}
+
+Choose the unique integer \(e\ge0\) with
+\(2^e\le N<2^{e+1}\). The standard binary representation then has
+\(e+1\) bits. If \(N=2^e\), the former quantity is
+\(\lceil\log_2N\rceil=e\). If \(2^e<N<2^{e+1}\), that quantity is \(e+1\).
+This proves the exact discrepancy formula.
+
+For a balanced population member,
+\(2^{m-1}\le p^2,q^2<2^m\), hence
+\(2^{m-1}\le pq<2^m\). The product is odd and greater than one, so it is not
+a power of two; the discrepancy formula gives both length indices equal to
+\(m\). Consequently changing the general definition cannot change a frozen
+population row, signature, threshold, or hash on this domain.
+
+Odd prime powers likewise retain their exact index. A power \(2^e\) receives
+the corrected standard length \(e+1\). Exact perfect-power preprocessing
+already removes that input before either hereditary promise splitter, so the
+split-success proofs are unchanged, while their stated local and global
+parameters must use the corrected definition. \(\square\)
 
 \subsection{Proof of LEM-001}\label{proof:LEM-001}
 
@@ -5119,7 +5185,7 @@ never be proper, while the valuation criterion is precisely
 
 \paragraph{Algorithm.}
 For a reached composite non-perfect-power \(K\), put
-\(k=\lceil\log_2K\rceil\) and
+\(k=\operatorname{bitlength}(K)\) and
 \(M=M_B(k)\). Repeat complete cycles over \(t=1,\ldots,R(k)\). At every
 \(t\), sample a fresh exact uniform \(a\in\{0,\ldots,K-1\}\), return
 \(\gcd(a,K)\) if it is proper, and otherwise return
@@ -5361,7 +5427,7 @@ and hence \(n_-=(q-1)/2\). \(\square\)
 On a reached integer \(K\), first run deterministic polynomial-time
 primality testing, exact maximal-perfect-power preprocessing, and the even
 factor check. For an odd composite non-perfect-power residual, put
-\(k=\lceil\log_2K\rceil\), \(M=M_B(k)\), and repeat complete cycles over
+\(k=\operatorname{bitlength}(K)\), \(M=M_B(k)\), and repeat complete cycles over
 \(t=1,\ldots,R(k)\). At every \(t\), sample a fresh exact uniform
 \(P\in\{0,\ldots,K-1\}\), put \(d=tM\), and compute
 \[
@@ -5481,8 +5547,9 @@ Finally, for distinct \(p,q\in S_n\),
 \[
 2^{2n}<pq<2^{2n+1}.
 \]
-Because an odd semiprime is not a power of two, its binary input length is
-\(\lceil\log_2(pq)\rceil=2n+1\), and all pairs use the same schedule.
+Because an odd semiprime is not a power of two, its standard binary input
+length is \(\operatorname{bitlength}(pq)=2n+1\), and all pairs use the same
+schedule.
 The strict magnitude hypothesis puts every prime above \(D+1\), giving exact
 zero density. The conditional asymptotic statement follows directly from the
 sparse hit-set bound. \(\square\)
@@ -6167,7 +6234,7 @@ are
 \]
 bounded by \(3(\ell-1)\) and \(2(\ell-1)\). For
 \(b=\lceil\log_2(|g|+1)\rceil\) and
-\(k=\lceil\log_2N\rceil\), reducing the encoded base and performing its GCD
+\(k=\operatorname{bitlength}(N)\), reducing the encoded base and performing its GCD
 precheck are polynomial in \(b+k\); thereafter the residue
 circuit costs \(O(\ell\poly(k))\), and all charged work is polynomial in
 \(b+k+\ell\). Degree and monomial-count metadata use \(O(\ell)\) bits, while
@@ -8390,6 +8457,9 @@ python scripts/check_m52_boundary_constant_differential.py
 python scripts/run_m53_distinct_gap_audit.py
 python scripts/generate_m53_distinct_gap_schema.py
 python scripts/check_m53_distinct_gap_differential.py
+python scripts/run_m81_bitlength_audit.py
+python scripts/generate_m81_bitlength_schema.py
+python scripts/check_m81_bitlength_differential.py
 latexmk -xelatex -outdir=tmp/pdfs `
   -interaction=nonstopmode -halt-on-error paper/main.tex
 \end{verbatim}
@@ -8401,7 +8471,7 @@ through EXP-0019 are deterministic combinatorial or syntax
 enumerations. Large raw
 datasets are not required; scripts, bounds, compact records, canonical
 vectors, commits, and hashes reconstruct the reported observations. EXP-0020
-through EXP-0051 use the same deterministic finite-enumeration policy. The
+through EXP-0059 use the same deterministic finite-enumeration policy. The
 stable rendered artifact is \path{output/pdf/mosef-paper.pdf}.
 
 \bibliographystyle{plain}

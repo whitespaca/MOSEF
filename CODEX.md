@@ -5,7 +5,7 @@
 Conduct a rigorous, autonomous research program on classical integer factorization. The central question is whether an arbitrary positive integer `N`, represented in binary with input length
 
 ```text
-m = ceil(log2 N),
+m = bitlength(N) = floor(log2 N) + 1 = ceil(log2(N + 1)),
 ```
 
 can be factored on a classical computation model in time `poly(m)`.
@@ -19,7 +19,8 @@ The system must actively attempt to refute, repair, restrict, or replace these i
 ### 2.1 In scope
 
 - deterministic and Las Vegas classical integer-factorization algorithms;
-- bit-complexity analysis with input length `m = ceil(log2 N)`;
+- bit-complexity analysis with the standard input length
+  `m = bitlength(N) = floor(log2 N) + 1`;
 - order-finding surrogates in multiplicative groups, Lucas/Pell-type groups, norm-one groups, and elliptic-curve groups over composite moduli;
 - difference covers and structured exponent families;
 - smooth and semismooth integers, smooth exponents, and explicit smooth-object generation;
@@ -87,6 +88,11 @@ A candidate **Polynomial Order-Separating Family** consists of constructible set
 
 The universal existence and constructibility of such families are **open research targets**, not assumptions to hide.
 
+The former repository wording `ceil(log2 N)` is not the binary bit length at
+positive powers of two. BAR-064 proves the exact discrepancy and records the
+M81 migration audit. It may appear only when explicitly named as the legacy
+quantity being refuted; all live complexity parameters use `bitlength(N)`.
+
 ## 5. Threat model for invalid proofs
 
 Every proof attempt must be screened for the following failure modes.
@@ -97,7 +103,9 @@ Reject any construction that requires knowledge of `p`, `q`, `p - 1`, `q - 1`, a
 
 ### 5.2 Input-size confusion
 
-Reject complexity statements polynomial in `N`, `sqrt(N)`, the smallest factor, or an enumerated group size when the claimed target is polynomial in `m = log2 N`.
+Reject complexity statements polynomial in `N`, `sqrt(N)`, the smallest
+factor, or an enumerated group size when the claimed target is polynomial in
+`m = bitlength(N)`.
 
 ### 5.3 Hidden exponent explosion
 

@@ -130,7 +130,7 @@ TRY-SUPPORT-POSF(N, constructor):
     if N = a^k is a perfect power with k >= 2:
         return PERFECT-POWER(a, k)
 
-    (G, Delta) <- constructor(N, ceil(log2 N))
+    (G, Delta) <- constructor(N, bitlength(N))
     if construction is invalid, exceeds a declared bound,
        uses factor-dependent information, or fails:
         return CONSTRUCTION-FAILURE
@@ -182,7 +182,7 @@ is invoked only after prime and perfect-power branches fail.
 
 ## Bit-complexity ledger
 
-Let \(m=\lceil\log_2 N\rceil\), let \(C(m)\) bound construction and explicit
+Let \(m=\operatorname{bitlength}(N)\), let \(C(m)\) bound construction and explicit
 materialization, let \(|G_m(N)|\le B(m)\), let
 \(|\Delta_m(N)|\le E(m)\), and let \(T(m)=B(m)E(m)\) bound the Cartesian
 product. Every base is stored as a canonical \(m\)-bit residue; let \(L(m)\)

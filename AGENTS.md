@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This repository is an autonomous, evidence-driven research program on classical algorithms for factoring an integer `N` in time polynomial in its input length `m = ceil(log2 N)`.
+This repository is an autonomous, evidence-driven research program on classical algorithms for factoring an integer `N` in time polynomial in its standard binary input length `m = bitlength(N) = floor(log2 N) + 1`.
 
 The goal is **not** to presume that a polynomial-time algorithm exists. The acceptable outcomes are:
 
@@ -67,7 +67,7 @@ These rules are absolute.
 - Never fabricate a citation, DOI, arXiv identifier, theorem statement, quotation, benchmark, or experimental result.
 - Never cite a source not actually inspected.
 - Never use a theorem outside its hypotheses.
-- Never silently weaken the definition of polynomial time. Complexity is measured in the bit length `m = ceil(log2 N)`, not in `N`.
+- Never silently weaken the definition of polynomial time. Complexity is measured in the standard bit length `m = bitlength(N) = floor(log2 N) + 1`, not in `N`.
 - Track the bit length of exponents, generated objects, certificates, and intermediate values. A compact description is not sufficient if evaluation is superpolynomial.
 - Treat proof search as falsification-first: search for counterexamples and hidden circularity before attempting polish.
 - Preserve failed approaches in `research/NEGATIVE_RESULTS.md`; do not delete inconvenient evidence.

@@ -51,7 +51,8 @@ Then begin M1 or the highest-priority pre-existing milestone. Build small truste
 
 ## Research requirements
 
-- Measure complexity in `m = ceil(log2 N)` bit operations.
+- Measure complexity in the standard binary input length
+  `m = bitlength(N) = floor(log2 N) + 1`.
 - Account for construction time, exponent bit length, modular evaluation, GCD, memory, and recursion.
 - Label every claim as `DEFINITION`, `PROVED`, `CONDITIONAL`, `CONJECTURE`, `HEURISTIC`, `EMPIRICAL`, `OPEN`, or `REFUTED`.
 - Search for circular dependence on unknown factors.

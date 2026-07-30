@@ -134,7 +134,7 @@ which gives \(n_-=(q-1)/2\). \(\square\)
 ## DEF-007 - hereditary nonsplit Lucas asymmetry
 
 An odd composite non-perfect-power integer \(K\), with
-\(k=\lceil\log_2K\rceil\), has a \((B,R)\)-nonsplit Lucas asymmetry witness if
+\(k=\operatorname{bitlength}(K)\), has a \((B,R)\)-nonsplit Lucas asymmetry witness if
 there are distinct odd primes \(p,q\mid K\) and
 \(1\le t\le R(k)\) such that, for
 

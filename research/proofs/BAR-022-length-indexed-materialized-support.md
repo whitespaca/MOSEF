@@ -49,8 +49,9 @@ and suppose \(s_m\ge2\). Every two distinct \(p,q\in\mathcal P_m\) satisfy
  2^{m-1}\le pq<2^m.
 \]
 
-Their odd product therefore has repository input length
-\(\lceil\log_2(pq)\rceil=m\). Define
+Their odd product therefore has standard input length
+\(\operatorname{bitlength}(pq)=m\). The legacy ceiling-log index agrees
+because the product is not a power of two. Define
 
 \[
  b_m=\left\lfloor\frac{m-1}{2}\right\rfloor.
