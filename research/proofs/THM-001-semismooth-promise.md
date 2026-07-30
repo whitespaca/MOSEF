@@ -13,7 +13,7 @@ M_B(k)=\operatorname{lcm}(1,2,\ldots,B(k)).
 \]
 
 For a composite integer \(K\) that is not a perfect power, let
-\(k=\lceil\log_2 K\rceil\). A **\((B,R)\)-semismooth asymmetry witness** is a
+\(k=\operatorname{bitlength}(K)\). A **\((B,R)\)-semismooth asymmetry witness** is a
 tuple \((p,q,t)\) such that
 
 1. \(p\ne q\) are distinct prime divisors of \(K\);
@@ -39,7 +39,7 @@ For every fixed schedule pair above, there is a classical Las Vegas algorithm
 which, on every \(N\) in the hereditary promise class, returns the complete
 prime factorization of \(N\), is always correct, terminates with probability
 one, and has expected running time polynomial in
-\(m=\lceil\log_2 N\rceil\).
+\(m=\operatorname{bitlength}(N)\).
 
 No termination or polynomial-time claim is made outside the promise. A bounded
 implementation may return `UNRESOLVED` after an explicitly declared trial
@@ -49,7 +49,7 @@ budget without treating that result as a primality or nonmembership decision.
 
 ```text
 RANDOM-SEMISMOOTH-SPLIT(K):
-    k <- ceil(log2 K)
+    k <- bitlength(K)
     M <- lcm(1, ..., B(k))
     repeat:
         for t = 1, ..., R(k):

@@ -61,7 +61,7 @@ squarings, every one of the \(t\) additions producing \(F_j\), the
 \(\max(0,t-1)\) product multiplications, the extended-GCD division attempt,
 every requested GCD, every retained residue or formal descriptor, and
 factor extraction. A polynomial total-work claim therefore requires
-\(t=\operatorname{poly}(k)\), where \(k=\lceil\log_2N\rceil\). A compact
+\(t=\operatorname{poly}(k)\), where \(k=\operatorname{bitlength}(N)\). A compact
 binary encoding of a larger \(t\) does not waive the \(t\) sequential
 squarings or outputs.
 

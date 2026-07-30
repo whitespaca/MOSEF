@@ -30,6 +30,7 @@ REQUIRED_SECTIONS = (
     "Introduction and contributions",
     "Related work and complexity landscape",
     "Model and definitions",
+    "Standard bit length and migration audit",
     "Order separators and algorithmic framework",
     "A restricted semismooth-order theorem",
     "Difference coverage versus order separation",
@@ -136,6 +137,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-051}",
     r"\label{proof:BAR-052}",
     r"\label{proof:THM-020-BAR-063}",
+    r"\label{proof:BAR-064}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -313,6 +315,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0058-m60-m80-synthesis.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0059-m81-bitlength-audit.md",
 )
 
 

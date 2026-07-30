@@ -172,7 +172,8 @@ For distinct \(p,q\in S_n\),
 2^{2n}<pq<2^{2n+1}.
 \]
 
-Therefore \(\lceil\log_2(pq)\rceil=2n+1\), so all pairs use the same schedule.
+Therefore \(\operatorname{bitlength}(pq)=2n+1\), so all pairs use the same
+schedule. Because \(pq\) is odd, the former ceiling-log index agrees here.
 Condition (6) puts every prime in \(S_n\) above \(D+1\), proving the exact
 zero-density statement. The asymptotic conditional statement follows
 directly from (5). \(\square\)

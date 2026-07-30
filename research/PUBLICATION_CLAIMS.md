@@ -272,3 +272,6 @@ the evidence and scope remain authoritative in the full claims ledger.
 | EMP-058 | EMPIRICAL | Residue and restricted-separator synthesis audit | `research/experiments/EXP-0058-m60-m80-synthesis.md` |
 | BAR-062 | PROVED | M79 adversarial scope review | `research/proofs/M60-M80-residue-separator-synthesis.md` |
 | BAR-063 | PROVED | M80 final scoped synthesis | `research/proofs/M60-M80-residue-separator-synthesis.md` |
+| BAR-064 | PROVED | Exact standard-bit-length migration boundary | `research/proofs/BAR-064-standard-bitlength-migration.md` |
+| REF-060 | REFUTED | Ceiling log equals standard bit length on every positive input | `research/NEGATIVE_RESULTS.md` NR-058 |
+| EMP-059 | EMPIRICAL | Standard-bit-length and frozen-certificate migration audit | `research/experiments/EXP-0059-m81-bitlength-audit.md` |

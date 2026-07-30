@@ -1,5 +1,70 @@
 # Research Status
 
+## M81 outcome
+
+- Date: 2026-07-31.
+- Branch: `research/20260731-m81-bitlength-audit`.
+- Base: M80 squash merge
+  `3bce2703a18156937f9d5acbe1e6d1d80d156ebf`.
+- External-review repair: `DEF-001`, `AGENTS.md`, `CODEX.md`, the original
+  prompt, affected proofs, and both manuscripts now use the standard binary
+  input length
+  \[
+  \operatorname{bitlength}(N)
+  =\lfloor\log_2N\rfloor+1
+  =\lceil\log_2(N+1)\rceil .
+  \]
+- `BAR-064` proves that the former \(\lceil\log_2N\rceil\) quantity is one
+  smaller exactly at powers of two and agrees everywhere else. `REF-060`
+  records the former all-input identification as refuted.
+- Exact impact audit: powers \(2^e\) move to length \(e+1\); odd prime powers
+  and residual non-perfect-powers keep their index. Exact perfect-power
+  preprocessing preserves the two hereditary promise proofs, while every
+  live recursion, sampler, and schedule parameter now names the standard
+  length.
+- Frozen finite preservation: every balanced selector input is an odd
+  semiprime, so its standard and legacy indices agree. EXP-0059 independently
+  reconstructed all 26 M50 rows for \(9\le m\le34\), totaling 12,245 primes
+  and 11,628,152 distinct pairs; no M31--M46 population, threshold, signature,
+  or frozen hash changed.
+- EXP-0059 checked all 1,048,576 positive integers through \(2^{20}\), finding
+  exactly the 21 powers \(2^0,\ldots,2^{20}\) as discrepancies and 1,048,555
+  non-power agreements. Its canonical summary SHA-256 is
+  `19435b38800bd75dec6fb628731eaa94a9fc5d0a9898cbf02e0edeec5d4ac709`;
+  the schema file SHA-256 is
+  `fd3ab80dfca08de5620db8f8d86b60ba2648a626d859579a8e4d5a8404150a46`.
+- Validation: full 269-test Python suite (345.528 s), Ruff, strict mypy over
+  30 source files, compileall, M0 foundation, bilingual publication
+  consistency (268 claims and 58 experiment hashes), EXP-0059 differential,
+  Rust formatting/Clippy and 36 tests, and warning-free Release C# build all
+  pass. The focused M81 module has 5/5 passing tests, including \(2^{12}\)
+  and \(3^8\) recursive perfect-power cases.
+- Paper gate: converged XeLaTeX produced 125 English pages and 53 Korean pages
+  with no undefined references, citations, overfull boxes, or missing glyphs.
+  One pre-existing harmless English underfull paragraph remains. Rendered QA
+  covered the English M81 definition/result pages, the full BAR-064 proof, and
+  the Korean M81 section. PDF SHA-256 values are
+  `71a957c59c98f5135c65b34f54974d6eb49c4d2201cb73a1d6229828b802fadc`
+  and
+  `dbaada8f8fbb3ed3ad11dea35e3cc0fbc69a70db1935f975319559f372cca070`.
+- Scope: M81 corrects exact input-size semantics. It creates no separator,
+  recognizes no hereditary promise, proves no UCSS premise, extends no finite
+  length range, and does not solve general classical polynomial-time
+  factoring.
+- Next selected milestone: M82, split the monograph into focused bilingual
+  promise-factorization, cyclotomic-extraction, and finite-certificate papers
+  while retaining the archival claim map.
+
+### M81 Korean summary
+
+기존 \(m=\lceil\log_2N\rceil\) 표기는 \(N=2^e\)에서 실제 이진
+비트길이보다 정확히 1 작았다. M81은 표준 정의
+\(m=\lfloor\log_2N\rfloor+1\)로 헌법, 원장, 증명, 영문·국문 논문을
+교정했다. 균형 selector 인증 입력은 모두 odd semiprime이므로 이
+예외집합에 속하지 않으며, 26개 동결 행과 기존 hash는 유지된다.
+이는 정의 결함의 교정이지 새로운 separator나 일반 정수분해 정리가
+아니다.
+
 ## M80 outcome - research paused
 
 - Date: 2026-07-30.

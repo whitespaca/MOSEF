@@ -93,7 +93,7 @@ Every DEF-018 circuit satisfies:
 5. compact residue construction uses at most \(3(\ell-1)\) modular
    multiplications and \(2(\ell-1)\) modular additions, hence
    \(O(\ell\operatorname{poly}(k))\) bit operations after base reduction for
-   \(k=\lceil\log_2N\rceil\), with total preprocessing, GCD, extended-GCD,
+   \(k=\operatorname{bitlength}(N)\), with total preprocessing, GCD, extended-GCD,
    and circuit work polynomial in the charged length \(b+k+\ell\);
 6. compact formal metadata uses \(O(\ell)\) bits, while expanded coefficient
    output costs \(\Omega(M)\).

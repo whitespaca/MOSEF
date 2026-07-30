@@ -1345,3 +1345,25 @@
   nonuniform, and BAR-042--BAR-057 stop short of a UCSS construction.
 - Scope: polynomially many channels and UCSS existence remain open; no
   impossibility theorem is claimed.
+
+## NR-058 - Ceiling log is not the standard bit length at powers of two
+
+- Date: 2026-07-31.
+- Status: `REFUTED` claim `REF-060`.
+- Hypothesis tested: for every positive integer \(N\), the binary input length
+  is \(\lceil\log_2N\rceil\).
+- Exact obstruction: if \(N=2^e\), its binary representation is one followed
+  by \(e\) zeros and has length \(e+1\), while
+  \(\lceil\log_2N\rceil=e\). If \(2^e<N<2^{e+1}\), both quantities equal
+  \(e+1\). Thus the discrepancy occurs exactly at powers of two, including
+  \(N=1\).
+- Surviving finite results: every balanced selector input is an odd semiprime,
+  hence not a power of two. The population inequalities already imply standard
+  bit length \(m\), and EXP-0059 independently preserves all 26 M50 rows.
+- Consequence: the constitution, claim ledger, promise proofs, samplers, and
+  manuscripts use
+  \(\operatorname{bitlength}(N)=\lfloor\log_2N\rfloor+1\). The former
+  expression remains only as the explicitly named legacy quantity in BAR-064.
+- Scope: an additive-one parameter repair changes exact indexing but not a
+  polynomial-versus-superpolynomial asymptotic class. It proves no new
+  separator, promise recognizer, UCSS, or general factoring algorithm.
