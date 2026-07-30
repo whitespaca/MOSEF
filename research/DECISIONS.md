@@ -1229,3 +1229,16 @@
   counting problem and must not be hidden inside the size theorem.
 - Consequence: BAR-052 gives linear half-order and logarithmic first-gap
   floors; M60 will audit the residue-class union bound.
+
+## ADR-064 - End with a status-separated separator synthesis
+
+- Date: 2026-07-30.
+- Decision: close M60--M80 as one dependency chain: exact residue barriers,
+  a formal UCSS premise, conditional reductions, and an unconditional
+  restricted-input theorem.
+- Rationale: treating UCSS existence as proved would be the precise
+  unsupported step. Keeping it as DEF-046 makes the conditional and
+  unconditional branches independently reviewable.
+- Consequence: M80 pauses with general factoring still open, while preserving
+  THM-020 as a genuine restricted-class algorithm and COND-004 as a complete
+  conditional reduction.

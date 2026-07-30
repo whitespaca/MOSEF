@@ -1,5 +1,58 @@
 # Research Status
 
+## M80 outcome - research paused
+
+- Date: 2026-07-30.
+- Branch: `research/20260730-m60-m80-synthesis`.
+- Base: M59 squash merge
+  `08fb840d3db052699d274ed58750e0a0cc892e64`.
+- M60--M63 close the elementary residue route: exact residue unions,
+  endpoint-compatible linear moduli, minimal-divisor antichains, and
+  first-period rebucketing do not supply a subleading endpoint bound.
+- M64--M65 prove the fixed-channel barrier and preserve polynomially many
+  channels as `OPEN-006`.
+- M66--M72 define UCSS and prove the complete conditional reduction
+  `COND-004`, while explicitly rejecting finite-table uniformity.
+- M73--M75 prove `THM-020`: an unconditional polynomial-time algorithm for
+  the restricted public-Phi4-separable semiprime class, with branch-total
+  evaluation.
+- M76--M79 complete the dependency, reproducibility, and adversarial scope
+  audits.
+- M80 result (`BAR-063`): the original general classical polynomial-time
+  factoring goal remains open. The repository contains a restricted
+  unconditional theorem, a general conditional theorem, and exact method
+  barriers; none is promoted to an unconditional general solution.
+- EXP-0058 passes 32 residue profiles, 271 admissible-divisor profiles,
+  85,812 exact residue candidates, 10 separator profiles, 94 separated-pair
+  checks, 94 proper factors, and 42 row hashes.
+- Registered summary SHA-256:
+  `98c64e889c9554562f1c934cbbb123fa9e91e8e0fc8a906e4bb7807352670e37`.
+- Registered schema SHA-256:
+  `fedb065411473ae130f4360b16318df21979d30875675a14c9cf7da4d7f31603`.
+- Validation: targeted 22 tests, full 264-test Python suite (336.558 s),
+  Ruff, mypy, compileall, M0 foundation, EXP-0058 differential,
+  publication consistency (265 claims and 57 experiment hashes), Rust
+  formatting/clippy and 36 tests, and Release C# build all pass.
+- Paper gate: XeLaTeX produced 125 English pages and 53 Korean pages with
+  no undefined references, overfull boxes, or missing glyphs. One harmless
+  English underfull paragraph is recorded. SHA-256 values are
+  `db3089cbe81a3bc9b2f97e1e4bf54a76b4cedc985ead163b585d5c175fcf010a`
+  and
+  `da6e1a3c932b84c81fd808020d258a844d9cc9ae8ae778b087b294c466e52e64`;
+  rendered QA covered the English two-page synthesis and Korean synthesis
+  page.
+- Research is paused after M80 by user instruction.
+
+### M80 Korean summary
+
+M60부터 M80까지 residue counting, channel 확장, uniform separator,
+conditional reduction, restricted algorithm을 하나의 status-separated
+dependency chain으로 완결했다. 일반 정수에 대한 고전적 다항 시간
+인수분해 알고리즘은 증명되지 않았다. 대신 public Phi4 signature가
+두 인수를 분리하는 제한 class에서는 unconditional algorithm을
+증명했고, UCSS existence를 명시적 가정으로 둔 general conditional
+theorem을 증명했다. M80 완료에 따라 연구를 일시 중단한다.
+
 ## M59 outcome
 
 - Date: 2026-07-30.

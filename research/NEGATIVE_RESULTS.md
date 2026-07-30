@@ -1322,3 +1322,26 @@
 - Scope: compatibility is not occurrence. Residue classes, Mersenne
   divisors, prime distribution, other families, and general factoring
   remain open.
+
+## NR-056 - Elementary residue summation does not close the endpoint
+
+- Date: 2026-07-30.
+- Status: `REFUTED` claims `REF-055` and `REF-056`.
+- Hypothesis: necessary residue classes force a uniformly subleading
+  balanced support count.
+- Obstruction: BAR-054 supplies infinitely many endpoint-compatible
+  \(\Theta(m)\) moduli, whose individual integer class capacity is already
+  \(\Theta(2^{m/2}/m)\).
+- Scope: this is a method barrier, not a theorem about primes in progressions
+  or actual overlap divisors.
+
+## NR-057 - Reindexing and finite tables do not create a uniform separator
+
+- Date: 2026-07-30.
+- Status: `REFUTED` claims `REF-057`, `REF-058`, and `REF-059`.
+- Hypotheses: first-period buckets shrink support; finite tables prove a
+  uniform family; current fixed-channel barriers already prove UCSS.
+- Obstruction: the bucket map preserves the exact union, finite tables are
+  nonuniform, and BAR-042--BAR-057 stop short of a UCSS construction.
+- Scope: polynomially many channels and UCSS existence remain open; no
+  impossibility theorem is claimed.

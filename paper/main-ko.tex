@@ -2630,6 +2630,86 @@ condition 각각 622개, independently reconstructed profile hash
 \]
 이다. residue-class counting은 M60에서 별도로 다룬다.
 
+\section{M60--M80: residue barrier와 separator 종합}
+
+\claimstatus{BAR-053}{PROVED}.
+\(d\mid2^q-1\), \(d\ge\delta_m\)인 half-order에 대해 실제 balanced
+overlap prime은 \(1\bmod2d\) residue union 안에 있다.
+\claimstatus{REF-055}{REFUTED}. 이 elementary union sum은 endpoint에서
+uniformly subleading하지 않다.
+
+\claimstatus{BAR-054}{PROVED}.
+\(q_a=a\lfloor2^{a-4}/a\rfloor\), \(m_a=2q_a\),
+\(d_a=2^a-1\)은 \(d_a\mid2^{q_a}-1\)이고
+\(2d_a=\Theta(m_a)\)인 infinite witness이다.
+\claimstatus{REF-056}{REFUTED}. size와 elementary residue counting만으로
+endpoint를 닫을 수 없다. 이는 prime occurrence 정리가 아니다.
+
+\claimstatus{BAR-055}{PROVED}. \(d\mid e\)이면
+\(1\bmod2e\subseteq1\bmod2d\)이므로 minimal divisor antichain만 남겨도
+union은 같다.
+\claimstatus{BAR-056}{PROVED}. \(\operatorname{ord}_d(2)\)별 first-period
+bucket은 같은 집합의 정확한 reindexing이다.
+\claimstatus{REF-057}{REFUTED}. reindexing 자체는 support를 줄이지 않는다.
+
+\claimstatus{BAR-057}{PROVED}. fixed channel 수 \(K\)에서는
+\(\sum_{j\le h}\binom{Kr}{j}\)의 endpoint leading \(1/2\) balance가
+변하지 않는다.
+\claimstatus{OPEN-006}{OPEN}. polynomially growing channel family은 현재
+결과가 구성하지도 배제하지도 못한다.
+
+\claimstatus{DEF-046}{DEFINITION}. UCSS는 factor나 offline advice 없이
+public window에서 polynomial descriptor를 구성ㆍ평가하고, 모든 분기를
+처리하며, prime signature를 injective하게 만드는 uniform family이다.
+\claimstatus{COND-002}{CONDITIONAL}. balanced UCSS는 balanced square-free
+semiprime을 인수분해한다.
+\claimstatus{COND-003}{CONDITIONAL}. 모든 factor-bit window의 uniform
+UCSS는 모든 square-free semiprime을 처리한다.
+\claimstatus{BAR-058}{PROVED}. exact primality와 perfect-power preprocessing은
+polynomial recursion과 multiplicity output을 보존한다.
+\claimstatus{COND-004}{CONDITIONAL}. 모든 residual non-power composite에서
+UCSS separation이 성립하면 general deterministic classical
+polynomial-time factoring이 따른다. UCSS existence는 증명되지 않았다.
+
+\claimstatus{BAR-059}{PROVED}. construction, encoding, evaluation,
+inversion branch, GCD, recursion, output 비용을 모두 bit length의
+polynomial로 제한해야 한다.
+\claimstatus{REF-058}{REFUTED}. finite table은 uniformity 증명이 아니다.
+
+\claimstatus{DEF-047}{DEFINITION}. \(L_m=\{2,\ldots,m+12\}\)로 두면,
+\(\mathcal R\)은 이 fixed public Phi4 list에서 두 factor signature가
+다른 square-free \(m\)-bit semiprime class이다.
+\claimstatus{THM-020}{PROVED}. compact Phi4 GCD scan은
+\(\mathcal R\)의 모든 입력을 polynomial time에 인수분해한다.
+\claimstatus{BAR-060}{PROVED}. unit/full GCD는 계속하고, failed inversion은
+denominator GCD를 검사하며, proper GCD에서 종료하므로 branch-total이다.
+이는 unconditional이지만 restricted result이다.
+
+\claimstatus{REF-059}{REFUTED}. current fixed-channel result는 UCSS를
+증명하지 않으며, 이는 impossibility theorem도 아니다.
+\claimstatus{BAR-061}{PROVED}. final dependency graph는 unconditional
+restricted branch, conditional general branch, open branch를 분리한다.
+
+\claimstatus{EMP-058}{EMPIRICAL}. EXP-0058은 residue profile 32개,
+admissible-divisor profile 271개, residue candidate 85,812개, separator
+profile 10개, separated pair와 proper factor 각각 94개, row hash 42개를
+검사했다. summary SHA-256은
+\[
+\texttt{\seqsplit{98c64e889c9554562f1c934cbbb123fa9e91e8e0fc8a906e4bb7807352670e37}}
+\]
+이고 schema SHA-256은
+\[
+\texttt{\seqsplit{fedb065411473ae130f4360b16318df21979d30875675a14c9cf7da4d7f31603}}
+\]
+이다.
+\claimstatus{BAR-062}{PROVED}. M79 adversarial review는 scope, uniformity,
+branch, bit cost, recursion, bilingual dependency를 검사했다.
+
+\claimstatus{BAR-063}{PROVED}. M80 pause point에서 general classical
+polynomial-time factoring은 여전히 증명되지 않았다. 본 연구는
+restricted THM-020, explicit UCSS premise 아래의 COND-004, 그리고
+current route의 exact barrier를 확립했다.
+
 \section{compact-step과 표준 bit-operation complexity}
 
 \subsection{비용 단위와 online/offline 경계}
