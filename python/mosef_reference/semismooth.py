@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from math import gcd, lcm
-from random import Random
+from typing import Protocol
 
 from .baseline import is_prime, perfect_power
 from .separator import (
@@ -18,6 +18,14 @@ from .separator import (
     multiplicative_order_mod_prime,
     prime_factorization,
 )
+
+
+class ResidueSampler(Protocol):
+    """Minimal exact-uniform residue-sampling interface."""
+
+    def randrange(self, stop: int) -> int:
+        """Return one integer in ``range(stop)``."""
+        ...
 
 
 @dataclass(frozen=True)
@@ -191,7 +199,7 @@ def try_randomized_semismooth_factor(
     n: int,
     smooth_bound: int,
     cofactor_bound: int,
-    rng: Random,
+    rng: ResidueSampler,
     cycles: int,
 ) -> SemismoothFactor | None:
     """Run a bounded prefix of the Las Vegas split procedure.

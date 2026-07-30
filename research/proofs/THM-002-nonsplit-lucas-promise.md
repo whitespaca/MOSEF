@@ -168,6 +168,13 @@ and runs in expected time polynomial in the binary input length.
 At each witness trial, its probability of returning a proper factor is at
 least \(1/12\).
 
+M84 makes the finite-budget form executable and total on every positive
+input. With \(s\) complete cycles at each randomized node, the local
+on-promise unresolved probability is at most \((11/12)^s\), and the complete
+factorization unresolved probability is at most
+\(\min\{1,4m(11/12)^s\}\). The all-branch proof is in
+`research/proofs/M84-bounded-total-promise-wrappers.md`.
+
 ## Algorithm
 
 On a residual integer \(K\):

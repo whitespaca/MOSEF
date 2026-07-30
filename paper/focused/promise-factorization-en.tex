@@ -15,7 +15,11 @@ are hereditary order asymmetries.  The first uses fresh uniform bases in a
 \(p-1\) schedule and succeeds with probability at least \(5/12\) per complete
 witness cycle.  The second uses fresh uniform Lucas parameters in a nonsplit
 \(p+1\) schedule and succeeds with probability greater than \(1/12\) at a
-witness trial.  No unproved number-theoretic conjecture is assumed, but
+witness trial. For every finite per-node budget \(s\), bounded versions
+terminate on every input with either a complete verified factorization or
+\texttt{UNRESOLVED}; on the respective promises their local unresolved tails
+are at most \((7/12)^s\) and \((11/12)^s\). No unproved number-theoretic
+conjecture is assumed, but
 membership in either class is promised and is not recognized by the
 algorithms.  We also separate divisor coverage from order-signature
 injectivity, prove that the conjugate Lucas map supplies no independent
@@ -195,6 +199,40 @@ argument is the one used for THM-001.  The full proof is
 \path{research/proofs/THM-002-nonsplit-lucas-promise.md}.
 \end{claimproof}
 
+\section{Bounded total wrappers}
+
+Fix a positive integer \(s\). At each randomized composite node, replace the
+unbounded cycle loop by at most \(s\) complete cycles. Prime,
+maximal-perfect-power, even-factor, proper-factor, and exhausted-budget
+branches are explicit. The only public outcomes are a complete prime list
+whose product is the input and \texttt{UNRESOLVED}; partial factor lists are
+discarded.
+
+This bounded form is a total corollary of THM-001 and THM-002. It terminates
+on every positive input and never returns a wrong factorization. On the
+corresponding hereditary promise, conditional on reaching any randomized
+node, the local unresolved probabilities obey
+\[
+ \Pr[U_{p-1}]\le\left(\frac7{12}\right)^s,\qquad
+ \Pr[U_{p+1}]\le\left(\frac{11}{12}\right)^s.
+\]
+The complete recursion has fewer than \(4m\) invocations after maximal-power
+preprocessing. A conditional union bound, which needs no independence
+between recursive nodes, therefore gives
+\[
+ \Pr[U^{\mathrm{complete}}_{p-1}]
+ \le\min\left\{1,4m\left(\frac7{12}\right)^s\right\},
+\]
+\[
+ \Pr[U^{\mathrm{complete}}_{p+1}]
+ \le\min\left\{1,4m\left(\frac{11}{12}\right)^s\right\}.
+\]
+Outside the promises only totality and no-wrong-factor correctness survive;
+\texttt{UNRESOLVED} does not decide membership. The complete proof and exact
+reference API are in
+\path{research/proofs/M84-bounded-total-promise-wrappers.md} and
+\path{python/mosef_reference/promise_wrappers.py}.
+
 \section{A common-schedule limitation}
 
 For an odd prime \(p\), define
@@ -279,6 +317,8 @@ python scripts/run_m3_semismooth_search.py
 python scripts/check_m3_semismooth_differential.py
 python scripts/run_m7_nonsplit_search.py
 python scripts/check_m7_nonsplit_differential.py
+python scripts/check_m84_promise_wrappers.py
+python -m unittest discover -s tests -p test_promise_wrappers.py
 \end{verbatim}
 Their records are
 \path{research/experiments/EXP-0003-m3-semismooth-search.md} and

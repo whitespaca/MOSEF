@@ -16,6 +16,7 @@ python scripts/validate_foundation.py
 python scripts/generate_korean_claim_appendix.py --check
 python scripts/generate_m50_finite_threshold_summary.py --check
 python scripts/check_m50_finite_threshold_summary.py
+python scripts/check_m84_promise_wrappers.py
 python scripts/check_publication.py
 ```
 
@@ -41,6 +42,8 @@ python scripts/check_m57_endpoint_zero_slack_differential.py
 python scripts/check_m58_overlap_prime_order_differential.py
 python scripts/check_m59_half_order_size_differential.py
 python scripts/check_m60_m80_synthesis_differential.py
+python scripts/check_m84_promise_wrappers.py
+python -m unittest discover -s tests -p test_promise_wrappers.py
 ```
 
 These commands recompute registered masks, identities, collision or

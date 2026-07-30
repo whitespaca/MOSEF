@@ -1,5 +1,82 @@
 # Research Status
 
+## M84 outcome
+
+- Date: 2026-07-31.
+- Branch: `research/20260731-m84-total-promise-wrappers`.
+- Base: M83 squash merge
+  `a0b623f3a478f2de201b065bbe695a53088a9f9a`.
+- Completed milestone: M84, bounded total wrappers for the two unrecognized
+  hereditary order promises.
+- `python/mosef_reference/promise_wrappers.py` defines positive finite
+  per-node cycle budgets and exactly two public outcomes: `FACTORED`, carrying
+  a complete verified prime multiset whose product is the input, and
+  `UNRESOLVED`. Candidate divisors are checked before recursion and partial
+  child results are discarded.
+- `research/proofs/M84-bounded-total-promise-wrappers.md` proves termination
+  and no-wrong-factor correctness on every positive input. On the respective
+  hereditary promises, conditional on a randomized node, the local unresolved
+  tails are \((7/12)^s\) and \((11/12)^s\). Charging maximal-perfect-power
+  unary nodes to the following binary nodes gives fewer than \(4m\) recursive
+  invocations, hence the complete bounds
+  \(\min\{1,4m(7/12)^s\}\) and
+  \(\min\{1,4m(11/12)^s\}\) without assuming independence between nodes.
+- The probability statements require valid polynomially bounded schedules,
+  a positive polynomially bounded budget, and fresh total sampling. The
+  Python implementation is an exact small-input reference; its
+  trial-division primality routine is not used as evidence of a polynomial
+  implementation.
+- A separately implemented static reconstruction passed with no
+  project-module imports:
+  it recovered both exact local tails, both capped complete bounds, both
+  public result states, the proof/paper parity, and the ban on factor-aware
+  oracles. Fifteen targeted wrapper and contract tests passed, including
+  arbitrary inputs \(1\) through \(150\), forced exhaustion, malformed
+  schedules, invalid probability domains, partial-result suppression, and
+  five checker mutations.
+- Full validation passed: foundation and bilingual-publication checks; current
+  M82 and M83 generators and independent checkers; all 301 Python tests in
+  225.21 seconds; Python bytecode compilation; Ruff 0.16.0; strict mypy 2.3.0
+  over 36 source files; Rust formatting, Clippy with warnings denied, and all
+  36 tests; and the C# Release build with zero warnings or errors.
+- The current M82 canonical projection summary SHA-256 is
+  `f5c416f9892fd8ad72c087ebf9a533caeefeab002a594ef84896aaa493da2423`;
+  the current M83 audit file SHA-256 is
+  `46a877f36b447dd27c27b152d82e6523176706e07f4dd4712574fb4d8b97b516`.
+- Four warning-free XeLaTeX builds passed log and rendered-page review:
+  archive English, 127 pages,
+  `110d78f0a72175f5501d25f4cec5a4d6fab4869c8166c373ace9bdbb5c5235a2`;
+  archive Korean, 55 pages,
+  `5e1d21257293c1cc09020990d52904586ffc4513681bb06cb25546e4e03de7cb`;
+  focused promise English, 5 pages,
+  `44d0512c66d1554ecb8b7414d268b4e9ba4058bc14b35e5ec258918b73ce2de7`;
+  focused promise Korean, 5 pages,
+  `fb7907102b2aeec36fbd71154e2aa0411132fd7fd8540ce780764393e725a95b`.
+- The internal adversarial review passed after checking budget exhaustion,
+  partial factors, invalid divisors, prime powers, even branches,
+  full-discriminant Lucas branches, outside-promise scope, local/global bound
+  separation, and recursive-node dependence. It is not external peer review.
+- Scope: `UNRESOLVED` is not a primality result, a promise-membership
+  decision, or proof that no separator exists. Outside the promises only
+  totality and no-wrong-factor correctness survive. General classical
+  polynomial-time factoring remains open. M85 is active and will build a
+  clean-room semantic checker for one frozen finite selector certificate.
+
+### M84 Korean summary
+
+M84는 두 유전적 약속 알고리즘의 각 randomized 합성수 노드에 양의 유한
+cycle 예산 \(s\)를 두었다. 모든 양의 입력에서 wrapper는 검증된 완전
+소인수분해 또는 `UNRESOLVED`만 반환하며, 부분 인수 목록과 잘못된 후보
+인수는 공개하지 않는다. 각 약속 안의 지역 미해결 꼬리는
+\((7/12)^s\), \((11/12)^s\)이고, 전체 재귀에서는 노드 독립성을 가정하지
+않는 조건부 union bound로 각각
+\(\min\{1,4m(7/12)^s\}\), \(\min\{1,4m(11/12)^s\}\)를 얻었다.
+약속 밖에서는 종료성과 잘못된 인수분해를 내지 않는 정확성만 유지한다.
+`UNRESOLVED`는 소수성, 약속 membership, separator 부재를 뜻하지 않으며,
+일반 고전 다항시간 정수분해 문제는 계속 열린 상태다. 다음 M85는 동결된
+유한 selector 인증서를 generator와 독립적으로 재구성하는 최소 semantic
+checker를 만든다.
+
 ## M83 outcome
 
 - Date: 2026-07-31.

@@ -349,6 +349,38 @@ archival monograph는 전체 claim과 증명의 권위 있는 기록으로 유�
 있으므로, 일반 입력에서 이를 인식하는 알고리즘을 증명한 것은
 아니다.
 
+\section{M84: 유한 예산 total promise wrapper}
+
+노드별 양의 cycle 예산 \(s\)를 고정한다. THM-001과 THM-002의 bounded
+형태는 소수, 최대 완전거듭제곱, 짝수 인수, proper factor, 예산 소진
+분기를 모두 유한하게 처리한다. 공개 결과는 검증된 완전
+소인수분해 또는 \texttt{UNRESOLVED}뿐이고, 일부 인수만 얻은 상태를
+완전한 결과로 반환하지 않는다. 따라서 두 wrapper는 모든 양의
+입력에서 종료하며 잘못된 인수분해를 출력하지 않는다.
+
+각 유전적 약속 안에서 randomized 노드에 도달했다는 조건 아래 지역
+미해결 확률은
+\[
+\Pr[U_{p-1}]\le\left(\frac7{12}\right)^s,\qquad
+\Pr[U_{p+1}]\le\left(\frac{11}{12}\right)^s
+\]
+이다. 최대거듭제곱 unary 노드를 다음 binary-tree 노드에 과금하면
+전체 재귀 호출은 \(4m\)보다 작다. 따라서 재귀 노드 사이의 독립성을
+가정하지 않는 조건부 union bound로
+\[
+\Pr[U^{\mathrm{complete}}_{p-1}]
+\le\min\left\{1,4m\left(\frac7{12}\right)^s\right\},
+\]
+\[
+\Pr[U^{\mathrm{complete}}_{p+1}]
+\le\min\left\{1,4m\left(\frac{11}{12}\right)^s\right\}
+\]
+를 얻는다. 약속 밖에서는 totality와 no-wrong-factor 정확성만
+유지하며 성공 확률은 주장하지 않는다. \texttt{UNRESOLVED}는 소수성,
+약속 membership, separator 부재를 뜻하지 않는다. 전체 증명과 실행
+의미론은 \path{research/proofs/M84-bounded-total-promise-wrappers.md}와
+\path{python/mosef_reference/promise_wrappers.py}에 있다.
+
 \subsection{구조적 장벽}
 
 검증된 장벽들은 다음 원칙을 반복해서 확인한다.
@@ -3054,6 +3086,7 @@ python scripts/generate_korean_claim_appendix.py --check
 python scripts/generate_m50_finite_threshold_summary.py --check
 python scripts/check_m50_finite_threshold_summary.py
 python scripts/check_publication.py
+python scripts/check_m84_promise_wrappers.py
 python -m unittest discover -s tests -v
 python -m compileall -q python scripts tests
 ruff check python tests scripts
