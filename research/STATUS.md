@@ -1,5 +1,54 @@
 # Research Status
 
+## M58 outcome
+
+- Date: 2026-07-30.
+- Branch: `research/20260730-m58-overlap-prime-orders`.
+- Base: M57 squash merge
+  `b155b97b7a00ecc07c0fb45e781fa5ee9df6a812`.
+- Research question: which primes can actually divide the overlap integers,
+  and does recurrence across gap indices reduce the exact LCM ledger?
+- Result: `BAR-051` proves, for every prime \(p>7\),
+  \[
+  p\mid R_q
+  \Longleftrightarrow
+  \operatorname{ord}_p(3/32)=2d_p,\quad
+  d_p\text{ odd},\quad d_p\mid2^q-1.
+  \]
+  When nonempty, the full occurrence-level set is exactly the multiples of
+  \(a_p=\operatorname{ord}_{d_p}(2)\).
+- Consequence: occurrence is periodic, but these repeats are exactly the
+  index-divisibility repeats already removed by the prefix LCM. A new
+  endpoint improvement would need a restriction on possible first periods
+  or half-orders, not another recurrence count.
+- EXP-0056 passes 5,129 prime profiles through 50,000, 82,064 direct
+  divisibility checks through gap sixteen, 44 finite-window hit primes,
+  74 periodic hit positions, and 5,129 sequence hashes.
+- Registered canonical summary SHA-256:
+  `41eb014eb5071fae4c7a33a98f66e5b7d0529c47cab832dd89fc8b493ed9b485`.
+- Registered schema file SHA-256:
+  `6ed0636dd95d3ab5a677cedc9859eebcf0148d4628b4ded61a1226f64edca0c8`.
+- Validation: the targeted 17-test module, the 259-test Python suite
+  (336.822 s), Ruff, mypy, compileall, M0 foundation, EXP-0056 differential,
+  publication consistency (237 claims and 55 experiment hashes), Rust
+  formatting/clippy and 36 tests, and the Release C# build all pass.
+- Paper gate: warning-free XeLaTeX produced 123 English pages and 50 Korean
+  pages. The SHA-256 values are
+  `f0675cdff39aa73c9f7e1d8510ad616c32c49c1f0bddb94d5fabcab029a2f591`
+  and
+  `1f8ad27a80ecec37d47dc029266f8cd8994f011a88e314b59b07f5aef97ab3df`,
+  respectively; rendered inspection covered the English theorem and
+  appendix proof and the Korean theorem page.
+
+### M58 Korean summary
+
+M58은 \(p>7\)이 overlap integer \(R_q\)를 나누는 조건을
+\(3/32\bmod p\)의 exact multiplicative order로 완전히 분류했다.
+한 prime의 occurrence gap은 임의 집합이 아니라 하나의 first period의
+배수 전체이다. 그러나 이 inherited periodicity는 BAR-048의 exact
+prefix LCM이 이미 제거한 중복과 같다. 유한 감사의 44/5,129 hit
+비율은 asymptotic density로 외삽하지 않는다.
+
 ## M57 outcome
 
 - Date: 2026-07-30.

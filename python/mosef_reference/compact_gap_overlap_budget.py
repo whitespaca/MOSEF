@@ -12,6 +12,7 @@ from .compact_support_signatures import (
     signature_pair_accounting,
 )
 from .length_indexed_cofactor_schedule import balanced_prime_population
+from .separator import multiplicative_order_mod_prime, prime_factorization
 
 
 @dataclass(frozen=True)
@@ -117,6 +118,21 @@ class CompactGapEndpointLedger:
     certificate_blocked: bool
 
 
+@dataclass(frozen=True)
+class CompactGapPrimeOccurrenceProfile:
+    """Exact M58 order characterization for one overlap-support prime."""
+
+    prime: int
+    maximum_gap: int
+    ratio_residue: int
+    ratio_order: int
+    odd_half_order: int
+    occurrence_period: int
+    predicted_occurrence_gaps: tuple[int, ...]
+    direct_occurrence_gaps: tuple[int, ...]
+    characterization_holds: bool
+
+
 def _validate_level(level: int) -> None:
     if isinstance(level, bool) or not isinstance(level, int) or level < 2:
         raise ValueError("level must be an integer at least two")
@@ -184,6 +200,86 @@ def compact_gap_overlap_lcm_prefix(maximum_gap: int) -> int:
         value = compact_gap_overlap_integer(gap)
         result = result // math.gcd(result, value) * value
     return result
+
+
+def _multiplicative_order_modulus(base: int, modulus: int) -> int:
+    if modulus == 1:
+        return 1
+    if math.gcd(base, modulus) != 1:
+        raise ValueError("base must be coprime to modulus")
+    totient = modulus
+    for prime, _ in prime_factorization(modulus):
+        totient = totient // prime * (prime - 1)
+    order = totient
+    for prime, _ in prime_factorization(totient):
+        while order % prime == 0 and pow(
+            base,
+            order // prime,
+            modulus,
+        ) == 1:
+            order //= prime
+    return order
+
+
+def compact_gap_overlap_prime_occurrence(
+    prime: int,
+    maximum_gap: int,
+) -> CompactGapPrimeOccurrenceProfile:
+    """Classify exactly which ``R_q`` are divisible by one prime."""
+    if (
+        isinstance(prime, bool)
+        or not isinstance(prime, int)
+        or prime <= 7
+        or prime_factorization(prime) != ((prime, 1),)
+    ):
+        raise ValueError("prime must be a prime integer greater than seven")
+    if (
+        isinstance(maximum_gap, bool)
+        or not isinstance(maximum_gap, int)
+        or maximum_gap < 1
+    ):
+        raise ValueError("maximum_gap must be a positive integer")
+
+    ratio_residue = 3 * pow(32, -1, prime) % prime
+    ratio_order = multiplicative_order_mod_prime(ratio_residue, prime)
+    odd_half_order = 0
+    occurrence_period = 0
+    if ratio_order % 2 == 0 and (ratio_order // 2) % 2 == 1:
+        odd_half_order = ratio_order // 2
+        occurrence_period = _multiplicative_order_modulus(
+            2,
+            odd_half_order,
+        )
+    predicted = (
+        tuple(
+            gap
+            for gap in range(1, maximum_gap + 1)
+            if gap % occurrence_period == 0
+        )
+        if occurrence_period
+        else ()
+    )
+    direct = tuple(
+        gap
+        for gap in range(1, maximum_gap + 1)
+        if (
+            pow(3, (1 << gap) - 1, prime)
+            + pow(32, (1 << gap) - 1, prime)
+        )
+        % prime
+        == 0
+    )
+    return CompactGapPrimeOccurrenceProfile(
+        prime=prime,
+        maximum_gap=maximum_gap,
+        ratio_residue=ratio_residue,
+        ratio_order=ratio_order,
+        odd_half_order=odd_half_order,
+        occurrence_period=occurrence_period,
+        predicted_occurrence_gaps=predicted,
+        direct_occurrence_gaps=direct,
+        characterization_holds=predicted == direct,
+    )
 
 
 def compact_gap_overlap_bit_bound(level_gap: int) -> int:

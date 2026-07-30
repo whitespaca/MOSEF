@@ -1291,3 +1291,20 @@
 - Scope: certificate failure is not endpoint injectivity. Prime-occurrence
   restrictions, different invariants or families, adaptive algorithms, and
   general factoring remain open.
+
+## NR-054 - Occurrence periodicity does not de-duplicate beyond the prefix LCM
+
+- Date: 2026-07-30.
+- Status: `REFUTED` claim `REF-053`.
+- Hypothesis tested: after proving that every prime recurs on an arithmetic
+  progression of gap indices, deleting these repetitions produces a smaller
+  support ledger than BAR-048's exact LCM.
+- Exact obstruction: BAR-051 gives the recurrence set
+  \(\{a_p,2a_p,\ldots\}\), while BAR-048 already proves
+  \(R_a\mid R_q\) exactly when \(a\mid q\). Every inherited occurrence is
+  therefore already absorbed by \(L_D=\operatorname{lcm}(R_1,\ldots,R_D)\).
+- Consequence: only a restriction on possible first periods or half-orders
+  could improve the ledger; periodicity by itself cannot.
+- Scope: no asymptotic statement about how many balanced primes have each
+  first period is proved. OPEN-005, other families, adaptive algorithms, and
+  general factoring remain open.

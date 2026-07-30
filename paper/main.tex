@@ -4028,6 +4028,59 @@ and the schema file SHA-256 is
 Appendix \ref{proof:BAR-050} gives the complete proof. No balanced-prime
 occurrence or general factoring conclusion is inferred.
 
+\section{Overlap-prime occurrence is exactly order-periodic}
+
+\claimstatus{DEF-044}{DEFINITION}. For a prime \(p>7\), put
+\[
+z_p=3\cdot32^{-1}\pmod p,\qquad
+t_p=\operatorname{ord}_p(z_p).
+\tag{M58.1}
+\]
+If \(t_p=2d_p\) with \(d_p\) odd, let
+\(a_p=\operatorname{ord}_{d_p}(2)\), with the formal value \(a_p=1\) at
+\(d_p=1\).
+
+\claimstatus{BAR-051}{PROVED}. For every \(q\ge1\),
+\[
+p\mid R_q
+\quad\Longleftrightarrow\quad
+t_p=2d_p,\quad d_p\text{ odd},\quad d_p\mid2^q-1.
+\tag{M58.2}
+\]
+Consequently every nonempty occurrence-level set is
+\[
+\{q\ge1:p\mid R_q\}
+=\{a_p,2a_p,3a_p,\ldots\}.
+\tag{M58.3}
+\]
+This follows by writing \(n=2^q-1\): the congruence
+\(z_p^n=-1\) is equivalent to \(t_p\mid2n\) but
+\(t_p\nmid n\). Since \(n\) is odd, the order has exactly one factor of
+two and its odd half divides \(n\).
+
+\claimstatus{REF-053}{REFUTED}. Recognizing (M58.3) does not
+de-duplicate beyond BAR-048. The periodic repeats are exactly
+\[
+R_a\mid R_q\quad\Longleftrightarrow\quad a\mid q,
+\tag{M58.4}
+\]
+which the exact prefix LCM already absorbs. A bound on possible first
+periods could still matter.
+
+\claimstatus{EMP-056}{EMPIRICAL}. EXP-0056 checked all 5,129 primes from
+11 through 50,000, 82,064 direct divisibility cases through gap sixteen,
+44 finite-window hit primes, 74 periodic hit positions, and 5,129
+independently reconstructed sequence hashes. The summary SHA-256 is
+\[
+\texttt{\seqsplit{41eb014eb5071fae4c7a33a98f66e5b7d0529c47cab832dd89fc8b493ed9b485}},
+\]
+and the schema file SHA-256 is
+\[
+\texttt{\seqsplit{6ed0636dd95d3ab5a677cedc9859eebcf0148d4628b4ded61a1226f64edca0c8}}.
+\]
+Appendix \ref{proof:BAR-051} gives the complete proof. The finite hit
+fraction is not an asymptotic density theorem.
+
 \section{Compact-step and bit-operation complexity}
 
 The mathematical results use distinct algorithmic and analytical scopes that
@@ -7730,6 +7783,28 @@ because \(x\ge1\) makes \(x/2\ge1/2\), while \(x\le1\) makes
 \(1/(2x)\ge1/2\), with joint equality only at one. This proves BAR-050 and
 REF-052. It proves no occurrence statement for balanced prime divisors of
 the \(R_q\). \(\square\)
+
+\subsection{Proof of BAR-051}
+\label{proof:BAR-051}
+
+Let \(n=2^q-1\). Since \(p>7\), both 3 and 32 are units modulo \(p\), and
+\[
+p\mid R_q
+\quad\Longleftrightarrow\quad
+(3\cdot32^{-1})^n=-1\pmod p.
+\]
+If this holds, \(t_p\mid2n\) and \(t_p\nmid n\). The integer \(n\) is odd,
+so \(t_p=2d_p\) for an odd \(d_p\mid n\). Conversely, order \(2d_p\)
+implies \(z_p^{d_p}=-1\), and \(n/d_p\) is odd, so \(z_p^n=-1\).
+This proves (M58.2).
+
+For \(d_p>1\), the remaining condition is
+\(2^q\equiv1\pmod{d_p}\), which is equivalent to \(a_p\mid q\).
+The formal case \(d_p=1\) would imply \(z_p=-1\) and hence \(p\mid35\),
+contrary to \(p>7\). Thus (M58.3) holds. Finally, BAR-048's exact
+divisibility identity (M58.4) shows that all inherited periodic repeats are
+already absent from the prefix-LCM union support. This proves BAR-051 and
+REF-053, without bounding the distribution of first periods. \(\square\)
 
 \clearpage
 \section{Reproduction appendix}

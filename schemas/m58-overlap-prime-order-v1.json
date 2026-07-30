@@ -1,0 +1,740 @@
+{
+  "all_profiles_sha256": "5acadb3ec4887dfabd33be84a1641a9c5be8b50296905c75be3eeb234a8d9cd7",
+  "characterization": "p|R_q iff ord_p(3/32)=2d with odd d|(2^q-1)",
+  "counts": {
+    "direct_divisibility_checks": 82064,
+    "hit_primes": 44,
+    "miss_primes": 5085,
+    "periodicity_checks": 74,
+    "prime_profiles": 5129,
+    "sequence_hash_checks": 5129
+  },
+  "experiment_id": "EXP-0056",
+  "hit_profiles": [
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        4,
+        8,
+        12,
+        16
+      ],
+      "occurrence_period": 4,
+      "occurrence_sha256": "5b71b581342d9e85699e083fc313d2650899beff6a2668128d5633f10cd4e4af",
+      "odd_half_order": 5,
+      "predicted_occurrence_gaps": [
+        4,
+        8,
+        12,
+        16
+      ],
+      "prime": 11,
+      "ratio_order": 10,
+      "ratio_residue": 8
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        4,
+        8,
+        12,
+        16
+      ],
+      "occurrence_period": 4,
+      "occurrence_sha256": "5b71b581342d9e85699e083fc313d2650899beff6a2668128d5633f10cd4e4af",
+      "odd_half_order": 15,
+      "predicted_occurrence_gaps": [
+        4,
+        8,
+        12,
+        16
+      ],
+      "prime": 31,
+      "ratio_order": 30,
+      "ratio_residue": 3
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        12
+      ],
+      "occurrence_period": 12,
+      "occurrence_sha256": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918",
+      "odd_half_order": 39,
+      "predicted_occurrence_gaps": [
+        12
+      ],
+      "prime": 79,
+      "ratio_order": 78,
+      "ratio_residue": 47
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        8,
+        16
+      ],
+      "occurrence_period": 8,
+      "occurrence_sha256": "1520b9da96ede95e9d668de78ee2cddc3029413bd26b073fdfc71307be8f3a74",
+      "odd_half_order": 51,
+      "predicted_occurrence_gaps": [
+        8,
+        16
+      ],
+      "prime": 103,
+      "ratio_order": 102,
+      "ratio_residue": 87
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        6,
+        12
+      ],
+      "occurrence_period": 6,
+      "occurrence_sha256": "1641df9d9a8b354a469a6fd296312ae444cebb4198bcd6b30ae798a2127e5241",
+      "odd_half_order": 63,
+      "predicted_occurrence_gaps": [
+        6,
+        12
+      ],
+      "prime": 127,
+      "ratio_order": 126,
+      "ratio_residue": 12
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        12
+      ],
+      "occurrence_period": 12,
+      "occurrence_sha256": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918",
+      "odd_half_order": 65,
+      "predicted_occurrence_gaps": [
+        12
+      ],
+      "prime": 131,
+      "ratio_order": 130,
+      "ratio_residue": 127
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        14
+      ],
+      "occurrence_period": 14,
+      "occurrence_sha256": "8527a891e224136950ff32ca212b45bc93f69fbb801c3b1ebedac52775f99e61",
+      "odd_half_order": 43,
+      "predicted_occurrence_gaps": [
+        14
+      ],
+      "prime": 173,
+      "ratio_order": 86,
+      "ratio_residue": 92
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        11
+      ],
+      "occurrence_period": 11,
+      "occurrence_sha256": "4fc82b26aecb47d2868c4efbe3581732a3e7cbcc6c2efb32062c08170a05eeb8",
+      "odd_half_order": 89,
+      "predicted_occurrence_gaps": [
+        11
+      ],
+      "prime": 179,
+      "ratio_order": 178,
+      "ratio_residue": 84
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        8,
+        16
+      ],
+      "occurrence_period": 8,
+      "occurrence_sha256": "1520b9da96ede95e9d668de78ee2cddc3029413bd26b073fdfc71307be8f3a74",
+      "odd_half_order": 17,
+      "predicted_occurrence_gaps": [
+        8,
+        16
+      ],
+      "prime": 409,
+      "ratio_order": 34,
+      "ratio_residue": 64
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        10
+      ],
+      "occurrence_period": 10,
+      "occurrence_sha256": "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5",
+      "odd_half_order": 11,
+      "predicted_occurrence_gaps": [
+        10
+      ],
+      "prime": 419,
+      "ratio_order": 22,
+      "ratio_residue": 406
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        9
+      ],
+      "occurrence_period": 9,
+      "occurrence_sha256": "19581e27de7ced00ff1ce50b2047e7a567c76b1cbaebabe5ef03f7c3017bb5b7",
+      "odd_half_order": 73,
+      "predicted_occurrence_gaps": [
+        9
+      ],
+      "prime": 439,
+      "ratio_order": 146,
+      "ratio_residue": 151
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        3,
+        6,
+        9,
+        12,
+        15
+      ],
+      "occurrence_period": 3,
+      "occurrence_sha256": "f20fd26bf261ba321cc308a509108c6a46893a2ed3d4b220929156aa9dece11f",
+      "odd_half_order": 7,
+      "predicted_occurrence_gaps": [
+        3,
+        6,
+        9,
+        12,
+        15
+      ],
+      "prime": 491,
+      "ratio_order": 14,
+      "ratio_residue": 353
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        12
+      ],
+      "occurrence_period": 12,
+      "occurrence_sha256": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918",
+      "odd_half_order": 105,
+      "predicted_occurrence_gaps": [
+        12
+      ],
+      "prime": 631,
+      "ratio_order": 210,
+      "ratio_residue": 217
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        10
+      ],
+      "occurrence_period": 10,
+      "occurrence_sha256": "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5",
+      "odd_half_order": 341,
+      "predicted_occurrence_gaps": [
+        10
+      ],
+      "prime": 683,
+      "ratio_order": 682,
+      "ratio_residue": 491
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        8,
+        16
+      ],
+      "occurrence_period": 8,
+      "occurrence_sha256": "1520b9da96ede95e9d668de78ee2cddc3029413bd26b073fdfc71307be8f3a74",
+      "odd_half_order": 51,
+      "predicted_occurrence_gaps": [
+        8,
+        16
+      ],
+      "prime": 919,
+      "ratio_order": 102,
+      "ratio_residue": 316
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16
+      ],
+      "occurrence_period": 2,
+      "occurrence_sha256": "0cef0d633451baf4fdb18a9ab0f575162b679b53f4c54d28d08891db39585e12",
+      "odd_half_order": 3,
+      "predicted_occurrence_gaps": [
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16
+      ],
+      "prime": 937,
+      "ratio_order": 6,
+      "ratio_residue": 615
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        6,
+        12
+      ],
+      "occurrence_period": 6,
+      "occurrence_sha256": "1641df9d9a8b354a469a6fd296312ae444cebb4198bcd6b30ae798a2127e5241",
+      "odd_half_order": 21,
+      "predicted_occurrence_gaps": [
+        6,
+        12
+      ],
+      "prime": 967,
+      "ratio_order": 42,
+      "ratio_residue": 816
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        12
+      ],
+      "occurrence_period": 12,
+      "occurrence_sha256": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918",
+      "odd_half_order": 45,
+      "predicted_occurrence_gaps": [
+        12
+      ],
+      "prime": 991,
+      "ratio_order": 90,
+      "ratio_residue": 93
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        6,
+        12
+      ],
+      "occurrence_period": 6,
+      "occurrence_sha256": "1641df9d9a8b354a469a6fd296312ae444cebb4198bcd6b30ae798a2127e5241",
+      "odd_half_order": 63,
+      "predicted_occurrence_gaps": [
+        6,
+        12
+      ],
+      "prime": 1009,
+      "ratio_order": 126,
+      "ratio_residue": 410
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        6,
+        12
+      ],
+      "occurrence_period": 6,
+      "occurrence_sha256": "1641df9d9a8b354a469a6fd296312ae444cebb4198bcd6b30ae798a2127e5241",
+      "odd_half_order": 21,
+      "predicted_occurrence_gaps": [
+        6,
+        12
+      ],
+      "prime": 1471,
+      "ratio_order": 42,
+      "ratio_residue": 138
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        16
+      ],
+      "occurrence_period": 16,
+      "occurrence_sha256": "b17ef6d19c7a5b1ee83b907c595526dcb1eb06db8227d650d5dda0a9f4ce8cd9",
+      "odd_half_order": 771,
+      "predicted_occurrence_gaps": [
+        16
+      ],
+      "prime": 1543,
+      "ratio_order": 1542,
+      "ratio_residue": 1302
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        6,
+        12
+      ],
+      "occurrence_period": 6,
+      "occurrence_sha256": "1641df9d9a8b354a469a6fd296312ae444cebb4198bcd6b30ae798a2127e5241",
+      "odd_half_order": 63,
+      "predicted_occurrence_gaps": [
+        6,
+        12
+      ],
+      "prime": 2017,
+      "ratio_order": 126,
+      "ratio_residue": 1828
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        7,
+        14
+      ],
+      "occurrence_period": 7,
+      "occurrence_sha256": "f588662e0a42a803f72c5e91ad3d54e50c817c7160c1cca5fe2b19c26c25d740",
+      "odd_half_order": 127,
+      "predicted_occurrence_gaps": [
+        7,
+        14
+      ],
+      "prime": 2287,
+      "ratio_order": 254,
+      "ratio_residue": 1358
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        6,
+        12
+      ],
+      "occurrence_period": 6,
+      "occurrence_sha256": "1641df9d9a8b354a469a6fd296312ae444cebb4198bcd6b30ae798a2127e5241",
+      "odd_half_order": 63,
+      "predicted_occurrence_gaps": [
+        6,
+        12
+      ],
+      "prime": 2647,
+      "ratio_order": 126,
+      "ratio_residue": 910
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        15
+      ],
+      "occurrence_period": 15,
+      "occurrence_sha256": "e629fa6598d732768f7c726b4b621285f9c3b85303900aa912017db7617d8bdb",
+      "odd_half_order": 151,
+      "predicted_occurrence_gaps": [
+        15
+      ],
+      "prime": 2719,
+      "ratio_order": 302,
+      "ratio_residue": 255
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        12
+      ],
+      "occurrence_period": 12,
+      "occurrence_sha256": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918",
+      "odd_half_order": 195,
+      "predicted_occurrence_gaps": [
+        12
+      ],
+      "prime": 3511,
+      "ratio_order": 390,
+      "ratio_residue": 1207
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        12
+      ],
+      "occurrence_period": 12,
+      "occurrence_sha256": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918",
+      "odd_half_order": 39,
+      "predicted_occurrence_gaps": [
+        12
+      ],
+      "prime": 3823,
+      "ratio_order": 78,
+      "ratio_residue": 2270
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        12
+      ],
+      "occurrence_period": 12,
+      "occurrence_sha256": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918",
+      "odd_half_order": 65,
+      "predicted_occurrence_gaps": [
+        12
+      ],
+      "prime": 4421,
+      "ratio_order": 130,
+      "ratio_residue": 3454
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        10
+      ],
+      "occurrence_period": 10,
+      "occurrence_sha256": "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5",
+      "odd_half_order": 93,
+      "predicted_occurrence_gaps": [
+        10
+      ],
+      "prime": 5209,
+      "ratio_order": 186,
+      "ratio_residue": 814
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        15
+      ],
+      "occurrence_period": 15,
+      "occurrence_sha256": "e629fa6598d732768f7c726b4b621285f9c3b85303900aa912017db7617d8bdb",
+      "odd_half_order": 1057,
+      "predicted_occurrence_gaps": [
+        15
+      ],
+      "prime": 6343,
+      "ratio_order": 2114,
+      "ratio_residue": 5352
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        12
+      ],
+      "occurrence_period": 12,
+      "occurrence_sha256": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918",
+      "odd_half_order": 455,
+      "predicted_occurrence_gaps": [
+        12
+      ],
+      "prime": 8191,
+      "ratio_order": 910,
+      "ratio_residue": 768
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        9
+      ],
+      "occurrence_period": 9,
+      "occurrence_sha256": "19581e27de7ced00ff1ce50b2047e7a567c76b1cbaebabe5ef03f7c3017bb5b7",
+      "odd_half_order": 511,
+      "predicted_occurrence_gaps": [
+        9
+      ],
+      "prime": 9199,
+      "ratio_order": 1022,
+      "ratio_residue": 5462
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        12
+      ],
+      "occurrence_period": 12,
+      "occurrence_sha256": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918",
+      "odd_half_order": 105,
+      "predicted_occurrence_gaps": [
+        12
+      ],
+      "prime": 10711,
+      "ratio_order": 210,
+      "ratio_residue": 3682
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        12
+      ],
+      "occurrence_period": 12,
+      "occurrence_sha256": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918",
+      "odd_half_order": 13,
+      "predicted_occurrence_gaps": [
+        12
+      ],
+      "prime": 13781,
+      "ratio_order": 26,
+      "ratio_residue": 3876
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        12
+      ],
+      "occurrence_period": 12,
+      "occurrence_sha256": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918",
+      "odd_half_order": 45,
+      "predicted_occurrence_gaps": [
+        12
+      ],
+      "prime": 14401,
+      "ratio_order": 90,
+      "ratio_residue": 13051
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        4,
+        8,
+        12,
+        16
+      ],
+      "occurrence_period": 4,
+      "occurrence_sha256": "5b71b581342d9e85699e083fc313d2650899beff6a2668128d5633f10cd4e4af",
+      "odd_half_order": 5,
+      "predicted_occurrence_gaps": [
+        4,
+        8,
+        12,
+        16
+      ],
+      "prime": 17431,
+      "ratio_order": 10,
+      "ratio_residue": 5992
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        16
+      ],
+      "occurrence_period": 16,
+      "occurrence_sha256": "b17ef6d19c7a5b1ee83b907c595526dcb1eb06db8227d650d5dda0a9f4ce8cd9",
+      "odd_half_order": 4369,
+      "predicted_occurrence_gaps": [
+        16
+      ],
+      "prime": 17477,
+      "ratio_order": 8738,
+      "ratio_residue": 13654
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        16
+      ],
+      "occurrence_period": 16,
+      "occurrence_sha256": "b17ef6d19c7a5b1ee83b907c595526dcb1eb06db8227d650d5dda0a9f4ce8cd9",
+      "odd_half_order": 257,
+      "predicted_occurrence_gaps": [
+        16
+      ],
+      "prime": 20047,
+      "ratio_order": 514,
+      "ratio_residue": 11903
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        15
+      ],
+      "occurrence_period": 15,
+      "occurrence_sha256": "e629fa6598d732768f7c726b4b621285f9c3b85303900aa912017db7617d8bdb",
+      "odd_half_order": 4681,
+      "predicted_occurrence_gaps": [
+        15
+      ],
+      "prime": 28087,
+      "ratio_order": 9362,
+      "ratio_residue": 9655
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        14
+      ],
+      "occurrence_period": 14,
+      "occurrence_sha256": "8527a891e224136950ff32ca212b45bc93f69fbb801c3b1ebedac52775f99e61",
+      "odd_half_order": 43,
+      "predicted_occurrence_gaps": [
+        14
+      ],
+      "prime": 39217,
+      "ratio_order": 86,
+      "ratio_residue": 15932
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        12
+      ],
+      "occurrence_period": 12,
+      "occurrence_sha256": "6b51d431df5d7f141cbececcf79edf3dd861c3b4069f0b11661a3eefacbba918",
+      "odd_half_order": 13,
+      "predicted_occurrence_gaps": [
+        12
+      ],
+      "prime": 43499,
+      "ratio_order": 26,
+      "ratio_residue": 31265
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        16
+      ],
+      "occurrence_period": 16,
+      "occurrence_sha256": "b17ef6d19c7a5b1ee83b907c595526dcb1eb06db8227d650d5dda0a9f4ce8cd9",
+      "odd_half_order": 21845,
+      "predicted_occurrence_gaps": [
+        16
+      ],
+      "prime": 43691,
+      "ratio_order": 43690,
+      "ratio_residue": 31403
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        10
+      ],
+      "occurrence_period": 10,
+      "occurrence_sha256": "4a44dc15364204a80fe80e9039455cc1608281820fe2b24f1e5233ade6af1dd5",
+      "odd_half_order": 93,
+      "predicted_occurrence_gaps": [
+        10
+      ],
+      "prime": 47431,
+      "ratio_order": 186,
+      "ratio_residue": 40020
+    },
+    {
+      "characterization_holds": true,
+      "direct_occurrence_gaps": [
+        15
+      ],
+      "occurrence_period": 15,
+      "occurrence_sha256": "e629fa6598d732768f7c726b4b621285f9c3b85303900aa912017db7617d8bdb",
+      "odd_half_order": 151,
+      "predicted_occurrence_gaps": [
+        15
+      ],
+      "prime": 49831,
+      "ratio_order": 302,
+      "ratio_residue": 42045
+    }
+  ],
+  "maximum_gap": 16,
+  "prime_maximum": 50000,
+  "schema_version": "1.0.0",
+  "status": "PASS",
+  "summary_sha256": "41eb014eb5071fae4c7a33a98f66e5b7d0529c47cab832dd89fc8b493ed9b485"
+}
