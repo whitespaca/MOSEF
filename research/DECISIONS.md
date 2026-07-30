@@ -1279,3 +1279,31 @@
   coverage, reproduction anchors, the finite endpoint, and the OPEN general
   factoring scope. M83 may change positioning only after inspecting primary
   sources; it may not infer novelty from this editorial split.
+
+## ADR-067 - Use a three-layer related-work classification without priority promotion
+
+- Date: 2026-07-31.
+- Decision: separate established mechanisms, the repository's exact scoped
+  synthesis, and any independent priority conclusion. All seven M83 rows are
+  marked `SCOPED_SYNTHESIS` and `NO_PRIORITY_CLAIM`; an unmatched bounded
+  search cannot change either label.
+- Rationale: Pollard \(p-1\), Williams \(p+1\), separating systems,
+  addition-chain evaluation, root-of-unity methods, and product/remainder
+  trees are established background, while the repository's exact promise,
+  branch, family, and constant scopes require separate comparison.
+- Consequence: M83 improves positioning without promoting a claim. A future
+  positive novelty or priority label would require a broader independent
+  literature review and direct technical comparison beyond the admitted
+  source set.
+
+## ADR-068 - Normalize text line endings before source hashing
+
+- Date: 2026-07-31.
+- Decision: M82 and M83 hash decoded UTF-8 text after universal-newline
+  normalization instead of hashing checkout-specific raw bytes.
+- Rationale: Git may materialize the same text blob with CRLF on Windows and
+  LF on another platform. Raw-byte hashing made a fresh checkout appear stale
+  even when its mathematical and publication content was unchanged.
+- Consequence: content mutations remain detectable, while CRLF/LF conversion
+  alone no longer changes the registered source hash. Both independent
+  checkers and regression suites enforce the normalized convention.

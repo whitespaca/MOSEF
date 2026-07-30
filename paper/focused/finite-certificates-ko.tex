@@ -219,6 +219,31 @@ balanced 모집단 지수 \(m/2\)보다 작아 duplicate signature가 생긴다.
 다른 compact족, adaptive schedule, \(c\ge1/2\) endpoint는 범위 밖이다.
 \end{claimproof}
 
+\section{1차 문헌 포지셔닝}
+
+\paragraph{M83-R03: 분리 signature.}
+이진 membership signature와 pair-separating set system은 고전적
+조합론 배경이다 \cite{katona1966separating}. BAR-024는 이 추상을
+support bit와 정확한 proper-GCD 의미론으로 옮긴다. 추상 단사성
+판정 자체의 우선권은 주장하지 않는다.
+
+\paragraph{M83-R06: 유한 인증서 정리.}
+입력별 GCD를 포함하는 product 및 remainder tree는 확립된 batch
+평가 기계이다 \cite{bernstein2004smoothparts}. 이 기계는 selector를
+구성하거나 signature 단사성을 증명하지 않는다. THM-004, THM-005,
+THM-014, THM-019는 선언된 모집단에서 \(m=34\)까지의 완전한
+family-relative 유한 인증서이며 computer-assisted, 비점근적,
+selector-specific 범위를 유지한다.
+
+\paragraph{M83-R07: selector-specific 장벽.}
+BAR-041--BAR-046은 고전적 signature counting과 과금된 평가를
+저장소의 정확한 numeric-cap 및 compact-gap 문법과 결합한다. support,
+span, 상수 범위가 증명된 범위이다. 모든 selector의 하한으로 진술하지
+않으며, 이 제한 감사는 독창성이나 우선권 지위를 부여하지 않는다.
+
+등록된 M83 행렬은 동기화된 비교를 보존한다. 제한 검색에서 같은 결과를
+찾지 못한 사실은 독창성의 증거가 아니다.
+
 \section{인증서 재현}
 
 동결된 통합 artifact는
@@ -241,5 +266,9 @@ archival monograph \archivepaper{}는 전체 전이 chronology와 완전 증명�
 명시적으로 bounded된 인증서 정리에만 사용된다. BAR-024, BAR-041,
 BAR-046은 별도 수학적 증명을 갖는다. 일반 고전적 다항시간 인수분해는
 열린 문제이다.
+
+\bibliographystyle{plain}
+\small
+\bibliography{paper/references}
 
 \end{document}

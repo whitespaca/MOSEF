@@ -246,6 +246,26 @@ Euclidean 축약과 5, 7의 별도 처리가 GCD 16을 준다. 두 support bit�
 \(h(s-h)<\binom s2\)이다.
 \end{claimproof}
 
+\section{1차 문헌 포지셔닝}
+
+\paragraph{M83-R04: 곱셈 schedule.}
+여러 지정 거듭제곱을 계산하는 공유 곱셈 schedule은 고전적
+addition-chain 문맥이다 \cite{yao1976evaluation}. 이 문헌은 공식
+초록만 확인했으므로 증명, 하한, 계산 모형, 상수를 가져오는 데 쓰지
+않는다. BAR-018과 BAR-019의 지수 성장, 분모 분기, exact-output
+과금은 자기완결 증명을 유지한다.
+
+\paragraph{M83-R05: 근의 단위원과 유리 관계.}
+Conway--Jones는 Galois automorphism, 짧은 root-of-unity 소멸합,
+유리 cosine 관계를 확립된 도구로 사용한다
+\cite{conway1976trigonometric}. THM-003과 BAR-020은 제한된 signed
+depth-two 관측량에 대해 common-step/\(\Phi_4\)/\(\Phi_6\) 삼분류와
+나눗셈 없는 evaluator를 재구성한다. 이는 확립된 방법족 안의 제한적
+포지셔닝이며 독창성이나 우선권 주장이 아니다.
+
+등록된 M83 행렬은 전체 문헌 경계를 보존한다. 이 제한 감사에서 같은
+식을 찾지 못한 사실은 독창성의 증거가 아니다.
+
 \section{재현성과 한계}
 
 \begin{verbatim}
@@ -265,5 +285,9 @@ claim 상태와 집중 논문 투영은 \path{research/CLAIMS.md}와
 \path{schemas/m82-paper-portfolio-v1.json}에 있다. 본 논문은 표시된
 부호 있는 기하급수 문법만 다루며, universal selector, prime-support
 density 정리, 일반 인수분해 알고리즘을 제공하지 않는다.
+
+\bibliographystyle{plain}
+\small
+\bibliography{paper/references}
 
 \end{document}

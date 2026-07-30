@@ -91,6 +91,11 @@ def sha256_bytes(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
+def sha256_text_file(path: Path) -> str:
+    """Hash UTF-8 text after universal-newline normalization."""
+    return sha256_bytes(path.read_text(encoding="utf-8").encode("utf-8"))
+
+
 def canonical_hash(value: Any) -> str:
     """Hash canonical compact JSON."""
     data = json.dumps(
@@ -156,7 +161,7 @@ def build_portfolio() -> dict[str, Any]:
         if claim_id not in projected
     ]
     source_hashes = {
-        path.relative_to(ROOT).as_posix(): sha256_bytes(path.read_bytes())
+        path.relative_to(ROOT).as_posix(): sha256_text_file(path)
         for path in source_paths
     }
     artifact: dict[str, Any] = {
