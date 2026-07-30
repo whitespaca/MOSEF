@@ -134,6 +134,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-049}",
     r"\label{proof:BAR-050}",
     r"\label{proof:BAR-051}",
+    r"\label{proof:BAR-052}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -303,6 +304,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0056-m58-overlap-prime-order.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0057-m59-half-order-size.md",
 )
 
 
@@ -613,6 +618,9 @@ def main() -> int:
         "M58: overlap-prime occurrence",
         "BAR-051",
         "41eb014eb5071fae4c7a33a98f66e5b7d0529c47cab832dd89fc8b493ed9b485",
+        "M59: balanced overlap prime의 큰 half-order",
+        "BAR-052",
+        "b3ebb32c0d59bae938475391af569ee9b166972d03cb106c1c6085f6d2dd625e",
     )
     for phrase in required_korean:
         if phrase not in korean_paper_text:

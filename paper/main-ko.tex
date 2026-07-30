@@ -2591,6 +2591,45 @@ summary SHA-256은
 \]
 이다. finite hit fraction은 asymptotic density theorem이 아니다.
 
+\section{M59: balanced overlap prime의 큰 half-order}
+
+\claimstatus{DEF-045}{DEFINITION}.
+\(\ell_m=\lceil\sqrt{2^{m-1}}\rceil\)로 두고,
+\(33^d>\ell_m\)인 최소 odd \(d\ge3\)을 \(\delta_m\), 그리고
+\(\kappa_m=\lceil\log_2(\delta_m+1)\rceil\)로 정의한다.
+
+\claimstatus{BAR-052}{PROVED}.
+balanced prime \(p>7\)가 \(R_q\)를 나누면
+\[
+p<33^{d_p},\quad p\equiv1\pmod{2d_p},\quad
+d_p\ge\delta_m,\quad q\ge\kappa_m
+\tag{M59.1}
+\]
+이다. 따라서 \(d_p>(m-1)/(2\log_2 33)\)이고
+\(q\ge\log_2m-O(1)\)이다. 이는
+\(p\mid3^{d_p}+32^{d_p}<33^{d_p}\),
+\(2d_p\mid p-1\), \(d_p\mid2^q-1\)에서 따른다.
+
+\claimstatus{REF-054}{REFUTED}.
+크기 조건만으로는 endpoint gap \(D=\lfloor m/2\rfloor\)를 제거할 수
+없다. 제거되는 것은 \(q<\kappa_m=O(\log m)\)인 초기 구간뿐이다.
+이는 necessary condition과의 compatibility일 뿐 실제 prime divisor의
+존재가 아니다.
+
+\claimstatus{EMP-057}{EMPIRICAL}.
+EXP-0057은 complete balanced window 20개, prime profile 1,894개,
+eligible odd half-order 622개, strict size inequality와 residue
+condition 각각 622개, independently reconstructed profile hash
+1,894개를 검사했다. summary SHA-256은
+\[
+\texttt{\seqsplit{b3ebb32c0d59bae938475391af569ee9b166972d03cb106c1c6085f6d2dd625e}}
+\]
+이고 schema file SHA-256은
+\[
+\texttt{\seqsplit{0e40a80364951c2bfda5f4d09769e71d7d6686bb826899f0a7e7e3bf05d60599}}
+\]
+이다. residue-class counting은 M60에서 별도로 다룬다.
+
 \section{compact-step과 표준 bit-operation complexity}
 
 \subsection{비용 단위와 online/offline 경계}

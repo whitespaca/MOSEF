@@ -1,5 +1,42 @@
 # Research Status
 
+## M59 outcome
+
+- Date: 2026-07-30.
+- Branch: `research/20260730-m59-half-order-size`.
+- Base: M58 squash merge
+  `1bb35f42a2ab9d682719dc445dba12823e0e5f1c`.
+- Result: `BAR-052` proves that every balanced overlap prime has
+  \(p<33^{d_p}\), \(p\equiv1\pmod{2d_p}\),
+  \(d_p=\Omega(m)\), and first gap \(q=\Omega(\log m)\).
+- Consequence: the size floor removes only an initial logarithmic gap
+  range. It does not exclude \(D=\lfloor m/2\rfloor\), so size alone
+  cannot delete the largest prefix-LCM term.
+- EXP-0057 passes 20 balanced windows, 1,894 prime profiles, 622 eligible
+  odd half-orders, 622 strict size and residue checks, and 1,894 hashes.
+- Registered summary SHA-256:
+  `b3ebb32c0d59bae938475391af569ee9b166972d03cb106c1c6085f6d2dd625e`.
+- Registered schema SHA-256:
+  `0e40a80364951c2bfda5f4d09769e71d7d6686bb826899f0a7e7e3bf05d60599`.
+- Validation: targeted 18-test module, full 260-test Python suite
+  (335.312 s), Ruff, mypy, compileall, M0 foundation, EXP-0057
+  differential, publication consistency (241 claims and 56 experiment
+  hashes), Rust formatting/clippy and 36 tests, and Release C# build pass.
+- Paper gate: warning-free XeLaTeX produced 123 English pages and 51 Korean
+  pages. SHA-256 values are
+  `414f2f982a78bb103865ab738d134a8cb4ad8c869ffa177efdd6cf19f1899f3e`
+  and
+  `a079f2801a3bcd175d54664d41ea95fa5707db45b851f8120a4c31b58b69d00e`;
+  rendered inspection covered both M59 theorem pages.
+
+### M59 Korean summary
+
+M59는 실제 overlap prime의 half-order가 입력 길이에 선형으로
+커야 하고, 해당 prime이 \(1\bmod 2d_p\)에 놓여야 함을 증명했다.
+그러나 이것이 주는 first-gap 하한은 로그 크기뿐이므로 endpoint
+\(q=\lfloor m/2\rfloor\)를 제거하지 못한다. 이는 크기 조건의
+방법론적 한계이며 실제 prime occurrence에 대한 부정 명제가 아니다.
+
 ## M58 outcome
 
 - Date: 2026-07-30.

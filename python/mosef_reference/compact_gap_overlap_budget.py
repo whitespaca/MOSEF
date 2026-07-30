@@ -133,6 +133,21 @@ class CompactGapPrimeOccurrenceProfile:
     characterization_holds: bool
 
 
+@dataclass(frozen=True)
+class CompactGapHalfOrderConstraintProfile:
+    """Exact M59 size and residue constraints for one balanced prime."""
+
+    input_length: int
+    prime: int
+    odd_half_order: int
+    first_occurrence_gap: int
+    minimum_size_odd_half_order: int
+    minimum_size_gap: int
+    strict_size_bound_holds: bool
+    residue_class_holds: bool
+    balanced_window_holds: bool
+
+
 def _validate_level(level: int) -> None:
     if isinstance(level, bool) or not isinstance(level, int) or level < 2:
         raise ValueError("level must be an integer at least two")
@@ -279,6 +294,56 @@ def compact_gap_overlap_prime_occurrence(
         predicted_occurrence_gaps=predicted,
         direct_occurrence_gaps=direct,
         characterization_holds=predicted == direct,
+    )
+
+
+def compact_gap_half_order_constraints(
+    input_length: int,
+    prime: int,
+) -> CompactGapHalfOrderConstraintProfile:
+    """Return the exact M59 necessary constraints for one balanced prime."""
+    if (
+        isinstance(input_length, bool)
+        or not isinstance(input_length, int)
+        or input_length < 9
+    ):
+        raise ValueError("input_length must be an integer at least nine")
+    if (
+        isinstance(prime, bool)
+        or not isinstance(prime, int)
+        or prime <= 7
+        or prime_factorization(prime) != ((prime, 1),)
+    ):
+        raise ValueError("prime must be a prime integer greater than seven")
+
+    lower_square = 1 << (input_length - 1)
+    upper_square = 1 << input_length
+    lower = math.isqrt(lower_square - 1) + 1
+    upper = math.isqrt(upper_square - 1)
+    balanced = lower <= prime <= upper
+    if not balanced:
+        raise ValueError("prime must lie in the balanced input-length window")
+
+    threshold = 3
+    while pow(33, threshold) <= lower:
+        threshold += 2
+    occurrence = compact_gap_overlap_prime_occurrence(prime, 1)
+    half_order = occurrence.odd_half_order
+    first_gap = occurrence.occurrence_period
+    return CompactGapHalfOrderConstraintProfile(
+        input_length=input_length,
+        prime=prime,
+        odd_half_order=half_order,
+        first_occurrence_gap=first_gap,
+        minimum_size_odd_half_order=threshold,
+        minimum_size_gap=threshold.bit_length(),
+        strict_size_bound_holds=(
+            half_order == 0 or prime < pow(33, half_order)
+        ),
+        residue_class_holds=(
+            half_order == 0 or (prime - 1) % (2 * half_order) == 0
+        ),
+        balanced_window_holds=balanced,
     )
 
 
