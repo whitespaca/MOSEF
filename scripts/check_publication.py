@@ -68,6 +68,7 @@ REQUIRED_SECTIONS = (
     "Distinct-GCD-gap high-weight charging",
     "Sharpness of realizable GCD gaps",
     "Exact overlap GCDs and prefix LCM scale",
+    "Dense intervals realize the complete gap prefix",
     "Compact-step and bit-operation complexity",
     "Reproducible experimental methodology",
     "Results",
@@ -130,6 +131,7 @@ REQUIRED_PROOFS = (
     r"\label{proof:BAR-046}",
     r"\label{proof:BAR-047}",
     r"\label{proof:BAR-048}",
+    r"\label{proof:BAR-049}",
 )
 
 EXPERIMENT_RECORDS = (
@@ -287,6 +289,10 @@ EXPERIMENT_RECORDS = (
     / "research"
     / "experiments"
     / "EXP-0053-m55-overlap-gcd.md",
+    ROOT
+    / "research"
+    / "experiments"
+    / "EXP-0054-m56-dense-prefix.md",
 )
 
 
@@ -588,6 +594,9 @@ def main() -> int:
         "M55: exact overlap GCD",
         "BAR-048",
         "b82926a482dd133d94a3e89f041d23ec225ea2d9d30061d25f6e75c017b01534",
+        "M56: dense interval",
+        "BAR-049",
+        "7a15643f88dcb66825845e76b27fdbe174f5f0458c89cdc9a608e15a6abef27a",
     )
     for phrase in required_korean:
         if phrase not in korean_paper_text:

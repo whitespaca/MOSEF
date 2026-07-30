@@ -268,6 +268,29 @@ def compact_gap_maximal_gap_witness(
     )
 
 
+def compact_gap_dense_interval_realizable_gaps(
+    level_span: int,
+    overlap_order: int,
+) -> tuple[int, ...]:
+    """Return the exact realizable GCD-gap prefix for a dense level interval."""
+    if (
+        isinstance(level_span, bool)
+        or not isinstance(level_span, int)
+        or level_span < 1
+    ):
+        raise ValueError("level_span must be a positive integer")
+    if (
+        isinstance(overlap_order, bool)
+        or not isinstance(overlap_order, int)
+        or overlap_order < 1
+        or overlap_order > level_span
+    ):
+        raise ValueError(
+            "overlap_order must be between one and level_span"
+        )
+    return tuple(range(1, level_span // overlap_order + 1))
+
+
 def compact_gap_common_support_integer(
     candidate_levels: tuple[int, ...],
 ) -> int:

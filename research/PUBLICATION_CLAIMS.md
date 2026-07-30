@@ -232,3 +232,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-048 | PROVED | Exact overlap GCDs and prefix LCM retain the leading exponent | `research/proofs/BAR-048-overlap-gcd-lcm.md` |
 | REF-050 | REFUTED | Shared divisors make the overlap-support ledger subleading | `research/NEGATIVE_RESULTS.md` NR-051 |
 | EMP-053 | EMPIRICAL | Pair-GCD and prefix-LCM arithmetic audit | `research/experiments/EXP-0053-m55-overlap-gcd.md` |
+| DEF-042 | DEFINITION | Dense-interval realizable GCD-gap set | `research/proofs/BAR-049-dense-full-gap-prefix.md` |
+| BAR-049 | PROVED | A dense interval realizes the complete GCD-gap prefix | `research/proofs/BAR-049-dense-full-gap-prefix.md` |
+| REF-051 | REFUTED | Dense maximum packing leaves only sparse realizable gaps | `research/NEGATIVE_RESULTS.md` NR-052 |
+| EMP-054 | EMPIRICAL | Constructive and exhaustive dense-prefix audit | `research/experiments/EXP-0054-m56-dense-prefix.md` |

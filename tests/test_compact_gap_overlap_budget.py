@@ -11,6 +11,7 @@ from python.mosef_reference.compact_gap_overlap_budget import (
     compact_gap_boundary_overlap_order,
     compact_gap_common_support_gap,
     compact_gap_common_support_integer,
+    compact_gap_dense_interval_realizable_gaps,
     compact_gap_distinct_gap_ledger,
     compact_gap_exponent,
     compact_gap_high_weight_population_upper_bound,
@@ -239,6 +240,21 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
             compact_gap_overlap_integer(6).bit_length(),
         )
 
+    def test_dense_interval_realizes_the_complete_gap_prefix(self) -> None:
+        for level_span in range(2, 11):
+            levels = tuple(range(2, level_span + 3))
+            for overlap_order in range(1, min(4, level_span) + 1):
+                self.assertEqual(
+                    compact_gap_realizable_common_gaps(
+                        levels,
+                        overlap_order,
+                    ),
+                    compact_gap_dense_interval_realizable_gaps(
+                        level_span,
+                        overlap_order,
+                    ),
+                )
+
     def test_invalid_inputs(self) -> None:
         invalid_calls = (
             lambda: compact_gap_exponent(True),
@@ -266,6 +282,7 @@ class CompactGapOverlapBudgetTests(unittest.TestCase):
             lambda: compact_gap_maximal_gap_witness(1, False),
             lambda: compact_gap_overlap_gcd(0, 1),
             lambda: compact_gap_overlap_lcm_prefix(False),
+            lambda: compact_gap_dense_interval_realizable_gaps(4, 5),
         )
         for call in invalid_calls:
             with self.subTest(call=call), self.assertRaises(ValueError):

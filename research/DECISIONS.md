@@ -1172,3 +1172,16 @@
 - Consequence: \(R_D\mid L_D\) keeps
   \(\log_2L_D=\Theta(2^D)\). Shared-divisor accounting improves finite
   constants but cannot by itself change the BAR-046 leading exponent.
+
+## ADR-060 - Separate gap realizability from prime occurrence
+
+- Date: 2026-07-30.
+- Decision: characterize the full realizable-gap set for the
+  maximum-density interval before making any statement about overlap prime
+  divisors.
+- Rationale: the explicit subset
+  \(\{s,s+q,\ldots,s+hq\}\) realizes every
+  \(q\le\lfloor\Delta/h\rfloor\). Hence the BAR-046 all-gap prefix is exact
+  geometry for dense intervals, but this alone supplies no common prime.
+- Consequence: M56 closes the realizability-pruning route without converting
+  geometric witnesses into unsupported balanced-prime claims.
