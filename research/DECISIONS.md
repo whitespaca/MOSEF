@@ -1592,3 +1592,28 @@
 - Consequence: THM-026 discharges M97 for the bipartite restricted class.
   EXP-0068 remains synthetic and source-bound; the next extension must expose
   any non-bipartite parameter dependence rather than hide it as polynomial.
+
+## ADR-083 - Enumerate supplied transversal choices and expose advice
+
+- Date: 2026-07-31.
+- Decision: accept a proposed odd-cycle transversal \(X\) only after checking
+  that the residual graph minus \(X\) is bipartite. Enumerate all
+  \(2^{|X|}\) selected/unselected choices, reject uncovered internal edges,
+  force neighbors of excluded transversal vertices, and invoke the M97
+  constructor only on the remaining bipartite induced graph.
+- Rationale: every vertex cover determines exactly one branch through its
+  intersection with \(X\). This yields a short direct optimality proof and
+  extends construction to matching-gap examples such as \(C_5\), \(K_4\),
+  and \(K_5\) without claiming an arbitrary-graph polynomial solver.
+- Cost decision: charge the transversal as supplied input using
+  \(\ell_s+s\ell_t\) bits, the constructed cover separately using
+  \(\ell_k+k\ell_t\) bits, and display \(2^s\) in indexed and bit-operation
+  bounds. The experiment may retain all branches, but the theorem algorithm
+  needs only the current branch and best candidate.
+- Boundary decision: a conditional \(s=O(\log m)\) polynomial consequence
+  also requires polynomial explicit graph parameters and an admissible way
+  to obtain \(X\). M98 supplies neither a discovery algorithm nor a
+  logarithmic bound.
+- Consequence: THM-027 discharges M98 as a fixed-parameter exact-repair
+  theorem. EXP-0069 remains synthetic and source-bound; M99 must separate
+  polynomial transversal verification from factor-independent discovery.

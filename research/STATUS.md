@@ -1,5 +1,104 @@
 # Research Status
 
+## M98 outcome
+
+- Date: 2026-07-31.
+- Completed milestone: M98, an exact fixed-parameter repair algorithm for
+  explicit residual coverer graphs with a supplied odd-cycle transversal.
+- `DEF-054` enumerates every \(A\subseteq X\), rejects a branch if
+  \(H[X\setminus A]\) has an internal edge, forces
+  \(P_A=N_{H-X}(X\setminus A)\), solves the bipartite remainder by
+  `THM-026`, and minimizes \(A\cup P_A\cup Q_A\).
+- `THM-027` proves that every constructed candidate is a cover and every
+  optimum cover appears in the branch \(A=C\cap X\). The result is exact:
+  \(\rho(T,U)=|F|+\tau(H)\).
+- The constructor uses
+  \(O(t+q+2^s(s+t(t+q)))\) indexed operations and an explicitly charged
+  corresponding bit bound. The supplied transversal uses
+  \(\ell_s+s\ell_t\) bits and the returned cover uses
+  \(\ell_k+k\ell_t\) bits. It is fixed-parameter in \(s\), not polynomial
+  for unrestricted \(s\).
+- `REF-067` and NR-066 reject the promotion of
+  \(2^s\operatorname{poly}(t,q)\) to unrestricted polynomial time. Even the
+  \(s=O(\log m)\) branch boundary additionally requires polynomial explicit
+  graph parameters and an admissible way to obtain \(X\).
+- `EXP-0069` pins the M95 length-27 looped-\(K_5\) seed and exact M97
+  constructor. Seven supplied transversals construct exact covers and one
+  undersized \(K_5\) transversal is rejected by the surviving triangle
+  \(T_2,T_3,T_4,T_2\).
+- The seven valid cases expose 24 branches, 18 feasible. Across eight cases,
+  transversal sizes sum to 13, cover/matching numbers to 25/16, full repairs
+  to 27, and supplied/output payloads to 63/84 bits. The maximum matching
+  gap is two and the maximum registered transversal size is three.
+- `schemas/m98-oct-cover-v1.json` has canonical summary SHA-256
+  `745cab13a67cae8f1e09ac084b75d78e870a0aacc88892be4facf032a5f3478f`
+  and exact file SHA-256
+  `c25cacc1e1e4217e87e6ff15b95c5c0356e7025b19833095feeef3f44bd45cb3`.
+  It also pins M95 file/summary, M92 seed, and M97 constructor hashes.
+- The 819-line clean-room checker imports neither project constructor.
+  Nineteen tests cover deterministic generation, all branch fields, valid
+  and invalid \(K_5\) transversals, all 1,024 simple four-vertex
+  graph/transversal pairs, source binding, payloads, scope, and ten rehashed
+  mutation paths.
+- The complete repository suite passed with 479 tests and 593 subtests in
+  388.69 seconds. M0 foundation validation, Python compilation,
+  repository-wide Ruff, mypy over 31 reference sources, strict mypy over the
+  four M98 files, Rust formatting, warning-denied Clippy and 36 tests, and
+  the C# Release build all passed; the C# build had zero warnings and
+  errors.
+- M82 now accounts for 299 ledger claims as 28 focused and 271 archive-only,
+  with portfolio summary SHA-256
+  `2cdecf20adc6b0ceb146bff46f2617ca9f8c1a0afb81ecbb478b6b8639480312`.
+  M83 retains six inspected sources, seven synchronized rows, no priority
+  claims, and audit SHA-256
+  `81bc24b3fd8eafb08a4fdd6a6b66ccbf767557c6a3cc529409757c2795f59ab0`.
+  Bilingual consistency passed with 299 claims and 58 experiment hashes.
+- One hundred thirty-one focused M82/M83/M87--M90/M95--M98 tests passed.
+  The editorial projection now has 56 rendered reader headings, 62 appendix
+  commands, and 14 finite-paper main claims.
+- The four changed XeLaTeX manuscripts rebuilt with zero selected
+  undefined-reference, undefined-citation, missing-glyph, or overfull
+  warnings: archival English/Korean 132/62 pages and finite English/Korean
+  11/11 pages. All 216 pages had extractable text. Eight abstract and
+  THM-027 pages were rendered and visually inspected without clipping,
+  overlap, or missing Korean glyphs. PDF SHA-256 values are archival EN
+  `cae289a601b91e2b54c726d58be22e55f266b3935a790f49205755f3618f38da`,
+  archival KO
+  `23b9fb67ff62b14d30215d6838970f645aae3b200cecbb246d93da7b9bb1f6a9`,
+  finite EN
+  `0944cfbff9eb7f552349dbc6dc9ff912f333c54d499255f233d2eb755469c9d3`,
+  and finite KO
+  `e602c4424f536d1e2238ef4726af2cf6cb2f1be64dfa901e46b8f8ad77412ba6`.
+- Scope: the experiment supplies synthetic transversals and deletes columns
+  from one frozen finite seed. It does not discover a transversal, prove a
+  logarithmic bound, construct factor-dependent complete types from the
+  integer input, enumerate new selector outputs, recognize hidden factors,
+  or support a general factoring claim. General classical polynomial-time
+  integer factoring remains open.
+- M99 is active. It separates polynomial verification of a proposed
+  transversal from factor-independent discovery and accounts for the
+  subset-search, FPT, XP, quasi-polynomial, and polynomial regimes.
+
+### M98 Korean summary
+
+M98은 명시적 residual coverer graph와 공급된 odd-cycle transversal
+\(X\)가 있을 때 exact repair를 구성하는 고정매개변수 알고리즘을
+증명했다(`THM-027`). 각 \(A\subseteq X\)를 열거하고, 선택하지 않은
+transversal vertex 사이에 edge가 있으면 그 branch를 거부한다. 그렇지
+않으면 선택하지 않은 vertex의 base 이웃을 강제하고, 남은 bipartite
+graph를 M97 알고리즘으로 정확히 푼다. 모든 cover \(C\)는
+\(A=C\cap X\) branch에 대응하므로 최소 candidate가 전체 minimum
+vertex cover이다.
+
+의존성 \(2^{|X|}\)은 숨기지 않았다. \(s=|X|\)가 제한되지 않으면 이
+알고리즘은 polynomial-time이 아니며, \(s=O(\log m)\)인 경우에도
+explicit graph의 polynomial 크기와 \(X\)를 factor-independent하게
+얻는 방법이 별도로 필요하다. 동결 seed의 여덟 synthetic 사례에서
+일곱 exact constructor와 한 invalid-transversal rejection을 검증했고,
+24개 branch 중 18개가 feasible이었다. 이 결과는 transversal 발견,
+일반 graph vertex cover, 또는 일반 고전 다항시간 인수분해를 해결하지
+않으며 원래 일반 문제는 계속 `OPEN`이다.
+
 ## M97 outcome
 
 - Date: 2026-07-31.
@@ -75,9 +174,8 @@
   enumerate new selector outputs, recognize hidden factors, establish an
   asymptotic selector law, or support a general factoring claim. General
   classical polynomial-time integer factoring remains open.
-- M98 is active. It asks whether a supplied odd-cycle transversal of size
-  \(s\) permits exact branch reduction to bipartite cover while exposing the
-  full \(2^s\) dependence and the \(s=O(\log m)\) polynomial boundary.
+- M98 subsequently completed the supplied-transversal branch reduction and
+  explicit \(2^s\) boundary; the current result is recorded above.
 
 ### M97 Korean summary
 

@@ -1,0 +1,2388 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "EXP-0069",
+  "claim_ids": [
+    "DEF-054",
+    "THM-027",
+    "REF-067",
+    "EMP-069"
+  ],
+  "source": {
+    "path": "schemas/m95-coverer-graph-profile-v1.json",
+    "file_sha256": "e5e069554a3249e04084b505b590ff197ff26e75e4fd2467115caeeca1d08e03",
+    "summary_sha256": "0b99798516bda32cc78e8fd7474fbaddce9cd024a021d81c08fca8514c64154a",
+    "seed_source_id": "M92",
+    "seed_input_length": 27,
+    "seed_instance_sha256": "55830ccb41686b432fc7710380652937209fd24885c2ad4de81607784d0a6348",
+    "m97_constructor_path": "scripts/run_m97_bipartite_cover_profile.py",
+    "m97_constructor_sha256": "d811f6cf39c0ae00b28e17bb93d322b07a2fac22da236a66d31e4f75fc1dfa39"
+  },
+  "seed": {
+    "type_ids": [
+      "T0",
+      "T1",
+      "T2",
+      "T3",
+      "T4"
+    ],
+    "column_count": 15,
+    "template_kind": "looped_clique",
+    "slots": [
+      {
+        "column_index": 0,
+        "coverer_type_ids": [
+          "T0",
+          "T1"
+        ]
+      },
+      {
+        "column_index": 1,
+        "coverer_type_ids": [
+          "T0"
+        ]
+      },
+      {
+        "column_index": 2,
+        "coverer_type_ids": [
+          "T0",
+          "T2"
+        ]
+      },
+      {
+        "column_index": 3,
+        "coverer_type_ids": [
+          "T0",
+          "T3"
+        ]
+      },
+      {
+        "column_index": 4,
+        "coverer_type_ids": [
+          "T0",
+          "T4"
+        ]
+      },
+      {
+        "column_index": 5,
+        "coverer_type_ids": [
+          "T1"
+        ]
+      },
+      {
+        "column_index": 6,
+        "coverer_type_ids": [
+          "T1",
+          "T2"
+        ]
+      },
+      {
+        "column_index": 7,
+        "coverer_type_ids": [
+          "T1",
+          "T3"
+        ]
+      },
+      {
+        "column_index": 8,
+        "coverer_type_ids": [
+          "T1",
+          "T4"
+        ]
+      },
+      {
+        "column_index": 9,
+        "coverer_type_ids": [
+          "T2"
+        ]
+      },
+      {
+        "column_index": 10,
+        "coverer_type_ids": [
+          "T3"
+        ]
+      },
+      {
+        "column_index": 11,
+        "coverer_type_ids": [
+          "T4"
+        ]
+      },
+      {
+        "column_index": 12,
+        "coverer_type_ids": [
+          "T2",
+          "T3"
+        ]
+      },
+      {
+        "column_index": 13,
+        "coverer_type_ids": [
+          "T2",
+          "T4"
+        ]
+      },
+      {
+        "column_index": 14,
+        "coverer_type_ids": [
+          "T3",
+          "T4"
+        ]
+      }
+    ]
+  },
+  "case_grammar": {
+    "operation": "delete residual-prefix loops and non-target residual edges, then supply the registered transversal",
+    "registered_cases": [
+      {
+        "case_id": "O1-triangle-pendant",
+        "residual_graph_kind": "triangle_with_pendant",
+        "unlooped_count": 4,
+        "target_edge_pairs": [
+          [
+            "T0",
+            "T1"
+          ],
+          [
+            "T1",
+            "T2"
+          ],
+          [
+            "T0",
+            "T2"
+          ],
+          [
+            "T2",
+            "T3"
+          ]
+        ],
+        "transversal_type_ids": [
+          "T0"
+        ],
+        "rejection_odd_cycle_type_ids": null
+      },
+      {
+        "case_id": "O2-C5",
+        "residual_graph_kind": "cycle_5",
+        "unlooped_count": 5,
+        "target_edge_pairs": [
+          [
+            "T0",
+            "T1"
+          ],
+          [
+            "T1",
+            "T2"
+          ],
+          [
+            "T2",
+            "T3"
+          ],
+          [
+            "T3",
+            "T4"
+          ],
+          [
+            "T0",
+            "T4"
+          ]
+        ],
+        "transversal_type_ids": [
+          "T0"
+        ],
+        "rejection_odd_cycle_type_ids": null
+      },
+      {
+        "case_id": "O3-bowtie",
+        "residual_graph_kind": "two_triangles_shared_vertex",
+        "unlooped_count": 5,
+        "target_edge_pairs": [
+          [
+            "T0",
+            "T1"
+          ],
+          [
+            "T1",
+            "T2"
+          ],
+          [
+            "T0",
+            "T2"
+          ],
+          [
+            "T0",
+            "T3"
+          ],
+          [
+            "T3",
+            "T4"
+          ],
+          [
+            "T0",
+            "T4"
+          ]
+        ],
+        "transversal_type_ids": [
+          "T0"
+        ],
+        "rejection_odd_cycle_type_ids": null
+      },
+      {
+        "case_id": "O4-house",
+        "residual_graph_kind": "cycle_4_with_roof",
+        "unlooped_count": 5,
+        "target_edge_pairs": [
+          [
+            "T0",
+            "T1"
+          ],
+          [
+            "T1",
+            "T2"
+          ],
+          [
+            "T2",
+            "T3"
+          ],
+          [
+            "T0",
+            "T3"
+          ],
+          [
+            "T1",
+            "T4"
+          ],
+          [
+            "T2",
+            "T4"
+          ]
+        ],
+        "transversal_type_ids": [
+          "T4"
+        ],
+        "rejection_odd_cycle_type_ids": null
+      },
+      {
+        "case_id": "O5-K4",
+        "residual_graph_kind": "complete_graph_4",
+        "unlooped_count": 4,
+        "target_edge_pairs": [
+          [
+            "T0",
+            "T1"
+          ],
+          [
+            "T0",
+            "T2"
+          ],
+          [
+            "T0",
+            "T3"
+          ],
+          [
+            "T1",
+            "T2"
+          ],
+          [
+            "T1",
+            "T3"
+          ],
+          [
+            "T2",
+            "T3"
+          ]
+        ],
+        "transversal_type_ids": [
+          "T0",
+          "T1"
+        ],
+        "rejection_odd_cycle_type_ids": null
+      },
+      {
+        "case_id": "O6-K5-e",
+        "residual_graph_kind": "complete_graph_5_minus_e01",
+        "unlooped_count": 5,
+        "target_edge_pairs": [
+          [
+            "T0",
+            "T2"
+          ],
+          [
+            "T0",
+            "T3"
+          ],
+          [
+            "T0",
+            "T4"
+          ],
+          [
+            "T1",
+            "T2"
+          ],
+          [
+            "T1",
+            "T3"
+          ],
+          [
+            "T1",
+            "T4"
+          ],
+          [
+            "T2",
+            "T3"
+          ],
+          [
+            "T2",
+            "T4"
+          ],
+          [
+            "T3",
+            "T4"
+          ]
+        ],
+        "transversal_type_ids": [
+          "T2",
+          "T3"
+        ],
+        "rejection_odd_cycle_type_ids": null
+      },
+      {
+        "case_id": "O7-K5-valid",
+        "residual_graph_kind": "complete_graph_5",
+        "unlooped_count": 5,
+        "target_edge_pairs": [
+          [
+            "T0",
+            "T1"
+          ],
+          [
+            "T0",
+            "T2"
+          ],
+          [
+            "T0",
+            "T3"
+          ],
+          [
+            "T0",
+            "T4"
+          ],
+          [
+            "T1",
+            "T2"
+          ],
+          [
+            "T1",
+            "T3"
+          ],
+          [
+            "T1",
+            "T4"
+          ],
+          [
+            "T2",
+            "T3"
+          ],
+          [
+            "T2",
+            "T4"
+          ],
+          [
+            "T3",
+            "T4"
+          ]
+        ],
+        "transversal_type_ids": [
+          "T0",
+          "T1",
+          "T2"
+        ],
+        "rejection_odd_cycle_type_ids": null
+      },
+      {
+        "case_id": "R1-K5-invalid",
+        "residual_graph_kind": "complete_graph_5",
+        "unlooped_count": 5,
+        "target_edge_pairs": [
+          [
+            "T0",
+            "T1"
+          ],
+          [
+            "T0",
+            "T2"
+          ],
+          [
+            "T0",
+            "T3"
+          ],
+          [
+            "T0",
+            "T4"
+          ],
+          [
+            "T1",
+            "T2"
+          ],
+          [
+            "T1",
+            "T3"
+          ],
+          [
+            "T1",
+            "T4"
+          ],
+          [
+            "T2",
+            "T3"
+          ],
+          [
+            "T2",
+            "T4"
+          ],
+          [
+            "T3",
+            "T4"
+          ]
+        ],
+        "transversal_type_ids": [
+          "T0",
+          "T1"
+        ],
+        "rejection_odd_cycle_type_ids": [
+          "T2",
+          "T3",
+          "T4",
+          "T2"
+        ]
+      }
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "O1-triangle-pendant",
+      "residual_graph_kind": "triangle_with_pendant",
+      "unlooped_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "forced_type_ids": [
+        "T4"
+      ],
+      "target_edge_pairs": [
+        [
+          "T0",
+          "T1"
+        ],
+        [
+          "T0",
+          "T2"
+        ],
+        [
+          "T1",
+          "T2"
+        ],
+        [
+          "T2",
+          "T3"
+        ]
+      ],
+      "transversal_type_ids": [
+        "T0"
+      ],
+      "transversal_size": 1,
+      "transversal_payload_bits": 6,
+      "rejection_odd_cycle_type_ids": null,
+      "deleted_loop_column_indices": [
+        1,
+        5,
+        9,
+        10
+      ],
+      "deleted_edge_column_indices": [
+        3,
+        7
+      ],
+      "retained_column_count": 9,
+      "complete_normal_form": true,
+      "m95_template": false,
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 2,
+          "endpoints": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 12,
+          "endpoints": [
+            "T2",
+            "T3"
+          ]
+        }
+      ],
+      "constructor": {
+        "status": "constructed_exact",
+        "base_type_ids": [
+          "T1",
+          "T2",
+          "T3"
+        ],
+        "base_bipartition": {
+          "left_type_ids": [
+            "T1",
+            "T3"
+          ],
+          "right_type_ids": [
+            "T2"
+          ]
+        },
+        "branch_count": 2,
+        "feasible_branch_count": 2,
+        "branches": [
+          {
+            "branch_mask": 0,
+            "selected_transversal_type_ids": [],
+            "unselected_transversal_type_ids": [
+              "T0"
+            ],
+            "status": "feasible_exact",
+            "blocking_column_indices": [],
+            "forced_base_type_ids": [
+              "T1",
+              "T2"
+            ],
+            "remaining_base_type_ids": [
+              "T3"
+            ],
+            "remaining_edge_column_indices": [],
+            "bipartite_matching_column_indices": [],
+            "bipartite_cover_type_ids": [],
+            "candidate_cover_type_ids": [
+              "T1",
+              "T2"
+            ],
+            "candidate_cover_number": 2
+          },
+          {
+            "branch_mask": 1,
+            "selected_transversal_type_ids": [
+              "T0"
+            ],
+            "unselected_transversal_type_ids": [],
+            "status": "feasible_exact",
+            "blocking_column_indices": [],
+            "forced_base_type_ids": [],
+            "remaining_base_type_ids": [
+              "T1",
+              "T2",
+              "T3"
+            ],
+            "remaining_edge_column_indices": [
+              6,
+              12
+            ],
+            "bipartite_matching_column_indices": [
+              6
+            ],
+            "bipartite_cover_type_ids": [
+              "T2"
+            ],
+            "candidate_cover_type_ids": [
+              "T0",
+              "T2"
+            ],
+            "candidate_cover_number": 2
+          }
+        ],
+        "minimum_cover_type_ids": [
+          "T0",
+          "T2"
+        ],
+        "minimum_cover_number": 2
+      },
+      "exact_audit": {
+        "minimum_cover_type_ids": [
+          "T0",
+          "T2"
+        ],
+        "maximum_matching_column_indices": [
+          0,
+          12
+        ],
+        "residual_vertex_cover_number": 2,
+        "residual_matching_number": 2,
+        "matching_gap": 0,
+        "exact_repair_number": 3,
+        "output_cover_payload_bits": 9
+      }
+    },
+    {
+      "case_id": "O2-C5",
+      "residual_graph_kind": "cycle_5",
+      "unlooped_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "forced_type_ids": [],
+      "target_edge_pairs": [
+        [
+          "T0",
+          "T1"
+        ],
+        [
+          "T0",
+          "T4"
+        ],
+        [
+          "T1",
+          "T2"
+        ],
+        [
+          "T2",
+          "T3"
+        ],
+        [
+          "T3",
+          "T4"
+        ]
+      ],
+      "transversal_type_ids": [
+        "T0"
+      ],
+      "transversal_size": 1,
+      "transversal_payload_bits": 6,
+      "rejection_odd_cycle_type_ids": null,
+      "deleted_loop_column_indices": [
+        1,
+        5,
+        9,
+        10,
+        11
+      ],
+      "deleted_edge_column_indices": [
+        2,
+        3,
+        7,
+        8,
+        13
+      ],
+      "retained_column_count": 5,
+      "complete_normal_form": true,
+      "m95_template": false,
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 4,
+          "endpoints": [
+            "T0",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 12,
+          "endpoints": [
+            "T2",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 14,
+          "endpoints": [
+            "T3",
+            "T4"
+          ]
+        }
+      ],
+      "constructor": {
+        "status": "constructed_exact",
+        "base_type_ids": [
+          "T1",
+          "T2",
+          "T3",
+          "T4"
+        ],
+        "base_bipartition": {
+          "left_type_ids": [
+            "T1",
+            "T3"
+          ],
+          "right_type_ids": [
+            "T2",
+            "T4"
+          ]
+        },
+        "branch_count": 2,
+        "feasible_branch_count": 2,
+        "branches": [
+          {
+            "branch_mask": 0,
+            "selected_transversal_type_ids": [],
+            "unselected_transversal_type_ids": [
+              "T0"
+            ],
+            "status": "feasible_exact",
+            "blocking_column_indices": [],
+            "forced_base_type_ids": [
+              "T1",
+              "T4"
+            ],
+            "remaining_base_type_ids": [
+              "T2",
+              "T3"
+            ],
+            "remaining_edge_column_indices": [
+              12
+            ],
+            "bipartite_matching_column_indices": [
+              12
+            ],
+            "bipartite_cover_type_ids": [
+              "T3"
+            ],
+            "candidate_cover_type_ids": [
+              "T1",
+              "T3",
+              "T4"
+            ],
+            "candidate_cover_number": 3
+          },
+          {
+            "branch_mask": 1,
+            "selected_transversal_type_ids": [
+              "T0"
+            ],
+            "unselected_transversal_type_ids": [],
+            "status": "feasible_exact",
+            "blocking_column_indices": [],
+            "forced_base_type_ids": [],
+            "remaining_base_type_ids": [
+              "T1",
+              "T2",
+              "T3",
+              "T4"
+            ],
+            "remaining_edge_column_indices": [
+              6,
+              12,
+              14
+            ],
+            "bipartite_matching_column_indices": [
+              6,
+              14
+            ],
+            "bipartite_cover_type_ids": [
+              "T1",
+              "T3"
+            ],
+            "candidate_cover_type_ids": [
+              "T0",
+              "T1",
+              "T3"
+            ],
+            "candidate_cover_number": 3
+          }
+        ],
+        "minimum_cover_type_ids": [
+          "T0",
+          "T1",
+          "T3"
+        ],
+        "minimum_cover_number": 3
+      },
+      "exact_audit": {
+        "minimum_cover_type_ids": [
+          "T0",
+          "T1",
+          "T3"
+        ],
+        "maximum_matching_column_indices": [
+          0,
+          12
+        ],
+        "residual_vertex_cover_number": 3,
+        "residual_matching_number": 2,
+        "matching_gap": 1,
+        "exact_repair_number": 3,
+        "output_cover_payload_bits": 12
+      }
+    },
+    {
+      "case_id": "O3-bowtie",
+      "residual_graph_kind": "two_triangles_shared_vertex",
+      "unlooped_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "forced_type_ids": [],
+      "target_edge_pairs": [
+        [
+          "T0",
+          "T1"
+        ],
+        [
+          "T0",
+          "T2"
+        ],
+        [
+          "T0",
+          "T3"
+        ],
+        [
+          "T0",
+          "T4"
+        ],
+        [
+          "T1",
+          "T2"
+        ],
+        [
+          "T3",
+          "T4"
+        ]
+      ],
+      "transversal_type_ids": [
+        "T0"
+      ],
+      "transversal_size": 1,
+      "transversal_payload_bits": 6,
+      "rejection_odd_cycle_type_ids": null,
+      "deleted_loop_column_indices": [
+        1,
+        5,
+        9,
+        10,
+        11
+      ],
+      "deleted_edge_column_indices": [
+        7,
+        8,
+        12,
+        13
+      ],
+      "retained_column_count": 6,
+      "complete_normal_form": true,
+      "m95_template": false,
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 2,
+          "endpoints": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 3,
+          "endpoints": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 4,
+          "endpoints": [
+            "T0",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 14,
+          "endpoints": [
+            "T3",
+            "T4"
+          ]
+        }
+      ],
+      "constructor": {
+        "status": "constructed_exact",
+        "base_type_ids": [
+          "T1",
+          "T2",
+          "T3",
+          "T4"
+        ],
+        "base_bipartition": {
+          "left_type_ids": [
+            "T1",
+            "T3"
+          ],
+          "right_type_ids": [
+            "T2",
+            "T4"
+          ]
+        },
+        "branch_count": 2,
+        "feasible_branch_count": 2,
+        "branches": [
+          {
+            "branch_mask": 0,
+            "selected_transversal_type_ids": [],
+            "unselected_transversal_type_ids": [
+              "T0"
+            ],
+            "status": "feasible_exact",
+            "blocking_column_indices": [],
+            "forced_base_type_ids": [
+              "T1",
+              "T2",
+              "T3",
+              "T4"
+            ],
+            "remaining_base_type_ids": [],
+            "remaining_edge_column_indices": [],
+            "bipartite_matching_column_indices": [],
+            "bipartite_cover_type_ids": [],
+            "candidate_cover_type_ids": [
+              "T1",
+              "T2",
+              "T3",
+              "T4"
+            ],
+            "candidate_cover_number": 4
+          },
+          {
+            "branch_mask": 1,
+            "selected_transversal_type_ids": [
+              "T0"
+            ],
+            "unselected_transversal_type_ids": [],
+            "status": "feasible_exact",
+            "blocking_column_indices": [],
+            "forced_base_type_ids": [],
+            "remaining_base_type_ids": [
+              "T1",
+              "T2",
+              "T3",
+              "T4"
+            ],
+            "remaining_edge_column_indices": [
+              6,
+              14
+            ],
+            "bipartite_matching_column_indices": [
+              6,
+              14
+            ],
+            "bipartite_cover_type_ids": [
+              "T1",
+              "T3"
+            ],
+            "candidate_cover_type_ids": [
+              "T0",
+              "T1",
+              "T3"
+            ],
+            "candidate_cover_number": 3
+          }
+        ],
+        "minimum_cover_type_ids": [
+          "T0",
+          "T1",
+          "T3"
+        ],
+        "minimum_cover_number": 3
+      },
+      "exact_audit": {
+        "minimum_cover_type_ids": [
+          "T0",
+          "T1",
+          "T3"
+        ],
+        "maximum_matching_column_indices": [
+          0,
+          14
+        ],
+        "residual_vertex_cover_number": 3,
+        "residual_matching_number": 2,
+        "matching_gap": 1,
+        "exact_repair_number": 3,
+        "output_cover_payload_bits": 12
+      }
+    },
+    {
+      "case_id": "O4-house",
+      "residual_graph_kind": "cycle_4_with_roof",
+      "unlooped_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "forced_type_ids": [],
+      "target_edge_pairs": [
+        [
+          "T0",
+          "T1"
+        ],
+        [
+          "T0",
+          "T3"
+        ],
+        [
+          "T1",
+          "T2"
+        ],
+        [
+          "T1",
+          "T4"
+        ],
+        [
+          "T2",
+          "T3"
+        ],
+        [
+          "T2",
+          "T4"
+        ]
+      ],
+      "transversal_type_ids": [
+        "T4"
+      ],
+      "transversal_size": 1,
+      "transversal_payload_bits": 6,
+      "rejection_odd_cycle_type_ids": null,
+      "deleted_loop_column_indices": [
+        1,
+        5,
+        9,
+        10,
+        11
+      ],
+      "deleted_edge_column_indices": [
+        2,
+        4,
+        7,
+        14
+      ],
+      "retained_column_count": 6,
+      "complete_normal_form": true,
+      "m95_template": false,
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 3,
+          "endpoints": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 8,
+          "endpoints": [
+            "T1",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 12,
+          "endpoints": [
+            "T2",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 13,
+          "endpoints": [
+            "T2",
+            "T4"
+          ]
+        }
+      ],
+      "constructor": {
+        "status": "constructed_exact",
+        "base_type_ids": [
+          "T0",
+          "T1",
+          "T2",
+          "T3"
+        ],
+        "base_bipartition": {
+          "left_type_ids": [
+            "T0",
+            "T2"
+          ],
+          "right_type_ids": [
+            "T1",
+            "T3"
+          ]
+        },
+        "branch_count": 2,
+        "feasible_branch_count": 2,
+        "branches": [
+          {
+            "branch_mask": 0,
+            "selected_transversal_type_ids": [],
+            "unselected_transversal_type_ids": [
+              "T4"
+            ],
+            "status": "feasible_exact",
+            "blocking_column_indices": [],
+            "forced_base_type_ids": [
+              "T1",
+              "T2"
+            ],
+            "remaining_base_type_ids": [
+              "T0",
+              "T3"
+            ],
+            "remaining_edge_column_indices": [
+              3
+            ],
+            "bipartite_matching_column_indices": [
+              3
+            ],
+            "bipartite_cover_type_ids": [
+              "T0"
+            ],
+            "candidate_cover_type_ids": [
+              "T0",
+              "T1",
+              "T2"
+            ],
+            "candidate_cover_number": 3
+          },
+          {
+            "branch_mask": 1,
+            "selected_transversal_type_ids": [
+              "T4"
+            ],
+            "unselected_transversal_type_ids": [],
+            "status": "feasible_exact",
+            "blocking_column_indices": [],
+            "forced_base_type_ids": [],
+            "remaining_base_type_ids": [
+              "T0",
+              "T1",
+              "T2",
+              "T3"
+            ],
+            "remaining_edge_column_indices": [
+              0,
+              3,
+              6,
+              12
+            ],
+            "bipartite_matching_column_indices": [
+              0,
+              12
+            ],
+            "bipartite_cover_type_ids": [
+              "T0",
+              "T2"
+            ],
+            "candidate_cover_type_ids": [
+              "T0",
+              "T2",
+              "T4"
+            ],
+            "candidate_cover_number": 3
+          }
+        ],
+        "minimum_cover_type_ids": [
+          "T0",
+          "T1",
+          "T2"
+        ],
+        "minimum_cover_number": 3
+      },
+      "exact_audit": {
+        "minimum_cover_type_ids": [
+          "T0",
+          "T1",
+          "T2"
+        ],
+        "maximum_matching_column_indices": [
+          0,
+          12
+        ],
+        "residual_vertex_cover_number": 3,
+        "residual_matching_number": 2,
+        "matching_gap": 1,
+        "exact_repair_number": 3,
+        "output_cover_payload_bits": 12
+      }
+    },
+    {
+      "case_id": "O5-K4",
+      "residual_graph_kind": "complete_graph_4",
+      "unlooped_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "forced_type_ids": [
+        "T4"
+      ],
+      "target_edge_pairs": [
+        [
+          "T0",
+          "T1"
+        ],
+        [
+          "T0",
+          "T2"
+        ],
+        [
+          "T0",
+          "T3"
+        ],
+        [
+          "T1",
+          "T2"
+        ],
+        [
+          "T1",
+          "T3"
+        ],
+        [
+          "T2",
+          "T3"
+        ]
+      ],
+      "transversal_type_ids": [
+        "T0",
+        "T1"
+      ],
+      "transversal_size": 2,
+      "transversal_payload_bits": 9,
+      "rejection_odd_cycle_type_ids": null,
+      "deleted_loop_column_indices": [
+        1,
+        5,
+        9,
+        10
+      ],
+      "deleted_edge_column_indices": [],
+      "retained_column_count": 11,
+      "complete_normal_form": true,
+      "m95_template": false,
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 2,
+          "endpoints": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 3,
+          "endpoints": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 7,
+          "endpoints": [
+            "T1",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 12,
+          "endpoints": [
+            "T2",
+            "T3"
+          ]
+        }
+      ],
+      "constructor": {
+        "status": "constructed_exact",
+        "base_type_ids": [
+          "T2",
+          "T3"
+        ],
+        "base_bipartition": {
+          "left_type_ids": [
+            "T2"
+          ],
+          "right_type_ids": [
+            "T3"
+          ]
+        },
+        "branch_count": 4,
+        "feasible_branch_count": 3,
+        "branches": [
+          {
+            "branch_mask": 0,
+            "selected_transversal_type_ids": [],
+            "unselected_transversal_type_ids": [
+              "T0",
+              "T1"
+            ],
+            "status": "infeasible_internal_edge",
+            "blocking_column_indices": [
+              0
+            ],
+            "forced_base_type_ids": null,
+            "remaining_base_type_ids": null,
+            "remaining_edge_column_indices": null,
+            "bipartite_matching_column_indices": null,
+            "bipartite_cover_type_ids": null,
+            "candidate_cover_type_ids": null,
+            "candidate_cover_number": null
+          },
+          {
+            "branch_mask": 1,
+            "selected_transversal_type_ids": [
+              "T0"
+            ],
+            "unselected_transversal_type_ids": [
+              "T1"
+            ],
+            "status": "feasible_exact",
+            "blocking_column_indices": [],
+            "forced_base_type_ids": [
+              "T2",
+              "T3"
+            ],
+            "remaining_base_type_ids": [],
+            "remaining_edge_column_indices": [],
+            "bipartite_matching_column_indices": [],
+            "bipartite_cover_type_ids": [],
+            "candidate_cover_type_ids": [
+              "T0",
+              "T2",
+              "T3"
+            ],
+            "candidate_cover_number": 3
+          },
+          {
+            "branch_mask": 2,
+            "selected_transversal_type_ids": [
+              "T1"
+            ],
+            "unselected_transversal_type_ids": [
+              "T0"
+            ],
+            "status": "feasible_exact",
+            "blocking_column_indices": [],
+            "forced_base_type_ids": [
+              "T2",
+              "T3"
+            ],
+            "remaining_base_type_ids": [],
+            "remaining_edge_column_indices": [],
+            "bipartite_matching_column_indices": [],
+            "bipartite_cover_type_ids": [],
+            "candidate_cover_type_ids": [
+              "T1",
+              "T2",
+              "T3"
+            ],
+            "candidate_cover_number": 3
+          },
+          {
+            "branch_mask": 3,
+            "selected_transversal_type_ids": [
+              "T0",
+              "T1"
+            ],
+            "unselected_transversal_type_ids": [],
+            "status": "feasible_exact",
+            "blocking_column_indices": [],
+            "forced_base_type_ids": [],
+            "remaining_base_type_ids": [
+              "T2",
+              "T3"
+            ],
+            "remaining_edge_column_indices": [
+              12
+            ],
+            "bipartite_matching_column_indices": [
+              12
+            ],
+            "bipartite_cover_type_ids": [
+              "T2"
+            ],
+            "candidate_cover_type_ids": [
+              "T0",
+              "T1",
+              "T2"
+            ],
+            "candidate_cover_number": 3
+          }
+        ],
+        "minimum_cover_type_ids": [
+          "T0",
+          "T1",
+          "T2"
+        ],
+        "minimum_cover_number": 3
+      },
+      "exact_audit": {
+        "minimum_cover_type_ids": [
+          "T0",
+          "T1",
+          "T2"
+        ],
+        "maximum_matching_column_indices": [
+          0,
+          12
+        ],
+        "residual_vertex_cover_number": 3,
+        "residual_matching_number": 2,
+        "matching_gap": 1,
+        "exact_repair_number": 4,
+        "output_cover_payload_bits": 12
+      }
+    },
+    {
+      "case_id": "O6-K5-e",
+      "residual_graph_kind": "complete_graph_5_minus_e01",
+      "unlooped_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "forced_type_ids": [],
+      "target_edge_pairs": [
+        [
+          "T0",
+          "T2"
+        ],
+        [
+          "T0",
+          "T3"
+        ],
+        [
+          "T0",
+          "T4"
+        ],
+        [
+          "T1",
+          "T2"
+        ],
+        [
+          "T1",
+          "T3"
+        ],
+        [
+          "T1",
+          "T4"
+        ],
+        [
+          "T2",
+          "T3"
+        ],
+        [
+          "T2",
+          "T4"
+        ],
+        [
+          "T3",
+          "T4"
+        ]
+      ],
+      "transversal_type_ids": [
+        "T2",
+        "T3"
+      ],
+      "transversal_size": 2,
+      "transversal_payload_bits": 9,
+      "rejection_odd_cycle_type_ids": null,
+      "deleted_loop_column_indices": [
+        1,
+        5,
+        9,
+        10,
+        11
+      ],
+      "deleted_edge_column_indices": [
+        0
+      ],
+      "retained_column_count": 9,
+      "complete_normal_form": true,
+      "m95_template": false,
+      "residual_edges": [
+        {
+          "column_index": 2,
+          "endpoints": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 3,
+          "endpoints": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 4,
+          "endpoints": [
+            "T0",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 7,
+          "endpoints": [
+            "T1",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 8,
+          "endpoints": [
+            "T1",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 12,
+          "endpoints": [
+            "T2",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 13,
+          "endpoints": [
+            "T2",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 14,
+          "endpoints": [
+            "T3",
+            "T4"
+          ]
+        }
+      ],
+      "constructor": {
+        "status": "constructed_exact",
+        "base_type_ids": [
+          "T0",
+          "T1",
+          "T4"
+        ],
+        "base_bipartition": {
+          "left_type_ids": [
+            "T0",
+            "T1"
+          ],
+          "right_type_ids": [
+            "T4"
+          ]
+        },
+        "branch_count": 4,
+        "feasible_branch_count": 3,
+        "branches": [
+          {
+            "branch_mask": 0,
+            "selected_transversal_type_ids": [],
+            "unselected_transversal_type_ids": [
+              "T2",
+              "T3"
+            ],
+            "status": "infeasible_internal_edge",
+            "blocking_column_indices": [
+              12
+            ],
+            "forced_base_type_ids": null,
+            "remaining_base_type_ids": null,
+            "remaining_edge_column_indices": null,
+            "bipartite_matching_column_indices": null,
+            "bipartite_cover_type_ids": null,
+            "candidate_cover_type_ids": null,
+            "candidate_cover_number": null
+          },
+          {
+            "branch_mask": 1,
+            "selected_transversal_type_ids": [
+              "T2"
+            ],
+            "unselected_transversal_type_ids": [
+              "T3"
+            ],
+            "status": "feasible_exact",
+            "blocking_column_indices": [],
+            "forced_base_type_ids": [
+              "T0",
+              "T1",
+              "T4"
+            ],
+            "remaining_base_type_ids": [],
+            "remaining_edge_column_indices": [],
+            "bipartite_matching_column_indices": [],
+            "bipartite_cover_type_ids": [],
+            "candidate_cover_type_ids": [
+              "T0",
+              "T1",
+              "T2",
+              "T4"
+            ],
+            "candidate_cover_number": 4
+          },
+          {
+            "branch_mask": 2,
+            "selected_transversal_type_ids": [
+              "T3"
+            ],
+            "unselected_transversal_type_ids": [
+              "T2"
+            ],
+            "status": "feasible_exact",
+            "blocking_column_indices": [],
+            "forced_base_type_ids": [
+              "T0",
+              "T1",
+              "T4"
+            ],
+            "remaining_base_type_ids": [],
+            "remaining_edge_column_indices": [],
+            "bipartite_matching_column_indices": [],
+            "bipartite_cover_type_ids": [],
+            "candidate_cover_type_ids": [
+              "T0",
+              "T1",
+              "T3",
+              "T4"
+            ],
+            "candidate_cover_number": 4
+          },
+          {
+            "branch_mask": 3,
+            "selected_transversal_type_ids": [
+              "T2",
+              "T3"
+            ],
+            "unselected_transversal_type_ids": [],
+            "status": "feasible_exact",
+            "blocking_column_indices": [],
+            "forced_base_type_ids": [],
+            "remaining_base_type_ids": [
+              "T0",
+              "T1",
+              "T4"
+            ],
+            "remaining_edge_column_indices": [
+              4,
+              8
+            ],
+            "bipartite_matching_column_indices": [
+              4
+            ],
+            "bipartite_cover_type_ids": [
+              "T4"
+            ],
+            "candidate_cover_type_ids": [
+              "T2",
+              "T3",
+              "T4"
+            ],
+            "candidate_cover_number": 3
+          }
+        ],
+        "minimum_cover_type_ids": [
+          "T2",
+          "T3",
+          "T4"
+        ],
+        "minimum_cover_number": 3
+      },
+      "exact_audit": {
+        "minimum_cover_type_ids": [
+          "T2",
+          "T3",
+          "T4"
+        ],
+        "maximum_matching_column_indices": [
+          2,
+          7
+        ],
+        "residual_vertex_cover_number": 3,
+        "residual_matching_number": 2,
+        "matching_gap": 1,
+        "exact_repair_number": 3,
+        "output_cover_payload_bits": 12
+      }
+    },
+    {
+      "case_id": "O7-K5-valid",
+      "residual_graph_kind": "complete_graph_5",
+      "unlooped_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "forced_type_ids": [],
+      "target_edge_pairs": [
+        [
+          "T0",
+          "T1"
+        ],
+        [
+          "T0",
+          "T2"
+        ],
+        [
+          "T0",
+          "T3"
+        ],
+        [
+          "T0",
+          "T4"
+        ],
+        [
+          "T1",
+          "T2"
+        ],
+        [
+          "T1",
+          "T3"
+        ],
+        [
+          "T1",
+          "T4"
+        ],
+        [
+          "T2",
+          "T3"
+        ],
+        [
+          "T2",
+          "T4"
+        ],
+        [
+          "T3",
+          "T4"
+        ]
+      ],
+      "transversal_type_ids": [
+        "T0",
+        "T1",
+        "T2"
+      ],
+      "transversal_size": 3,
+      "transversal_payload_bits": 12,
+      "rejection_odd_cycle_type_ids": null,
+      "deleted_loop_column_indices": [
+        1,
+        5,
+        9,
+        10,
+        11
+      ],
+      "deleted_edge_column_indices": [],
+      "retained_column_count": 10,
+      "complete_normal_form": true,
+      "m95_template": true,
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 2,
+          "endpoints": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 3,
+          "endpoints": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 4,
+          "endpoints": [
+            "T0",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 7,
+          "endpoints": [
+            "T1",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 8,
+          "endpoints": [
+            "T1",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 12,
+          "endpoints": [
+            "T2",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 13,
+          "endpoints": [
+            "T2",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 14,
+          "endpoints": [
+            "T3",
+            "T4"
+          ]
+        }
+      ],
+      "constructor": {
+        "status": "constructed_exact",
+        "base_type_ids": [
+          "T3",
+          "T4"
+        ],
+        "base_bipartition": {
+          "left_type_ids": [
+            "T3"
+          ],
+          "right_type_ids": [
+            "T4"
+          ]
+        },
+        "branch_count": 8,
+        "feasible_branch_count": 4,
+        "branches": [
+          {
+            "branch_mask": 0,
+            "selected_transversal_type_ids": [],
+            "unselected_transversal_type_ids": [
+              "T0",
+              "T1",
+              "T2"
+            ],
+            "status": "infeasible_internal_edge",
+            "blocking_column_indices": [
+              0,
+              2,
+              6
+            ],
+            "forced_base_type_ids": null,
+            "remaining_base_type_ids": null,
+            "remaining_edge_column_indices": null,
+            "bipartite_matching_column_indices": null,
+            "bipartite_cover_type_ids": null,
+            "candidate_cover_type_ids": null,
+            "candidate_cover_number": null
+          },
+          {
+            "branch_mask": 1,
+            "selected_transversal_type_ids": [
+              "T0"
+            ],
+            "unselected_transversal_type_ids": [
+              "T1",
+              "T2"
+            ],
+            "status": "infeasible_internal_edge",
+            "blocking_column_indices": [
+              6
+            ],
+            "forced_base_type_ids": null,
+            "remaining_base_type_ids": null,
+            "remaining_edge_column_indices": null,
+            "bipartite_matching_column_indices": null,
+            "bipartite_cover_type_ids": null,
+            "candidate_cover_type_ids": null,
+            "candidate_cover_number": null
+          },
+          {
+            "branch_mask": 2,
+            "selected_transversal_type_ids": [
+              "T1"
+            ],
+            "unselected_transversal_type_ids": [
+              "T0",
+              "T2"
+            ],
+            "status": "infeasible_internal_edge",
+            "blocking_column_indices": [
+              2
+            ],
+            "forced_base_type_ids": null,
+            "remaining_base_type_ids": null,
+            "remaining_edge_column_indices": null,
+            "bipartite_matching_column_indices": null,
+            "bipartite_cover_type_ids": null,
+            "candidate_cover_type_ids": null,
+            "candidate_cover_number": null
+          },
+          {
+            "branch_mask": 3,
+            "selected_transversal_type_ids": [
+              "T0",
+              "T1"
+            ],
+            "unselected_transversal_type_ids": [
+              "T2"
+            ],
+            "status": "feasible_exact",
+            "blocking_column_indices": [],
+            "forced_base_type_ids": [
+              "T3",
+              "T4"
+            ],
+            "remaining_base_type_ids": [],
+            "remaining_edge_column_indices": [],
+            "bipartite_matching_column_indices": [],
+            "bipartite_cover_type_ids": [],
+            "candidate_cover_type_ids": [
+              "T0",
+              "T1",
+              "T3",
+              "T4"
+            ],
+            "candidate_cover_number": 4
+          },
+          {
+            "branch_mask": 4,
+            "selected_transversal_type_ids": [
+              "T2"
+            ],
+            "unselected_transversal_type_ids": [
+              "T0",
+              "T1"
+            ],
+            "status": "infeasible_internal_edge",
+            "blocking_column_indices": [
+              0
+            ],
+            "forced_base_type_ids": null,
+            "remaining_base_type_ids": null,
+            "remaining_edge_column_indices": null,
+            "bipartite_matching_column_indices": null,
+            "bipartite_cover_type_ids": null,
+            "candidate_cover_type_ids": null,
+            "candidate_cover_number": null
+          },
+          {
+            "branch_mask": 5,
+            "selected_transversal_type_ids": [
+              "T0",
+              "T2"
+            ],
+            "unselected_transversal_type_ids": [
+              "T1"
+            ],
+            "status": "feasible_exact",
+            "blocking_column_indices": [],
+            "forced_base_type_ids": [
+              "T3",
+              "T4"
+            ],
+            "remaining_base_type_ids": [],
+            "remaining_edge_column_indices": [],
+            "bipartite_matching_column_indices": [],
+            "bipartite_cover_type_ids": [],
+            "candidate_cover_type_ids": [
+              "T0",
+              "T2",
+              "T3",
+              "T4"
+            ],
+            "candidate_cover_number": 4
+          },
+          {
+            "branch_mask": 6,
+            "selected_transversal_type_ids": [
+              "T1",
+              "T2"
+            ],
+            "unselected_transversal_type_ids": [
+              "T0"
+            ],
+            "status": "feasible_exact",
+            "blocking_column_indices": [],
+            "forced_base_type_ids": [
+              "T3",
+              "T4"
+            ],
+            "remaining_base_type_ids": [],
+            "remaining_edge_column_indices": [],
+            "bipartite_matching_column_indices": [],
+            "bipartite_cover_type_ids": [],
+            "candidate_cover_type_ids": [
+              "T1",
+              "T2",
+              "T3",
+              "T4"
+            ],
+            "candidate_cover_number": 4
+          },
+          {
+            "branch_mask": 7,
+            "selected_transversal_type_ids": [
+              "T0",
+              "T1",
+              "T2"
+            ],
+            "unselected_transversal_type_ids": [],
+            "status": "feasible_exact",
+            "blocking_column_indices": [],
+            "forced_base_type_ids": [],
+            "remaining_base_type_ids": [
+              "T3",
+              "T4"
+            ],
+            "remaining_edge_column_indices": [
+              14
+            ],
+            "bipartite_matching_column_indices": [
+              14
+            ],
+            "bipartite_cover_type_ids": [
+              "T3"
+            ],
+            "candidate_cover_type_ids": [
+              "T0",
+              "T1",
+              "T2",
+              "T3"
+            ],
+            "candidate_cover_number": 4
+          }
+        ],
+        "minimum_cover_type_ids": [
+          "T0",
+          "T1",
+          "T2",
+          "T3"
+        ],
+        "minimum_cover_number": 4
+      },
+      "exact_audit": {
+        "minimum_cover_type_ids": [
+          "T0",
+          "T1",
+          "T2",
+          "T3"
+        ],
+        "maximum_matching_column_indices": [
+          0,
+          12
+        ],
+        "residual_vertex_cover_number": 4,
+        "residual_matching_number": 2,
+        "matching_gap": 2,
+        "exact_repair_number": 4,
+        "output_cover_payload_bits": 15
+      }
+    },
+    {
+      "case_id": "R1-K5-invalid",
+      "residual_graph_kind": "complete_graph_5",
+      "unlooped_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "forced_type_ids": [],
+      "target_edge_pairs": [
+        [
+          "T0",
+          "T1"
+        ],
+        [
+          "T0",
+          "T2"
+        ],
+        [
+          "T0",
+          "T3"
+        ],
+        [
+          "T0",
+          "T4"
+        ],
+        [
+          "T1",
+          "T2"
+        ],
+        [
+          "T1",
+          "T3"
+        ],
+        [
+          "T1",
+          "T4"
+        ],
+        [
+          "T2",
+          "T3"
+        ],
+        [
+          "T2",
+          "T4"
+        ],
+        [
+          "T3",
+          "T4"
+        ]
+      ],
+      "transversal_type_ids": [
+        "T0",
+        "T1"
+      ],
+      "transversal_size": 2,
+      "transversal_payload_bits": 9,
+      "rejection_odd_cycle_type_ids": [
+        "T2",
+        "T3",
+        "T4",
+        "T2"
+      ],
+      "deleted_loop_column_indices": [
+        1,
+        5,
+        9,
+        10,
+        11
+      ],
+      "deleted_edge_column_indices": [],
+      "retained_column_count": 10,
+      "complete_normal_form": true,
+      "m95_template": true,
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 2,
+          "endpoints": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 3,
+          "endpoints": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 4,
+          "endpoints": [
+            "T0",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 7,
+          "endpoints": [
+            "T1",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 8,
+          "endpoints": [
+            "T1",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 12,
+          "endpoints": [
+            "T2",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 13,
+          "endpoints": [
+            "T2",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 14,
+          "endpoints": [
+            "T3",
+            "T4"
+          ]
+        }
+      ],
+      "constructor": {
+        "status": "rejected_invalid_transversal",
+        "base_type_ids": [
+          "T2",
+          "T3",
+          "T4"
+        ],
+        "base_bipartition": null,
+        "branch_count": 0,
+        "feasible_branch_count": 0,
+        "branches": [],
+        "minimum_cover_type_ids": null,
+        "minimum_cover_number": null
+      },
+      "exact_audit": {
+        "minimum_cover_type_ids": [
+          "T0",
+          "T1",
+          "T2",
+          "T3"
+        ],
+        "maximum_matching_column_indices": [
+          0,
+          12
+        ],
+        "residual_vertex_cover_number": 4,
+        "residual_matching_number": 2,
+        "matching_gap": 2,
+        "exact_repair_number": 4,
+        "output_cover_payload_bits": 15
+      }
+    }
+  ],
+  "totals": {
+    "case_count": 8,
+    "valid_transversal_count": 7,
+    "rejected_transversal_count": 1,
+    "transversal_size_sum": 13,
+    "branch_count": 24,
+    "feasible_branch_count": 18,
+    "residual_vertex_cover_number_sum": 25,
+    "residual_matching_number_sum": 16,
+    "exact_repair_number_sum": 27,
+    "transversal_payload_bits": 63,
+    "valid_output_cover_payload_bits": 84,
+    "maximum_matching_gap": 2,
+    "maximum_transversal_size": 3
+  },
+  "scope": {
+    "classification": "EMPIRICAL",
+    "source_dependency": "EMP-066 and THM-026",
+    "synthetic_target_graphs": true,
+    "not_claimed": [
+      "a factor-promise recognizer",
+      "an odd-cycle-transversal discovery algorithm",
+      "a polynomial algorithm for unrestricted transversal size",
+      "a polynomial constructor for arbitrary vertex cover",
+      "factor-independent construction of complete type lists",
+      "an asymptotic selector theorem",
+      "general classical polynomial-time factoring"
+    ]
+  },
+  "summary_sha256": "745cab13a67cae8f1e09ac084b75d78e870a0aacc88892be4facf032a5f3478f"
+}

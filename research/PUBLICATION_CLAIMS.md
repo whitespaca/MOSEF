@@ -302,3 +302,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | THM-026 | PROVED | Explicit bipartite residual graphs have constructible exact repairs | `research/proofs/THM-026-constructive-bipartite-repair.md` |
 | REF-066 | REFUTED | Matching equality requires a bipartite residual graph | `research/NEGATIVE_RESULTS.md` NR-065 |
 | EMP-068 | EMPIRICAL | Eight synthetic bipartite and odd-cycle boundary targets | `research/experiments/EXP-0068-m97-bipartite-cover.md` |
+| DEF-054 | DEFINITION | Odd-cycle-transversal branch constructor | `research/proofs/THM-027-odd-cycle-transversal-repair.md` |
+| THM-027 | PROVED | Supplied odd-cycle transversals give parameterized exact repairs | `research/proofs/THM-027-odd-cycle-transversal-repair.md` |
+| REF-067 | REFUTED | Fixed-parameter exactness is unrestricted polynomial time | `research/NEGATIVE_RESULTS.md` NR-066 |
+| EMP-069 | EMPIRICAL | Eight synthetic odd-cycle-transversal target systems | `research/experiments/EXP-0069-m98-oct-cover.md` |

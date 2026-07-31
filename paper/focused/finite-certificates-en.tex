@@ -13,35 +13,35 @@ Finite Balanced Semiprime Populations}
 \begin{abstract}
 For exponent--GCD selectors on square-free semiprimes, universal pair
 separation is equivalent to injectivity of the prime support-signature map.
-We use this criterion to give complete finite certificates for one public
-family of compact cyclotomic-cofactor selectors on balanced prime
-populations.  For every standard binary length \(9\le m\le34\), exhaustive
-enumeration proves the least family-relative numeric cap \(L_m^\star\) whose
-signatures are injective.  The public cap \(m+167\) succeeds throughout this
-finite window, while the exact threshold is not monotone across changing
-populations: \(L_{29}^\star=103<L_{28}^\star=104\).  The online evaluator
-receives only the public descriptor list and charges its construction,
-compact modular evaluations, every GCD and inversion branch, extraction, and
-output.  Population enumeration, cap search, support-signature normalization,
-collision refinement, certificate generation, and hashing are offline proof
-costs and are not algorithmic advice or hidden online inputs.  The
-  certificate records an adjacent predecessor collision and a separating
-  repair for each threshold.  A 987-line standard-library checker reduces the
-  trusted computing base without generator or project imports: it reconstructs
-  all 26 rows from 16 frozen sources through 28,245,185 certificate and
-  7,520,669 raw-mask evaluations, within a measured 29.15 MiB peak.
-  All 19 repairs are 12 loop-only, five looped-clique, and two
-  loopless-clique coverer graphs; unified certificates use 1,063 bits and 520
-  tests.  Equality witnesses certify five of eight non-template
-  perturbations.  An augmenting-path and alternating-reachability constructor
-  then solves six bipartite targets; triangle-plus-pendant equality and a
-  \(C_5\) gap show that bipartiteness is sufficient, not necessary.
-  Separately, we prove that every
-polynomial numeric cap in this exact grammar eventually fails and establish
-compact-gap noninjectivity barriers below the audited boundary.  These
-certificates concern a small finite range and one selector family; they do
-not recognize balanced factors, apply to \(m>34\), minimize over other
-families, or solve general integer factoring.
+We give complete finite certificates for one public family of compact
+cyclotomic-cofactor selectors on balanced prime populations.  For every
+standard binary length \(9\le m\le34\), exhaustive enumeration proves the
+least family-relative numeric cap \(L_m^\star\) with injective signatures.
+The public cap \(m+167\) succeeds throughout this finite window, while
+\(L_{29}^\star=103<L_{28}^\star=104\) shows that exact thresholds need not be
+monotone across changing populations.  The online evaluator receives only
+the public descriptor list and charges construction, compact modular
+evaluation, every GCD and inversion branch, extraction, and output.
+Population enumeration, cap search, normalization, collision refinement,
+certificate generation, and hashing are offline proof costs, not online
+advice.
+
+A 987-line standard-library checker reconstructs all 26 rows from 16 frozen
+sources through 28,245,185 certificate and 7,520,669 raw-mask evaluations
+within a measured 29.15 MiB peak.  The 19 repairs are 12 loop-only, five
+looped-clique, and two loopless-clique coverer graphs; unified certificates
+use 1,063 bits and 520 tests.  Equality witnesses certify five of eight
+non-template perturbations, and a constructive bipartite method solves six
+targets.  Given a supplied odd-cycle transversal, an explicit \(2^s\)-branch
+reduction constructs seven further exact covers and rejects one invalid
+\(K_5\) transversal.  This is fixed-parameter exactness, not unrestricted
+polynomial time or a discovery method.
+
+Separately, every polynomial numeric cap in this exact grammar eventually
+fails, with compact-gap noninjectivity barriers below the audited boundary.
+The certificates concern one small finite range and one selector family;
+they neither recognize balanced factors, apply to \(m>34\), minimize other
+families, nor solve general integer factoring.
 \end{abstract}
 
 \begin{costmodel}{Cost model at a glance}
@@ -413,6 +413,49 @@ use 88 framed bits and 48 narrow tests.  Nineteen tests include all 689 simple
 bipartite graphs through three vertices per side and a parallel-edge/isolate
 regression.  Bounded exact enumeration is defense, not the constructor.
 
+\readerclaim{Definition}{Odd-cycle-transversal branch constructor}
+{\texttt{DEF-054: DEFINITION}}
+Given \(X\) with \(H-X\) bipartite, enumerate every \(A\subseteq X\).
+Reject a branch containing an edge inside \(X\setminus A\); otherwise force
+\(N_{H-X}(X\setminus A)\), solve the remaining bipartite graph exactly, and
+minimize the resulting cover.
+
+\readerclaim{Theorem}{Exact repair from a supplied odd-cycle transversal}
+{\claimstatus{THM-027}{PROVED}}
+For a supplied valid transversal \(X\), the branch constructor returns a
+minimum cover of \(H\) and exact repair number
+\[
+ \rho(T,U)=|F|+\tau(H).
+\]
+\begin{claimproof}
+Each feasible candidate covers selected-transversal, forced-cross, and
+remaining bipartite edges.  Every cover \(C\) occurs in the branch
+\(A=C\cap X\), contains every forced neighbor, and leaves a cover of the
+bipartite remainder, so the exact subcall is no larger than \(C\)'s
+remainder.  For \(s=|X|\), the indexed cost is
+\[
+ O\!\left(t+q+2^s\bigl(s+t(t+q)\bigr)\right).
+\]
+The supplied set costs \(\ell_s+s\ell_t\) bits and the output cover costs
+\(\ell_k+k\ell_t\) bits.  Polynomiality requires separately proved
+polynomial graph parameters, \(s=O(\log m)\), and a way to obtain \(X\).
+\end{claimproof}
+
+\readerclaim{Refuted promotion}{FPT exactness is unrestricted polynomial time}
+{\texttt{REF-067: REFUTED}}
+When \(s=\Theta(t)\), the explicit \(2^s\) branch count is exponential.
+A compact supplied transversal is not a factor-independent discovery
+algorithm.
+
+\readerclaim{Finite audit}{Supplied-transversal target graphs}
+{\texttt{EMP-069: EMPIRICAL}}
+Seven of eight synthetic targets are solved exactly over 24 branches, 18
+feasible; one undersized \(K_5\) transversal is rejected by a surviving
+triangle.  Cover/matching sums are 25/16, full repairs sum to 27, and
+input/output payloads use 63/84 bits.  Nineteen tests include all 1,024
+four-vertex graph/transversal pairs.  No transversal discovery or
+logarithmic bound is claimed.
+
 \section{Initial and widened finite theorems}
 
 \readerclaim{Finite certificate}{Base cap through length 15}
@@ -660,6 +703,8 @@ python scripts/check_m96_matching_certificate.py
 pytest -p no:cacheprovider tests/test_m96_matching_certificate.py -q
 python scripts/check_m97_bipartite_cover.py
 pytest -p no:cacheprovider tests/test_m97_bipartite_cover.py -q
+python scripts/check_m98_oct_cover.py
+pytest -p no:cacheprovider tests/test_m98_oct_cover.py -q
 \end{verbatim}
 The underlying M31--M46 schemas, generators, differential checkers, commands,
 toolchains, row hashes, and selected cross-language vectors remain under
@@ -679,6 +724,10 @@ reconstructs all nine coverer columns of the \(K_3/K_4\) certificates; the
 eleventh checks their mutation and direct-mask differential paths.  The
 twelfth reconstructs all 64 coverer columns across both portfolios; the
 thirteenth checks graph templates, mutations, and the star/path boundary.
+Commands fourteen through seventeen check matching certificates and the
+constructive bipartite reduction.  Commands eighteen and nineteen
+independently replay all M98 transversal branches and their exhaustive
+four-vertex differential.
 
 The archival monograph \archivepaper{} retains the complete transition
 chronology and full proofs.  The claim ledger is

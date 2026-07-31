@@ -278,3 +278,26 @@ count.
 
 The detailed trust assumptions and the distinction between minimal and full
 checking are in `research/CERTIFICATE_TRUST_MODEL.md`.
+
+## M98 odd-cycle-transversal exact repair
+
+The M98 commands bind the frozen M95 seed and exact M97 constructor,
+reconstruct seven supplied-transversal exact repairs plus one explicit
+invalid-transversal rejection, and independently replay all 24 branches:
+
+```powershell
+python scripts/run_m98_oct_cover_profile.py
+python scripts/generate_m98_oct_cover_schema.py --check
+python scripts/check_m98_oct_cover.py
+pytest -p no:cacheprovider tests/test_m98_oct_cover.py -q
+ruff check scripts/run_m98_oct_cover_profile.py scripts/generate_m98_oct_cover_schema.py scripts/check_m98_oct_cover.py tests/test_m98_oct_cover.py
+mypy --strict --explicit-package-bases scripts/run_m98_oct_cover_profile.py scripts/generate_m98_oct_cover_schema.py scripts/check_m98_oct_cover.py tests/test_m98_oct_cover.py
+```
+
+The canonical schema is `schemas/m98-oct-cover-v1.json`, with summary
+SHA-256
+`745cab13a67cae8f1e09ac084b75d78e870a0aacc88892be4facf032a5f3478f`.
+The checker uses no project imports and exact-enumerates only bounded defense
+cases. The theorem algorithm itself enumerates transversal branches and
+uses the proved bipartite constructor; it does not enumerate vertex-cover
+subsets.

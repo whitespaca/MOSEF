@@ -1514,3 +1514,28 @@
 - Scope: the two graphs are synthetic deleted-column systems bound to one
   frozen finite seed. The result is not a complexity-class separation,
   arbitrary-graph algorithm, selector theorem, or factoring result.
+
+## NR-066 - Fixed-parameter exactness is not unrestricted polynomial time
+
+- Date: 2026-07-31.
+- Status: unrestricted-polynomial promotion refuted as `REF-067`;
+  `THM-027` remains an exact fixed-parameter algorithm for a supplied valid
+  odd-cycle transversal.
+- Hypothesis tested: because the transversal-branch algorithm has the form
+  \(2^s\operatorname{poly}(t,q)\), it is polynomial without any restriction
+  on the transversal size \(s\).
+- Exact obstruction: when \(s=\Theta(t)\), the displayed branch count is
+  \(2^{\Theta(t)}\). If \(t\) is polynomial in the original input bit length
+  \(m\), this is still generally exponential rather than polynomial in
+  \(m\).
+- Advice boundary: even a proved \(s=O(\log m)\) bound would not by itself
+  construct \(X\). M98 accepts and verifies a supplied set; treating that
+  compact set as public output would silently add an unproved discovery
+  step.
+- Consequence: only a separately justified logarithmic size bound,
+  polynomial explicit graph/type-system construction, and admissible
+  factor-independent access to \(X\) can promote the M98 branch phase to a
+  polynomial consequence.
+- Scope: this is direct accounting of the explicit algorithm, not a lower
+  bound against all odd-cycle-transversal algorithms, a complexity-class
+  separation, or a statement that small transversals cannot be found.

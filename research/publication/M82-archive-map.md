@@ -21,18 +21,18 @@ The machine-readable projection is
 |---|---|---|---|
 | A: promise factorization | `paper/focused/promise-factorization-en.tex` | `paper/focused/promise-factorization-ko.tex` | THM-001, BAR-001, BAR-002, LEM-003, THM-002, BAR-003, BAR-004 |
 | B: cyclotomic extraction | `paper/focused/cyclotomic-extraction-en.tex` | `paper/focused/cyclotomic-extraction-ko.tex` | BAR-018, BAR-019, THM-003, BAR-020, BAR-021, BAR-022, BAR-023 |
-| C: finite certificates | `paper/focused/finite-certificates-en.tex` | `paper/focused/finite-certificates-ko.tex` | BAR-024, THM-021, THM-022, THM-023, THM-024, THM-025, THM-026, THM-004, THM-005, THM-014, THM-019, BAR-041, BAR-046 |
+| C: finite certificates | `paper/focused/finite-certificates-en.tex` | `paper/focused/finite-certificates-ko.tex` | BAR-024, THM-021, THM-022, THM-023, THM-024, THM-025, THM-026, THM-027, THM-004, THM-005, THM-014, THM-019, BAR-041, BAR-046 |
 
 The promise and cyclotomic pairs have seven front-facing claim IDs each; the
-finite pair has thirteen. The papers use the same status token as
+finite pair has fourteen. The papers use the same status token as
 `research/CLAIMS.md`, link to their proof or reproduction anchors, and state
 their own exclusions.
 
 ## Coverage and trust boundary
 
-- 295 authoritative claim IDs are projected.
-- 27 claim IDs are front-facing in exactly one focused paper pair.
-- 268 claim IDs remain archival-only.
+- 299 authoritative claim IDs are projected.
+- 28 claim IDs are front-facing in exactly one focused paper pair.
+- 271 claim IDs remain archival-only.
 - A claim is not absent merely because it is not front-facing.
 - The focused paper source is not a second authority for status.
 - The generator records source hashes and the full archive-only list.
@@ -94,6 +94,11 @@ their own exclusions.
   boundaries. Its theorem and execution record are
   `research/proofs/THM-026-constructive-bipartite-repair.md` and
   `research/experiments/EXP-0068-m97-bipartite-cover.md`.
+- M98 enumerates every selected/unselected branch of supplied odd-cycle
+  transversals on seven synthetic targets and rejects one invalid
+  transversal. Its fixed-parameter theorem and execution record are
+  `research/proofs/THM-027-odd-cycle-transversal-repair.md` and
+  `research/experiments/EXP-0069-m98-oct-cover.md`.
 
 ## Reproduction
 

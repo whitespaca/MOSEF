@@ -186,14 +186,14 @@
     "research/literature/M83-primary-source-search.md": "989bb97f5c7c203af3cf68b5fe76eb48af7bbd0dfc880ebc54dfb5ad2d8edce2",
     "research/reviews/2026-07-31-m83-source-scope-review.md": "31e2d06c0ba7bbdefbf4a79c52e3154b4e7623f9f9ca07ac29beb086df29c104",
     "paper/references.bib": "71626c54fb84356438677bc65066206ab1aa664dfeb90c7423392f10ade69460",
-    "paper/main.tex": "1fb355a26a1aaf19b79e284b1905df012b85b964ca1e0c51d7d05a1d69c75b81",
-    "paper/main-ko.tex": "f6cfa77c70490665142c463b399f34add48fa229fa4c060e9ef84980af92bc6f",
+    "paper/main.tex": "943509f3c24119e3ae7bfded6f9b8f5de1058fdae24448ca231d03d7bccf6342",
+    "paper/main-ko.tex": "978f9517aa795058ffad6e45f220e410054eedcd9859596f2abfa6789caea076",
     "paper/focused/promise-factorization-en.tex": "2edf7fb97855f0c9d018a1c41024b46590a0d455b8b47821c6a98ffda1c05eea",
     "paper/focused/promise-factorization-ko.tex": "cf9b0ebe3f2ebef36beb65f1795d61460064fcc6dd946851dfd500065e71d709",
     "paper/focused/cyclotomic-extraction-en.tex": "7c0bc3f0f67139c51058011446fcc7dd797b527821f63f970998490c72ca429b",
     "paper/focused/cyclotomic-extraction-ko.tex": "9574618e6eb8074c4f2043a60ebcc5e84c94665812949b9c78d637f550800315",
-    "paper/focused/finite-certificates-en.tex": "8cd416ab6d387b85a148213cd142014f08d2f8f9b3dd80f801dfba489cafd3f6",
-    "paper/focused/finite-certificates-ko.tex": "6f68a6c4a7b21a35a74767d5040a1f8aa289db2cf864bbd7b6cfa5722d27f6d0"
+    "paper/focused/finite-certificates-en.tex": "a1b77fb1da7e9dd94a378ba8896ca92728945ea771e0af9a62f29cbbf191ff7a",
+    "paper/focused/finite-certificates-ko.tex": "984316e808b80eab020944758e8b6135d94039174c168892c5a89a154039dac1"
   },
   "scope": {
     "general_classical_polynomial_time_factoring": "OPEN",
@@ -201,5 +201,5 @@
     "priority_claims_made": false,
     "finite_certificate_max_input_length": 34
   },
-  "audit_summary_sha256": "22bbd68db31d109de0693268da5b3d6a0328d2f4574ab652f8586823c8e86f8c"
+  "audit_summary_sha256": "81bc24b3fd8eafb08a4fdd6a6b66ccbf767557c6a3cc529409757c2795f59ab0"
 }
