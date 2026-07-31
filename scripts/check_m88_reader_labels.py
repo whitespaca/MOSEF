@@ -32,6 +32,7 @@ PAPER_CLAIMS = {
         "BAR-024",
         "THM-021",
         "THM-022",
+        "THM-023",
         "THM-004",
         "THM-005",
         "THM-014",
@@ -60,6 +61,10 @@ READER_LABELS = {
     "THM-022": {
         "en": ("Theorem", "Subset-obstruction repair certificate"),
         "ko": ("정리", "Subset-obstruction repair 인증서"),
+    },
+    "THM-023": {
+        "en": ("Theorem", "Complete-graph repair certificate"),
+        "ko": ("정리", "Complete-graph repair 인증서"),
     },
     "BAR-002": {
         "en": (

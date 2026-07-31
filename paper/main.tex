@@ -275,7 +275,10 @@ GCD gap removes the subset exponent and expands this uniform range to
 A 987-line standard-library checker independently reconstructs all 26 frozen
 finite-selector rows from 16 source artifacts under a measured
 155.31-second, 29.15-MiB bound; this is finite empirical audit evidence, not
-an asymptotic inference. Deterministic bounded searches and independent
+an asymptotic inference. The two private-pair failures have \(K_3/K_4\)
+coverer incidence, giving one exact \(t-1\) repair theorem and a 56-bit
+payload compression that is not a verifier-work reduction. Deterministic
+bounded searches and independent
 Python, Rust, and C\# implementations audit these statements but are not used
 as proofs. No general polynomial-time classical factoring algorithm or lower
 bound is claimed.
@@ -3611,6 +3614,41 @@ ledger is 145 bit tests. Fourteen tests include seven rehashed mutations and
 complete raw-type/count differential equality with M91. Together with
 EXP-0063, all 19 frozen repairs through \(m=34\) now have exact compact
 certificates; no asymptotic or general-factoring conclusion follows.
+
+\claimstatus{DEF-050}{DEFINITION}. For a complete finite type family \(T\),
+the coverer set of \(u\in U\) is
+\(D(u)=\{T_i\in T:u\in T_i\}\). If every \(D(u)\) has size two, these sets
+are the edges of the coverer multigraph on \(T\). Complete-graph incidence
+means that every unordered type pair occurs.
+
+\claimstatus{THM-023}{PROVED}. When every universe element has exactly two
+coverers, repair covers are precisely vertex covers of the coverer
+multigraph. If its underlying simple graph is \(K_t\), the exact repair
+number is \(t-1\). Indeed, any \(t-1\) types meet every two-vertex edge,
+whereas a set of at most \(t-2\) types omits two vertices and therefore
+misses an element covered only by that pair.
+
+No upper or lower witness indices are needed. With the previous
+\(b,q,t,\lambda\) notation, patterns and masks use
+\(\lambda+t(b+q)\) bits, and the full structural verifier costs
+\[
+ O(tb+2tq+q\log t+\lambda)
+\]
+bit operations. Completeness of an externally reconstructed type list
+remains a premise.
+
+\claimstatus{REF-063}{REFUTED}. Complete-graph incidence does not strictly
+reduce both payload and verifier work. It saves 8 payload bits at \(m=16\)
+and 48 at \(m=24\), but the conservative core ledger changes from 16 to 21
+tests in the first case and remains 54 in the second.
+
+\claimstatus{EMP-065}{EMPIRICAL}. EXP-0065 independently reconstructs all
+coverer columns of the two private-pair failures. Seven tracked points, nine
+universe pairs, seven types, and eighteen positive incidences form
+bijections with the edges of \(K_3\) and \(K_4\). The structural payload is
+130 rather than 186 incumbent bits, saving 56. Eleven deterministic,
+differential, and mutation tests pass. Type exhaustiveness depends on
+EMP-064, so no new number-theoretic or asymptotic conclusion follows.
 
 Appendix \ref{proof:THM-019-BAR-040} gives the complete finite proof.
 

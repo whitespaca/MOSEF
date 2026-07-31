@@ -1430,3 +1430,23 @@
 - Scope: this refutes completeness of one lower-certificate form, not the
   pair-cover equivalence, the private-pair theorem under its hypotheses, or
   any factoring algorithm.
+
+## NR-062 - Clique incidence does not strictly reduce verifier work
+
+- Date: 2026-07-31.
+- Status: exact finite cost-dominance hypothesis refuted as `REF-063`; the
+  complete-graph repair theorem remains valid.
+- Hypothesis tested: replacing cardinality or subset-obstruction witnesses by
+  complete-graph incidence strictly reduces both abstract payload and the
+  registered verifier bit-test ledger.
+- Exact obstruction: at length 16, the structural payload falls from 50 to
+  42 bits, but scanning the complete incidence and pair slots raises the
+  conservative core ledger from 16 to 21 tests. At length 24, payload falls
+  from 136 to 88 bits while both ledgers use 54 tests.
+- Consequence: M94 presents the clique certificate as a 56-bit two-instance
+  payload compression, not as a verifier speedup. The explicit coverer traces
+  remain redundant audit data and are excluded from the mathematical payload.
+- Scope: this comparison uses the frozen M93 accounting conventions and two
+  small instances. It does not refute THM-023, preclude another implementation
+  from sharing scans, establish an asymptotic lower bound, or imply anything
+  about general factoring.

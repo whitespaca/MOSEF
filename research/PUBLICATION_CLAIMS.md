@@ -286,3 +286,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | THM-022 | PROVED | Cardinality and subset-obstruction exact-minimum certificates | `research/proofs/THM-022-subset-obstruction-certificate.md` |
 | REF-062 | REFUTED | Private pairs certify every exact finite repair minimum | `research/NEGATIVE_RESULTS.md` NR-061 |
 | EMP-064 | EMPIRICAL | Ten independently reconstructed early repair certificates | `research/experiments/EXP-0064-m93-early-repair-certificates.md` |
+| DEF-050 | DEFINITION | Coverer graph and complete-graph incidence for finite repair types | `research/proofs/THM-023-clique-incidence-cover-certificate.md` |
+| THM-023 | PROVED | Complete-graph incidence gives exact repair number \(t-1\) | `research/proofs/THM-023-clique-incidence-cover-certificate.md` |
+| REF-063 | REFUTED | Clique incidence strictly reduces both payload and verifier work | `research/NEGATIVE_RESULTS.md` NR-062 |
+| EMP-065 | EMPIRICAL | Two source-bound \(K_3/K_4\) incidence certificates | `research/experiments/EXP-0065-m94-clique-incidence.md` |

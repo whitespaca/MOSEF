@@ -32,7 +32,9 @@ costs and are not algorithmic advice or hidden online inputs.  The
   7,520,669 raw-mask evaluations, within a measured 29.15 MiB peak.
   Compact upper/lower witnesses independently certify all 19 non-domain-floor
   repairs; two early cases require cardinality or subset obstructions instead
-  of private pairs.
+  of private pairs.  Those two type systems are the vertex--edge incidence
+  matrices of \(K_3\) and \(K_4\), giving a shared \(t-1\) repair theorem and
+  a 56-bit payload reduction without a verifier-work reduction.
   Separately, we prove that every
 polynomial numeric cap in this exact grammar eventually fails and establish
 compact-gap noninjectivity barriers below the audited boundary.  These
@@ -89,7 +91,9 @@ An exhaustive finite pair-cover computation recovers the nine registered
 repair minima, keeping the cap-72 and cap-88 baselines at lengths 27 and 28.
 An independent early-repair checker evaluates 154,920 primitive coordinates
 and completes exact compact certificates for the ten transitions at lengths
-16--25.
+16--25.  A separate production incidence checker reconstructs every coverer
+column of the two private-pair failures and verifies the \(K_3/K_4\)
+structure without importing its generator or any earlier checker.
 
 Away from a cyclotomic root the checker evaluates the cofactor by finite-field
 division; at a simple root it differentiates the exact identity
@@ -226,6 +230,51 @@ It performs 154,920 raw primitive-coordinate tests.  Eight instances use
 private pairs; length 16 uses cardinality and length 24 uses all six
 two-type obstructions.  The 483-bit portfolio and 145-test core ledger remain
 finite and selector-specific.
+
+\readerclaim{Definition}{Coverer graph}
+{\texttt{DEF-050: DEFINITION}}
+For a complete finite type family \(T\), let
+\(D(u)=\{T_i\in T:u\in T_i\}\).  If every universe element has exactly two
+coverers, the sets \(D(u)\) are the edges of the coverer multigraph on \(T\).
+Complete-graph incidence means that every unordered type pair occurs.
+
+\readerclaim{Theorem}{Complete-graph repair certificate}
+{\claimstatus{THM-023}{PROVED}}
+If every universe element has exactly two coverers, repair covers are exactly
+vertex covers of the coverer multigraph.  If its underlying simple graph is
+\(K_t\), the exact repair number is \(t-1\).
+
+\begin{claimproof}
+A selected type covers an element precisely when it meets the corresponding
+two-vertex edge.  Any \(t-1\) types meet every edge.  Conversely, a selection
+of at most \(t-2\) types omits two vertices; complete-graph incidence provides
+an element covered only by that omitted pair.
+
+No upper or lower witness indices are stored.  With the previous
+\(b,q,t,\lambda\) notation, patterns and masks use
+\(\lambda+t(b+q)\) bits, and the full structural verifier costs
+\[
+ O(tb+2tq+q\log t+\lambda)
+\]
+bit operations.  Completeness of an externally supplied type family remains
+a separate premise.
+\end{claimproof}
+
+\readerclaim{Refuted shortcut}{Payload saving is not verifier saving}
+{\texttt{REF-063: REFUTED}}
+The clique criterion saves 8 payload bits at length 16 and 48 at length 24.
+The conservative core ledger nevertheless rises from 16 to 21 tests in the
+first case and remains 54 in the second.  It is a payload compression, not a
+strict verifier-work improvement.
+
+\readerclaim{Finite audit}{Two clique-incidence certificates}
+{\texttt{EMP-065: EMPIRICAL}}
+The source-bound checker reconstructs seven tracked points, nine universe
+pairs, seven types, and eighteen positive incidences.  The length-16 and
+length-24 coverer maps are bijections onto the edges of \(K_3\) and \(K_4\).
+The structural payload is 130 rather than 186 incumbent bits, saving 56;
+eleven tests include direct-mask differential and source-rebound mutations.
+Type exhaustiveness depends on EMP-064.
 
 \section{Initial and widened finite theorems}
 
@@ -466,6 +515,8 @@ python scripts/check_m92_pair_cover_certificate.py
 python -m pytest -p no:cacheprovider tests/test_m92_pair_cover_certificate.py -q
 python scripts/check_m93_early_repair_certificate.py
 pytest -p no:cacheprovider tests/test_m93_early_repair_certificate.py -q
+python scripts/check_m94_clique_incidence_certificate.py
+pytest -p no:cacheprovider tests/test_m94_clique_incidence_certificate.py -q
 \end{verbatim}
 The underlying M31--M46 schemas, generators, differential checkers, commands,
 toolchains, row hashes, and selected cross-language vectors remain under
@@ -480,7 +531,9 @@ The sixth command checks the 745-bit pair-cover portfolio independently;
 the seventh includes the complete raw-coverage differential against the
 all-row path.  The eighth independently reconstructs the 483-bit early
 portfolio through 154,920 primitive-coordinate tests; the ninth includes its
-complete raw-type/count differential and mutation suite.
+complete raw-type/count differential and mutation suite.  The tenth
+reconstructs all nine coverer columns of the \(K_3/K_4\) certificates; the
+eleventh checks their mutation and direct-mask differential paths.
 
 The archival monograph \archivepaper{} retains the complete transition
 chronology and full proofs.  The claim ledger is

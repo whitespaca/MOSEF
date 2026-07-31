@@ -1,5 +1,105 @@
 # Research Status
 
+## M94 outcome
+
+- Date: 2026-07-31.
+- Branch: `research/20260731-m94-clique-incidence`.
+- Base: M93 squash merge
+  `83ecf7428d6f3ccb84eb3a7475ce90bd8bdbf1ef`.
+- Completed milestone: M94, a complete-graph incidence certificate shared by
+  the two frozen repair instances that have no private-pair witness.
+- `DEF-050` defines the coverer set
+  \(D(u)=\{T_i\in T:u\in T_i\}\). When every universe element has exactly two
+  coverers, repair covers are vertex covers of the resulting coverer
+  multigraph. `THM-023` proves that complete-graph incidence gives exact
+  repair number \(t-1\).
+- The length-16 masks \(3,5,6\) give a bijection between three unresolved
+  pairs and the three edges of \(K_3\). The length-24 masks
+  \(07,19,2a,34\) give a bijection between six unresolved pairs and the six
+  edges of \(K_4\). Thus their exact minima two and three follow from one
+  structural theorem.
+- The abstract clique payload stores only point labels, normalized patterns,
+  and masks: \(\lambda+t(b+q)\) bits. No upper-type indices or lower-witness
+  indices are required. The verifier cost is
+  \(O(tb+2tq+q\log t+\lambda)\), plus linear hashing and parsing of bound
+  source bytes.
+- `schemas/m94-clique-incidence-certificates-v1.json` records seven tracked
+  points, nine universe pairs, seven types, and eighteen positive incidences.
+  Its canonical summary SHA-256 is
+  `9219f1aeb26d1e50b33d30437ee9bab29b27792d37af667c0c7a3547e43b1053`;
+  the exact JSON file SHA-256 is
+  `43562af7f1ef51b4f1fbafa5611cb30e326348bcf6c99f77647c1f9d6ce081af`.
+- The two structural payloads total 130 bits, versus 186 bits for the M93
+  cardinality/subset-obstruction forms, saving 56. The conservative core
+  ledger is 75 versus 70 tests: length 16 adds five tests and length 24 is
+  equal. `REF-063` and NR-062 therefore reject strict verifier-work
+  dominance while preserving payload compression.
+- The 376-line production checker uses only the Python standard library and
+  imports neither the generator nor an earlier checker. Eleven targeted
+  tests passed, covering complete \(K_3/K_4\) incidence, deterministic
+  generation, direct-mask differential equality, exact repairs, cost deltas,
+  four rehashed mutations, and a source-rebound non-clique mutation.
+- The complete repository suite passed with 408 tests and 593 subtests in
+  374.77 seconds. M0 foundation validation, Python compilation,
+  repository-wide Ruff, mypy over 31 reference sources, strict mypy over the
+  four M94 files, Rust formatting, warning-denied Clippy and 36 tests, and the
+  C# Release build all passed; the C# build had zero warnings and errors.
+- M82 now accounts for 283 ledger claims as 24 focused and 259 archive-only,
+  with portfolio summary SHA-256
+  `f4cdd22a8de7061a535ed778d96462063f936b4135ad99c546360e3a1414cfcf`.
+  M83 retains six inspected sources, seven synchronized rows, no priority
+  claims, and audit SHA-256
+  `4a06a3ff792122bd9a6e763489e66fad98e0e798e728d097f50e641c71c8d97f`.
+  M82--M94 and bilingual publication checks passed.
+- Eight XeLaTeX manuscripts built with zero selected undefined-reference,
+  undefined-citation, missing-glyph, or overfull warnings: archival
+  English/Korean 129/58 pages, promise English/Korean 6/5, cyclotomic
+  English/Korean 5/5, and finite English/Korean 9/8. All 225 pages had
+  extractable text. Twelve changed pages were rendered and visually inspected
+  without clipping, overlap, or missing Korean glyphs. PDF SHA-256 values are
+  archival EN
+  `ddac8c4de6a7b13dd556685ebf5b2dc8990360d084834162fb044e8da57cdef8`,
+  archival KO
+  `c42a511de41a6ee67466faebd6570331bb9d5d0e0146c716a7c734c8ea970bdb`,
+  promise EN
+  `5b14e1b47ea8210659b73be4756188841f5cf7ccaf1e9f34e340bfcb39f4b17d`,
+  promise KO
+  `29652040efce7c3df98419e8aed895b202a5eed3d874250c36d7cbfa178b7228`,
+  cyclotomic EN
+  `7fef0b39ec603e091c929ada312ea144089db5521a0e59f297f14d90f0ce6287`,
+  cyclotomic KO
+  `c90aea680b646f767a51900a1e67ca9aac2df7040c469e154538928702907844`,
+  finite EN
+  `06a0c354fdfcb20697a194c2a11f9f8eaa79f3932cdd5c430f30e7e18cdcbde1`,
+  and finite KO
+  `f49c82540618d80fd1c5d79927e0890c21f044d2522e4d2cf8f706ec781a5fc3`.
+- Scope: the applications inherit exhaustive finite type reconstruction from
+  EMP-064. They do not repeat the number-theoretic enumeration, extend beyond
+  the frozen selector, recognize hidden factors, establish an asymptotic law,
+  or support a general factoring claim. General classical polynomial-time
+  integer factoring remains open.
+- M95 is active. It will reconstruct coverer degrees across all 19 frozen
+  repairs before deciding which instances genuinely reduce to graph vertex
+  cover and which require higher-order coverer hypergraphs.
+
+### M94 Korean summary
+
+M94는 private-pair 증인이 없는 두 동결 repair 사례가 같은 구조를
+가짐을 확인했다. 길이 16의 세 coverage type은 \(K_3\)의 세 정점,
+세 미해결 pair는 세 간선의 incidence와 정확히 일치한다. 길이 24의
+네 type과 여섯 pair도 같은 방식으로 \(K_4\)를 이룬다. 각 universe
+원소가 정확히 두 type에 덮이고 모든 type pair가 나타나면 repair
+cover는 coverer graph의 vertex cover와 같으므로, 완전그래프에서는
+정확한 최소값이 \(t-1\)이다(`THM-023`).
+
+이 구조 인증서는 별도의 upper/lower 인덱스를 저장하지 않아 두 사례의
+추상 payload를 186비트에서 130비트로 56비트 줄인다. 그러나 보수적인
+검증 bit-test 수는 70에서 75로 늘어나므로, payload 감소를 검증 시간
+감소로 과장하지 않는다(`REF-063`, NR-062). 이 결과는 EMP-064가
+완전성을 보장한 두 유한 type 체계에만 적용되며, factor promise
+recognizer, 점근적 selector 정리 또는 일반 고전 다항시간 소인수분해
+알고리즘을 제공하지 않는다. 일반 문제는 계속 `OPEN`이다.
+
 ## M93 outcome
 
 - Date: 2026-07-31.
@@ -86,9 +186,8 @@
   establish an asymptotic cap law, minimize over other selector families, or
   support a general factoring claim. General classical polynomial-time
   integer factoring remains open.
-- M94 is active. It will test whether the two private-pair failures share a
-  complete-graph incidence structure that yields a smaller structural lower
-  certificate than enumerating every undersized subset.
+- M94 subsequently proved that the two private-pair failures have
+  complete-graph incidence; the current result is recorded above.
 
 ### M93 Korean summary
 

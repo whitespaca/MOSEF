@@ -186,14 +186,14 @@
     "research/literature/M83-primary-source-search.md": "989bb97f5c7c203af3cf68b5fe76eb48af7bbd0dfc880ebc54dfb5ad2d8edce2",
     "research/reviews/2026-07-31-m83-source-scope-review.md": "31e2d06c0ba7bbdefbf4a79c52e3154b4e7623f9f9ca07ac29beb086df29c104",
     "paper/references.bib": "71626c54fb84356438677bc65066206ab1aa664dfeb90c7423392f10ade69460",
-    "paper/main.tex": "6d92fd481fa81277b6c4b207be32af9ddc0b07797680ba79802fee3074b02d6c",
-    "paper/main-ko.tex": "4cb91b510428e6f9f9966dccd9dafae8b1b1c703e0fc3f41fa9cd9628ca774dc",
+    "paper/main.tex": "8a462bfff2f2b769e8f33fe78b76017055dab4719d0684fdced5e957d93c74c0",
+    "paper/main-ko.tex": "73ab8319d8ac98d495b770a6d8d7cc984dff34057d7294823861f1be596dc90a",
     "paper/focused/promise-factorization-en.tex": "2edf7fb97855f0c9d018a1c41024b46590a0d455b8b47821c6a98ffda1c05eea",
     "paper/focused/promise-factorization-ko.tex": "cf9b0ebe3f2ebef36beb65f1795d61460064fcc6dd946851dfd500065e71d709",
     "paper/focused/cyclotomic-extraction-en.tex": "7c0bc3f0f67139c51058011446fcc7dd797b527821f63f970998490c72ca429b",
     "paper/focused/cyclotomic-extraction-ko.tex": "9574618e6eb8074c4f2043a60ebcc5e84c94665812949b9c78d637f550800315",
-    "paper/focused/finite-certificates-en.tex": "72c31d237ffff4ad5d950e3847d5ab90d95c2b9bd71a6e087c53cf67e3831a50",
-    "paper/focused/finite-certificates-ko.tex": "c5e240fdcfdaf506961d99a028f9b21b6ba8b1e299476b570938b24fc69a8af4"
+    "paper/focused/finite-certificates-en.tex": "79415913a98c44bb6a442df7e93c9b86eda3c9b39f210ba9ddffc031b1a4c1c1",
+    "paper/focused/finite-certificates-ko.tex": "c3d3b5e45c0ef34842f01dba555c18614cc924b310a5b99212b23f4f27a3b051"
   },
   "scope": {
     "general_classical_polynomial_time_factoring": "OPEN",
@@ -201,5 +201,5 @@
     "priority_claims_made": false,
     "finite_certificate_max_input_length": 34
   },
-  "audit_summary_sha256": "43f43ac84a8dc10c9e890d08cb545ea07b61f2db9576605060b1653c4de5c5ce"
+  "audit_summary_sha256": "4a06a3ff792122bd9a6e763489e66fad98e0e798e728d097f50e641c71c8d97f"
 }
