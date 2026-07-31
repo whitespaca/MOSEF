@@ -276,3 +276,4 @@ the evidence and scope remain authoritative in the full claims ledger.
 | REF-060 | REFUTED | Ceiling log equals standard bit length on every positive input | `research/NEGATIVE_RESULTS.md` NR-058 |
 | EMP-059 | EMPIRICAL | Standard-bit-length and frozen-certificate migration audit | `research/experiments/EXP-0059-m81-bitlength-audit.md` |
 | EMP-060 | EMPIRICAL | Independent semantic reconstruction of the M41 finite certificate | `research/experiments/EXP-0060-m85-independent-semantic-checker.md` |
+| EMP-061 | EMPIRICAL | Streaming clean-room reconstruction of the M46 finite certificate | `research/experiments/EXP-0061-m86-streaming-m46-semantic-checker.md` |

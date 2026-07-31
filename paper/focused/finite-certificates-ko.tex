@@ -24,6 +24,8 @@ support signature가 단사인 최소 family-relative numeric cap
 증명한다. 대표적인 \(m=29\) 행에 대해서는 548줄 표준 라이브러리
 checker가 generator code를 import하지 않고 모집단, descriptor, residue,
 signature, predecessor collision과 유일한 repair를 다시 구성한다.
+마지막 \(m=34\) 행에서는 624줄 checker가 10,880,102개 평가를 3,299개
+packed-signature slot으로 stream하고 cap-201 repair를 독립 검증한다.
 인증서는 \(m>34\)에 적용되지 않고 다른 selector족 가운데
 최소도 아니며 일반 정수분해 문제를 해결하지 않는다.
 \end{abstract}
@@ -57,6 +59,13 @@ root가 아니면 유한체 나눗셈으로 cofactor를 평가하고, simple roo
 아니므로 인증서 근거는 단위 나눗셈 분기만 사용한다. 미분 분기는
 별도의 작은 exact vector로 simple-root 경계에서 검사한다. generator,
 프로젝트 수론 구현, 기존 checker를 import하지 않는다.
+
+M86은 마지막 \(m=34\) 행에도 같은 no-project-import 경계를 적용한다.
+3,299개 packed signature만 유지하면서 3,298개 좌표를 3,299개 소수에
+대해 stream하고, tracked pair에서 cap-200 descriptor 전체와 새
+cap-201 primitive coordinate 81,112개를 검사한다. M46 범위의
+\(p\ge92683>201^2+1\)은 모든 cofactor denominator가 nonzero임을
+보이므로 등록 근거는 단위 나눗셈만 사용한다.
 
 \section{Signature 판정}
 
@@ -169,7 +178,10 @@ inclusion은 그 아래의 실패를 증명한다. 새 81,112개 primitive
 coordinate를 평가하면 표시한 separator가 나오고 cap-201 인증서는
 3,299개 소수와 5,440,051개 쌍을 모두 구별한다. 지역 offset
 \(201-34=167\)은 이전 모든 행보다 크고 predecessor collision은
-유한-window 최소성을 증명한다.
+유한-window 최소성을 증명한다. M86 checker는 10,880,102개 평가로
+construction을 stream 재계산하고, cap-200 descriptor 704,261개 전체에서
+raw predecessor pair를 확인하며, 새 cap-201 좌표 가운데 표시 좌표만
+유일함을 확인한다.
 \end{claimproof}
 
 \paragraph{유한 범위 경고.}
@@ -272,15 +284,17 @@ span, 상수 범위가 증명된 범위이다. 모든 selector의 하한으로 �
 python scripts/generate_m50_finite_threshold_summary.py --check
 python scripts/check_m50_finite_threshold_summary.py
 python scripts/check_m85_m41_semantic_certificate.py
+python scripts/check_m86_m46_streaming_certificate.py
 \end{verbatim}
 기초 M31--M46 schema, generator, differential checker, 명령, toolchain,
 row hash, 선택된 cross-language vector는 \path{schemas}, \path{scripts},
 \path{research/experiments}에 보존된다.
 앞의 두 명령은 26개 행 projection과 frozen source integrity를
-검증한다. 세 번째 명령은 M41 한 행만을 위한 더 깊은 독립 semantic
-경로다. 여덟 mutation 및 clean-room test는 hash를 다시 계산한 모집단,
+검증한다. 세 번째와 네 번째 명령은 M41과 M46의 더 깊은 독립 semantic
+경로다. M41의 여덟 mutation 및 clean-room test는 hash를 다시 계산한 모집단,
 descriptor, primitive-vector 변경과 별도의 simple-root 경계 vector를
-포함한다. 나머지 25개 행을 독립 검증한다고 주장하지 않는다.
+포함한다. M46 경로는 아홉 test와 3,299-slot streaming invariant를
+추가한다. 나머지 24개 행을 독립 검증한다고 주장하지 않는다.
 
 archival monograph \archivepaper{}는 전체 전이 chronology와 완전 증명을
 보존한다. claim 장부는 \path{research/CLAIMS.md}, 기계 검증되는 논문

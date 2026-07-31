@@ -148,6 +148,37 @@ The M46 construction alone would require roughly 10.88 million. This is a
 bounded review-engineering decision, not a mathematical preference for the
 length-29 theorem.
 
+## Streaming M46 semantic path
+
+M86 extends the clean-room boundary to the final \(m=34\) row:
+
+```powershell
+python scripts/check_m86_m46_streaming_certificate.py
+python -m pytest tests/test_m86_streaming_semantic_certificate.py -q
+```
+
+The 624-line standard-library checker independently reconstructs all 3,299
+balanced primes, validates the 3,298 registered source strings, and performs
+all 10,880,102 coordinate/prime evaluations. It retains one packed signature
+per prime rather than a coordinate/prime matrix, so its mutable certificate
+state has 3,299 signature slots. The exact streaming invariant is proved in
+`research/proofs/M86-streaming-m46-semantic-checker.md`.
+
+The cap-200 subcertificate has the sole collision
+\(\{97927,99527\}\). A complete streamed scan of all 704,261 predecessor
+descriptors confirms that the pair agrees in every raw coordinate. The
+checker then scans the 10,139 descriptors newly admitted at cap 201 and finds
+the unique repair `phi6:149:201:45:cofactor` with pattern \((1,0)\).
+The complete 3,298-coordinate signature set is injective on all 5,440,051
+pairs.
+
+All M46 primes are at least 92,683, while \(g\le201\) gives
+\(\Phi_4(g)\le40,402\) and \(\Phi_6(g)<40,402\). Thus every registered
+cofactor evaluation uses a nonzero finite-field denominator; M86 needs no
+root branch. Rehashed population, source, and primitive-vector mutations are
+rejected semantically, and a packed-signature mutation is rejected against
+the recomputed certificate.
+
 ## Full semantic path
 
 To reduce trust in the registered schemas, run the corresponding M31--M46
@@ -180,9 +211,9 @@ recomputes:
 The exact commands for every source row are listed in the matching
 `research/experiments/EXP-0030`--`EXP-0045` record.
 
-M85 does not replace those paths for the other 25 rows. It supplies a
-clean-room semantic reconstruction for M41 and an executable template for
-reducing the trusted computing base of additional rows.
+M85 and M86 do not replace those paths for the other 24 rows. They supply
+clean-room semantic reconstructions for M41 and M46 and executable templates
+for reducing the trusted computing base of additional rows.
 
 ## What the language implementations share
 
@@ -240,6 +271,18 @@ The independent M41 path instead trusts:
 It does not reconstruct the generator's greedy source-selection process or
 the complete 1,555-column normalized basis. Neither is needed to validate a
 legal separating sublist and the exact predecessor collision.
+
+The M86 path has the analogous trust boundary for M46:
+
+- the 624-line checker and its streaming invariant;
+- Python's standard integer, sieve, JSON, SHA-256, and timing operations;
+- the registered candidate source list, whose legality and values are
+  recomputed; and
+- `BAR-024` for the support-signature-to-GCD implication.
+
+It additionally trusts the proof that the nested cap grammar makes
+\(\max\{A,B,g\}=201\) exactly the new descriptor set. The checker verifies
+the resulting cap-200, cap-201, and increment counts independently.
 
 The full path additionally trusts the operating system and language
 toolchains, and it remains a computer-assisted finite proof. A reviewer

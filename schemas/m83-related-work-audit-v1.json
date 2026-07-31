@@ -186,14 +186,14 @@
     "research/literature/M83-primary-source-search.md": "989bb97f5c7c203af3cf68b5fe76eb48af7bbd0dfc880ebc54dfb5ad2d8edce2",
     "research/reviews/2026-07-31-m83-source-scope-review.md": "31e2d06c0ba7bbdefbf4a79c52e3154b4e7623f9f9ca07ac29beb086df29c104",
     "paper/references.bib": "71626c54fb84356438677bc65066206ab1aa664dfeb90c7423392f10ade69460",
-    "paper/main.tex": "c6a30e38470fca1e3051ff5032f46fc35d7a8dc9b3d28d7e3331994ab253af2a",
-    "paper/main-ko.tex": "d1bbe454c9aaaecda5f82f09f8ed96f44148d43d6c4c905dda05bfe586cd6b1a",
+    "paper/main.tex": "c3b63e2ca906188705b818da1fa52fff7ca34605b17bc78a90fd2e2a14bd5229",
+    "paper/main-ko.tex": "371880a36a2d71f03ae33d0b13a975510ec1fde958464d6907be33d6195be02b",
     "paper/focused/promise-factorization-en.tex": "3b8be2299a3202dbe41a5d8d797649050d166fae2f9d5c69d1e8de6e0f216271",
     "paper/focused/promise-factorization-ko.tex": "e31139a8cbfa344720d422339b34c8e50cd257a67a6d1fed38e35ef81749bb16",
     "paper/focused/cyclotomic-extraction-en.tex": "d3d4e08553f2ad9115cee267ad2184368d4c1edb4ad2fd6644649c537f4bf98f",
     "paper/focused/cyclotomic-extraction-ko.tex": "d41c5b05acd94196e2458c8a09bbcb25e9b9737e01b0b41e7484cd698ba63cb4",
-    "paper/focused/finite-certificates-en.tex": "6171390e0de7087fbaccbe6c75336994539ccb0f17c876166c5cc89db1e78f83",
-    "paper/focused/finite-certificates-ko.tex": "53f77541ca47593873819d10769b4943934adbe20c8cac817be84f5e68039692"
+    "paper/focused/finite-certificates-en.tex": "33422cd31433d4c3b885b4a545f98cbaa6410f8fe05e6cc76aa9fd7ee7ce31e5",
+    "paper/focused/finite-certificates-ko.tex": "9aef2ca1e43729a78646f5542e0c381dc9823b3a8afe6d515bb3f34607526d70"
   },
   "scope": {
     "general_classical_polynomial_time_factoring": "OPEN",
@@ -201,5 +201,5 @@
     "priority_claims_made": false,
     "finite_certificate_max_input_length": 34
   },
-  "audit_summary_sha256": "b6e8b96f169e24be376ba1b6b3aca00bad4847b5a1e3484e3cb0abb653936800"
+  "audit_summary_sha256": "a9a1b9b28a695eb8b653eb328813c6c2c575ec283e0ad9f2cd1df1444d10e495"
 }

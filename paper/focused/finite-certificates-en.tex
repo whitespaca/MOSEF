@@ -25,6 +25,9 @@ fails and give a sharper compact-gap barrier below the worst-packed boundary.
 For the representative \(m=29\) row, a 548-line standard-library checker now
 reconstructs the population, descriptors, residues, signatures, predecessor
 collision, and unique repair without importing generator code.
+For the final \(m=34\) row, a 624-line checker streams 10,880,102 evaluations
+through 3,299 packed-signature slots and independently verifies the cap-201
+repair.
 The certificates do not apply to \(m>34\), do not minimize over other
 selector families, and do not solve general integer factoring.
 \end{abstract}
@@ -62,6 +65,13 @@ coordinate is away from a root, so the certificate evidence uses only the
 unit-division branch.  A separate exact small vector tests the derivative
 branch at a simple root.  No generator, project number-theory implementation,
 or prior checker is imported.
+
+M86 applies the same no-project-import boundary to the final \(m=34\) row.
+It streams all 3,298 coordinates across 3,299 primes while retaining only
+3,299 packed signatures, checks every cap-200 descriptor on the tracked pair,
+and checks all 81,112 newly admitted cap-201 primitive coordinates.  The M46
+range \(p\ge92683>201^2+1\) makes every cofactor denominator nonzero, so its
+registered evidence uses unit division only.
 
 \section{Signature criterion}
 
@@ -179,7 +189,10 @@ inclusion proves failure below it.  Evaluation of all 81,112 newly admitted
 primitive coordinates identifies the displayed separator, while the full
 cap-201 certificate distinguishes all 3,299 primes and all 5,440,051 pairs.
 The local offset \(201-34=167\) exceeds all previous table rows; its
-predecessor collision proves finite-window minimality.
+predecessor collision proves finite-window minimality.  The M86 checker
+recomputes the construction in 10,880,102 streamed evaluations, confirms the
+raw predecessor pair over all 704,261 cap-200 descriptors, and finds the
+displayed coordinate uniquely among all new cap-201 coordinates.
 \end{claimproof}
 
 \paragraph{Finite-scope warning.}
@@ -287,15 +300,18 @@ It is regenerated and independently checked by
 python scripts/generate_m50_finite_threshold_summary.py --check
 python scripts/check_m50_finite_threshold_summary.py
 python scripts/check_m85_m41_semantic_certificate.py
+python scripts/check_m86_m46_streaming_certificate.py
 \end{verbatim}
 The underlying M31--M46 schemas, generators, differential checkers, commands,
 toolchains, row hashes, and selected cross-language vectors remain under
 \path{schemas}, \path{scripts}, and \path{research/experiments}.
 The first two commands validate the 26-row projection and frozen-source
-integrity.  The third is the deeper independent semantic path for M41 only;
+integrity.  The third and fourth are deeper independent semantic paths for
+M41 and M46;
 eight mutation and clean-room tests include rehashed population, descriptor,
 and primitive-vector changes plus the separate simple-root boundary vector.
-It does not independently validate the other 25 rows.
+The M46 path adds nine tests and a 3,299-slot streaming invariant.  They do
+not independently validate the other 24 rows.
 
 The archival monograph \archivepaper{} retains the complete transition
 chronology and full proofs.  The claim ledger is
