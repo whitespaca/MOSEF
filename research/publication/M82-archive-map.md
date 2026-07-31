@@ -41,6 +41,10 @@ anchors, and state their own exclusions.
 - M85 and M86 reduce the finite-certificate trusted computing base for the
   representative M41 and final M46 rows. The other 24 rows retain the
   integrated semantic path.
+- M87 adds a synchronized four-row cost ledger before section 1 of every
+  focused manuscript and enforces 200--300 lexical-token abstracts. It
+  changes no representative claim ID or status; the complete editorial audit
+  is `research/reviews/2026-07-31-m87-focused-cost-model-editorial-audit.md`.
 
 ## Reproduction
 
@@ -48,6 +52,8 @@ anchors, and state their own exclusions.
 python scripts/generate_m82_paper_portfolio.py --check
 python scripts/check_m82_paper_portfolio.py
 pytest tests/test_paper_portfolio.py -q
+python scripts/check_m87_focused_papers.py
+pytest -p no:cacheprovider tests/test_m87_focused_papers.py -q
 ```
 
 Compile the six papers from the repository root with XeLaTeX:

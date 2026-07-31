@@ -17,6 +17,7 @@ python scripts/generate_korean_claim_appendix.py --check
 python scripts/generate_m50_finite_threshold_summary.py --check
 python scripts/check_m50_finite_threshold_summary.py
 python scripts/check_m84_promise_wrappers.py
+python scripts/check_m87_focused_papers.py
 python scripts/check_publication.py
 ```
 
@@ -45,9 +46,11 @@ python scripts/check_m60_m80_synthesis_differential.py
 python scripts/check_m84_promise_wrappers.py
 python scripts/check_m85_m41_semantic_certificate.py
 python scripts/check_m86_m46_streaming_certificate.py
+python scripts/check_m87_focused_papers.py
 python -m unittest discover -s tests -p test_promise_wrappers.py
 python -m pytest tests/test_m85_semantic_certificate.py -q
 python -m pytest tests/test_m86_streaming_semantic_certificate.py -q
+pytest -p no:cacheprovider tests/test_m87_focused_papers.py -q
 ```
 
 These commands recompute registered masks, identities, collision or
@@ -67,6 +70,12 @@ reconstructs all 3,299 balanced primes and streams 10,880,102 certificate
 evaluations into 3,299 packed signatures, verifies the exact cap-200 collision
 and cap-201 unique repair, and imports no project code. It does not retain a
 prime-by-coordinate matrix or either complete descriptor set.
+
+The M87 commands are editorial integrity checks rather than semantic
+certificate reconstruction. They enforce one four-row cost ledger before
+section 1 of each focused manuscript, a reproducible 200--300 lexical-token
+abstract interval, and exact bilingual parity for the 21 representative claim
+IDs and statuses.
 
 ### Level C: complete repository gate
 

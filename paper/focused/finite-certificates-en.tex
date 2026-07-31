@@ -11,26 +11,47 @@ Finite Balanced Semiprime Populations}
 \maketitle
 
 \begin{abstract}
-We give complete finite certificates for one public family of compact
-cyclotomic-cofactor selectors on balanced square-free semiprimes.  For each
-binary length \(9\le m\le34\), exhaustive enumeration proves the least
-family-relative numeric cap \(L_m^\star\) whose prime support signatures are
-injective.  The resulting public cap \(m+167\) succeeds throughout this
-finite window.  The threshold is not monotone across different populations:
-\(L_{29}^\star=103<L_{28}^\star=104\).  The proof separates the mathematical
-signature criterion from the generated certificate, records predecessor
-collisions, and retains exact hashes and rerun commands.  We also prove that
-every polynomial numeric cap in this exact selector grammar eventually
-fails and give a sharper compact-gap barrier below the worst-packed boundary.
-For the representative \(m=29\) row, a 548-line standard-library checker now
-reconstructs the population, descriptors, residues, signatures, predecessor
-collision, and unique repair without importing generator code.
-For the final \(m=34\) row, a 624-line checker streams 10,880,102 evaluations
-through 3,299 packed-signature slots and independently verifies the cap-201
-repair.
-The certificates do not apply to \(m>34\), do not minimize over other
-selector families, and do not solve general integer factoring.
+For exponent--GCD selectors on square-free semiprimes, universal pair
+separation is equivalent to injectivity of the prime support-signature map.
+We use this criterion to give complete finite certificates for one public
+family of compact cyclotomic-cofactor selectors on balanced prime
+populations.  For every standard binary length \(9\le m\le34\), exhaustive
+enumeration proves the least family-relative numeric cap \(L_m^\star\) whose
+signatures are injective.  The public cap \(m+167\) succeeds throughout this
+finite window, while the exact threshold is not monotone across changing
+populations: \(L_{29}^\star=103<L_{28}^\star=104\).  The online evaluator
+receives only the public descriptor list and charges its construction,
+compact modular evaluations, every GCD and inversion branch, extraction, and
+output.  Population enumeration, cap search, support-signature normalization,
+collision refinement, certificate generation, and hashing are offline proof
+costs and are not algorithmic advice or hidden online inputs.  The
+certificate records an adjacent predecessor collision and a separating
+repair for each threshold.  Two standard-library checkers reduce the trusted
+computing base without importing generator code: a 548-line checker
+reconstructs the representative \(m=29\) row, and a 624-line streaming
+checker verifies the final \(m=34\) row through 10,880,102 evaluations while
+retaining 3,299 packed signatures.  Separately, we prove that every
+polynomial numeric cap in this exact grammar eventually fails and establish
+compact-gap noninjectivity barriers below the audited boundary.  These
+certificates concern a small finite range and one selector family; they do
+not recognize balanced factors, apply to \(m>34\), minimize over other
+families, or solve general integer factoring.
 \end{abstract}
+
+\begin{costmodel}{Cost model at a glance}
+\costrow{Online charged}{Public descriptor construction and encoding, compact
+modular exits, every GCD and failed inversion, factor extraction, and verified
+output.}
+\costrow{Offline proof}{Prime-population enumeration, cap search, analytical
+signature construction and normalization, collision refinement, certificate
+selection, hashing, and rendered tables.}
+\costrow{Not supplied}{Prime factors, population membership, support
+signatures, selected certificate columns, and threshold-search results are
+not online inputs.}
+\costrow{Guarantee}{The certificate generator may be expensive and is not
+claimed polynomial. The proved online statement is finite and
+family-relative; asymptotic barriers use separately charged public models.}
+\end{costmodel}
 
 \section{Population, selector, and trust boundary}
 
@@ -48,11 +69,11 @@ the cyclotomic/cofactor resultant, and the independently evaluated cofactor.
 Nonunit bases are processed before unit-only continuation is skipped.
 
 For a population prime \(p\), each nonzero exact exit supplies the support
-bit \(\mathbf1_{p\mid z}\).  Constant columns are deleted and duplicate
-columns merged only in the \emph{analytical certificate}; the online
-algorithm still evaluates its full public GCD list.  The generator,
-registered JSON schemas, independent differential checkers, and the
-publication projection are distinct artifacts.
+bit \(\mathbf1_{p\mid z}\).  As fixed by the opening cost box, deleting
+constant columns and merging duplicates are offline analytical operations;
+the online algorithm evaluates its full public GCD list.  The generator,
+registered schemas, independent checkers, and publication projection remain
+distinct artifacts.
 
 M85 adds a clean-room semantic path for the representative \(m=29\) row.
 The 548-line checker uses only the Python standard library.  It independently

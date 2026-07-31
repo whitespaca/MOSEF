@@ -1167,14 +1167,14 @@
     "research/CLAIMS.md": "2fa9197579bbadb78af209e128dc0e9c83e1743ec6b8726e596dbee89269d7ab",
     "paper/main.tex": "c3b63e2ca906188705b818da1fa52fff7ca34605b17bc78a90fd2e2a14bd5229",
     "paper/main-ko.tex": "371880a36a2d71f03ae33d0b13a975510ec1fde958464d6907be33d6195be02b",
-    "paper/focused/preamble-en.tex": "edf1949343763b9f8cbf0c9123afde7df734156309af937d21ea0a892b09b482",
-    "paper/focused/preamble-ko.tex": "f6128b2850614709261d04b238cf69245ababd002534ca2806e19185374bb0b0",
-    "paper/focused/promise-factorization-en.tex": "3b8be2299a3202dbe41a5d8d797649050d166fae2f9d5c69d1e8de6e0f216271",
-    "paper/focused/promise-factorization-ko.tex": "e31139a8cbfa344720d422339b34c8e50cd257a67a6d1fed38e35ef81749bb16",
-    "paper/focused/cyclotomic-extraction-en.tex": "d3d4e08553f2ad9115cee267ad2184368d4c1edb4ad2fd6644649c537f4bf98f",
-    "paper/focused/cyclotomic-extraction-ko.tex": "d41c5b05acd94196e2458c8a09bbcb25e9b9737e01b0b41e7484cd698ba63cb4",
-    "paper/focused/finite-certificates-en.tex": "33422cd31433d4c3b885b4a545f98cbaa6410f8fe05e6cc76aa9fd7ee7ce31e5",
-    "paper/focused/finite-certificates-ko.tex": "9aef2ca1e43729a78646f5542e0c381dc9823b3a8afe6d515bb3f34607526d70"
+    "paper/focused/preamble-en.tex": "e79f636445dea366242b10b492e352b16900b84311e6f09aaa5a77fb3cb36f8a",
+    "paper/focused/preamble-ko.tex": "7843f01b425b1f4bd14fb2ed71dd55e3759cc7a42b17bcaa4ad3bd9ce54d7888",
+    "paper/focused/promise-factorization-en.tex": "2fa36d655343a52149000322ef4bb882db899dd8c2d1ced8381b9da5a968f227",
+    "paper/focused/promise-factorization-ko.tex": "ed912d07b234a4197a3d80728afdbdd0c10a945dae479721b04be043dace7f6d",
+    "paper/focused/cyclotomic-extraction-en.tex": "782125367b97d754a4f2eda663cb7330db494fd122eee92e4359073686b814f2",
+    "paper/focused/cyclotomic-extraction-ko.tex": "7474433794d782bfb3d7fce045bb2e8fcb3cb52feec6a94e99336d0611d495cb",
+    "paper/focused/finite-certificates-en.tex": "f516f02e665cb170a5aefc0ca7a6f3ea3bf9e3bd2bf6aecad4eeb2b8c5920231",
+    "paper/focused/finite-certificates-ko.tex": "2c1d9ece5a14ff37dc93040369c5e2ff01edd9bb2426bb650114eff5ae8e69a8"
   },
   "scope": {
     "general_classical_polynomial_time_factoring": "OPEN",
@@ -1182,5 +1182,5 @@
     "archival_monograph_retained": true,
     "finite_certificates_extend_through_input_length": 34
   },
-  "portfolio_summary_sha256": "badf8bfcfb1b472f4bf54920d9224efaef160a03118ec0841d9565a7691367f3"
+  "portfolio_summary_sha256": "3a88d6c71bef8d438c3e660722626360e3282bb63b8c8b481b9fbe55efcffbce"
 }

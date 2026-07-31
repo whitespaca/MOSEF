@@ -1,5 +1,104 @@
 # Research Status
 
+## M87 outcome
+
+- Date: 2026-07-31.
+- Branch: `research/20260731-m87-focused-cost-model`.
+- Base: M86 squash merge
+  `cc283802069431d8e645ece2fd1e84080a69e75e`.
+- Completed milestone: M87, a bilingual editorial and executable-integrity
+  pass over the promise-factorization, cyclotomic-extraction, and
+  finite-certificate focused paper pairs.
+- `paper/focused/preamble-en.tex` and `paper/focused/preamble-ko.tex` now
+  expose a reusable four-row cost ledger. Every focused manuscript places
+  exactly one ledger after its abstract and before section 1, so charged
+  online evaluation, offline proof or excluded inputs, output semantics, and
+  the guarantee scope are visible on page 1.
+- The promise paper charges public schedules, fresh sampling, modular or
+  Lucas evaluation, all GCDs, recursion, verification, and output; it does not
+  accept witness factors or promise membership. The cyclotomic paper charges
+  public construction, compact evaluation, every GCD and failed inversion,
+  extraction, and actual materialized output; symbolic classification and
+  resultant derivation remain proof work. The certificate paper charges only
+  the public descriptor evaluator and verified extraction; population
+  enumeration, cap search, signature normalization, certificate generation,
+  hashing, and rendering remain offline proof costs and are not claimed
+  polynomial.
+- `scripts/check_m87_focused_papers.py` is 292 lines. Its reproducible
+  language-neutral convention treats each LaTeX math expression as one token
+  and counts remaining Unicode letter-or-number runs. The exact
+  English/Korean abstract counts are 226/204 for promise factorization,
+  231/200 for cyclotomic extraction, and 235/203 for finite certificates.
+  All lie in the inclusive 200--300 interval.
+- The checker found six correctly placed cost ledgers, 24 nonempty rows, and
+  exact bilingual parity for the 21 representative claim IDs and their
+  `PROVED` statuses. Nine targeted tests passed in 0.04 seconds, including
+  short and long abstracts, math-token normalization, cost-label drift, an
+  empty row, a late box, and claim-ID/status mutation. Targeted Ruff 0.16.0
+  and strict mypy 2.3.0 checks passed.
+- M82 and M83 were regenerated from the final manuscript sources. M82 still
+  projects 270 claims, 21 focused and 249 archive-only, with canonical
+  portfolio SHA-256
+  `3a88d6c71bef8d438c3e660722626360e3282bb63b8c8b481b9fbe55efcffbce`.
+  M83 still records six inspected sources and seven synchronized
+  `NO_PRIORITY_CLAIM` rows, with canonical audit SHA-256
+  `756eea8cdeb733ef78ed6c82f3abe6ef07938d048be47c4d840013dc614c11c8`.
+- All six focused XeLaTeX builds converged and passed final-log and page-1
+  rendered review: promise English, 6 pages,
+  `1aa0b7bb79f4adee90b4a558128683cdd8f0d43a4a3c3ea952ed784fea80a35b`;
+  promise Korean, 5 pages,
+  `b83f2d9da9618273816a51c089184c167474f075ccca15238808701c0b7d1b17`;
+  cyclotomic English, 5 pages,
+  `fb15247d74dc3bcb5eb3c2eb4168cf2971050c219e7b4921aeeaf158bcd06635`;
+  cyclotomic Korean, 5 pages,
+  `f9dc3f4daff4425c1634d9d926dc0ec26a9233fb0afa618d24642a9c53729c74`;
+  finite certificates English, 6 pages,
+  `c5df795c47ad0789abb4a27a7212963e57caafe466563d634c830f3e8ebbe60a`;
+  and finite certificates Korean, 6 pages,
+  `84afe41cabe3b0cf5ea293a0892407451af17e4ea311b6c2d8d410a1e7d081ac`.
+  The logs contain none of the selected undefined-reference, undefined-
+  citation, missing-character, overfull, underfull, LaTeX, package, or rerun
+  warnings. All six first pages show the complete abstract and ledger before
+  section 1, with no visible clipping, overlap, or missing Korean glyph.
+- Full validation passed: foundation and bilingual-publication checks; M50
+  integrity; current M82--M87 generators or independent checkers; all 327
+  Python tests in 261.03 seconds; Python bytecode compilation; repository-wide
+  Ruff; mypy over 31 source files plus the two M87 files in strict mode; Rust
+  formatting, Clippy with warnings denied, and all 36 tests; and the C#
+  Release build with zero warnings or errors. The initial combined mypy
+  invocation exposed duplicate module discovery when both `python` and
+  `scripts` were supplied, so the documented `mypy python` gate and the
+  targeted strict M87 gate were run separately. The initial sandboxed C#
+  restore could not read the user NuGet configuration; the identical
+  authorized build then passed.
+- The recorded host used direct Python 3.12.8, pytest 9.1.1, Ruff 0.16.0,
+  mypy 2.3.0, cargo/rustc 1.84.0, and .NET SDK 8.0.420.
+- Scope: M87 changes no authoritative claim, status, proof, experiment,
+  certificate, or source assessment. It does not recognize the hereditary
+  promises, extend the finite results beyond \(m=34\), or prove a
+  polynomial-time certificate generator. General classical polynomial-time
+  factoring remains open. M88 is active and will add reader-facing bilingual
+  labels while preserving stable claim IDs and statuses.
+
+### M87 Korean summary
+
+M87은 세 집중 논문 영문·국문 쌍의 첫 페이지에 같은 구조의 네 행 비용
+표를 배치했다. 표는 online evaluator가 실제로 부담하는 공개 매개변수
+구성, modular/Lucas 또는 compact 평가, 모든 GCD와 실패한 inversion,
+재귀·추출·검증·실제 출력 비용을 명시하고, 약속 membership, 소인수,
+population 열거, cap 탐색, signature 정규화, certificate 생성과 hash
+계산은 입력이나 숨은 online 비용이 아니라는 점을 구분한다. LaTeX 수식
+하나를 한 token으로 정규화하는 재현 가능한 검사에서 초록 길이는
+각각 226/204, 231/200, 235/203으로 모두 200--300 범위에 들었다. 292줄
+checker는 여섯 cost box의 위치, 24개 비어 있지 않은 행, 21개 대표
+claim ID와 `PROVED` 상태의 영문·국문 일치를 확인했고, 아홉 targeted
+test와 전체 327개 Python test, Rust/C# 및 여섯 논문 빌드가 통과했다.
+첫 페이지 렌더에서도 잘림, 겹침, 한글 글리프 누락이 없었다. M87은
+편집 명료화일 뿐 어떤 수학적 상태도 바꾸지 않는다. 유한 인증서는
+여전히 \(m\le34\)에 한정되고, 일반 고전 다항시간 정수분해는 열린
+문제다. 다음 M88은 내부 claim code를 유지하면서 독자 친화적 정리·
+명제·장벽·반례·인증서 표지를 추가한다.
+
 ## M86 outcome
 
 - Date: 2026-07-31.

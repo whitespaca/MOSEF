@@ -10,23 +10,45 @@ Hereditary Order Promises}
 \maketitle
 
 \begin{abstract}
-We isolate two classical complete-factorization theorems whose hypotheses
-are hereditary order asymmetries.  The first uses fresh uniform bases in a
-\(p-1\) schedule and succeeds with probability at least \(5/12\) per complete
-witness cycle.  The second uses fresh uniform Lucas parameters in a nonsplit
-\(p+1\) schedule and succeeds with probability greater than \(1/12\) at a
-witness trial. For every finite per-node budget \(s\), bounded versions
-terminate on every input with either a complete verified factorization or
-\texttt{UNRESOLVED}; on the respective promises their local unresolved tails
-are at most \((7/12)^s\) and \((11/12)^s\). No unproved number-theoretic
-conjecture is assumed, but
-membership in either class is promised and is not recognized by the
-algorithms.  We also separate divisor coverage from order-signature
-injectivity, prove that the conjugate Lucas map supplies no independent
-channel, and record the finite-density limitation of a common schedule.
-These are restricted-input results.  They do not give a classical
-polynomial-time algorithm for factoring arbitrary integers.
+Classical exponent--GCD factorization succeeds when prime components receive
+different capped divisibility profiles, not merely when a schedule covers
+their orders.  Using this separation semantics, we isolate two
+complete-factorization theorems under hereditary order-asymmetry promises.
+The first uses a fresh uniform base in each \(p-1\) schedule trial and splits
+with probability at least \(5/12\) per complete witness cycle.  The second
+uses fresh uniform Lucas parameters in a nonsplit \(p+1\) schedule and
+succeeds with probability greater than \(1/12\) at a witness trial.  Exact
+primality testing, maximal-perfect-power preprocessing, every modular
+evaluation and GCD, verified recursion, and output are charged in the
+standard bit length of the input.  The witness factors and promise
+membership are neither supplied to nor recognized by the online algorithms.
+With a finite per-node budget \(s\), total wrappers return either a complete
+verified factorization or \texttt{UNRESOLVED} on every input.  On the two
+promises their local unresolved tails are at most \((7/12)^s\) and
+\((11/12)^s\), and their complete-recursion bounds are respectively
+\(\min\{1,4m(7/12)^s\}\) and \(\min\{1,4m(11/12)^s\}\), without assuming
+independence between recursive nodes.  Fresh sampling is essential: fixed
+bases admit explicit hereditary counterexamples.  We further distinguish
+divisor coverage from order-signature injectivity, show that conjugate Lucas
+parameters do not create an independent channel, and record the finite
+density limit of a common schedule.  No unproved number-theoretic conjecture
+is assumed, but these are unrecognized-promise results, not a polynomial-time
+algorithm for factoring arbitrary integers.
 \end{abstract}
+
+\begin{costmodel}{Cost model at a glance}
+\costrow{Online charged}{Public schedule construction, exact preprocessing,
+fresh sampling, modular \(p-1\) or Lucas evaluation, every GCD and divisor
+check, recursion, and verified output.}
+\costrow{Not supplied}{Witness prime factors, a promise-membership bit, and
+factor-dependent schedules are not inputs and are not inferred.}
+\costrow{Offline proof}{Group and root counts, tail bounds, counterexample
+searches, and reproducibility records justify the theorem but are not online
+advice.}
+\costrow{Guarantee}{Expected polynomial bit complexity holds on the stated
+hereditary promise; the bounded wrapper is total on all inputs and may return
+\texttt{UNRESOLVED}.}
+\end{costmodel}
 
 \section{Scope and model}
 
@@ -34,11 +56,10 @@ For \(N\ge1\), write
 \[
   m=\bits(N)=\lfloor\log_2N\rfloor+1.
 \]
-The input is given in binary, and all construction, exponentiation, GCD,
-preprocessing, recursion, and output costs are charged in \(m\).  Exact
-primality testing and maximal-perfect-power decomposition are performed
-before a splitter is invoked.  A reported divisor is checked before the
-two children are recursively processed.
+The input is binary, and every complexity statement applies the opening cost
+box at each recursion node.  Exact primality testing and
+maximal-perfect-power decomposition precede a splitter, and a reported
+divisor is checked before its two children are processed.
 
 Let \(B(k)\) and \(R(k)\) be fixed, nondecreasing, polynomially bounded
 integer functions computable in \(\poly(k)\) time, and let

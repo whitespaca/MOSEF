@@ -10,6 +10,8 @@ Its priorities are adopted in the following bounded sequence.
 | 3 | Add an inspected-source related-work and novelty matrix | M83 | DONE |
 | 4 | Foreground unrecognized hereditary promises and bounded total wrappers | M84 | DONE |
 | 5 | Build a minimal independent semantic certificate checker | M85 | DONE |
+| 6 | Test whether the semantic checker scales to the final finite row | M86 | DONE |
+| 7 | Front-load evaluator/generator costs and compress all six abstracts | M87 | DONE |
 
 M81 treats the definition defect as a falsification-first repair. M82 keeps
 the archival monograph authoritative while projecting exactly seven
@@ -56,3 +58,14 @@ evaluations into 3,299 packed signatures, confirms the complete cap-200
 collision, and checks all 81,112 newly admitted cap-201 primitive
 coordinates. M85 and M86 therefore cover two of the 26 finite rows; the other
 24 still require their legacy semantic paths and the M50 integrity layer.
+
+M87 applies the feedback's publication-compression request to all three
+focused bilingual paper pairs. Each manuscript now places a synchronized
+four-row online/offline cost ledger between its 200--300-token abstract and
+section 1. The checker fixes six counts (226/204, 231/200, and 235/203 for the
+English/Korean pairs), 24 nonempty cost rows, and 21 representative claim IDs
+with unchanged `PROVED` status. All six page-1 renders expose the complete
+abstract and cost ledger without clipping or missing Korean glyphs. This is
+an editorial clarification only: it does not move certificate generation
+into the online algorithm, weaken any exclusion, or promote the general
+factoring goal.

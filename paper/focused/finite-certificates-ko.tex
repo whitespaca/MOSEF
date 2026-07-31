@@ -11,24 +11,46 @@ Computer-Assisted Selector 인증서}
 \maketitle
 
 \begin{abstract}
-본 논문은 balanced square-free semiprime에 적용되는 하나의 공개
-compact cyclotomic-cofactor selector족에 대해 완전한 유한 인증서를
-제시한다. 각 이진 길이 \(9\le m\le34\)에서 완전 열거를 통해 prime
-support signature가 단사인 최소 family-relative numeric cap
-\(L_m^\star\)를 증명한다. 공개 cap \(m+167\)은 이 유한 구간 전체에서
-성공한다. 서로 다른 모집단의 threshold는 단조가 아니며
-\(L_{29}^\star=103<L_{28}^\star=104\)이다. 수학적 signature 판정과
-생성된 인증서를 분리하고, predecessor collision, 정확한 hash, 재현
-명령을 보존한다. 같은 문법에서 모든 polynomial numeric cap은
-점근적으로 실패하며, worst-packed 경계 아래의 compact-gap 장벽도
-증명한다. 대표적인 \(m=29\) 행에 대해서는 548줄 표준 라이브러리
-checker가 generator code를 import하지 않고 모집단, descriptor, residue,
-signature, predecessor collision과 유일한 repair를 다시 구성한다.
-마지막 \(m=34\) 행에서는 624줄 checker가 10,880,102개 평가를 3,299개
-packed-signature slot으로 stream하고 cap-201 repair를 독립 검증한다.
-인증서는 \(m>34\)에 적용되지 않고 다른 selector족 가운데
-최소도 아니며 일반 정수분해 문제를 해결하지 않는다.
+square-free semiprime의 exponent--GCD selector에서 모든 pair의 분리는
+prime support-signature 사상의 단사성과 동치이다. 본 논문은 이 기준을
+사용하여 balanced 소수 모집단에 적용되는 하나의 공개 compact
+cyclotomic-cofactor selector족에 대해 완전한 유한 인증서를 제시한다.
+각 표준 이진 길이 \(9\le m\le34\)에서 완전 열거로 signature가 단사인
+최소 family-relative numeric cap \(L_m^\star\)를 증명한다. 공개 cap
+\(m+167\)은 이 유한 구간 전체에서 성공하지만, 모집단이 바뀔 때 정확한
+threshold는 단조가 아니며
+\(L_{29}^\star=103<L_{28}^\star=104\)이다. online evaluator는 공개
+descriptor 목록만 받고 그 구성과 encoding, compact modular 평가,
+모든 GCD와 inversion branch, 인수 추출, 출력을 과금한다. 소수 모집단
+열거, cap 탐색, support-signature normalization, collision refinement,
+certificate 생성과 hash 계산은 offline 증명 비용이며 알고리즘 advice나
+숨겨진 online 입력이 아니다. 인증서는 각 threshold에 대해 인접한
+predecessor collision과 이를 분리하는 repair를 기록한다. generator
+code를 import하지 않는 두 표준 라이브러리 checker가 신뢰 기반을
+줄인다. 548줄 checker는 대표 \(m=29\) 행을 재구성하고, 624줄 streaming
+checker는 3,299개 packed signature만 유지하면서 10,880,102개 평가로
+마지막 \(m=34\) 행을 검증한다. 별도로 같은 정확한 문법의 모든
+polynomial numeric cap이 결국 실패함을 증명하고, 감사된 경계 아래의
+compact-gap 비단사 장벽을 제시한다. 이 인증서는 작은 유한 범위와 한
+selector족에만 적용되며 balanced factor를 인식하지 않고, \(m>34\)나
+다른 family의 최소성을 다루지 않으며, 일반 정수분해를 해결하지 않는다.
+computer-assisted 유한 증명과 online algorithm의 비용 주장은 엄격히
+분리한다.
 \end{abstract}
+
+\begin{costmodel}{비용 모델 요약}
+\costrow{온라인 과금}{공개 descriptor 구성과 encoding, compact modular
+출구, 모든 GCD와 실패한 inversion, 인수 추출, 검증된 출력을 포함한다.}
+\costrow{오프라인 증명}{소수 모집단 열거, cap 탐색, 분석 signature
+구성과 normalization, collision refinement, certificate 선택, hash,
+표 렌더링을 포함한다.}
+\costrow{주어지지 않음}{소인수, population membership, support
+signature, 선택된 certificate 열, threshold 탐색 결과는 online 입력이
+아니다.}
+\costrow{보장 범위}{certificate generator는 비쌀 수 있으며 다항시간을
+주장하지 않는다. online 진술은 유한하고 family-relative하며, 점근
+장벽은 별도로 과금된 공개 모델을 사용한다.}
+\end{costmodel}
 
 \section{모집단, selector, 신뢰 경계}
 
@@ -44,10 +66,10 @@ overlap bound, direct cyclotomic 값, cyclotomic/cofactor resultant,
 unit-only continuation을 건너뛰기 전에 처리한다.
 
 모집단 소수 \(p\)에서 각 nonzero exact 출구는 support bit
-\(\mathbf1_{p\mid z}\)를 준다. 상수 열 삭제와 중복 열 병합은 분석
-인증서에서만 수행하며, 온라인 알고리즘은 여전히 전체 공개 GCD 목록을
-평가한다. generator, 등록 JSON schema, 독립 differential checker,
-publication projection은 서로 다른 artifact이다.
+\(\mathbf1_{p\mid z}\)를 준다. 앞의 비용 표에 따라 상수 열 삭제와 중복
+열 병합은 offline 분석 연산이며, online 알고리즘은 전체 공개 GCD 목록을
+평가한다. generator, 등록 schema, 독립 checker, publication projection은
+서로 다른 artifact이다.
 
 M85는 대표적인 \(m=29\) 행에 clean-room semantic 경로를 추가한다.
 548줄 checker는 Python 표준 라이브러리만 사용한다. balanced 소수
