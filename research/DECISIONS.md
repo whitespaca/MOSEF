@@ -1551,3 +1551,21 @@
   from being mistaken for a universal exact formula. EXP-0066 inherits
   completeness from EMP-062/EMP-064 and remains finite, source-bound, and
   unrelated to a general factoring solution.
+
+## ADR-081 - Separate matching-certificate verification from discovery
+
+- Date: 2026-07-31.
+- Decision: define the M96 exactness witness as one residual vertex cover and
+  one residual matching of the same declared size. Verify both objects
+  directly after reconstructing forced loops, and use bounded enumeration
+  only as an independent defense for the eight synthetic experiment cases.
+- Rationale: equality gives both upper and lower bounds without storing one
+  obstruction for every smaller subset. It extends the graph method to
+  non-template systems such as \(P_3\) and \(K_4-e\), while the triangle
+  preserves a clear boundary where matching is insufficient.
+- Cost decision: charge one \(\lceil\log_2(t+1)\rceil\)-bit size field plus
+  the cover and matching indices. The earlier 28-bit draft omitted five
+  framing fields; the corrected registered aggregate is 43 bits.
+- Consequence: THM-025 is a certificate-verification theorem, not an
+  algorithm for finding equality witnesses or solving arbitrary vertex
+  cover. EXP-0067 is synthetic and inherits only its seed slots from EMP-066.

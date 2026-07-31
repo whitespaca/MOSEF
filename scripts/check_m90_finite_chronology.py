@@ -213,6 +213,7 @@ EXPECTED_CLAIMS = (
     "THM-022",
     "THM-023",
     "THM-024",
+    "THM-025",
     "THM-004",
     "THM-005",
     "THM-014",

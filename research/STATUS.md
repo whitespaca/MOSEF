@@ -1,5 +1,113 @@
 # Research Status
 
+## M96 outcome
+
+- Date: 2026-07-31.
+- Branch: `research/20260731-m96-matching-certificate`.
+- Base: M95 squash merge
+  `8c96267e5cc407199e78530bbb428ecb4ebaf405`.
+- Completed milestone: M96, an exact matching-equality certificate after
+  forced loops and a deterministic failure boundary on synthetic
+  non-template perturbations.
+- `DEF-052` defines a residual witness of size \(k\) as a \(k\)-vertex cover
+  of \(H=G_D[T\setminus F]\) and \(k\) residual edge occurrences with
+  pairwise-disjoint endpoints. `THM-025` proves
+  \[
+    \tau(H)=k,\qquad \rho(T,U)=|F|+k.
+  \]
+  The cover is an upper bound, while the disjoint matching edges force one
+  distinct selected endpoint each. Verification needs no vertex-subset
+  enumeration or maximum-matching oracle.
+- With
+  \(\ell_t=\lceil\log_2\max(2,t)\rceil\),
+  \(\ell_q=\lceil\log_2\max(2,q)\rceil\), and
+  \(\ell_k=\lceil\log_2(t+1)\rceil\), the additional witness payload is
+  \(\ell_k+k(\ell_t+\ell_q)\) bits. The complete verification bound is
+  \(O(tb+2tq+t+q+k(\ell_t+\ell_q)+\lambda)\) bit operations plus source
+  binding.
+- The common witness length is charged explicitly. Adversarial review
+  rejected an initial 28-bit ledger that treated five fixed-seed length
+  fields as free; the corrected aggregate is 43 bits.
+- `EXP-0067` pins the exact M95 schema and its M92 length-27 looped-\(K_5\)
+  instance. It deletes registered loop columns and, where specified, edge
+  \(\{T_0,T_1\}\), producing eight synthetic systems. Every retained system
+  is nonempty, pairwise distinct, and outside the three M95 templates.
+- Five perturbations have equal residual cover and matching witnesses; three
+  have one-unit gaps. Residual cover numbers sum to 12, matching numbers to
+  9, full repair numbers including forced loops to 28, and the five equality
+  witnesses use 43 framed bits and 21 narrow verification tests.
+- `REF-065` and NR-064 preserve the exact failure: residual \(K_3\) has
+  \(\nu=1<2=\tau\). The registered \(K_4\) and \(K_5-e\) perturbations also
+  have \(\nu=2<3=\tau\). Matching equality is therefore sufficient but not
+  automatic.
+- `schemas/m96-matching-certificates-v1.json` has canonical summary SHA-256
+  `cb8f8a2f5d88e3bcba34260b41a73e0ff1d87a052d348a83fa709af2da738fb4`
+  and exact file SHA-256
+  `3326cda404240bdb1f60febdc71129a6d8215d39793d47c2b5f169fbeb46f3d1`.
+  It pins M95 file/summary hashes
+  `e5e069554a3249e04084b505b590ff197ff26e75e4fd2467115caeeca1d08e03`
+  / `0b99798516bda32cc78e8fd7474fbaddce9cd024a021d81c08fca8514c64154a`
+  and seed instance hash
+  `55830ccb41686b432fc7710380652937209fd24885c2ad4de81607784d0a6348`.
+- The 431-line clean-room checker imports neither the generator nor an M95
+  checker. Fifteen tests cover deterministic generation, source and grammar
+  binding, the exact looped-\(K_5\) seed, complete normal form,
+  non-template status, five equality certificates, three gaps, framed costs,
+  and eight rehashed mutation paths.
+- The complete repository suite passed with 441 tests and 593 subtests in
+  387.97 seconds. M0 foundation validation, Python compilation,
+  repository-wide Ruff, mypy over 31 reference sources, strict mypy over the
+  four M96 files, Rust formatting, warning-denied Clippy and 36 tests, and
+  the C# Release build all passed; the C# build had zero warnings and
+  errors. Eighty-five focused M95/M96/publication tests also passed.
+- M82 now accounts for 291 ledger claims as 26 focused and 265 archive-only,
+  with portfolio summary SHA-256
+  `eee0c33a5e6fd6ad612e175493292d6dc55f0842906a1b800ef3eb28baf90985`.
+  M83 retains six inspected sources, seven synchronized rows, no priority
+  claims, and audit SHA-256
+  `dac796924da19a543e3573b19e979b938c548b08f9d46303edfe7676daf8a082`.
+  Bilingual consistency passed with 291 claims and 58 experiment hashes.
+- The four changed XeLaTeX manuscripts rebuilt with zero selected
+  undefined-reference, undefined-citation, missing-glyph, or overfull
+  warnings: archival English/Korean 131/60 pages and finite English/Korean
+  10/10 pages. All 211 pages had extractable text. Eight abstract and
+  THM-025 pages were rendered and visually inspected without clipping,
+  overlap, or missing Korean glyphs. PDF SHA-256 values are archival EN
+  `ec34423f2b25a14dbfe252824bf13f83465947c5e95feebfea62344c42f81fb1`,
+  archival KO
+  `8ad3d4fc0beb439e4dd33c3d30a835ad982958b2868e1d4aba3801bfdb940aa6`,
+  finite EN
+  `0636586d0366b2c9016563f97a485b25fb10abe947819b7e13edc2d27dcb9207`,
+  and finite KO
+  `2992bdaf412e9d6c8189591ebcd709cef9050c115cede9ebeb39aa45e2cfbbff`.
+- Scope: the experiment deletes columns from one frozen finite graph and
+  does not enumerate new selector outputs, discover equality witnesses on
+  arbitrary graphs, recognize hidden factors, establish an asymptotic
+  selector law, or support a general factoring claim. General classical
+  polynomial-time integer factoring remains open.
+- M97 is active. It asks whether bipartite residual coverer graphs permit a
+  constructible augmenting-path matching and minimum-cover algorithm, while
+  preserving non-bipartite equality as a sufficient-not-necessary boundary.
+
+### M96 Korean summary
+
+M96은 loop가 강제하는 type 집합 \(F\)를 제거한 residual graph에서 같은
+크기의 vertex cover와 matching이 정확한 repair 최소값을 인증함을
+증명했다(`THM-025`). cover는 상계를 주고 서로 endpoint를 공유하지 않는
+matching edge는 같은 크기의 하계를 준다. 공통 크기 \(k\) 자체도
+framing해야 하므로 추가 payload는
+\(\ell_k+k(\ell_t+\ell_q)\) bit이다. 처음 계산한 28 bit는 다섯 length
+field를 누락하여 기각했고, 최종 다섯 인증서 합계는 43 bit이다.
+
+동결 M95 길이 27 looped \(K_5\)에서 loop/edge column을 삭제한 여덟
+synthetic non-template system을 독립 검사했다. 다섯 개는 matching
+equality로 정확성을 인증하고 세 개는 gap 1을 보존한다. 특히 residual
+\(K_3\)는 \(\nu=1<2=\tau\)이므로 matching이 항상 tight하다는 주장을
+반박한다(`REF-065`). 이 결과는 supplied certificate 검증 정리이지
+arbitrary graph의 witness 발견 알고리즘이 아니다. 새 selector output,
+factor recognizer, 점근 정리 또는 일반 고전 다항시간 인수분해
+알고리즘을 제공하지 않으며, 원래 일반 문제는 계속 `OPEN`이다.
+
 ## M95 outcome
 
 - Date: 2026-07-31.
@@ -85,9 +193,8 @@
   EMP-064. It does not recognize hidden factors, extend the frozen selector,
   establish an asymptotic cap law, or support a general factoring claim.
   General classical polynomial-time integer factoring remains open.
-- M96 is active. It asks whether matching-equality lower certificates can
-  extend the looped-graph method beyond forced loops and cliques without
-  exact subset enumeration.
+- M96 subsequently completed the matching-equality certificate and exact
+  gap boundary; the current result is recorded above.
 
 ### M95 Korean summary
 

@@ -186,14 +186,14 @@
     "research/literature/M83-primary-source-search.md": "989bb97f5c7c203af3cf68b5fe76eb48af7bbd0dfc880ebc54dfb5ad2d8edce2",
     "research/reviews/2026-07-31-m83-source-scope-review.md": "31e2d06c0ba7bbdefbf4a79c52e3154b4e7623f9f9ca07ac29beb086df29c104",
     "paper/references.bib": "71626c54fb84356438677bc65066206ab1aa664dfeb90c7423392f10ade69460",
-    "paper/main.tex": "97bfd9bf953e31b89405426d1061859f1f016bdbd8eddd0545807c5ec57bd00e",
-    "paper/main-ko.tex": "e1273fa085b5ccf5fed518bc35a2707b551b78b94d835f2d25e8e3d8bb27c54a",
+    "paper/main.tex": "bf9602ce45bdb70ab687806d16db7de1e98329f52547dd7e7f4160fde3ff522d",
+    "paper/main-ko.tex": "43730ba8978395ec33de330ea06b2a9f4e47dae62e025c9d61924172281d6858",
     "paper/focused/promise-factorization-en.tex": "2edf7fb97855f0c9d018a1c41024b46590a0d455b8b47821c6a98ffda1c05eea",
     "paper/focused/promise-factorization-ko.tex": "cf9b0ebe3f2ebef36beb65f1795d61460064fcc6dd946851dfd500065e71d709",
     "paper/focused/cyclotomic-extraction-en.tex": "7c0bc3f0f67139c51058011446fcc7dd797b527821f63f970998490c72ca429b",
     "paper/focused/cyclotomic-extraction-ko.tex": "9574618e6eb8074c4f2043a60ebcc5e84c94665812949b9c78d637f550800315",
-    "paper/focused/finite-certificates-en.tex": "c48b82b651e768a65543c3ed1f98375e48bc8320a678b1fc4e9fc91a18f41980",
-    "paper/focused/finite-certificates-ko.tex": "d6a1546b21dde980621e99dfce0ea99d155d2d88f334e27a0031cc75b2c77565"
+    "paper/focused/finite-certificates-en.tex": "d02ac8fd0b3c9c1c0f0c92a839bfdfd01684ef8ac6f9a4a5f60cd9ee75e0b418",
+    "paper/focused/finite-certificates-ko.tex": "ff858560c440e87961fd64cc649dc2f8d05c8cee89d1b0bb52b24f473fe7fca1"
   },
   "scope": {
     "general_classical_polynomial_time_factoring": "OPEN",
@@ -201,5 +201,5 @@
     "priority_claims_made": false,
     "finite_certificate_max_input_length": 34
   },
-  "audit_summary_sha256": "f81d242d41c923b82d9b579fe02a6bffd0f2f1f7b20d102c9e8712c5aed310bc"
+  "audit_summary_sha256": "dac796924da19a543e3573b19e979b938c548b08f9d46303edfe7676daf8a082"
 }

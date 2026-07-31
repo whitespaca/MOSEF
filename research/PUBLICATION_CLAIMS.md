@@ -294,3 +294,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | THM-024 | PROVED | Looped graph reduction, forced decomposition, and graph boundary | `research/proofs/THM-024-looped-coverer-graph-certificate.md` |
 | REF-064 | REFUTED | Rank-two size and degree profile determines the exact repair number | `research/NEGATIVE_RESULTS.md` NR-063 |
 | EMP-066 | EMPIRICAL | Nineteen source-bound loop/clique graph templates | `research/experiments/EXP-0066-m95-coverer-graph-profile.md` |
+| DEF-052 | DEFINITION | Residual cover/matching equality witness after forced loops | `research/proofs/THM-025-matching-equality-repair-certificate.md` |
+| THM-025 | PROVED | Equal-size residual cover and matching certify exact repair | `research/proofs/THM-025-matching-equality-repair-certificate.md` |
+| REF-065 | REFUTED | Matching is universally tight on residual coverer graphs | `research/NEGATIVE_RESULTS.md` NR-064 |
+| EMP-067 | EMPIRICAL | Eight synthetic non-template matching perturbations | `research/experiments/EXP-0067-m96-matching-certificates.md` |
