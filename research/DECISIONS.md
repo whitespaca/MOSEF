@@ -1647,3 +1647,35 @@
   composes with THM-027. M100 must confront public graph construction or a
   separately checkable substitute rather than silently treating the graph
   as available.
+
+## ADR-085 - Separate factor independence from bit-polynomial construction
+
+- Date: 2026-07-31.
+- Decision: define a public collision-completeness certificate by selected
+  coordinate confinement plus exhaustive raw-selector persistence. Rebuild
+  every newly admitted coverage type and coverer edge from public modular
+  evaluations instead of accepting prime labels, types, edges, or a row cap
+  as advice.
+- Cap decision: use the single public formula
+  \(k(m)=\lceil\log_2m\rceil\) for every frozen row. Verify its finite
+  success after graph construction, but retain its future asymptotic status
+  as open.
+- Cost decision: charge population enumeration \(P\), selected-coordinate
+  work \(CnE\) for \(n=|X|\), baseline persistence \(D_0bE\), new-type
+  enumeration \(D_1bE\), graph construction, and the full \(3^k\) OCT term
+  separately.
+  Polynomiality is in the expanded public artifacts, not automatically in
+  \(m\).
+- Oracle decision: derive blocks, labeled coverage types, coverer columns,
+  forced loops, and residual edges before reading their M95 counterparts.
+  Use M95 only as a post-construction semantic oracle modulo bucket and type
+  ordering.
+- Integrity decision: treat hashes only as byte bindings. The explicit
+  omitted-type counterexample shows that a newly computed valid digest
+  cannot establish semantic completeness.
+- Consequence: the frozen M95 graphs are factor-independent offline
+  constructions, correcting the earlier informal hidden-factor wording.
+  The registered route nevertheless enumerates an exponentially large
+  balanced population asymptotically, so M100 does not close the original
+  general factoring goal. Per user instruction, research pauses after the
+  merged M100 delivery.

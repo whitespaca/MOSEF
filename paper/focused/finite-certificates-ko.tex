@@ -36,9 +36,9 @@ bipartite 방법은 여섯 target을 푼다. 공급된 odd-cycle transversal이
 구성하고 잘못된 \(K_5\) transversal 하나를 거부한다. iterative
 compression은 이제 명시적 graph와 공개 cap에서 minimum transversal을
 \(O(3^{k+1}(k+1)t(t+q))\) local indexed operation으로 발견한 뒤 exact
-cover reduction과 합성한다. 이는 explicit-graph 계층에서 supplied
-transversal advice를 제거하지만 factor-dependent graph 구성은 제거하지
-않는다.
+cover reduction과 합성한다. offline 감사는 숨은 인수 없이 동결 graph
+19개를 재구성하고 \(k(m)=\lceil\log_2m\rceil\)을 도출하지만, 명시적
+모집단 순회는 bit-polynomial이 아니다.
 
 별도로 같은 문법의 모든 polynomial numeric cap이 결국 실패함과
 감사 경계 아래의 compact-gap 비단사 장벽을 증명한다. 이 인증서는
@@ -489,7 +489,8 @@ local cost는
 graph parameter가 polynomial이고 \(k=O(\log m)\)이면 discovery와
 뒤따르는 \(2^k\) THM-027
 repair는 \(m\)의 polynomial이다. factor-independent graph 구성은
-주어지지 않는다.
+이 정리 자체에는 주어지지 않는다. 뒤의 공개 감사는 동결 offline
+모집단에 대해서만 이를 제공하고 비다항 모집단 순회를 별도로 과금한다.
 \end{claimproof}
 
 \readerclaim{반박된 승격}{Naive subset search는 경계를 보존한다}
@@ -505,6 +506,58 @@ cover를 얻고 cap 2의 \(K_5\)를 거부한다. ledger에는 compression call
 38개, 상태 204개, flow call 160개가 있다. 다섯 vertex simple
 graph/cap 4,096개 비교를 포함한 test 20개가 통과한다. graph와 cap은
 source-bound synthetic input으로 남는다.
+
+\readerclaim{정의}{공개 collision-to-graph 계약}
+{\texttt{DEF-056: DEFINITION}}
+선택한 공개 부분족은 모든 baseline collision을 열거된 block 안으로
+제한하고, baseline 전체 평가는 각 block이 실제로 유지됨을 증명한다.
+그 뒤 새로 허용된 모든 공개 coordinate를 그 block에서 평가하여 complete
+nonzero pair-coverage type, coverer column, forced loop, residual edge를
+조언으로 받지 않고 도출한다. 숨은 인수, 미리 계산한 type이나 edge,
+행별 OCT cap은 금지된 조언이다.
+
+\readerclaim{정리}{Factor-independent 공개 graph 구성}
+{\texttt{THM-029: PROVED}}
+유효한 collision-completeness 인증서는 정확한 baseline partition을
+결정하므로 입력 정수의 인수를 알지 않고 complete incremental coverer
+graph를 구성할 수 있다.
+\begin{claimproof}
+baseline 전체에서 같은 두 점은 선택 부분족에서도 같으므로 모든
+collision이 열거된 block 안에 있다. raw persistence가 역포함을 준다.
+그 뒤 모든 새 coordinate를 전수 평가하면 실현된 coverage mask를 모두
+열거하고, type 중복 제거와 coverer incidence는 직접 계산된다.
+모집단 비용 \(P\), \(n=|X|\), 선택 coordinate 수 \(C\), baseline/new
+descriptor \(D_0,D_1\), tracked point \(b\), pair \(q\), type \(t\),
+평가 비용 \(E\), 공개 OCT cap \(k\)에 대해 합성 explicit-size 비용은
+\[
+ O\!\left(P+CnE+D_0bE+D_1bE+t(b+q)+3^kkt(t+q)\right).
+\]
+그러나 등록 경로에서는
+\(|\mathcal P_m|=\Omega(2^{m/2}/m)\)이므로 공개 모집단의 명시적
+열거가 \(m\)의 다항시간이 아니다.
+\end{claimproof}
+
+\readerclaim{반박된 지름길}{Graph digest는 type 완전성을 증명한다}
+{\texttt{REF-069: REFUTED}}
+원소 두 개인 universe에서 주장된 singleton type 두 개의 minimum은
+2이지만, 누락된 full-universe 실현 type 하나가 있으면 실제 minimum은
+1이다. 다시 계산한 digest는 불완전한 byte도 정확히 묶는다. 이는 hash
+collision 주장이 아니라 semantic 반례이다.
+
+\readerclaim{유한 감사}{공개적으로 재구성한 coverer graph}
+{\texttt{EMP-071: EMPIRICAL}}
+동결 19행 중 아홉 baseline partition은 선택 좌표와 raw persistence를,
+열 partition은 full-raw refinement를 쓴다. baseline ledger는 공개
+coordinate 421,541개, selected/raw primitive 평가 39,426,052개,
+persistence primitive test 42,027,248개다. 새 descriptor 152,879개와
+새 좌표 primitive test 4,650,888개가 complete type 37개를 정확히
+재현한다. 동결 비교 graph는 순서 불변 사후 비교 oracle로만 쓴다.
+forced vertex
+30개를 제거하면 \(K_3,K_4\)만 남고 OCT number는 각각 1, 2이다.
+고정 공개식 \(k(m)=\lceil\log_2m\rceil\)은 모든 행을 수용하며 test
+19개가 통과한다. 미래 logarithmic-OCT 법칙, compact
+asymptotic completeness proof, promise recognizer, 일반 인수분해
+정리는 나오지 않는다.
 
 \section{초기 및 확장 유한 정리}
 

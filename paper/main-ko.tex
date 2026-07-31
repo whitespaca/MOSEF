@@ -287,8 +287,9 @@ Lokshtanov, Saurabh, Sikdar는 iterative-compression OCT discovery와
 \(O(3^k k|E||V|)\) 실행시간을 확립했다
 \cite{lokshtanov2009oct}. THM-028은 명시적 coverer graph를 위한
 자기완결 재구성이며 보수적 local bit 비용과 THM-027 합성을 추가한다.
-새 OCT 알고리즘으로 제시하지 않으며 factor-dependent graph도 구성하지
-않는다.
+새 OCT 알고리즘으로 제시하지 않으며 graph 자체도 구성하지 않는다.
+THM-029는 뒤에서 동결 offline 모집단에 대한 factor-independent
+constructor를 주되 비다항 모집단 비용을 그대로 보존한다.
 
 전체 비교는
 \path{research/publication/M83-related-work-matrix-ko.md}에 있다. 이는
@@ -2382,6 +2383,58 @@ vertex simple graph/cap 4,096개 비교를 포함한 test 20개가 통과한다.
 이 실험은 정수에서 factor-dependent complete type이나 coverer graph를
 구성하지 않고, unrestricted 입력의 logarithmic cap 또는 일반
 인수분해 결론도 증명하지 않는다.
+
+\claimstatus{DEF-056}{DEFINITION}. \(X\)를 공개 유한 모집단,
+\(\mathcal H_0\subseteq\mathcal H_1\)을 중첩된 공개 binary-coordinate
+family라 하자. 공개 collision-completeness 인증서는 equal-signature
+class가 열거된 block과 singleton인 선택 부분족
+\(S\subseteq\mathcal H_0\)을 주고, \(\mathcal H_0\)의 모든 coordinate가
+각 block에서 constant임을 검증한다. 새 complete coverage type,
+coverer column, forced loop, residual graph는 도출한다. 숨은 인수,
+미리 계산한 type이나 edge, 행별 OCT cap은 입력이 아니다.
+
+\claimstatus{THM-029}{PROVED}. \(S\subseteq\mathcal H_0\)이므로 모든
+baseline collision은 열거된 한 block 안에 있다. exhaustive baseline
+persistence가 역포함을 주므로 block은 정확하다.
+\(\mathcal H_1\setminus\mathcal H_0\)의 모든 원소를 공개 label에서
+평가하고 nonzero pair-coverage mask를 중복 제거하면 입력 정수의 인수를
+모르고도 complete type family와 graph를 구성한다.
+
+모집단 열거 비용 \(P\), \(n=|X|\), \(C=|S|\), baseline/new descriptor 수
+\(D_0,D_1\), tracked point \(b\), pair \(q\), type \(t\), primitive 평가
+비용 \(E\), 공개 OCT cap \(k\)에 대해 합성 explicit-size 비용은
+\[
+ O\!\left(
+ P+CnE+D_0bE+D_1bE+t(b+q)+3^kkt(t+q)
+ \right)
+\]
+이다. 이는 확장된 공개 object 크기에 대해서는 polynomial이다. 그러나
+등록 경로는 \(X=\mathcal P_m\)을 명시적으로 열거하며 BAR-041은
+\(|\mathcal P_m|=\Omega(2^{m/2}/m)\)을 준다. 따라서
+factor-independent라는 사실이 이 경로를 \(m\)의 polynomial로 만들지
+않는다.
+
+\claimstatus{REF-069}{REFUTED}. compact type 또는 graph payload의
+recomputed digest는 semantic completeness를 증명하지 않는다.
+\(U=\{u_0,u_1\}\)에서 주장된 type \(\{u_0\}\), \(\{u_1\}\)의
+minimum은 2이지만, 실현되었으나 누락된 type \(\{u_0,u_1\}\)이 있으면
+실제 minimum은 1이다. digest는 여전히 불완전한 byte를 정확히 묶으며
+SHA-256 collision을 주장하는 것이 아니다.
+
+\claimstatus{EMP-071}{EMPIRICAL}. EXP-0071은 숨은 인수나 미리 계산한
+collision block 없이 동결 graph 19개를 모두 재구성한다. 공개 모집단
+원소 12,209개에서 아홉 행은 선택 좌표와 raw persistence를, 열 행은
+full-raw refinement를 사용한다. baseline ledger는 coordinate 421,541개,
+selected/raw primitive 평가 39,426,052개, persistence primitive test
+42,027,248개다. 새 좌표 단계는 tracked point 55개에 descriptor
+152,879개를 평가하며 descriptor/prime 평가 581,361개와 primitive test
+4,650,888개가 complete type 37개를 정확히 재현한다. M95는 구성 뒤
+순서 불변 비교 oracle로만 쓴다. forced type 30개를 제거하면
+\(K_3,K_4\)만 남고 정확한 OCT number는 1, 2이다. 고정 공개식
+\(k(m)=\lceil\log_2m\rceil\)은 모든 동결 행을 수용하며 test 19개가
+통과한다. 명시적 모집단 순회는 bit-polynomial이 아니고, 미래
+logarithmic-OCT 법칙, compact completeness proof, promise recognizer,
+일반 인수분해 정리는 나오지 않는다.
 
 \subsection{THM-019와 BAR-040의 증명}
 

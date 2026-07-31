@@ -209,14 +209,14 @@
     "research/literature/M83-primary-source-search.md": "fb77d139f58894f67a665b71e4ae76822322aedd4d468bdd75d04f66a672e418",
     "research/reviews/2026-07-31-m83-source-scope-review.md": "c774f1c111585ea963e84b6f247f3c4e111f3159951051ef5126506742ad88fc",
     "paper/references.bib": "f9c95933c9d60969a131f77110db4f553a0d345984e21190033c6cb47ca11f53",
-    "paper/main.tex": "075c29b441227e4ddf070247db1c0a9b494e1dd20f911d417c8d3f360d136508",
-    "paper/main-ko.tex": "7c45d7a9d9227b19769baf89471eb157201521201cc65fc2361f97b36ba8fbc0",
+    "paper/main.tex": "382d175c4808e719c003faa9c3986d89d639bb86617f10faa560b9927e74b34e",
+    "paper/main-ko.tex": "34febb2dcc71bba7806baf9ab91a281026369e00ea913994e7c16d81ca09728f",
     "paper/focused/promise-factorization-en.tex": "2edf7fb97855f0c9d018a1c41024b46590a0d455b8b47821c6a98ffda1c05eea",
     "paper/focused/promise-factorization-ko.tex": "cf9b0ebe3f2ebef36beb65f1795d61460064fcc6dd946851dfd500065e71d709",
     "paper/focused/cyclotomic-extraction-en.tex": "7c0bc3f0f67139c51058011446fcc7dd797b527821f63f970998490c72ca429b",
     "paper/focused/cyclotomic-extraction-ko.tex": "9574618e6eb8074c4f2043a60ebcc5e84c94665812949b9c78d637f550800315",
-    "paper/focused/finite-certificates-en.tex": "1bdf24738e6cbd06f438457f1e915422a378680ef8a852e835cd4165759a8b04",
-    "paper/focused/finite-certificates-ko.tex": "df381d900915267fc9195dc20e33d130f4fe7c7c32ad2eda5b2990e9ca143902"
+    "paper/focused/finite-certificates-en.tex": "f3bc1db445038d03a14e18128c171c85d9ea180b90dfa21f797fc7f90cdede5c",
+    "paper/focused/finite-certificates-ko.tex": "7d3323aca43d61fab8d42a43381eac839560a4e97d0844e73595c761b86dc3c6"
   },
   "scope": {
     "general_classical_polynomial_time_factoring": "OPEN",
@@ -224,5 +224,5 @@
     "priority_claims_made": false,
     "finite_certificate_max_input_length": 34
   },
-  "audit_summary_sha256": "91e7f546d46054a1d6e9e73f198c3990bc4bea5753e4c9a02a3f9b144a3a0463"
+  "audit_summary_sha256": "75b0c104fd8816cbc3b9ff274cdaf9d4fd163f83fba9821bd6bb61189854b497"
 }

@@ -637,7 +637,9 @@ discovery and its \(O(3^k k|E||V|)\) running time
 \cite{lokshtanov2009oct}. THM-028 is a self-contained reconstruction for
 explicit coverer graphs with conservative local bit accounting and
 composition with THM-027. It is not presented as a new OCT algorithm and
-does not construct the factor-dependent graph.
+does not itself construct the graph. THM-029 later gives a
+factor-independent constructor for the frozen offline population while
+retaining its non-polynomial population cost.
 
 Relative to the repository's Pollard \(p-1\) and Williams-style \(p+1\)
 baselines, the present work does not claim a faster general algorithm. Those
@@ -3904,6 +3906,61 @@ tests include all 4,096 simple five-vertex graph/cap comparisons. The
 experiment does not construct complete factor-dependent types or the
 coverer graph from an integer, prove a logarithmic cap for unrestricted
 inputs, or support a general factoring claim.
+
+\claimstatus{DEF-056}{DEFINITION}. Let \(X\) be a public finite population
+and \(\mathcal H_0\subseteq\mathcal H_1\) nested public binary-coordinate
+families. A public collision-completeness certificate supplies a selected
+subfamily \(S\subseteq\mathcal H_0\) whose equal-signature classes are
+listed blocks and singletons, and verifies that every coordinate in
+\(\mathcal H_0\) is constant on each listed block. Complete new coverage
+types, coverer columns, forced loops, and the residual graph are derived.
+Hidden factors, precomputed types or edges, and a per-instance OCT cap are
+not inputs.
+
+\claimstatus{THM-029}{PROVED}. Since \(S\subseteq\mathcal H_0\), every
+baseline collision lies within one listed block. Exhaustive baseline
+persistence gives the reverse inclusion, so the blocks are exact.
+Evaluating every member of
+\(\mathcal H_1\setminus\mathcal H_0\) on those public labels and
+deduplicating nonzero pair-coverage masks constructs the complete type
+family and graph without knowing the factors of an input integer.
+
+With population-enumeration charge \(P\), \(n=|X|\), \(C=|S|\), baseline
+and new descriptor counts \(D_0,D_1\), \(b\) tracked points, \(q\) pairs,
+\(t\) types, primitive-evaluation cost \(E\), and public OCT cap \(k\), the
+composed explicit-size cost is
+\[
+ O\!\left(
+ P+CnE+D_0bE+D_1bE+t(b+q)+3^kkt(t+q)
+ \right).
+\]
+This is polynomial in the expanded public objects. The registered path
+explicitly enumerates \(X=\mathcal P_m\), however, and BAR-041 gives
+\(|\mathcal P_m|=\Omega(2^{m/2}/m)\). Hence factor independence does not
+make this route polynomial in \(m\).
+
+\claimstatus{REF-069}{REFUTED}. A recomputed digest of a compact type or
+graph payload does not prove semantic completeness. On
+\(U=\{u_0,u_1\}\), the claimed types
+\(\{u_0\}\) and \(\{u_1\}\) have claimed minimum two, while an omitted
+realized type \(\{u_0,u_1\}\) changes the actual minimum to one. The digest
+still binds the incomplete bytes; no SHA-256 collision is asserted.
+
+\claimstatus{EMP-071}{EMPIRICAL}. EXP-0071 reconstructs all nineteen frozen
+graphs without hidden factors or precomputed collision blocks. Across
+12,209 public population entries, nine rows use selected coordinates plus
+raw persistence and ten use full-raw refinement. The baseline ledger has
+421,541 coordinates, 39,426,052 selected/raw primitive evaluations, and
+42,027,248 persistence primitive tests. The new-coordinate phase evaluates
+152,879 descriptors on 55 tracked points; 581,361 descriptor/prime
+evaluations and 4,650,888 primitive tests reproduce exactly 37 complete
+types. M95 is used only afterward as an order-invariant comparison oracle.
+Thirty forced types leave only \(K_3\) and \(K_4\), whose exact OCT numbers
+are one and two. The fixed public schedule
+\(k(m)=\lceil\log_2m\rceil\) accepts every frozen row, and nineteen tests
+pass. The explicit population traversal is not bit-polynomial, and no
+future logarithmic-OCT law, compact completeness proof, promise recognizer,
+or general factoring theorem follows.
 
 Appendix \ref{proof:THM-019-BAR-040} gives the complete finite proof.
 
