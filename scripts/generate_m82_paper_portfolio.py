@@ -73,6 +73,7 @@ PAPERS: tuple[dict[str, Any], ...] = (
             "THM-021",
             "THM-022",
             "THM-023",
+            "THM-024",
             "THM-004",
             "THM-005",
             "THM-014",

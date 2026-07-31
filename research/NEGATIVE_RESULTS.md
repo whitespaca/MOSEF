@@ -1450,3 +1450,24 @@
   small instances. It does not refute THM-023, preclude another implementation
   from sharing scans, establish an asymptotic lower bound, or imply anything
   about general factoring.
+
+## NR-063 - Rank-two column counts do not determine the repair minimum
+
+- Date: 2026-07-31.
+- Status: finite structural shortcut refuted as `REF-064`; the looped-graph
+  equivalence and forced-set decomposition remain valid.
+- Hypothesis tested: once every coverer column has degree at most two, the
+  type count, universe count, and column-degree histogram determine the exact
+  repair number without using graph adjacency.
+- Exact obstruction: the star \(K_{1,3}\) and path \(P_4\) both have four
+  types, three universe elements, and three degree-two columns. Selecting the
+  star center covers all three star edges, so its minimum is one. The three
+  path edges cannot be covered by one vertex, while its two internal vertices
+  cover them, so the path minimum is two.
+- Consequence: M95 may replace the earlier witness formats only because the
+  nineteen frozen instances match loop-only, looped-clique, or
+  loopless-clique templates. Rank two by itself leaves a graph-specific
+  vertex-cover problem.
+- Scope: this is an elementary finite counterexample, not an asymptotic lower
+  bound or a claim about complexity classes. It does not refute THM-024 or
+  imply anything about general factoring.

@@ -1531,3 +1531,23 @@
   NR-062 preserve that payload compression is not strict work compression.
   The applications inherit type-family completeness from EMP-064 and do not
   change any asymptotic or general-factoring claim.
+
+## ADR-080 - Profile the entire repair portfolio as looped graphs
+
+- Date: 2026-07-31.
+- Decision: reconstruct every coverer column in both frozen M92/M93
+  portfolios before selecting a certificate form. Treat singleton coverers as
+  graph loops, two-element coverers as ordinary edges, and reject empty or
+  higher-rank columns. Compare the full duplicate-sensitive slot list against
+  one of three inferred templates rather than storing upper or lower witness
+  indices.
+- Rationale: all nineteen instances have coverer rank at most two and match
+  exactly 12 loop-only, five looped-clique, or two loopless-clique templates.
+  Loops force all types in seventeen instances; the two remaining cliques use
+  THM-023. One graph grammar therefore verifies every registered minimum
+  while reducing the combined abstract payload from 1,228 to 1,063 bits.
+- Consequence: THM-024 records the general looped-graph reduction and the
+  residual vertex-cover boundary; REF-064 and NR-063 prevent rank-two counts
+  from being mistaken for a universal exact formula. EXP-0066 inherits
+  completeness from EMP-062/EMP-064 and remains finite, source-bound, and
+  unrelated to a general factoring solution.

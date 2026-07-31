@@ -277,7 +277,11 @@ finite-selector rows from 16 source artifacts under a measured
 155.31-second, 29.15-MiB bound; this is finite empirical audit evidence, not
 an asymptotic inference. The two private-pair failures have \(K_3/K_4\)
 coverer incidence, giving one exact \(t-1\) repair theorem and a 56-bit
-payload compression that is not a verifier-work reduction. Deterministic
+payload compression that is not a verifier-work reduction. Across all
+nineteen repairs, the exact coverer slots are twelve loop-only, five
+looped-clique, and two loopless-clique graphs. Their unified structural
+payload is 1,063 rather than 1,228 bits; a star/path counterexample shows
+that rank two alone does not determine the exact minimum. Deterministic
 bounded searches and independent
 Python, Rust, and C\# implementations audit these statements but are not used
 as proofs. No general polynomial-time classical factoring algorithm or lower
@@ -3649,6 +3653,52 @@ bijections with the edges of \(K_3\) and \(K_4\). The structural payload is
 130 rather than 186 incumbent bits, saving 56. Eleven deterministic,
 differential, and mutation tests pass. Type exhaustiveness depends on
 EMP-064, so no new number-theoretic or asymptotic conclusion follows.
+
+\claimstatus{DEF-051}{DEFINITION}. Suppose every nonempty coverer set has
+size at most two. A singleton \(D(u)=\{T_i\}\) is a loop at \(T_i\), and a
+two-element \(D(u)\) is an ordinary edge of the looped coverer multigraph
+\(G_D\). Let \(F\) be the set of looped, hence forced, types.
+
+\claimstatus{THM-024}{PROVED}. Repair covers are exactly vertex covers of
+\(G_D\), with
+\[
+ \rho(T,U)=|F|+\tau\!\left(G_D[T\setminus F]\right).
+\]
+Every loop forces its endpoint. Once \(F\) is selected, precisely the
+ordinary edges with both endpoints outside \(F\) remain, proving the formula.
+If \(F=T\), the minimum is \(t\); if \(F=\varnothing\) and the graph is
+\(K_t\), it is \(t-1\).
+
+Every finite simple graph without isolated vertices or \(K_2\) connected
+components is realizable in complete normal form: give each edge one universe
+element and let the type of a vertex contain its incident edge-elements.
+The exclusions make the types nonempty and pairwise distinct. Thus rank two
+is a reduction to vertex cover, not an automatic exact formula for an
+arbitrary residual graph.
+
+For the exact loop-only, looped-clique, and loopless-clique templates, no
+upper or lower witness indices are stored. Patterns, masks, and point labels
+use \(\lambda+t(b+q)\) bits, and the complete template verifier costs
+\[
+ O(tb+2tq+q\log t+t^2+\lambda)
+\]
+bit operations, plus linear binding to external source bytes.
+
+\claimstatus{REF-064}{REFUTED}. Type count, universe count, and the
+rank-one/two column histogram do not determine the exact repair number. The
+star \(K_{1,3}\) and path \(P_4\) both have four types, three universe
+elements, and three degree-two columns, but exact cover numbers one and two.
+This finite counterexample makes no complexity-class claim.
+
+\claimstatus{EMP-066}{EMPIRICAL}. EXP-0066 independently reconstructs all
+nineteen M92/M93 coverer systems. Their 55 tracked points, 64 columns, 37
+types, 30 singleton columns, and 34 two-coverer columns form exactly twelve
+loop-only, five looped-clique, and two loopless-clique templates. Seventeen
+instances force all types; the two loopless cliques have minimum \(t-1\).
+The structural payload is 1,063 versus 1,228 incumbent bits, saving 165; the
+narrow ledger is 520 versus 542 tests, saving 22 only in aggregate. Eighteen
+deterministic, differential, boundary, and mutation tests pass. Type
+exhaustiveness remains dependent on EMP-062 and EMP-064.
 
 Appendix \ref{proof:THM-019-BAR-040} gives the complete finite proof.
 

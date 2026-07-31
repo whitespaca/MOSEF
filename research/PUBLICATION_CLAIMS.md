@@ -290,3 +290,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | THM-023 | PROVED | Complete-graph incidence gives exact repair number \(t-1\) | `research/proofs/THM-023-clique-incidence-cover-certificate.md` |
 | REF-063 | REFUTED | Clique incidence strictly reduces both payload and verifier work | `research/NEGATIVE_RESULTS.md` NR-062 |
 | EMP-065 | EMPIRICAL | Two source-bound \(K_3/K_4\) incidence certificates | `research/experiments/EXP-0065-m94-clique-incidence.md` |
+| DEF-051 | DEFINITION | Looped coverer graph and forced type set | `research/proofs/THM-024-looped-coverer-graph-certificate.md` |
+| THM-024 | PROVED | Looped graph reduction, forced decomposition, and graph boundary | `research/proofs/THM-024-looped-coverer-graph-certificate.md` |
+| REF-064 | REFUTED | Rank-two size and degree profile determines the exact repair number | `research/NEGATIVE_RESULTS.md` NR-063 |
+| EMP-066 | EMPIRICAL | Nineteen source-bound loop/clique graph templates | `research/experiments/EXP-0066-m95-coverer-graph-profile.md` |

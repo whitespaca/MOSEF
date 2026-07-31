@@ -30,11 +30,11 @@ costs and are not algorithmic advice or hidden online inputs.  The
   trusted computing base without generator or project imports: it reconstructs
   all 26 rows from 16 frozen sources through 28,245,185 certificate and
   7,520,669 raw-mask evaluations, within a measured 29.15 MiB peak.
-  Compact upper/lower witnesses independently certify all 19 non-domain-floor
-  repairs; two early cases require cardinality or subset obstructions instead
-  of private pairs.  Those two type systems are the vertex--edge incidence
-  matrices of \(K_3\) and \(K_4\), giving a shared \(t-1\) repair theorem and
-  a 56-bit payload reduction without a verifier-work reduction.
+  All 19 non-domain-floor repairs reduce to looped coverer graphs: 12
+  loop-only, five looped cliques, and two loopless cliques.  Unified graph
+  certificates use 1,063 rather than 1,228 payload bits and 520 rather than
+  542 registered tests.  A star/path counterexample shows that rank two alone
+  does not determine the exact repair number.
   Separately, we prove that every
 polynomial numeric cap in this exact grammar eventually fails and establish
 compact-gap noninjectivity barriers below the audited boundary.  These
@@ -275,6 +275,53 @@ length-24 coverer maps are bijections onto the edges of \(K_3\) and \(K_4\).
 The structural payload is 130 rather than 186 incumbent bits, saving 56;
 eleven tests include direct-mask differential and source-rebound mutations.
 Type exhaustiveness depends on EMP-064.
+
+\readerclaim{Definition}{Looped coverer graph}
+{\texttt{DEF-051: DEFINITION}}
+If every nonempty coverer set has size at most two, a singleton coverer is a
+loop and a two-element coverer is an ordinary edge of \(G_D\).  The set \(F\)
+of looped types is forced.
+
+\readerclaim{Theorem}{Looped graph repair certificate}
+{\claimstatus{THM-024}{PROVED}}
+Rank-one/two repair covers are exactly vertex covers of \(G_D\), and
+\[
+ \rho(T,U)=|F|+\tau\!\left(G_D[T\setminus F]\right).
+\]
+
+\begin{claimproof}
+Every loop forces its endpoint.  After selecting \(F\), exactly the ordinary
+edges with both endpoints outside \(F\) remain.  Their minimum additional
+cost is the displayed vertex-cover number.  Hence \(F=T\) gives minimum
+\(t\), while \(F=\varnothing\) and \(G_D=K_t\) gives \(t-1\).
+
+Every finite simple graph without isolated vertices or \(K_2\) connected
+components is realizable in complete normal form by taking one universe
+element per edge and one incident-edge type per vertex; the exclusions make
+those types nonempty and pairwise distinct. Thus rank two does not solve an
+arbitrary residual graph. For the three exact registered templates, inferred
+slots remove all witness indices; payload is \(\lambda+t(b+q)\) bits and
+verification costs
+\[
+ O(tb+2tq+q\log t+t^2+\lambda)
+\]
+bit operations plus source binding.
+\end{claimproof}
+
+\readerclaim{Refuted shortcut}{Rank-two counts determine the minimum}
+{\texttt{REF-064: REFUTED}}
+The star \(K_{1,3}\) and path \(P_4\) both have four types, three universe
+elements, and three degree-two columns, but exact cover numbers one and two.
+Adjacency or another lower certificate remains necessary.
+
+\readerclaim{Finite audit}{Nineteen looped-graph templates}
+{\texttt{EMP-066: EMPIRICAL}}
+The source-bound checker reconstructs 55 points, 64 columns, 37 types, 30
+singleton columns, and 34 two-coverer columns as 12 loop-only, five
+looped-clique, and two loopless-clique templates.  The graph payload is 1,063
+rather than 1,228 bits; the narrow ledger is 520 rather than 542 tests.
+Eighteen tests include both-source differential, star/path, rank-three, and
+mutation paths.  Completeness depends on EMP-062 and EMP-064.
 
 \section{Initial and widened finite theorems}
 
@@ -517,6 +564,8 @@ python scripts/check_m93_early_repair_certificate.py
 pytest -p no:cacheprovider tests/test_m93_early_repair_certificate.py -q
 python scripts/check_m94_clique_incidence_certificate.py
 pytest -p no:cacheprovider tests/test_m94_clique_incidence_certificate.py -q
+python scripts/check_m95_coverer_graph_certificate.py
+pytest -p no:cacheprovider tests/test_m95_coverer_graph_certificate.py -q
 \end{verbatim}
 The underlying M31--M46 schemas, generators, differential checkers, commands,
 toolchains, row hashes, and selected cross-language vectors remain under
@@ -533,7 +582,9 @@ all-row path.  The eighth independently reconstructs the 483-bit early
 portfolio through 154,920 primitive-coordinate tests; the ninth includes its
 complete raw-type/count differential and mutation suite.  The tenth
 reconstructs all nine coverer columns of the \(K_3/K_4\) certificates; the
-eleventh checks their mutation and direct-mask differential paths.
+eleventh checks their mutation and direct-mask differential paths.  The
+twelfth reconstructs all 64 coverer columns across both portfolios; the
+thirteenth checks graph templates, mutations, and the star/path boundary.
 
 The archival monograph \archivepaper{} retains the complete transition
 chronology and full proofs.  The claim ledger is
