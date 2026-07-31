@@ -476,9 +476,9 @@ def main() -> int:
         if english_matches != korean_focused_matches:
             fail(f"M82 bilingual claim mismatch: {english_path.relative_to(ROOT)}")
             errors += 1
-        if not 5 <= len(english_matches) <= 7:
+        if not 5 <= len(english_matches) <= 8:
             fail(
-                "M82 focused paper must contain 5--7 representative claims: "
+                "M82 focused paper must contain 5--8 representative claims: "
                 f"{english_path.relative_to(ROOT)}"
             )
             errors += 1
@@ -490,8 +490,8 @@ def main() -> int:
             if ledger.get(claim_id) != normalized_status(status):
                 fail(f"M82 focused claim status mismatch: {claim_id}")
                 errors += 1
-    if len(projected_ids) != 21:
-        fail(f"M82 focused projection must contain 21 unique claims, got {len(projected_ids)}")
+    if len(projected_ids) != 22:
+        fail(f"M82 focused projection must contain 22 unique claims, got {len(projected_ids)}")
         errors += 1
 
     for section in REQUIRED_SECTIONS:

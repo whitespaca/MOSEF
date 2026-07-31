@@ -278,3 +278,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | EMP-060 | EMPIRICAL | Independent semantic reconstruction of the M41 finite certificate | `research/experiments/EXP-0060-m85-independent-semantic-checker.md` |
 | EMP-061 | EMPIRICAL | Streaming clean-room reconstruction of the M46 finite certificate | `research/experiments/EXP-0061-m86-streaming-m46-semantic-checker.md` |
 | EMP-062 | EMPIRICAL | Table-wide clean-room reconstruction of all 26 finite certificate rows | `research/experiments/EXP-0062-m91-all-row-semantic-checker.md` |
+| DEF-048 | DEFINITION | Finite bucket-repair pair-cover instance and repair number | `research/proofs/THM-021-pair-cover-certificate.md` |
+| THM-021 | PROVED | Pair-cover equivalence and private-pair exact-minimum certificate | `research/proofs/THM-021-pair-cover-certificate.md` |
+| REF-061 | REFUTED | Generic signature-cardinality bound certifies every exact repair minimum | `research/NEGATIVE_RESULTS.md` NR-060 |
+| EMP-063 | EMPIRICAL | Nine source-bound compact pair-cover certificates | `research/experiments/EXP-0063-m92-pair-cover-certificates.md` |

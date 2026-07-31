@@ -1,5 +1,108 @@
 # Research Status
 
+## M92 outcome
+
+- Date: 2026-07-31.
+- Branch: `research/20260731-m92-repair-cover`.
+- Base: M91 squash merge
+  `ec8a6a1043d61d7f72a3ff4cb25a32621989985f`.
+- Completed milestone: M92, a general finite pair-cover repair theorem and
+  compact source-bound certificates for all nine registered incremental
+  repairs.
+- `DEF-048` defines the unresolved within-bucket pair universe, binary
+  coverage types, and repair number. `THM-021` proves that singleton
+  refinement is equivalent to covering this universe and that a covering
+  \(k\)-type upper witness plus one private pair unique to each selected type
+  certifies exact minimum \(k\).
+- The theorem verifier has explicit bit complexity
+  \(O(tb+tq+kq+kt+\lambda)\) and space
+  \(O(t(b+q)+\lambda)\) for \(b\) tracked points, \(q\) pairs, \(t\)
+  complete coverage types, \(k\) selected types, and label-bit total
+  \(\lambda\). External source hashing/parsing is separately linear in source
+  bytes.
+- `schemas/m92-pair-cover-certificates-v1.json` binds the nine instances to
+  their exact M38--M46 source digests. It records 28 tracked primes, 41
+  unresolved pairs, 19 complete coverage types, 19 covering types, 19
+  private pairs, and exact minima \(2,5,5,1,2,1,1,1,1\). The abstract
+  combinatorial payload is 745 bits and schema SHA-256 is
+  `3bf4b744d30d31f5e52725ca9cb70302bc4654ab1e7cfbe1707448392dbc19b0`.
+- The core certificate ledger contains 397 bit tests. A redundant exact
+  set-cover defense enumerates 82 subsets with a 2,429 mask-bit upper ledger;
+  this bounded exponential check is not part of the theorem's polynomial
+  verifier. The nine frozen provenance files total 5,939,505 bytes.
+- The independent production checker is 412 lines, uses only the Python
+  standard library, and imports neither its generator nor M91. It completed
+  in 1.19 seconds. Eleven targeted tests passed in 4.99 seconds, including
+  six rehashed semantic mutations and a complete raw-coverage differential
+  against M91.
+- `REF-061` and NR-060 preserve a failed shortcut. The generic information
+  lower bound gives only \(\lceil\log_2 6\rceil=3\) coordinates for the
+  six-prime length-27 and length-28 baselines, while private pairs force all
+  five available coverage types.
+- The complete repository suite passed with 383 tests and 593 subtests in
+  372.04 seconds. Ruff, Python compilation, mypy over 31 source files, strict
+  mypy over four M92 files, M0 foundation validation, Rust formatting,
+  warning-denied Clippy and 36 tests, and the escalated C# Release build all
+  passed. The first sandboxed C# attempt was blocked only from reading the
+  user NuGet configuration; the identical escalated build passed with zero
+  warnings and errors.
+- M50, M82--M90, M92, and bilingual publication checks passed. M82 now
+  accounts for 275 ledger claims as 22 focused and 253 archive-only, with
+  portfolio summary SHA-256
+  `2966f35309baeac6f8782bd507bc048bb5b0b5e6a828014c3f91a780aedd33e8`.
+  M83 retains six inspected sources, seven synchronized rows, and no priority
+  claims; its audit summary SHA-256 is
+  `eaacf6034da4deb6c3acaddef52aac36cbc591b79c147483759cb27aaa176335`.
+- Eight XeLaTeX manuscripts built without selected warnings: archival
+  English/Korean 128/57 pages, promise English/Korean 6/5, cyclotomic
+  English/Korean 5/5, and finite English/Korean 8/7. All 221 pages had
+  extractable text. Ten changed pages were rendered and visually inspected
+  without clipping, overlap, or missing Korean glyphs. PDF SHA-256 values are
+  archival EN
+  `a9b698a8ab4a5b3ae25d2bf170fc1336da4aca48c88e6d6eb070daa1fb354d52`,
+  archival KO
+  `bf1ab99bbfc9be6ced20a8efa198304c5de44adc17907effe2caec2f78629b1f`,
+  promise EN
+  `405eb39a8ad760adcacf3e6706a33bc30fe88ce5415a2d780cbf7b1116dcef30`,
+  promise KO
+  `fc9f7e37f3c9b6e7d96793c3921492f93faf42422308732502604f00994a7814`,
+  cyclotomic EN
+  `613787a7bacda53c38cc227444a655317168b89150ed2c1492c26c5a32176a8b`,
+  cyclotomic KO
+  `671a8f99125f34a16646904764baddf58d6ea086fc47d8da0442ba78c31131b6`,
+  finite EN
+  `eac7e1893d091a3806b13b31883239a257c11c5bfe8693adfb723ababedfa4ea`,
+  and finite KO
+  `28742f5257a0cf56cc621e26d614d423e8d2825438988321152a5a3be26a81b8`.
+- Scope: THM-021 is a general finite combinatorial theorem, but its nine
+  number-theoretic applications depend explicitly on EMP-062 for complete
+  raw-type reconstruction. M92 does not recognize the factor-dependent
+  promise, prove an \(m>34\) threshold, establish an asymptotic cap law, or
+  support a general factoring claim. General classical polynomial-time
+  integer factoring remains open.
+- M93 is active. It will inventory the ten earlier cap transitions at lengths
+  16--25, compute their exact incremental repair minima, and determine where
+  the private-pair lower certificate remains complete or needs a stronger
+  witness.
+
+### M92 Korean summary
+
+M92는 bucket refinement를 미분리 pair universe의 set cover와 동일시하는
+`THM-021`을 증명했다. 선택한 type들이 모든 pair를 덮고 각 type마다
+다른 type은 덮지 못하는 private pair가 있으면 선택 type 수가 정확한
+repair 최소값이다. 아홉 동결 사례는 tracked prime 28개, pair 41개,
+완전 coverage type 19개와 private pair 19개로 축약되며 최소값은
+\(2,5,5,1,2,1,1,1,1\)이다. abstract payload는 745 bit이고 핵심
+검증 ledger는 397 bit test이다. 412줄 독립 checker와 11개 test가
+통과했고, 전체 회귀도 383개 test와 593개 subtest를 통과했다. 길이
+27과 28에서 일반 cardinality 하계는 3만 주지만 private pair가 type
+5개를 모두 강제하므로 정확한 최소값 5를 얻는다. raw type 목록의
+완전성은 명시적으로 `EMP-062`에 의존한다. 이는 \(m\le34\)의 동결
+유한 인증서를 위한 조합론 계층이며 promise recognizer, 점근 cap 법칙,
+다른 selector family의 최소성 또는 일반 고전 다항시간 인수분해를
+의미하지 않는다. M93은 길이 16--25의 열 개 초기 transition으로
+private-pair 인증 범위를 확장한다.
+
 ## M91 outcome
 
 - Date: 2026-07-31.

@@ -209,6 +209,7 @@ EXPECTED_ROWS = (
 
 EXPECTED_CLAIMS = (
     "BAR-024",
+    "THM-021",
     "THM-004",
     "THM-005",
     "THM-014",
