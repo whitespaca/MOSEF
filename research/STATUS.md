@@ -1,5 +1,105 @@
 # Research Status
 
+## M97 outcome
+
+- Date: 2026-07-31.
+- Completed milestone: M97, a constructive exact-repair algorithm for
+  explicit bipartite residual coverer graphs.
+- `DEF-053` two-colors the residual graph after forced loops, augments an
+  initially empty matching until no augmenting path remains, and constructs
+  \(C=(L\setminus Z_L)\cup(R\cap Z_R)\) by alternating reachability.
+- `THM-026` proves the augmenting-path lemma, termination, maximum matching,
+  the cover property, and \(|C|=|M|=\tau(H)=\nu(H)\). `THM-024` then gives
+  exact repair number \(|F|+|M|\).
+- The constructor uses \(O(t(t+q))\) indexed operations and conservatively
+  \[
+  O(tb+2tq+t+q+\lambda+t(t+q)(\ell_t+\ell_q))
+  \]
+  bit operations plus source binding. Its explicit checkable output uses
+  \(\ell_k+k(\ell_t+\ell_q)\) bits. Polynomiality is charged only against
+  the explicit graph/type-system representation.
+- `EXP-0068` pins the exact M95 schema and its M92 length-27 looped-\(K_5\)
+  seed. Six registered bipartite targets \(P_3,P_4,K_{1,3},C_4,P_5,K_{2,3}\)
+  are solved with ten augmentations and sixteen searches. All eight retained
+  systems are complete non-template normal forms.
+- `REF-066` and NR-065 preserve the non-bipartite boundary. Triangle plus
+  pendant has \(\nu=\tau=2\), so bipartiteness is not necessary for equality;
+  \(C_5\) has \(\nu=2<3=\tau\), so non-bipartite equality is not automatic.
+- Across all eight cases, residual cover and matching numbers sum to 15 and
+  14 and full repairs sum to 21. The six constructive outputs use 88 framed
+  bits and 48 narrow verification tests. The non-bipartite equality audit
+  has a separate 17-bit `THM-025` certificate.
+- `schemas/m97-bipartite-cover-v1.json` has canonical summary SHA-256
+  `4e421881658b411e636bf8abe862cd73c09a8def1ff609f9ef5eb66659790492`
+  and exact file SHA-256
+  `46c79936ec625a462d39880c8ddc8f1ce7e4416a23d590afffe428a729a13db0`.
+  It pins M95 file/summary hashes
+  `e5e069554a3249e04084b505b590ff197ff26e75e4fd2467115caeeca1d08e03`
+  / `0b99798516bda32cc78e8fd7474fbaddce9cd024a021d81c08fca8514c64154a`
+  and seed instance hash
+  `55830ccb41686b432fc7710380652937209fd24885c2ad4de81607784d0a6348`.
+- The 668-line clean-room checker imports neither the generator nor the M96
+  checker. Nineteen tests cover generation, source/case binding, complete
+  normal form, six bipartite constructions, all 689 simple bipartite graphs
+  through three vertices per side, a parallel-edge/isolate regression, two
+  odd-cycle boundaries, cost, scope, and nine rehashed mutation paths.
+- The complete repository suite passed with 460 tests and 593 subtests in
+  355.61 seconds. M0 foundation validation, Python compilation,
+  repository-wide Ruff, mypy over 31 reference sources, strict mypy over the
+  four M97 files, Rust formatting, warning-denied Clippy and 36 tests, and
+  the C# Release build all passed; the C# build had zero warnings and
+  errors. One hundred four focused M95--M97/publication tests also passed.
+- M82 now accounts for 295 ledger claims as 27 focused and 268 archive-only,
+  with portfolio summary SHA-256
+  `e6248c59b151bd1c15b9e2e41d91296fff06370b5772223c2a2ffd8510dd3868`.
+  M83 retains six inspected sources, seven synchronized rows, no priority
+  claims, and audit SHA-256
+  `22bbd68db31d109de0693268da5b3d6a0328d2f4574ab652f8586823c8e86f8c`.
+  Bilingual consistency passed with 295 claims and 58 experiment hashes.
+- The four changed XeLaTeX manuscripts rebuilt with zero selected
+  undefined-reference, undefined-citation, missing-glyph, or overfull
+  warnings: archival English/Korean 131/61 pages and finite English/Korean
+  11/10 pages. All 213 pages had extractable text. Eight abstract and
+  THM-026 pages were rendered and visually inspected without clipping,
+  overlap, or missing Korean glyphs. PDF SHA-256 values are archival EN
+  `0f943d0a05ab877b7ae0922e47f0127cfa1918bbee5840e21fbd3566fd8f6f86`,
+  archival KO
+  `be0808be2a8ecc8111399aa6277be32df143812c46feb9afc62b2da156a0cfd0`,
+  finite EN
+  `3321317f65c14e60d88eda15550ee8d1822c7e92ff251abdc5e7e398aa483115`,
+  and finite KO
+  `ac7ca654fa0ecdfa8b86468048e61599170bac92731491a220e5426eeec703c1`.
+- Scope: the theorem solves vertex cover only on an explicit bipartite
+  residual graph. The experiment deletes columns from one frozen seed and
+  does not construct factor-dependent complete types from the integer input,
+  enumerate new selector outputs, recognize hidden factors, establish an
+  asymptotic selector law, or support a general factoring claim. General
+  classical polynomial-time integer factoring remains open.
+- M98 is active. It asks whether a supplied odd-cycle transversal of size
+  \(s\) permits exact branch reduction to bipartite cover while exposing the
+  full \(2^s\) dependence and the \(s=O(\log m)\) polynomial boundary.
+
+### M97 Korean summary
+
+M97은 loop가 강제하는 집합 \(F\)를 제거한 residual graph가 bipartite일
+때 exact repair를 실제로 구성하는 알고리즘을 증명했다(`THM-026`).
+augmenting path가 없을 때까지 matching을 증가시키고, unmatched left
+vertex에서 alternating reachability를 계산하여 minimum cover를 만든다.
+따라서 \(|M|=|C|=\nu(H)=\tau(H)\)이고 전체 repair는
+\(|F|+|M|\)이다. explicit graph 입력에 대한 비용은
+\(O(t(t+q))\) indexed operation이며, output은 독립 검증 가능한
+`THM-025` equality certificate이다.
+
+동결 M95 seed에서 만든 여덟 synthetic complete-normal-form target 중
+여섯 bipartite graph를 열 번의 augmentation과 열여섯 번의 search로
+풀었다. triangle-plus-pendant는 non-bipartite이지만
+\(\nu=\tau=2\)이므로 bipartiteness가 필요조건이라는 주장을 반박하고,
+\(C_5\)는 \(\nu=2<3=\tau\) gap을 보존한다. 이 결과는
+factor-independent complete type constructor나 arbitrary graph vertex
+cover 알고리즘을 주지 않는다. 새 selector output, factor recognizer,
+점근 정리 또는 일반 고전 다항시간 인수분해 알고리즘을 제공하지
+않으며 원래 일반 문제는 계속 `OPEN`이다.
+
 ## M96 outcome
 
 - Date: 2026-07-31.
@@ -85,9 +185,8 @@
   arbitrary graphs, recognize hidden factors, establish an asymptotic
   selector law, or support a general factoring claim. General classical
   polynomial-time integer factoring remains open.
-- M97 is active. It asks whether bipartite residual coverer graphs permit a
-  constructible augmenting-path matching and minimum-cover algorithm, while
-  preserving non-bipartite equality as a sufficient-not-necessary boundary.
+- M97 subsequently completed the constructive bipartite algorithm and
+  non-bipartite equality/gap boundary; the current result is recorded above.
 
 ### M96 Korean summary
 

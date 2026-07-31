@@ -37,6 +37,9 @@ python scripts/check_m95_coverer_graph_certificate.py
 python scripts/run_m96_matching_certificate_profile.py
 python scripts/generate_m96_matching_certificate_schema.py --check
 python scripts/check_m96_matching_certificate.py
+python scripts/run_m97_bipartite_cover_profile.py
+python scripts/generate_m97_bipartite_cover_schema.py --check
+python scripts/check_m97_bipartite_cover.py
 python scripts/check_publication.py
 ```
 
@@ -82,6 +85,7 @@ pytest -p no:cacheprovider tests/test_m93_early_repair_certificate.py -q
 pytest -p no:cacheprovider tests/test_m94_clique_incidence_certificate.py -q
 pytest -p no:cacheprovider tests/test_m95_coverer_graph_certificate.py -q
 pytest -p no:cacheprovider tests/test_m96_matching_certificate.py -q
+pytest -p no:cacheprovider tests/test_m97_bipartite_cover.py -q
 ```
 
 These commands recompute registered masks, identities, collision or
@@ -165,6 +169,13 @@ reconstruct eight loop/edge-deletion perturbations. The 431-line
 standard-library checker verifies five equal-size cover/matching exactness
 certificates, preserves three one-unit matching gaps, charges 43 framed
 witness bits, and uses bounded enumeration only as finite defense.
+
+The M97 commands bind the same frozen seed and independently reconstruct
+eight target-graph deletions. The 668-line standard-library checker verifies
+six augmenting-path/alternating-reachability outputs, one non-bipartite
+equality boundary, one odd-cycle gap, 88 framed output bits, and 48 narrow
+tests. Its bounded exact enumeration is experiment defense, not part of the
+constructive theorem.
 
 ### Level C: complete repository gate
 

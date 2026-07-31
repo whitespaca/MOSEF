@@ -1492,3 +1492,25 @@
 - Scope: these are synthetic graphs obtained by deleting columns from one
   frozen finite coverer system. They do not establish an asymptotic lower
   bound, a complexity-class separation, or anything about general factoring.
+
+## NR-065 - Bipartiteness is not necessary for matching equality
+
+- Date: 2026-07-31.
+- Status: necessity claim refuted as `REF-066`; `THM-026` remains a
+  sufficient constructive theorem on bipartite residual graphs.
+- Hypothesis tested: whenever a residual coverer graph has
+  \(\tau(H)=\nu(H)\), the graph must be bipartite.
+- Exact obstruction: take a triangle on \(T_0,T_1,T_2\) and attach pendant
+  vertex \(T_3\) to \(T_2\). The triangle proves the graph non-bipartite.
+  The pendant edge together with edge \(\{T_0,T_1\}\) is a matching of size
+  two, while \(\{T_2,T_0\}\) is a cover of size two. Therefore
+  \(\nu=\tau=2\).
+- Complementary boundary: \(C_5\) has \(\nu=2<3=\tau\). Equality can hold on
+  a non-bipartite graph, but does not hold automatically.
+- Consequence: bipartiteness supplies a uniform polynomial constructor, not
+  a characterization of every graph admitting a `THM-025` certificate.
+  Extensions beyond the bipartite class need an explicit new parameter,
+  certificate, or exact method.
+- Scope: the two graphs are synthetic deleted-column systems bound to one
+  frozen finite seed. The result is not a complexity-class separation,
+  arbitrary-graph algorithm, selector theorem, or factoring result.

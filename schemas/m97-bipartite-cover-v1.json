@@ -1,0 +1,1269 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "EXP-0068",
+  "claim_ids": [
+    "DEF-053",
+    "THM-026",
+    "REF-066",
+    "EMP-068"
+  ],
+  "source": {
+    "path": "schemas/m95-coverer-graph-profile-v1.json",
+    "file_sha256": "e5e069554a3249e04084b505b590ff197ff26e75e4fd2467115caeeca1d08e03",
+    "summary_sha256": "0b99798516bda32cc78e8fd7474fbaddce9cd024a021d81c08fca8514c64154a",
+    "seed_source_id": "M92",
+    "seed_input_length": 27,
+    "seed_instance_sha256": "55830ccb41686b432fc7710380652937209fd24885c2ad4de81607784d0a6348"
+  },
+  "seed": {
+    "type_ids": [
+      "T0",
+      "T1",
+      "T2",
+      "T3",
+      "T4"
+    ],
+    "column_count": 15,
+    "template_kind": "looped_clique",
+    "slots": [
+      {
+        "column_index": 0,
+        "coverer_type_ids": [
+          "T0",
+          "T1"
+        ]
+      },
+      {
+        "column_index": 1,
+        "coverer_type_ids": [
+          "T0"
+        ]
+      },
+      {
+        "column_index": 2,
+        "coverer_type_ids": [
+          "T0",
+          "T2"
+        ]
+      },
+      {
+        "column_index": 3,
+        "coverer_type_ids": [
+          "T0",
+          "T3"
+        ]
+      },
+      {
+        "column_index": 4,
+        "coverer_type_ids": [
+          "T0",
+          "T4"
+        ]
+      },
+      {
+        "column_index": 5,
+        "coverer_type_ids": [
+          "T1"
+        ]
+      },
+      {
+        "column_index": 6,
+        "coverer_type_ids": [
+          "T1",
+          "T2"
+        ]
+      },
+      {
+        "column_index": 7,
+        "coverer_type_ids": [
+          "T1",
+          "T3"
+        ]
+      },
+      {
+        "column_index": 8,
+        "coverer_type_ids": [
+          "T1",
+          "T4"
+        ]
+      },
+      {
+        "column_index": 9,
+        "coverer_type_ids": [
+          "T2"
+        ]
+      },
+      {
+        "column_index": 10,
+        "coverer_type_ids": [
+          "T3"
+        ]
+      },
+      {
+        "column_index": 11,
+        "coverer_type_ids": [
+          "T4"
+        ]
+      },
+      {
+        "column_index": 12,
+        "coverer_type_ids": [
+          "T2",
+          "T3"
+        ]
+      },
+      {
+        "column_index": 13,
+        "coverer_type_ids": [
+          "T2",
+          "T4"
+        ]
+      },
+      {
+        "column_index": 14,
+        "coverer_type_ids": [
+          "T3",
+          "T4"
+        ]
+      }
+    ]
+  },
+  "case_grammar": {
+    "operation": "delete all loops on the residual prefix, then delete residual ordinary edges outside the registered target graph",
+    "registered_cases": [
+      {
+        "case_id": "B1-P3",
+        "residual_graph_kind": "path_3",
+        "unlooped_count": 3,
+        "target_edge_pairs": [
+          [
+            "T0",
+            "T1"
+          ],
+          [
+            "T1",
+            "T2"
+          ]
+        ],
+        "odd_cycle_type_ids": null
+      },
+      {
+        "case_id": "B2-P4",
+        "residual_graph_kind": "path_4",
+        "unlooped_count": 4,
+        "target_edge_pairs": [
+          [
+            "T0",
+            "T1"
+          ],
+          [
+            "T1",
+            "T2"
+          ],
+          [
+            "T2",
+            "T3"
+          ]
+        ],
+        "odd_cycle_type_ids": null
+      },
+      {
+        "case_id": "B3-K1-3",
+        "residual_graph_kind": "star_1_3",
+        "unlooped_count": 4,
+        "target_edge_pairs": [
+          [
+            "T0",
+            "T1"
+          ],
+          [
+            "T0",
+            "T2"
+          ],
+          [
+            "T0",
+            "T3"
+          ]
+        ],
+        "odd_cycle_type_ids": null
+      },
+      {
+        "case_id": "B4-C4",
+        "residual_graph_kind": "cycle_4",
+        "unlooped_count": 4,
+        "target_edge_pairs": [
+          [
+            "T0",
+            "T1"
+          ],
+          [
+            "T1",
+            "T2"
+          ],
+          [
+            "T2",
+            "T3"
+          ],
+          [
+            "T0",
+            "T3"
+          ]
+        ],
+        "odd_cycle_type_ids": null
+      },
+      {
+        "case_id": "B5-P5",
+        "residual_graph_kind": "path_5",
+        "unlooped_count": 5,
+        "target_edge_pairs": [
+          [
+            "T0",
+            "T1"
+          ],
+          [
+            "T1",
+            "T2"
+          ],
+          [
+            "T2",
+            "T3"
+          ],
+          [
+            "T3",
+            "T4"
+          ]
+        ],
+        "odd_cycle_type_ids": null
+      },
+      {
+        "case_id": "B6-K2-3",
+        "residual_graph_kind": "complete_bipartite_2_3",
+        "unlooped_count": 5,
+        "target_edge_pairs": [
+          [
+            "T0",
+            "T2"
+          ],
+          [
+            "T0",
+            "T3"
+          ],
+          [
+            "T0",
+            "T4"
+          ],
+          [
+            "T1",
+            "T2"
+          ],
+          [
+            "T1",
+            "T3"
+          ],
+          [
+            "T1",
+            "T4"
+          ]
+        ],
+        "odd_cycle_type_ids": null
+      },
+      {
+        "case_id": "N1-triangle-pendant",
+        "residual_graph_kind": "triangle_with_pendant",
+        "unlooped_count": 4,
+        "target_edge_pairs": [
+          [
+            "T0",
+            "T1"
+          ],
+          [
+            "T1",
+            "T2"
+          ],
+          [
+            "T0",
+            "T2"
+          ],
+          [
+            "T2",
+            "T3"
+          ]
+        ],
+        "odd_cycle_type_ids": [
+          "T0",
+          "T1",
+          "T2",
+          "T0"
+        ]
+      },
+      {
+        "case_id": "N2-C5",
+        "residual_graph_kind": "cycle_5",
+        "unlooped_count": 5,
+        "target_edge_pairs": [
+          [
+            "T0",
+            "T1"
+          ],
+          [
+            "T1",
+            "T2"
+          ],
+          [
+            "T2",
+            "T3"
+          ],
+          [
+            "T3",
+            "T4"
+          ],
+          [
+            "T0",
+            "T4"
+          ]
+        ],
+        "odd_cycle_type_ids": [
+          "T0",
+          "T1",
+          "T2",
+          "T3",
+          "T4",
+          "T0"
+        ]
+      }
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "B1-P3",
+      "residual_graph_kind": "path_3",
+      "unlooped_type_ids": [
+        "T0",
+        "T1",
+        "T2"
+      ],
+      "forced_type_ids": [
+        "T3",
+        "T4"
+      ],
+      "target_edge_pairs": [
+        [
+          "T0",
+          "T1"
+        ],
+        [
+          "T1",
+          "T2"
+        ]
+      ],
+      "deleted_loop_column_indices": [
+        1,
+        5,
+        9
+      ],
+      "deleted_edge_column_indices": [
+        2
+      ],
+      "retained_column_count": 11,
+      "complete_normal_form": true,
+      "m95_template": false,
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        }
+      ],
+      "bipartite": true,
+      "odd_cycle_type_ids": null,
+      "constructor": {
+        "status": "constructed_exact",
+        "left_type_ids": [
+          "T0",
+          "T2"
+        ],
+        "right_type_ids": [
+          "T1"
+        ],
+        "maximum_matching_column_indices": [
+          0
+        ],
+        "minimum_cover_type_ids": [
+          "T1"
+        ],
+        "augmentations": 1,
+        "augmenting_path_searches": 2,
+        "output_payload_bits": 10,
+        "output_verification_tests": 5
+      },
+      "exact_audit": {
+        "minimum_cover_type_ids": [
+          "T1"
+        ],
+        "maximum_matching_column_indices": [
+          0
+        ],
+        "residual_vertex_cover_number": 1,
+        "residual_matching_number": 1,
+        "matching_equality": true,
+        "matching_gap": 0,
+        "exact_repair_number": 3,
+        "equality_certificate_payload_bits": 10
+      }
+    },
+    {
+      "case_id": "B2-P4",
+      "residual_graph_kind": "path_4",
+      "unlooped_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "forced_type_ids": [
+        "T4"
+      ],
+      "target_edge_pairs": [
+        [
+          "T0",
+          "T1"
+        ],
+        [
+          "T1",
+          "T2"
+        ],
+        [
+          "T2",
+          "T3"
+        ]
+      ],
+      "deleted_loop_column_indices": [
+        1,
+        5,
+        9,
+        10
+      ],
+      "deleted_edge_column_indices": [
+        2,
+        3,
+        7
+      ],
+      "retained_column_count": 8,
+      "complete_normal_form": true,
+      "m95_template": false,
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 12,
+          "endpoints": [
+            "T2",
+            "T3"
+          ]
+        }
+      ],
+      "bipartite": true,
+      "odd_cycle_type_ids": null,
+      "constructor": {
+        "status": "constructed_exact",
+        "left_type_ids": [
+          "T0",
+          "T2"
+        ],
+        "right_type_ids": [
+          "T1",
+          "T3"
+        ],
+        "maximum_matching_column_indices": [
+          0,
+          12
+        ],
+        "minimum_cover_type_ids": [
+          "T0",
+          "T2"
+        ],
+        "augmentations": 2,
+        "augmenting_path_searches": 3,
+        "output_payload_bits": 17,
+        "output_verification_tests": 8
+      },
+      "exact_audit": {
+        "minimum_cover_type_ids": [
+          "T0",
+          "T2"
+        ],
+        "maximum_matching_column_indices": [
+          0,
+          12
+        ],
+        "residual_vertex_cover_number": 2,
+        "residual_matching_number": 2,
+        "matching_equality": true,
+        "matching_gap": 0,
+        "exact_repair_number": 3,
+        "equality_certificate_payload_bits": 17
+      }
+    },
+    {
+      "case_id": "B3-K1-3",
+      "residual_graph_kind": "star_1_3",
+      "unlooped_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "forced_type_ids": [
+        "T4"
+      ],
+      "target_edge_pairs": [
+        [
+          "T0",
+          "T1"
+        ],
+        [
+          "T0",
+          "T2"
+        ],
+        [
+          "T0",
+          "T3"
+        ]
+      ],
+      "deleted_loop_column_indices": [
+        1,
+        5,
+        9,
+        10
+      ],
+      "deleted_edge_column_indices": [
+        6,
+        7,
+        12
+      ],
+      "retained_column_count": 8,
+      "complete_normal_form": true,
+      "m95_template": false,
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 2,
+          "endpoints": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 3,
+          "endpoints": [
+            "T0",
+            "T3"
+          ]
+        }
+      ],
+      "bipartite": true,
+      "odd_cycle_type_ids": null,
+      "constructor": {
+        "status": "constructed_exact",
+        "left_type_ids": [
+          "T0"
+        ],
+        "right_type_ids": [
+          "T1",
+          "T2",
+          "T3"
+        ],
+        "maximum_matching_column_indices": [
+          0
+        ],
+        "minimum_cover_type_ids": [
+          "T0"
+        ],
+        "augmentations": 1,
+        "augmenting_path_searches": 2,
+        "output_payload_bits": 10,
+        "output_verification_tests": 6
+      },
+      "exact_audit": {
+        "minimum_cover_type_ids": [
+          "T0"
+        ],
+        "maximum_matching_column_indices": [
+          0
+        ],
+        "residual_vertex_cover_number": 1,
+        "residual_matching_number": 1,
+        "matching_equality": true,
+        "matching_gap": 0,
+        "exact_repair_number": 2,
+        "equality_certificate_payload_bits": 10
+      }
+    },
+    {
+      "case_id": "B4-C4",
+      "residual_graph_kind": "cycle_4",
+      "unlooped_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "forced_type_ids": [
+        "T4"
+      ],
+      "target_edge_pairs": [
+        [
+          "T0",
+          "T1"
+        ],
+        [
+          "T0",
+          "T3"
+        ],
+        [
+          "T1",
+          "T2"
+        ],
+        [
+          "T2",
+          "T3"
+        ]
+      ],
+      "deleted_loop_column_indices": [
+        1,
+        5,
+        9,
+        10
+      ],
+      "deleted_edge_column_indices": [
+        2,
+        7
+      ],
+      "retained_column_count": 9,
+      "complete_normal_form": true,
+      "m95_template": false,
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 3,
+          "endpoints": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 12,
+          "endpoints": [
+            "T2",
+            "T3"
+          ]
+        }
+      ],
+      "bipartite": true,
+      "odd_cycle_type_ids": null,
+      "constructor": {
+        "status": "constructed_exact",
+        "left_type_ids": [
+          "T0",
+          "T2"
+        ],
+        "right_type_ids": [
+          "T1",
+          "T3"
+        ],
+        "maximum_matching_column_indices": [
+          0,
+          12
+        ],
+        "minimum_cover_type_ids": [
+          "T0",
+          "T2"
+        ],
+        "augmentations": 2,
+        "augmenting_path_searches": 3,
+        "output_payload_bits": 17,
+        "output_verification_tests": 9
+      },
+      "exact_audit": {
+        "minimum_cover_type_ids": [
+          "T0",
+          "T2"
+        ],
+        "maximum_matching_column_indices": [
+          0,
+          12
+        ],
+        "residual_vertex_cover_number": 2,
+        "residual_matching_number": 2,
+        "matching_equality": true,
+        "matching_gap": 0,
+        "exact_repair_number": 3,
+        "equality_certificate_payload_bits": 17
+      }
+    },
+    {
+      "case_id": "B5-P5",
+      "residual_graph_kind": "path_5",
+      "unlooped_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "forced_type_ids": [],
+      "target_edge_pairs": [
+        [
+          "T0",
+          "T1"
+        ],
+        [
+          "T1",
+          "T2"
+        ],
+        [
+          "T2",
+          "T3"
+        ],
+        [
+          "T3",
+          "T4"
+        ]
+      ],
+      "deleted_loop_column_indices": [
+        1,
+        5,
+        9,
+        10,
+        11
+      ],
+      "deleted_edge_column_indices": [
+        2,
+        3,
+        4,
+        7,
+        8,
+        13
+      ],
+      "retained_column_count": 4,
+      "complete_normal_form": true,
+      "m95_template": false,
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 12,
+          "endpoints": [
+            "T2",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 14,
+          "endpoints": [
+            "T3",
+            "T4"
+          ]
+        }
+      ],
+      "bipartite": true,
+      "odd_cycle_type_ids": null,
+      "constructor": {
+        "status": "constructed_exact",
+        "left_type_ids": [
+          "T0",
+          "T2",
+          "T4"
+        ],
+        "right_type_ids": [
+          "T1",
+          "T3"
+        ],
+        "maximum_matching_column_indices": [
+          0,
+          12
+        ],
+        "minimum_cover_type_ids": [
+          "T1",
+          "T3"
+        ],
+        "augmentations": 2,
+        "augmenting_path_searches": 3,
+        "output_payload_bits": 17,
+        "output_verification_tests": 9
+      },
+      "exact_audit": {
+        "minimum_cover_type_ids": [
+          "T1",
+          "T3"
+        ],
+        "maximum_matching_column_indices": [
+          0,
+          12
+        ],
+        "residual_vertex_cover_number": 2,
+        "residual_matching_number": 2,
+        "matching_equality": true,
+        "matching_gap": 0,
+        "exact_repair_number": 2,
+        "equality_certificate_payload_bits": 17
+      }
+    },
+    {
+      "case_id": "B6-K2-3",
+      "residual_graph_kind": "complete_bipartite_2_3",
+      "unlooped_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "forced_type_ids": [],
+      "target_edge_pairs": [
+        [
+          "T0",
+          "T2"
+        ],
+        [
+          "T0",
+          "T3"
+        ],
+        [
+          "T0",
+          "T4"
+        ],
+        [
+          "T1",
+          "T2"
+        ],
+        [
+          "T1",
+          "T3"
+        ],
+        [
+          "T1",
+          "T4"
+        ]
+      ],
+      "deleted_loop_column_indices": [
+        1,
+        5,
+        9,
+        10,
+        11
+      ],
+      "deleted_edge_column_indices": [
+        0,
+        12,
+        13,
+        14
+      ],
+      "retained_column_count": 6,
+      "complete_normal_form": true,
+      "m95_template": false,
+      "residual_edges": [
+        {
+          "column_index": 2,
+          "endpoints": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 3,
+          "endpoints": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 4,
+          "endpoints": [
+            "T0",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 7,
+          "endpoints": [
+            "T1",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 8,
+          "endpoints": [
+            "T1",
+            "T4"
+          ]
+        }
+      ],
+      "bipartite": true,
+      "odd_cycle_type_ids": null,
+      "constructor": {
+        "status": "constructed_exact",
+        "left_type_ids": [
+          "T0",
+          "T1"
+        ],
+        "right_type_ids": [
+          "T2",
+          "T3",
+          "T4"
+        ],
+        "maximum_matching_column_indices": [
+          2,
+          7
+        ],
+        "minimum_cover_type_ids": [
+          "T0",
+          "T1"
+        ],
+        "augmentations": 2,
+        "augmenting_path_searches": 3,
+        "output_payload_bits": 17,
+        "output_verification_tests": 11
+      },
+      "exact_audit": {
+        "minimum_cover_type_ids": [
+          "T0",
+          "T1"
+        ],
+        "maximum_matching_column_indices": [
+          2,
+          7
+        ],
+        "residual_vertex_cover_number": 2,
+        "residual_matching_number": 2,
+        "matching_equality": true,
+        "matching_gap": 0,
+        "exact_repair_number": 2,
+        "equality_certificate_payload_bits": 17
+      }
+    },
+    {
+      "case_id": "N1-triangle-pendant",
+      "residual_graph_kind": "triangle_with_pendant",
+      "unlooped_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "forced_type_ids": [
+        "T4"
+      ],
+      "target_edge_pairs": [
+        [
+          "T0",
+          "T1"
+        ],
+        [
+          "T0",
+          "T2"
+        ],
+        [
+          "T1",
+          "T2"
+        ],
+        [
+          "T2",
+          "T3"
+        ]
+      ],
+      "deleted_loop_column_indices": [
+        1,
+        5,
+        9,
+        10
+      ],
+      "deleted_edge_column_indices": [
+        3,
+        7
+      ],
+      "retained_column_count": 9,
+      "complete_normal_form": true,
+      "m95_template": false,
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 2,
+          "endpoints": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 12,
+          "endpoints": [
+            "T2",
+            "T3"
+          ]
+        }
+      ],
+      "bipartite": false,
+      "odd_cycle_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T0"
+      ],
+      "constructor": {
+        "status": "rejected_non_bipartite",
+        "left_type_ids": null,
+        "right_type_ids": null,
+        "maximum_matching_column_indices": null,
+        "minimum_cover_type_ids": null,
+        "augmentations": null,
+        "augmenting_path_searches": null,
+        "output_payload_bits": null,
+        "output_verification_tests": null
+      },
+      "exact_audit": {
+        "minimum_cover_type_ids": [
+          "T0",
+          "T2"
+        ],
+        "maximum_matching_column_indices": [
+          0,
+          12
+        ],
+        "residual_vertex_cover_number": 2,
+        "residual_matching_number": 2,
+        "matching_equality": true,
+        "matching_gap": 0,
+        "exact_repair_number": 3,
+        "equality_certificate_payload_bits": 17
+      }
+    },
+    {
+      "case_id": "N2-C5",
+      "residual_graph_kind": "cycle_5",
+      "unlooped_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "forced_type_ids": [],
+      "target_edge_pairs": [
+        [
+          "T0",
+          "T1"
+        ],
+        [
+          "T0",
+          "T4"
+        ],
+        [
+          "T1",
+          "T2"
+        ],
+        [
+          "T2",
+          "T3"
+        ],
+        [
+          "T3",
+          "T4"
+        ]
+      ],
+      "deleted_loop_column_indices": [
+        1,
+        5,
+        9,
+        10,
+        11
+      ],
+      "deleted_edge_column_indices": [
+        2,
+        3,
+        7,
+        8,
+        13
+      ],
+      "retained_column_count": 5,
+      "complete_normal_form": true,
+      "m95_template": false,
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 4,
+          "endpoints": [
+            "T0",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 12,
+          "endpoints": [
+            "T2",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 14,
+          "endpoints": [
+            "T3",
+            "T4"
+          ]
+        }
+      ],
+      "bipartite": false,
+      "odd_cycle_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T0"
+      ],
+      "constructor": {
+        "status": "rejected_non_bipartite",
+        "left_type_ids": null,
+        "right_type_ids": null,
+        "maximum_matching_column_indices": null,
+        "minimum_cover_type_ids": null,
+        "augmentations": null,
+        "augmenting_path_searches": null,
+        "output_payload_bits": null,
+        "output_verification_tests": null
+      },
+      "exact_audit": {
+        "minimum_cover_type_ids": [
+          "T0",
+          "T1",
+          "T3"
+        ],
+        "maximum_matching_column_indices": [
+          0,
+          12
+        ],
+        "residual_vertex_cover_number": 3,
+        "residual_matching_number": 2,
+        "matching_equality": false,
+        "matching_gap": 1,
+        "exact_repair_number": 3,
+        "equality_certificate_payload_bits": null
+      }
+    }
+  ],
+  "totals": {
+    "case_count": 8,
+    "bipartite_case_count": 6,
+    "nonbipartite_case_count": 2,
+    "constructed_exact_count": 6,
+    "nonbipartite_equality_count": 1,
+    "matching_gap_count": 1,
+    "residual_vertex_cover_number_sum": 15,
+    "residual_matching_number_sum": 14,
+    "exact_repair_number_sum": 21,
+    "constructed_output_payload_bits": 88,
+    "constructed_output_verification_tests": 48,
+    "augmentations": 10,
+    "augmenting_path_searches": 16,
+    "nonbipartite_equality_payload_bits": 17,
+    "maximum_matching_gap": 1
+  },
+  "scope": {
+    "classification": "EMPIRICAL",
+    "source_dependency": "EMP-066",
+    "synthetic_target_graphs": true,
+    "not_claimed": [
+      "a factor-promise recognizer",
+      "a polynomial constructor for arbitrary vertex cover",
+      "bipartiteness of every residual coverer graph",
+      "factor-independent construction of complete type lists",
+      "an asymptotic selector theorem",
+      "general classical polynomial-time factoring"
+    ]
+  },
+  "summary_sha256": "4e421881658b411e636bf8abe862cd73c09a8def1ff609f9ef5eb66659790492"
+}
