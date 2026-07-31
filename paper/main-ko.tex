@@ -1965,6 +1965,15 @@ pair 5,440,051개를 추가했다. summary SHA-256은
 \]
 이다.
 
+\claimstatus{EMP-061}{EMPIRICAL}.
+EXP-0061은 project import가 없는 624줄 표준 라이브러리 checker를
+추가한다. 3,299개 소수 모집단과 3,298개 좌표 인증서를 10,880,102개
+coordinate-streamed 평가로 다시 구성하면서 3,299개 packed-signature
+slot만 유지한다. predecessor pair에서 cap-200 descriptor 704,261개
+전체와 새 cap-201 primitive coordinate 81,112개를 검사한다. 아홉
+clean-room 및 mutation test가 통과했다. 이는 유한 M46 전용 근거이며
+점근적 결과나 일반 인수분해 결과가 아니다.
+
 \subsection{THM-019와 BAR-040의 증명}
 
 두 공개 cap의 정확한 동치분할은 비자명 bucket을 보존하므로 두 공식을
@@ -2999,10 +3008,11 @@ M31--M46의 통합 artifact와 영문·국문 표는 같은 26개 row에서 생�
 python scripts/generate_m50_finite_threshold_summary.py --check
 python scripts/check_m50_finite_threshold_summary.py
 python scripts/check_m85_m41_semantic_certificate.py
+python scripts/check_m86_m46_streaming_certificate.py
 \end{verbatim}
 앞의 두 명령은 26개 행 전체의 projection과 frozen-source integrity를
-검증한다. 세 번째 명령은 generator import 없이 M41 semantics를
-재계산하고 hash를 다시 계산한 변이를 거부하지만 나머지 25개 행을
+검증한다. 마지막 두 명령은 generator import 없이 M41과 M46 semantics를
+재계산하고 hash를 다시 계산한 변이를 거부하지만 나머지 24개 행을
 독립 인증하지 않는다.
 
 \textbf{EMP-028 [EMPIRICAL].}

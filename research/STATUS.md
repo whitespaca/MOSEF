@@ -1,5 +1,99 @@
 # Research Status
 
+## M86 outcome
+
+- Date: 2026-07-31.
+- Branch: `research/20260731-m86-final-row-semantic-checker`.
+- Base: M85 squash merge
+  `304bc5ae0c5a9593b46b88a7fa34200fd0a38744`.
+- Completed milestone: M86, a streaming clean-room semantic checker for the
+  frozen M46 \(m=34\) finite selector certificate.
+- `scripts/check_m86_m46_streaming_certificate.py` is 624 lines and imports
+  only the Python standard library. It imports no generator, project
+  number-theory module, M85 checker, or earlier certificate checker; an AST
+  regression test enforces this boundary.
+- The checker reconstructs the exact 3,299-prime balanced population and all
+  3,298 registered certificate coordinates. It streams 10,880,102
+  coordinate/prime evaluations while retaining only 3,299 mutable packed
+  signature slots rather than materializing the full certificate matrix.
+- The cap-200 predecessor grammar has exactly 704,261 descriptors. Scanning
+  all of them on the tracked pair proves that \(\{97927,99527\}\) collides in
+  the complete raw predecessor. Cap 201 has 714,400 descriptors, so 10,139
+  descriptors and 81,112 primitive coordinates are newly admitted. Exactly
+  `phi6:149:201:45:cofactor` has pattern \((1,0)\) on the predecessor pair.
+  The complete cap-201 certificate separates all 5,440,051 population pairs.
+  This proves only the minimum one-coordinate incremental repair; it does not
+  claim that the full certificate has minimum size.
+- Because every M46 prime satisfies \(p\ge92683>201^2+1\), no registered
+  cofactor denominator is a cyclotomic root. The M46 reconstruction therefore
+  uses only finite-field unit division, with no hidden derivative branch.
+- The checker validates the frozen M46 summary SHA-256
+  `52c7899c6d93a747b52fa531e4261ba842acbceb06ae28f420005f8606c85a11`
+  and schema file SHA-256
+  `34942d674d0451b219bde70fc65909ef3baa6516b08d61df36bf6ea91e8cde61`,
+  as well as the registered primitive vectors, schedules, profiles, and
+  relevant operation counts.
+- The final checker rerun passed in 53.84 seconds. Nine targeted tests passed;
+  the initial targeted run took 53.78 seconds. Rehashed population,
+  descriptor, primitive-vector, and packed-signature mutations were rejected,
+  and a small materialized oracle agreed with the streaming assembly.
+- Full validation passed: foundation and bilingual-publication checks;
+  current M50, M82, M83, M84, M85, and M86 generators or independent
+  checkers; all 318 Python tests and 593 subtests in 269.36 seconds; Python
+  bytecode compilation; repository-wide Ruff 0.16.0; strict mypy 2.3.0 over
+  38 source files; Rust formatting, Clippy with warnings denied, and all 36
+  tests; and the C# Release build with zero warnings or errors. The recorded
+  host used Python 3.12.8, pytest 9.1.1, cargo/rustc 1.84.0, and .NET SDK
+  8.0.420.
+- The current M82 projection contains 270 claims, 21 focused and 249
+  archival-only, with canonical summary SHA-256
+  `badf8bfcfb1b472f4bf54920d9224efaef160a03118ec0841d9565a7691367f3`.
+  The current M83 audit file SHA-256 is
+  `9a6116f59f19369a921312870e5539c48ef70660034ca8915cd435e71ced59c4`.
+- Four converged XeLaTeX builds passed final-log and rendered-page review:
+  archive English, 127 pages,
+  `c59710cf91e955f3d19f4df2d1b162a35e2e992fd7516e001af0ad437046e05d`;
+  archive Korean, 56 pages,
+  `409aacdcbdecc9deaf2649866ebcd7aacac053d6520ef01be876b6758154386d`;
+  focused finite-certificate English, 6 pages,
+  `73a9e38095fced2951b14e6bf16b77a8d4bde56ecde12ed0a6334e76c083e4bf`;
+  focused finite-certificate Korean, 6 pages,
+  `573f3a2ddb8caf90cb83025b652fd891076b669cc980fe3aa184f9eb2cef76a8`.
+  Final logs contain no selected undefined-reference, citation, overfull,
+  underfull, missing-glyph, or rerun warnings. All focused pages and the
+  affected archive result, cost-table, and reproduction pages passed rendered
+  review; a duplicate trust paragraph that had produced a mostly blank
+  archive page was removed before the final build.
+- The internal adversarial review passed the no-project-import, population,
+  grammar-count, streaming/materialized parity, source-hash, raw-predecessor,
+  repair-uniqueness, full-injectivity, mutation, and finite-scope threats.
+  This is not external peer review or formal proof-assistant verification.
+- Scope: M85 and M86 independently reconstruct only the representative M41
+  and final M46 rows. The other 24 M50 rows still rely on the integrated
+  generator/checker trust path. M86 does not recognize the balanced promise,
+  prove a cap formula beyond \(m=34\), establish an asymptotic rate, or change
+  a theorem status. General classical polynomial-time factoring remains open.
+  M87 is active and will audit the three focused bilingual paper pairs for a
+  consistent online/offline cost model and 200--300-word abstracts.
+
+### M86 Korean summary
+
+M86은 마지막 M46 \(m=34\) 동결 인증서를 대상으로 generator와 기존
+수론 구현을 import하지 않는 624줄 표준 라이브러리 streaming checker를
+추가했다. checker는 balanced 소수 3,299개와 인증서 좌표 3,298개를
+재구성하고 10,880,102회의 좌표-소수 평가를 수행하면서 mutable
+packed-signature slot은 3,299개만 유지한다. cap 200의 descriptor
+704,261개 전체에서 \(\{97927,99527\}\)가 충돌함을 확인했고, cap 201에서
+새로 허용되는 81,112개 primitive 좌표 가운데
+`phi6:149:201:45:cofactor`의 \((1,0)\)만 이 쌍을 분리했다. 완전한
+cap-201 인증서는 모든 5,440,051개 쌍을 분리한다. 아홉 targeted test와
+전체 318개 Python test, Rust/C# 및 영문·국문 논문 빌드가 통과했다.
+M85와 M86은 각각 M41과 M46 두 행의 신뢰 기반만 줄이며 나머지 24개
+행을 독립 인증하지 않는다. 이 결과는 \(m>34\)의 단사성이나 일반
+고전 다항시간 정수분해를 증명하지 않으며, 해당 문제는 계속 열린
+상태다. 다음 M87은 세 집중 논문 쌍의 초록 길이와 online/offline 비용
+모델을 일관되게 정리한다.
+
 ## M85 outcome
 
 - Date: 2026-07-31.

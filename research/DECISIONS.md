@@ -1348,3 +1348,21 @@
   semantic checkers and M50 integrity path; no table-wide clean-room claim is
   made. M86 will test whether the same trust boundary can be extended to the
   final M46 row with streaming and bounded-memory evaluation.
+
+## ADR-071 - Stream the M46 certificate by coordinate
+
+- Date: 2026-07-31.
+- Decision: validate the final M46 row with a standalone standard-library
+  checker that iterates one certificate coordinate at a time and retains one
+  packed signature per population prime. Stream the cap-200 and cap-201
+  descriptor grammars instead of materializing descriptor sets.
+- Rationale: the full construction has 10,880,102 coordinate/prime cells.
+  Retaining a Python object for every cell would unnecessarily enlarge the
+  reviewer memory and trust surface. The streaming invariant needs exactly
+  3,299 mutable signature slots while preserving exact comparison with the
+  registered certificate.
+- Consequence: M46 now has a 624-line clean-room semantic path that completes
+  in under one minute on the recorded host. M85 and M86 cover two endpoint
+  rows only; the other 24 M50 rows retain their existing semantic and
+  integrity paths. No asymptotic memory, selector-wide, or general-factoring
+  claim is made.

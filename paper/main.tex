@@ -3500,6 +3500,16 @@ and the schema SHA-256 is
 \[
 \texttt{\seqsplit{34942d674d0451b219bde70fc65909ef3baa6516b08d61df36bf6ea91e8cde61}}.
 \]
+
+\claimstatus{EMP-061}{EMPIRICAL}. EXP-0061 adds a 624-line
+standard-library-only checker with no project imports. It reconstructs the
+3,299-prime population and 3,298-coordinate certificate through 10,880,102
+coordinate-streamed evaluations while retaining 3,299 packed-signature
+slots. It checks all 704,261 cap-200 descriptors on the predecessor pair and
+all 81,112 newly admitted cap-201 primitive coordinates. Nine clean-room and
+mutation tests pass. This is finite M46-only evidence, not an asymptotic or
+general-factoring result.
+
 Appendix \ref{proof:THM-019-BAR-040} gives the complete finite proof.
 
 \section{Polynomial numeric-cap support barrier}
@@ -4680,11 +4690,12 @@ M50 artifact and both table fragments are checked with:
 python scripts/generate_m50_finite_threshold_summary.py --check
 python scripts/check_m50_finite_threshold_summary.py
 python scripts/check_m85_m41_semantic_certificate.py
+python scripts/check_m86_m46_streaming_certificate.py
 \end{verbatim}
 The first two commands check projection and frozen-source integrity for all
-26 rows. The third recomputes M41 semantics without generator imports and
-rejects selected rehashed mutations; it does not independently certify the
-other 25 rows.
+26 rows. The final two recompute M41 and M46 semantics without generator
+imports and reject selected rehashed mutations; they do not independently
+certify the other 24 rows.
 
 The baseline suite includes modular exponentiation, trial division,
 perfect-power detection, validation primality, bounded Pollard rho, Pollard

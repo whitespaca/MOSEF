@@ -48,3 +48,11 @@ cap-103 coordinates. Rehashed population, descriptor, and primitive-vector
 mutations are rejected semantically. This closes the requested minimal
 checker for one representative row; it is not a clean-room validation of all
 26 finite rows.
+
+M86 extends the same semantic boundary to the final M46 \(m=34\) row without
+turning the minimal-checker recommendation into a table-wide claim. Its
+624-line standard-library checker streams 10,880,102 coordinate/prime
+evaluations into 3,299 packed signatures, confirms the complete cap-200
+collision, and checks all 81,112 newly admitted cap-201 primitive
+coordinates. M85 and M86 therefore cover two of the 26 finite rows; the other
+24 still require their legacy semantic paths and the M50 integrity layer.

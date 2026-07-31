@@ -29,17 +29,18 @@ anchors, and state their own exclusions.
 
 ## Coverage and trust boundary
 
-- 269 authoritative claim IDs are projected.
+- 270 authoritative claim IDs are projected.
 - 21 claim IDs are front-facing in exactly one focused paper pair.
-- 248 claim IDs remain archival-only.
+- 249 claim IDs remain archival-only.
 - A claim is not absent merely because it is not front-facing.
 - The focused paper source is not a second authority for status.
 - The generator records source hashes and the full archive-only list.
 - The independent checker does not import the generator and fixes the
   authoritative ledger, archive, focused-paper, reproduction-anchor, and
   required source-hash paths in its own implementation.
-- M85 will further reduce the finite certificate trusted computing base with
-  a minimal semantic checker.
+- M85 and M86 reduce the finite-certificate trusted computing base for the
+  representative M41 and final M46 rows. The other 24 rows retain the
+  integrated semantic path.
 
 ## Reproduction
 

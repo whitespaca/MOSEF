@@ -44,8 +44,10 @@ python scripts/check_m59_half_order_size_differential.py
 python scripts/check_m60_m80_synthesis_differential.py
 python scripts/check_m84_promise_wrappers.py
 python scripts/check_m85_m41_semantic_certificate.py
+python scripts/check_m86_m46_streaming_certificate.py
 python -m unittest discover -s tests -p test_promise_wrappers.py
 python -m pytest tests/test_m85_semantic_certificate.py -q
+python -m pytest tests/test_m86_streaming_semantic_certificate.py -q
 ```
 
 These commands recompute registered masks, identities, collision or
@@ -59,6 +61,12 @@ coordinates, verifies the exact cap-102 collision and cap-103 injectivity,
 and imports no generator or project number-theory module. Its mutation suite
 rehashes altered artifacts before selected negative checks, so passing is not
 equivalent to trusting the legacy SHA-256.
+
+The M86 command is the streaming clean-room option for the final M46 row. It
+reconstructs all 3,299 balanced primes and streams 10,880,102 certificate
+evaluations into 3,299 packed signatures, verifies the exact cap-200 collision
+and cap-201 unique repair, and imports no project code. It does not retain a
+prime-by-coordinate matrix or either complete descriptor set.
 
 ### Level C: complete repository gate
 
