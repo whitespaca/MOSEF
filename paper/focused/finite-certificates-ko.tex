@@ -31,7 +31,9 @@ certificate 생성과 hash 계산은 offline 증명 비용이며 알고리즘 ad
   7,520,669개 raw-mask 평가를 수행했고 측정 peak는 29.15 MiB였다.
   compact 상계/하계 증인은 non-domain-floor repair 19개 모두를 독립
   인증하며, 초기 두 경우는 private pair 대신 cardinality 또는 subset
-  obstruction을 필요로 한다.
+  obstruction을 필요로 한다. 두 type 체계는 각각 \(K_3\)와 \(K_4\)의
+  vertex--edge incidence 행렬이며, 공통 \(t-1\) repair 정리와 검증
+  작업 감소 없는 56-bit payload 감소를 준다.
   별도로 같은 정확한 문법의 모든
 polynomial numeric cap이 결국 실패함을 증명하고, 감사된 경계 아래의
 compact-gap 비단사 장벽을 제시한다. 이 인증서는 작은 유한 범위와 한
@@ -85,6 +87,9 @@ pair-cover 전수 검사가 9개 등록 repair 최소값을 복구하며, 길이
 28에서는 실제 cap-72와 cap-88 baseline을 유지한다.
 독립 early-repair checker는 154,920개 primitive coordinate를 평가하여
 길이 16--25의 전이 열 개에 대한 정확한 compact 인증서를 완성한다.
+별도 production incidence checker는 자신의 generator나 이전 checker를
+import하지 않고 두 private-pair 실패의 모든 coverer 열과 \(K_3/K_4\)
+구조를 재구성한다.
 
 cyclotomic root가 아니면 유한체 나눗셈으로 cofactor를 평가하고,
 simple root에서는 정확한 항등식 \(F=\Phi C\)를 미분하여
@@ -223,6 +228,50 @@ pair 23개, 완전 type 18개와 정확한 최소값
 여덟 instance는 private pair를, 길이 16은 cardinality를, 길이 24는
 여섯 2-type obstruction 전체를 사용한다. 483-bit portfolio와
 145-test 핵심 ledger는 유한하고 selector-specific이다.
+
+\readerclaim{정의}{Coverer graph}
+{\texttt{DEF-050: DEFINITION}}
+완전한 유한 type family \(T\)에 대해
+\(D(u)=\{T_i\in T:u\in T_i\}\)로 둔다. 모든 universe 원소의 coverer가
+정확히 두 개이면 \(D(u)\)들은 \(T\) 위 coverer multigraph의 간선이다.
+모든 unordered type pair가 나타나면 complete-graph incidence라 한다.
+
+\readerclaim{정리}{Complete-graph repair 인증서}
+{\claimstatus{THM-023}{PROVED}}
+모든 universe 원소의 coverer가 정확히 두 개이면 repair cover는
+coverer multigraph의 vertex cover와 정확히 같다. underlying simple
+graph가 \(K_t\)이면 정확한 repair number는 \(t-1\)이다.
+
+\begin{claimproof}
+선택 type이 한 원소를 덮는 것은 해당 두-정점 간선을 만나는 것과
+동치이다. 임의의 \(t-1\)개 type은 모든 간선을 만난다. 반대로
+최대 \(t-2\)개 type만 선택하면 두 정점을 빠뜨리고, complete-graph
+incidence가 그 두 type에 의해서만 덮이는 원소를 제공한다.
+
+upper 또는 lower witness index를 저장할 필요가 없다. 앞의
+\(b,q,t,\lambda\) 표기에서 pattern과 mask payload는
+\(\lambda+t(b+q)\) bit이고 전체 구조 verifier 비용은
+\[
+ O(tb+2tq+q\log t+\lambda)
+\]
+bit operation이다. 외부 type family의 완전성은 별도 전제이다.
+\end{claimproof}
+
+\readerclaim{반박된 지름길}{Payload 감소는 verifier 감소가 아니다}
+{\texttt{REF-063: REFUTED}}
+clique criterion은 길이 16에서 payload 8 bit, 길이 24에서 48 bit를
+줄인다. 그러나 보수적 핵심 ledger는 첫 사례에서 16 test에서 21
+test로 늘고 둘째 사례에서는 54로 같다. 이는 payload 압축이지
+엄격한 verifier-work 개선이 아니다.
+
+\readerclaim{유한 감사}{Clique-incidence 인증서 두 개}
+{\texttt{EMP-065: EMPIRICAL}}
+source-bound checker는 tracked point 7개, universe pair 9개, type 7개,
+양의 incidence 18개를 재구성한다. 길이 16과 24의 coverer 사상은 각각
+\(K_3\), \(K_4\) 간선에 대한 전단사이다. 구조 payload는 기존 186
+bit 대신 130 bit로 56 bit 작다. 11개 test에는 direct-mask
+differential과 source-rebound mutation이 포함된다. type 완전성은
+EMP-064에 의존한다.
 
 \section{초기 및 확장 유한 정리}
 
@@ -451,6 +500,8 @@ python scripts/check_m92_pair_cover_certificate.py
 python -m pytest -p no:cacheprovider tests/test_m92_pair_cover_certificate.py -q
 python scripts/check_m93_early_repair_certificate.py
 pytest -p no:cacheprovider tests/test_m93_early_repair_certificate.py -q
+python scripts/check_m94_clique_incidence_certificate.py
+pytest -p no:cacheprovider tests/test_m94_clique_incidence_certificate.py -q
 \end{verbatim}
 기초 M31--M46 schema, generator, differential checker, 명령, toolchain,
 row hash, 선택된 cross-language vector는 \path{schemas}, \path{scripts},
@@ -465,7 +516,9 @@ test를 통과했다.
 일곱 번째 명령은 all-row 경로에 대한 완전 raw-coverage differential을
 포함한다. 여덟 번째 명령은 154,920개 primitive-coordinate test로
 483-bit early portfolio를 독립 재구성하고, 아홉 번째 명령은 완전
-raw-type/count differential과 mutation suite를 포함한다.
+raw-type/count differential과 mutation suite를 포함한다. 열 번째
+명령은 \(K_3/K_4\) 인증서의 coverer 열 9개를 모두 재구성하고, 열한
+번째 명령은 mutation과 direct-mask differential 경로를 검사한다.
 
 archival monograph \archivepaper{}는 전체 전이 chronology와 완전 증명을
 보존한다. claim 장부는 \path{research/CLAIMS.md}, 기계 검증되는 논문

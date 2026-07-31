@@ -159,6 +159,7 @@ EXPECTED_CLAIMS = {
         "BAR-024",
         "THM-021",
         "THM-022",
+        "THM-023",
         "THM-004",
         "THM-005",
         "THM-014",
@@ -195,6 +196,8 @@ EXPECTED_COMMANDS = {
         "python -m pytest -p no:cacheprovider tests/test_m92_pair_cover_certificate.py -q",
         "python scripts/check_m93_early_repair_certificate.py",
         "pytest -p no:cacheprovider tests/test_m93_early_repair_certificate.py -q",
+        "python scripts/check_m94_clique_incidence_certificate.py",
+        "pytest -p no:cacheprovider tests/test_m94_clique_incidence_certificate.py -q",
     ),
 }
 

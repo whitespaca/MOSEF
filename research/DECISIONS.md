@@ -1511,3 +1511,23 @@
   primitive coordinates and checks a 483-bit abstract portfolio. The result
   remains finite and selector-specific and does not change the OPEN status of
   general classical polynomial-time factoring.
+
+## ADR-079 - Treat two-coverer columns as a graph certificate
+
+- Date: 2026-07-31.
+- Decision: reconstruct the full coverer set of every universe element before
+  selecting a lower argument. When every column has exactly two coverers,
+  identify repair covers with vertex covers of the resulting coverer
+  multigraph. For the two private-pair failures, verify every \(K_3\) or
+  \(K_4\) edge rather than retaining an explicit undersized-subset list.
+- Rationale: the length-16 and length-24 masks are vertex-edge incidence
+  matrices of complete graphs. Complete-graph incidence makes the exact
+  minimum \(t-1\), makes any fixed omitted type an implicit upper witness, and
+  removes all stored upper/lower indices. The criterion is checked from the
+  masks; the JSON coverer list is a redundant audit trace.
+- Consequence: THM-023 supplies the finite structural theorem and EXP-0065
+  records 130 payload bits instead of the incumbent 186, saving 56. The
+  conservative verifier ledger is 75 rather than 70 tests, so REF-063 and
+  NR-062 preserve that payload compression is not strict work compression.
+  The applications inherit type-family completeness from EMP-064 and do not
+  change any asymptotic or general-factoring claim.

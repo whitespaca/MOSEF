@@ -43,7 +43,7 @@ class M88ReaderLabelTests(unittest.TestCase):
     def test_current_reader_labels_pass(self) -> None:
         reports = CHECKER.validate_all()
         self.assertEqual(len(reports), 6)
-        self.assertEqual(sum(len(report.claim_ids) for report in reports), 46)
+        self.assertEqual(sum(len(report.claim_ids) for report in reports), 48)
         self.assertEqual(
             {kind for report in reports for kind in report.kinds},
             {

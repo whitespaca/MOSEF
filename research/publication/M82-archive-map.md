@@ -21,18 +21,18 @@ The machine-readable projection is
 |---|---|---|---|
 | A: promise factorization | `paper/focused/promise-factorization-en.tex` | `paper/focused/promise-factorization-ko.tex` | THM-001, BAR-001, BAR-002, LEM-003, THM-002, BAR-003, BAR-004 |
 | B: cyclotomic extraction | `paper/focused/cyclotomic-extraction-en.tex` | `paper/focused/cyclotomic-extraction-ko.tex` | BAR-018, BAR-019, THM-003, BAR-020, BAR-021, BAR-022, BAR-023 |
-| C: finite certificates | `paper/focused/finite-certificates-en.tex` | `paper/focused/finite-certificates-ko.tex` | BAR-024, THM-021, THM-022, THM-004, THM-005, THM-014, THM-019, BAR-041, BAR-046 |
+| C: finite certificates | `paper/focused/finite-certificates-en.tex` | `paper/focused/finite-certificates-ko.tex` | BAR-024, THM-021, THM-022, THM-023, THM-004, THM-005, THM-014, THM-019, BAR-041, BAR-046 |
 
 The promise and cyclotomic pairs have seven front-facing claim IDs each; the
-finite pair has nine. The papers use the same status token as
+finite pair has ten. The papers use the same status token as
 `research/CLAIMS.md`, link to their proof or reproduction anchors, and state
 their own exclusions.
 
 ## Coverage and trust boundary
 
-- 279 authoritative claim IDs are projected.
-- 23 claim IDs are front-facing in exactly one focused paper pair.
-- 256 claim IDs remain archival-only.
+- 283 authoritative claim IDs are projected.
+- 24 claim IDs are front-facing in exactly one focused paper pair.
+- 259 claim IDs remain archival-only.
 - A claim is not absent merely because it is not front-facing.
 - The focused paper source is not a second authority for status.
 - The generator records source hashes and the full archive-only list.
@@ -57,7 +57,7 @@ their own exclusions.
   `research/reviews/2026-07-31-m89-appendix-boundary-editorial-audit.md`.
 - M90 moves the generated 26-row finite threshold chronology into the finite
   paper's reproduction appendix. The main narrative retains the five
-  reviewer-prioritized cases and all nine current focused claim IDs; the complete
+  reviewer-prioritized cases and all ten current focused claim IDs; the complete
   row audit is
   `research/reviews/2026-07-31-m90-finite-chronology-editorial-audit.md`.
 - M91 reconstructs all 26 finite rows from the shared public grammar without
@@ -74,6 +74,11 @@ their own exclusions.
   cardinality or subset-obstruction alternatives. Its proof and execution
   record are `research/proofs/THM-022-subset-obstruction-certificate.md` and
   `research/experiments/EXP-0064-m93-early-repair-certificates.md`.
+- M94 reconstructs every coverer column of the two private-pair failures and
+  identifies exact \(K_3/K_4\) vertex-edge incidence. Its structural theorem
+  and execution record are
+  `research/proofs/THM-023-clique-incidence-cover-certificate.md` and
+  `research/experiments/EXP-0065-m94-clique-incidence.md`.
 
 ## Reproduction
 
@@ -95,6 +100,8 @@ python scripts/check_m92_pair_cover_certificate.py
 pytest -p no:cacheprovider tests/test_m92_pair_cover_certificate.py -q
 python scripts/check_m93_early_repair_certificate.py
 pytest -p no:cacheprovider tests/test_m93_early_repair_certificate.py -q
+python scripts/check_m94_clique_incidence_certificate.py
+pytest -p no:cacheprovider tests/test_m94_clique_incidence_certificate.py -q
 ```
 
 Compile the six papers from the repository root with XeLaTeX:

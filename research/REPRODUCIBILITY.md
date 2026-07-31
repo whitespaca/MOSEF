@@ -28,6 +28,9 @@ python scripts/check_m92_pair_cover_certificate.py
 python scripts/run_m93_early_repair_audit.py
 python scripts/generate_m93_early_repair_schema.py
 python scripts/check_m93_early_repair_certificate.py
+python scripts/run_m94_clique_incidence_audit.py
+python scripts/generate_m94_clique_incidence_schema.py --check
+python scripts/check_m94_clique_incidence_certificate.py
 python scripts/check_publication.py
 ```
 
@@ -70,6 +73,7 @@ pytest -p no:cacheprovider tests/test_m90_finite_chronology.py -q
 pytest -p no:cacheprovider tests/test_m91_all_rows_semantic_certificate.py -q
 pytest -p no:cacheprovider tests/test_m92_pair_cover_certificate.py -q
 pytest -p no:cacheprovider tests/test_m93_early_repair_certificate.py -q
+pytest -p no:cacheprovider tests/test_m94_clique_incidence_certificate.py -q
 ```
 
 These commands recompute registered masks, identities, collision or

@@ -145,6 +145,9 @@ deduplicate하면 subset 지수가 사라져 이 범위는 \(c<1/2\)로
 987줄 표준 라이브러리 checker는 16개 source artifact에서 동결된 유한
 selector 26행 전체를 독립 재구성했으며, 측정값은 155.31초와
 29.15 MiB였다. 이는 유한 empirical 감사 근거이지 점근 추론이 아니다.
+private-pair 실패 두 개는 \(K_3/K_4\) coverer incidence를 가지며,
+하나의 정확한 \(t-1\) repair 정리와 verifier 작업 감소 없는 56-bit
+payload 압축을 준다.
 이 양성 결과는 인수분해에 의존하는 유한 약속 정리이다. 일반 고전적
 다항 시간 정수분해 알고리즘이나 모든 다항 selector의 하한은 주장하지
 않는다.
@@ -2080,6 +2083,43 @@ rehashed mutation과 M91에 대한 완전 raw-type/count differential
 equality가 포함된다. EXP-0063과 합치면 \(m=34\)까지 동결 repair
 19개 모두가 정확한 compact 인증서를 갖지만 점근적 또는 일반
 인수분해 결론은 따르지 않는다.
+
+\claimstatus{DEF-050}{DEFINITION}.
+완전한 유한 type family \(T\)에서 \(u\in U\)의 coverer set을
+\(D(u)=\{T_i\in T:u\in T_i\}\)로 정의한다. 모든 \(D(u)\)의 크기가
+2이면 이 집합들은 \(T\) 위 coverer multigraph의 간선이다. 모든
+unordered type pair가 나타나면 complete-graph incidence라 한다.
+
+\claimstatus{THM-023}{PROVED}.
+모든 universe 원소의 coverer가 정확히 두 개이면 repair cover는
+coverer multigraph의 vertex cover와 정확히 같다. underlying simple
+graph가 \(K_t\)이면 정확한 repair number는 \(t-1\)이다. 임의의
+\(t-1\)개 type은 모든 두-정점 간선을 만나지만, 최대 \(t-2\)개를
+선택하면 두 정점을 빠뜨리므로 그 pair에 의해서만 덮이는 원소를
+놓친다.
+
+upper 또는 lower witness index는 필요하지 않다. 앞의
+\(b,q,t,\lambda\) 표기에서 pattern과 mask는
+\(\lambda+t(b+q)\) bit를 사용하고 전체 구조 verifier 비용은
+\[
+ O(tb+2tq+q\log t+\lambda)
+\]
+bit operation이다. 외부에서 재구성한 type 목록의 완전성은 계속
+별도 전제이다.
+
+\claimstatus{REF-063}{REFUTED}.
+complete-graph incidence는 payload와 verifier 작업을 모두 엄격히
+줄이지 않는다. \(m=16\)에서 payload 8 bit, \(m=24\)에서 48 bit를
+줄이지만 보수적 핵심 ledger는 첫 사례에서 16 test에서 21 test로
+늘고 둘째 사례에서는 54로 같다.
+
+\claimstatus{EMP-065}{EMPIRICAL}.
+EXP-0065는 두 private-pair 실패의 모든 coverer 열을 독립 재구성한다.
+tracked point 7개, universe pair 9개, type 7개, 양의 incidence 18개가
+\(K_3\)와 \(K_4\)의 간선과 전단사를 이룬다. 구조 payload는 기존
+186 bit 대신 130 bit로 56 bit 작다. 11개 deterministic,
+differential, mutation test가 통과했다. type 완전성은 EMP-064에
+의존하므로 새로운 수론적 또는 점근적 결론은 따르지 않는다.
 
 \subsection{THM-019와 BAR-040의 증명}
 
