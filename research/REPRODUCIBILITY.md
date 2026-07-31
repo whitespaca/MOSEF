@@ -20,6 +20,7 @@ python scripts/check_m84_promise_wrappers.py
 python scripts/check_m87_focused_papers.py
 python scripts/check_m88_reader_labels.py
 python scripts/check_m89_appendix_boundaries.py
+python scripts/check_m90_finite_chronology.py
 python scripts/check_publication.py
 ```
 
@@ -51,12 +52,14 @@ python scripts/check_m86_m46_streaming_certificate.py
 python scripts/check_m87_focused_papers.py
 python scripts/check_m88_reader_labels.py
 python scripts/check_m89_appendix_boundaries.py
+python scripts/check_m90_finite_chronology.py
 python -m unittest discover -s tests -p test_promise_wrappers.py
 python -m pytest tests/test_m85_semantic_certificate.py -q
 python -m pytest tests/test_m86_streaming_semantic_certificate.py -q
 pytest -p no:cacheprovider tests/test_m87_focused_papers.py -q
 pytest -p no:cacheprovider tests/test_m88_reader_labels.py -q
 pytest -p no:cacheprovider tests/test_m89_appendix_boundaries.py -q
+pytest -p no:cacheprovider tests/test_m90_finite_chronology.py -q
 ```
 
 These commands recompute registered masks, identities, collision or
@@ -96,6 +99,13 @@ commands, 38 repository paths, and 14 inspected-source anchors. They also
 reject commands, paths, experiment IDs, hashes, and internal milestone tokens
 in the main body. Passing is an editorial integrity result; it neither
 recomputes a mathematical certificate nor changes a claim status.
+
+The M90 commands validate the finite-paper chronology split. They require
+five exact representative cases and seven focused `PROVED` claims in each
+main narrative, place the generated full table only in the reproduction
+appendix, and compare both 26-row rendered tables plus the frozen M50 JSON
+against a hard-coded semantic registry. Passing preserves the finite evidence
+but does not independently recompute every row's modular signatures.
 
 ### Level C: complete repository gate
 

@@ -192,8 +192,8 @@
     "paper/focused/promise-factorization-ko.tex": "cf9b0ebe3f2ebef36beb65f1795d61460064fcc6dd946851dfd500065e71d709",
     "paper/focused/cyclotomic-extraction-en.tex": "7c0bc3f0f67139c51058011446fcc7dd797b527821f63f970998490c72ca429b",
     "paper/focused/cyclotomic-extraction-ko.tex": "9574618e6eb8074c4f2043a60ebcc5e84c94665812949b9c78d637f550800315",
-    "paper/focused/finite-certificates-en.tex": "bd2ccc6cfe5489f2a751ef497a5e9fc1ae1a993c3cce440afccb4c0ecf49e1ba",
-    "paper/focused/finite-certificates-ko.tex": "562f3f33fd4c83a40d59c5dbc360f0c52719317ec919974dd12ac7a93bfdbeed"
+    "paper/focused/finite-certificates-en.tex": "b6da6b9bce52826f1d0e1b91af2d02223f227d93d43ed114d92a0e1aef5a8724",
+    "paper/focused/finite-certificates-ko.tex": "82bb4dab2d675ea3435220b655210c41d28ba1a53f980f57b4704047699afb84"
   },
   "scope": {
     "general_classical_polynomial_time_factoring": "OPEN",
@@ -201,5 +201,5 @@
     "priority_claims_made": false,
     "finite_certificate_max_input_length": 34
   },
-  "audit_summary_sha256": "439b540dca4558d719ce3d347423b472e11b9c16158daff459cdbcfcc060106a"
+  "audit_summary_sha256": "371c9fea49001516a06b7da9c7352e24d7dda3a1943840d852e31085ceff23e6"
 }
