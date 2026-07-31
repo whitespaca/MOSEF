@@ -78,7 +78,9 @@ p-1\mid tM_B(k),\qquad q-1\nmid tM_B(k)
 
 \section{새로운 밑을 이용한 \texorpdfstring{\(p-1\)}{p-1} 인수분해}
 
-\claimstatus{THM-001}{PROVED}. 위의 고정된 \(B,R\)마다, 새로운 균등
+\readerclaim{정리}{유전적 \(p-1\) 완전 인수분해}
+{\claimstatus{THM-001}{PROVED}}
+위의 고정된 \(B,R\)마다, 새로운 균등
 잉여류를 사용하는 고전적 Las Vegas 알고리즘은 유전적 \(p-1\)
 semismooth-asymmetry 약속의 모든 입력을 완전히 인수분해한다. 알고리즘은
 항상 옳고 거의 확실하게 종료하며 기대 비트 복잡도는 입력 길이의
@@ -118,7 +120,9 @@ unit의 절반 이하이다. proper nonunit은 이미 약수를 준다. 따라�
 \]
 를 정의한다.
 
-\claimstatus{BAR-001}{PROVED}. 약수 포함은 차수 분리를 함의하지 않는다.
+\readerclaim{반례와 판정}{약수 포함은 차수 분리가 아니다}
+{\claimstatus{BAR-001}{PROVED}}
+약수 포함은 차수 분리를 함의하지 않는다.
 profile \((r_1,\ldots,r_s)\)는 그 signature들이 모두 같지 않을 때와
 그때에만 분리된다. \(\{1,\ldots,n\}\)의 서로 다른 모든 차수 쌍을
 분리하는 필요충분조건은 \(r\mapsto\Sigma_\Delta(r)\)의 단사성이며,
@@ -141,7 +145,9 @@ signature가 같고 \(\gcd(5^2-1,6)=6\)이다.
 \(V_0(P,1)=2\), \(V_1(P,1)=P\),
 \(V_{j+1}(P,1)=PV_j(P,1)-V_{j-1}(P,1)\)로 둔다.
 
-\claimstatus{BAR-002}{PROVED}. \(a\)가 \(N\)의 unit이고
+\readerclaim{명제}{켤레 채널의 support는 동일하다}
+{\claimstatus{BAR-002}{PROVED}}
+\(a\)가 \(N\)의 unit이고
 \(P=a+a^{-1}\)이면 모든 \(d\ge0\)에 대해
 \[
 V_d(P,1)-2=a^{-d}(a^d-1)^2,\qquad
@@ -160,7 +166,9 @@ valuation이 두 배가 되어 오히려 분할을 악화시킬 수 있다.
 
 \section{독립적인 비분할 \texorpdfstring{\(p+1\)}{p+1} 인수분해}
 
-\claimstatus{LEM-003}{PROVED}. 모든 홀수 소수 \(q\)와 \(d>0\)에 대해
+\readerclaim{명제}{정확한 Lucas root 개수}
+{\claimstatus{LEM-003}{PROVED}}
+모든 홀수 소수 \(q\)와 \(d>0\)에 대해
 \[
 \#\{P\in\mathbb F_q:V_d(P,1)=2\}
 =\frac{\gcd(d,q-1)+\gcd(d,q+1)}2.
@@ -177,7 +185,9 @@ valuation이 두 배가 되어 오히려 분할을 악화시킬 수 있다.
 따른다.
 \end{claimproof}
 
-\claimstatus{THM-002}{PROVED}. 새로운 균등 \(P\bmod K\)를 사용하는
+\readerclaim{정리}{유전적 비분할 \(p+1\) 완전 인수분해}
+{\claimstatus{THM-002}{PROVED}}
+새로운 균등 \(P\bmod K\)를 사용하는
 고전적 Las Vegas 알고리즘은 유전적 비분할 \(p+1\)-asymmetry 약속의
 모든 입력을 완전히 인수분해한다. 항상 옳고 거의 확실하게 종료하며
 기대 비트 복잡도는 다항식이다. witness 시도의 성공 확률은
@@ -243,7 +253,9 @@ C_q(d)\le(3q-9)/4
 \]
 는 미지 소인수에서 평가되는 분석 객체이며 입력 recognizer가 아니다.
 
-\claimstatus{BAR-003}{PROVED}. 서로 다른 홀수 소수 \(p,q\)에 대해 지역
+\readerclaim{장벽}{공통 schedule의 분포 상한}
+{\claimstatus{BAR-003}{PROVED}}
+서로 다른 홀수 소수 \(p,q\)에 대해 지역
 \(p-1\), \(p+1\) 비대칭 약속의 합집합은
 \(\sigma_\Delta(p)\ne\sigma_\Delta(q)\)와 동치이다. 유한 소수집합
 \(S\)에서 \(s=|S|\), nonzero signature 소수 수를 \(h\),
@@ -261,7 +273,9 @@ nonzero signature에 닿는 쌍을 세면 첫 부등식이 나온다. 각 \(d\)�
 \(\tau(d)\le2\sqrt d\)이므로 \(h\le4|\Delta|\sqrt D\)이다.
 \end{claimproof}
 
-\claimstatus{BAR-004}{PROVED}. 최대 지수 비트 길이가
+\readerclaim{장벽}{임계 미만 지수 목록의 희소성}
+{\claimstatus{BAR-004}{PROVED}}
+최대 지수 비트 길이가
 \(o(k\log k)\)인 다항 크기 명시적 지수 목록은 \(p\pm1\) 약수 검사를
 통해 최대 \(2^{o(k)}\)개의 홀수 소수를 hit한다. 별도로 가정된
 \(2^{\alpha k}\) 크기의 공통 길이 소수 모집단에서는 covered-pair

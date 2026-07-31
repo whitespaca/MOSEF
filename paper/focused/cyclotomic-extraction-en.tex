@@ -66,7 +66,9 @@ Every complexity statement instantiates the opening cost box at
 \(\bits(N)=\lfloor\log_2N\rfloor+1\); no branch or requested representation
 is implicit.
 
-\claimstatus{BAR-018}{PROVED}.  The stages are coprime over
+\readerclaim{Proposition}{Stage coprimality and exact resultant}
+{\claimstatus{BAR-018}{PROVED}}
+The stages are coprime over
 \(\mathbb Q[X]\), with
 \[
  \operatorname{Res}(Q_1,Q_2)=B^{A-1}.
@@ -102,7 +104,9 @@ division is used.
 Write \(d=\gcd(|c_1|,|c_2|)\) and \(c_i=da_i\), with
 \(\gcd(|a_1|,|a_2|)=1\).
 
-\claimstatus{BAR-019}{PROVED}.  The content \(d\) has a total unit, proper,
+\readerclaim{Proposition}{Total content and resultant reduction}
+{\claimstatus{BAR-019}{PROVED}}
+The content \(d\) has a total unit, proper,
 or full GCD exit.  On the unit branch, the primitive aggregate
 \(P=a_1Q_1+a_2Q_2\) has exact stage resultants
 \[
@@ -142,7 +146,9 @@ For primitive \(\zeta\) of order \(n>1\), outside both stage zero sets, put
  R_{A,B}(\zeta)=-\frac{S_B(\zeta^A)}{S_A(\zeta)}.
 \]
 
-\claimstatus{THM-003}{PROVED}.  The ratio is rational exactly in the
+\readerclaim{Theorem}{Rational root-of-unity ratios}
+{\claimstatus{THM-003}{PROVED}}
+The ratio is rational exactly in the
 following cases:
 \[
 \begin{array}{c|c|c}
@@ -186,7 +192,9 @@ F_6&=2S_A(X)+S_B(X^A)=\Phi_6(X)C_6(X),
 \end{aligned}
 \]
 
-\claimstatus{BAR-020}{PROVED}.  Each \(C_i\) is a monic integer polynomial
+\readerclaim{Proposition}{Division-free exceptional cofactors}
+{\claimstatus{BAR-020}{PROVED}}
+Each \(C_i\) is a monic integer polynomial
 of degree \(A(B-1)-2\), yet \(C_i(g)\bmod N\) has a constant-size descriptor
 and can be evaluated without modular division in
 \(O(\log A+\log B)\) modular operations.
@@ -220,7 +228,9 @@ costs \(A(B-1)-1\) coefficients.
 
 \section{Overlap and schedule barriers}
 
-\claimstatus{BAR-021}{PROVED}.  The cofactor GCD is proper exactly when its
+\readerclaim{Proposition}{Branch-total cofactor extraction}
+{\claimstatus{BAR-021}{PROVED}}
+The cofactor GCD is proper exactly when its
 capped local valuation profile is nonzero and not full.  The exact
 stage/cofactor resultants have prime support in \(B\) for order four and
 \(2B\) for order six.  Direct/cofactor overlap is controlled by
@@ -247,7 +257,9 @@ outside that support form a semiprime on which every charged GCD is one.
 The quantifier order fixes the schedule before the input.
 \end{claimproof}
 
-\claimstatus{BAR-022}{PROVED}.  For the balanced population
+\readerclaim{Barrier}{Exponentially costly exact lifts}
+{\claimstatus{BAR-022}{PROVED}}
+For the balanced population
 \[
  \mathcal P_m=\{p\text{ prime}:2^{m-1}\le p^2<2^m\},
 \]
@@ -267,7 +279,9 @@ lifts, and every population prime has at least
 This materialization theorem does not transfer to compact evaluation.
 \end{claimproof}
 
-\claimstatus{BAR-023}{PROVED}.  For the compact order-four tuple
+\readerclaim{Barrier}{One-bit cofactor support}
+{\claimstatus{BAR-023}{PROVED}}
+For the compact order-four tuple
 \(A=3\), \(B_m=2^m+3\), \(g=2\), let \(C_m=C_4(2)\) and
 \(E_m=3\cdot2^m+5\).  Then
 \[

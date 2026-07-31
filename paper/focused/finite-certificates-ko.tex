@@ -91,7 +91,9 @@ cap-201 primitive coordinate 81,112개를 검사한다. M46 범위의
 
 \section{Signature 판정}
 
-\claimstatus{BAR-024}{PROVED}. \(s\ge2\)개의 모집단 소수와 \(r\)개의
+\readerclaim{명제}{signature 분리}
+{\claimstatus{BAR-024}{PROVED}}
+\(s\ge2\)개의 모집단 소수와 \(r\)개의
 exact candidate lift가 있을 때, \(pq\)는 두 \(r\)-bit support
 signature가 다를 때와 그때에만 어떤 candidate에 의해 분리된다.
 signature bucket \(u\)의 크기가 \(n_u\)이면 실패 및 성공 쌍 수는
@@ -120,7 +122,9 @@ recognizer가 아니다.
 
 \section{초기 및 확장 유한 정리}
 
-\claimstatus{THM-004}{PROVED}. 모든 \(9\le m\le15\)에서 base selector
+\readerclaim{유한 인증서}{길이 15까지의 base cap}
+{\claimstatus{THM-004}{PROVED}}
+모든 \(9\le m\le15\)에서 base selector
 \(\mathcal T_{m,m}\)은 완전 모집단 \(\mathcal P_m\) 위에서 단사이다.
 분리 subcertificate의 normalized coordinate 수는 각각
 \[
@@ -136,7 +140,9 @@ recognizer가 아니다.
 \(191,227,233\)의 완전 mask가 같아 base cap의 자동 연장을 반박한다.
 \end{claimproof}
 
-\claimstatus{THM-005}{PROVED}. 공개 cap \(L(m)=m+11\)은
+\readerclaim{유한 인증서}{길이 20까지의 offset 11}
+{\claimstatus{THM-005}{PROVED}}
+공개 cap \(L(m)=m+11\)은
 \(9\le m\le20\)의 모든 완전 모집단에서 단사이다. 이 유한 구간에서
 offset 11은 최소이며, \(m=20,L=30\)에서 \(809,827\)이 충돌한다.
 
@@ -158,7 +164,9 @@ predecessor가 최소성을 증명한다. \(m>20\)은 주장하지 않는다.
 
 \input{paper/tables/finite-threshold-summary-ko.tex}
 
-\claimstatus{THM-014}{PROVED}. \(m=29\)에서
+\readerclaim{유한 인증서}{길이 29 비단조성}
+{\claimstatus{THM-014}{PROVED}}
+\(m=29\)에서
 \[
 L_{29}^\star=103<L_{28}^\star=104.
 \]
@@ -182,7 +190,9 @@ M85 checker는 685개 소수에서 1,528개 좌표 subcertificate를 별도로
 새로 허용된 모든 좌표 가운데 repair가 유일함을 확인한다.
 \end{claimproof}
 
-\claimstatus{THM-019}{PROVED}. \(m=34\)에서
+\readerclaim{유한 인증서}{길이 34 endpoint}
+{\claimstatus{THM-019}{PROVED}}
+\(m=34\)에서
 \[
 L_{34}^\star=201.
 \]
@@ -214,7 +224,9 @@ balanced-factor membership recognizer, 암호학적 규모의 인수분해
 
 \section{같은 문법 내부의 점근 장벽}
 
-\claimstatus{BAR-041}{PROVED}. cap \(L\)의 모든 descriptor에서 여덟
+\readerclaim{장벽}{다항 numeric-cap 실패}
+{\claimstatus{BAR-041}{PROVED}}
+cap \(L\)의 모든 descriptor에서 여덟
 양의 exact primitive 정수의 총 비트 길이를 \(W(m,L)\), 그중 하나
 이상을 나누는 모집단 소수집합을 \(H_{m,L}\)라 하면
 \[
@@ -243,7 +255,9 @@ hit 소수의 square-free 곱이 charged 값들의 곱을 나누므로 두 번�
 장벽이 아니다.
 \end{claimproof}
 
-\claimstatus{BAR-046}{PROVED}. encoded compact-gap 부분족
+\readerclaim{장벽}{\(1/2\) 미만 compact-gap 실패}
+{\claimstatus{BAR-046}{PROVED}}
+encoded compact-gap 부분족
 \[
 A=3,\quad B_t=2^t+3,\quad g=2
 \]

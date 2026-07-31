@@ -63,7 +63,9 @@ F(X)=c_1Q_1(X)+c_2Q_2(X)
 \(\bits(N)=\lfloor\log_2N\rfloor+1\)에 적용하며 숨겨진 branch나 출력은
 없다.
 
-\claimstatus{BAR-018}{PROVED}. 두 stage는 \(\mathbb Q[X]\)에서 서로
+\readerclaim{명제}{stage 서로소성과 정확한 resultant}
+{\claimstatus{BAR-018}{PROVED}}
+두 stage는 \(\mathbb Q[X]\)에서 서로
 소이고
 \[
 \operatorname{Res}(Q_1,Q_2)=B^{A-1}.
@@ -96,7 +98,9 @@ Q_2(X)-B=(X-1)Q_1(X)\sum_{j=1}^{B-1}S_j(X^A)
 \(d=\gcd(|c_1|,|c_2|)\), \(c_i=da_i\),
 \(\gcd(|a_1|,|a_2|)=1\)로 둔다.
 
-\claimstatus{BAR-019}{PROVED}. content \(d\)는 unit, proper, full의
+\readerclaim{명제}{total content 및 resultant 축약}
+{\claimstatus{BAR-019}{PROVED}}
+content \(d\)는 unit, proper, full의
 total GCD 출구를 갖는다. unit branch에서 primitive aggregate
 \(P=a_1Q_1+a_2Q_2\)의 stage resultant는
 \[
@@ -136,7 +140,9 @@ R_{A,B}(\zeta)=-\frac{S_B(\zeta^A)}{S_A(\zeta)}
 \]
 로 둔다.
 
-\claimstatus{THM-003}{PROVED}. 이 비율이 유리수인 경우는 정확히 다음
+\readerclaim{정리}{유리 root-of-unity 비율}
+{\claimstatus{THM-003}{PROVED}}
+이 비율이 유리수인 경우는 정확히 다음
 세 가지이다.
 \[
 \begin{array}{c|c|c}
@@ -176,7 +182,9 @@ F_6&=2S_A(X)+S_B(X^A)=\Phi_6(X)C_6(X),
 \]
 로 정의한다.
 
-\claimstatus{BAR-020}{PROVED}. 각 \(C_i\)는 차수 \(A(B-1)-2\)인 monic
+\readerclaim{명제}{나눗셈 없는 예외 cofactor}
+{\claimstatus{BAR-020}{PROVED}}
+각 \(C_i\)는 차수 \(A(B-1)-2\)인 monic
 정수 다항식이지만, \(C_i(g)\bmod N\)은 상수 크기 descriptor와
 \(O(\log A+\log B)\)회의 modular 연산으로 나눗셈 없이 평가된다.
 
@@ -208,7 +216,9 @@ prime-power valuation의 가법성을 주므로 direct와 cofactor GCD를
 
 \section{Overlap 및 schedule 장벽}
 
-\claimstatus{BAR-021}{PROVED}. cofactor GCD는 capped 지역 valuation
+\readerclaim{명제}{branch-total cofactor 추출}
+{\claimstatus{BAR-021}{PROVED}}
+cofactor GCD는 capped 지역 valuation
 profile이 0이 아니고 full도 아닐 때와 그때에만 proper이다.
 stage/cofactor resultant의 소수 support는 차수 4에서 \(B\), 차수 6에서
 \(2B\)에 포함된다. direct/cofactor overlap은
@@ -233,7 +243,9 @@ schedule의 모든 양의 charged exact 값을 곱하면 유한 개 소수만 �
 schedule을 입력보다 먼저 고정하는 양화 순서가 핵심이다.
 \end{claimproof}
 
-\claimstatus{BAR-022}{PROVED}. balanced population
+\readerclaim{장벽}{지수적으로 비싼 exact lift}
+{\claimstatus{BAR-022}{PROVED}}
+balanced population
 \[
 \mathcal P_m=\{p\text{ prime}:2^{m-1}\le p^2<2^m\}
 \]
@@ -252,7 +264,9 @@ hit 소수의 square-free 곱은 모든 nonzero lift의 곱을 나누고 각 소
 materialization 정리는 compact 평가에 그대로 이전되지 않는다.
 \end{claimproof}
 
-\claimstatus{BAR-023}{PROVED}. compact 차수 4 tuple
+\readerclaim{장벽}{cofactor support 한 비트}
+{\claimstatus{BAR-023}{PROVED}}
+compact 차수 4 tuple
 \(A=3\), \(B_m=2^m+3\), \(g=2\)에서 \(C_m=C_4(2)\),
 \(E_m=3\cdot2^m+5\)라 하면
 \[

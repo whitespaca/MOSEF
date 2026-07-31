@@ -18,6 +18,7 @@ python scripts/generate_m50_finite_threshold_summary.py --check
 python scripts/check_m50_finite_threshold_summary.py
 python scripts/check_m84_promise_wrappers.py
 python scripts/check_m87_focused_papers.py
+python scripts/check_m88_reader_labels.py
 python scripts/check_publication.py
 ```
 
@@ -47,10 +48,12 @@ python scripts/check_m84_promise_wrappers.py
 python scripts/check_m85_m41_semantic_certificate.py
 python scripts/check_m86_m46_streaming_certificate.py
 python scripts/check_m87_focused_papers.py
+python scripts/check_m88_reader_labels.py
 python -m unittest discover -s tests -p test_promise_wrappers.py
 python -m pytest tests/test_m85_semantic_certificate.py -q
 python -m pytest tests/test_m86_streaming_semantic_certificate.py -q
 pytest -p no:cacheprovider tests/test_m87_focused_papers.py -q
+pytest -p no:cacheprovider tests/test_m88_reader_labels.py -q
 ```
 
 These commands recompute registered masks, identities, collision or
@@ -76,6 +79,12 @@ certificate reconstruction. They enforce one four-row cost ledger before
 section 1 of each focused manuscript, a reproducible 200--300 lexical-token
 abstract interval, and exact bilingual parity for the 21 representative claim
 IDs and statuses.
+
+The M88 commands validate the reader-facing layer over those same claims.
+They require one compact heading per claim, exactly five localized label
+families in each language, stable claim order, visible `PROVED` metadata, and
+the exact 21-ID bilingual map. Passing does not promote a claim or create a
+second numbering authority.
 
 ### Level C: complete repository gate
 

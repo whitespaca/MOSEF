@@ -1386,3 +1386,22 @@
   `PROVED` status. The token count is only an editorial convention, not a
   Korean morphological analysis. No online operation is reclassified as
   offline, and no theorem or complexity claim changes.
+
+## ADR-073 - Separate five reader-label families from stable claim metadata
+
+- Date: 2026-07-31.
+- Decision: render every focused-paper claim with one localized reader label
+  from exactly five families: theorem, proposition, counterexample and
+  criterion, barrier, or finite certificate. Keep the original
+  `THM/BAR/LEM-###` ID and status visibly adjacent and unchanged. Use a compact
+  inline heading rather than a new numbered theorem environment.
+- Rationale: the internal codes are essential audit keys but are poor first
+  descriptions for readers. More than five localized label kinds made the
+  hierarchy harder to scan, while hiding or replacing the codes would break
+  traceability. A small bold heading supplies mathematical role and subject
+  without introducing a second authority for numbering or status.
+- Consequence: `scripts/check_m88_reader_labels.py` fixes the one-to-one
+  English/Korean presentation map over all 21 focused claims, requires all 42
+  rendered headings to wrap existing `PROVED` metadata, and rejects missing,
+  reordered, renamed, or unwrapped claims. Reader labels are editorial
+  descriptions only; `research/CLAIMS.md` remains authoritative.
