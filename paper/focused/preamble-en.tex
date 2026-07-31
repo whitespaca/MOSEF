@@ -14,3 +14,16 @@
 \newcommand{\archivepaper}{\path{paper/main.tex}}
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 \newenvironment{claimproof}{\par\noindent\textit{Proof.}}{\hfill\(\square\)\par}
+\newenvironment{costmodel}[1]{%
+  \begin{center}
+  \small
+  \begin{tabular}{L{0.19\linewidth}L{0.69\linewidth}}
+  \toprule
+  \multicolumn{2}{l}{\textbf{#1}}\\
+  \midrule
+}{%
+  \bottomrule
+  \end{tabular}
+  \end{center}
+}
+\newcommand{\costrow}[2]{\textbf{#1} & #2\tabularnewline}

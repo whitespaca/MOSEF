@@ -1366,3 +1366,23 @@
   rows only; the other 24 M50 rows retain their existing semantic and
   integrity paths. No asymptotic memory, selector-wide, or general-factoring
   claim is made.
+
+## ADR-072 - Put a four-row cost ledger before every focused-paper section
+
+- Date: 2026-07-31.
+- Decision: every focused English/Korean manuscript places exactly one
+  four-row cost ledger after its abstract and before section 1. The rows name
+  charged online work, offline proof or excluded inputs, output semantics
+  where needed, and the exact guarantee scope. Abstracts must contain
+  200--300 Unicode lexical tokens after each LaTeX math expression is
+  normalized to one token.
+- Rationale: the supplied feedback correctly identified that repeated scope
+  prose delayed the evaluator/generator trust boundary. A single early ledger
+  makes hidden preprocessing and output expansion easier to audit, while one
+  language-neutral counting rule gives the English and Korean papers the
+  same executable editorial gate.
+- Consequence: `scripts/check_m87_focused_papers.py` freezes six abstract
+  counts, 24 labeled cost rows, and 21 bilingual claim IDs with unchanged
+  `PROVED` status. The token count is only an editorial convention, not a
+  Korean morphological analysis. No online operation is reclassified as
+  offline, and no theorem or complexity claim changes.

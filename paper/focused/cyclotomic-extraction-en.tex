@@ -10,19 +10,46 @@ Signed Geometric-Sum Circuits}
 \maketitle
 
 \begin{abstract}
-We classify the rational root-of-unity ratios arising from one signed
-depth-two geometric-sum circuit and isolate two exceptional quadratic
-cyclotomic families.  Beyond the common-step case, only order four with
-ratio one and order six with ratio two survive.  Their quotient cofactors
-have division-free logarithmic-step modular evaluators and can expose proper
-factors after the direct cyclotomic, stage, and public-overlap GCDs are all
-units.  Exact resultant formulas make every overlap branch public and
-branch-total.  We also prove the quantifier limits: every fixed finite public
-schedule misses infinitely many semiprimes, materializing exact lifts can
-cost exponentially more than compact evaluation, and one cofactor supplies
-only one signature bit.  These results concern a restricted circuit grammar;
-they neither form a universal schedule nor solve general integer factoring.
+We study a public signed depth-two geometric-sum circuit
+\(F(X)=c_1S_A(X)+c_2S_B(X^A)\) and classify every rational
+root-of-unity ratio that can support an exceptional common factor between its
+stages and aggregate.  Beyond the ordinary common-step family, only two
+quadratic cases survive: order four with coefficient ratio one and order six
+with ratio two.  For each case we derive the exact cyclotomic quotient,
+linear remainder, and resultant.  The resulting cofactors have
+division-free evaluators using \(O(\log A+\log B)\) modular operations and can
+expose a proper factor even when the base, both geometric stages, direct
+cyclotomic value, and public-overlap GCDs are units.  Every nonunit,
+inversion, full-collision, and extraction branch is explicit and
+factorization-independent.  The online cost model charges construction and
+bit lengths of public parameters, compact binary evaluation, coefficient
+reduction, all GCDs and failed inversions, and every requested output.
+Root-of-unity classification, symbolic identities, and resultant derivation
+are offline proof work rather than online advice; materializing a dense exact
+lift is charged by its actual output size and is not hidden inside compact
+evaluation.  We also establish the quantifier limits of the construction:
+every fixed finite public schedule misses infinitely many semiprimes, one
+cofactor contributes only one support-signature bit, conjugate values do not
+create a second channel, and exponentially large formal lifts need not have
+polynomial output cost.  Thus the result is a branch-total extraction theorem
+for one restricted circuit grammar, not a universal schedule, promise
+recognizer, or general integer-factorization algorithm.
 \end{abstract}
+
+\begin{costmodel}{Cost model at a glance}
+\costrow{Online charged}{Public parameter construction and encoding, compact
+stage and cofactor evaluation, coefficient reduction, every GCD and failed
+inversion, factor extraction, and requested output.}
+\costrow{Offline proof}{Root-of-unity classification, polynomial identities,
+resultant derivation, counterexample search, and reproducibility records are
+not online inputs.}
+\costrow{Output rule}{Dense or sparse exact materialization is charged by the
+representation actually produced; compact modular evaluation does not license
+free expansion.}
+\costrow{Guarantee}{Polynomial bit cost requires polynomially constructible
+public parameters of polynomial bit length and applies only to the stated
+signed depth-two grammar.}
+\end{costmodel}
 
 \section{Charged circuit grammar}
 
@@ -35,11 +62,9 @@ where public \(A,B\ge2\) are unequal.  For nonzero public coefficients set
 \[
  F(X)=c_1Q_1(X)+c_2Q_2(X).
 \]
-The cost model charges construction, both stage evaluations, coefficient
-reduction, every GCD, every failed inversion, independently evaluated
-cyclotomic and cofactor exits, and every requested dense or sparse output.
-Complexity is measured in
-\(\bits(N)=\lfloor\log_2N\rfloor+1\).
+Every complexity statement instantiates the opening cost box at
+\(\bits(N)=\lfloor\log_2N\rfloor+1\); no branch or requested representation
+is implicit.
 
 \claimstatus{BAR-018}{PROVED}.  The stages are coprime over
 \(\mathbb Q[X]\), with
