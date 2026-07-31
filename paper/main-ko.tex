@@ -2955,6 +2955,23 @@ wall time은 각 EXP 기록에 남는다. 최소 외부 checker는 큰 탐색을
 전체 semantic 경로와 offline certificate의 trust boundary는
 \path{research/CERTIFICATE_TRUST_MODEL.md}에 기록한다.
 
+M85는 대표적인 M41 행을 위한 중간 clean-room 경로를 추가한다.
+548줄 표준 라이브러리 checker가 685개 소수 모집단, descriptor 문법,
+primitive residue, 1,528개 좌표 signature 인증서, tracked pair의 완전한
+cap-102 collision, 새 cap-103 좌표 47,912개를 독립 재구성한다.
+generator나 프로젝트 수론 모듈을 import하지 않는다. 등록된 M41
+좌표는 모두 cyclotomic root가 아니므로 이 인증서 근거는 유한체 단위
+나눗셈만 사용한다. simple-root 미분 분기는 별도의 작은 exact vector로
+검사한다. 이는 한 행의 신뢰 기반만 줄이며 기존 M31--M46 semantic
+경로를 대체하지 않는다.
+
+\claimstatus{EMP-060}{EMPIRICAL}. EXP-0060은 deterministic M85 실행과
+여덟 clean-room 또는 mutation test를 기록한다. hash를 다시 계산한
+모집단, descriptor, primitive-vector 변이는 semantic 검사에서
+거부되며, 별도의 simple-root 경계 vector는 exact integer quotient
+평가와 일치한다. 이는 동결된 \(m=29\) 한 행의 근거일 뿐이며 외부
+검토, 점근적 결과 또는 일반 인수분해 주장이 아니다.
+
 소수 \(p\)가 주어진 local profile 함수는 증명과 differential test를
 위한 분석 도구이다. 실제 factorization 후보는 \(p\)를 받지 않고
 \[
@@ -2981,7 +2998,12 @@ M31--M46의 통합 artifact와 영문·국문 표는 같은 26개 row에서 생�
 \begin{verbatim}
 python scripts/generate_m50_finite_threshold_summary.py --check
 python scripts/check_m50_finite_threshold_summary.py
+python scripts/check_m85_m41_semantic_certificate.py
 \end{verbatim}
+앞의 두 명령은 26개 행 전체의 projection과 frozen-source integrity를
+검증한다. 세 번째 명령은 generator import 없이 M41 semantics를
+재계산하고 hash를 다시 계산한 변이를 거부하지만 나머지 25개 행을
+독립 인증하지 않는다.
 
 \textbf{EMP-028 [EMPIRICAL].}
 EXP-0028은 다음을 deterministic하게 검사했다.

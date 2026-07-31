@@ -43,13 +43,22 @@ python scripts/check_m58_overlap_prime_order_differential.py
 python scripts/check_m59_half_order_size_differential.py
 python scripts/check_m60_m80_synthesis_differential.py
 python scripts/check_m84_promise_wrappers.py
+python scripts/check_m85_m41_semantic_certificate.py
 python -m unittest discover -s tests -p test_promise_wrappers.py
+python -m pytest tests/test_m85_semantic_certificate.py -q
 ```
 
 These commands recompute registered masks, identities, collision or
 construction certificates, and selected Rust/C# protocol vectors. Each
 matching experiment record under `research/experiments/` states its exact
 finite bounds and canonical hash.
+
+The M85 command is the clean-room option for the M41 row. It uses only the
+standard library, reconstructs all 685 balanced primes and 1,528 certificate
+coordinates, verifies the exact cap-102 collision and cap-103 injectivity,
+and imports no generator or project number-theory module. Its mutation suite
+rehashes altered artifacts before selected negative checks, so passing is not
+equivalent to trusting the legacy SHA-256.
 
 ### Level C: complete repository gate
 

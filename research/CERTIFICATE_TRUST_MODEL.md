@@ -95,6 +95,59 @@ This minimal path verifies integrity and projection. It trusts the registered
 source schemas and does not independently prove primality, population
 completeness, descriptor semantics, or signature injectivity.
 
+## Independent M41 semantic path
+
+M85 adds a smaller but deeper path for the representative \(m=29\) row:
+
+```powershell
+python scripts/check_m85_m41_semantic_certificate.py
+python -m pytest tests/test_m85_semantic_certificate.py -q
+```
+
+The 548-line checker uses only the Python standard library and imports no
+generator, reference implementation, or prior checker. It independently:
+
+1. sieves the exact balanced interval and reconstructs all 685 primes;
+2. parses and validates every registered source against the public
+   order-four/order-six descriptor grammar;
+3. reconstructs geometric stages and resultants from their formulas;
+4. evaluates the cofactor by finite-field division away from a cyclotomic
+   root, while a separate small exact-quotient test checks the differentiated
+   polynomial identity at a simple root;
+5. recomputes all 1,528 certificate coordinates and packed signatures;
+6. checks injectivity on all 234,270 population pairs;
+7. checks all 89,789 cap-102 descriptors on the predecessor pair;
+8. checks all 47,912 newly admitted cap-103 primitive coordinates and the
+   unique one-coordinate repair; and
+9. reconstructs descriptor and raw-coordinate counts at caps 102, 103, 105,
+   and 108.
+
+The M41 subcertificate has exactly one duplicate bucket,
+\(\{18979,21031\}\). The full raw predecessor check proves that this pair
+really collides in every cap-102 coordinate. The final source
+`phi4:87:95:103:cofactor` has pattern \((0,1)\), and the complete
+1,528-coordinate sublist is injective.
+
+The M41 certificate itself never reaches a cyclotomic root: its primes exceed
+16,000, its bases are at most 103, and both positive cyclotomic values are
+therefore strictly below the prime. Its cofactor evidence relies on the
+unit-division reconstruction. The derivative branch is a separately tested
+totality boundary, not registered M41 root-case evidence.
+
+The checker recomputes the legacy embedded summary hash, but acceptance is not
+hash-only: rehashed population, descriptor, and primitive-vector mutations
+are rejected semantically, and a packed-signature mutation is rejected
+against fresh residues. The legacy M41 hash excludes four primitive vectors
+that were appended after the summary was hashed; those vectors are checked
+directly instead.
+
+M41 was selected over M46 for the minimal path. It exercises population
+completeness, descriptor semantics, a predecessor collision, unique repair,
+and a nonmonotone threshold with roughly 1.05 million certificate evaluations.
+The M46 construction alone would require roughly 10.88 million. This is a
+bounded review-engineering decision, not a mathematical preference for the
+length-29 theorem.
+
 ## Full semantic path
 
 To reduce trust in the registered schemas, run the corresponding M31--M46
@@ -126,6 +179,10 @@ recomputes:
 
 The exact commands for every source row are listed in the matching
 `research/experiments/EXP-0030`--`EXP-0045` record.
+
+M85 does not replace those paths for the other 25 rows. It supplies a
+clean-room semantic reconstruction for M41 and an executable template for
+reducing the trusted computing base of additional rows.
 
 ## What the language implementations share
 
@@ -171,6 +228,18 @@ The minimal path still trusts:
 - the 16 source schemas and their source snapshot;
 - the mathematical interpretation connecting support-signature injectivity to
   semiprime separation (`BAR-024`).
+
+The independent M41 path instead trusts:
+
+- Python's standard integer, sieve, JSON, and SHA-256 operations;
+- the 548-line checker and the public polynomial identities it implements;
+- the registered list of certificate source strings as a candidate
+  subcertificate, whose legality and semantics are recomputed; and
+- `BAR-024` for the final support-signature-to-GCD implication.
+
+It does not reconstruct the generator's greedy source-selection process or
+the complete 1,555-column normalized basis. Neither is needed to validate a
+legal separating sublist and the exact predecessor collision.
 
 The full path additionally trusts the operating system and language
 toolchains, and it remains a computer-assisted finite proof. A reviewer

@@ -22,6 +22,9 @@ signature criterion from the generated certificate, records predecessor
 collisions, and retains exact hashes and rerun commands.  We also prove that
 every polynomial numeric cap in this exact selector grammar eventually
 fails and give a sharper compact-gap barrier below the worst-packed boundary.
+For the representative \(m=29\) row, a 548-line standard-library checker now
+reconstructs the population, descriptors, residues, signatures, predecessor
+collision, and unique repair without importing generator code.
 The certificates do not apply to \(m>34\), do not minimize over other
 selector families, and do not solve general integer factoring.
 \end{abstract}
@@ -46,8 +49,19 @@ bit \(\mathbf1_{p\mid z}\).  Constant columns are deleted and duplicate
 columns merged only in the \emph{analytical certificate}; the online
 algorithm still evaluates its full public GCD list.  The generator,
 registered JSON schemas, independent differential checkers, and the
-publication projection are distinct artifacts.  A separate minimal
-semantic checker is deliberately left to M85.
+publication projection are distinct artifacts.
+
+M85 adds a clean-room semantic path for the representative \(m=29\) row.
+The 548-line checker uses only the Python standard library.  It independently
+sieves all 685 balanced primes, validates every certificate source against
+the public descriptor grammar, and recomputes the eight primitive exits.
+Away from a cyclotomic root it evaluates the cofactor by finite-field
+division; at a simple root it differentiates the exact identity
+\(F=\Phi C\), giving \(C(g)=F'(g)/\Phi'(g)\).  Every registered M41
+coordinate is away from a root, so the certificate evidence uses only the
+unit-division branch.  A separate exact small vector tests the derivative
+branch at a simple root.  No generator, project number-theory implementation,
+or prior checker is imported.
 
 \section{Signature criterion}
 
@@ -141,7 +155,10 @@ At cap 103, independent evaluation of all 47,912 new primitive coordinates
 finds the displayed bit, and the full signature set is injective.  Zero new
 coordinates cannot repair the predecessor, while one does, proving the
 incremental minimum.  The decrease from the length-28 threshold compares
-different populations and implies no trend.
+different populations and implies no trend.  The M85 checker separately
+recomputes the 1,528-coordinate subcertificate on all 685 primes, checks every
+cap-102 descriptor on the tracked pair, and confirms the unique repair among
+all newly admitted coordinates.
 \end{claimproof}
 
 \claimstatus{THM-019}{PROVED}.  At \(m=34\),
@@ -269,10 +286,16 @@ It is regenerated and independently checked by
 \begin{verbatim}
 python scripts/generate_m50_finite_threshold_summary.py --check
 python scripts/check_m50_finite_threshold_summary.py
+python scripts/check_m85_m41_semantic_certificate.py
 \end{verbatim}
 The underlying M31--M46 schemas, generators, differential checkers, commands,
 toolchains, row hashes, and selected cross-language vectors remain under
 \path{schemas}, \path{scripts}, and \path{research/experiments}.
+The first two commands validate the 26-row projection and frozen-source
+integrity.  The third is the deeper independent semantic path for M41 only;
+eight mutation and clean-room tests include rehashed population, descriptor,
+and primitive-vector changes plus the separate simple-root boundary vector.
+It does not independently validate the other 25 rows.
 
 The archival monograph \archivepaper{} retains the complete transition
 chronology and full proofs.  The claim ledger is

@@ -1,5 +1,98 @@
 # Research Status
 
+## M85 outcome
+
+- Date: 2026-07-31.
+- Branch: `research/20260731-m85-semantic-certificate-checker`.
+- Base: M84 squash merge
+  `e6b931fa5dfd99e622923cfb976791661a7cf925`.
+- Completed milestone: M85, a minimal independent semantic checker for the
+  frozen M41 \(m=29\) finite selector certificate.
+- The initially considered M46 endpoint would require roughly 10.88 million
+  construction coordinate/prime evaluations. M41 was selected because it
+  retains population completeness, descriptor semantics, a sole predecessor
+  collision, a unique repair, and the nonmonotone threshold
+  \(L_{29}^{\star}=103<L_{28}^{\star}=104\) with about 1.05 million
+  certificate evaluations.
+- `scripts/check_m85_m41_semantic_certificate.py` is 548 lines and imports
+  only the Python standard library. It does not import the M41 generator,
+  project number-theory modules, or prior checkers. An AST regression test
+  enforces this boundary.
+- The checker reconstructs the exact 685-prime balanced population, public
+  descriptor grammar and counts, geometric stages, resultants, and all eight
+  primitive support bits. The cofactor is evaluated independently by finite
+  field division away from a cyclotomic root and by differentiating
+  \(F=\Phi C\) at a simple root. Because M41 has \(p>16{,}000\) and
+  \(g\le103\), its registered descriptors use only the unit-division branch;
+  a separate valid \(\Phi_4\) small vector checks the derivative formula
+  against the exact integer quotient.
+- All 1,528 registered certificate coordinates and 685 packed signatures were
+  recomputed. The first 1,527 coordinates have the sole collision
+  \(\{18979,21031\}\); all 89,789 cap-102 descriptors were checked on that
+  pair. The final source `phi4:87:95:103:cofactor` has pattern \((0,1)\), and
+  the complete certificate separates all 234,270 pairs.
+- All 5,989 descriptors and 47,912 primitive coordinates first admitted at
+  cap 103 were checked; the displayed source is the unique coordinate that
+  separates the predecessor pair. Only this one-coordinate incremental
+  repair is claimed minimum.
+- The checker passed in 15.6 seconds on the recorded host. Eight targeted
+  tests passed. Rehashed population, descriptor, and
+  primitive-vector mutations were rejected semantically, as was a packed
+  signature mutation. Targeted Ruff 0.16.1 and strict mypy 2.3.0 checks
+  passed.
+- Full validation passed: foundation and bilingual-publication checks;
+  current M50, M82, M83, M84, and M85 generators or independent checkers;
+  all 309 Python tests and 593 subtests in 243.35 seconds; Python bytecode
+  compilation; repository-wide Ruff 0.16.1; strict mypy 2.3.0 over 37 source
+  files; Rust formatting, Clippy with warnings denied, and all 36 tests; and
+  the C# Release build with zero warnings or errors.
+- The current M82 projection contains 269 claims, 21 focused and 248
+  archival-only, with canonical summary SHA-256
+  `91f7a6c45736f1d3fbd48de593a092aef01ce43034d1bbb89e1fb10363d36c85`.
+  The current M83 audit file SHA-256 is
+  `622a5332c27b80de940e612e3d8c47fa60438bde87c203da210014259f817c22`.
+- The M41 embedded summary SHA-256 remains
+  `a9d61b984cf77c3c875ddbcdfaa2d6c6d1cd9bd6939d4c35ba4e1433a91d1589`.
+  Its legacy hash excludes four later-appended primitive vectors; M85 checks
+  those vectors directly.
+- Four converged XeLaTeX builds passed final-log and rendered-page review:
+  archive English, 127 pages,
+  `95653cb91fb4cfe7cb582bbbe46e01443aa21a882af8aab42c9d806a1ffc4bee`;
+  archive Korean, 56 pages,
+  `02ef2168410a00e0bbc0e18472c0d51543fcc79d49dcdcfd2761d9a71b30631c`;
+  focused finite-certificate English, 6 pages,
+  `9fe632370709ef86895fdaa68044902c05d4b13f61bd582de56af87e1e0f8305`;
+  focused finite-certificate Korean, 5 pages,
+  `d0562e7879704c6ee137006fc8eeb5497c12569eacb9ba39e80ebdc28b07b6ab`.
+  Final logs contain no selected reference, citation, overfull, underfull,
+  missing-glyph, font, longtable, or rerun warnings.
+- The internal adversarial review passed the no-import, population,
+  descriptor, quotient-root, hash-only, predecessor-completeness,
+  injectivity, repair-minimum, normalization-scope, and finite-scope threats.
+  This is not external peer review or formal proof-assistant verification.
+- Scope: M85 independently validates one representative M41 row. It does not
+  reconstruct the other 25 M50 rows, recognize the balanced promise, prove an
+  asymptotic cap rate, or change any claim status. General classical
+  polynomial-time factoring remains open. M86 is active and will test a
+  streaming clean-room reconstruction of the final M46 row.
+
+### M85 Korean summary
+
+M85는 M41의 \(m=29\) 동결 인증서를 대상으로 generator와 기존
+수론 구현을 import하지 않는 548줄 표준 라이브러리 checker를 추가했다.
+checker는 balanced 소수 685개, 인증서 좌표 1,528개, 모든 234,270개
+쌍의 signature를 다시 계산하고, cap 102의 89,789개 descriptor 전체에서
+\(\{18979,21031\}\)가 충돌함을 확인했다. cap 103에서 새로 허용되는
+47,912개 primitive 좌표를 모두 조사한 결과
+`phi4:87:95:103:cofactor`의 \((0,1)\)만 이 쌍을 분리했다. 모집단,
+descriptor, primitive vector를 바꾸고 hash를 다시 계산한 변이도
+semantic 검사에서 거부되었다. M41 자체에는 cyclotomic root가 없으며,
+미분 경로는 별도의 작은 exact quotient vector로만 검사했다. 이 결과는
+M41 한 행의 신뢰 기반을
+줄이지만 나머지 25개 행이나 점근적 결과를 독립 검증하지 않으며,
+일반 고전 다항시간 정수분해 문제는 계속 열린 상태다. 다음 M86은 같은
+신뢰 경계를 마지막 M46 행으로 확장할 수 있는지 검사한다.
+
 ## M84 outcome
 
 - Date: 2026-07-31.
