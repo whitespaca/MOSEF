@@ -1329,3 +1329,22 @@
   Python implementation remains an exact small-input reference; its
   trial-division primality routine is not the polynomial-time implementation
   assumed by THM-001 and THM-002.
+
+## ADR-070 - Use M41 as the minimal clean-room semantic certificate
+
+- Date: 2026-07-31.
+- Decision: validate the M41 \(m=29\) row with a standard-library-only
+  checker that reconstructs population, descriptor grammar, primitive
+  residues, certificate signatures, predecessor collision, and unique repair
+  without importing generator or reference code.
+- Rationale: M41 retains every trust-boundary feature requested by the
+  feedback, including a nonmonotone exact threshold and a unique incremental
+  repair, with about 1.05 million certificate evaluations. The initially
+  considered M46 row needs roughly 10.88 million construction evaluations
+  before its predecessor audit, making it a poor first target for a small
+  external-review checker.
+- Consequence: one representative finite theorem now has an independent
+  semantic path in 548 lines. Other M31--M46 rows retain their existing
+  semantic checkers and M50 integrity path; no table-wide clean-room claim is
+  made. M86 will test whether the same trust boundary can be extended to the
+  final M46 row with streaming and bounded-memory evaluation.

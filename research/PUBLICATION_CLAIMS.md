@@ -275,3 +275,4 @@ the evidence and scope remain authoritative in the full claims ledger.
 | BAR-064 | PROVED | Exact standard-bit-length migration boundary | `research/proofs/BAR-064-standard-bitlength-migration.md` |
 | REF-060 | REFUTED | Ceiling log equals standard bit length on every positive input | `research/NEGATIVE_RESULTS.md` NR-058 |
 | EMP-059 | EMPIRICAL | Standard-bit-length and frozen-certificate migration audit | `research/experiments/EXP-0059-m81-bitlength-audit.md` |
+| EMP-060 | EMPIRICAL | Independent semantic reconstruction of the M41 finite certificate | `research/experiments/EXP-0060-m85-independent-semantic-checker.md` |

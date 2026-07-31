@@ -29,9 +29,9 @@ anchors, and state their own exclusions.
 
 ## Coverage and trust boundary
 
-- 268 authoritative claim IDs are projected.
+- 269 authoritative claim IDs are projected.
 - 21 claim IDs are front-facing in exactly one focused paper pair.
-- 247 claim IDs remain archival-only.
+- 248 claim IDs remain archival-only.
 - A claim is not absent merely because it is not front-facing.
 - The focused paper source is not a second authority for status.
 - The generator records source hashes and the full archive-only list.

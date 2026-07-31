@@ -4516,6 +4516,24 @@ frozen source hashes and table projections without rerunning those searches;
 the full semantic path is documented in
 \texttt{research/CERTIFICATE\_TRUST\_MODEL.md}.
 
+M85 adds an intermediate clean-room path for the representative M41 row.
+A 548-line standard-library checker independently reconstructs the 685-prime
+population, descriptor grammar, primitive residues, the 1,528-coordinate
+signature certificate, the complete cap-102 collision on the tracked pair,
+and all 47,912 newly admitted cap-103 coordinates. It imports no generator or
+project number-theory module. Every registered M41 coordinate is away from a
+cyclotomic root, so this certificate evidence uses only finite-field unit
+division; a separate exact small vector tests the simple-root derivative
+branch. This reduces trust for one row only; it does not replace the existing
+M31--M46 semantic paths.
+
+\claimstatus{EMP-060}{EMPIRICAL}. EXP-0060 records the deterministic M85
+execution and eight clean-room or mutation tests. Rehashed population,
+descriptor, and primitive-vector mutations are rejected semantically, and the
+separate simple-root boundary vector agrees with exact integer quotient
+evaluation. This is evidence for the frozen \(m=29\) row only, not external
+review, an asymptotic result, or a general factoring claim.
+
 \begin{center}
 \scriptsize
 \begin{tabular}{L{0.23\linewidth}L{0.31\linewidth}L{0.36\linewidth}}
@@ -4661,7 +4679,12 @@ M50 artifact and both table fragments are checked with:
 \begin{verbatim}
 python scripts/generate_m50_finite_threshold_summary.py --check
 python scripts/check_m50_finite_threshold_summary.py
+python scripts/check_m85_m41_semantic_certificate.py
 \end{verbatim}
+The first two commands check projection and frozen-source integrity for all
+26 rows. The third recomputes M41 semantics without generator imports and
+rejects selected rehashed mutations; it does not independently certify the
+other 25 rows.
 
 The baseline suite includes modular exponentiation, trial division,
 perfect-power detection, validation primality, bounded Pollard rho, Pollard

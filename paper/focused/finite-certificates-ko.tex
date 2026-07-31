@@ -21,7 +21,10 @@ support signature가 단사인 최소 family-relative numeric cap
 생성된 인증서를 분리하고, predecessor collision, 정확한 hash, 재현
 명령을 보존한다. 같은 문법에서 모든 polynomial numeric cap은
 점근적으로 실패하며, worst-packed 경계 아래의 compact-gap 장벽도
-증명한다. 인증서는 \(m>34\)에 적용되지 않고 다른 selector족 가운데
+증명한다. 대표적인 \(m=29\) 행에 대해서는 548줄 표준 라이브러리
+checker가 generator code를 import하지 않고 모집단, descriptor, residue,
+signature, predecessor collision과 유일한 repair를 다시 구성한다.
+인증서는 \(m>34\)에 적용되지 않고 다른 selector족 가운데
 최소도 아니며 일반 정수분해 문제를 해결하지 않는다.
 \end{abstract}
 
@@ -42,8 +45,18 @@ unit-only continuation을 건너뛰기 전에 처리한다.
 \(\mathbf1_{p\mid z}\)를 준다. 상수 열 삭제와 중복 열 병합은 분석
 인증서에서만 수행하며, 온라인 알고리즘은 여전히 전체 공개 GCD 목록을
 평가한다. generator, 등록 JSON schema, 독립 differential checker,
-publication projection은 서로 다른 artifact이다. generator code를
-import하지 않는 최소 semantic checker는 M85의 별도 과제로 남긴다.
+publication projection은 서로 다른 artifact이다.
+
+M85는 대표적인 \(m=29\) 행에 clean-room semantic 경로를 추가한다.
+548줄 checker는 Python 표준 라이브러리만 사용한다. balanced 소수
+685개를 독립적으로 sieve하고, 각 인증서 source를 공개 descriptor
+문법과 대조하며, 여덟 primitive 출구를 다시 계산한다. cyclotomic
+root가 아니면 유한체 나눗셈으로 cofactor를 평가하고, simple root에서는
+정확한 항등식 \(F=\Phi C\)를 미분하여
+\(C(g)=F'(g)/\Phi'(g)\)를 사용한다. 등록된 M41 좌표는 모두 root가
+아니므로 인증서 근거는 단위 나눗셈 분기만 사용한다. 미분 분기는
+별도의 작은 exact vector로 simple-root 경계에서 검사한다. generator,
+프로젝트 수론 구현, 기존 checker를 import하지 않는다.
 
 \section{Signature 판정}
 
@@ -133,6 +146,9 @@ cap 102의 유일한 collision은 \(\{18979,21031\}\)이고 새로 허용된 정
 나오고 전체 signature가 단사가 된다. 0개 coordinate로 predecessor를
 고칠 수 없고 1개로 충분하므로 incremental minimum도 1이다. 길이 28과
 29의 threshold 감소는 서로 다른 모집단을 비교하므로 추세가 아니다.
+M85 checker는 685개 소수에서 1,528개 좌표 subcertificate를 별도로
+재계산하고, tracked pair에 대해 cap-102 descriptor 전체를 검사하며,
+새로 허용된 모든 좌표 가운데 repair가 유일함을 확인한다.
 \end{claimproof}
 
 \claimstatus{THM-019}{PROVED}. \(m=34\)에서
@@ -255,10 +271,16 @@ span, 상수 범위가 증명된 범위이다. 모든 selector의 하한으로 �
 \begin{verbatim}
 python scripts/generate_m50_finite_threshold_summary.py --check
 python scripts/check_m50_finite_threshold_summary.py
+python scripts/check_m85_m41_semantic_certificate.py
 \end{verbatim}
 기초 M31--M46 schema, generator, differential checker, 명령, toolchain,
 row hash, 선택된 cross-language vector는 \path{schemas}, \path{scripts},
 \path{research/experiments}에 보존된다.
+앞의 두 명령은 26개 행 projection과 frozen source integrity를
+검증한다. 세 번째 명령은 M41 한 행만을 위한 더 깊은 독립 semantic
+경로다. 여덟 mutation 및 clean-room test는 hash를 다시 계산한 모집단,
+descriptor, primitive-vector 변경과 별도의 simple-root 경계 vector를
+포함한다. 나머지 25개 행을 독립 검증한다고 주장하지 않는다.
 
 archival monograph \archivepaper{}는 전체 전이 chronology와 완전 증명을
 보존한다. claim 장부는 \path{research/CLAIMS.md}, 기계 검증되는 논문

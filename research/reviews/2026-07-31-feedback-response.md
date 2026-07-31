@@ -9,12 +9,12 @@ Its priorities are adopted in the following bounded sequence.
 | 2 | Split the monograph into promise, cyclotomic, and certificate papers | M82 | DONE |
 | 3 | Add an inspected-source related-work and novelty matrix | M83 | DONE |
 | 4 | Foreground unrecognized hereditary promises and bounded total wrappers | M84 | DONE |
-| 5 | Build a minimal independent semantic certificate checker | M85 | ACTIVE |
+| 5 | Build a minimal independent semantic certificate checker | M85 | DONE |
 
 M81 treats the definition defect as a falsification-first repair. M82 keeps
 the archival monograph authoritative while projecting exactly seven
 representative claims into each of three bilingual paper pairs. The
-machine-readable map accounts for all 268 claims: 21 focused and 247
+machine-readable map currently accounts for all 269 claims: 21 focused and 248
 archival-only. Later milestones may simplify presentation and move chronology
 to appendices, but they may not delete negative results, weaken cost
 accounting, promote finite evidence, or describe general classical
@@ -36,3 +36,15 @@ unrecognized hereditary promises, the local unresolved tails are
 capped union bounds \(\min\{1,4m(7/12)^s\}\) and
 \(\min\{1,4m(11/12)^s\}\). No outside-promise success probability or
 membership recognizer is claimed.
+
+M85 selects the M41 \(m=29\) row after a cost comparison with the much larger
+M46 endpoint. Its 548-line standard-library checker reconstructs the exact
+685-prime population, validates the descriptor grammar, uses independent
+finite-field quotient formulas for the M41 cofactor, checks the unused
+simple-root derivative branch on a separate exact small vector, recomputes
+all 1,528 certificate signatures, proves the sole cap-102 collision by a
+complete raw check on the tracked pair, and audits all 47,912 newly admitted
+cap-103 coordinates. Rehashed population, descriptor, and primitive-vector
+mutations are rejected semantically. This closes the requested minimal
+checker for one representative row; it is not a clean-room validation of all
+26 finite rows.
