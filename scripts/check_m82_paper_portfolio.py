@@ -67,6 +67,7 @@ EXPECTED_PAPERS: tuple[dict[str, Any], ...] = (
             "THM-024",
             "THM-025",
             "THM-026",
+            "THM-027",
             "THM-004",
             "THM-005",
             "THM-014",
@@ -141,8 +142,8 @@ def validate_paper_pair(
         errors.append(f"{paper_id} English claim order/status mismatch")
     if korean_pairs != expected_pairs:
         errors.append(f"{paper_id} Korean claim order/status mismatch")
-    if not 5 <= len(expected_pairs) <= 13:
-        errors.append(f"{paper_id} must project 5--13 representative claims")
+        if not 5 <= len(expected_pairs) <= 14:
+            errors.append(f"{paper_id} must project 5--14 representative claims")
     if "general" not in english_text.lower() or "factoring" not in english_text.lower():
         errors.append(f"{paper_id} English general-factoring scope marker missing")
     if "일반" not in korean_text or "인수분해" not in korean_text:

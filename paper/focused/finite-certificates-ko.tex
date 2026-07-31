@@ -12,37 +12,36 @@ Computer-Assisted Selector 인증서}
 
 \begin{abstract}
 square-free semiprime의 exponent--GCD selector에서 모든 pair의 분리는
-prime support-signature 사상의 단사성과 동치이다. 본 논문은 이 기준을
-사용하여 balanced 소수 모집단에 적용되는 하나의 공개 compact
-cyclotomic-cofactor selector족에 대해 완전한 유한 인증서를 제시한다.
-각 표준 이진 길이 \(9\le m\le34\)에서 완전 열거로 signature가 단사인
-최소 family-relative numeric cap \(L_m^\star\)를 증명한다. 공개 cap
-\(m+167\)은 이 유한 구간 전체에서 성공하지만, 모집단이 바뀔 때 정확한
-threshold는 단조가 아니며
-\(L_{29}^\star=103<L_{28}^\star=104\)이다. online evaluator는 공개
-descriptor 목록만 받고 그 구성과 encoding, compact modular 평가,
-모든 GCD와 inversion branch, 인수 추출, 출력을 과금한다. 소수 모집단
-열거, cap 탐색, support-signature normalization, collision refinement,
-certificate 생성과 hash 계산은 offline 증명 비용이며 알고리즘 advice나
-숨겨진 online 입력이 아니다. 인증서는 각 threshold에 대해 인접한
-  predecessor collision과 이를 분리하는 repair를 기록한다. 987줄
-  표준 라이브러리 checker는 generator와 project import 없이 16개 동결
-  source에서 26행 전체를 재구성한다. 28,245,185개 certificate 평가와
-  7,520,669개 raw-mask 평가를 수행했고 측정 peak는 29.15 MiB였다.
-  repair 19개는 loop-only 12개, looped-clique 5개, loopless-clique
-  2개 coverer graph이다. 통합 인증서는 1,063 bit와 520 test를
-  사용한다. equality witness는 여덟 non-template perturbation 중
-  다섯 개를 인증한다. 이어 augmenting-path/alternating-reachability
-  constructor가 여섯 bipartite target을 풀며, triangle-plus-pendant
-  equality와 \(C_5\) gap은 bipartiteness가 충분조건이지 필요조건은
-  아님을 보인다.
-  별도로 같은 정확한 문법의 모든
-polynomial numeric cap이 결국 실패함을 증명하고, 감사된 경계 아래의
-compact-gap 비단사 장벽을 제시한다. 이 인증서는 작은 유한 범위와 한
-selector족에만 적용되며 balanced factor를 인식하지 않고, \(m>34\)나
-다른 family의 최소성을 다루지 않으며, 일반 정수분해를 해결하지 않는다.
-computer-assisted 유한 증명과 online algorithm의 비용 주장은 엄격히
-분리한다.
+prime support-signature 사상의 단사성과 동치이다. 본 논문은 balanced
+소수 모집단에 적용되는 하나의 공개 compact cyclotomic-cofactor
+selector족에 대해 완전한 유한 인증서를 제시한다. 각 표준 이진 길이
+\(9\le m\le34\)에서 완전 열거로 signature가 단사인 최소
+family-relative numeric cap \(L_m^\star\)를 증명한다. 공개 cap
+\(m+167\)은 이 유한 구간에서 성공하지만
+\(L_{29}^\star=103<L_{28}^\star=104\)이므로 정확한 threshold는
+모집단 변화에 대해 단조일 필요가 없다. online evaluator는 공개
+descriptor 목록만 받고 구성, compact modular 평가, 모든 GCD와
+inversion branch, 인수 추출, 출력을 과금한다. 모집단 열거, cap 탐색,
+normalization, collision refinement, certificate 생성과 hash는 offline
+증명 비용이지 online advice가 아니다.
+
+987줄 표준 라이브러리 checker는 16개 동결 source에서 26행 전체를
+재구성하고 28,245,185개 certificate 평가와 7,520,669개 raw-mask
+평가를 29.15 MiB peak 안에서 수행한다. repair 19개는 loop-only 12개,
+looped-clique 5개, loopless-clique 2개 coverer graph이며 통합
+인증서는 1,063 bit와 520 test를 사용한다. equality witness는 여덟
+non-template perturbation 중 다섯 개를 인증하고 constructive
+bipartite 방법은 여섯 target을 푼다. 공급된 odd-cycle transversal이
+있으면 명시적 \(2^s\) branch reduction이 일곱 추가 exact cover를
+구성하고 잘못된 \(K_5\) transversal 하나를 거부한다. 이는
+fixed-parameter exactness이지 unrestricted polynomial time이나
+discovery 방법이 아니다.
+
+별도로 같은 문법의 모든 polynomial numeric cap이 결국 실패함과
+감사 경계 아래의 compact-gap 비단사 장벽을 증명한다. 이 인증서는
+작은 유한 범위와 한 selector족에만 적용되며 balanced factor를
+인식하지 않고, \(m>34\)나 다른 family의 최소성을 다루지 않으며,
+일반 정수분해를 해결하지 않는다.
 \end{abstract}
 
 \begin{costmodel}{비용 모델 요약}
@@ -418,6 +417,50 @@ bipartite graph 689개와 parallel-edge/isolate regression을 포함한 test
 19개가 통과한다. bounded exact enumeration은 방어이고 constructor가
 아니다.
 
+\readerclaim{정의}{Odd-cycle-transversal branch constructor}
+{\texttt{DEF-054: DEFINITION}}
+\(H-X\)가 bipartite인 \(X\)가 주어지면 모든 \(A\subseteq X\)를
+열거한다. \(X\setminus A\) 내부에 edge가 있는 branch는 거부하고,
+그렇지 않으면 \(N_{H-X}(X\setminus A)\)를 강제한 뒤 남은 bipartite
+graph를 정확히 풀어 결과 cover 중 최소를 선택한다.
+
+\readerclaim{정리}{공급된 odd-cycle transversal의 exact repair}
+{\claimstatus{THM-027}{PROVED}}
+공급된 valid transversal \(X\)에 대해 branch constructor는 \(H\)의
+minimum cover와
+\[
+ \rho(T,U)=|F|+\tau(H)
+\]
+인 exact repair number를 반환한다.
+\begin{claimproof}
+각 feasible candidate는 selected-transversal, forced-cross, 남은
+bipartite edge를 덮는다. 모든 cover \(C\)는 \(A=C\cap X\) branch에
+나타나고 모든 forced neighbor를 포함하며 bipartite remainder의
+cover를 남기므로, exact subcall은 \(C\)의 나머지보다 클 수 없다.
+\(s=|X|\)일 때 indexed cost는
+\[
+ O\!\left(t+q+2^s\bigl(s+t(t+q)\bigr)\right)
+\]
+이다. supplied set은 \(\ell_s+s\ell_t\) bit, output cover는
+\(\ell_k+k\ell_t\) bit이다. polynomiality에는 polynomial graph
+parameter, \(s=O(\log m)\), \(X\)를 얻는 방법이 별도로 필요하다.
+\end{claimproof}
+
+\readerclaim{반박된 승격}{FPT exactness는 unrestricted polynomial time이다}
+{\texttt{REF-067: REFUTED}}
+\(s=\Theta(t)\)이면 명시적 \(2^s\) branch 수는 exponential이다.
+compact supplied transversal은 factor-independent discovery algorithm이
+아니다.
+
+\readerclaim{유한 감사}{Supplied-transversal target graph}
+{\texttt{EMP-069: EMPIRICAL}}
+synthetic target 여덟 개 중 일곱 개를 24개 branch, feasible 18개로
+정확히 풀고, 너무 작은 \(K_5\) transversal 하나를 남은 triangle로
+거부한다. cover/matching 합은 25/16, full repair 합은 27,
+input/output payload는 63/84 bit이다. 네 vertex graph/transversal
+1,024쌍을 포함한 test 19개가 통과한다. transversal discovery나
+logarithmic bound는 주장하지 않는다.
+
 \section{초기 및 확장 유한 정리}
 
 \readerclaim{유한 인증서}{길이 15까지의 base cap}
@@ -653,6 +696,8 @@ python scripts/check_m96_matching_certificate.py
 pytest -p no:cacheprovider tests/test_m96_matching_certificate.py -q
 python scripts/check_m97_bipartite_cover.py
 pytest -p no:cacheprovider tests/test_m97_bipartite_cover.py -q
+python scripts/check_m98_oct_cover.py
+pytest -p no:cacheprovider tests/test_m98_oct_cover.py -q
 \end{verbatim}
 기초 M31--M46 schema, generator, differential checker, 명령, toolchain,
 row hash, 선택된 cross-language vector는 \path{schemas}, \path{scripts},
@@ -672,6 +717,10 @@ raw-type/count differential과 mutation suite를 포함한다. 열 번째
 번째 명령은 mutation과 direct-mask differential 경로를 검사한다.
 열두 번째 명령은 두 portfolio의 coverer 열 64개를 모두 재구성하고,
 열세 번째 명령은 graph template, mutation, star/path 경계를 검사한다.
+열네 번째부터 열일곱 번째 명령은 matching certificate와 constructive
+bipartite reduction을 검사한다. 열여덟 번째와 열아홉 번째 명령은 M98
+transversal branch 전체와 네 vertex exhaustive differential을 독립
+재생한다.
 
 archival monograph \archivepaper{}는 전체 전이 chronology와 완전 증명을
 보존한다. claim 장부는 \path{research/CLAIMS.md}, 기계 검증되는 논문

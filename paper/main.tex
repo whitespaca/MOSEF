@@ -284,7 +284,11 @@ payload is 1,063 rather than 1,228 bits. Equality witnesses certify five of
 eight non-template perturbations. An augmenting-path and
 alternating-reachability constructor then solves six bipartite targets;
 triangle-plus-pendant equality and a \(C_5\) gap show that bipartiteness is
-sufficient, not necessary. Deterministic
+sufficient, not necessary. With a supplied odd-cycle transversal \(X\), a
+\(2^{|X|}\)-branch reduction constructs exact covers for seven further
+targets and rejects one invalid \(K_5\) transversal; this is a
+fixed-parameter result, not an unrestricted polynomial algorithm.
+Deterministic
 bounded searches and independent
 Python, Rust, and C\# implementations audit these statements but are not used
 as proofs. No general polynomial-time classical factoring algorithm or lower
@@ -3794,6 +3798,58 @@ narrow tests. Nineteen tests pass, including all 689 simple bipartite graphs
 through three vertices per side and a parallel-edge/isolate regression.
 Bounded exact enumeration is experiment defense only, and the deleted-column
 targets are not newly enumerated selector outputs.
+
+\claimstatus{DEF-054}{DEFINITION}. Let \(X\) be a supplied odd-cycle
+transversal of the explicit residual graph \(H\), so \(B=H-X\) is
+bipartite. For each \(A\subseteq X\), reject the branch if
+\(H[X\setminus A]\) contains an edge; otherwise force
+\[
+ P_A=N_B(X\setminus A),
+\]
+construct a minimum cover \(Q_A\) of \(B-P_A\) by THM-026, and minimize
+\(C_A=A\cup P_A\cup Q_A\) over all feasible branches.
+
+\claimstatus{THM-027}{PROVED}. The constructor returns a minimum vertex
+cover of \(H\), and hence exact repair number
+\[
+ \rho(T,U)=|F|+\tau(H).
+\]
+Every candidate covers edges incident to \(A\), cross edges incident to
+\(X\setminus A\), and all remaining bipartite edges. Conversely, every
+cover \(C\) determines the feasible branch \(A=C\cap X\), must include
+\(P_A\), and leaves a cover of \(B-P_A\); the exact bipartite subcall is no
+larger than that remainder.
+
+For \(s=|X|\), the algorithm uses
+\[
+ O\!\left(t+q+2^s\bigl(s+t(t+q)\bigr)\right)
+\]
+indexed operations and conservatively
+\[
+ O\!\left(
+ tb+2tq+t+q+\lambda+
+ \bigl(t+q+2^s(s+t(t+q))\bigr)(\ell_t+\ell_q)
+ \right)
+\]
+bit operations plus source binding. The supplied transversal costs
+\(\ell_s+s\ell_t\) bits and an output cover of size \(k\) costs
+\(\ell_k+k\ell_t\) bits. A polynomial consequence requires separately
+proved polynomial explicit graph parameters, \(s=O(\log m)\), and an
+admissible way to obtain \(X\).
+
+\claimstatus{REF-067}{REFUTED}. Fixed-parameter exactness does not imply
+unrestricted polynomial time. If \(s=\Theta(t)\), the constructor exposes
+\(2^{\Theta(t)}\) branches. A compact supplied transversal is also not a
+discovery algorithm.
+
+\claimstatus{EMP-069}{EMPIRICAL}. EXP-0069 binds eight synthetic targets to
+the frozen M95 seed and exact M97 constructor. Seven valid transversals
+produce exact covers over 24 branches, 18 feasible; an undersized \(K_5\)
+transversal is rejected by a surviving triangle. Cover/matching sums are
+25/16, full repairs sum to 27, and the supplied/output payloads use 63/84
+bits. Nineteen tests include all 1,024 graph/transversal pairs on four
+labeled vertices. The experiment neither discovers transversals nor proves
+a logarithmic bound or new selector occurrence.
 
 Appendix \ref{proof:THM-019-BAR-040} gives the complete finite proof.
 

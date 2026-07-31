@@ -153,7 +153,11 @@ payload는 1,228 bit가 아니라 1,063 bit이다. equality witness는 여덟
 non-template perturbation 중 다섯 개를 인증한다. 이어
 augmenting-path/alternating-reachability constructor가 여섯 bipartite
 target을 풀며, triangle-plus-pendant equality와 \(C_5\) gap은
-bipartiteness가 충분조건이지 필요조건은 아님을 보인다.
+bipartiteness가 충분조건이지 필요조건은 아님을 보인다. 공급된
+odd-cycle transversal \(X\)가 있으면 \(2^{|X|}\) branch reduction이
+일곱 추가 target의 exact cover를 구성하고 잘못된 \(K_5\) transversal
+하나를 거부한다. 이는 fixed-parameter 결과이지 unrestricted polynomial
+algorithm이 아니다.
 이 양성 결과는 인수분해에 의존하는 유한 약속 정리이다. 일반 고전적
 다항 시간 정수분해 알고리즘이나 모든 다항 selector의 하한은 주장하지
 않는다.
@@ -2271,6 +2275,60 @@ cover/matching number 합은 15/14, full repair 합은 21이고 여섯 output은
 simple bipartite graph 689개와 parallel-edge/isolate regression을 포함한
 test 19개가 통과했다. bounded exact enumeration은 실험 방어일 뿐이며
 deleted-column target은 새로 열거한 selector output이 아니다.
+
+\claimstatus{DEF-054}{DEFINITION}. \(X\)를 명시적 residual graph
+\(H\)의 공급된 odd-cycle transversal이라 하여 \(B=H-X\)가
+bipartite라고 하자. 각 \(A\subseteq X\)에 대해
+\(H[X\setminus A]\)에 edge가 있으면 branch를 거부한다. 그렇지 않으면
+\[
+ P_A=N_B(X\setminus A)
+\]
+를 강제하고, THM-026으로 \(B-P_A\)의 minimum cover \(Q_A\)를
+구한 뒤 feasible branch의 \(C_A=A\cup P_A\cup Q_A\) 중 최소를
+선택한다.
+
+\claimstatus{THM-027}{PROVED}. 이 constructor는 \(H\)의 minimum
+vertex cover를 반환하므로 exact repair number는
+\[
+ \rho(T,U)=|F|+\tau(H)
+\]
+이다. 각 candidate는 \(A\)에 incident한 edge, \(X\setminus A\)에
+incident한 cross edge, 그리고 남은 모든 bipartite edge를 덮는다.
+반대로 모든 cover \(C\)는 feasible branch \(A=C\cap X\)를 정하고
+\(P_A\)를 포함해야 하며, 나머지는 \(B-P_A\)의 cover이다. exact
+bipartite subcall은 그 나머지보다 클 수 없다.
+
+\(s=|X|\)일 때 알고리즘은
+\[
+ O\!\left(t+q+2^s\bigl(s+t(t+q)\bigr)\right)
+\]
+indexed operation과 보수적으로
+\[
+ O\!\left(
+ tb+2tq+t+q+\lambda+
+ \bigl(t+q+2^s(s+t(t+q))\bigr)(\ell_t+\ell_q)
+ \right)
+\]
+bit operation 및 source binding을 사용한다. 공급된 transversal은
+\(\ell_s+s\ell_t\) bit이고 크기 \(k\)인 output cover는
+\(\ell_k+k\ell_t\) bit이다. polynomial 결론에는 polynomial explicit
+graph parameter, \(s=O(\log m)\), \(X\)를 얻는 허용 가능한 방법이
+각각 별도로 증명되어야 한다.
+
+\claimstatus{REF-067}{REFUTED}. fixed-parameter exactness는 unrestricted
+polynomial time을 뜻하지 않는다. \(s=\Theta(t)\)이면 constructor는
+\(2^{\Theta(t)}\) branch를 노출한다. compact supplied transversal은
+discovery algorithm도 아니다.
+
+\claimstatus{EMP-069}{EMPIRICAL}. EXP-0069는 여덟 synthetic target을
+동결 M95 seed와 정확한 M97 constructor에 결속한다. 일곱 valid
+transversal은 24개 branch 중 feasible 18개를 통해 exact cover를
+구성하고, 너무 작은 \(K_5\) transversal은 남은 triangle로 거부된다.
+cover/matching 합은 25/16, full repair 합은 27, supplied/output
+payload는 63/84 bit이다. 네 labeled vertex의 graph/transversal
+1,024쌍을 포함한 test 19개가 통과한다. 이 실험은 transversal을
+발견하거나 logarithmic bound 또는 새 selector occurrence를 증명하지
+않는다.
 
 \subsection{THM-019와 BAR-040의 증명}
 

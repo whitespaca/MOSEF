@@ -36,6 +36,7 @@ PAPER_CLAIMS = {
         "THM-024",
         "THM-025",
         "THM-026",
+        "THM-027",
         "THM-004",
         "THM-005",
         "THM-014",
@@ -80,6 +81,13 @@ READER_LABELS = {
     "THM-026": {
         "en": ("Theorem", "Constructive bipartite repair"),
         "ko": ("정리", "Constructive bipartite repair"),
+    },
+    "THM-027": {
+        "en": (
+            "Theorem",
+            "Exact repair from a supplied odd-cycle transversal",
+        ),
+        "ko": ("정리", "공급된 odd-cycle transversal의 exact repair"),
     },
     "BAR-002": {
         "en": (
