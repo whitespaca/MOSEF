@@ -161,8 +161,15 @@ predecessor가 최소성을 증명한다. \(m>20\)은 주장하지 않는다.
 \(L_m^\star\)는 정의된 \(\mathcal T_{m,L}\)족 안에서 완전
 \(\mathcal P_m\)에 대해 단사인 최소 cap이다. 이는 family-relative
 유한 최소값이며 모든 selector 가운데의 최소나 점근 rate가 아니다.
+26행 전체 연혁은 부록~\ref{app:finite-reproduction}에 두고,
+본문에는 유한 현상을 드러내는 다섯 대표 사례만 남긴다.
 
-\input{paper/tables/finite-threshold-summary-ko.tex}
+\paragraph{길이 28의 최대 threshold 도약.}
+새 507-소수 모집단에서 최초 단사 cap은 \(L_{27}^\star=87\)에서
+\(L_{28}^\star=104\)로 증가한다. cap 103에서는
+\(\{11867,12791\}\)이 여전히 충돌하고 다섯 좌표 subcertificate가
+predecessor partition을 복구한다. 이는 등록 구간에서 가장 큰 한 단계
+threshold 증가이지만 모집단이 바뀌므로 단조성 주장은 아니다.
 
 \readerclaim{유한 인증서}{길이 29 비단조성}
 {\claimstatus{THM-014}{PROVED}}
@@ -314,6 +321,15 @@ span, 상수 범위가 증명된 범위이다. 모든 selector의 하한으로 �
 
 \section{인증서 재현, 한계 및 아카이브 지도}
 \label{app:finite-reproduction}
+
+\subsection{26행 전체 threshold 연혁}
+
+family-relative threshold 전체 표를 아래에 보존한다. 각 행은 동결
+artifact에서 생성되며 online 알고리즘의 입력이 아니다.
+
+\input{paper/tables/finite-threshold-summary-ko.tex}
+
+\subsection{Artifact 및 semantic 재현}
 
 동결된 통합 artifact는
 \path{schemas/m50-finite-threshold-summary-v1.json}이며 파일 SHA-256은

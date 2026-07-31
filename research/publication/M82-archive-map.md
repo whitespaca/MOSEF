@@ -54,6 +54,11 @@ anchors, and state their own exclusions.
   boundary in every focused manuscript. The 34 mathematical main sections
   retain their order; the complete anchor audit is
   `research/reviews/2026-07-31-m89-appendix-boundary-editorial-audit.md`.
+- M90 moves the generated 26-row finite threshold chronology into the finite
+  paper's reproduction appendix. The main narrative retains the five
+  reviewer-prioritized cases and all seven focused claim IDs; the complete
+  row audit is
+  `research/reviews/2026-07-31-m90-finite-chronology-editorial-audit.md`.
 
 ## Reproduction
 
@@ -67,6 +72,8 @@ python scripts/check_m88_reader_labels.py
 pytest -p no:cacheprovider tests/test_m88_reader_labels.py -q
 python scripts/check_m89_appendix_boundaries.py
 pytest -p no:cacheprovider tests/test_m89_appendix_boundaries.py -q
+python scripts/check_m90_finite_chronology.py
+pytest -p no:cacheprovider tests/test_m90_finite_chronology.py -q
 ```
 
 Compile the six papers from the repository root with XeLaTeX:

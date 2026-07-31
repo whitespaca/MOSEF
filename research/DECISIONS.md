@@ -1429,3 +1429,26 @@
   is editorial only; it changes no claim status, proof, cost model, or
   experiment. M90 may move the complete finite threshold chronology within
   the finite-paper appendix, but may not alter its 26 registered rows.
+
+## ADR-075 - Keep five finite cases in main and all 26 rows in appendix
+
+- Date: 2026-07-31.
+- Decision: remove the generated 26-row threshold table from the English and
+  Korean finite-paper main narratives and place it in the existing
+  certificate-reproduction appendix. Keep five reviewer-prioritized cases in
+  main: the \(m=9\ldots15\) base range, the first base-cap failure at
+  \(m=16\), the length-28 jump and five-coordinate repair, the length-29
+  nonmonotonicity, and the length-34 endpoint. Preserve all seven focused
+  claim IDs before the appendix boundary.
+- Rationale: the full chronology is essential audit evidence but obscures the
+  finite theorem's conceptual progression when rendered between the initial
+  theorem and its two representative endpoint claims. The five cases expose
+  onset, failure, jump, nonmonotonicity, and endpoint behavior, while a
+  machine-checked appendix preserves every intermediate row.
+- Consequence: `scripts/check_m90_finite_chronology.py` independently fixes
+  the semantic fields of all 26 rows and checks them against both rendered
+  table fragments and the frozen M50 artifact. It also requires exactly five
+  representative cases and seven `PROVED` claims in each main narrative.
+  The move changes no threshold, certificate, proof, population, or
+  asymptotic statement. M91 will test whether the remaining 24 rows can
+  receive a bounded no-project-import semantic path.

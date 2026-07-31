@@ -14,6 +14,7 @@ Its priorities are adopted in the following bounded sequence.
 | 7 | Front-load evaluator/generator costs and compress all six abstracts | M87 | DONE |
 | 8 | Replace code-first claim headings with traceable reader labels | M88 | DONE |
 | 9 | Move milestone chronology, commands, hashes, and archive links out of the mathematical narrative | M89 | DONE |
+| 10 | Keep representative finite cases in main and move the full threshold chronology to an appendix | M90 | DONE |
 
 M81 treats the definition defect as a falsification-first repair. M82 keeps
 the archival monograph authoritative while projecting exactly seven
@@ -90,3 +91,15 @@ in the main narrative, while fixing 12 appendix headings, 32 commands, 38
 paths, and 14 inspected-source anchors. Eleven mutation paths reject either
 repository detail leaking back into the main text or an audit anchor being
 lost. The split is editorial only and leaves all claim statuses unchanged.
+
+M90 applies that boundary to the complete finite chronology. The generated
+26-row table now appears only in the certificate-reproduction appendix. The
+main narrative retains the base range through length 15, the first base-cap
+failure at length 16, the length-28 jump with a five-coordinate repair, the
+length-29 nonmonotonicity, and the length-34 endpoint, together with all seven
+focused claim IDs and both asymptotic barriers. A standalone hard-coded
+registry compares every semantic row field, reduced endpoint, and
+repair-status class against the English table, Korean table, and frozen M50
+artifact. Twelve mutation paths reject location, row, endpoint, collision,
+repair-count/status, artifact, subsection-order, and claim-placement drift.
+No finite theorem is promoted or extrapolated beyond length 34.

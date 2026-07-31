@@ -169,9 +169,17 @@ does not address \(m>20\).
 When it exists, let \(L_m^\star\) denote the least cap inside the
 \(\mathcal T_{m,L}\) family that is injective on the complete
 \(\mathcal P_m\).  This is a family-relative finite minimum, not a minimum
-over all selectors and not an asymptotic rate.
+over all selectors and not an asymptotic rate.  The complete 26-row
+chronology is in Appendix~\ref{app:finite-reproduction}; the main
+narrative retains the five cases that expose the finite phenomenon.
 
-\input{paper/tables/finite-threshold-summary-en.tex}
+\paragraph{Largest threshold jump at length 28.}
+The first injective cap rises from \(L_{27}^\star=87\) to
+\(L_{28}^\star=104\) on the new 507-prime population.  At cap 103 the pair
+\(\{11867,12791\}\) still collides, and a five-coordinate subcertificate
+repairs the predecessor partition.  This is the largest one-step threshold
+increase in the registered window; because the populations change, it is not
+a monotonicity statement.
 
 \readerclaim{Finite certificate}{Length-29 nonmonotonicity}
 {\claimstatus{THM-014}{PROVED}}
@@ -330,6 +338,15 @@ exact match in a bounded search is not evidence of novelty.
 
 \section{Certificate reproduction, limitations, and archival map}
 \label{app:finite-reproduction}
+
+\subsection{Complete 26-row threshold chronology}
+
+The full family-relative threshold table is retained below.  Its rows are
+generated from the frozen artifact and are not online algorithm inputs.
+
+\input{paper/tables/finite-threshold-summary-en.tex}
+
+\subsection{Artifact and semantic reproduction}
 
 The frozen integrated artifact is
 \path{schemas/m50-finite-threshold-summary-v1.json}, with file SHA-256

@@ -1,5 +1,89 @@
 # Research Status
 
+## M90 outcome
+
+- Date: 2026-07-31.
+- Branch: `research/20260731-m90-finite-chronology`.
+- Base: M89 squash merge
+  `83fb539f7dd210d2e1a6946981170105b85c61cc`.
+- Completed milestone: M90, a representative-main/complete-appendix split
+  for the finite threshold chronology.
+- The English and Korean finite-paper main narratives now retain five
+  reviewer-prioritized cases: the \(m=9\ldots15\) base range, first base-cap
+  failure at \(m=16\), length-28 jump and five-coordinate repair, length-29
+  nonmonotonicity, and length-34 endpoint. All seven focused `PROVED` claims
+  and both asymptotic barriers remain before the appendix boundary.
+- The generated 26-row table now appears only in the
+  certificate-reproduction appendix. Every population size,
+  family-relative cap, offset, predecessor collision bucket,
+  repair-coordinate count, and evidence ID is unchanged.
+- `scripts/check_m90_finite_chronology.py` is a 647-line
+  standard-library-only editorial checker with an independently hard-coded
+  26-row semantic registry. It checks the frozen M50 artifact, both generated
+  table fragments, reduced strict endpoints, repair-status classes, five
+  representative cases per language, appendix-only table placement,
+  subsection order, and seven main claims per language.
+- Thirteen targeted tests passed: one current-state test and 12 mutations for
+  table leakage, missing appendix input, subsection reordering, length-28 cap
+  or repair drift, claim relocation, English row drift, Korean collision
+  drift, reduced-endpoint drift, repair-status drift, frozen-artifact drift,
+  and row loss. The complete repository suite passed with 361 tests and 593
+  subtests in 262.07 seconds.
+- M82 and M83 were regenerated from the final sources. M82 accounts for 270
+  claims as 21 focused and 249 archive-only; its summary SHA-256 is
+  `8a46a0805c8fb997b95da1996c638d2a7db9c5c52abac43abce8f2991e516ab1`.
+  M83 retains six inspected sources, seven synchronized rows, and no priority
+  claim; its file SHA-256 is
+  `ae74638d4e3c3a7c8484607a7626ceb1f1ed041a1f5e1fc5b52ee1d55218d540`.
+- Verification passed: foundation and Korean-appendix checks; current M50,
+  M82, M83, M84, M87, M88, M89, and M90 generators or independent checkers;
+  bilingual publication consistency; targeted and full Python tests;
+  compileall; Ruff; mypy over 31 source files and both M90 files in strict
+  mode; Rust formatting, warning-denied Clippy, and 36 tests; and the C#
+  Release build with zero warnings and errors.
+- All six focused papers built with XeLaTeX and all 34 pages were rendered:
+  promise English/Korean 6/5 pages, cyclotomic English/Korean 5/5 pages, and
+  finite English/Korean 7/6 pages. The complete table starts under the
+  chronology appendix heading, repeats its header across the page break, and
+  ends before semantic reproduction. Final logs contain zero selected
+  undefined-reference/citation, missing-glyph, overfull, underfull, LaTeX,
+  package, or rerun warnings. PDF SHA-256 values are promise EN
+  `338223291e59365f201153f5eaa0a3cefedc15a5b1c614650034666f4b4d9acb`,
+  promise KO
+  `e545937c73c25a03810dc3ab9b6f23c8083bacb326c8b51526e21fa45bd4ce24`,
+  cyclotomic EN
+  `9981f149ec7c2e8dde89197b0b1db1b910dd478cb685ab90bdcbb08b9ad1c1f5`,
+  cyclotomic KO
+  `bde9a19f69ba282ecd701a051c484bcced987b9b8210a746271d156f01abbb26`,
+  finite EN
+  `803d3a2fcb02e58b61caa204eb61dd6346adfbc23b11e33cf9bd7c1952584275`,
+  and finite KO
+  `97c63263317985aed21854f7fb340bed0d9dee76475f55d7d1210365781f7f5d`.
+- Scope: M90 changes presentation and independently validates frozen row
+  equality; it does not recompute every row's modular signatures, promote a
+  finite theorem, or extrapolate beyond \(m=34\). General classical
+  polynomial-time integer factoring remains open. M91 is active and will test
+  whether one bounded no-project-import semantic checker can cover the other
+  24 rows, or record the precise trusted-base obstruction.
+
+### M90 Korean summary
+
+M90은 유한 인증서 논문의 영문·국문 본문에서 26행 전체 표를 제거하고
+기존 인증서 재현 부록으로 옮겼다. 본문에는 \(m=9\ldots15\) base 구간,
+\(m=16\) 최초 실패, \(m=28\) 최대 도약과 5좌표 복구, \(m=29\)
+비단조성, \(m=34\) endpoint의 다섯 사례와 7개 `PROVED` claim, 두 점근
+장벽을 남겼다. 647줄 독립 검사기는 동결 M50 JSON 및 영문·국문 표의
+26개 행을 하드코딩된 semantic registry와 대조하며, 12종 변이가 위치,
+cap, 축약 분수, repair 상태, 충돌쌍, 행 손실 및 claim 이동을 모두
+거부한다. 전체 회귀는 262.07초에 361개 테스트와 593개 하위 테스트를
+통과했다. Rust/C# 및
+출판 게이트도 통과했고, 여섯 PDF 34쪽에서
+잘림·겹침·한글 누락을 찾지 못했다. 이는 편집 및 동결 행 동등성
+결과이며 26행 전체의 modular signature를 새로 독립 재계산한 결과는
+아니다. 일반 고전 다항시간 정수분해는 여전히 열린 문제다. M91은
+나머지 24행을 하나의 제한된 clean-room checker로 검증할 수 있는지
+시험하고, 불가능하면 정확한 신뢰 기반 장벽을 기록한다.
+
 ## M89 outcome
 
 - Date: 2026-07-31.
