@@ -1617,3 +1617,33 @@
 - Consequence: THM-027 discharges M98 as a fixed-parameter exact-repair
   theorem. EXP-0069 remains synthetic and source-bound; M99 must separate
   polynomial transversal verification from factor-independent discovery.
+
+## ADR-084 - Use iterative compression and retain the graph-construction boundary
+
+- Date: 2026-07-31.
+- Decision: reconstruct the inspected iterative-compression OCT algorithm
+  for the explicit residual graph. Enumerate three states for each vertex
+  of the compression set, reduce every surviving state to a
+  terminal-deleting vertex separator by node splitting, and retain the
+  smallest valid OCT.
+- Literature decision: credit Lokshtanov, Saurabh, and Sikdar for the
+  established \(O(3^k k|E||V|)\) OCT method. State the local
+  \(O(3^{k+1}(k+1)t(t+q))\) implementation bound conservatively and do not
+  claim novelty for iterative compression or the separator reduction.
+- Tie decision: require deterministic output, exact OCT cardinality, and
+  bipartite deletion. Do not require the globally lexicographically first
+  optimum because a deterministic maximum-flow tie may choose another
+  optimum separator.
+- Cost decision: distinguish the FPT \(3^k\operatorname{poly}(t,q)\)
+  discovery from naive XP subset enumeration
+  \(\sum_{i\le k}\binom{t}{i}\). Only the former preserves polynomial time
+  when \(k=O(\log m)\) and the explicit graph parameters are polynomial in
+  \(m\).
+- Boundary decision: discovery is factor-independent relative to the
+  already explicit graph and public cap. M99 does not construct the
+  factor-dependent complete type system or prove a logarithmic cap for
+  graphs arising from unrestricted integer inputs.
+- Consequence: THM-028 discharges M99 at the explicit-graph layer and
+  composes with THM-027. M100 must confront public graph construction or a
+  separately checkable substitute rather than silently treating the graph
+  as available.

@@ -37,6 +37,7 @@ PAPER_CLAIMS = {
         "THM-025",
         "THM-026",
         "THM-027",
+        "THM-028",
         "THM-004",
         "THM-005",
         "THM-014",
@@ -88,6 +89,13 @@ READER_LABELS = {
             "Exact repair from a supplied odd-cycle transversal",
         ),
         "ko": ("정리", "공급된 odd-cycle transversal의 exact repair"),
+    },
+    "THM-028": {
+        "en": (
+            "Theorem",
+            "Exact iterative-compression OCT discovery",
+        ),
+        "ko": ("정리", "정확한 iterative-compression OCT discovery"),
     },
     "BAR-002": {
         "en": (

@@ -33,9 +33,12 @@ looped-clique 5개, loopless-clique 2개 coverer graph이며 통합
 non-template perturbation 중 다섯 개를 인증하고 constructive
 bipartite 방법은 여섯 target을 푼다. 공급된 odd-cycle transversal이
 있으면 명시적 \(2^s\) branch reduction이 일곱 추가 exact cover를
-구성하고 잘못된 \(K_5\) transversal 하나를 거부한다. 이는
-fixed-parameter exactness이지 unrestricted polynomial time이나
-discovery 방법이 아니다.
+구성하고 잘못된 \(K_5\) transversal 하나를 거부한다. iterative
+compression은 이제 명시적 graph와 공개 cap에서 minimum transversal을
+\(O(3^{k+1}(k+1)t(t+q))\) local indexed operation으로 발견한 뒤 exact
+cover reduction과 합성한다. 이는 explicit-graph 계층에서 supplied
+transversal advice를 제거하지만 factor-dependent graph 구성은 제거하지
+않는다.
 
 별도로 같은 문법의 모든 polynomial numeric cap이 결국 실패함과
 감사 경계 아래의 compact-gap 비단사 장벽을 증명한다. 이 인증서는
@@ -461,6 +464,48 @@ input/output payload는 63/84 bit이다. 네 vertex graph/transversal
 1,024쌍을 포함한 test 19개가 통과한다. transversal discovery나
 logarithmic bound는 주장하지 않는다.
 
+\readerclaim{정의}{Capped odd-cycle-transversal discovery}
+{\texttt{DEF-055: DEFINITION}}
+명시적 graph와 공개 cap \(k\)에 대해 iterative compression은 vertex
+prefix를 처리한다. 크기 \(k+1\) 이하의 알려진 OCT를
+left/right/deleted 상태로 나누고, 각 viable 상태를 bipartite
+remainder의 terminal-deleting separator 문제로 바꾼다.
+
+\readerclaim{정리}{정확한 iterative-compression OCT discovery}
+{\claimstatus{THM-028}{PROVED}}
+constructor는 OCT number가 \(k\)를 넘을 때 정확히 거부하고, 그렇지
+않으면 정확한 최소 크기의 OCT를 반환한다.
+\begin{claimproof}
+고정 상태에서 두 terminal 집합은 bipartite component의 서로 양립할
+수 없는 orientation을 나타낸다. 따라서 unit-capacity node-splitting
+flow가 partial coloring을 확장하는 최소 deletion을 준다. cap 이내의
+모든 OCT와 그 two-coloring은 열거되는 한 상태를 정하므로 전체 상태의
+최솟값은 정확하다. prefix 귀납으로 전체 알고리즘이 증명된다. 보수적
+local cost는
+\[
+ O\!\left(3^{k+1}(k+1)t(t+q)\right)
+\]
+이다. 이는 기존 iterative-compression 방법을 재구성한다. explicit
+graph parameter가 polynomial이고 \(k=O(\log m)\)이면 discovery와
+뒤따르는 \(2^k\) THM-027
+repair는 \(m\)의 polynomial이다. factor-independent graph 구성은
+주어지지 않는다.
+\end{claimproof}
+
+\readerclaim{반박된 승격}{Naive subset search는 경계를 보존한다}
+{\texttt{REF-068: REFUTED}}
+\(\sum_{i\le k}\binom{t}{i}\le(k+1)t^k\) candidate 수는 XP이다.
+\(t=\operatorname{poly}(m)\), \(k=\Theta(\log m)\)이면
+\(2^{O((\log m)^2)}\)이므로 polynomial이 아니다.
+
+\readerclaim{유한 감사}{발견된-transversal target graph}
+{\texttt{EMP-070: EMPIRICAL}}
+여덟 explicit source target 중 일곱 개에서 minimum OCT와 exact composed
+cover를 얻고 cap 2의 \(K_5\)를 거부한다. ledger에는 compression call
+38개, 상태 204개, flow call 160개가 있다. 다섯 vertex simple
+graph/cap 4,096개 비교를 포함한 test 20개가 통과한다. graph와 cap은
+source-bound synthetic input으로 남는다.
+
 \section{초기 및 확장 유한 정리}
 
 \readerclaim{유한 인증서}{길이 15까지의 base cap}
@@ -657,6 +702,14 @@ BAR-041--BAR-046은 고전적 signature counting과 과금된 평가를
 span, 상수 범위가 증명된 범위이다. 모든 selector의 하한으로 진술하지
 않으며, 이 제한 감사는 독창성이나 우선권 지위를 부여하지 않는다.
 
+\paragraph{M83-R08: OCT discovery.}
+iterative-compression OCT discovery, 그 three-way partition,
+\(O(3^k k|E||V|)\) bound는 확립된 배경이다
+\cite{lokshtanov2009oct}. THM-028은 그 방법을 명시적 coverer-graph
+입력에 맞게 재구성하고 보수적 local bit 비용을 과금한 뒤 별도의
+THM-027
+exact-repair 정리와 합성한다. 독창성이나 우선권 라벨을 받지 않는다.
+
 등록된 M83 행렬은 동기화된 비교를 보존한다. 제한 검색에서 같은 결과를
 찾지 못한 사실은 독창성의 증거가 아니다.
 
@@ -698,6 +751,8 @@ python scripts/check_m97_bipartite_cover.py
 pytest -p no:cacheprovider tests/test_m97_bipartite_cover.py -q
 python scripts/check_m98_oct_cover.py
 pytest -p no:cacheprovider tests/test_m98_oct_cover.py -q
+python scripts/check_m99_oct_discovery.py
+pytest -p no:cacheprovider tests/test_m99_oct_discovery.py -q
 \end{verbatim}
 기초 M31--M46 schema, generator, differential checker, 명령, toolchain,
 row hash, 선택된 cross-language vector는 \path{schemas}, \path{scripts},
@@ -720,7 +775,8 @@ raw-type/count differential과 mutation suite를 포함한다. 열 번째
 열네 번째부터 열일곱 번째 명령은 matching certificate와 constructive
 bipartite reduction을 검사한다. 열여덟 번째와 열아홉 번째 명령은 M98
 transversal branch 전체와 네 vertex exhaustive differential을 독립
-재생한다.
+재생한다. 스무 번째와 스물한 번째 명령은 capped M99 discovery와
+4,096개 다섯 vertex graph/cap differential을 독립 검사한다.
 
 archival monograph \archivepaper{}는 전체 전이 chronology와 완전 증명을
 보존한다. claim 장부는 \path{research/CLAIMS.md}, 기계 검증되는 논문

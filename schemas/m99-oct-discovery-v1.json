@@ -1,0 +1,723 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "EXP-0070",
+  "claim_ids": [
+    "DEF-055",
+    "THM-028",
+    "REF-068",
+    "EMP-070"
+  ],
+  "source": {
+    "path": "schemas/m98-oct-cover-v1.json",
+    "file_sha256": "c25cacc1e1e4217e87e6ff15b95c5c0356e7025b19833095feeef3f44bd45cb3",
+    "summary_sha256": "745cab13a67cae8f1e09ac084b75d78e870a0aacc88892be4facf032a5f3478f",
+    "m98_constructor_path": "scripts/run_m98_oct_cover_profile.py",
+    "m98_constructor_sha256": "6d2eba94384f2b09e6b1f06f1346d8fbdd68914b34c406d76cd0d9797566c1a4"
+  },
+  "literature_basis": {
+    "citation_key": "lokshtanov2009oct",
+    "doi": "10.1007/978-3-642-10217-2_37",
+    "inspected_url": "https://sites.cs.ucsb.edu/~daniello/papers/octIterComp.pdf",
+    "inspected_pages": 5,
+    "imported_result": "iterative-compression OCT discovery in O(3^k k |E| |V|)",
+    "local_status": "self-contained reconstruction with conservative O(3^(k+1)(k+1)t(t+q)) bound"
+  },
+  "cases": [
+    {
+      "case_id": "O1-triangle-pendant",
+      "vertex_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 2,
+          "endpoints": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 12,
+          "endpoints": [
+            "T2",
+            "T3"
+          ]
+        }
+      ],
+      "cap": 1,
+      "discovery": {
+        "status": "discovered_exact",
+        "cap": 1,
+        "rejected_prefix_size": null,
+        "oct_type_ids": [
+          "T0"
+        ],
+        "oct_size": 1,
+        "compression_calls": 4,
+        "partition_count": 18,
+        "flow_call_count": 17,
+        "flow_augmentations": 8,
+        "flow_searches": 14
+      },
+      "discovered_oct_payload_bits": 5,
+      "composed_minimum_cover_type_ids": [
+        "T0",
+        "T2"
+      ],
+      "composed_minimum_cover_number": 2,
+      "composed_cover_payload_bits": 7
+    },
+    {
+      "case_id": "O2-C5",
+      "vertex_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 4,
+          "endpoints": [
+            "T0",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 12,
+          "endpoints": [
+            "T2",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 14,
+          "endpoints": [
+            "T3",
+            "T4"
+          ]
+        }
+      ],
+      "cap": 1,
+      "discovery": {
+        "status": "discovered_exact",
+        "cap": 1,
+        "rejected_prefix_size": null,
+        "oct_type_ids": [
+          "T0"
+        ],
+        "oct_size": 1,
+        "compression_calls": 5,
+        "partition_count": 15,
+        "flow_call_count": 15,
+        "flow_augmentations": 2,
+        "flow_searches": 4
+      },
+      "discovered_oct_payload_bits": 6,
+      "composed_minimum_cover_type_ids": [
+        "T0",
+        "T1",
+        "T3"
+      ],
+      "composed_minimum_cover_number": 3,
+      "composed_cover_payload_bits": 12
+    },
+    {
+      "case_id": "O3-bowtie",
+      "vertex_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 2,
+          "endpoints": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 3,
+          "endpoints": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 4,
+          "endpoints": [
+            "T0",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 14,
+          "endpoints": [
+            "T3",
+            "T4"
+          ]
+        }
+      ],
+      "cap": 1,
+      "discovery": {
+        "status": "discovered_exact",
+        "cap": 1,
+        "rejected_prefix_size": null,
+        "oct_type_ids": [
+          "T0"
+        ],
+        "oct_size": 1,
+        "compression_calls": 5,
+        "partition_count": 27,
+        "flow_call_count": 21,
+        "flow_augmentations": 12,
+        "flow_searches": 16
+      },
+      "discovered_oct_payload_bits": 6,
+      "composed_minimum_cover_type_ids": [
+        "T0",
+        "T1",
+        "T3"
+      ],
+      "composed_minimum_cover_number": 3,
+      "composed_cover_payload_bits": 12
+    },
+    {
+      "case_id": "O4-house",
+      "vertex_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 3,
+          "endpoints": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 8,
+          "endpoints": [
+            "T1",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 12,
+          "endpoints": [
+            "T2",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 13,
+          "endpoints": [
+            "T2",
+            "T4"
+          ]
+        }
+      ],
+      "cap": 1,
+      "discovery": {
+        "status": "discovered_exact",
+        "cap": 1,
+        "rejected_prefix_size": null,
+        "oct_type_ids": [
+          "T1"
+        ],
+        "oct_size": 1,
+        "compression_calls": 5,
+        "partition_count": 15,
+        "flow_call_count": 15,
+        "flow_augmentations": 2,
+        "flow_searches": 4
+      },
+      "discovered_oct_payload_bits": 6,
+      "composed_minimum_cover_type_ids": [
+        "T0",
+        "T1",
+        "T2"
+      ],
+      "composed_minimum_cover_number": 3,
+      "composed_cover_payload_bits": 12
+    },
+    {
+      "case_id": "O5-K4",
+      "vertex_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 2,
+          "endpoints": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 3,
+          "endpoints": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 7,
+          "endpoints": [
+            "T1",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 12,
+          "endpoints": [
+            "T2",
+            "T3"
+          ]
+        }
+      ],
+      "cap": 2,
+      "discovery": {
+        "status": "discovered_exact",
+        "cap": 2,
+        "rejected_prefix_size": null,
+        "oct_type_ids": [
+          "T0",
+          "T1"
+        ],
+        "oct_size": 2,
+        "compression_calls": 4,
+        "partition_count": 18,
+        "flow_call_count": 16,
+        "flow_augmentations": 10,
+        "flow_searches": 18
+      },
+      "discovered_oct_payload_bits": 7,
+      "composed_minimum_cover_type_ids": [
+        "T0",
+        "T1",
+        "T2"
+      ],
+      "composed_minimum_cover_number": 3,
+      "composed_cover_payload_bits": 9
+    },
+    {
+      "case_id": "O6-K5-e",
+      "vertex_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "residual_edges": [
+        {
+          "column_index": 2,
+          "endpoints": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 3,
+          "endpoints": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 4,
+          "endpoints": [
+            "T0",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 7,
+          "endpoints": [
+            "T1",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 8,
+          "endpoints": [
+            "T1",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 12,
+          "endpoints": [
+            "T2",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 13,
+          "endpoints": [
+            "T2",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 14,
+          "endpoints": [
+            "T3",
+            "T4"
+          ]
+        }
+      ],
+      "cap": 2,
+      "discovery": {
+        "status": "discovered_exact",
+        "cap": 2,
+        "rejected_prefix_size": null,
+        "oct_type_ids": [
+          "T2",
+          "T3"
+        ],
+        "oct_size": 2,
+        "compression_calls": 5,
+        "partition_count": 21,
+        "flow_call_count": 19,
+        "flow_augmentations": 12,
+        "flow_searches": 18
+      },
+      "discovered_oct_payload_bits": 9,
+      "composed_minimum_cover_type_ids": [
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "composed_minimum_cover_number": 3,
+      "composed_cover_payload_bits": 12
+    },
+    {
+      "case_id": "O7-K5-valid",
+      "vertex_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 2,
+          "endpoints": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 3,
+          "endpoints": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 4,
+          "endpoints": [
+            "T0",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 7,
+          "endpoints": [
+            "T1",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 8,
+          "endpoints": [
+            "T1",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 12,
+          "endpoints": [
+            "T2",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 13,
+          "endpoints": [
+            "T2",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 14,
+          "endpoints": [
+            "T3",
+            "T4"
+          ]
+        }
+      ],
+      "cap": 3,
+      "discovery": {
+        "status": "discovered_exact",
+        "cap": 3,
+        "rejected_prefix_size": null,
+        "oct_type_ids": [
+          "T0",
+          "T1",
+          "T2"
+        ],
+        "oct_size": 3,
+        "compression_calls": 5,
+        "partition_count": 45,
+        "flow_call_count": 29,
+        "flow_augmentations": 28,
+        "flow_searches": 48
+      },
+      "discovered_oct_payload_bits": 12,
+      "composed_minimum_cover_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "composed_minimum_cover_number": 4,
+      "composed_cover_payload_bits": 15
+    },
+    {
+      "case_id": "R1-K5-invalid",
+      "vertex_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "residual_edges": [
+        {
+          "column_index": 0,
+          "endpoints": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "column_index": 2,
+          "endpoints": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 3,
+          "endpoints": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 4,
+          "endpoints": [
+            "T0",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 6,
+          "endpoints": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "column_index": 7,
+          "endpoints": [
+            "T1",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 8,
+          "endpoints": [
+            "T1",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 12,
+          "endpoints": [
+            "T2",
+            "T3"
+          ]
+        },
+        {
+          "column_index": 13,
+          "endpoints": [
+            "T2",
+            "T4"
+          ]
+        },
+        {
+          "column_index": 14,
+          "endpoints": [
+            "T3",
+            "T4"
+          ]
+        }
+      ],
+      "cap": 2,
+      "discovery": {
+        "status": "rejected_above_cap",
+        "cap": 2,
+        "rejected_prefix_size": 5,
+        "oct_type_ids": null,
+        "oct_size": null,
+        "compression_calls": 5,
+        "partition_count": 45,
+        "flow_call_count": 28,
+        "flow_augmentations": 28,
+        "flow_searches": 36
+      },
+      "discovered_oct_payload_bits": 0,
+      "composed_minimum_cover_type_ids": null,
+      "composed_minimum_cover_number": null,
+      "composed_cover_payload_bits": 0
+    }
+  ],
+  "totals": {
+    "case_count": 8,
+    "accepted_count": 7,
+    "rejected_count": 1,
+    "cap_sum": 13,
+    "discovered_oct_size_sum": 11,
+    "compression_calls": 38,
+    "partition_count": 204,
+    "flow_call_count": 160,
+    "flow_augmentations": 102,
+    "flow_searches": 158,
+    "discovered_oct_payload_bits": 51,
+    "composed_cover_number_sum": 21,
+    "composed_cover_payload_bits": 79
+  },
+  "scope": {
+    "classification": "EMPIRICAL",
+    "explicit_graph_oct_discovery": true,
+    "not_claimed": [
+      "factor-independent construction of the coverer graph",
+      "a polynomial algorithm for unrestricted OCT cap",
+      "a polynomial constructor for arbitrary vertex cover",
+      "a factor-promise recognizer",
+      "an asymptotic selector theorem",
+      "general classical polynomial-time factoring"
+    ]
+  },
+  "summary_sha256": "aa950a9ad2d2a40262b051ba4b8db9c5d799ba22edd48cefbf6cebafd81a349b"
+}

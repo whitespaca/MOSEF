@@ -51,6 +51,15 @@ SOURCES: tuple[dict[str, str], ...] = (
         "inspection_level": "ABSTRACT_ONLY",
         "record": "research/literature/SRC-012-yao-evaluation-powers.md",
     },
+    {
+        "source_id": "SRC-013",
+        "citation_key": "lokshtanov2009oct",
+        "inspection_level": "FULL_ARTICLE",
+        "record": (
+            "research/literature/"
+            "M99-odd-cycle-transversal-iterative-compression.md"
+        ),
+    },
 )
 
 ROWS: tuple[dict[str, Any], ...] = (
@@ -214,6 +223,31 @@ ROWS: tuple[dict[str, Any], ...] = (
             "compact-gap 문법과 상수 범위에만 적용된다."
         ),
     },
+    {
+        "row_id": "M83-R08",
+        "paper": "finite-certificates",
+        "claim_ids": ["THM-028"],
+        "source_ids": ["SRC-013"],
+        "classification": "ESTABLISHED_BACKGROUND",
+        "established_en": (
+            "Lokshtanov, Saurabh, and Sikdar give iterative-compression "
+            "OCT discovery in O(3^k k |E| |V|) time."
+        ),
+        "established_ko": (
+            "Lokshtanov, Saurabh, Sikdar는 O(3^k k |E| |V|) 시간의 "
+            "iterative-compression OCT discovery를 제시한다."
+        ),
+        "project_en": (
+            "The project reconstructs that established method for explicit "
+            "coverer graphs, adds local bit accounting, and composes it with "
+            "the separately proved exact-repair reduction."
+        ),
+        "project_ko": (
+            "본 연구는 그 확립된 방법을 명시적 coverer graph에 맞게 "
+            "재구성하고 local bit 비용을 과금한 뒤 별도 증명된 exact "
+            "repair reduction과 합성한다."
+        ),
+    },
 )
 
 SOURCE_HASH_PATHS = (
@@ -269,7 +303,10 @@ def build_artifact() -> dict[str, Any]:
         "rows": rows,
         "classification_counts": {
             "established_background_components": len(rows),
-            "scoped_synthesis_rows": len(rows),
+            "scoped_synthesis_rows": sum(
+                row["classification"] == "SCOPED_SYNTHESIS"
+                for row in rows
+            ),
             "positively_labeled_plausibly_new_rows": 0,
         },
         "search_record": SEARCH_RECORD.relative_to(ROOT).as_posix(),

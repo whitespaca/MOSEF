@@ -306,3 +306,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | THM-027 | PROVED | Supplied odd-cycle transversals give parameterized exact repairs | `research/proofs/THM-027-odd-cycle-transversal-repair.md` |
 | REF-067 | REFUTED | Fixed-parameter exactness is unrestricted polynomial time | `research/NEGATIVE_RESULTS.md` NR-066 |
 | EMP-069 | EMPIRICAL | Eight synthetic odd-cycle-transversal target systems | `research/experiments/EXP-0069-m98-oct-cover.md` |
+| DEF-055 | DEFINITION | Capped odd-cycle-transversal discovery by iterative compression | `research/proofs/THM-028-iterative-compression-oct-discovery.md` |
+| THM-028 | PROVED | Explicit graphs admit exact fixed-parameter OCT discovery and repair | `research/proofs/THM-028-iterative-compression-oct-discovery.md` |
+| REF-068 | REFUTED | Naive subset enumeration preserves the logarithmic polynomial boundary | `research/NEGATIVE_RESULTS.md` NR-067 |
+| EMP-070 | EMPIRICAL | Eight capped OCT-discovery and composed-repair systems | `research/experiments/EXP-0070-m99-oct-discovery.md` |

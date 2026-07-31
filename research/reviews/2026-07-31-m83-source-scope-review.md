@@ -2,9 +2,9 @@
 
 ## Review target
 
-- Source ledgers `SRC-005` and `SRC-008`--`SRC-012`.
+- Source ledgers `SRC-005` and `SRC-008`--`SRC-013`.
 - `research/literature/M83-primary-source-search.md`.
-- The seven-row bilingual positioning matrix and its JSON projection.
+- The eight-row bilingual positioning matrix and its JSON projection.
 - Related-work text in the three focused paper pairs and both archival
   manuscripts.
 - Bibliographic metadata and citation-key coverage.
@@ -16,7 +16,7 @@ is not represented as an independent external priority survey.
 
 | Threat | Test | Outcome |
 |---|---|---|
-| Search absence promoted to novelty | Inspect every matrix row, paper conclusion, and search limitation | Rejected; all seven rows use `NO_PRIORITY_CLAIM` |
+| Search absence promoted to novelty | Inspect every matrix row, paper conclusion, and search limitation | Rejected; all eight rows use `NO_PRIORITY_CLAIM` |
 | Abstract-only source used as a proof | Trace SRC-012 into BAR-018/BAR-019 prose | Rejected; Yao is context only and project proofs remain self-contained |
 | Classical signature language presented as new | Compare BAR-001/BAR-024 wording with Katona pp. 174--175 | Repaired; abstract separating systems are explicitly established background |
 | Cyclotomic proof technique hidden | Compare THM-003 positioning with Conway--Jones pp. 229--240 | Repaired; Galois, short vanishing sums, and rational-cosine methods are prior |
@@ -26,6 +26,7 @@ is not represented as an independent external priority survey.
 | Finite result generalized | Inspect M83 rows and focused finite conclusion | Rejected; one family and \(m\le34\) remain explicit |
 | Source provenance overstated | Audit retrieval records and checksums | Repaired; Pollard distinguishes official metadata from mirrored page images, Katona marks partial inspection, Bernstein marks draft status |
 | Bilingual drift | Parse language-independent row markers and paper row order | Rejected by the independent M83 checker and mutation tests |
+| Established OCT method relabeled as new | Compare THM-028 with the complete SRC-013 paper | Rejected; iterative compression, the three-way partition, and the \(O(3^k k|E||V|)\) result are explicitly established background |
 
 ## Source reconstruction notes
 
@@ -48,6 +49,10 @@ is not represented as an independent external priority survey.
 - Yao's official metadata and abstract were inspected. The full article was
   not used; the checker has a regression test that rejects promotion from
   `ABSTRACT_ONLY`.
+- All five pages of the Lokshtanov--Saurabh--Sikdar OCT paper were
+  inspected. THM-028 is positioned as a self-contained reconstruction with
+  conservative local bit accounting and composition, not as a new OCT
+  algorithm.
 
 ## Review result
 

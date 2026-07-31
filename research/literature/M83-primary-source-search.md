@@ -25,7 +25,9 @@ families included:
   relations, and orders four and six;
 - multi-exponent addition chains and multiplication schedules; and
 - product trees, remainder trees, batch GCD, smooth parts, and separator
-  coverage.
+  coverage; and
+- odd-cycle transversal, iterative compression, three-way compression
+  partitions, and vertex-separator reductions.
 
 Exact-phrase searches for the repository's combined formulations did not
 produce a direct match for the hereditary Pollard theorem, the exact
@@ -44,6 +46,7 @@ priority burden.
 | SRC-010 Conway--Jones (1976) | full article, pp. 229--240 | Galois/root-of-unity and short-relation methods |
 | SRC-011 Bernstein (2004) | full seven-page author draft | product/remainder-tree batch evaluation |
 | SRC-012 Yao (1976) | official abstract only | broad addition-chain context only |
+| SRC-013 Lokshtanov--Saurabh--Sikdar (2009) | full five-page paper | established iterative-compression OCT discovery and \(O(3^k k|E||V|)\) bound |
 
 ## Conservative outcome
 

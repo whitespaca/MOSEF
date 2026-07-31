@@ -39,6 +39,12 @@
       "citation_key": "yao1976evaluation",
       "inspection_level": "ABSTRACT_ONLY",
       "record": "research/literature/SRC-012-yao-evaluation-powers.md"
+    },
+    {
+      "source_id": "SRC-013",
+      "citation_key": "lokshtanov2009oct",
+      "inspection_level": "FULL_ARTICLE",
+      "record": "research/literature/M99-odd-cycle-transversal-iterative-compression.md"
     }
   ],
   "rows": [
@@ -167,10 +173,26 @@
       "project_en": "The proved noninjectivity bounds are restricted to the repository's declared numeric-cap and compact-gap grammars and constant ranges.",
       "project_ko": "증명된 비단사 경계는 저장소가 선언한 numeric-cap 및 compact-gap 문법과 상수 범위에만 적용된다.",
       "priority_status": "NO_PRIORITY_CLAIM"
+    },
+    {
+      "row_id": "M83-R08",
+      "paper": "finite-certificates",
+      "claim_ids": [
+        "THM-028"
+      ],
+      "source_ids": [
+        "SRC-013"
+      ],
+      "classification": "ESTABLISHED_BACKGROUND",
+      "established_en": "Lokshtanov, Saurabh, and Sikdar give iterative-compression OCT discovery in O(3^k k |E| |V|) time.",
+      "established_ko": "Lokshtanov, Saurabh, Sikdar는 O(3^k k |E| |V|) 시간의 iterative-compression OCT discovery를 제시한다.",
+      "project_en": "The project reconstructs that established method for explicit coverer graphs, adds local bit accounting, and composes it with the separately proved exact-repair reduction.",
+      "project_ko": "본 연구는 그 확립된 방법을 명시적 coverer graph에 맞게 재구성하고 local bit 비용을 과금한 뒤 별도 증명된 exact repair reduction과 합성한다.",
+      "priority_status": "NO_PRIORITY_CLAIM"
     }
   ],
   "classification_counts": {
-    "established_background_components": 7,
+    "established_background_components": 8,
     "scoped_synthesis_rows": 7,
     "positively_labeled_plausibly_new_rows": 0
   },
@@ -183,17 +205,18 @@
     "research/literature/SRC-010-conway-jones-roots-unity.md": "df1f25c668854e618d6fcea554a75130f7542b2dd5a4b21b52c313b59c2a6b50",
     "research/literature/SRC-011-bernstein-smooth-parts.md": "1d5117f50835c725ebfc113dc7e4e7cb0893d3dfa09596fa7259e93bda54c756",
     "research/literature/SRC-012-yao-evaluation-powers.md": "0ad57261aeca453f86b400ccd1c596543838c7c7cb03e6082d093ff0e39176ae",
-    "research/literature/M83-primary-source-search.md": "989bb97f5c7c203af3cf68b5fe76eb48af7bbd0dfc880ebc54dfb5ad2d8edce2",
-    "research/reviews/2026-07-31-m83-source-scope-review.md": "31e2d06c0ba7bbdefbf4a79c52e3154b4e7623f9f9ca07ac29beb086df29c104",
-    "paper/references.bib": "71626c54fb84356438677bc65066206ab1aa664dfeb90c7423392f10ade69460",
-    "paper/main.tex": "943509f3c24119e3ae7bfded6f9b8f5de1058fdae24448ca231d03d7bccf6342",
-    "paper/main-ko.tex": "978f9517aa795058ffad6e45f220e410054eedcd9859596f2abfa6789caea076",
+    "research/literature/M99-odd-cycle-transversal-iterative-compression.md": "dced1f0f786bd87ef9950b2e068f6ded31f851bcb87ecb2702903837f42bb210",
+    "research/literature/M83-primary-source-search.md": "fb77d139f58894f67a665b71e4ae76822322aedd4d468bdd75d04f66a672e418",
+    "research/reviews/2026-07-31-m83-source-scope-review.md": "c774f1c111585ea963e84b6f247f3c4e111f3159951051ef5126506742ad88fc",
+    "paper/references.bib": "f9c95933c9d60969a131f77110db4f553a0d345984e21190033c6cb47ca11f53",
+    "paper/main.tex": "075c29b441227e4ddf070247db1c0a9b494e1dd20f911d417c8d3f360d136508",
+    "paper/main-ko.tex": "7c45d7a9d9227b19769baf89471eb157201521201cc65fc2361f97b36ba8fbc0",
     "paper/focused/promise-factorization-en.tex": "2edf7fb97855f0c9d018a1c41024b46590a0d455b8b47821c6a98ffda1c05eea",
     "paper/focused/promise-factorization-ko.tex": "cf9b0ebe3f2ebef36beb65f1795d61460064fcc6dd946851dfd500065e71d709",
     "paper/focused/cyclotomic-extraction-en.tex": "7c0bc3f0f67139c51058011446fcc7dd797b527821f63f970998490c72ca429b",
     "paper/focused/cyclotomic-extraction-ko.tex": "9574618e6eb8074c4f2043a60ebcc5e84c94665812949b9c78d637f550800315",
-    "paper/focused/finite-certificates-en.tex": "a1b77fb1da7e9dd94a378ba8896ca92728945ea771e0af9a62f29cbbf191ff7a",
-    "paper/focused/finite-certificates-ko.tex": "984316e808b80eab020944758e8b6135d94039174c168892c5a89a154039dac1"
+    "paper/focused/finite-certificates-en.tex": "1bdf24738e6cbd06f438457f1e915422a378680ef8a852e835cd4165759a8b04",
+    "paper/focused/finite-certificates-ko.tex": "df381d900915267fc9195dc20e33d130f4fe7c7c32ad2eda5b2990e9ca143902"
   },
   "scope": {
     "general_classical_polynomial_time_factoring": "OPEN",
@@ -201,5 +224,5 @@
     "priority_claims_made": false,
     "finite_certificate_max_input_length": 34
   },
-  "audit_summary_sha256": "81bc24b3fd8eafb08a4fdd6a6b66ccbf767557c6a3cc529409757c2795f59ab0"
+  "audit_summary_sha256": "91e7f546d46054a1d6e9e73f198c3990bc4bea5753e4c9a02a3f9b144a3a0463"
 }

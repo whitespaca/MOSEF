@@ -631,6 +631,14 @@ selectors. The evaluation context is documented by Bernstein
 \cite{bernstein2004smoothparts}; the selector-specific noninjectivity proofs
 remain internal and receive no priority label.
 
+\paragraph{M83-R08: OCT positioning.}
+Lokshtanov, Saurabh, and Sikdar establish iterative-compression OCT
+discovery and its \(O(3^k k|E||V|)\) running time
+\cite{lokshtanov2009oct}. THM-028 is a self-contained reconstruction for
+explicit coverer graphs with conservative local bit accounting and
+composition with THM-027. It is not presented as a new OCT algorithm and
+does not construct the factor-dependent graph.
+
 Relative to the repository's Pollard \(p-1\) and Williams-style \(p+1\)
 baselines, the present work does not claim a faster general algorithm. Those
 baselines motivate local order divisibility tests; the paper's narrower
@@ -3850,6 +3858,52 @@ transversal is rejected by a surviving triangle. Cover/matching sums are
 bits. Nineteen tests include all 1,024 graph/transversal pairs on four
 labeled vertices. The experiment neither discovers transversals nor proves
 a logarithmic bound or new selector occurrence.
+
+\claimstatus{DEF-055}{DEFINITION}. For an explicit graph \(G\) and public
+cap \(k\), capped OCT discovery returns a minimum-cardinality set \(X\) with
+\(G-X\) bipartite when \(|X|\le k\), and otherwise reports that the optimum
+exceeds the cap. In one compression call, a known OCT \(S\) of size at most
+\(k+1\) is partitioned into left, right, and deleted states. Each viable
+partition reduces to a terminal-deleting vertex separator in the bipartite
+graph \(G-S\).
+
+\claimstatus{THM-028}{PROVED}. Iterative compression returns rejection
+exactly when the OCT number exceeds \(k\), and otherwise returns an OCT of
+exact minimum size. For a fixed partition, let \(A\dot\cup B\) be a
+bipartition of \(G-S\). Neighbors whose fixed orientation conflicts with
+the proposed left/right colors form terminal sets \(U,W\). A set extends
+the partial coloring exactly when it separates \(U\) from \(W\). Unit
+vertex splitting and capacity-\(k+1\) nonvertex arcs find this separator,
+including cases that delete a terminal.
+
+Over all prefixes, the conservative local cost is
+\[
+ O\!\left(3^{k+1}(k+1)t(t+q)\right)
+\]
+indexed operations, with the corresponding index bit lengths charged
+explicitly. This reconstructs the established iterative-compression OCT
+method of Lokshtanov, Saurabh, and Sikdar
+\cite{lokshtanov2009oct}; no novelty is claimed for that method. Composing
+the discovered OCT with THM-027 is polynomial in the original bit length
+\(m\) when the explicit graph parameters are polynomial in \(m\) and the
+public cap satisfies \(k=O(\log m)\).
+
+\claimstatus{REF-068}{REFUTED}. Naively enumerating all subsets of size at
+most \(k\) does not preserve that logarithmic polynomial boundary. Its
+candidate count is at most \((k+1)t^k\), which becomes
+\(2^{O((\log m)^2)}\) for \(t=\operatorname{poly}(m)\) and
+\(k=\Theta(\log m)\). This is an XP/quasi-polynomial accounting boundary,
+not a lower bound against all OCT algorithms.
+
+\claimstatus{EMP-070}{EMPIRICAL}. EXP-0070 supplies the eight M98 explicit
+graphs and public caps, but not the transversals. Seven minimum OCTs are
+discovered and \(K_5\) at cap two is rejected. The ledger contains 38
+compression calls, 204 partitions, 160 flow calls, 102 augmentations, and
+158 searches; discovered OCTs and composed covers use 51/79 bits. Twenty
+tests include all 4,096 simple five-vertex graph/cap comparisons. The
+experiment does not construct complete factor-dependent types or the
+coverer graph from an integer, prove a logarithmic cap for unrestricted
+inputs, or support a general factoring claim.
 
 Appendix \ref{proof:THM-019-BAR-040} gives the complete finite proof.
 
