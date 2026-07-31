@@ -282,3 +282,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | THM-021 | PROVED | Pair-cover equivalence and private-pair exact-minimum certificate | `research/proofs/THM-021-pair-cover-certificate.md` |
 | REF-061 | REFUTED | Generic signature-cardinality bound certifies every exact repair minimum | `research/NEGATIVE_RESULTS.md` NR-060 |
 | EMP-063 | EMPIRICAL | Nine source-bound compact pair-cover certificates | `research/experiments/EXP-0063-m92-pair-cover-certificates.md` |
+| DEF-049 | DEFINITION | Finite lower-witness portfolio for exact repair certificates | `research/proofs/THM-022-subset-obstruction-certificate.md` |
+| THM-022 | PROVED | Cardinality and subset-obstruction exact-minimum certificates | `research/proofs/THM-022-subset-obstruction-certificate.md` |
+| REF-062 | REFUTED | Private pairs certify every exact finite repair minimum | `research/NEGATIVE_RESULTS.md` NR-061 |
+| EMP-064 | EMPIRICAL | Ten independently reconstructed early repair certificates | `research/experiments/EXP-0064-m93-early-repair-certificates.md` |

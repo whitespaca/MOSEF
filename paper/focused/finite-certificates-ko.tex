@@ -29,6 +29,9 @@ certificate 생성과 hash 계산은 offline 증명 비용이며 알고리즘 ad
   표준 라이브러리 checker는 generator와 project import 없이 16개 동결
   source에서 26행 전체를 재구성한다. 28,245,185개 certificate 평가와
   7,520,669개 raw-mask 평가를 수행했고 측정 peak는 29.15 MiB였다.
+  compact 상계/하계 증인은 non-domain-floor repair 19개 모두를 독립
+  인증하며, 초기 두 경우는 private pair 대신 cardinality 또는 subset
+  obstruction을 필요로 한다.
   별도로 같은 정확한 문법의 모든
 polynomial numeric cap이 결국 실패함을 증명하고, 감사된 경계 아래의
 compact-gap 비단사 장벽을 제시한다. 이 인증서는 작은 유한 범위와 한
@@ -80,6 +83,8 @@ partition 전체를 재구성하고, 길이 26--34에서는 선택 subcertificat
 모든 raw descriptor의 양방향으로 정확한 collision을 증명한다. 유한
 pair-cover 전수 검사가 9개 등록 repair 최소값을 복구하며, 길이 27과
 28에서는 실제 cap-72와 cap-88 baseline을 유지한다.
+독립 early-repair checker는 154,920개 primitive coordinate를 평가하여
+길이 16--25의 전이 열 개에 대한 정확한 compact 인증서를 완성한다.
 
 cyclotomic root가 아니면 유한체 나눗셈으로 cofactor를 평가하고,
 simple root에서는 정확한 항등식 \(F=\Phi C\)를 미분하여
@@ -155,6 +160,39 @@ bit operation이고 공간은 \(O(t(b+q)+\lambda)\) bit이다. 외부 type
 목록의 완전성은 별도 전제이다.
 \end{claimproof}
 
+\readerclaim{정리}{Subset-obstruction repair 인증서}
+{\claimstatus{THM-022}{PROVED}}
+\(k\)개의 완전 coverage type이 \(U(\Pi)\)를 덮고 모든
+\((k-1)\)-type subset에 명시적 미피복 pair가 있다고 하자. 그러면
+정확한 repair number는 \(k\)이다. 별도로 크기 \(b_{\max}\)인
+block에는 적어도 \(\lceil\log_2b_{\max}\rceil\)개의 binary
+coordinate가 필요하다.
+
+\begin{claimproof}
+상계 증인은 \(k\) 이하를 준다. 어떤 \(k-1\)개 type도 universe를
+덮지 못한다. 더 작은 cover가 있다면 이를 서로 다른 \(k-1\)개 이용
+가능 type으로 확장할 수 있고, 해당 subset의 obstruction과 모순된다.
+따라서 두 경계가 일치한다. cardinality 진술은 \(r\)개 binary
+coordinate가 한 원래 block 안에서 최대 \(2^r\)개 signature만 주는
+데서 따른다.
+
+\(e=\binom{t}{k-1}\)라 하면 explicit pattern, mask, 상계 index와
+obstruction entry의 verifier 비용은
+\[
+ O(tb+tq+kq+e(k-1)+\lambda)
+\]
+bit operation이며 명시적 인증서 길이에 대해 다항이다. type 목록의
+완전성은 전제이고 \(e\)에 대한 점근 경계는 도출하지 않는다.
+\end{claimproof}
+
+\readerclaim{반박된 판정}{Private pair는 완전하지 않다}
+{\texttt{REF-062: REFUTED}}
+길이 16의 정확한 mask \(3,5,6\)과 길이 24의 mask
+\(07,19,2a,34\)에서는 어떤 선택 type도 private pair를 갖지 않는다.
+전자의 최소값 2는 cardinality가 인증한다. 후자는 cardinality가 2만
+주지만 여섯 2-type subset 모두의 명시적 미피복 pair가 정확한 최소값
+3을 인증한다. THM-021은 명시된 private-pair 전제 아래 유효하다.
+
 \readerclaim{반박된 지름길}{Cardinality만으로는 정확하지 않다}
 {\texttt{REF-061: REFUTED}}
 길이 27과 28의 repair baseline은 각각 tracked prime이 6개이므로 일반
@@ -173,6 +211,18 @@ source-bound schema는 길이 26--34에서 tracked prime 28개, 미분리 쌍
 ledger는 397 bit test이다. 11개 test는 rehashed mutation과 독립
 all-row semantic 경로에 대한 raw coverage differential을 포함한다.
 동결 raw type 목록의 완전성은 EMP-062에 의존한다.
+
+\readerclaim{유한 감사}{초기 repair 증인 열 개}
+{\texttt{EMP-064: EMPIRICAL}}
+독립 source-bound checker는 길이 16--25에서 tracked prime 27개,
+pair 23개, 완전 type 18개와 정확한 최소값
+\[
+ 2,2,1,1,1,3,1,1,3,1
+\]
+을 검사한다. raw primitive-coordinate test 154,920개를 수행한다.
+여덟 instance는 private pair를, 길이 16은 cardinality를, 길이 24는
+여섯 2-type obstruction 전체를 사용한다. 483-bit portfolio와
+145-test 핵심 ledger는 유한하고 selector-specific이다.
 
 \section{초기 및 확장 유한 정리}
 
@@ -399,6 +449,8 @@ python scripts/check_m86_m46_streaming_certificate.py
 python scripts/check_m91_all_rows_semantic_certificate.py
 python scripts/check_m92_pair_cover_certificate.py
 python -m pytest -p no:cacheprovider tests/test_m92_pair_cover_certificate.py -q
+python scripts/check_m93_early_repair_certificate.py
+pytest -p no:cacheprovider tests/test_m93_early_repair_certificate.py -q
 \end{verbatim}
 기초 M31--M46 schema, generator, differential checker, 명령, toolchain,
 row hash, 선택된 cross-language vector는 \path{schemas}, \path{scripts},
@@ -411,7 +463,9 @@ row hash, 선택된 cross-language vector는 \path{schemas}, \path{scripts},
 test를 통과했다.
 여섯 번째 명령은 745-bit pair-cover portfolio를 독립 검사하고,
 일곱 번째 명령은 all-row 경로에 대한 완전 raw-coverage differential을
-포함한다.
+포함한다. 여덟 번째 명령은 154,920개 primitive-coordinate test로
+483-bit early portfolio를 독립 재구성하고, 아홉 번째 명령은 완전
+raw-type/count differential과 mutation suite를 포함한다.
 
 archival monograph \archivepaper{}는 전체 전이 chronology와 완전 증명을
 보존한다. claim 장부는 \path{research/CLAIMS.md}, 기계 검증되는 논문

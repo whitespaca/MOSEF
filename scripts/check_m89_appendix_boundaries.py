@@ -158,6 +158,7 @@ EXPECTED_CLAIMS = {
     "finite-certificates": (
         "BAR-024",
         "THM-021",
+        "THM-022",
         "THM-004",
         "THM-005",
         "THM-014",
@@ -192,6 +193,8 @@ EXPECTED_COMMANDS = {
         "python scripts/check_m91_all_rows_semantic_certificate.py",
         "python scripts/check_m92_pair_cover_certificate.py",
         "python -m pytest -p no:cacheprovider tests/test_m92_pair_cover_certificate.py -q",
+        "python scripts/check_m93_early_repair_certificate.py",
+        "pytest -p no:cacheprovider tests/test_m93_early_repair_certificate.py -q",
     ),
 }
 
@@ -267,7 +270,7 @@ SECTION_PATTERN = re.compile(r"^\\section\{.*\}$", re.MULTILINE)
 CLAIM_PATTERN = re.compile(
     r"\\claimstatus\{([A-Z]+-\d{3})\}\{([A-Z]+)\}"
 )
-COMMAND_PATTERN = re.compile(r"^python .+$", re.MULTILINE)
+COMMAND_PATTERN = re.compile(r"^(?:python|pytest) .+$", re.MULTILINE)
 PATH_PATTERN = re.compile(r"\\path\{([^}]+)\}")
 CITATION_PATTERN = re.compile(r"\\cite\{([^}]+)\}")
 LABEL_PATTERN = re.compile(r"\\label\{([^}]+)\}")

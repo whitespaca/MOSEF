@@ -30,6 +30,9 @@ costs and are not algorithmic advice or hidden online inputs.  The
   trusted computing base without generator or project imports: it reconstructs
   all 26 rows from 16 frozen sources through 28,245,185 certificate and
   7,520,669 raw-mask evaluations, within a measured 29.15 MiB peak.
+  Compact upper/lower witnesses independently certify all 19 non-domain-floor
+  repairs; two early cases require cardinality or subset obstructions instead
+  of private pairs.
   Separately, we prove that every
 polynomial numeric cap in this exact grammar eventually fails and establish
 compact-gap noninjectivity barriers below the audited boundary.  These
@@ -84,6 +87,9 @@ partition at lengths 16--25; at lengths 26--34 it sandwiches each exact
 collision between a selected subcertificate and every raw descriptor.
 An exhaustive finite pair-cover computation recovers the nine registered
 repair minima, keeping the cap-72 and cap-88 baselines at lengths 27 and 28.
+An independent early-repair checker evaluates 154,920 primitive coordinates
+and completes exact compact certificates for the ten transitions at lengths
+16--25.
 
 Away from a cyclotomic root the checker evaluates the cofactor by finite-field
 division; at a simple root it differentiates the exact identity
@@ -159,6 +165,37 @@ bit operations and \(O(t(b+q)+\lambda)\) bits.  Completeness of an external
 type list is a separate premise.
 \end{claimproof}
 
+\readerclaim{Theorem}{Subset-obstruction repair certificate}
+{\claimstatus{THM-022}{PROVED}}
+Suppose \(k\) complete coverage types cover \(U(\Pi)\), and every
+\((k-1)\)-type subset has an explicit uncovered pair.  Then the exact repair
+number is \(k\).  Independently, a block of size \(b_{\max}\) requires at
+least \(\lceil\log_2b_{\max}\rceil\) binary coordinates.
+
+\begin{claimproof}
+The upper witness gives at most \(k\).  No \(k-1\) types cover the universe.
+Any smaller cover can be padded to \(k-1\) distinct available types, which
+would contradict the recorded obstruction for that subset.  The bounds
+therefore agree.  The cardinality statement follows because \(r\) binary
+coordinates give at most \(2^r\) signatures inside one original block.
+
+With \(e=\binom{t}{k-1}\), explicit patterns, masks, upper indices, and
+obstruction entries give verifier cost
+\[
+ O(tb+tq+kq+e(k-1)+\lambda)
+\]
+bit operations, polynomial in the explicit certificate length.  Completeness
+of the type list is a premise; no asymptotic bound on \(e\) is inferred.
+\end{claimproof}
+
+\readerclaim{Refuted criterion}{Private pairs are not complete}
+{\texttt{REF-062: REFUTED}}
+The exact length-16 masks \(3,5,6\) and length-24 masks
+\(07,19,2a,34\) have no private pair for any selected type.  Cardinality
+certifies the former minimum two.  For the latter, cardinality gives only two,
+while explicit uncovered pairs for all six two-type subsets certify the exact
+minimum three.  THM-021 remains valid under its stated private-pair premise.
+
 \readerclaim{Refuted shortcut}{Cardinality alone is not exact}
 {\texttt{REF-061: REFUTED}}
 At each of lengths 27 and 28 the repair baseline has six tracked primes, so
@@ -177,6 +214,18 @@ Its abstract combinatorial payload is 745 bits and the core certificate
 ledger is 397 bit tests.  Eleven tests include rehashed mutations and a raw
 coverage differential against the independent all-row semantic path.
 Exhaustiveness of the frozen raw type lists depends on EMP-062.
+
+\readerclaim{Finite audit}{Ten early repair witnesses}
+{\texttt{EMP-064: EMPIRICAL}}
+The independent source-bound checker covers lengths 16--25 with 27 tracked
+primes, 23 pairs, 18 complete types, and exact minima
+\[
+ 2,2,1,1,1,3,1,1,3,1.
+\]
+It performs 154,920 raw primitive-coordinate tests.  Eight instances use
+private pairs; length 16 uses cardinality and length 24 uses all six
+two-type obstructions.  The 483-bit portfolio and 145-test core ledger remain
+finite and selector-specific.
 
 \section{Initial and widened finite theorems}
 
@@ -415,6 +464,8 @@ python scripts/check_m86_m46_streaming_certificate.py
 python scripts/check_m91_all_rows_semantic_certificate.py
 python scripts/check_m92_pair_cover_certificate.py
 python -m pytest -p no:cacheprovider tests/test_m92_pair_cover_certificate.py -q
+python scripts/check_m93_early_repair_certificate.py
+pytest -p no:cacheprovider tests/test_m93_early_repair_certificate.py -q
 \end{verbatim}
 The underlying M31--M46 schemas, generators, differential checkers, commands,
 toolchains, row hashes, and selected cross-language vectors remain under
@@ -427,7 +478,9 @@ clean-room and mutation tests under a 987-line, 155.31-second, and
 29.15-MiB measured reviewer bound.
 The sixth command checks the 745-bit pair-cover portfolio independently;
 the seventh includes the complete raw-coverage differential against the
-all-row path.
+all-row path.  The eighth independently reconstructs the 483-bit early
+portfolio through 154,920 primitive-coordinate tests; the ninth includes its
+complete raw-type/count differential and mutation suite.
 
 The archival monograph \archivepaper{} retains the complete transition
 chronology and full proofs.  The claim ledger is

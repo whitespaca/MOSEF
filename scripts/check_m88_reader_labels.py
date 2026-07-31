@@ -31,6 +31,7 @@ PAPER_CLAIMS = {
     "finite-certificates": (
         "BAR-024",
         "THM-021",
+        "THM-022",
         "THM-004",
         "THM-005",
         "THM-014",
@@ -55,6 +56,10 @@ READER_LABELS = {
     "THM-021": {
         "en": ("Theorem", "Private-pair repair certificate"),
         "ko": ("정리", "Private-pair repair 인증서"),
+    },
+    "THM-022": {
+        "en": ("Theorem", "Subset-obstruction repair certificate"),
+        "ko": ("정리", "Subset-obstruction repair 인증서"),
     },
     "BAR-002": {
         "en": (
@@ -303,7 +308,8 @@ def main() -> int:
     print(
         "M88 reader-label checker: PASS "
         f"({len(reports)} papers, {headings} rendered headings, "
-        f"22 bilingual claim IDs, {len(kinds)} localized reader kinds)"
+        f"{headings // 2} bilingual claim IDs, "
+        f"{len(kinds)} localized reader kinds)"
     )
     return 0
 

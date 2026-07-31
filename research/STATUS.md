@@ -1,5 +1,116 @@
 # Research Status
 
+## M93 outcome
+
+- Date: 2026-07-31.
+- Branch: `research/20260731-m93-early-repair-covers`.
+- Base: M92 squash merge
+  `02b98a2f8db5f3ccaca6dd28a3a2ba990f092c79`.
+- Completed milestone: M93, exact compact repair certificates for all ten
+  non-domain-floor M50 transitions at lengths 16 through 25 and a precise
+  boundary for the private-pair criterion.
+- `DEF-049` defines a finite lower-witness portfolio. `THM-022` proves that a
+  covering \(k\)-type upper witness plus one uncovered universe element for
+  every \((k-1)\)-type subset certifies exact minimum \(k\). It also records
+  the independent bucket-cardinality lower bound
+  \(\lceil\log_2 b_{\max}\rceil\).
+- For \(e=\binom{t}{k-1}\), the subset-obstruction verifier has explicit cost
+  \(O(tb+tq+kq+e(k-1)+\lambda)\), polynomial in the explicit certificate
+  length. No claim is made that \(e\) is polynomial in an external
+  asymptotic input parameter.
+- `schemas/m93-early-repair-certificates-v1.json` is bound to the exact M50
+  file digest and its frozen source digests. It records 27 tracked primes, 23
+  unresolved pairs, 7,398 newly admitted descriptors, 19,365
+  descriptor/prime evaluations, 154,920 primitive-coordinate tests, 18
+  complete coverage types, and exact minima
+  \(2,2,1,1,1,3,1,1,3,1\). Its canonical summary SHA-256 is
+  `77c8ae289277875815e7744b37456627f619fc601d4fb2ccca35031b7f248aae`;
+  the exact JSON file SHA-256 is
+  `3fba1bc8ef78594e32083f8576a43874159390bbccbcc669b658015ce8431641`.
+- Eight instances use private-pair lower witnesses. At \(m=16\), the complete
+  masks \(3,5,6\) have exact minimum two without any private pair, and the
+  three-point cardinality bound is exact. At \(m=24\), the masks
+  \(07,19,2a,34\) have exact minimum three without any private pair;
+  cardinality gives only two, while explicit uncovered pairs for all six
+  two-type subsets prove three.
+- `REF-062` and NR-061 preserve the failed universal shortcut: exact finite
+  minimum covers need not admit private-pair witnesses. This does not refute
+  THM-021 under its hypotheses.
+- The clean-room production checker is 679 lines, uses only the Python
+  standard library, and imports neither M91 nor the generator. Fourteen
+  targeted tests passed in 1.63 seconds, including seven rehashed semantic
+  mutations, both private-pair failures, all six length-24 subset entries,
+  deterministic regeneration, and full raw-type/evaluation-count
+  differential equality with M91.
+- The core abstract certificate ledger contains 145 bit tests: 61
+  pattern/pair tests, 52 upper-mask tests, and 32 lower-witness tests. A
+  redundant exact-cover defense checks 48 subsets under a 314 mask-bit upper
+  ledger. The abstract payload is 483 bits; JSON syntax, paths, hashes,
+  representative-source strings, and source bytes are excluded explicitly.
+- The complete repository suite passed with 397 tests and 593 subtests in
+  349.14 seconds. Python compilation, repository-wide Ruff, mypy over 31
+  reference source files, strict mypy over all four M93 files, M0 foundation
+  validation, Rust formatting, warning-denied Clippy and 36 tests, and the
+  C# Release build all passed; the C# build had zero warnings and errors.
+- M50, M82--M90, M92, M93, and bilingual publication checks passed. M82 now
+  accounts for 279 ledger claims as 23 focused and 256 archive-only, with
+  portfolio summary SHA-256
+  `36704abed9af10ac4bef361129f7e00e87d99cf785ce8eb0a8766bfb3b55d79e`.
+  M83 retains six inspected sources, seven synchronized rows, no priority
+  claims, and audit SHA-256
+  `43f43ac84a8dc10c9e890d08cb545ea07b61f2db9576605060b1653c4de5c5ce`.
+- Eight XeLaTeX manuscripts built without selected warnings: archival
+  English/Korean 129/58 pages, promise English/Korean 6/5, cyclotomic
+  English/Korean 5/5, and finite English/Korean 8/8. All 224 pages had
+  extractable text. Nine changed pages were rendered and visually inspected
+  without clipping, overlap, or missing Korean glyphs. PDF SHA-256 values are
+  archival EN
+  `ae99f23d654fb0f3720e6e87a990a5fd91c4f7af98ac1d36d9f269c23a397329`,
+  archival KO
+  `514f0f0f1eee0f134b617a7cc058836466439590c0edc35a771cf2cb23fa570a`,
+  promise EN
+  `f8ab6a7b781090a35581391fdde2c71fa7735d57da9406d8f51e0db50e945d99`,
+  promise KO
+  `a5f1485d7e551e5de0595798e279f6aaf937132e36be3385a3a17ad297d023f2`,
+  cyclotomic EN
+  `3878f6988a4417e8f2d09a3aa504463321e516e56669e58da8b42d4d2479dc30`,
+  cyclotomic KO
+  `1236c6da64e10ee280d601ff7768a4f264da2900fa95f4dc278be897c0bcd53b`,
+  finite EN
+  `cf11c36ae6c77c7e9a114ca5b92addd8e47364b3451df64304fb00bc0e09d194`,
+  and finite KO
+  `6936164340070a634ce7c500f3c44274467a11aaa2cd92d1e32e01a858e08fb4`.
+- Scope: M93 completes compact exact certificates for all 19 frozen repair
+  transitions at lengths 16 through 34 when combined with M92. It does not
+  recognize the factor-dependent promise, prove an \(m>34\) threshold,
+  establish an asymptotic cap law, minimize over other selector families, or
+  support a general factoring claim. General classical polynomial-time
+  integer factoring remains open.
+- M94 is active. It will test whether the two private-pair failures share a
+  complete-graph incidence structure that yields a smaller structural lower
+  certificate than enumerating every undersized subset.
+
+### M93 Korean summary
+
+M93은 길이 16--25의 열 개 초기 transition을 독립 재구성하여 정확한
+repair 최소값 \(2,2,1,1,1,3,1,1,3,1\)을 인증했다. 679줄
+표준 라이브러리 checker는 새 descriptor 7,398개와
+primitive-coordinate 154,920개를 직접 평가하며 M91이나 generator를
+import하지 않는다. 여덟 instance는 private pair를 사용하지만
+\(m=16\)과 \(m=24\)에서는 선택 type에 private pair가 없다. 전자는
+3-point cardinality 하계가 정확한 2를 주고, 후자는 cardinality가 2만
+주는 대신 네 type의 모든 여섯 2-type subset에 대해 명시적 미피복
+pair를 기록하여 정확한 최소값 3을 증명한다. 이로써 private-pair
+인증서가 모든 유한 최소 cover에 존재한다는 가설은 `REF-062`로
+반박되었지만 `THM-021` 자체는 그 전제 아래 유효하다. 새
+`THM-022`는 subset-obstruction 하계의 일반 유한 정리를 증명한다.
+전체 suite 397개 test와 593개 subtest, 양언어 논문 8종 224페이지가
+통과했다. M92와 합치면 \(m=16\)부터 \(m=34\)까지 동결 repair 19개
+모두가 compact한 정확한 상계/하계 인증서를 갖는다. 그러나 이는
+factor promise recognizer, \(m>34\) 정리, 다른 selector family의
+최소성, 점근 cap 법칙 또는 일반 고전적 다항시간 인수분해 알고리즘을
+제공하지 않는다. 원래 일반 문제는 여전히 열린 상태다.
+
 ## M92 outcome
 
 - Date: 2026-07-31.
