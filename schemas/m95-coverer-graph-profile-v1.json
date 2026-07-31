@@ -1,0 +1,2051 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "EXP-0066",
+  "claim_ids": [
+    "DEF-051",
+    "THM-024",
+    "REF-064",
+    "EMP-066"
+  ],
+  "sources": [
+    {
+      "source_id": "M92",
+      "path": "schemas/m92-pair-cover-certificates-v1.json",
+      "file_sha256": "0c58d6d28079aac4975861836b714c9c8d63e805bbc86c5c3b101b3c85ae636e",
+      "summary_sha256": "3bf4b744d30d31f5e52725ca9cb70302bc4654ab1e7cfbe1707448392dbc19b0",
+      "semantic_dependency": "EMP-062"
+    },
+    {
+      "source_id": "M93",
+      "path": "schemas/m93-early-repair-certificates-v1.json",
+      "file_sha256": "3fba1bc8ef78594e32083f8576a43874159390bbccbcc669b658015ce8431641",
+      "summary_sha256": "77c8ae289277875815e7744b37456627f619fc601d4fb2ccca35031b7f248aae",
+      "semantic_dependency": "EMP-064"
+    }
+  ],
+  "instances": [
+    {
+      "source_id": "M92",
+      "input_length": 26,
+      "source_instance_sha256": "5be39b79b57fa9ca82cc241b2de50bdf7402b63c66fd6b322c1dd41165960a9d",
+      "collision_buckets": [
+        [
+          7187,
+          7229,
+          7649
+        ]
+      ],
+      "tracked_point_count": 3,
+      "pair_count": 3,
+      "type_count": 2,
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1,
+            0
+          ],
+          "coverage_mask_hex": "5"
+        },
+        {
+          "type_id": "T1",
+          "pattern": [
+            0,
+            0,
+            1
+          ],
+          "coverage_mask_hex": "6"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            7187,
+            7229
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        },
+        {
+          "pair_index": 1,
+          "pair": [
+            7187,
+            7649
+          ],
+          "coverer_type_ids": [
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 2,
+          "pair": [
+            7229,
+            7649
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T1"
+          ]
+        }
+      ],
+      "column_degree_histogram": {
+        "1": 2,
+        "2": 1
+      },
+      "coverer_incidence_count": 4,
+      "template_kind": "looped_clique",
+      "looped_type_ids": [
+        "T0",
+        "T1"
+      ],
+      "implicit_upper_kind": "all_types",
+      "exact_repair_number": 2,
+      "incumbent_lower_witness_kind": "private_pairs",
+      "verification_cost": {
+        "pattern_storage_bits": 6,
+        "mask_storage_bits": 6,
+        "bucket_label_bits": 39,
+        "upper_witness_index_bits": 0,
+        "lower_witness_payload_bits": 0,
+        "abstract_certificate_payload_bits": 51,
+        "pattern_pair_tests": 6,
+        "incidence_mask_bit_tests": 6,
+        "template_slot_tests": 3,
+        "certificate_verifier_bit_tests": 15,
+        "incumbent_payload_bits": 57,
+        "payload_bits_saved": 6,
+        "incumbent_verifier_bit_tests": 16,
+        "verifier_bit_test_delta": -1
+      }
+    },
+    {
+      "source_id": "M92",
+      "input_length": 27,
+      "source_instance_sha256": "55830ccb41686b432fc7710380652937209fd24885c2ad4de81607784d0a6348",
+      "collision_buckets": [
+        [
+          9463,
+          9791,
+          10607,
+          10939,
+          11087,
+          11213
+        ]
+      ],
+      "tracked_point_count": 6,
+      "pair_count": 15,
+      "type_count": 5,
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "coverage_mask_hex": "001f"
+        },
+        {
+          "type_id": "T1",
+          "pattern": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "coverage_mask_hex": "01e1"
+        },
+        {
+          "type_id": "T2",
+          "pattern": [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "coverage_mask_hex": "3244"
+        },
+        {
+          "type_id": "T3",
+          "pattern": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "coverage_mask_hex": "5488"
+        },
+        {
+          "type_id": "T4",
+          "pattern": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "coverage_mask_hex": "6910"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            9463,
+            9791
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 1,
+          "pair": [
+            9463,
+            10607
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        },
+        {
+          "pair_index": 2,
+          "pair": [
+            9463,
+            10939
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 3,
+          "pair": [
+            9463,
+            11087
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 4,
+          "pair": [
+            9463,
+            11213
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T4"
+          ]
+        },
+        {
+          "pair_index": 5,
+          "pair": [
+            9791,
+            10607
+          ],
+          "coverer_type_ids": [
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 6,
+          "pair": [
+            9791,
+            10939
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 7,
+          "pair": [
+            9791,
+            11087
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 8,
+          "pair": [
+            9791,
+            11213
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T4"
+          ]
+        },
+        {
+          "pair_index": 9,
+          "pair": [
+            10607,
+            10939
+          ],
+          "coverer_type_ids": [
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 10,
+          "pair": [
+            10607,
+            11087
+          ],
+          "coverer_type_ids": [
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 11,
+          "pair": [
+            10607,
+            11213
+          ],
+          "coverer_type_ids": [
+            "T4"
+          ]
+        },
+        {
+          "pair_index": 12,
+          "pair": [
+            10939,
+            11087
+          ],
+          "coverer_type_ids": [
+            "T2",
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 13,
+          "pair": [
+            10939,
+            11213
+          ],
+          "coverer_type_ids": [
+            "T2",
+            "T4"
+          ]
+        },
+        {
+          "pair_index": 14,
+          "pair": [
+            11087,
+            11213
+          ],
+          "coverer_type_ids": [
+            "T3",
+            "T4"
+          ]
+        }
+      ],
+      "column_degree_histogram": {
+        "1": 5,
+        "2": 10
+      },
+      "coverer_incidence_count": 25,
+      "template_kind": "looped_clique",
+      "looped_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "implicit_upper_kind": "all_types",
+      "exact_repair_number": 5,
+      "incumbent_lower_witness_kind": "private_pairs",
+      "verification_cost": {
+        "pattern_storage_bits": 30,
+        "mask_storage_bits": 75,
+        "bucket_label_bits": 84,
+        "upper_witness_index_bits": 0,
+        "lower_witness_payload_bits": 0,
+        "abstract_certificate_payload_bits": 189,
+        "pattern_pair_tests": 75,
+        "incidence_mask_bit_tests": 75,
+        "template_slot_tests": 15,
+        "certificate_verifier_bit_tests": 165,
+        "incumbent_payload_bits": 224,
+        "payload_bits_saved": 35,
+        "incumbent_verifier_bit_tests": 175,
+        "verifier_bit_test_delta": -10
+      }
+    },
+    {
+      "source_id": "M92",
+      "input_length": 28,
+      "source_instance_sha256": "ef92bc62aefa427015c6e3f4348918f0b860667cc542b6770d78f3188d97be2b",
+      "collision_buckets": [
+        [
+          11867,
+          12791,
+          13633,
+          13967,
+          14051,
+          15559
+        ]
+      ],
+      "tracked_point_count": 6,
+      "pair_count": 15,
+      "type_count": 5,
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "coverage_mask_hex": "01e1"
+        },
+        {
+          "type_id": "T1",
+          "pattern": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "coverage_mask_hex": "0e22"
+        },
+        {
+          "type_id": "T2",
+          "pattern": [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "coverage_mask_hex": "3244"
+        },
+        {
+          "type_id": "T3",
+          "pattern": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "coverage_mask_hex": "5488"
+        },
+        {
+          "type_id": "T4",
+          "pattern": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "coverage_mask_hex": "6910"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            11867,
+            12791
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        },
+        {
+          "pair_index": 1,
+          "pair": [
+            11867,
+            13633
+          ],
+          "coverer_type_ids": [
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 2,
+          "pair": [
+            11867,
+            13967
+          ],
+          "coverer_type_ids": [
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 3,
+          "pair": [
+            11867,
+            14051
+          ],
+          "coverer_type_ids": [
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 4,
+          "pair": [
+            11867,
+            15559
+          ],
+          "coverer_type_ids": [
+            "T4"
+          ]
+        },
+        {
+          "pair_index": 5,
+          "pair": [
+            12791,
+            13633
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 6,
+          "pair": [
+            12791,
+            13967
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 7,
+          "pair": [
+            12791,
+            14051
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 8,
+          "pair": [
+            12791,
+            15559
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T4"
+          ]
+        },
+        {
+          "pair_index": 9,
+          "pair": [
+            13633,
+            13967
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 10,
+          "pair": [
+            13633,
+            14051
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 11,
+          "pair": [
+            13633,
+            15559
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T4"
+          ]
+        },
+        {
+          "pair_index": 12,
+          "pair": [
+            13967,
+            14051
+          ],
+          "coverer_type_ids": [
+            "T2",
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 13,
+          "pair": [
+            13967,
+            15559
+          ],
+          "coverer_type_ids": [
+            "T2",
+            "T4"
+          ]
+        },
+        {
+          "pair_index": 14,
+          "pair": [
+            14051,
+            15559
+          ],
+          "coverer_type_ids": [
+            "T3",
+            "T4"
+          ]
+        }
+      ],
+      "column_degree_histogram": {
+        "1": 5,
+        "2": 10
+      },
+      "coverer_incidence_count": 25,
+      "template_kind": "looped_clique",
+      "looped_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "implicit_upper_kind": "all_types",
+      "exact_repair_number": 5,
+      "incumbent_lower_witness_kind": "private_pairs",
+      "verification_cost": {
+        "pattern_storage_bits": 30,
+        "mask_storage_bits": 75,
+        "bucket_label_bits": 84,
+        "upper_witness_index_bits": 0,
+        "lower_witness_payload_bits": 0,
+        "abstract_certificate_payload_bits": 189,
+        "pattern_pair_tests": 75,
+        "incidence_mask_bit_tests": 75,
+        "template_slot_tests": 15,
+        "certificate_verifier_bit_tests": 165,
+        "incumbent_payload_bits": 224,
+        "payload_bits_saved": 35,
+        "incumbent_verifier_bit_tests": 175,
+        "verifier_bit_test_delta": -10
+      }
+    },
+    {
+      "source_id": "M92",
+      "input_length": 29,
+      "source_instance_sha256": "af21eabdc3d527aad6b40d2226855722ce9e355869d3961e3950f3bb96f6d447",
+      "collision_buckets": [
+        [
+          18979,
+          21031
+        ]
+      ],
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "type_count": 1,
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            18979,
+            21031
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "column_degree_histogram": {
+        "1": 1
+      },
+      "coverer_incidence_count": 1,
+      "template_kind": "loop_only",
+      "looped_type_ids": [
+        "T0"
+      ],
+      "implicit_upper_kind": "all_types",
+      "exact_repair_number": 1,
+      "incumbent_lower_witness_kind": "private_pairs",
+      "verification_cost": {
+        "pattern_storage_bits": 2,
+        "mask_storage_bits": 1,
+        "bucket_label_bits": 30,
+        "upper_witness_index_bits": 0,
+        "lower_witness_payload_bits": 0,
+        "abstract_certificate_payload_bits": 33,
+        "pattern_pair_tests": 1,
+        "incidence_mask_bit_tests": 1,
+        "template_slot_tests": 1,
+        "certificate_verifier_bit_tests": 3,
+        "incumbent_payload_bits": 33,
+        "payload_bits_saved": 0,
+        "incumbent_verifier_bit_tests": 3,
+        "verifier_bit_test_delta": 0
+      }
+    },
+    {
+      "source_id": "M92",
+      "input_length": 30,
+      "source_instance_sha256": "d1d941d8bedefcf7965d76ca6648b412b4e93f3bfa78da454c209344836cb220",
+      "collision_buckets": [
+        [
+          28591,
+          29209,
+          29387
+        ]
+      ],
+      "tracked_point_count": 3,
+      "pair_count": 3,
+      "type_count": 2,
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1,
+            1
+          ],
+          "coverage_mask_hex": "3"
+        },
+        {
+          "type_id": "T1",
+          "pattern": [
+            0,
+            0,
+            1
+          ],
+          "coverage_mask_hex": "6"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            28591,
+            29209
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        },
+        {
+          "pair_index": 1,
+          "pair": [
+            28591,
+            29387
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 2,
+          "pair": [
+            29209,
+            29387
+          ],
+          "coverer_type_ids": [
+            "T1"
+          ]
+        }
+      ],
+      "column_degree_histogram": {
+        "1": 2,
+        "2": 1
+      },
+      "coverer_incidence_count": 4,
+      "template_kind": "looped_clique",
+      "looped_type_ids": [
+        "T0",
+        "T1"
+      ],
+      "implicit_upper_kind": "all_types",
+      "exact_repair_number": 2,
+      "incumbent_lower_witness_kind": "private_pairs",
+      "verification_cost": {
+        "pattern_storage_bits": 6,
+        "mask_storage_bits": 6,
+        "bucket_label_bits": 45,
+        "upper_witness_index_bits": 0,
+        "lower_witness_payload_bits": 0,
+        "abstract_certificate_payload_bits": 57,
+        "pattern_pair_tests": 6,
+        "incidence_mask_bit_tests": 6,
+        "template_slot_tests": 3,
+        "certificate_verifier_bit_tests": 15,
+        "incumbent_payload_bits": 63,
+        "payload_bits_saved": 6,
+        "incumbent_verifier_bit_tests": 16,
+        "verifier_bit_test_delta": -1
+      }
+    },
+    {
+      "source_id": "M92",
+      "input_length": 31,
+      "source_instance_sha256": "26d303afb6d786c9d4f4e157bc4ad36cbd3baa98b2e0c52477499ae684b568b2",
+      "collision_buckets": [
+        [
+          37483,
+          44963
+        ]
+      ],
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "type_count": 1,
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            37483,
+            44963
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "column_degree_histogram": {
+        "1": 1
+      },
+      "coverer_incidence_count": 1,
+      "template_kind": "loop_only",
+      "looped_type_ids": [
+        "T0"
+      ],
+      "implicit_upper_kind": "all_types",
+      "exact_repair_number": 1,
+      "incumbent_lower_witness_kind": "private_pairs",
+      "verification_cost": {
+        "pattern_storage_bits": 2,
+        "mask_storage_bits": 1,
+        "bucket_label_bits": 32,
+        "upper_witness_index_bits": 0,
+        "lower_witness_payload_bits": 0,
+        "abstract_certificate_payload_bits": 35,
+        "pattern_pair_tests": 1,
+        "incidence_mask_bit_tests": 1,
+        "template_slot_tests": 1,
+        "certificate_verifier_bit_tests": 3,
+        "incumbent_payload_bits": 35,
+        "payload_bits_saved": 0,
+        "incumbent_verifier_bit_tests": 3,
+        "verifier_bit_test_delta": 0
+      }
+    },
+    {
+      "source_id": "M92",
+      "input_length": 32,
+      "source_instance_sha256": "fe00c24dc092a8ca5802e443e0d22180789116dd9def8fb9700d61105e0ca413",
+      "collision_buckets": [
+        [
+          59699,
+          63463
+        ]
+      ],
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "type_count": 1,
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            59699,
+            63463
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "column_degree_histogram": {
+        "1": 1
+      },
+      "coverer_incidence_count": 1,
+      "template_kind": "loop_only",
+      "looped_type_ids": [
+        "T0"
+      ],
+      "implicit_upper_kind": "all_types",
+      "exact_repair_number": 1,
+      "incumbent_lower_witness_kind": "private_pairs",
+      "verification_cost": {
+        "pattern_storage_bits": 2,
+        "mask_storage_bits": 1,
+        "bucket_label_bits": 32,
+        "upper_witness_index_bits": 0,
+        "lower_witness_payload_bits": 0,
+        "abstract_certificate_payload_bits": 35,
+        "pattern_pair_tests": 1,
+        "incidence_mask_bit_tests": 1,
+        "template_slot_tests": 1,
+        "certificate_verifier_bit_tests": 3,
+        "incumbent_payload_bits": 35,
+        "payload_bits_saved": 0,
+        "incumbent_verifier_bit_tests": 3,
+        "verifier_bit_test_delta": 0
+      }
+    },
+    {
+      "source_id": "M92",
+      "input_length": 33,
+      "source_instance_sha256": "60abb6f3828e88e3c84e7a50f468831743af77c322c2e7e654eef415de71c916",
+      "collision_buckets": [
+        [
+          80309,
+          92671
+        ]
+      ],
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "type_count": 1,
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            80309,
+            92671
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "column_degree_histogram": {
+        "1": 1
+      },
+      "coverer_incidence_count": 1,
+      "template_kind": "loop_only",
+      "looped_type_ids": [
+        "T0"
+      ],
+      "implicit_upper_kind": "all_types",
+      "exact_repair_number": 1,
+      "incumbent_lower_witness_kind": "private_pairs",
+      "verification_cost": {
+        "pattern_storage_bits": 2,
+        "mask_storage_bits": 1,
+        "bucket_label_bits": 34,
+        "upper_witness_index_bits": 0,
+        "lower_witness_payload_bits": 0,
+        "abstract_certificate_payload_bits": 37,
+        "pattern_pair_tests": 1,
+        "incidence_mask_bit_tests": 1,
+        "template_slot_tests": 1,
+        "certificate_verifier_bit_tests": 3,
+        "incumbent_payload_bits": 37,
+        "payload_bits_saved": 0,
+        "incumbent_verifier_bit_tests": 3,
+        "verifier_bit_test_delta": 0
+      }
+    },
+    {
+      "source_id": "M92",
+      "input_length": 34,
+      "source_instance_sha256": "f34262688576eaab1735900ba1bb43811335c60d9888f3e675b6255f4beffe5e",
+      "collision_buckets": [
+        [
+          97927,
+          99527
+        ]
+      ],
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "type_count": 1,
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            97927,
+            99527
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "column_degree_histogram": {
+        "1": 1
+      },
+      "coverer_incidence_count": 1,
+      "template_kind": "loop_only",
+      "looped_type_ids": [
+        "T0"
+      ],
+      "implicit_upper_kind": "all_types",
+      "exact_repair_number": 1,
+      "incumbent_lower_witness_kind": "private_pairs",
+      "verification_cost": {
+        "pattern_storage_bits": 2,
+        "mask_storage_bits": 1,
+        "bucket_label_bits": 34,
+        "upper_witness_index_bits": 0,
+        "lower_witness_payload_bits": 0,
+        "abstract_certificate_payload_bits": 37,
+        "pattern_pair_tests": 1,
+        "incidence_mask_bit_tests": 1,
+        "template_slot_tests": 1,
+        "certificate_verifier_bit_tests": 3,
+        "incumbent_payload_bits": 37,
+        "payload_bits_saved": 0,
+        "incumbent_verifier_bit_tests": 3,
+        "verifier_bit_test_delta": 0
+      }
+    },
+    {
+      "source_id": "M93",
+      "input_length": 16,
+      "source_instance_sha256": "7f18d106e4a225e41d3fba9190d0504060f9800fb9b49554093c6227938fe29c",
+      "collision_buckets": [
+        [
+          191,
+          227,
+          233
+        ]
+      ],
+      "tracked_point_count": 3,
+      "pair_count": 3,
+      "type_count": 3,
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1,
+            1
+          ],
+          "coverage_mask_hex": "3"
+        },
+        {
+          "type_id": "T1",
+          "pattern": [
+            0,
+            1,
+            0
+          ],
+          "coverage_mask_hex": "5"
+        },
+        {
+          "type_id": "T2",
+          "pattern": [
+            0,
+            0,
+            1
+          ],
+          "coverage_mask_hex": "6"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            191,
+            227
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 1,
+          "pair": [
+            191,
+            233
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 2,
+          "pair": [
+            227,
+            233
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T2"
+          ]
+        }
+      ],
+      "column_degree_histogram": {
+        "2": 3
+      },
+      "coverer_incidence_count": 6,
+      "template_kind": "loopless_clique",
+      "looped_type_ids": [],
+      "implicit_upper_kind": "omit_last_type",
+      "exact_repair_number": 2,
+      "incumbent_lower_witness_kind": "cardinality",
+      "verification_cost": {
+        "pattern_storage_bits": 9,
+        "mask_storage_bits": 9,
+        "bucket_label_bits": 24,
+        "upper_witness_index_bits": 0,
+        "lower_witness_payload_bits": 0,
+        "abstract_certificate_payload_bits": 42,
+        "pattern_pair_tests": 9,
+        "incidence_mask_bit_tests": 9,
+        "template_slot_tests": 3,
+        "certificate_verifier_bit_tests": 21,
+        "incumbent_payload_bits": 50,
+        "payload_bits_saved": 8,
+        "incumbent_verifier_bit_tests": 16,
+        "verifier_bit_test_delta": 5
+      }
+    },
+    {
+      "source_id": "M93",
+      "input_length": 17,
+      "source_instance_sha256": "a27967411e6f8b529f0858a48505525ccc2fe4b6f7387a987d14db00347e27d2",
+      "collision_buckets": [
+        [
+          277,
+          317
+        ],
+        [
+          263,
+          349
+        ]
+      ],
+      "tracked_point_count": 4,
+      "pair_count": 2,
+      "type_count": 2,
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "coverage_mask_hex": "1"
+        },
+        {
+          "type_id": "T1",
+          "pattern": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "coverage_mask_hex": "2"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            277,
+            317
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        },
+        {
+          "pair_index": 1,
+          "pair": [
+            263,
+            349
+          ],
+          "coverer_type_ids": [
+            "T1"
+          ]
+        }
+      ],
+      "column_degree_histogram": {
+        "1": 2
+      },
+      "coverer_incidence_count": 2,
+      "template_kind": "loop_only",
+      "looped_type_ids": [
+        "T0",
+        "T1"
+      ],
+      "implicit_upper_kind": "all_types",
+      "exact_repair_number": 2,
+      "incumbent_lower_witness_kind": "private_pairs",
+      "verification_cost": {
+        "pattern_storage_bits": 8,
+        "mask_storage_bits": 4,
+        "bucket_label_bits": 36,
+        "upper_witness_index_bits": 0,
+        "lower_witness_payload_bits": 0,
+        "abstract_certificate_payload_bits": 48,
+        "pattern_pair_tests": 4,
+        "incidence_mask_bit_tests": 4,
+        "template_slot_tests": 2,
+        "certificate_verifier_bit_tests": 10,
+        "incumbent_payload_bits": 54,
+        "payload_bits_saved": 6,
+        "incumbent_verifier_bit_tests": 12,
+        "verifier_bit_test_delta": -2
+      }
+    },
+    {
+      "source_id": "M93",
+      "input_length": 18,
+      "source_instance_sha256": "a8d2f3a38aaa2e0ff773d138a5301ba8b48f539ff00487bbcf2e42996a5556dc",
+      "collision_buckets": [
+        [
+          503,
+          509
+        ]
+      ],
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "type_count": 1,
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            503,
+            509
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "column_degree_histogram": {
+        "1": 1
+      },
+      "coverer_incidence_count": 1,
+      "template_kind": "loop_only",
+      "looped_type_ids": [
+        "T0"
+      ],
+      "implicit_upper_kind": "all_types",
+      "exact_repair_number": 1,
+      "incumbent_lower_witness_kind": "private_pairs",
+      "verification_cost": {
+        "pattern_storage_bits": 2,
+        "mask_storage_bits": 1,
+        "bucket_label_bits": 18,
+        "upper_witness_index_bits": 0,
+        "lower_witness_payload_bits": 0,
+        "abstract_certificate_payload_bits": 21,
+        "pattern_pair_tests": 1,
+        "incidence_mask_bit_tests": 1,
+        "template_slot_tests": 1,
+        "certificate_verifier_bit_tests": 3,
+        "incumbent_payload_bits": 21,
+        "payload_bits_saved": 0,
+        "incumbent_verifier_bit_tests": 3,
+        "verifier_bit_test_delta": 0
+      }
+    },
+    {
+      "source_id": "M93",
+      "input_length": 19,
+      "source_instance_sha256": "9482e3c3fafbfb5be728311439913ab789f5c548998998ec90a2d575d3319c3a",
+      "collision_buckets": [
+        [
+          569,
+          719
+        ]
+      ],
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "type_count": 1,
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            569,
+            719
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "column_degree_histogram": {
+        "1": 1
+      },
+      "coverer_incidence_count": 1,
+      "template_kind": "loop_only",
+      "looped_type_ids": [
+        "T0"
+      ],
+      "implicit_upper_kind": "all_types",
+      "exact_repair_number": 1,
+      "incumbent_lower_witness_kind": "private_pairs",
+      "verification_cost": {
+        "pattern_storage_bits": 2,
+        "mask_storage_bits": 1,
+        "bucket_label_bits": 20,
+        "upper_witness_index_bits": 0,
+        "lower_witness_payload_bits": 0,
+        "abstract_certificate_payload_bits": 23,
+        "pattern_pair_tests": 1,
+        "incidence_mask_bit_tests": 1,
+        "template_slot_tests": 1,
+        "certificate_verifier_bit_tests": 3,
+        "incumbent_payload_bits": 23,
+        "payload_bits_saved": 0,
+        "incumbent_verifier_bit_tests": 3,
+        "verifier_bit_test_delta": 0
+      }
+    },
+    {
+      "source_id": "M93",
+      "input_length": 20,
+      "source_instance_sha256": "9446b7b4c58b104d99513386908ccda10a60f51fd2ccedc02f51e783b852ca64",
+      "collision_buckets": [
+        [
+          809,
+          827
+        ]
+      ],
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "type_count": 1,
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            809,
+            827
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "column_degree_histogram": {
+        "1": 1
+      },
+      "coverer_incidence_count": 1,
+      "template_kind": "loop_only",
+      "looped_type_ids": [
+        "T0"
+      ],
+      "implicit_upper_kind": "all_types",
+      "exact_repair_number": 1,
+      "incumbent_lower_witness_kind": "private_pairs",
+      "verification_cost": {
+        "pattern_storage_bits": 2,
+        "mask_storage_bits": 1,
+        "bucket_label_bits": 20,
+        "upper_witness_index_bits": 0,
+        "lower_witness_payload_bits": 0,
+        "abstract_certificate_payload_bits": 23,
+        "pattern_pair_tests": 1,
+        "incidence_mask_bit_tests": 1,
+        "template_slot_tests": 1,
+        "certificate_verifier_bit_tests": 3,
+        "incumbent_payload_bits": 23,
+        "payload_bits_saved": 0,
+        "incumbent_verifier_bit_tests": 3,
+        "verifier_bit_test_delta": 0
+      }
+    },
+    {
+      "source_id": "M93",
+      "input_length": 21,
+      "source_instance_sha256": "cd215bf5e090f273abaf01cec045cac624e04434ef494800a18e5d24b30f328f",
+      "collision_buckets": [
+        [
+          1031,
+          1231,
+          1319,
+          1433
+        ]
+      ],
+      "tracked_point_count": 4,
+      "pair_count": 6,
+      "type_count": 3,
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1,
+            1,
+            1
+          ],
+          "coverage_mask_hex": "07"
+        },
+        {
+          "type_id": "T1",
+          "pattern": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "coverage_mask_hex": "2a"
+        },
+        {
+          "type_id": "T2",
+          "pattern": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "coverage_mask_hex": "34"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            1031,
+            1231
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        },
+        {
+          "pair_index": 1,
+          "pair": [
+            1031,
+            1319
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 2,
+          "pair": [
+            1031,
+            1433
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 3,
+          "pair": [
+            1231,
+            1319
+          ],
+          "coverer_type_ids": [
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 4,
+          "pair": [
+            1231,
+            1433
+          ],
+          "coverer_type_ids": [
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 5,
+          "pair": [
+            1319,
+            1433
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T2"
+          ]
+        }
+      ],
+      "column_degree_histogram": {
+        "1": 3,
+        "2": 3
+      },
+      "coverer_incidence_count": 9,
+      "template_kind": "looped_clique",
+      "looped_type_ids": [
+        "T0",
+        "T1",
+        "T2"
+      ],
+      "implicit_upper_kind": "all_types",
+      "exact_repair_number": 3,
+      "incumbent_lower_witness_kind": "private_pairs",
+      "verification_cost": {
+        "pattern_storage_bits": 12,
+        "mask_storage_bits": 18,
+        "bucket_label_bits": 44,
+        "upper_witness_index_bits": 0,
+        "lower_witness_payload_bits": 0,
+        "abstract_certificate_payload_bits": 74,
+        "pattern_pair_tests": 18,
+        "incidence_mask_bit_tests": 18,
+        "template_slot_tests": 6,
+        "certificate_verifier_bit_tests": 42,
+        "incumbent_payload_bits": 95,
+        "payload_bits_saved": 21,
+        "incumbent_verifier_bit_tests": 45,
+        "verifier_bit_test_delta": -3
+      }
+    },
+    {
+      "source_id": "M93",
+      "input_length": 22,
+      "source_instance_sha256": "01596e9dc157f78524b58bb2a0e1ff57c5e87f576bbc2dc7ea4ce02e52b18e80",
+      "collision_buckets": [
+        [
+          1481,
+          1571
+        ]
+      ],
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "type_count": 1,
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            1481,
+            1571
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "column_degree_histogram": {
+        "1": 1
+      },
+      "coverer_incidence_count": 1,
+      "template_kind": "loop_only",
+      "looped_type_ids": [
+        "T0"
+      ],
+      "implicit_upper_kind": "all_types",
+      "exact_repair_number": 1,
+      "incumbent_lower_witness_kind": "private_pairs",
+      "verification_cost": {
+        "pattern_storage_bits": 2,
+        "mask_storage_bits": 1,
+        "bucket_label_bits": 22,
+        "upper_witness_index_bits": 0,
+        "lower_witness_payload_bits": 0,
+        "abstract_certificate_payload_bits": 25,
+        "pattern_pair_tests": 1,
+        "incidence_mask_bit_tests": 1,
+        "template_slot_tests": 1,
+        "certificate_verifier_bit_tests": 3,
+        "incumbent_payload_bits": 25,
+        "payload_bits_saved": 0,
+        "incumbent_verifier_bit_tests": 3,
+        "verifier_bit_test_delta": 0
+      }
+    },
+    {
+      "source_id": "M93",
+      "input_length": 23,
+      "source_instance_sha256": "60a075ab07848ab49da6c2454862c663e5679baf9de04ce3100ada7f0faf3e21",
+      "collision_buckets": [
+        [
+          2411,
+          2777
+        ]
+      ],
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "type_count": 1,
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            2411,
+            2777
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "column_degree_histogram": {
+        "1": 1
+      },
+      "coverer_incidence_count": 1,
+      "template_kind": "loop_only",
+      "looped_type_ids": [
+        "T0"
+      ],
+      "implicit_upper_kind": "all_types",
+      "exact_repair_number": 1,
+      "incumbent_lower_witness_kind": "private_pairs",
+      "verification_cost": {
+        "pattern_storage_bits": 2,
+        "mask_storage_bits": 1,
+        "bucket_label_bits": 24,
+        "upper_witness_index_bits": 0,
+        "lower_witness_payload_bits": 0,
+        "abstract_certificate_payload_bits": 27,
+        "pattern_pair_tests": 1,
+        "incidence_mask_bit_tests": 1,
+        "template_slot_tests": 1,
+        "certificate_verifier_bit_tests": 3,
+        "incumbent_payload_bits": 27,
+        "payload_bits_saved": 0,
+        "incumbent_verifier_bit_tests": 3,
+        "verifier_bit_test_delta": 0
+      }
+    },
+    {
+      "source_id": "M93",
+      "input_length": 24,
+      "source_instance_sha256": "94291898f9ce83fa5481a48707981915ed76b9a9a21947e0675607dab9be44dc",
+      "collision_buckets": [
+        [
+          3049,
+          3643,
+          3863,
+          4057
+        ]
+      ],
+      "tracked_point_count": 4,
+      "pair_count": 6,
+      "type_count": 4,
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1,
+            1,
+            1
+          ],
+          "coverage_mask_hex": "07"
+        },
+        {
+          "type_id": "T1",
+          "pattern": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "coverage_mask_hex": "19"
+        },
+        {
+          "type_id": "T2",
+          "pattern": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "coverage_mask_hex": "2a"
+        },
+        {
+          "type_id": "T3",
+          "pattern": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "coverage_mask_hex": "34"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            3049,
+            3643
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 1,
+          "pair": [
+            3049,
+            3863
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 2,
+          "pair": [
+            3049,
+            4057
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 3,
+          "pair": [
+            3643,
+            3863
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 4,
+          "pair": [
+            3643,
+            4057
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 5,
+          "pair": [
+            3863,
+            4057
+          ],
+          "coverer_type_ids": [
+            "T2",
+            "T3"
+          ]
+        }
+      ],
+      "column_degree_histogram": {
+        "2": 6
+      },
+      "coverer_incidence_count": 12,
+      "template_kind": "loopless_clique",
+      "looped_type_ids": [],
+      "implicit_upper_kind": "omit_last_type",
+      "exact_repair_number": 3,
+      "incumbent_lower_witness_kind": "subset_obstructions",
+      "verification_cost": {
+        "pattern_storage_bits": 16,
+        "mask_storage_bits": 24,
+        "bucket_label_bits": 48,
+        "upper_witness_index_bits": 0,
+        "lower_witness_payload_bits": 0,
+        "abstract_certificate_payload_bits": 88,
+        "pattern_pair_tests": 24,
+        "incidence_mask_bit_tests": 24,
+        "template_slot_tests": 6,
+        "certificate_verifier_bit_tests": 54,
+        "incumbent_payload_bits": 136,
+        "payload_bits_saved": 48,
+        "incumbent_verifier_bit_tests": 54,
+        "verifier_bit_test_delta": 0
+      }
+    },
+    {
+      "source_id": "M93",
+      "input_length": 25,
+      "source_instance_sha256": "88dcdc8ceec32e65e91d535625b0a7ce2a5353dce4cddec9334f99b8e02d7f98",
+      "collision_buckets": [
+        [
+          5011,
+          5179
+        ]
+      ],
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "type_count": 1,
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            5011,
+            5179
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "column_degree_histogram": {
+        "1": 1
+      },
+      "coverer_incidence_count": 1,
+      "template_kind": "loop_only",
+      "looped_type_ids": [
+        "T0"
+      ],
+      "implicit_upper_kind": "all_types",
+      "exact_repair_number": 1,
+      "incumbent_lower_witness_kind": "private_pairs",
+      "verification_cost": {
+        "pattern_storage_bits": 2,
+        "mask_storage_bits": 1,
+        "bucket_label_bits": 26,
+        "upper_witness_index_bits": 0,
+        "lower_witness_payload_bits": 0,
+        "abstract_certificate_payload_bits": 29,
+        "pattern_pair_tests": 1,
+        "incidence_mask_bit_tests": 1,
+        "template_slot_tests": 1,
+        "certificate_verifier_bit_tests": 3,
+        "incumbent_payload_bits": 29,
+        "payload_bits_saved": 0,
+        "incumbent_verifier_bit_tests": 3,
+        "verifier_bit_test_delta": 0
+      }
+    }
+  ],
+  "rank_two_boundary_counterexample": {
+    "shared_profile": {
+      "type_count": 4,
+      "universe_count": 3,
+      "column_degree_histogram": {
+        "2": 3
+      }
+    },
+    "star_k1_3": {
+      "edges": [
+        [
+          "T0",
+          "T1"
+        ],
+        [
+          "T0",
+          "T2"
+        ],
+        [
+          "T0",
+          "T3"
+        ]
+      ],
+      "exact_cover_number": 1
+    },
+    "path_p4": {
+      "edges": [
+        [
+          "T0",
+          "T1"
+        ],
+        [
+          "T1",
+          "T2"
+        ],
+        [
+          "T2",
+          "T3"
+        ]
+      ],
+      "exact_cover_number": 2
+    }
+  },
+  "totals": {
+    "instance_count": 19,
+    "tracked_point_count": 55,
+    "pair_count": 64,
+    "type_count": 37,
+    "coverer_incidence_count": 98,
+    "degree_one_column_count": 30,
+    "degree_two_column_count": 34,
+    "minimum_coordinate_count": 35,
+    "template_counts": {
+      "loop_only": 12,
+      "looped_clique": 5,
+      "loopless_clique": 2
+    },
+    "abstract_certificate_payload_bits": 1063,
+    "certificate_verifier_bit_tests": 520,
+    "incumbent_payload_bits": 1228,
+    "payload_bits_saved": 165,
+    "incumbent_verifier_bit_tests": 542,
+    "verifier_bit_test_delta": -22
+  },
+  "scope": {
+    "classification": "EMPIRICAL",
+    "finite_input_lengths": [
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34
+    ],
+    "complete_type_dependencies": [
+      "EMP-062",
+      "EMP-064"
+    ],
+    "not_claimed": [
+      "rank at most two for another repair portfolio",
+      "a polynomial exact solver for arbitrary coverer graphs",
+      "a factor-promise recognizer",
+      "an asymptotic selector theorem",
+      "general classical polynomial-time factoring"
+    ]
+  },
+  "summary_sha256": "0b99798516bda32cc78e8fd7474fbaddce9cd024a021d81c08fca8514c64154a"
+}

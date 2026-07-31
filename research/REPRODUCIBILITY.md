@@ -31,6 +31,9 @@ python scripts/check_m93_early_repair_certificate.py
 python scripts/run_m94_clique_incidence_audit.py
 python scripts/generate_m94_clique_incidence_schema.py --check
 python scripts/check_m94_clique_incidence_certificate.py
+python scripts/run_m95_coverer_graph_profile.py
+python scripts/generate_m95_coverer_graph_schema.py --check
+python scripts/check_m95_coverer_graph_certificate.py
 python scripts/check_publication.py
 ```
 
@@ -74,6 +77,7 @@ pytest -p no:cacheprovider tests/test_m91_all_rows_semantic_certificate.py -q
 pytest -p no:cacheprovider tests/test_m92_pair_cover_certificate.py -q
 pytest -p no:cacheprovider tests/test_m93_early_repair_certificate.py -q
 pytest -p no:cacheprovider tests/test_m94_clique_incidence_certificate.py -q
+pytest -p no:cacheprovider tests/test_m95_coverer_graph_certificate.py -q
 ```
 
 These commands recompute registered masks, identities, collision or
@@ -120,29 +124,37 @@ raw-type and evaluation-count differential comparison.
 The M87 commands are editorial integrity checks rather than semantic
 certificate reconstruction. They enforce one four-row cost ledger before
 section 1 of each focused manuscript, a reproducible 200--300 lexical-token
-abstract interval, and exact bilingual parity for the 23 representative claim
+abstract interval, and exact bilingual parity for the 25 representative claim
 IDs and statuses.
 
 The M88 commands validate the reader-facing layer over those same claims.
 They require one compact heading per claim, exactly five localized label
 families in each language, stable claim order, visible `PROVED` metadata, and
-the exact 23-ID bilingual map. Passing does not promote a claim or create a
+the exact 25-ID bilingual map. Passing does not promote a claim or create a
 second numbering authority.
 
 The M89 commands validate the boundary between mathematical narrative and
 repository audit material. They fix the order of 34 main sections, require 12
-labeled appendices, and preserve exact bilingual registries containing 42
+labeled appendices, and preserve exact bilingual registries containing 50
 commands, 38 repository paths, and 14 inspected-source anchors. They also
 reject commands, paths, experiment IDs, hashes, and internal milestone tokens
 in the main body. Passing is an editorial integrity result; it neither
 recomputes a mathematical certificate nor changes a claim status.
 
 The M90 commands validate the finite-paper chronology split. They require
-five exact representative cases and seven focused `PROVED` claims in each
+five exact representative cases and eleven focused `PROVED` claims in each
 main narrative, place the generated full table only in the reproduction
 appendix, and compare both 26-row rendered tables plus the frozen M50 JSON
 against a hard-coded semantic registry. Passing preserves the finite evidence
 but does not independently recompute every row's modular signatures.
+
+The M95 commands bind both frozen repair portfolios and independently
+reconstruct all 64 coverer columns without importing an earlier checker. The
+571-line standard-library checker classifies twelve loop-only, five
+looped-clique, and two loopless-clique templates, verifies 35 total repair
+coordinates, and checks a 1,063-bit graph payload against the 1,228-bit
+incumbent portfolio. Its star/path counterexample prevents coverer rank two
+from being interpreted as an arbitrary-graph exact formula.
 
 ### Level C: complete repository gate
 

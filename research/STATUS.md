@@ -1,5 +1,116 @@
 # Research Status
 
+## M95 outcome
+
+- Date: 2026-07-31.
+- Branch: `research/20260731-m95-coverer-profile`.
+- Base: M94 squash merge
+  `2f4a76b4e757a4a125385cf934fd6e87b5f58c30`.
+- Completed milestone: M95, a portfolio-wide reconstruction of coverer
+  degrees and exact looped-graph certificates for all 19 frozen M92/M93
+  repair systems.
+- `DEF-051` turns a singleton coverer column into a loop and a two-coverer
+  column into an ordinary edge of the looped coverer multigraph \(G_D\).
+  `THM-024` proves that repair covers are exactly vertex covers and that
+  \[
+    \rho(T,U)=|F|+\tau(G_D[T\setminus F]),
+  \]
+  where \(F\) is the set of looped, hence forced, types.
+- Every finite simple graph without isolated vertices or \(K_2\) connected
+  components is realizable as a coverer graph in complete normal form. The
+  \(K_2\) exclusion is necessary because its endpoints have duplicate
+  incident-edge types. This pairwise-distinct condition was found during
+  adversarial review and corrected before delivery.
+- `REF-064` records the sharp finite shortcut failure: \(K_{1,3}\) and
+  \(P_4\) both have \(t=4\), \(q=3\), and three degree-two columns, but exact
+  cover numbers one and two. Rank two therefore reduces the problem to
+  vertex cover but supplies neither a universal exact formula nor a general
+  solver.
+- `EXP-0066` independently reconstructed 55 tracked points, 64 universe
+  columns, 37 types, 30 singleton columns, 34 two-coverer columns, 98
+  positive incidences, and aggregate exact repair sum 35. There are no empty
+  or rank-three columns. The exact template partition is 12 loop-only, five
+  looped-clique, and two loopless-clique systems.
+- Seventeen systems have every type forced by a loop and therefore exact
+  repair number \(t\). The two loopless systems are the M94 \(K_3\) and
+  \(K_4\) instances and have exact repair number \(t-1\).
+- The unified graph payload is 1,063 bits versus 1,228 incumbent bits, saving
+  165. The conservative narrow ledger is 520 versus 542 tests, saving 22
+  only in aggregate: length 16 is five tests worse, length 24 ties, and
+  one-type rows save no structural payload. No per-instance dominance is
+  claimed.
+- `schemas/m95-coverer-graph-profile-v1.json` has canonical summary SHA-256
+  `0b99798516bda32cc78e8fd7474fbaddce9cd024a021d81c08fca8514c64154a`
+  and exact file SHA-256
+  `e5e069554a3249e04084b505b590ff197ff26e75e4fd2467115caeeca1d08e03`.
+  It pins M92 file/summary hashes
+  `0c58d6d28079aac4975861836b714c9c8d63e805bbc86c5c3b101b3c85ae636e`
+  / `3bf4b744d30d31f5e52725ca9cb70302bc4654ab1e7cfbe1707448392dbc19b0`
+  and M93 file/summary hashes
+  `3fba1bc8ef78594e32083f8576a43874159390bbccbcc669b658015ce8431641`
+  / `77c8ae289277875815e7744b37456627f619fc601d4fb2ccca35031b7f248aae`.
+- The 571-line clean-room checker imports neither the generator nor the
+  predecessor implementations. Eighteen M95 tests cover deterministic
+  generation, direct-mask incidence, three exact templates, exact minima,
+  source rebinding, seven rehashed mutations, a rank-three mutation, the
+  \(K_2\) distinct-type regression, and the star/path counterexample.
+- The complete repository suite passed with 424 tests and 593 subtests in
+  375.95 seconds. M0 foundation validation, Python compilation,
+  repository-wide Ruff, mypy over 31 reference sources, strict mypy over the
+  four M95 files, Rust formatting, warning-denied Clippy and 36 tests, and
+  the C# Release build all passed; the C# build had zero warnings and
+  errors. After the final \(K_2\) boundary correction, 70 affected
+  publication/M95 tests and all affected generators and checkers re-passed.
+- M82 now accounts for 287 ledger claims as 25 focused and 262 archive-only,
+  with portfolio summary SHA-256
+  `307bf0a0ec42408493d1e0cb5b9a432ec79f7f5353b93c5e300fa7887800cb53`.
+  M83 retains six inspected sources, seven synchronized rows, no priority
+  claims, and audit SHA-256
+  `f81d242d41c923b82d9b579fe02a6bffd0f2f1f7b20d102c9e8712c5aed310bc`.
+  Bilingual consistency passed with 287 claims and 58 experiment hashes.
+- The four changed XeLaTeX manuscripts rebuilt with zero selected
+  undefined-reference, undefined-citation, missing-glyph, or overfull
+  warnings: archival English/Korean 130/59 pages and finite English/Korean
+  9/9 pages. All 207 pages had extractable text. Eight abstract and
+  THM-024 pages were rendered and visually inspected without clipping,
+  overlap, or missing Korean glyphs. PDF SHA-256 values are archival EN
+  `4dc22b85777c3cbdd1010263e923426a99eb01386f7af79b2433ce1984bb0ceb`,
+  archival KO
+  `60b790d01fa0f2566082c5f5432767920329099d7db126be2e3002f3455bdc20`,
+  finite EN
+  `40dd6ac39b1c6752bf95af4395ca4d3f78bfe4fd7d16f716a054e0092b70c676`,
+  and finite KO
+  `33dc446a71049f1954a2688bac416c569bd5eff8a4b384625a01ea9d224cbbae`.
+- Scope: `EMP-066` inherits finite type-list completeness from EMP-062 and
+  EMP-064. It does not recognize hidden factors, extend the frozen selector,
+  establish an asymptotic cap law, or support a general factoring claim.
+  General classical polynomial-time integer factoring remains open.
+- M96 is active. It asks whether matching-equality lower certificates can
+  extend the looped-graph method beyond forced loops and cliques without
+  exact subset enumeration.
+
+### M95 Korean summary
+
+M95는 M92/M93의 동결 repair system 19개에서 coverer column을 독립
+재구성했다. 64개 column은 singleton 30개와 two-coverer 34개로 정확히
+나뉘며 empty 또는 rank-three column은 없다. singleton을 loop로 보면
+repair cover는 looped coverer graph의 vertex cover와 정확히 같고,
+loop가 강제하는 type 집합 \(F\)를 제거한 뒤의 최소값은
+\(|F|+\tau(G_D[T\setminus F])\)이다(`THM-024`). 17개 instance는 모든
+type이 loop로 강제되어 최소값이 \(t\), 나머지 두 instance는
+\(K_3,K_4\)여서 \(t-1\)이다.
+
+그래프 payload는 1,228비트에서 1,063비트로 165비트 줄고 보수적
+ledger도 aggregate에서 542 test에서 520 test로 22 줄지만, 길이 16은
+오히려 다섯 test가 늘므로 instance별 우월성을 주장하지 않는다.
+또한 star \(K_{1,3}\)과 path \(P_4\)는 같은 rank/count 통계를 가지지만
+최소 cover가 1과 2여서 rank two만으로 정확한 최소값이 결정된다는
+가설을 반박한다(`REF-064`). 모든 단순 그래프 실현 명제에는 complete
+normal form의 pairwise-distinct type 조건 때문에 isolated vertex와
+\(K_2\) connected component 제외가 필요하며, 이 경계를 adversarial
+review에서 수정했다. 결과는 동결된 유한 type 목록에만 적용된다.
+일반 고전 다항시간 정수 인수분해 문제는 계속 `OPEN`이다.
+
 ## M94 outcome
 
 - Date: 2026-07-31.
@@ -78,9 +189,8 @@
   the frozen selector, recognize hidden factors, establish an asymptotic law,
   or support a general factoring claim. General classical polynomial-time
   integer factoring remains open.
-- M95 is active. It will reconstruct coverer degrees across all 19 frozen
-  repairs before deciding which instances genuinely reduce to graph vertex
-  cover and which require higher-order coverer hypergraphs.
+- M95 subsequently completed the portfolio-wide rank-one/two reconstruction;
+  the current result is recorded above.
 
 ### M94 Korean summary
 

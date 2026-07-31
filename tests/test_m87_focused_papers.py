@@ -50,8 +50,8 @@ class M87FocusedPaperTests(unittest.TestCase):
                 "promise-factorization-ko": 204,
                 "cyclotomic-extraction-en": 231,
                 "cyclotomic-extraction-ko": 200,
-                "finite-certificates-en": 286,
-                "finite-certificates-ko": 246,
+                "finite-certificates-en": 288,
+                "finite-certificates-ko": 245,
             },
         )
 

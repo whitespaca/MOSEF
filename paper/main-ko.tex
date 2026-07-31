@@ -147,7 +147,10 @@ selector 26행 전체를 독립 재구성했으며, 측정값은 155.31초와
 29.15 MiB였다. 이는 유한 empirical 감사 근거이지 점근 추론이 아니다.
 private-pair 실패 두 개는 \(K_3/K_4\) coverer incidence를 가지며,
 하나의 정확한 \(t-1\) repair 정리와 verifier 작업 감소 없는 56-bit
-payload 압축을 준다.
+payload 압축을 준다. 19개 repair 전체의 정확한 coverer slot은
+loop-only 12개, looped-clique 5개, loopless-clique 2개이다. 통합 구조
+payload는 1,228 bit가 아니라 1,063 bit이고, star/path 반례는 rank
+two만으로 정확한 최소값이 결정되지 않음을 보인다.
 이 양성 결과는 인수분해에 의존하는 유한 약속 정리이다. 일반 고전적
 다항 시간 정수분해 알고리즘이나 모든 다항 selector의 하한은 주장하지
 않는다.
@@ -2120,6 +2123,56 @@ tracked point 7개, universe pair 9개, type 7개, 양의 incidence 18개가
 186 bit 대신 130 bit로 56 bit 작다. 11개 deterministic,
 differential, mutation test가 통과했다. type 완전성은 EMP-064에
 의존하므로 새로운 수론적 또는 점근적 결론은 따르지 않는다.
+
+\claimstatus{DEF-051}{DEFINITION}.
+모든 nonempty coverer set의 크기가 최대 2라고 하자.
+singleton \(D(u)=\{T_i\}\)는 \(T_i\)의 loop이고, 두 원소
+\(D(u)\)는 looped coverer multigraph \(G_D\)의 ordinary edge이다.
+loop를 가진 강제 type 집합을 \(F\)라 한다.
+
+\claimstatus{THM-024}{PROVED}.
+repair cover는 \(G_D\)의 vertex cover와 정확히 같고,
+\[
+ \rho(T,U)=|F|+\tau\!\left(G_D[T\setminus F]\right)
+\]
+이다. 각 loop는 그 endpoint를 강제한다. \(F\)를 선택한 뒤에는 두
+endpoint가 모두 \(F\) 밖에 있는 ordinary edge만 남으므로 식이
+따른다. \(F=T\)이면 최소값은 \(t\)이고, \(F=\varnothing\)이며 graph가
+\(K_t\)이면 \(t-1\)이다.
+
+isolated vertex와 \(K_2\) connected component가 모두 없는 모든 유한
+simple graph는 complete normal form으로 실현 가능하다. 각 edge에
+universe 원소 하나를 두고, 한 vertex의 type이 그 vertex에 incident한
+edge 원소를 포함하게 하면 된다. 두 제외 조건은 type의 nonempty성과
+pairwise distinctness를 보장한다. 따라서 rank two는 vertex cover로의
+reduction이지 임의 residual graph의 자동 exact 공식이 아니다.
+
+정확한 loop-only, looped-clique, loopless-clique template에서는 upper
+또는 lower witness index를 저장하지 않는다. pattern, mask, point
+label은 \(\lambda+t(b+q)\) bit를 사용하고, 완전 template verifier는
+\[
+ O(tb+2tq+q\log t+t^2+\lambda)
+\]
+bit operation을 사용한다. 외부 source byte binding은 별도 선형
+비용이다.
+
+\claimstatus{REF-064}{REFUTED}.
+type 수, universe 수, rank-one/two column histogram은 정확한 repair
+number를 결정하지 않는다. star \(K_{1,3}\)와 path \(P_4\)는 모두
+type 4개, universe 원소 3개, degree-two column 3개를 가지지만 exact
+cover number는 각각 1과 2이다. 이 유한 반례는 complexity-class
+주장을 하지 않는다.
+
+\claimstatus{EMP-066}{EMPIRICAL}.
+EXP-0066은 M92/M93 coverer system 19개 전부를 독립 재구성한다.
+tracked point 55개, column 64개, type 37개, singleton column 30개,
+two-coverer column 34개가 정확히 loop-only 12개, looped-clique 5개,
+loopless-clique 2개 template를 이룬다. 17개 instance는 모든 type을
+강제하고 두 loopless clique의 최소값은 \(t-1\)이다. 구조 payload는
+기존 1,228 bit 대신 1,063 bit로 165 bit 작고, 좁은 ledger는 542
+test 대신 520 test로 aggregate에서만 22 작다. 18개 deterministic,
+differential, boundary, mutation test가 통과했다. type 완전성은 계속
+EMP-062와 EMP-064에 의존한다.
 
 \subsection{THM-019와 BAR-040의 증명}
 
