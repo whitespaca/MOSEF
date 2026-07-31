@@ -13,11 +13,12 @@ Its priorities are adopted in the following bounded sequence.
 | 6 | Test whether the semantic checker scales to the final finite row | M86 | DONE |
 | 7 | Front-load evaluator/generator costs and compress all six abstracts | M87 | DONE |
 | 8 | Replace code-first claim headings with traceable reader labels | M88 | DONE |
+| 9 | Move milestone chronology, commands, hashes, and archive links out of the mathematical narrative | M89 | DONE |
 
 M81 treats the definition defect as a falsification-first repair. M82 keeps
 the archival monograph authoritative while projecting exactly seven
 representative claims into each of three bilingual paper pairs. The
-machine-readable map currently accounts for all 269 claims: 21 focused and 248
+machine-readable map currently accounts for all 270 claims: 21 focused and 249
 archival-only. Later milestones may simplify presentation and move chronology
 to appendices, but they may not delete negative results, weaken cost
 accounting, promote finite evidence, or describe general classical
@@ -79,3 +80,13 @@ same 21 bilingual IDs in the same order and rejects kind, title, ID, status,
 macro, wrapping, and order drift. Compact inline typography preserved the M87
 page counts after a rendered packing correction; the labels do not create new
 theorem numbers or alter `research/CLAIMS.md`.
+
+M89 gives all six focused manuscripts one executable narrative boundary.
+Primary-source positioning is placed in appendix A, and reproduction commands,
+proof/experiment paths, internal milestone chronology, limitations, and
+archival cross-links are placed in appendix B. The 442-line checker preserves
+the former order of all 34 main sections and keeps every representative claim
+in the main narrative, while fixing 12 appendix headings, 32 commands, 38
+paths, and 14 inspected-source anchors. Eleven mutation paths reject either
+repository detail leaking back into the main text or an audit anchor being
+lost. The split is editorial only and leaves all claim statuses unchanged.

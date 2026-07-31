@@ -176,8 +176,8 @@ Cyclotomic norms reduce the possibilities to the common-step orbit and the
 two quadratic orbits.  Direct substitution gives the displayed ratios and
 congruences.  The phase congruence alone is insufficient:
 \((A,B,n)=(2,4,5)\) yields \((1+\sqrt5)/2\).
-The complete norm case split is in
-\path{research/proofs/THM-003-rational-root-orbits.md}.
+The complete norm case-split artifact is indexed in
+Appendix~\ref{app:cyclotomic-reproduction}.
 \end{claimproof}
 
 \section{Division-free exceptional cofactors}
@@ -301,7 +301,10 @@ when its two support bits differ, which gives the three counts and the
 strict inequality \(h(s-h)<\binom s2\) for \(s\ge3\).
 \end{claimproof}
 
-\section{Primary-source positioning}
+\appendix
+
+\section{Primary-source positioning audit}
+\label{app:cyclotomic-source-positioning}
 
 \paragraph{M83-R04: multiplication schedules.}
 Shared multiplication schedules for computing several prescribed powers are
@@ -322,7 +325,16 @@ an established method family, not a novelty or priority claim.
 The registered M83 matrix records the complete inspected-source boundary.
 An unmatched formula in this bounded audit is not evidence of novelty.
 
-\section{Reproduction and limitations}
+\section{Reproduction, limitations, and archival map}
+\label{app:cyclotomic-reproduction}
+
+\paragraph{Proof archive.}
+The complete norm case split is archived at the following path.
+\par\smallskip
+\noindent\begin{minipage}{\linewidth}
+\raggedright\small
+\path{research/proofs/THM-003-rational-root-orbits.md}
+\end{minipage}
 
 \begin{verbatim}
 python scripts/run_m24_rational_residue_audit.py
@@ -336,11 +348,12 @@ The corresponding records are EXP-0023 through EXP-0025 under
 \path{research/experiments}.  They validate finite symbolic and modular
 instances; the proofs above are algebraic.
 
-The archival monograph retains all full proofs, counterexamples, and charged
-branches; the M82 projection checks focused claim placement. The paper
-proves results only for the displayed signed geometric-sum grammar. It
-supplies no universal selector, prime-support density theorem, or general
-factoring algorithm.
+The archival monograph \archivepaper{} retains all full proofs,
+counterexamples, and charged branches. Claim status and focused-paper
+projection are recorded in \path{research/CLAIMS.md} and
+\path{schemas/m82-paper-portfolio-v1.json}. The paper proves results only for
+the displayed signed geometric-sum grammar. It supplies no universal
+selector, prime-support density theorem, or general factoring algorithm.
 
 \bibliographystyle{plain}
 \small

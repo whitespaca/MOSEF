@@ -49,6 +49,11 @@ anchors, and state their own exclusions.
   bilingual label families. The stable ID and `PROVED` status remain visible,
   ordered, and machine checked; the complete map is
   `research/reviews/2026-07-31-m88-reader-label-editorial-audit.md`.
+- M89 moves primary-source positioning and repository-facing reproduction,
+  chronology, limitation, and archive material behind one explicit appendix
+  boundary in every focused manuscript. The 34 mathematical main sections
+  retain their order; the complete anchor audit is
+  `research/reviews/2026-07-31-m89-appendix-boundary-editorial-audit.md`.
 
 ## Reproduction
 
@@ -60,6 +65,8 @@ python scripts/check_m87_focused_papers.py
 pytest -p no:cacheprovider tests/test_m87_focused_papers.py -q
 python scripts/check_m88_reader_labels.py
 pytest -p no:cacheprovider tests/test_m88_reader_labels.py -q
+python scripts/check_m89_appendix_boundaries.py
+pytest -p no:cacheprovider tests/test_m89_appendix_boundaries.py -q
 ```
 
 Compile the six papers from the repository root with XeLaTeX:

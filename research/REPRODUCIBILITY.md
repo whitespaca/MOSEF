@@ -19,6 +19,7 @@ python scripts/check_m50_finite_threshold_summary.py
 python scripts/check_m84_promise_wrappers.py
 python scripts/check_m87_focused_papers.py
 python scripts/check_m88_reader_labels.py
+python scripts/check_m89_appendix_boundaries.py
 python scripts/check_publication.py
 ```
 
@@ -49,11 +50,13 @@ python scripts/check_m85_m41_semantic_certificate.py
 python scripts/check_m86_m46_streaming_certificate.py
 python scripts/check_m87_focused_papers.py
 python scripts/check_m88_reader_labels.py
+python scripts/check_m89_appendix_boundaries.py
 python -m unittest discover -s tests -p test_promise_wrappers.py
 python -m pytest tests/test_m85_semantic_certificate.py -q
 python -m pytest tests/test_m86_streaming_semantic_certificate.py -q
 pytest -p no:cacheprovider tests/test_m87_focused_papers.py -q
 pytest -p no:cacheprovider tests/test_m88_reader_labels.py -q
+pytest -p no:cacheprovider tests/test_m89_appendix_boundaries.py -q
 ```
 
 These commands recompute registered masks, identities, collision or
@@ -85,6 +88,14 @@ They require one compact heading per claim, exactly five localized label
 families in each language, stable claim order, visible `PROVED` metadata, and
 the exact 21-ID bilingual map. Passing does not promote a claim or create a
 second numbering authority.
+
+The M89 commands validate the boundary between mathematical narrative and
+repository audit material. They fix the order of 34 main sections, require 12
+labeled appendices, and preserve exact bilingual registries containing 32
+commands, 38 repository paths, and 14 inspected-source anchors. They also
+reject commands, paths, experiment IDs, hashes, and internal milestone tokens
+in the main body. Passing is an editorial integrity result; it neither
+recomputes a mathematical certificate nor changes a claim status.
 
 ### Level C: complete repository gate
 

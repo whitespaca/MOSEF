@@ -71,21 +71,21 @@ unit-only continuation을 건너뛰기 전에 처리한다.
 평가한다. generator, 등록 schema, 독립 checker, publication projection은
 서로 다른 artifact이다.
 
-M85는 대표적인 \(m=29\) 행에 clean-room semantic 경로를 추가한다.
+대표적인 \(m=29\) 행에는 clean-room semantic 경로가 있다.
 548줄 checker는 Python 표준 라이브러리만 사용한다. balanced 소수
 685개를 독립적으로 sieve하고, 각 인증서 source를 공개 descriptor
 문법과 대조하며, 여덟 primitive 출구를 다시 계산한다. cyclotomic
 root가 아니면 유한체 나눗셈으로 cofactor를 평가하고, simple root에서는
 정확한 항등식 \(F=\Phi C\)를 미분하여
-\(C(g)=F'(g)/\Phi'(g)\)를 사용한다. 등록된 M41 좌표는 모두 root가
+\(C(g)=F'(g)/\Phi'(g)\)를 사용한다. 등록된 \(m=29\) 좌표는 모두 root가
 아니므로 인증서 근거는 단위 나눗셈 분기만 사용한다. 미분 분기는
 별도의 작은 exact vector로 simple-root 경계에서 검사한다. generator,
 프로젝트 수론 구현, 기존 checker를 import하지 않는다.
 
-M86은 마지막 \(m=34\) 행에도 같은 no-project-import 경계를 적용한다.
+마지막 \(m=34\) 행도 같은 no-project-import 경계를 사용한다.
 3,299개 packed signature만 유지하면서 3,298개 좌표를 3,299개 소수에
 대해 stream하고, tracked pair에서 cap-200 descriptor 전체와 새
-cap-201 primitive coordinate 81,112개를 검사한다. M46 범위의
+cap-201 primitive coordinate 81,112개를 검사한다. 이 범위의
 \(p\ge92683>201^2+1\)은 모든 cofactor denominator가 nonzero임을
 보이므로 등록 근거는 단위 나눗셈만 사용한다.
 
@@ -185,7 +185,7 @@ cap 102의 유일한 collision은 \(\{18979,21031\}\)이고 새로 허용된 정
 나오고 전체 signature가 단사가 된다. 0개 coordinate로 predecessor를
 고칠 수 없고 1개로 충분하므로 incremental minimum도 1이다. 길이 28과
 29의 threshold 감소는 서로 다른 모집단을 비교하므로 추세가 아니다.
-M85 checker는 685개 소수에서 1,528개 좌표 subcertificate를 별도로
+독립 semantic checker는 685개 소수에서 1,528개 좌표 subcertificate를 별도로
 재계산하고, tracked pair에 대해 cap-102 descriptor 전체를 검사하며,
 새로 허용된 모든 좌표 가운데 repair가 유일함을 확인한다.
 \end{claimproof}
@@ -210,7 +210,8 @@ inclusion은 그 아래의 실패를 증명한다. 새 81,112개 primitive
 coordinate를 평가하면 표시한 separator가 나오고 cap-201 인증서는
 3,299개 소수와 5,440,051개 쌍을 모두 구별한다. 지역 offset
 \(201-34=167\)은 이전 모든 행보다 크고 predecessor collision은
-유한-window 최소성을 증명한다. M86 checker는 10,880,102개 평가로
+유한-window 최소성을 증명한다. 독립 streaming checker는
+10,880,102개 평가로
 construction을 stream 재계산하고, cap-200 descriptor 704,261개 전체에서
 raw predecessor pair를 확인하며, 새 cap-201 좌표 가운데 표시 좌표만
 유일함을 확인한다.
@@ -283,7 +284,10 @@ balanced 모집단 지수 \(m/2\)보다 작아 duplicate signature가 생긴다.
 다른 compact족, adaptive schedule, \(c\ge1/2\) endpoint는 범위 밖이다.
 \end{claimproof}
 
-\section{1차 문헌 포지셔닝}
+\appendix
+
+\section{1차 문헌 포지셔닝 감사}
+\label{app:finite-source-positioning}
 
 \paragraph{M83-R03: 분리 signature.}
 이진 membership signature와 pair-separating set system은 고전적
@@ -308,7 +312,8 @@ span, 상수 범위가 증명된 범위이다. 모든 selector의 하한으로 �
 등록된 M83 행렬은 동기화된 비교를 보존한다. 제한 검색에서 같은 결과를
 찾지 못한 사실은 독창성의 증거가 아니다.
 
-\section{인증서 재현}
+\section{인증서 재현, 한계 및 아카이브 지도}
+\label{app:finite-reproduction}
 
 동결된 통합 artifact는
 \path{schemas/m50-finite-threshold-summary-v1.json}이며 파일 SHA-256은

@@ -166,8 +166,9 @@ R_{A,B}(\zeta)+1=
 이다. 이는 유리 대수적 정수이므로 음이 아닌 정수이다. cyclotomic norm
 case split은 공통 step orbit와 두 이차 orbit만 남긴다. 직접 대입으로
 비율과 합동 조건을 확인한다. 위상 합동만으로는 부족하며
-\((A,B,n)=(2,4,5)\)에서는 \((1+\sqrt5)/2\)가 나온다. 전체 증명은
-\path{research/proofs/THM-003-rational-root-orbits.md}에 있다.
+\((A,B,n)=(2,4,5)\)에서는 \((1+\sqrt5)/2\)가 나온다. 전체 norm
+case-split artifact는 부록~\ref{app:cyclotomic-reproduction}에
+색인되어 있다.
 \end{claimproof}
 
 \section{나눗셈 없는 예외적 cofactor}
@@ -285,7 +286,10 @@ Euclidean 축약과 5, 7의 별도 처리가 GCD 16을 준다. 두 support bit�
 \(h(s-h)<\binom s2\)이다.
 \end{claimproof}
 
-\section{1차 문헌 포지셔닝}
+\appendix
+
+\section{1차 문헌 포지셔닝 감사}
+\label{app:cyclotomic-source-positioning}
 
 \paragraph{M83-R04: 곱셈 schedule.}
 여러 지정 거듭제곱을 계산하는 공유 곱셈 schedule은 고전적
@@ -305,7 +309,16 @@ depth-two 관측량에 대해 common-step/\(\Phi_4\)/\(\Phi_6\) 삼분류와
 등록된 M83 행렬은 전체 문헌 경계를 보존한다. 이 제한 감사에서 같은
 식을 찾지 못한 사실은 독창성의 증거가 아니다.
 
-\section{재현성과 한계}
+\section{재현성, 한계 및 아카이브 지도}
+\label{app:cyclotomic-reproduction}
+
+\paragraph{증명 아카이브.}
+전체 norm case split은 다음 경로에 있다.
+\par\smallskip
+\noindent\begin{minipage}{\linewidth}
+\raggedright\small
+\path{research/proofs/THM-003-rational-root-orbits.md}
+\end{minipage}
 
 \begin{verbatim}
 python scripts/run_m24_rational_residue_audit.py
