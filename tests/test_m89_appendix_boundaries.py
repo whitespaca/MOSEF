@@ -48,7 +48,7 @@ class M89AppendixBoundaryTests(unittest.TestCase):
             sum(report.appendix_sections for report in reports),
             12,
         )
-        self.assertEqual(sum(report.commands for report in reports), 50)
+        self.assertEqual(sum(report.commands for report in reports), 54)
         self.assertEqual(sum(report.paths for report in reports), 38)
         self.assertEqual(sum(report.citations for report in reports), 14)
 

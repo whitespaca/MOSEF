@@ -1471,3 +1471,24 @@
 - Scope: this is an elementary finite counterexample, not an asymptotic lower
   bound or a claim about complexity classes. It does not refute THM-024 or
   imply anything about general factoring.
+
+## NR-064 - Matching is not universally tight on residual coverer graphs
+
+- Date: 2026-07-31.
+- Status: universal matching-equality shortcut refuted as `REF-065`;
+  `THM-025` remains valid when an equal-size cover and matching are supplied.
+- Hypothesis tested: after forced loop endpoints are removed from any
+  rank-one/two coverer graph, the maximum matching size always equals the
+  minimum vertex-cover size.
+- Exact obstruction: deleting the loops on \(T_0,T_1,T_2\) from the frozen
+  M96 looped-\(K_5\) seed leaves residual \(K_3\). Its edges meet pairwise, so
+  every matching has size at most one. One vertex misses the opposite edge,
+  while two vertices cover the triangle; hence \(\nu=1<2=\tau\).
+- Additional finite failures: the registered residual \(K_4\) and
+  \(K_5-e\) cases both have \(\nu=2<3=\tau\).
+- Consequence: matching equality is a compact sufficient lower certificate,
+  not a universal exact solver. Another graph class, lower certificate, or
+  exact method is needed when the gap is positive.
+- Scope: these are synthetic graphs obtained by deleting columns from one
+  frozen finite coverer system. They do not establish an asymptotic lower
+  bound, a complexity-class separation, or anything about general factoring.

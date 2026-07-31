@@ -280,8 +280,10 @@ coverer incidence, giving one exact \(t-1\) repair theorem and a 56-bit
 payload compression that is not a verifier-work reduction. Across all
 nineteen repairs, the exact coverer slots are twelve loop-only, five
 looped-clique, and two loopless-clique graphs. Their unified structural
-payload is 1,063 rather than 1,228 bits; a star/path counterexample shows
-that rank two alone does not determine the exact minimum. Deterministic
+payload is 1,063 rather than 1,228 bits. On eight non-template perturbations,
+equal-size residual cover/matching witnesses certify five exact repairs in
+43 framed bits, while three gaps show that matching and rank two are not
+universal exact solvers. Deterministic
 bounded searches and independent
 Python, Rust, and C\# implementations audit these statements but are not used
 as proofs. No general polynomial-time classical factoring algorithm or lower
@@ -3699,6 +3701,52 @@ The structural payload is 1,063 versus 1,228 incumbent bits, saving 165; the
 narrow ledger is 520 versus 542 tests, saving 22 only in aggregate. Eighteen
 deterministic, differential, boundary, and mutation tests pass. Type
 exhaustiveness remains dependent on EMP-062 and EMP-064.
+
+\claimstatus{DEF-052}{DEFINITION}. After forcing every looped type \(F\), a
+residual matching-equality witness of size \(k\) consists of a \(k\)-vertex
+cover \(C\) of \(H=G_D[T\setminus F]\) and \(k\) residual edge occurrences
+whose endpoints are pairwise disjoint.
+
+\claimstatus{THM-025}{PROVED}. Such a witness certifies
+\[
+ \tau(H)=k,\qquad \rho(T,U)=|F|+k.
+\]
+The cover gives \(\tau(H)\le k\). Every cover must meet all \(k\) disjoint
+matching edges using distinct selected endpoints, so \(\tau(H)\ge k\).
+No subset enumeration or maximum-matching oracle is part of verification.
+
+Let
+\[
+ \ell_t=\lceil\log_2\max(2,t)\rceil,\quad
+ \ell_q=\lceil\log_2\max(2,q)\rceil,\quad
+ \ell_k=\lceil\log_2(t+1)\rceil.
+\]
+After graph reconstruction, the declared common size, cover indices, and
+matching-column indices use
+\[
+ \ell_k+k(\ell_t+\ell_q)
+\]
+bits and are checkable within
+\[
+ O(tb+2tq+t+q+k(\ell_t+\ell_q)+\lambda)
+\]
+bit operations, plus source binding. The \(\ell_k\) framing term is charged
+explicitly.
+
+\claimstatus{REF-065}{REFUTED}. Matching is not universally tight. In the
+M96 \(K_3\) residual graph, every matching has size at most one, one vertex
+misses the opposite edge, and two vertices cover all edges. Thus
+\(\nu(K_3)=1<2=\tau(K_3)\). The finite \(K_4\) and \(K_5-e\) perturbations
+also have one-unit gaps.
+
+\claimstatus{EMP-067}{EMPIRICAL}. EXP-0067 deletes registered loop and edge
+columns from the source-bound M95 length-27 looped \(K_5\). All eight
+retained systems are non-template complete normal forms. Five admit
+matching-equality certificates and three retain gaps; residual cover and
+matching numbers sum to 12 and 9, full repair numbers sum to 28, and the five
+exact witnesses use 43 framed bits and 21 narrow tests. Fifteen deterministic
+and mutation tests pass. These are synthetic finite systems, not newly
+enumerated selector outputs.
 
 Appendix \ref{proof:THM-019-BAR-040} gives the complete finite proof.
 

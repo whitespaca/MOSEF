@@ -29,11 +29,12 @@ certificate 생성과 hash 계산은 offline 증명 비용이며 알고리즘 ad
   표준 라이브러리 checker는 generator와 project import 없이 16개 동결
   source에서 26행 전체를 재구성한다. 28,245,185개 certificate 평가와
   7,520,669개 raw-mask 평가를 수행했고 측정 peak는 29.15 MiB였다.
-  non-domain-floor repair 19개는 모두 looped coverer graph로
-  환원된다. loop-only 12개, looped clique 5개, loopless clique
-  2개이다. 통합 graph 인증서는 1,228 bit 대신 1,063 bit payload와
-  542 test 대신 520 registered test를 사용한다. star/path 반례는
-  rank two만으로 exact repair number가 결정되지 않음을 보인다.
+  repair 19개는 loop-only 12개, looped-clique 5개, loopless-clique
+  2개 coverer graph이다. 통합 인증서는 1,063 bit와 520 test를
+  사용한다. 여덟 non-template perturbation에서는 equal-size
+  cover/matching witness가 다섯 exact repair를 43 framed bit로
+  인증하지만, 세 gap은 matching과 rank two가 universal exact solver가
+  아님을 보인다.
   별도로 같은 정확한 문법의 모든
 polynomial numeric cap이 결국 실패함을 증명하고, 감사된 경계 아래의
 compact-gap 비단사 장벽을 제시한다. 이 인증서는 작은 유한 범위와 한
@@ -321,6 +322,51 @@ column 30개, two-coverer column 34개를 loop-only 12개, looped-clique
 두 source differential, star/path, rank-three, mutation 경로를
 포함한다. 완전성은 EMP-062와 EMP-064에 의존한다.
 
+\readerclaim{정의}{Residual matching-equality witness}
+{\texttt{DEF-052: DEFINITION}}
+강제 집합 \(F\)를 선택한 뒤, 크기 \(k\) witness는
+\(H=G_D[T\setminus F]\)의 \(k\)-vertex cover와 endpoint가 pairwise
+disjoint인 residual edge \(k\)개를 담는다.
+
+\readerclaim{정리}{Matching-equality repair 인증서}
+{\claimstatus{THM-025}{PROVED}}
+같은 크기의 residual cover와 matching은
+\[
+ \tau(H)=k,\qquad \rho(T,U)=|F|+k
+\]
+를 인증한다.
+\begin{claimproof}
+cover는 \(\tau(H)\le k\)를 주고, 모든 cover는 \(k\)개 disjoint
+matching edge를 서로 다른 선택 endpoint로 만나야 하므로
+\(\tau(H)\ge k\)이다.
+\(\ell_t=\lceil\log_2\max(2,t)\rceil\),
+\(\ell_q=\lceil\log_2\max(2,q)\rceil\),
+\(\ell_k=\lceil\log_2(t+1)\rceil\)이면 추가 payload는
+\[
+ \ell_k+k(\ell_t+\ell_q)
+\]
+bit이다. 검증 비용은
+\[
+ O(tb+2tq+t+q+k(\ell_t+\ell_q)+\lambda)
+\]
+bit operation과 source binding이고 vertex subset을 열거하지 않는다.
+\end{claimproof}
+
+\readerclaim{반박된 지름길}{Matching은 항상 tight하다}
+{\texttt{REF-065: REFUTED}}
+residual \(K_3\) perturbation은
+\(\nu(K_3)=1<2=\tau(K_3)\)이고, 등록 \(K_4\)와 \(K_5-e\)도 gap 1을
+갖는다. matching equality는 충분조건이지 자동 성질이 아니다.
+
+\readerclaim{유한 감사}{Non-template matching perturbation 여덟 개}
+{\texttt{EMP-067: EMPIRICAL}}
+synthetic source-bound perturbation 여덟 개 중 다섯 개는 equality
+certificate를 갖고 세 개는 gap을 갖는다. residual cover/matching
+합은 12/9이고 full repair 합은 28이다. 다섯 framed witness는 43 bit와
+21 narrow test를 사용한다. 15개 test가 seed와 모든 case를 재구성하고
+mutation을 거부한다. 이 system들은 새로 열거한 selector output이
+아니다.
+
 \section{초기 및 확장 유한 정리}
 
 \readerclaim{유한 인증서}{길이 15까지의 base cap}
@@ -552,6 +598,8 @@ python scripts/check_m94_clique_incidence_certificate.py
 pytest -p no:cacheprovider tests/test_m94_clique_incidence_certificate.py -q
 python scripts/check_m95_coverer_graph_certificate.py
 pytest -p no:cacheprovider tests/test_m95_coverer_graph_certificate.py -q
+python scripts/check_m96_matching_certificate.py
+pytest -p no:cacheprovider tests/test_m96_matching_certificate.py -q
 \end{verbatim}
 기초 M31--M46 schema, generator, differential checker, 명령, toolchain,
 row hash, 선택된 cross-language vector는 \path{schemas}, \path{scripts},

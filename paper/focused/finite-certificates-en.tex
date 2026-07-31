@@ -30,11 +30,11 @@ costs and are not algorithmic advice or hidden online inputs.  The
   trusted computing base without generator or project imports: it reconstructs
   all 26 rows from 16 frozen sources through 28,245,185 certificate and
   7,520,669 raw-mask evaluations, within a measured 29.15 MiB peak.
-  All 19 non-domain-floor repairs reduce to looped coverer graphs: 12
-  loop-only, five looped cliques, and two loopless cliques.  Unified graph
-  certificates use 1,063 rather than 1,228 payload bits and 520 rather than
-  542 registered tests.  A star/path counterexample shows that rank two alone
-  does not determine the exact repair number.
+  All 19 repairs are 12 loop-only, five looped-clique, and two
+  loopless-clique coverer graphs; unified certificates use 1,063 bits and 520
+  tests.  On eight non-template perturbations, equal-size cover/matching
+  witnesses certify five exact repairs in 43 framed bits, while three gaps
+  show that matching and rank two are not universal exact solvers.
   Separately, we prove that every
 polynomial numeric cap in this exact grammar eventually fails and establish
 compact-gap noninjectivity barriers below the audited boundary.  These
@@ -323,6 +323,48 @@ rather than 1,228 bits; the narrow ledger is 520 rather than 542 tests.
 Eighteen tests include both-source differential, star/path, rank-three, and
 mutation paths.  Completeness depends on EMP-062 and EMP-064.
 
+\readerclaim{Definition}{Residual matching-equality witness}
+{\texttt{DEF-052: DEFINITION}}
+After selecting the forced set \(F\), a witness of size \(k\) contains a
+\(k\)-vertex cover of \(H=G_D[T\setminus F]\) and \(k\) residual edges with
+pairwise-disjoint endpoints.
+
+\readerclaim{Theorem}{Matching-equality repair certificate}
+{\claimstatus{THM-025}{PROVED}}
+An equal-size residual cover and matching certify
+\[
+ \tau(H)=k,\qquad \rho(T,U)=|F|+k.
+\]
+\begin{claimproof}
+The cover gives \(\tau(H)\le k\).  Every cover must meet the \(k\) disjoint
+matching edges at distinct selected endpoints, so \(\tau(H)\ge k\).
+With \(\ell_t=\lceil\log_2\max(2,t)\rceil\),
+\(\ell_q=\lceil\log_2\max(2,q)\rceil\), and
+\(\ell_k=\lceil\log_2(t+1)\rceil\), the additional payload is
+\[
+ \ell_k+k(\ell_t+\ell_q)
+\]
+bits.  Verification costs
+\[
+ O(tb+2tq+t+q+k(\ell_t+\ell_q)+\lambda)
+\]
+bit operations plus source binding and does not enumerate vertex subsets.
+\end{claimproof}
+
+\readerclaim{Refuted shortcut}{Matching is universally tight}
+{\texttt{REF-065: REFUTED}}
+The residual \(K_3\) perturbation has
+\(\nu(K_3)=1<2=\tau(K_3)\); registered \(K_4\) and \(K_5-e\) cases also
+have one-unit gaps.  Matching equality is sufficient, not automatic.
+
+\readerclaim{Finite audit}{Eight non-template matching perturbations}
+{\texttt{EMP-067: EMPIRICAL}}
+Five of eight synthetic source-bound perturbations have equality
+certificates; three have gaps.  Residual cover/matching sums are 12/9 and the
+full repair sum is 28.  The five framed witnesses use 43 bits and 21 narrow
+tests.  Fifteen tests bind the seed, reconstruct all cases, and reject
+mutations.  These systems are not newly enumerated selector outputs.
+
 \section{Initial and widened finite theorems}
 
 \readerclaim{Finite certificate}{Base cap through length 15}
@@ -566,6 +608,8 @@ python scripts/check_m94_clique_incidence_certificate.py
 pytest -p no:cacheprovider tests/test_m94_clique_incidence_certificate.py -q
 python scripts/check_m95_coverer_graph_certificate.py
 pytest -p no:cacheprovider tests/test_m95_coverer_graph_certificate.py -q
+python scripts/check_m96_matching_certificate.py
+pytest -p no:cacheprovider tests/test_m96_matching_certificate.py -q
 \end{verbatim}
 The underlying M31--M46 schemas, generators, differential checkers, commands,
 toolchains, row hashes, and selected cross-language vectors remain under
