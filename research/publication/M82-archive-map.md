@@ -45,6 +45,10 @@ anchors, and state their own exclusions.
   focused manuscript and enforces 200--300 lexical-token abstracts. It
   changes no representative claim ID or status; the complete editorial audit
   is `research/reviews/2026-07-31-m87-focused-cost-model-editorial-audit.md`.
+- M88 adds a reader-facing heading to every representative claim using five
+  bilingual label families. The stable ID and `PROVED` status remain visible,
+  ordered, and machine checked; the complete map is
+  `research/reviews/2026-07-31-m88-reader-label-editorial-audit.md`.
 
 ## Reproduction
 
@@ -54,6 +58,8 @@ python scripts/check_m82_paper_portfolio.py
 pytest tests/test_paper_portfolio.py -q
 python scripts/check_m87_focused_papers.py
 pytest -p no:cacheprovider tests/test_m87_focused_papers.py -q
+python scripts/check_m88_reader_labels.py
+pytest -p no:cacheprovider tests/test_m88_reader_labels.py -q
 ```
 
 Compile the six papers from the repository root with XeLaTeX:

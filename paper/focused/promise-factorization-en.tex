@@ -83,7 +83,9 @@ membership.
 
 \section{Fresh-base \texorpdfstring{\(p-1\)}{p-1} factorization}
 
-\claimstatus{THM-001}{PROVED}.  For every fixed pair \(B,R\) above, fresh
+\readerclaim{Theorem}{Hereditary \(p-1\) complete factorization}
+{\claimstatus{THM-001}{PROVED}}
+For every fixed pair \(B,R\) above, fresh
 uniform residues give a classical Las Vegas algorithm that completely
 factors every input in the hereditary \(p-1\) semismooth-asymmetry promise,
 is always correct, terminates almost surely, and has expected bit complexity
@@ -130,7 +132,9 @@ signature
   \Sigma_\Delta(r)=\{d\in\Delta:r\mid d\}.
 \]
 
-\claimstatus{BAR-001}{PROVED}.  Divisor coverage does not imply order
+\readerclaim{Counterexample and criterion}{Coverage is not separation}
+{\claimstatus{BAR-001}{PROVED}}
+Divisor coverage does not imply order
 separation.  A profile \((r_1,\ldots,r_s)\) is separated exactly when its
 signatures are not all equal.  Every order in \(\{1,\ldots,n\}\) is separated
 from every distinct order exactly when \(r\mapsto\Sigma_\Delta(r)\) is
@@ -154,7 +158,9 @@ signature, and \(\gcd(5^2-1,6)=6\).
 Let \(V_0(P,1)=2\), \(V_1(P,1)=P\), and
 \(V_{j+1}(P,1)=PV_j(P,1)-V_{j-1}(P,1)\).
 
-\claimstatus{BAR-002}{PROVED}.  If \(a\) is a unit modulo \(N\) and
+\readerclaim{Proposition}{Conjugate channels have identical support}
+{\claimstatus{BAR-002}{PROVED}}
+If \(a\) is a unit modulo \(N\) and
 \(P=a+a^{-1}\), then for every \(d\ge0\),
 \[
  V_d(P,1)-2=a^{-d}(a^d-1)^2,\qquad
@@ -176,7 +182,9 @@ GCD \(25\).
 
 \section{Independent nonsplit \texorpdfstring{\(p+1\)}{p+1} factorization}
 
-\claimstatus{LEM-003}{PROVED}.  For every odd prime \(q\) and \(d>0\),
+\readerclaim{Proposition}{Exact Lucas root count}
+{\claimstatus{LEM-003}{PROVED}}
+For every odd prime \(q\) and \(d>0\),
 \[
  \#\{P\in\mathbb F_q:V_d(P,1)=2\}
  =\frac{\gcd(d,q-1)+\gcd(d,q+1)}2.
@@ -194,7 +202,9 @@ roots in the two cyclic groups and simplifying yields the formula.  The
 quadratic character count for \(P^2-4\) gives the nonsplit count.
 \end{claimproof}
 
-\claimstatus{THM-002}{PROVED}.  Fresh uniform parameters \(P\bmod K\) give a
+\readerclaim{Theorem}{Hereditary nonsplit \(p+1\) complete factorization}
+{\claimstatus{THM-002}{PROVED}}
+Fresh uniform parameters \(P\bmod K\) give a
 classical Las Vegas complete-factorization algorithm on the hereditary
 nonsplit \(p+1\)-asymmetry promise.  It is always correct, terminates almost
 surely, and has expected polynomial bit complexity.  A witness trial
@@ -263,7 +273,9 @@ For an odd prime \(p\), define
 \]
 This is a factor-dependent analytical object, not an input recognizer.
 
-\claimstatus{BAR-003}{PROVED}.  For distinct odd primes \(p,q\), the union
+\readerclaim{Barrier}{Common-schedule density ceiling}
+{\claimstatus{BAR-003}{PROVED}}
+For distinct odd primes \(p,q\), the union
 of the local \(p-1\) and \(p+1\) asymmetry promises holds exactly when
 \(\sigma_\Delta(p)\ne\sigma_\Delta(q)\).  On a finite prime set \(S\), if
 \(s=|S|\), \(h\) signatures are nonzero, and \(D=\max\Delta\), the promised
@@ -283,7 +295,9 @@ signature, giving the first bound.  Each \(d\) can be divisible by at most
 The statement is finite-distribution and schedule-specific.
 \end{claimproof}
 
-\claimstatus{BAR-004}{PROVED}.  An explicit polynomial-size exponent list
+\readerclaim{Barrier}{Subcritical exponent-list sparsity}
+{\claimstatus{BAR-004}{PROVED}}
+An explicit polynomial-size exponent list
 whose maximum exponent bit length is \(o(k\log k)\) hits at most
 \(2^{o(k)}\) odd primes through the \(p\pm1\) divisibility tests.  Hence its
 covered-pair fraction vanishes on any separately stipulated

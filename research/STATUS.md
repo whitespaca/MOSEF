@@ -1,5 +1,96 @@
 # Research Status
 
+## M88 outcome
+
+- Date: 2026-07-31.
+- Branch: `research/20260731-m88-reader-labels`.
+- Base: M87 squash merge
+  `a35b30bd33bebdbb7919d411a5a10f661a09e17a`.
+- Completed milestone: M88, a reader-facing bilingual claim-label layer over
+  the 21 representative claims in the six focused manuscripts.
+- The two focused preambles now define a compact three-argument
+  `readerclaim` wrapper. Each heading shows a localized mathematical role and
+  subject, then the existing stable ID and status; the statement continues in
+  the same paragraph. The wrapper does not allocate a new theorem number or
+  replace `research/CLAIMS.md` as the authority.
+- Exactly five reader-label families are used in each language: theorem,
+  proposition, counterexample and criterion, barrier, and finite certificate.
+  The exact map yields 42 rendered headings over 21 bilingual IDs. LEM-003,
+  for example, remains visibly `LEM-003 [PROVED]` while its reader role is the
+  proposition “Exact Lucas root count”; this is presentation, not a ledger
+  rename.
+- `scripts/check_m88_reader_labels.py` is 307 standard-library-only lines. It
+  fixes the exact English/Korean kind and title for every representative ID,
+  requires the seven-claim order in each paper, verifies one wrapper around
+  every raw `claimstatus`, requires all 42 statuses to remain `PROVED`, checks
+  pairwise bilingual ID order, and rejects an internal ID used as a reader
+  label.
+- Nine targeted tests passed in 0.04 seconds. They reject a missing preamble
+  macro, an unwrapped claim, kind drift, title drift, ID drift, status drift,
+  claim reordering, and Korean-map drift. Targeted Ruff 0.16.0 and strict
+  mypy 2.3.0 checks passed. The unchanged M87 checker still reports the exact
+  226/204, 231/200, and 235/203 abstract counts, 24 cost rows, and 21
+  bilingual claim IDs.
+- M82 and M83 were regenerated from the final manuscript sources. M82 still
+  accounts for 270 ledger claims, 21 focused and 249 archive-only, with
+  canonical portfolio SHA-256
+  `29e50a466e5ba7e0d88f4fd6c8aa4450d5843887535452a74eb1bdadc4db9449`.
+  M83 still has six inspected sources, seven synchronized rows, and no
+  priority claim, with canonical audit SHA-256
+  `6b3af11eae78bed03abf56a1bd96e938218aaed4e725f327369f96102bd69525`.
+- Six converged XeLaTeX builds passed final-log and complete rendered-page
+  review: promise English, 6 pages,
+  `398fb90c933f1c55c7696eb3103016921b6eda302c31f3d6a704f766d41b50de`;
+  promise Korean, 5 pages,
+  `67a0c444eaa3346c812920ad91044e6fdbac6f7582839838530bac99d964d39b`;
+  cyclotomic English, 5 pages,
+  `8d9bbd9e4842b69b16cbf39bd72ac88ee7019f2f0986c4ab8850e8e3ce221ba5`;
+  cyclotomic Korean, 5 pages,
+  `16a87ad22607feb9ab184d4b6e777643174df432138dcdfae46c76ea5da37684`;
+  finite certificates English, 6 pages,
+  `ffce87870effe8ed2fee6f6be86215381c294ccbe9704a55c28bb4db288963a4`;
+  and finite certificates Korean, 6 pages,
+  `f22cb270bb05c51286f2c7268876a652c0e3bc4fc36dec059b43c4a2c8748501`.
+  All final logs have zero selected undefined-reference, undefined-citation,
+  missing-character, overfull, underfull, LaTeX, package, or rerun warnings.
+- The first block-style label draft created almost-empty reference pages in
+  two English papers. Compact same-paragraph typography restored the M87 page
+  counts. The finite English last page uses a bounded three-baseline
+  expansion; its final render confirms that both references and the footer
+  remain inside a safe bottom margin. All 42 headings are readable, metadata
+  remains adjacent, and no clipping, overlap, or Korean-glyph failure is
+  visible.
+- Full validation passed: foundation and bilingual-publication checks; M50
+  integrity; current M82--M88 generators or independent checkers; all 336
+  Python tests in 260.96 seconds; Python bytecode compilation; repository-wide
+  Ruff; mypy over 31 source files plus the two M88 files in strict mode; Rust
+  formatting, Clippy with warnings denied, and all 36 tests; and the C#
+  Release build with zero warnings or errors. The recorded host used direct
+  Python 3.12.8, pytest 9.1.1, Ruff 0.16.0, mypy 2.3.0, cargo/rustc 1.84.0,
+  and .NET SDK 8.0.420.
+- Scope: M88 changes no authoritative statement, status, proof, experiment,
+  source assessment, complexity model, or finite certificate. It does not
+  recognize either hereditary promise or extend the finite results past
+  \(m=34\). General classical polynomial-time factoring remains open. M89 is
+  active and will separate mathematical narrative from reproduction and
+  archival appendices without dropping audit anchors.
+
+### M88 Korean summary
+
+M88은 세 집중 논문 영문·국문 쌍의 21개 대표 주장에 독자 친화적 표지를
+추가했다. 각 언어는 정리, 명제, 반례와 판정, 장벽, 유한 인증서의 다섯
+계열만 사용한다. 표지 뒤에는 기존 `THM/BAR/LEM-### [PROVED]`가 그대로
+보이므로 독자용 설명과 감사용 식별자가 분리되지만 추적성은 유지된다.
+307줄 표준 라이브러리 checker는 42개 표지의 종류·제목·ID·상태·순서와
+영문·국문 대응을 고정하며, 현 상태 검사 1개와 변이 검사 8개로 구성된
+아홉 targeted test 및 전체 336개 Python test가 통과했다. 여섯 PDF의
+모든 페이지를 렌더해 표지 줄바꿈, 참고문헌
+packing, 하단 여백, 한글 글리프를 확인했고 최종 경고는 0건이다. M88은
+편집 계층만 추가했으며 주장 장부, 증명, 실험, 복잡도 모형은 바꾸지
+않는다. 일반 고전 다항시간 정수분해는 여전히 열린 문제다. 다음 M89는
+재현 명령과 내부 chronology를 appendix로 분리하면서 모든 감사 anchor를
+보존한다.
+
 ## M87 outcome
 
 - Date: 2026-07-31.

@@ -96,7 +96,9 @@ registered evidence uses unit division only.
 
 \section{Signature criterion}
 
-\claimstatus{BAR-024}{PROVED}.  Given \(s\ge2\) population primes and
+\readerclaim{Proposition}{Signature separation}
+{\claimstatus{BAR-024}{PROVED}}
+Given \(s\ge2\) population primes and
 \(r\) exact candidate lifts, a pair \(pq\) is split by some candidate if and
 only if the two \(r\)-bit support signatures differ.  If signature bucket
 \(u\) has size \(n_u\), then
@@ -125,7 +127,9 @@ signatures are proof objects indexed by the enumerated primes.
 
 \section{Initial and widened finite theorems}
 
-\claimstatus{THM-004}{PROVED}.  For every \(9\le m\le15\), the base selector
+\readerclaim{Finite certificate}{Base cap through length 15}
+{\claimstatus{THM-004}{PROVED}}
+For every \(9\le m\le15\), the base selector
 \(\mathcal T_{m,m}\) is injective on the complete population
 \(\mathcal P_m\).  Separating subcertificates use respectively
 \[
@@ -142,7 +146,9 @@ three primes \(191,227,233\) have identical complete masks, proving that the
 base cap does not extend automatically.
 \end{claimproof}
 
-\claimstatus{THM-005}{PROVED}.  The public cap \(L(m)=m+11\) is injective
+\readerclaim{Finite certificate}{Offset 11 through length 20}
+{\claimstatus{THM-005}{PROVED}}
+The public cap \(L(m)=m+11\) is injective
 on every complete population for \(9\le m\le20\).  Offset 11 is minimal on
 this finite range: at \(m=20,L=30\), \(809\) and \(827\) collide.
 
@@ -167,7 +173,9 @@ over all selectors and not an asymptotic rate.
 
 \input{paper/tables/finite-threshold-summary-en.tex}
 
-\claimstatus{THM-014}{PROVED}.  At \(m=29\),
+\readerclaim{Finite certificate}{Length-29 nonmonotonicity}
+{\claimstatus{THM-014}{PROVED}}
+At \(m=29\),
 \[
  L_{29}^\star=103<L_{28}^\star=104.
 \]
@@ -192,7 +200,9 @@ cap-102 descriptor on the tracked pair, and confirms the unique repair among
 all newly admitted coordinates.
 \end{claimproof}
 
-\claimstatus{THM-019}{PROVED}.  At \(m=34\),
+\readerclaim{Finite certificate}{Length-34 endpoint}
+{\claimstatus{THM-019}{PROVED}}
+At \(m=34\),
 \[
  L_{34}^\star=201.
 \]
@@ -224,7 +234,9 @@ cryptographic-scale factoring result.
 
 \section{Asymptotic barriers inside the same grammar}
 
-\claimstatus{BAR-041}{PROVED}.  Let \(W(m,L)\) be the total bit length of
+\readerclaim{Barrier}{Polynomial numeric-cap failure}
+{\claimstatus{BAR-041}{PROVED}}
+Let \(W(m,L)\) be the total bit length of
 the eight positive exact primitive integers over all descriptors at cap
 \(L\), and let \(H_{m,L}\) be the population primes dividing at least one.
 Then
@@ -256,7 +268,9 @@ This is a barrier for polynomial \emph{numeric} caps in the exact grammar,
 not for all compact encodings.
 \end{claimproof}
 
-\claimstatus{BAR-046}{PROVED}.  In the encoded compact-gap subfamily
+\readerclaim{Barrier}{Compact-gap failure below \(1/2\)}
+{\claimstatus{BAR-046}{PROVED}}
+In the encoded compact-gap subfamily
 \[
  A=3,\quad B_t=2^t+3,\quad g=2,
 \]
@@ -342,6 +356,7 @@ for the explicitly bounded certificate theorems.  BAR-024, BAR-041, and
 BAR-046 have separate mathematical proofs.  General classical
 polynomial-time factoring remains open.
 
+\enlargethispage{3\baselineskip}
 \bibliographystyle{plain}
 \small
 \bibliography{paper/references}

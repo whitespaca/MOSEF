@@ -188,12 +188,12 @@
     "paper/references.bib": "71626c54fb84356438677bc65066206ab1aa664dfeb90c7423392f10ade69460",
     "paper/main.tex": "c3b63e2ca906188705b818da1fa52fff7ca34605b17bc78a90fd2e2a14bd5229",
     "paper/main-ko.tex": "371880a36a2d71f03ae33d0b13a975510ec1fde958464d6907be33d6195be02b",
-    "paper/focused/promise-factorization-en.tex": "2fa36d655343a52149000322ef4bb882db899dd8c2d1ced8381b9da5a968f227",
-    "paper/focused/promise-factorization-ko.tex": "ed912d07b234a4197a3d80728afdbdd0c10a945dae479721b04be043dace7f6d",
-    "paper/focused/cyclotomic-extraction-en.tex": "782125367b97d754a4f2eda663cb7330db494fd122eee92e4359073686b814f2",
-    "paper/focused/cyclotomic-extraction-ko.tex": "7474433794d782bfb3d7fce045bb2e8fcb3cb52feec6a94e99336d0611d495cb",
-    "paper/focused/finite-certificates-en.tex": "f516f02e665cb170a5aefc0ca7a6f3ea3bf9e3bd2bf6aecad4eeb2b8c5920231",
-    "paper/focused/finite-certificates-ko.tex": "2c1d9ece5a14ff37dc93040369c5e2ff01edd9bb2426bb650114eff5ae8e69a8"
+    "paper/focused/promise-factorization-en.tex": "ee4ba5521ac3de4bf7df151a2feb60b157af78741b234ee75b307fb29a1a0e5c",
+    "paper/focused/promise-factorization-ko.tex": "22c905e732e27b85e093999453e80e5ea0dbf86437cd2c4e3bf7f61ee28dde43",
+    "paper/focused/cyclotomic-extraction-en.tex": "186fa8b45a777ba42ead544c81b4544a1668cc2d6913cb0904d66400c7c6d4bc",
+    "paper/focused/cyclotomic-extraction-ko.tex": "0d5248c572b63591ad5a4d833b078aae4e01e8cfc9f611e8ddc3171359705a2a",
+    "paper/focused/finite-certificates-en.tex": "b5aaa7a902aabbe417dc333aa9a5dff14377c857ff5a91748130b65b211a0c26",
+    "paper/focused/finite-certificates-ko.tex": "078faa9ce9c028e84428542150cfc097a9e280b2e3802932ada4a2c011dd80d8"
   },
   "scope": {
     "general_classical_polynomial_time_factoring": "OPEN",
@@ -201,5 +201,5 @@
     "priority_claims_made": false,
     "finite_certificate_max_input_length": 34
   },
-  "audit_summary_sha256": "756eea8cdeb733ef78ed6c82f3abe6ef07938d048be47c4d840013dc614c11c8"
+  "audit_summary_sha256": "6b3af11eae78bed03abf56a1bd96e938218aaed4e725f327369f96102bd69525"
 }

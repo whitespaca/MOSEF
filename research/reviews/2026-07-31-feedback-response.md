@@ -12,6 +12,7 @@ Its priorities are adopted in the following bounded sequence.
 | 5 | Build a minimal independent semantic certificate checker | M85 | DONE |
 | 6 | Test whether the semantic checker scales to the final finite row | M86 | DONE |
 | 7 | Front-load evaluator/generator costs and compress all six abstracts | M87 | DONE |
+| 8 | Replace code-first claim headings with traceable reader labels | M88 | DONE |
 
 M81 treats the definition defect as a falsification-first repair. M82 keeps
 the archival monograph authoritative while projecting exactly seven
@@ -69,3 +70,12 @@ abstract and cost ledger without clipping or missing Korean glyphs. This is
 an editorial clarification only: it does not move certificate generation
 into the online algorithm, weaken any exclusion, or promote the general
 factoring goal.
+
+M88 retains every repository-facing ID and status while adding a separate
+reader-facing hierarchy. Exactly five localized families are used in each
+language: theorem, proposition, counterexample and criterion, barrier, and
+finite certificate. The 307-line checker requires 42 headings to cover the
+same 21 bilingual IDs in the same order and rejects kind, title, ID, status,
+macro, wrapping, and order drift. Compact inline typography preserved the M87
+page counts after a rendered packing correction; the labels do not create new
+theorem numbers or alter `research/CLAIMS.md`.
