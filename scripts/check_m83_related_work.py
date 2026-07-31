@@ -56,6 +56,12 @@ EXPECTED_SOURCES: tuple[tuple[str, str, str, str], ...] = (
         "ABSTRACT_ONLY",
         "research/literature/SRC-012-yao-evaluation-powers.md",
     ),
+    (
+        "SRC-013",
+        "lokshtanov2009oct",
+        "FULL_ARTICLE",
+        "research/literature/M99-odd-cycle-transversal-iterative-compression.md",
+    ),
 )
 
 EXPECTED_ROWS: tuple[tuple[str, str, tuple[str, ...], tuple[str, ...]], ...] = (
@@ -76,6 +82,12 @@ EXPECTED_ROWS: tuple[tuple[str, str, tuple[str, ...], tuple[str, ...]], ...] = (
         ("BAR-041", "BAR-042", "BAR-043", "BAR-044", "BAR-045", "BAR-046"),
         ("SRC-009", "SRC-011"),
     ),
+    (
+        "M83-R08",
+        "ESTABLISHED_BACKGROUND",
+        ("THM-028",),
+        ("SRC-013",),
+    ),
 )
 
 REQUIRED_PAPER_ROWS: dict[str, tuple[str, ...]] = {
@@ -85,8 +97,18 @@ REQUIRED_PAPER_ROWS: dict[str, tuple[str, ...]] = {
     "paper/focused/promise-factorization-ko.tex": ("M83-R01", "M83-R02", "M83-R03"),
     "paper/focused/cyclotomic-extraction-en.tex": ("M83-R04", "M83-R05"),
     "paper/focused/cyclotomic-extraction-ko.tex": ("M83-R04", "M83-R05"),
-    "paper/focused/finite-certificates-en.tex": ("M83-R03", "M83-R06", "M83-R07"),
-    "paper/focused/finite-certificates-ko.tex": ("M83-R03", "M83-R06", "M83-R07"),
+    "paper/focused/finite-certificates-en.tex": (
+        "M83-R03",
+        "M83-R06",
+        "M83-R07",
+        "M83-R08",
+    ),
+    "paper/focused/finite-certificates-ko.tex": (
+        "M83-R03",
+        "M83-R06",
+        "M83-R07",
+        "M83-R08",
+    ),
 }
 
 REQUIRED_CITATIONS: dict[str, tuple[str, ...]] = {
@@ -111,10 +133,12 @@ REQUIRED_CITATIONS: dict[str, tuple[str, ...]] = {
         "conway1976trigonometric",
     ),
     "paper/focused/finite-certificates-en.tex": (
+        "lokshtanov2009oct",
         "katona1966separating",
         "bernstein2004smoothparts",
     ),
     "paper/focused/finite-certificates-ko.tex": (
+        "lokshtanov2009oct",
         "katona1966separating",
         "bernstein2004smoothparts",
     ),
@@ -264,7 +288,7 @@ def validate_manifest(manifest: dict[str, Any]) -> list[str]:
 
     counts = manifest.get("classification_counts")
     if counts != {
-        "established_background_components": 7,
+        "established_background_components": 8,
         "scoped_synthesis_rows": 7,
         "positively_labeled_plausibly_new_rows": 0,
     }:
@@ -376,7 +400,7 @@ def main() -> int:
         return 1
     print(
         "M83 related-work check: PASS "
-        "(6 inspected sources, 7 synchronized rows, no priority claims)"
+        "(7 inspected sources, 8 synchronized rows, no priority claims)"
     )
     return 0
 

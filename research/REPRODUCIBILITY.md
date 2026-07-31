@@ -301,3 +301,28 @@ The checker uses no project imports and exact-enumerates only bounded defense
 cases. The theorem algorithm itself enumerates transversal branches and
 uses the proved bipartite constructor; it does not enumerate vertex-cover
 subsets.
+
+## M99 iterative-compression OCT discovery
+
+The M99 commands bind the exact M98 graph portfolio, discover minimum OCTs
+from the explicit graph and public cap, compose accepted outputs with the
+M98 exact-cover constructor, and independently validate cardinality and
+bipartite deletion:
+
+```powershell
+python scripts/run_m99_oct_discovery_profile.py
+python scripts/generate_m99_oct_discovery_schema.py --check
+python scripts/check_m99_oct_discovery.py
+pytest -p no:cacheprovider tests/test_m99_oct_discovery.py -q
+ruff check scripts/run_m99_oct_discovery_profile.py scripts/generate_m99_oct_discovery_schema.py scripts/check_m99_oct_discovery.py tests/test_m99_oct_discovery.py
+mypy --strict --explicit-package-bases scripts/run_m99_oct_discovery_profile.py scripts/generate_m99_oct_discovery_schema.py scripts/check_m99_oct_discovery.py tests/test_m99_oct_discovery.py
+```
+
+The canonical schema is `schemas/m99-oct-discovery-v1.json`, with summary
+SHA-256
+`aa950a9ad2d2a40262b051ba4b8db9c5d799ba22edd48cefbf6cebafd81a349b`.
+The 367-line checker uses only the standard library and has no project
+imports. Its bounded defense includes every simple labeled five-vertex
+graph at caps zero through three. The theorem algorithm uses iterative
+compression and budget-truncated maximum flow, not vertex-subset
+enumeration.

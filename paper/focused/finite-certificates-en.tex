@@ -34,8 +34,11 @@ use 1,063 bits and 520 tests.  Equality witnesses certify five of eight
 non-template perturbations, and a constructive bipartite method solves six
 targets.  Given a supplied odd-cycle transversal, an explicit \(2^s\)-branch
 reduction constructs seven further exact covers and rejects one invalid
-\(K_5\) transversal.  This is fixed-parameter exactness, not unrestricted
-polynomial time or a discovery method.
+\(K_5\) transversal.  Iterative compression now discovers a minimum
+transversal from the explicit graph and public cap in
+\(O(3^{k+1}(k+1)t(t+q))\) local indexed operations, then composes it with
+the exact-cover reduction.  This removes supplied transversal advice at the
+explicit-graph layer, not the factor-dependent construction of that graph.
 
 Separately, every polynomial numeric cap in this exact grammar eventually
 fails, with compact-gap noninjectivity barriers below the audited boundary.
@@ -456,6 +459,47 @@ input/output payloads use 63/84 bits.  Nineteen tests include all 1,024
 four-vertex graph/transversal pairs.  No transversal discovery or
 logarithmic bound is claimed.
 
+\readerclaim{Definition}{Capped odd-cycle-transversal discovery}
+{\texttt{DEF-055: DEFINITION}}
+For an explicit graph and public cap \(k\), iterative compression processes
+vertex prefixes.  A known OCT of size at most \(k+1\) is split into
+left/right/deleted states, and every viable state becomes a
+terminal-deleting separator problem in the bipartite remainder.
+
+\readerclaim{Theorem}{Exact iterative-compression OCT discovery}
+{\claimstatus{THM-028}{PROVED}}
+The constructor rejects exactly when the OCT number exceeds \(k\), and
+otherwise returns an OCT of exact minimum size.
+\begin{claimproof}
+For a fixed state, the two terminal sets encode incompatible orientations of
+a bipartite component.  A unit-capacity node-splitting flow therefore gives
+the minimum deletion that extends the partial coloring.  Every within-cap
+OCT and one of its two-colorings induce an enumerated state, so minimizing
+all states is exact.  Prefix induction proves the complete algorithm.
+The conservative local cost is
+\[
+ O\!\left(3^{k+1}(k+1)t(t+q)\right).
+\]
+This reconstructs the established iterative-compression method.  With
+polynomial explicit graph parameters and \(k=O(\log m)\), discovery and the
+subsequent \(2^k\) THM-027 repair are
+polynomial in \(m\).  No factor-independent graph construction is supplied.
+\end{claimproof}
+
+\readerclaim{Refuted promotion}{Naive subset search preserves the boundary}
+{\texttt{REF-068: REFUTED}}
+The \(\sum_{i\le k}\binom{t}{i}\le(k+1)t^k\) candidate count is XP.  For
+\(t=\operatorname{poly}(m)\) and \(k=\Theta(\log m)\), it is
+\(2^{O((\log m)^2)}\), not polynomial.
+
+\readerclaim{Finite audit}{Discovered-transversal target graphs}
+{\texttt{EMP-070: EMPIRICAL}}
+Seven of eight explicit source targets yield minimum OCTs and exact composed
+covers; \(K_5\) at cap two is rejected.  The ledger records 38 compression
+calls, 204 states, and 160 flow calls.  Twenty tests include all 4,096
+simple five-vertex graph/cap comparisons.  The graphs and caps remain
+source-bound synthetic inputs.
+
 \section{Initial and widened finite theorems}
 
 \readerclaim{Finite certificate}{Base cap through length 15}
@@ -664,6 +708,14 @@ support, span, and constant ranges are the proved scope. They are not stated
 as lower bounds for all selectors, and this bounded audit assigns no novelty
 or priority status.
 
+\paragraph{M83-R08: OCT discovery.}
+Iterative-compression OCT discovery, its three-way partition, and the
+\(O(3^k k|E||V|)\) bound are established background
+\cite{lokshtanov2009oct}. THM-028 reconstructs that method for the explicit
+coverer-graph input, charges a conservative local bit cost, and composes it
+with the separate THM-027 exact-repair theorem. It receives no novelty or
+priority label.
+
 The registered M83 matrix preserves the synchronized comparison. Missing an
 exact match in a bounded search is not evidence of novelty.
 
@@ -705,6 +757,8 @@ python scripts/check_m97_bipartite_cover.py
 pytest -p no:cacheprovider tests/test_m97_bipartite_cover.py -q
 python scripts/check_m98_oct_cover.py
 pytest -p no:cacheprovider tests/test_m98_oct_cover.py -q
+python scripts/check_m99_oct_discovery.py
+pytest -p no:cacheprovider tests/test_m99_oct_discovery.py -q
 \end{verbatim}
 The underlying M31--M46 schemas, generators, differential checkers, commands,
 toolchains, row hashes, and selected cross-language vectors remain under
@@ -727,7 +781,8 @@ thirteenth checks graph templates, mutations, and the star/path boundary.
 Commands fourteen through seventeen check matching certificates and the
 constructive bipartite reduction.  Commands eighteen and nineteen
 independently replay all M98 transversal branches and their exhaustive
-four-vertex differential.
+four-vertex differential.  Commands twenty and twenty-one independently
+check capped M99 discovery and its 4,096 five-vertex graph/cap differential.
 
 The archival monograph \archivepaper{} retains the complete transition
 chronology and full proofs.  The claim ledger is

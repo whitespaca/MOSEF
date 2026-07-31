@@ -282,6 +282,14 @@ numeric-cap 및 compact-gap 문법과 결합한다. support, span, 상수 범위
 \cite{bernstein2004smoothparts}에 의해 기록되지만 selector-specific
 비단사 증명은 저장소 내부에 있고 우선권 라벨을 받지 않는다.
 
+\paragraph{M83-R08: OCT 포지셔닝.}
+Lokshtanov, Saurabh, Sikdar는 iterative-compression OCT discovery와
+\(O(3^k k|E||V|)\) 실행시간을 확립했다
+\cite{lokshtanov2009oct}. THM-028은 명시적 coverer graph를 위한
+자기완결 재구성이며 보수적 local bit 비용과 THM-027 합성을 추가한다.
+새 OCT 알고리즘으로 제시하지 않으며 factor-dependent graph도 구성하지
+않는다.
+
 전체 비교는
 \path{research/publication/M83-related-work-matrix-ko.md}에 있다. 이는
 제한적 1차 문헌 감사이지 완전한 역사적 priority survey가 아니다.
@@ -2329,6 +2337,51 @@ payload는 63/84 bit이다. 네 labeled vertex의 graph/transversal
 1,024쌍을 포함한 test 19개가 통과한다. 이 실험은 transversal을
 발견하거나 logarithmic bound 또는 새 selector occurrence를 증명하지
 않는다.
+
+\claimstatus{DEF-055}{DEFINITION}. 명시적 graph \(G\)와 공개 cap
+\(k\)에 대해 capped OCT discovery는 \(|X|\le k\)이고 \(G-X\)가
+bipartite인 집합 중 최소 크기 \(X\)를 반환하며, 그런 집합이 없으면
+optimum이 cap을 넘는다고 보고한다. 한 compression call에서는 크기
+\(k+1\) 이하의 알려진 OCT \(S\)를 left, right, deleted 상태로
+분할하고, 각 viable partition을 bipartite graph \(G-S\)의
+terminal-deleting vertex separator로 환원한다.
+
+\claimstatus{THM-028}{PROVED}. iterative compression은 OCT number가
+\(k\)를 넘을 때 정확히 거부하고, 그렇지 않으면 정확한 최소 크기의
+OCT를 반환한다. 고정 partition에서 \(A\dot\cup B\)를 \(G-S\)의
+bipartition이라 하자. 제안된 left/right color와 고정 orientation이
+충돌하는 neighbor가 terminal 집합 \(U,W\)를 이룬다. partial coloring이
+확장될 필요충분조건은 \(U,W\)의 분리이다. unit vertex splitting과
+capacity-\(k+1\) nonvertex arc를 사용하면 terminal 자체를 삭제하는
+경우까지 정확히 처리한다.
+
+모든 prefix를 포함한 보수적 local cost는
+\[
+ O\!\left(3^{k+1}(k+1)t(t+q)\right)
+\]
+indexed operation이며 index bit length도 별도로 과금한다. 이는
+Lokshtanov, Saurabh, Sikdar의 기존 iterative-compression OCT 방법
+\cite{lokshtanov2009oct}을 재구성한 것이며 그 방법의 독창성을
+주장하지 않는다. 명시적 graph parameter가 \(m\)의 다항식이고 공개
+cap이 \(k=O(\log m)\)이면 발견된 OCT를 THM-027과 합성한 전체 repair가
+원래 입력 길이 \(m\)의 다항시간이다.
+
+\claimstatus{REF-068}{REFUTED}. 크기 \(k\) 이하의 모든 subset을
+단순 열거하면 logarithmic polynomial 경계를 보존하지 못한다. candidate
+수는 최대 \((k+1)t^k\)이고, \(t=\operatorname{poly}(m)\),
+\(k=\Theta(\log m)\)이면 \(2^{O((\log m)^2)}\)이 된다. 이는
+XP/준다항식 비용 경계이며 모든 OCT 알고리즘에 대한 lower bound가
+아니다.
+
+\claimstatus{EMP-070}{EMPIRICAL}. EXP-0070에는 여덟 M98 명시적 graph와
+공개 cap만 주고 transversal은 주지 않는다. 일곱 minimum OCT를
+발견하고 cap 2의 \(K_5\)를 거부한다. ledger에는 compression call
+38개, partition 204개, flow call 160개, augmentation 102개, search
+158개가 있고 발견 OCT와 합성 cover는 51/79 bit를 사용한다. 다섯
+vertex simple graph/cap 4,096개 비교를 포함한 test 20개가 통과한다.
+이 실험은 정수에서 factor-dependent complete type이나 coverer graph를
+구성하지 않고, unrestricted 입력의 logarithmic cap 또는 일반
+인수분해 결론도 증명하지 않는다.
 
 \subsection{THM-019와 BAR-040의 증명}
 

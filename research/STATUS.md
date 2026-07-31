@@ -1,5 +1,103 @@
 # Research Status
 
+## M99 outcome
+
+- Date: 2026-07-31.
+- Completed milestone: M99, exact fixed-parameter odd-cycle-transversal
+  discovery for an explicit residual coverer graph and public cap.
+- `DEF-055` iteratively compresses each vertex prefix. For a known OCT of
+  size at most \(k+1\), it enumerates left/right/deleted states and reduces
+  each viable state to a terminal-deleting vertex separator in the
+  bipartite remainder.
+- `THM-028` proves the separator equivalence, exact node-splitting flow,
+  prefix invariant, early rejection, and minimum-cardinality output. The
+  local conservative bound is
+  \(O(3^{k+1}(k+1)t(t+q))\) indexed operations.
+- The primary five-page Lokshtanov--Saurabh--Sikdar paper was inspected and
+  credited for the established iterative-compression method and
+  \(O(3^k k|E||V|)\) bound. No novelty or priority claim is made for OCT
+  iterative compression.
+- Composing the discovered OCT with `THM-027` yields exact repair. If the
+  explicit graph parameters are polynomial in the original input bit length
+  \(m\) and the public cap is \(O(\log m)\), both the \(3^k\) discovery and
+  \(2^k\) repair phases are polynomial in \(m\).
+- `REF-068` and NR-067 reject naive subset enumeration as a replacement:
+  \(t^k\) becomes \(2^{O((\log m)^2)}\) when
+  \(t=\operatorname{poly}(m)\) and \(k=\Theta(\log m)\).
+- `EXP-0070` binds the eight M98 target graphs and caps. Seven minimum OCTs
+  are discovered and \(K_5\) at cap two is rejected. Totals are 38
+  compression calls, 204 partitions, 160 flow calls, 102 augmentations,
+  158 searches, 51 OCT payload bits, exact composed-cover sum 21, and 79
+  cover payload bits.
+- `schemas/m99-oct-discovery-v1.json` has canonical summary SHA-256
+  `aa950a9ad2d2a40262b051ba4b8db9c5d799ba22edd48cefbf6cebafd81a349b`
+  and exact file SHA-256
+  `f53143cb773973ed2937a4c1b31cb8c3145e6b7eb3d52241325ef7a1484d69c6`.
+- The 367-line independent checker imports neither the M99 generator nor
+  M98 constructor. Twenty targeted tests pass, including all 4,096 simple
+  five-vertex graph/cap comparisons, shared-terminal deletion, parallel
+  edges, isolates, zero-budget rejection, and eleven mutation classes.
+- The complete repository suite passed with 499 tests and 593 subtests in
+  379.41 seconds. Python bytecode compilation, repository-wide Ruff, mypy
+  over 31 reference sources, strict mypy over the four M99 files, M0
+  foundation validation, Rust formatting, warning-denied Clippy and 36
+  tests, and the C# Release build all passed. The C# build had zero warnings
+  and errors; its first sandboxed attempt could not read the user NuGet
+  configuration, and the identical permitted rerun passed.
+- M82 now accounts for 303 ledger claims as 29 focused and 274 archive-only,
+  with portfolio summary SHA-256
+  `805a537c7969e4a6c6b4167766b605d30ce3694e32956f5f97ca72a2e12819ae`.
+  M83 records seven inspected sources and eight synchronized positioning
+  rows, with no novelty or priority claim and audit SHA-256
+  `91e7f546d46054a1d6e9e73f198c3990bc4bea5753e4c9a02a3f9b144a3a0463`.
+  Bilingual publication consistency passed with 303 claims and 58
+  experiment hashes.
+- Eighty focused M82/M83/M87--M90/M99 tests passed. The editorial projection
+  has 58 rendered reader headings, 66 appendix commands, 38 repository
+  paths, 16 source anchors, and 15 finite-paper main claims per language.
+- The four changed XeLaTeX manuscripts rebuilt with no selected undefined
+  reference, undefined citation, missing-glyph, overfull-box, or LaTeX
+  warnings: archival English/Korean 132/63 pages and finite English/Korean
+  12/11 pages. All 218 pages had extractable text. Seven abstract and
+  THM-028 pages were rendered and visually inspected without clipping,
+  overlap, or missing Korean glyphs. PDF SHA-256 values are archival EN
+  `085652c19e6f0aee6b5238e49e1be99425e5e32114c2fdcfc69bf161bf338abb`,
+  archival KO
+  `d88ee70c4f5920ba3752768ca76b00c9277833c9fc30236fd3452891f2ddd6eb`,
+  finite EN
+  `67be979d5b30b1218ed9164e5a32b00cb119ab910db57a9dca52a320c1b43b8b`,
+  and finite KO
+  `5df1e014109dad42088250f872001559e85bbde25279f9c95be244672beaf8c6`.
+- Scope: M99 discovers the transversal only after an explicit graph and cap
+  are public. It does not construct factor-dependent complete types or the
+  coverer graph from an integer, prove a logarithmic cap for unrestricted
+  inputs, recognize a factor promise, or solve general vertex cover.
+  General classical polynomial-time integer factoring remains open.
+- M100 is active. It audits whether the complete-type coverer graph and a
+  logarithmic cap can be constructed or certified from public selector data
+  without hidden factors.
+
+### M99 Korean summary
+
+M99는 명시적으로 주어진 residual coverer graph와 공개 cap \(k\)에 대해
+odd-cycle transversal을 직접 발견하는 고정매개변수 알고리즘을
+재구성하고 증명했다(`THM-028`). 각 vertex prefix에서 크기 \(k+1\)
+이하의 기존 OCT를 left/right/deleted의 세 상태로 나누고, 남은
+bipartite graph의 vertex separator를 node splitting과 정수 maximum
+flow로 정확히 구한다. cap 이내의 OCT가 있으면 최소 크기의 집합을
+반환하고, 없으면 정확히 거부한다.
+
+명시적 graph 크기가 원래 정수 입력 길이 \(m\)의 다항식이고
+\(k=O(\log m)\)이면 \(3^k\) discovery와 M98의 \(2^k\) repair가 모두
+\(m\)의 다항식이다. 반면 모든 크기-\(k\) 이하 subset을 열거하는
+\(t^k\) 방법은 이 구간에서 준다항식이므로 같은 결론을 주지 않는다.
+여덟 개의 M98 graph에서 일곱 최소 OCT를 발견하고 cap 2의 \(K_5\)를
+거부했으며, 5-vertex simple graph와 cap의 4,096개 조합을 독립
+oracle과 비교했다. 그러나 complete type과 coverer graph 자체의
+factor-independent 구성 및 일반 입력에 대한 logarithmic cap은 아직
+증명되지 않았다. 따라서 일반 고전 다항시간 정수 인수분해는 계속
+`OPEN`이다.
+
 ## M98 outcome
 
 - Date: 2026-07-31.

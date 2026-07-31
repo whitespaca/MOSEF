@@ -1539,3 +1539,25 @@
 - Scope: this is direct accounting of the explicit algorithm, not a lower
   bound against all odd-cycle-transversal algorithms, a complexity-class
   separation, or a statement that small transversals cannot be found.
+
+## NR-067 - Naive capped subset enumeration loses the logarithmic boundary
+
+- Date: 2026-07-31.
+- Status: the polynomial-time promotion is refuted as `REF-068`; the
+  fixed-parameter discovery theorem remains `THM-028`.
+- Hypothesis tested: enumerate every vertex subset of size at most \(k\),
+  test whether its deletion is bipartite, and conclude that this is
+  polynomial whenever \(k=O(\log m)\) and the graph has polynomial size in
+  the integer input length \(m\).
+- Exact obstruction: the candidate count is
+  \(\sum_{i=0}^{k}\binom{t}{i}\le(k+1)t^k\). With
+  \(t=m^{O(1)}\) and \(k=\Theta(\log m)\), this becomes
+  \(2^{O((\log m)^2)}\), a quasi-polynomial rather than polynomial bound.
+- Repair: iterative compression separates parameter dependence from graph
+  size, giving \(3^k\operatorname{poly}(t,q)\). Under a separately proved
+  \(k=O(\log m)\) bound and polynomial explicit graph construction, this
+  phase and the subsequent \(2^k\) M98 phase are polynomial in \(m\).
+- Remaining boundary: M99 does not prove that an unrestricted integer input
+  yields such an explicit graph or logarithmic cap. It is not a lower bound
+  on all OCT algorithms, a complexity-class separation, or an impossibility
+  theorem for factor-independent graph construction.

@@ -48,9 +48,9 @@ class M89AppendixBoundaryTests(unittest.TestCase):
             sum(report.appendix_sections for report in reports),
             12,
         )
-        self.assertEqual(sum(report.commands for report in reports), 62)
+        self.assertEqual(sum(report.commands for report in reports), 66)
         self.assertEqual(sum(report.paths for report in reports), 38)
-        self.assertEqual(sum(report.citations for report in reports), 14)
+        self.assertEqual(sum(report.citations for report in reports), 16)
 
     def test_missing_appendix_boundary_is_rejected(self) -> None:
         mutated = self.promise_en.replace(r"\appendix", "", 1)

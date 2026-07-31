@@ -164,6 +164,7 @@ EXPECTED_CLAIMS = {
         "THM-025",
         "THM-026",
         "THM-027",
+        "THM-028",
         "THM-004",
         "THM-005",
         "THM-014",
@@ -210,6 +211,8 @@ EXPECTED_COMMANDS = {
         "pytest -p no:cacheprovider tests/test_m97_bipartite_cover.py -q",
         "python scripts/check_m98_oct_cover.py",
         "pytest -p no:cacheprovider tests/test_m98_oct_cover.py -q",
+        "python scripts/check_m99_oct_discovery.py",
+        "pytest -p no:cacheprovider tests/test_m99_oct_discovery.py -q",
     ),
 }
 
@@ -254,6 +257,7 @@ EXPECTED_CITATIONS = {
     "finite-certificates": (
         "katona1966separating",
         "bernstein2004smoothparts",
+        "lokshtanov2009oct",
     ),
 }
 
@@ -274,11 +278,13 @@ EXPECTED_MILESTONES = {
         "M83-R03",
         "M83-R06",
         "M83-R07",
+        "M83-R08",
         "M83",
         "M31",
         "M46",
         "M41",
         "M98",
+        "M99",
     ),
 }
 

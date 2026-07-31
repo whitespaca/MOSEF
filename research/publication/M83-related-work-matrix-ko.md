@@ -18,6 +18,8 @@
 | M83-R06 | `THM-004`, `THM-005`, `THM-014`, `THM-019` | `SRC-009`, `SRC-011` | 분리 signature와 product/remainder-tree batch 평가는 확립된 배경이다. | 본 연구는 하나의 명시적 selector족에 대해 비트길이 34까지 완전한 family-relative 유한 인증서를 준다. | 우선권 주장 없음 |
 <!-- M83-R07|SCOPED_SYNTHESIS|BAR-041,BAR-042,BAR-043,BAR-044,BAR-045,BAR-046|SRC-009,SRC-011|NO_PRIORITY_CLAIM -->
 | M83-R07 | `BAR-041`, `BAR-042`, `BAR-043`, `BAR-044`, `BAR-045`, `BAR-046` | `SRC-009`, `SRC-011` | signature counting과 과금된 batch 평가는 일반적 배경 도구이다. | 증명된 비단사 경계는 저장소가 선언한 numeric-cap 및 compact-gap 문법과 상수 범위에만 적용된다. | 우선권 주장 없음 |
+<!-- M83-R08|ESTABLISHED_BACKGROUND|THM-028|SRC-013|NO_PRIORITY_CLAIM -->
+| M83-R08 | `THM-028` | `SRC-013` | Lokshtanov, Saurabh, Sikdar는 O(3^k k |E| |V|) 시간의 iterative-compression OCT discovery를 제시한다. | 본 연구는 그 확립된 방법을 명시적 coverer graph에 맞게 재구성하고 local bit 비용을 과금한 뒤 별도 증명된 exact repair reduction과 합성한다. | 우선권 주장 없음 |
 
 ## Scope
 
