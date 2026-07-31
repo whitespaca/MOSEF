@@ -1561,3 +1561,27 @@
   yields such an explicit graph or logarithmic cap. It is not a lower bound
   on all OCT algorithms, a complexity-class separation, or an impossibility
   theorem for factor-independent graph construction.
+
+## NR-068 - Hash binding is not semantic type completeness
+
+- Date: 2026-07-31.
+- Status: the hash-only completeness claim is refuted as `REF-069`;
+  factor-independent semantic reconstruction remains `THM-029`.
+- Hypothesis tested: a recomputed digest of a compact type list or coverer
+  graph is sufficient evidence that every type realized by the public
+  coordinate family has been listed.
+- Exact counterexample: on \(U=\{u_0,u_1\}\), hash the claimed family
+  \(T_0=\{u_0\}\), \(T_1=\{u_1\}\) and claimed minimum two. If the realized
+  but omitted type \(T_2=\{u_0,u_1\}\) exists, the actual minimum is one.
+  The digest still binds the claimed bytes exactly.
+- Repair: use selected-coordinate confinement and exhaustive raw-selector
+  persistence to prove the collision blocks, then enumerate every newly
+  admitted public coordinate and deduplicate its nonzero coverage masks.
+- Complexity boundary: the repaired M100 route is factor-independent and
+  polynomial in its expanded artifacts, but it explicitly enumerates
+  \(\mathcal P_m\). BAR-041 gives
+  \(|\mathcal P_m|=\Omega(2^{m/2}/m)\), so this registered route is not
+  bit-polynomial in \(m\).
+- Scope: this is not a collision or preimage attack on SHA-256, not a lower
+  bound against all succinct completeness proofs, and not an impossibility
+  theorem for factor-independent graph construction or general factoring.

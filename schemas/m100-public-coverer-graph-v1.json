@@ -1,0 +1,2231 @@
+{
+  "schema_version": "1.0.0",
+  "experiment_id": "EXP-0071",
+  "claim_ids": [
+    "DEF-056",
+    "THM-029",
+    "REF-069",
+    "EMP-071"
+  ],
+  "sources": [
+    {
+      "source_id": "M50",
+      "path": "schemas/m50-finite-threshold-summary-v1.json",
+      "file_sha256": "2f9974d45a350f65694bd048bf67dae4b27a90493b07ecd895c251d102aab75b",
+      "role": "public finite row, cap, and source registry",
+      "semantic_dependency": "EMP-062",
+      "summary_sha256": "1fb6185f73b4bc2243dc2f339c1e823d7c849acd7bf33ef5f288af4baa9d00b3"
+    },
+    {
+      "source_id": "M91",
+      "path": "scripts/check_m91_all_rows_semantic_certificate.py",
+      "file_sha256": "3978e4db83aefe76d82a76fdc8a668148dcfb64cf525cc5ff569ba94651ea22c",
+      "role": "factor-independent population and collision completeness checker",
+      "semantic_dependency": "EMP-062"
+    },
+    {
+      "source_id": "M92",
+      "path": "schemas/m92-pair-cover-certificates-v1.json",
+      "file_sha256": "0c58d6d28079aac4975861836b714c9c8d63e805bbc86c5c3b101b3c85ae636e",
+      "role": "late repair caps and comparison type systems",
+      "semantic_dependency": "EMP-063",
+      "summary_sha256": "3bf4b744d30d31f5e52725ca9cb70302bc4654ab1e7cfbe1707448392dbc19b0"
+    },
+    {
+      "source_id": "M93",
+      "path": "schemas/m93-early-repair-certificates-v1.json",
+      "file_sha256": "3fba1bc8ef78594e32083f8576a43874159390bbccbcc669b658015ce8431641",
+      "role": "early repair caps and comparison type systems",
+      "semantic_dependency": "EMP-064",
+      "summary_sha256": "77c8ae289277875815e7744b37456627f619fc601d4fb2ccca35031b7f248aae"
+    },
+    {
+      "source_id": "M95",
+      "path": "schemas/m95-coverer-graph-profile-v1.json",
+      "file_sha256": "e5e069554a3249e04084b505b590ff197ff26e75e4fd2467115caeeca1d08e03",
+      "role": "comparison-only coverer graphs",
+      "semantic_dependency": "EMP-066",
+      "summary_sha256": "0b99798516bda32cc78e8fd7474fbaddce9cd024a021d81c08fca8514c64154a"
+    }
+  ],
+  "constructor_contract": {
+    "public_inputs": [
+      "input length m",
+      "public balanced-prime predicate",
+      "public DEF-032 selector grammar and base/repair caps",
+      "public selected-coordinate collision-completeness certificate"
+    ],
+    "forbidden_advice": [
+      "hidden factors of the integer input",
+      "precomputed baseline collision blocks or tracked point labels",
+      "precomputed complete coverage types",
+      "precomputed coverer edges",
+      "a per-instance OCT cap"
+    ],
+    "steps": [
+      "enumerate and verify the complete balanced-prime population",
+      "derive exact base collisions from public baseline coordinates",
+      "enumerate every newly admitted public primitive coordinate",
+      "deduplicate nonzero pair-coverage masks into complete types",
+      "construct coverer columns, forced loops, and the residual graph",
+      "compare the completed construction to the frozen M95 oracle",
+      "derive k(m)=ceil(log2(m)) and run capped OCT discovery"
+    ],
+    "explicit_size_cost": "O(P+C*n*E+D0*b*E+D1*b*E+t*(b+q)+3^k*k*t*(t+q))",
+    "symbols": {
+      "P": "public population enumeration and representation cost",
+      "n": "public population cardinality",
+      "C": "selected completeness-certificate coordinates",
+      "D0": "base public descriptors checked on candidate buckets",
+      "D1": "new public descriptors used to form coverage types",
+      "b": "tracked collision points",
+      "E": "cost bound for one selected coordinate or one eight-exit descriptor evaluation",
+      "t": "complete nonzero coverage types",
+      "q": "unresolved within-bucket pairs",
+      "k": "public OCT cap ceil(log2(m))"
+    }
+  },
+  "public_oct_schedule": {
+    "formula": "ceil(log2(m))",
+    "depends_only_on": "input length m",
+    "application_status": "EMPIRICAL for the frozen lengths 16 through 34",
+    "asymptotic_status": "OPEN for future coverer graphs"
+  },
+  "instances": [
+    {
+      "source_id": "M93",
+      "input_length": 16,
+      "source_schema": "schemas/m32-widened-selector-cap-v1.json",
+      "source_schema_sha256": "24f506ce7cb7ad9b10f8150f064441dbc1450f7402c72a6d228a363834eb9203",
+      "base_cap": 18,
+      "repair_cap": 19,
+      "population_size": 12,
+      "population_label_bits": 96,
+      "baseline_partition_mode": "full-raw-family-refinement",
+      "baseline_collision_buckets": [
+        [
+          191,
+          227,
+          233
+        ]
+      ],
+      "selected_coordinate_count": 2856,
+      "selected_certificate_evaluations": 15568,
+      "baseline_persistence_descriptor_evaluations": 0,
+      "baseline_persistence_primitive_tests": 0,
+      "tracked_point_count": 3,
+      "pair_count": 3,
+      "new_descriptor_count": 165,
+      "new_descriptor_prime_evaluations": 495,
+      "primitive_coordinate_tests": 3960,
+      "complete_type_count": 3,
+      "complete_coverage_masks_hex": [
+        "3",
+        "5",
+        "6"
+      ],
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1,
+            1
+          ],
+          "coverage_mask_hex": "3"
+        },
+        {
+          "type_id": "T1",
+          "pattern": [
+            0,
+            1,
+            0
+          ],
+          "coverage_mask_hex": "5"
+        },
+        {
+          "type_id": "T2",
+          "pattern": [
+            0,
+            0,
+            1
+          ],
+          "coverage_mask_hex": "6"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            191,
+            227
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 1,
+          "pair": [
+            191,
+            233
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 2,
+          "pair": [
+            227,
+            233
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T2"
+          ]
+        }
+      ],
+      "coverer_rank": 2,
+      "forced_type_ids": [],
+      "forced_type_count": 0,
+      "residual_vertex_ids": [
+        "T0",
+        "T1",
+        "T2"
+      ],
+      "residual_vertex_count": 3,
+      "residual_edges": [
+        [
+          "T0",
+          "T1"
+        ],
+        [
+          "T0",
+          "T2"
+        ],
+        [
+          "T1",
+          "T2"
+        ]
+      ],
+      "residual_edge_count": 3,
+      "public_oct_cap": 4,
+      "exact_oct_number": 1,
+      "exact_oct_type_ids": [
+        "T0"
+      ],
+      "within_public_oct_cap": true,
+      "graph_payload_bits": 42
+    },
+    {
+      "source_id": "M93",
+      "input_length": 17,
+      "source_schema": "schemas/m32-widened-selector-cap-v1.json",
+      "source_schema_sha256": "24f506ce7cb7ad9b10f8150f064441dbc1450f7402c72a6d228a363834eb9203",
+      "base_cap": 18,
+      "repair_cap": 19,
+      "population_size": 18,
+      "population_label_bits": 162,
+      "baseline_partition_mode": "full-raw-family-refinement",
+      "baseline_collision_buckets": [
+        [
+          263,
+          349
+        ],
+        [
+          277,
+          317
+        ]
+      ],
+      "selected_coordinate_count": 2856,
+      "selected_certificate_evaluations": 18560,
+      "baseline_persistence_descriptor_evaluations": 0,
+      "baseline_persistence_primitive_tests": 0,
+      "tracked_point_count": 4,
+      "pair_count": 2,
+      "new_descriptor_count": 165,
+      "new_descriptor_prime_evaluations": 660,
+      "primitive_coordinate_tests": 5280,
+      "complete_type_count": 2,
+      "complete_coverage_masks_hex": [
+        "1",
+        "2"
+      ],
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1,
+            1,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        },
+        {
+          "type_id": "T1",
+          "pattern": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "coverage_mask_hex": "2"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            263,
+            349
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        },
+        {
+          "pair_index": 1,
+          "pair": [
+            277,
+            317
+          ],
+          "coverer_type_ids": [
+            "T1"
+          ]
+        }
+      ],
+      "coverer_rank": 1,
+      "forced_type_ids": [
+        "T0",
+        "T1"
+      ],
+      "forced_type_count": 2,
+      "residual_vertex_ids": [],
+      "residual_vertex_count": 0,
+      "residual_edges": [],
+      "residual_edge_count": 0,
+      "public_oct_cap": 5,
+      "exact_oct_number": 0,
+      "exact_oct_type_ids": [],
+      "within_public_oct_cap": true,
+      "graph_payload_bits": 48
+    },
+    {
+      "source_id": "M93",
+      "input_length": 18,
+      "source_schema": "schemas/m32-widened-selector-cap-v1.json",
+      "source_schema_sha256": "24f506ce7cb7ad9b10f8150f064441dbc1450f7402c72a6d228a363834eb9203",
+      "base_cap": 26,
+      "repair_cap": 27,
+      "population_size": 25,
+      "population_label_bits": 225,
+      "baseline_partition_mode": "full-raw-family-refinement",
+      "baseline_collision_buckets": [
+        [
+          503,
+          509
+        ]
+      ],
+      "selected_coordinate_count": 9200,
+      "selected_certificate_evaluations": 53440,
+      "baseline_persistence_descriptor_evaluations": 0,
+      "baseline_persistence_primitive_tests": 0,
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "new_descriptor_count": 462,
+      "new_descriptor_prime_evaluations": 924,
+      "primitive_coordinate_tests": 7392,
+      "complete_type_count": 1,
+      "complete_coverage_masks_hex": [
+        "1"
+      ],
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            503,
+            509
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "coverer_rank": 1,
+      "forced_type_ids": [
+        "T0"
+      ],
+      "forced_type_count": 1,
+      "residual_vertex_ids": [],
+      "residual_vertex_count": 0,
+      "residual_edges": [],
+      "residual_edge_count": 0,
+      "public_oct_cap": 5,
+      "exact_oct_number": 0,
+      "exact_oct_type_ids": [],
+      "within_public_oct_cap": true,
+      "graph_payload_bits": 21
+    },
+    {
+      "source_id": "M93",
+      "input_length": 19,
+      "source_schema": "schemas/m32-widened-selector-cap-v1.json",
+      "source_schema_sha256": "24f506ce7cb7ad9b10f8150f064441dbc1450f7402c72a6d228a363834eb9203",
+      "base_cap": 26,
+      "repair_cap": 27,
+      "population_size": 31,
+      "population_label_bits": 310,
+      "baseline_partition_mode": "full-raw-family-refinement",
+      "baseline_collision_buckets": [
+        [
+          569,
+          719
+        ]
+      ],
+      "selected_coordinate_count": 9200,
+      "selected_certificate_evaluations": 54088,
+      "baseline_persistence_descriptor_evaluations": 0,
+      "baseline_persistence_primitive_tests": 0,
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "new_descriptor_count": 462,
+      "new_descriptor_prime_evaluations": 924,
+      "primitive_coordinate_tests": 7392,
+      "complete_type_count": 1,
+      "complete_coverage_masks_hex": [
+        "1"
+      ],
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            569,
+            719
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "coverer_rank": 1,
+      "forced_type_ids": [
+        "T0"
+      ],
+      "forced_type_count": 1,
+      "residual_vertex_ids": [],
+      "residual_vertex_count": 0,
+      "residual_edges": [],
+      "residual_edge_count": 0,
+      "public_oct_cap": 5,
+      "exact_oct_number": 0,
+      "exact_oct_type_ids": [],
+      "within_public_oct_cap": true,
+      "graph_payload_bits": 23
+    },
+    {
+      "source_id": "M93",
+      "input_length": 20,
+      "source_schema": "schemas/m32-widened-selector-cap-v1.json",
+      "source_schema_sha256": "24f506ce7cb7ad9b10f8150f064441dbc1450f7402c72a6d228a363834eb9203",
+      "base_cap": 30,
+      "repair_cap": 31,
+      "population_size": 44,
+      "population_label_bits": 440,
+      "baseline_partition_mode": "full-raw-family-refinement",
+      "baseline_collision_buckets": [
+        [
+          809,
+          827
+        ]
+      ],
+      "selected_coordinate_count": 15544,
+      "selected_certificate_evaluations": 178448,
+      "baseline_persistence_descriptor_evaluations": 0,
+      "baseline_persistence_primitive_tests": 0,
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "new_descriptor_count": 487,
+      "new_descriptor_prime_evaluations": 974,
+      "primitive_coordinate_tests": 7792,
+      "complete_type_count": 1,
+      "complete_coverage_masks_hex": [
+        "1"
+      ],
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            809,
+            827
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "coverer_rank": 1,
+      "forced_type_ids": [
+        "T0"
+      ],
+      "forced_type_count": 1,
+      "residual_vertex_ids": [],
+      "residual_vertex_count": 0,
+      "residual_edges": [],
+      "residual_edge_count": 0,
+      "public_oct_cap": 5,
+      "exact_oct_number": 0,
+      "exact_oct_type_ids": [],
+      "within_public_oct_cap": true,
+      "graph_payload_bits": 23
+    },
+    {
+      "source_id": "M93",
+      "input_length": 21,
+      "source_schema": "schemas/m33-linear-cap-recurrence-v1.json",
+      "source_schema_sha256": "5947cc85d8664fcb1433d7d748a7d7be0be81098c49ddd433cc0645313c77b80",
+      "base_cap": 32,
+      "repair_cap": 33,
+      "population_size": 57,
+      "population_label_bits": 627,
+      "baseline_partition_mode": "full-raw-family-refinement",
+      "baseline_collision_buckets": [
+        [
+          1031,
+          1231,
+          1319,
+          1433
+        ]
+      ],
+      "selected_coordinate_count": 20088,
+      "selected_certificate_evaluations": 393848,
+      "baseline_persistence_descriptor_evaluations": 0,
+      "baseline_persistence_primitive_tests": 0,
+      "tracked_point_count": 4,
+      "pair_count": 6,
+      "new_descriptor_count": 241,
+      "new_descriptor_prime_evaluations": 964,
+      "primitive_coordinate_tests": 7712,
+      "complete_type_count": 3,
+      "complete_coverage_masks_hex": [
+        "07",
+        "2a",
+        "34"
+      ],
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1,
+            1,
+            1
+          ],
+          "coverage_mask_hex": "07"
+        },
+        {
+          "type_id": "T1",
+          "pattern": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "coverage_mask_hex": "2a"
+        },
+        {
+          "type_id": "T2",
+          "pattern": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "coverage_mask_hex": "34"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            1031,
+            1231
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        },
+        {
+          "pair_index": 1,
+          "pair": [
+            1031,
+            1319
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 2,
+          "pair": [
+            1031,
+            1433
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 3,
+          "pair": [
+            1231,
+            1319
+          ],
+          "coverer_type_ids": [
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 4,
+          "pair": [
+            1231,
+            1433
+          ],
+          "coverer_type_ids": [
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 5,
+          "pair": [
+            1319,
+            1433
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T2"
+          ]
+        }
+      ],
+      "coverer_rank": 2,
+      "forced_type_ids": [
+        "T0",
+        "T1",
+        "T2"
+      ],
+      "forced_type_count": 3,
+      "residual_vertex_ids": [],
+      "residual_vertex_count": 0,
+      "residual_edges": [],
+      "residual_edge_count": 0,
+      "public_oct_cap": 5,
+      "exact_oct_number": 0,
+      "exact_oct_type_ids": [],
+      "within_public_oct_cap": true,
+      "graph_payload_bits": 74
+    },
+    {
+      "source_id": "M93",
+      "input_length": 22,
+      "source_schema": "schemas/m34-next-envelope-v1.json",
+      "source_schema_sha256": "36bd038cd325dc4bb151ffd366b1d47ed670f4ef4b7871343e14624d52fc2968",
+      "base_cap": 38,
+      "repair_cap": 39,
+      "population_size": 80,
+      "population_label_bits": 880,
+      "baseline_partition_mode": "full-raw-family-refinement",
+      "baseline_collision_buckets": [
+        [
+          1481,
+          1571
+        ]
+      ],
+      "selected_coordinate_count": 31968,
+      "selected_certificate_evaluations": 814880,
+      "baseline_persistence_descriptor_evaluations": 0,
+      "baseline_persistence_primitive_tests": 0,
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "new_descriptor_count": 1020,
+      "new_descriptor_prime_evaluations": 2040,
+      "primitive_coordinate_tests": 16320,
+      "complete_type_count": 1,
+      "complete_coverage_masks_hex": [
+        "1"
+      ],
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            1481,
+            1571
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "coverer_rank": 1,
+      "forced_type_ids": [
+        "T0"
+      ],
+      "forced_type_count": 1,
+      "residual_vertex_ids": [],
+      "residual_vertex_count": 0,
+      "residual_edges": [],
+      "residual_edge_count": 0,
+      "public_oct_cap": 5,
+      "exact_oct_number": 0,
+      "exact_oct_type_ids": [],
+      "within_public_oct_cap": true,
+      "graph_payload_bits": 25
+    },
+    {
+      "source_id": "M93",
+      "input_length": 23,
+      "source_schema": "schemas/m35-next-envelope-v1.json",
+      "source_schema_sha256": "65f97c06c59b60bbf649fdb7146a59c51ab33f7002445344a168be88a3ad459e",
+      "base_cap": 46,
+      "repair_cap": 47,
+      "population_size": 109,
+      "population_label_bits": 1308,
+      "baseline_partition_mode": "full-raw-family-refinement",
+      "baseline_collision_buckets": [
+        [
+          2411,
+          2777
+        ]
+      ],
+      "selected_coordinate_count": 59760,
+      "selected_certificate_evaluations": 1419344,
+      "baseline_persistence_descriptor_evaluations": 0,
+      "baseline_persistence_primitive_tests": 0,
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "new_descriptor_count": 1546,
+      "new_descriptor_prime_evaluations": 3092,
+      "primitive_coordinate_tests": 24736,
+      "complete_type_count": 1,
+      "complete_coverage_masks_hex": [
+        "1"
+      ],
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            2411,
+            2777
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "coverer_rank": 1,
+      "forced_type_ids": [
+        "T0"
+      ],
+      "forced_type_count": 1,
+      "residual_vertex_ids": [],
+      "residual_vertex_count": 0,
+      "residual_edges": [],
+      "residual_edge_count": 0,
+      "public_oct_cap": 5,
+      "exact_oct_number": 0,
+      "exact_oct_type_ids": [],
+      "within_public_oct_cap": true,
+      "graph_payload_bits": 27
+    },
+    {
+      "source_id": "M93",
+      "input_length": 24,
+      "source_schema": "schemas/m36-distinct-cap-v1.json",
+      "source_schema_sha256": "3709d2e2a35212103ad838f83a25152e996cb33b9b5786d9642935a8d2ccfbcb",
+      "base_cap": 50,
+      "repair_cap": 51,
+      "population_size": 146,
+      "population_label_bits": 1752,
+      "baseline_partition_mode": "full-raw-family-refinement",
+      "baseline_collision_buckets": [
+        [
+          3049,
+          3643,
+          3863,
+          4057
+        ]
+      ],
+      "selected_coordinate_count": 76832,
+      "selected_certificate_evaluations": 2445656,
+      "baseline_persistence_descriptor_evaluations": 0,
+      "baseline_persistence_primitive_tests": 0,
+      "tracked_point_count": 4,
+      "pair_count": 6,
+      "new_descriptor_count": 1796,
+      "new_descriptor_prime_evaluations": 7184,
+      "primitive_coordinate_tests": 57472,
+      "complete_type_count": 4,
+      "complete_coverage_masks_hex": [
+        "07",
+        "19",
+        "2a",
+        "34"
+      ],
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1,
+            1,
+            1
+          ],
+          "coverage_mask_hex": "07"
+        },
+        {
+          "type_id": "T1",
+          "pattern": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "coverage_mask_hex": "19"
+        },
+        {
+          "type_id": "T2",
+          "pattern": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "coverage_mask_hex": "2a"
+        },
+        {
+          "type_id": "T3",
+          "pattern": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "coverage_mask_hex": "34"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            3049,
+            3643
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 1,
+          "pair": [
+            3049,
+            3863
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 2,
+          "pair": [
+            3049,
+            4057
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 3,
+          "pair": [
+            3643,
+            3863
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 4,
+          "pair": [
+            3643,
+            4057
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 5,
+          "pair": [
+            3863,
+            4057
+          ],
+          "coverer_type_ids": [
+            "T2",
+            "T3"
+          ]
+        }
+      ],
+      "coverer_rank": 2,
+      "forced_type_ids": [],
+      "forced_type_count": 0,
+      "residual_vertex_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "residual_vertex_count": 4,
+      "residual_edges": [
+        [
+          "T0",
+          "T1"
+        ],
+        [
+          "T0",
+          "T2"
+        ],
+        [
+          "T0",
+          "T3"
+        ],
+        [
+          "T1",
+          "T2"
+        ],
+        [
+          "T1",
+          "T3"
+        ],
+        [
+          "T2",
+          "T3"
+        ]
+      ],
+      "residual_edge_count": 6,
+      "public_oct_cap": 5,
+      "exact_oct_number": 2,
+      "exact_oct_type_ids": [
+        "T0",
+        "T1"
+      ],
+      "within_public_oct_cap": true,
+      "graph_payload_bits": 88
+    },
+    {
+      "source_id": "M93",
+      "input_length": 25,
+      "source_schema": "schemas/m37-length-25-cap-v1.json",
+      "source_schema_sha256": "d85d081243f5ae32b38405e35e8921ff3378ccd5bbb19c63eb135b79c4b61524",
+      "base_cap": 64,
+      "repair_cap": 65,
+      "population_size": 196,
+      "population_label_bits": 2548,
+      "baseline_partition_mode": "full-raw-family-refinement",
+      "baseline_collision_buckets": [
+        [
+          5011,
+          5179
+        ]
+      ],
+      "selected_coordinate_count": 176400,
+      "selected_certificate_evaluations": 5878096,
+      "baseline_persistence_descriptor_evaluations": 0,
+      "baseline_persistence_primitive_tests": 0,
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "new_descriptor_count": 1054,
+      "new_descriptor_prime_evaluations": 2108,
+      "primitive_coordinate_tests": 16864,
+      "complete_type_count": 1,
+      "complete_coverage_masks_hex": [
+        "1"
+      ],
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            5011,
+            5179
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "coverer_rank": 1,
+      "forced_type_ids": [
+        "T0"
+      ],
+      "forced_type_count": 1,
+      "residual_vertex_ids": [],
+      "residual_vertex_count": 0,
+      "residual_edges": [],
+      "residual_edge_count": 0,
+      "public_oct_cap": 5,
+      "exact_oct_number": 0,
+      "exact_oct_type_ids": [],
+      "within_public_oct_cap": true,
+      "graph_payload_bits": 29
+    },
+    {
+      "source_id": "M92",
+      "input_length": 26,
+      "source_schema": "schemas/m38-length-26-cap-v1.json",
+      "source_schema_sha256": "68f7e9b710be7960b78c11e4bef06119f00d75a6df2074ed8976f211e6b32a97",
+      "base_cap": 70,
+      "repair_cap": 71,
+      "population_size": 268,
+      "population_label_bits": 3484,
+      "baseline_partition_mode": "selected-subfamily-plus-raw-persistence",
+      "baseline_collision_buckets": [
+        [
+          7187,
+          7229,
+          7649
+        ]
+      ],
+      "selected_coordinate_count": 561,
+      "selected_certificate_evaluations": 150348,
+      "baseline_persistence_descriptor_evaluations": 83628,
+      "baseline_persistence_primitive_tests": 669024,
+      "tracked_point_count": 3,
+      "pair_count": 3,
+      "new_descriptor_count": 3624,
+      "new_descriptor_prime_evaluations": 10872,
+      "primitive_coordinate_tests": 86976,
+      "complete_type_count": 2,
+      "complete_coverage_masks_hex": [
+        "5",
+        "6"
+      ],
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1,
+            0
+          ],
+          "coverage_mask_hex": "5"
+        },
+        {
+          "type_id": "T1",
+          "pattern": [
+            0,
+            0,
+            1
+          ],
+          "coverage_mask_hex": "6"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            7187,
+            7229
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        },
+        {
+          "pair_index": 1,
+          "pair": [
+            7187,
+            7649
+          ],
+          "coverer_type_ids": [
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 2,
+          "pair": [
+            7229,
+            7649
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T1"
+          ]
+        }
+      ],
+      "coverer_rank": 2,
+      "forced_type_ids": [
+        "T0",
+        "T1"
+      ],
+      "forced_type_count": 2,
+      "residual_vertex_ids": [],
+      "residual_vertex_count": 0,
+      "residual_edges": [],
+      "residual_edge_count": 0,
+      "public_oct_cap": 5,
+      "exact_oct_number": 0,
+      "exact_oct_type_ids": [],
+      "within_public_oct_cap": true,
+      "graph_payload_bits": 51
+    },
+    {
+      "source_id": "M92",
+      "input_length": 27,
+      "source_schema": "schemas/m39-length-27-cap-v1.json",
+      "source_schema_sha256": "252126eeb4de40e6c8940d23516419e8f6f4b11dbebe8a84bd8d2cdcf59757cd",
+      "base_cap": 72,
+      "repair_cap": 87,
+      "population_size": 365,
+      "population_label_bits": 5110,
+      "baseline_partition_mode": "selected-subfamily-plus-raw-persistence",
+      "baseline_collision_buckets": [
+        [
+          9463,
+          9791,
+          10607,
+          10939,
+          11087,
+          11213
+        ]
+      ],
+      "selected_coordinate_count": 625,
+      "selected_certificate_evaluations": 228125,
+      "baseline_persistence_descriptor_evaluations": 191700,
+      "baseline_persistence_primitive_tests": 1533600,
+      "tracked_point_count": 6,
+      "pair_count": 15,
+      "new_descriptor_count": 25842,
+      "new_descriptor_prime_evaluations": 155052,
+      "primitive_coordinate_tests": 1240416,
+      "complete_type_count": 5,
+      "complete_coverage_masks_hex": [
+        "001f",
+        "01e1",
+        "3244",
+        "5488",
+        "6910"
+      ],
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "coverage_mask_hex": "001f"
+        },
+        {
+          "type_id": "T1",
+          "pattern": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "coverage_mask_hex": "01e1"
+        },
+        {
+          "type_id": "T2",
+          "pattern": [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "coverage_mask_hex": "3244"
+        },
+        {
+          "type_id": "T3",
+          "pattern": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "coverage_mask_hex": "5488"
+        },
+        {
+          "type_id": "T4",
+          "pattern": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "coverage_mask_hex": "6910"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            9463,
+            9791
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 1,
+          "pair": [
+            9463,
+            10607
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        },
+        {
+          "pair_index": 2,
+          "pair": [
+            9463,
+            10939
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 3,
+          "pair": [
+            9463,
+            11087
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 4,
+          "pair": [
+            9463,
+            11213
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T4"
+          ]
+        },
+        {
+          "pair_index": 5,
+          "pair": [
+            9791,
+            10607
+          ],
+          "coverer_type_ids": [
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 6,
+          "pair": [
+            9791,
+            10939
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 7,
+          "pair": [
+            9791,
+            11087
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 8,
+          "pair": [
+            9791,
+            11213
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T4"
+          ]
+        },
+        {
+          "pair_index": 9,
+          "pair": [
+            10607,
+            10939
+          ],
+          "coverer_type_ids": [
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 10,
+          "pair": [
+            10607,
+            11087
+          ],
+          "coverer_type_ids": [
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 11,
+          "pair": [
+            10607,
+            11213
+          ],
+          "coverer_type_ids": [
+            "T4"
+          ]
+        },
+        {
+          "pair_index": 12,
+          "pair": [
+            10939,
+            11087
+          ],
+          "coverer_type_ids": [
+            "T2",
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 13,
+          "pair": [
+            10939,
+            11213
+          ],
+          "coverer_type_ids": [
+            "T2",
+            "T4"
+          ]
+        },
+        {
+          "pair_index": 14,
+          "pair": [
+            11087,
+            11213
+          ],
+          "coverer_type_ids": [
+            "T3",
+            "T4"
+          ]
+        }
+      ],
+      "coverer_rank": 2,
+      "forced_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "forced_type_count": 5,
+      "residual_vertex_ids": [],
+      "residual_vertex_count": 0,
+      "residual_edges": [],
+      "residual_edge_count": 0,
+      "public_oct_cap": 5,
+      "exact_oct_number": 0,
+      "exact_oct_type_ids": [],
+      "within_public_oct_cap": true,
+      "graph_payload_bits": 189
+    },
+    {
+      "source_id": "M92",
+      "input_length": 28,
+      "source_schema": "schemas/m40-length-28-cap-v1.json",
+      "source_schema_sha256": "7f45ad32c1abb3d09d0b47c4659b2e3555af7126fa534b786b5a0d0504ed4414",
+      "base_cap": 88,
+      "repair_cap": 104,
+      "population_size": 507,
+      "population_label_bits": 7098,
+      "baseline_partition_mode": "selected-subfamily-plus-raw-persistence",
+      "baseline_collision_buckets": [
+        [
+          11867,
+          12791,
+          13633,
+          13967,
+          14051,
+          15559
+        ]
+      ],
+      "selected_coordinate_count": 908,
+      "selected_certificate_evaluations": 460356,
+      "baseline_persistence_descriptor_evaluations": 350784,
+      "baseline_persistence_primitive_tests": 2806272,
+      "tracked_point_count": 6,
+      "pair_count": 15,
+      "new_descriptor_count": 38253,
+      "new_descriptor_prime_evaluations": 229518,
+      "primitive_coordinate_tests": 1836144,
+      "complete_type_count": 5,
+      "complete_coverage_masks_hex": [
+        "01e1",
+        "0e22",
+        "3244",
+        "5488",
+        "6910"
+      ],
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "coverage_mask_hex": "01e1"
+        },
+        {
+          "type_id": "T1",
+          "pattern": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "coverage_mask_hex": "0e22"
+        },
+        {
+          "type_id": "T2",
+          "pattern": [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "coverage_mask_hex": "3244"
+        },
+        {
+          "type_id": "T3",
+          "pattern": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "coverage_mask_hex": "5488"
+        },
+        {
+          "type_id": "T4",
+          "pattern": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "coverage_mask_hex": "6910"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            11867,
+            12791
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        },
+        {
+          "pair_index": 1,
+          "pair": [
+            11867,
+            13633
+          ],
+          "coverer_type_ids": [
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 2,
+          "pair": [
+            11867,
+            13967
+          ],
+          "coverer_type_ids": [
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 3,
+          "pair": [
+            11867,
+            14051
+          ],
+          "coverer_type_ids": [
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 4,
+          "pair": [
+            11867,
+            15559
+          ],
+          "coverer_type_ids": [
+            "T4"
+          ]
+        },
+        {
+          "pair_index": 5,
+          "pair": [
+            12791,
+            13633
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 6,
+          "pair": [
+            12791,
+            13967
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 7,
+          "pair": [
+            12791,
+            14051
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 8,
+          "pair": [
+            12791,
+            15559
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T4"
+          ]
+        },
+        {
+          "pair_index": 9,
+          "pair": [
+            13633,
+            13967
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T2"
+          ]
+        },
+        {
+          "pair_index": 10,
+          "pair": [
+            13633,
+            14051
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 11,
+          "pair": [
+            13633,
+            15559
+          ],
+          "coverer_type_ids": [
+            "T1",
+            "T4"
+          ]
+        },
+        {
+          "pair_index": 12,
+          "pair": [
+            13967,
+            14051
+          ],
+          "coverer_type_ids": [
+            "T2",
+            "T3"
+          ]
+        },
+        {
+          "pair_index": 13,
+          "pair": [
+            13967,
+            15559
+          ],
+          "coverer_type_ids": [
+            "T2",
+            "T4"
+          ]
+        },
+        {
+          "pair_index": 14,
+          "pair": [
+            14051,
+            15559
+          ],
+          "coverer_type_ids": [
+            "T3",
+            "T4"
+          ]
+        }
+      ],
+      "coverer_rank": 2,
+      "forced_type_ids": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "forced_type_count": 5,
+      "residual_vertex_ids": [],
+      "residual_vertex_count": 0,
+      "residual_edges": [],
+      "residual_edge_count": 0,
+      "public_oct_cap": 5,
+      "exact_oct_number": 0,
+      "exact_oct_type_ids": [],
+      "within_public_oct_cap": true,
+      "graph_payload_bits": 189
+    },
+    {
+      "source_id": "M92",
+      "input_length": 29,
+      "source_schema": "schemas/m41-length-29-cap-v1.json",
+      "source_schema_sha256": "99ca4b60f7dc1f77204ccf675bf874ef0650c97c85d47a75c6380314c63669d3",
+      "base_cap": 102,
+      "repair_cap": 103,
+      "population_size": 685,
+      "population_label_bits": 10275,
+      "baseline_partition_mode": "selected-subfamily-plus-raw-persistence",
+      "baseline_collision_buckets": [
+        [
+          18979,
+          21031
+        ]
+      ],
+      "selected_coordinate_count": 1527,
+      "selected_certificate_evaluations": 1045995,
+      "baseline_persistence_descriptor_evaluations": 179578,
+      "baseline_persistence_primitive_tests": 1436624,
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "new_descriptor_count": 5989,
+      "new_descriptor_prime_evaluations": 11978,
+      "primitive_coordinate_tests": 95824,
+      "complete_type_count": 1,
+      "complete_coverage_masks_hex": [
+        "1"
+      ],
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            18979,
+            21031
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "coverer_rank": 1,
+      "forced_type_ids": [
+        "T0"
+      ],
+      "forced_type_count": 1,
+      "residual_vertex_ids": [],
+      "residual_vertex_count": 0,
+      "residual_edges": [],
+      "residual_edge_count": 0,
+      "public_oct_cap": 5,
+      "exact_oct_number": 0,
+      "exact_oct_type_ids": [],
+      "within_public_oct_cap": true,
+      "graph_payload_bits": 33
+    },
+    {
+      "source_id": "M92",
+      "input_length": 30,
+      "source_schema": "schemas/m42-length-30-cap-v1.json",
+      "source_schema_sha256": "cd6ca83c68b901a8b9f9572724e33e71d847d0399192691c1868ebdf7982ea9a",
+      "base_cap": 122,
+      "repair_cap": 123,
+      "population_size": 927,
+      "population_label_bits": 13905,
+      "baseline_partition_mode": "selected-subfamily-plus-raw-persistence",
+      "baseline_collision_buckets": [
+        [
+          28591,
+          29209,
+          29387
+        ]
+      ],
+      "selected_coordinate_count": 2401,
+      "selected_certificate_evaluations": 2225727,
+      "baseline_persistence_descriptor_evaluations": 461010,
+      "baseline_persistence_primitive_tests": 3688080,
+      "tracked_point_count": 3,
+      "pair_count": 3,
+      "new_descriptor_count": 11030,
+      "new_descriptor_prime_evaluations": 33090,
+      "primitive_coordinate_tests": 264720,
+      "complete_type_count": 2,
+      "complete_coverage_masks_hex": [
+        "3",
+        "6"
+      ],
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1,
+            1
+          ],
+          "coverage_mask_hex": "3"
+        },
+        {
+          "type_id": "T1",
+          "pattern": [
+            0,
+            0,
+            1
+          ],
+          "coverage_mask_hex": "6"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            28591,
+            29209
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        },
+        {
+          "pair_index": 1,
+          "pair": [
+            28591,
+            29387
+          ],
+          "coverer_type_ids": [
+            "T0",
+            "T1"
+          ]
+        },
+        {
+          "pair_index": 2,
+          "pair": [
+            29209,
+            29387
+          ],
+          "coverer_type_ids": [
+            "T1"
+          ]
+        }
+      ],
+      "coverer_rank": 2,
+      "forced_type_ids": [
+        "T0",
+        "T1"
+      ],
+      "forced_type_count": 2,
+      "residual_vertex_ids": [],
+      "residual_vertex_count": 0,
+      "residual_edges": [],
+      "residual_edge_count": 0,
+      "public_oct_cap": 5,
+      "exact_oct_number": 0,
+      "exact_oct_type_ids": [],
+      "within_public_oct_cap": true,
+      "graph_payload_bits": 57
+    },
+    {
+      "source_id": "M92",
+      "input_length": 31,
+      "source_schema": "schemas/m43-length-31-cap-v1.json",
+      "source_schema_sha256": "d333d0cebe6c79e2c7a02629be8c3c6a2ea84cb651e184a4cd3a08d1bef969db",
+      "base_cap": 143,
+      "repair_cap": 144,
+      "population_size": 1280,
+      "population_label_bits": 20480,
+      "baseline_partition_mode": "selected-subfamily-plus-raw-persistence",
+      "baseline_collision_buckets": [
+        [
+          37483,
+          44963
+        ]
+      ],
+      "selected_coordinate_count": 3361,
+      "selected_certificate_evaluations": 4302080,
+      "baseline_persistence_descriptor_evaluations": 521424,
+      "baseline_persistence_primitive_tests": 4171392,
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "new_descriptor_count": 1836,
+      "new_descriptor_prime_evaluations": 3672,
+      "primitive_coordinate_tests": 29376,
+      "complete_type_count": 1,
+      "complete_coverage_masks_hex": [
+        "1"
+      ],
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            37483,
+            44963
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "coverer_rank": 1,
+      "forced_type_ids": [
+        "T0"
+      ],
+      "forced_type_count": 1,
+      "residual_vertex_ids": [],
+      "residual_vertex_count": 0,
+      "residual_edges": [],
+      "residual_edge_count": 0,
+      "public_oct_cap": 5,
+      "exact_oct_number": 0,
+      "exact_oct_type_ids": [],
+      "within_public_oct_cap": true,
+      "graph_payload_bits": 35
+    },
+    {
+      "source_id": "M92",
+      "input_length": 32,
+      "source_schema": "schemas/m44-length-32-cap-v1.json",
+      "source_schema_sha256": "a05de0bf7941d2c44bf0d5d79488f90f467c33cb5a8ec986ca5de0aa5f39aa21",
+      "base_cap": 166,
+      "repair_cap": 167,
+      "population_size": 1750,
+      "population_label_bits": 28000,
+      "baseline_partition_mode": "selected-subfamily-plus-raw-persistence",
+      "baseline_collision_buckets": [
+        [
+          59699,
+          63463
+        ]
+      ],
+      "selected_coordinate_count": 1748,
+      "selected_certificate_evaluations": 3059000,
+      "baseline_persistence_descriptor_evaluations": 790680,
+      "baseline_persistence_primitive_tests": 6325440,
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "new_descriptor_count": 20656,
+      "new_descriptor_prime_evaluations": 41312,
+      "primitive_coordinate_tests": 330496,
+      "complete_type_count": 1,
+      "complete_coverage_masks_hex": [
+        "1"
+      ],
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            59699,
+            63463
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "coverer_rank": 1,
+      "forced_type_ids": [
+        "T0"
+      ],
+      "forced_type_count": 1,
+      "residual_vertex_ids": [],
+      "residual_vertex_count": 0,
+      "residual_edges": [],
+      "residual_edge_count": 0,
+      "public_oct_cap": 5,
+      "exact_oct_number": 0,
+      "exact_oct_type_ids": [],
+      "within_public_oct_cap": true,
+      "graph_payload_bits": 35
+    },
+    {
+      "source_id": "M92",
+      "input_length": 33,
+      "source_schema": "schemas/m45-length-33-cap-v1.json",
+      "source_schema_sha256": "a9ba5df141ecefdf9c7a946bd5bf7f17dd44c5748b843385f6e1f0165e311cd2",
+      "base_cap": 194,
+      "repair_cap": 195,
+      "population_size": 2410,
+      "population_label_bits": 40970,
+      "baseline_partition_mode": "selected-subfamily-plus-raw-persistence",
+      "baseline_collision_buckets": [
+        [
+          80309,
+          92671
+        ]
+      ],
+      "selected_coordinate_count": 2409,
+      "selected_certificate_evaluations": 5805690,
+      "baseline_persistence_descriptor_evaluations": 1266080,
+      "baseline_persistence_primitive_tests": 10128640,
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "new_descriptor_count": 28112,
+      "new_descriptor_prime_evaluations": 56224,
+      "primitive_coordinate_tests": 449792,
+      "complete_type_count": 1,
+      "complete_coverage_masks_hex": [
+        "1"
+      ],
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            80309,
+            92671
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "coverer_rank": 1,
+      "forced_type_ids": [
+        "T0"
+      ],
+      "forced_type_count": 1,
+      "residual_vertex_ids": [],
+      "residual_vertex_count": 0,
+      "residual_edges": [],
+      "residual_edge_count": 0,
+      "public_oct_cap": 6,
+      "exact_oct_number": 0,
+      "exact_oct_type_ids": [],
+      "within_public_oct_cap": true,
+      "graph_payload_bits": 37
+    },
+    {
+      "source_id": "M92",
+      "input_length": 34,
+      "source_schema": "schemas/m46-length-34-cap-v1.json",
+      "source_schema_sha256": "34942d674d0451b219bde70fc65909ef3baa6516b08d61df36bf6ea91e8cde61",
+      "base_cap": 200,
+      "repair_cap": 201,
+      "population_size": 3299,
+      "population_label_bits": 56083,
+      "baseline_partition_mode": "selected-subfamily-plus-raw-persistence",
+      "baseline_collision_buckets": [
+        [
+          97927,
+          99527
+        ]
+      ],
+      "selected_coordinate_count": 3297,
+      "selected_certificate_evaluations": 10876803,
+      "baseline_persistence_descriptor_evaluations": 1408522,
+      "baseline_persistence_primitive_tests": 11268176,
+      "tracked_point_count": 2,
+      "pair_count": 1,
+      "new_descriptor_count": 10139,
+      "new_descriptor_prime_evaluations": 20278,
+      "primitive_coordinate_tests": 162224,
+      "complete_type_count": 1,
+      "complete_coverage_masks_hex": [
+        "1"
+      ],
+      "coverage_types": [
+        {
+          "type_id": "T0",
+          "pattern": [
+            0,
+            1
+          ],
+          "coverage_mask_hex": "1"
+        }
+      ],
+      "coverer_sets": [
+        {
+          "pair_index": 0,
+          "pair": [
+            97927,
+            99527
+          ],
+          "coverer_type_ids": [
+            "T0"
+          ]
+        }
+      ],
+      "coverer_rank": 1,
+      "forced_type_ids": [
+        "T0"
+      ],
+      "forced_type_count": 1,
+      "residual_vertex_ids": [],
+      "residual_vertex_count": 0,
+      "residual_edges": [],
+      "residual_edge_count": 0,
+      "public_oct_cap": 6,
+      "exact_oct_number": 0,
+      "exact_oct_type_ids": [],
+      "within_public_oct_cap": true,
+      "graph_payload_bits": 37
+    }
+  ],
+  "totals": {
+    "instance_count": 19,
+    "population_size": 12209,
+    "population_label_bits": 193753,
+    "selected_coordinate_count": 421541,
+    "selected_certificate_evaluations": 39426052,
+    "baseline_persistence_descriptor_evaluations": 5253406,
+    "baseline_persistence_primitive_tests": 42027248,
+    "tracked_point_count": 55,
+    "pair_count": 64,
+    "new_descriptor_count": 152879,
+    "new_descriptor_prime_evaluations": 581361,
+    "primitive_coordinate_tests": 4650888,
+    "complete_type_count": 37,
+    "forced_type_count": 30,
+    "residual_vertex_count": 7,
+    "residual_edge_count": 9,
+    "public_oct_cap": 96,
+    "exact_oct_number": 3,
+    "graph_payload_bits": 1063,
+    "maximum_exact_oct_number": 2,
+    "all_public_caps_accepted": true
+  },
+  "hash_only_counterexample": {
+    "claimed_payload": {
+      "universe": [
+        "u0",
+        "u1"
+      ],
+      "claimed_types": {
+        "T0": [
+          "u0"
+        ],
+        "T1": [
+          "u1"
+        ]
+      },
+      "claimed_exact_cover_number": 2
+    },
+    "recomputed_sha256": "581143c5810bd3cc019e4ffcc084acb10d4f8bef121c5cfdc61ef776dc1a4e72",
+    "omitted_realized_type": {
+      "T2": [
+        "u0",
+        "u1"
+      ]
+    },
+    "actual_exact_cover_number": 1,
+    "conclusion": "the digest binds the claimed bytes but does not prove that the realized type family is complete"
+  },
+  "boundary": {
+    "registered_path_is_factor_independent": true,
+    "registered_path_is_polynomial_in_explicit_artifacts": true,
+    "registered_path_is_polynomial_in_m": false,
+    "reason": "the registered verifier explicitly enumerates P_m; BAR-041 gives |P_m|=Omega(2^(m/2)/m)",
+    "compact_graph_hash_proves_semantic_completeness": false,
+    "hidden_input_to_population_vertex_map": "not needed for offline public graph construction, but recognizing an arbitrary input's balanced-semiprime promise and obtaining a general asymptotic graph/cap law remain open"
+  },
+  "scope": {
+    "classification": "EMPIRICAL",
+    "finite_input_lengths": [
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34
+    ],
+    "not_claimed": [
+      "a bit-polynomial graph constructor for unbounded m",
+      "an asymptotic logarithmic OCT theorem",
+      "a factor-promise recognizer",
+      "a result for another selector grammar",
+      "a lower bound against all compact completeness proofs",
+      "general classical polynomial-time factoring"
+    ]
+  },
+  "summary_sha256": "6a91891acef634c31e6a05accd38240d959740168816b163bd25763258473181"
+}

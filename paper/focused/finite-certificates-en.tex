@@ -37,8 +37,9 @@ reduction constructs seven further exact covers and rejects one invalid
 \(K_5\) transversal.  Iterative compression now discovers a minimum
 transversal from the explicit graph and public cap in
 \(O(3^{k+1}(k+1)t(t+q))\) local indexed operations, then composes it with
-the exact-cover reduction.  This removes supplied transversal advice at the
-explicit-graph layer, not the factor-dependent construction of that graph.
+the exact-cover reduction.  An offline audit reconstructs all 19 frozen
+graphs without hidden factors and derives \(k(m)=\lceil\log_2m\rceil\);
+its explicit population traversal is not bit-polynomial.
 
 Separately, every polynomial numeric cap in this exact grammar eventually
 fails, with compact-gap noninjectivity barriers below the audited boundary.
@@ -483,7 +484,9 @@ The conservative local cost is
 This reconstructs the established iterative-compression method.  With
 polynomial explicit graph parameters and \(k=O(\log m)\), discovery and the
 subsequent \(2^k\) THM-027 repair are
-polynomial in \(m\).  No factor-independent graph construction is supplied.
+polynomial in \(m\).  No factor-independent graph construction is supplied
+by this theorem.  The later public audit supplies one only for the frozen
+offline population and charges its non-polynomial traversal separately.
 \end{claimproof}
 
 \readerclaim{Refuted promotion}{Naive subset search preserves the boundary}
@@ -499,6 +502,59 @@ covers; \(K_5\) at cap two is rejected.  The ledger records 38 compression
 calls, 204 states, and 160 flow calls.  Twenty tests include all 4,096
 simple five-vertex graph/cap comparisons.  The graphs and caps remain
 source-bound synthetic inputs.
+
+\readerclaim{Definition}{Public collision-to-graph contract}
+{\texttt{DEF-056: DEFINITION}}
+A selected public subfamily confines every baseline collision to listed
+blocks, and exhaustive baseline evaluation proves that every listed block
+persists.  Every newly admitted public coordinate is then evaluated on those
+blocks; complete nonzero pair-coverage types, coverer columns, forced loops,
+and residual edges are derived rather than supplied.  Hidden factors,
+precomputed types or edges, and per-row OCT caps are forbidden advice.
+
+\readerclaim{Theorem}{Factor-independent public graph construction}
+{\texttt{THM-029: PROVED}}
+A valid collision-completeness certificate determines the exact baseline
+partition and hence the complete incremental coverer graph without access to
+the factors of an input integer.
+\begin{claimproof}
+Equality on all baseline coordinates implies equality on the selected
+subfamily, so every collision lies in a listed block.  Raw persistence gives
+the reverse inclusion.  Exhaustive evaluation of every new coordinate then
+enumerates every realized coverage mask, after which type deduplication and
+coverer incidence are direct.  With population cost \(P\), \(n=|X|\), \(C\)
+selected coordinates, \(D_0,D_1\) baseline/new descriptors, \(b\) tracked
+points, \(q\) pairs, \(t\) types, evaluation cost \(E\), and public OCT cap
+\(k\), the composed explicit-size cost is
+\[
+ O\!\left(P+CnE+D_0bE+D_1bE+t(b+q)+3^kkt(t+q)\right).
+\]
+For the registered route, however,
+\(|\mathcal P_m|=\Omega(2^{m/2}/m)\); explicit public population
+enumeration is not polynomial in \(m\).
+\end{claimproof}
+
+\readerclaim{Refuted shortcut}{A graph digest proves type completeness}
+{\texttt{REF-069: REFUTED}}
+On a two-element universe, two claimed singleton types have minimum two, but
+an omitted realized full-universe type makes the actual minimum one.  A
+recomputed digest still binds the incomplete bytes; this is a semantic
+counterexample, not a hash collision.
+
+\readerclaim{Finite audit}{Publicly reconstructed coverer graphs}
+{\texttt{EMP-071: EMPIRICAL}}
+Across the 19 frozen rows, nine baseline partitions use selected coordinates
+plus raw persistence and ten use full-raw refinement.  The baseline ledger
+has 421,541 public coordinates, 39,426,052 selected/raw primitive
+evaluations, and 42,027,248 persistence primitive tests.  The 152,879 new
+descriptors and 4,650,888 new-coordinate primitive tests reproduce exactly
+37 complete types.  The frozen comparison graph is used only as an
+order-invariant post-construction oracle.
+Thirty forced vertices leave only \(K_3,K_4\); their OCT numbers are one and
+two.  The fixed public schedule \(k(m)=\lceil\log_2m\rceil\) accepts every
+row.  Nineteen tests pass.  No
+future logarithmic-OCT law, compact asymptotic completeness proof, promise
+recognizer, or general factoring theorem follows.
 
 \section{Initial and widened finite theorems}
 

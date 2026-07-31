@@ -1,5 +1,108 @@
 # Research Status
 
+## M100 outcome
+
+- Date: 2026-07-31.
+- Completed milestone: M100, a factor-independent public constructor for the
+  frozen complete-type coverer graphs and one non-advised logarithmic cap
+  schedule.
+- `DEF-056` separates selected-coordinate collision confinement, exhaustive
+  raw-selector persistence, complete new-coordinate type enumeration, graph
+  construction, and public cap derivation. Hidden input factors, precomputed
+  point labels, complete types, edges, and per-row caps are not inputs.
+- `THM-029` proves that a valid public collision-completeness certificate
+  determines the exact baseline blocks and that exhaustive public coordinate
+  evaluation constructs every type and edge without hidden factors. Its
+  fully separated explicit-size cost is
+  \(O(P+CnE+D_0bE+D_1bE+t(b+q)+3^kkt(t+q))\), where \(n=|X|\).
+- Factor independence does not imply bit-polynomial construction. The
+  registered route enumerates the complete balanced-prime population, while
+  BAR-041 gives
+  \(|\mathcal P_m|=\Omega(2^{m/2}/m)\). THM-029 is polynomial in expanded
+  public artifacts, not in \(m\) for this population route.
+- `REF-069` and NR-068 reject hash-only semantic completeness. A valid digest
+  can bind two claimed singleton types while an omitted full-universe type
+  changes the exact cover number from two to one.
+- `EXP-0071` reconstructs nineteen frozen graphs over 12,209 public
+  population entries. Nine rows derive their baseline blocks from selected
+  coordinates plus raw persistence; ten use full-raw-family refinement.
+  The baseline ledger has 421,541 coordinates, 39,426,052 selected/raw
+  primitive evaluations, and 5,253,406 persistence descriptor evaluations
+  contributing another 42,027,248 primitive tests. It then evaluates 152,879
+  newly admitted descriptors on 55 tracked points: 581,361 descriptor/prime
+  evaluations and 4,650,888 primitive tests reproduce exactly 37 complete
+  types and 64 coverer columns. M95 is used only after construction as a
+  label-order-invariant comparison oracle.
+- Thirty forced types leave only the length-16 \(K_3\) and length-24 \(K_4\)
+  residual graphs, totaling seven vertices and nine edges. The single public
+  formula \(k(m)=\lceil\log_2m\rceil\) accepts all nineteen rows; the exact
+  OCT-number sum is three and the maximum is two. This cap result is finite
+  and `EMPIRICAL`, not an asymptotic law.
+- `schemas/m100-public-coverer-graph-v1.json` has canonical summary SHA-256
+  `6a91891acef634c31e6a05accd38240d959740168816b163bd25763258473181`
+  and exact file SHA-256
+  `7fe9253740e42cdd7c31cb63d3768dad45764010c2f9e5e7ebf46a705ba7981d`.
+- The independent checker uses only the Python standard library and imports
+  neither the M100 generator nor M91. It separately implements the public
+  sieve, descriptor grammar, all primitive exits, baseline partition
+  refinement, complete type enumeration, graph reduction, and exact OCT
+  defense. Nineteen targeted generation, differential, falsification, and
+  mutation tests pass.
+- The synchronized publication ledger now has 307 claims: 29 focused and 278
+  archive-only. The M82 portfolio summary SHA-256 is
+  `1a89f2bd2ca50b5ddcf86576c44c97e8c88f9f122948398e95dd8c7005549b37`;
+  the M83 related-work audit remains seven inspected sources and eight rows,
+  with summary SHA-256
+  `eb02236c6bbe0ca092ffbafc3c75856811814a62d40b2641182b06f702fb6714`.
+  Focused abstract counts are 226/204, 231/200, and 299/250 for
+  English/Korean promise, cyclotomic, and finite papers respectively.
+- The complete repository suite passed with 518 tests and 593 subtests in
+  623.88 seconds. M0 foundation validation, Python bytecode compilation,
+  repository-wide Ruff, mypy over 31 reference sources, strict mypy over the
+  four M100 files, Rust formatting, warning-denied Clippy and 36 tests, and
+  the C# Release build all passed. The C# build had zero warnings and errors.
+- Four converged XeLaTeX builds produced archival English/Korean PDFs of
+  133/63 pages and finite English/Korean PDFs of 13/12 pages. All 221 pages
+  have extractable text. Final-log searches found no selected LaTeX,
+  undefined-reference, undefined-citation, missing-glyph, overfull-box, or
+  underfull-box warning. The six final M100 theorem-and-audit pages across the
+  bilingual archival and finite papers were rendered and visually inspected
+  without clipping, overlap, malformed mathematics, or missing Korean
+  glyphs. PDF SHA-256 values are archival EN
+  `b33cc749979abfba0bee0e0b1603849963fb210da82916ca33788266f56d50d5`,
+  archival KO
+  `df712fd9a828eed88622e9cd434c92d72534ef2dc9f7a50167b8a231a77e4b17`,
+  finite EN
+  `0d95fb830f14cb43638d3826917e2266f2adfb44dc13b33721641b114b0fcad7`,
+  and finite KO
+  `4677238cc48cc9ea6667ad7ef811274ad6ac8bfba35a3a8a025286505b07769d`.
+- The frozen graph layer is therefore public and factor-independent, but the
+  exponential population traversal, absent future logarithmic-OCT theorem,
+  and absent general promise recognizer keep general classical
+  polynomial-time integer factoring `OPEN`.
+- Per user instruction, research pauses after M100 is merged; M101 is not
+  activated.
+
+### M100 Korean summary
+
+M100은 M95의 동결 graph가 숨은 인수 자체를 필요로 한다는 표현을
+교정했다. 입력 길이 \(m\), 공개 balanced-prime 조건, 공개 DEF-032
+문법과 cap, 선택 좌표 collision-completeness 인증서만으로 모집단을
+열거한다. collision block도 M95에서 읽지 않고 baseline 공개 좌표로
+먼저 도출한 뒤, 새 좌표 4,650,888개 primitive 평가를 통해 37개
+complete type과 모든 coverer edge를 다시 구성했다. M95는 완성된
+결과의 순서 불변 사후 비교에만 쓴다. 행별 OCT cap을 조언으로 넣지
+않고 하나의 공개식 \(k(m)=\lceil\log_2m\rceil\)을 사용했으며, 강제
+loop 제거 후 남은 \(K_3,K_4\)의 정확한 OCT 수 1, 2를 모두 수용했다.
+
+그러나 이 경로는 \(\Omega(2^{m/2}/m)\) 크기의 공개 소수 모집단을
+명시적으로 열거한다. 따라서 factor-independent라는 사실은 원래 입력
+길이 \(m\)에 대한 다항시간을 뜻하지 않는다. hash는 바이트를 묶을 뿐
+type 완전성을 증명하지 못한다는 반례도 등록했다. 점근적 logarithmic
+OCT 법칙, compact completeness proof, 일반 promise recognizer가 없으므로
+일반 고전 다항시간 정수분해는 계속 `OPEN`이다. 사용자 지시에 따라
+M100 병합 뒤 연구를 일시 중단하며 M101은 시작하지 않는다.
+
 ## M99 outcome
 
 - Date: 2026-07-31.

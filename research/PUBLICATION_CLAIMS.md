@@ -310,3 +310,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | THM-028 | PROVED | Explicit graphs admit exact fixed-parameter OCT discovery and repair | `research/proofs/THM-028-iterative-compression-oct-discovery.md` |
 | REF-068 | REFUTED | Naive subset enumeration preserves the logarithmic polynomial boundary | `research/NEGATIVE_RESULTS.md` NR-067 |
 | EMP-070 | EMPIRICAL | Eight capped OCT-discovery and composed-repair systems | `research/experiments/EXP-0070-m99-oct-discovery.md` |
+| DEF-056 | DEFINITION | Public collision-to-graph construction contract | `research/proofs/THM-029-public-coverer-graph-construction.md` |
+| THM-029 | PROVED | Factor-independent complete-type and coverer-graph construction with explicit-size boundary | `research/proofs/THM-029-public-coverer-graph-construction.md` |
+| REF-069 | REFUTED | A compact graph digest proves semantic type completeness | `research/NEGATIVE_RESULTS.md` NR-068 |
+| EMP-071 | EMPIRICAL | Nineteen publicly reconstructed frozen coverer graphs and fixed logarithmic caps | `research/experiments/EXP-0071-m100-public-coverer-graph.md` |
