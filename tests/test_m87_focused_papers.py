@@ -51,7 +51,7 @@ class M87FocusedPaperTests(unittest.TestCase):
                 "cyclotomic-extraction-en": 231,
                 "cyclotomic-extraction-ko": 200,
                 "finite-certificates-en": 235,
-                "finite-certificates-ko": 203,
+                "finite-certificates-ko": 200,
             },
         )
 

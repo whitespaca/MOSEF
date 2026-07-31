@@ -142,9 +142,12 @@ family의 모든 polynomial subquadratic span
 deduplicate하면 subset 지수가 사라져 이 범위는 \(c<1/2\)로
 확장된다. 정확한 \(c=1/2\) endpoint는
 여전히 열려 있다.
-이 양성 결과는 인수분해에 의존하는 유한 약속 정리이다.
-일반 고전적 다항 시간 정수분해 알고리즘이나 모든 다항 selector의
-하한은 주장하지 않는다.
+987줄 표준 라이브러리 checker는 16개 source artifact에서 동결된 유한
+selector 26행 전체를 독립 재구성했으며, 측정값은 155.31초와
+29.15 MiB였다. 이는 유한 empirical 감사 근거이지 점근 추론이 아니다.
+이 양성 결과는 인수분해에 의존하는 유한 약속 정리이다. 일반 고전적
+다항 시간 정수분해 알고리즘이나 모든 다항 selector의 하한은 주장하지
+않는다.
 \end{abstract}
 
 \section{연구 목적과 주장 규율}
@@ -1973,6 +1976,16 @@ slot만 유지한다. predecessor pair에서 cap-200 descriptor 704,261개
 전체와 새 cap-201 primitive coordinate 81,112개를 검사한다. 아홉
 clean-room 및 mutation test가 통과했다. 이는 유한 M46 전용 근거이며
 점근적 결과나 일반 인수분해 결과가 아니다.
+
+\claimstatus{EMP-062}{EMPIRICAL}.
+EXP-0062는 project import가 없는 987줄 표준 라이브러리 checker를
+추가한다. 16개 source artifact에서 동결 M50 26행 전체를 재구성하여
+모집단 원소 12,245개, 선택 좌표 17,515개, certificate 평가
+28,245,185개, raw mask 평가 7,520,669개, 정확한 predecessor bucket과
+9개 인증 repair 최소값을 검사한다. 11개 clean-room 및 mutation
+test가 통과했다. 측정 실행은 155.31초와 peak working set
+29.15 MiB를 사용했다. 이는 \(m=34\)까지의 정확한 selector에 대한 유한
+근거이며 recognizer, 점근 정리 또는 일반 인수분해 결과가 아니다.
 
 \subsection{THM-019와 BAR-040의 증명}
 

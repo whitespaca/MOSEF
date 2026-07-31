@@ -21,6 +21,7 @@ python scripts/check_m87_focused_papers.py
 python scripts/check_m88_reader_labels.py
 python scripts/check_m89_appendix_boundaries.py
 python scripts/check_m90_finite_chronology.py
+python scripts/check_m91_all_rows_semantic_certificate.py
 python scripts/check_publication.py
 ```
 
@@ -60,6 +61,7 @@ pytest -p no:cacheprovider tests/test_m87_focused_papers.py -q
 pytest -p no:cacheprovider tests/test_m88_reader_labels.py -q
 pytest -p no:cacheprovider tests/test_m89_appendix_boundaries.py -q
 pytest -p no:cacheprovider tests/test_m90_finite_chronology.py -q
+pytest -p no:cacheprovider tests/test_m91_all_rows_semantic_certificate.py -q
 ```
 
 These commands recompute registered masks, identities, collision or
@@ -79,6 +81,14 @@ reconstructs all 3,299 balanced primes and streams 10,880,102 certificate
 evaluations into 3,299 packed signatures, verifies the exact cap-200 collision
 and cap-201 unique repair, and imports no project code. It does not retain a
 prime-by-coordinate matrix or either complete descriptor set.
+
+The M91 command is the table-wide clean-room path. It uses one
+standard-library arithmetic core plus explicit adapters for the 16 frozen
+M31--M46 source formats, reconstructs all 26 M50 rows, and imports no
+generator, project number-theory module, or earlier checker. Its measured
+reviewer path performs 28,245,185 selected-coordinate and 7,520,669 raw-mask
+evaluations in 155.31 seconds with 29.15 MiB peak working set. The accepted
+budget is 1,000 source lines, 300 seconds, and 128 MiB.
 
 The M87 commands are editorial integrity checks rather than semantic
 certificate reconstruction. They enforce one four-row cost ledger before

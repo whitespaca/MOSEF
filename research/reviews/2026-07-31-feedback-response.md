@@ -15,6 +15,7 @@ Its priorities are adopted in the following bounded sequence.
 | 8 | Replace code-first claim headings with traceable reader labels | M88 | DONE |
 | 9 | Move milestone chronology, commands, hashes, and archive links out of the mathematical narrative | M89 | DONE |
 | 10 | Keep representative finite cases in main and move the full threshold chronology to an appendix | M90 | DONE |
+| 11 | Extend the independent semantic trust path from two endpoint rows to the complete frozen finite table | M91 | DONE |
 
 M81 treats the definition defect as a falsification-first repair. M82 keeps
 the archival monograph authoritative while projecting exactly seven
@@ -103,3 +104,11 @@ repair-status class against the English table, Korean table, and frozen M50
 artifact. Twelve mutation paths reject location, row, endpoint, collision,
 repair-count/status, artifact, subsection-order, and claim-placement drift.
 No finite theorem is promoted or extrapolated beyond length 34.
+
+M91 follows the publication compression with a table-wide trust-base audit.
+One 987-line standard-library checker reconstructs all 26 frozen rows from
+the 16 registered M31--M46 source files without importing generator or
+project arithmetic code. The measured run completes in 155.31 seconds and
+29.15 MiB peak working set, and 11 tests reject rehashed semantic mutations.
+The result is registered as `EMP-062` `EMPIRICAL`; it changes no theorem
+status and supplies no evidence beyond the finite \(m\le34\) window.

@@ -1452,3 +1452,24 @@
   The move changes no threshold, certificate, proof, population, or
   asymptotic statement. M91 will test whether the remaining 24 rows can
   receive a bounded no-project-import semantic path.
+
+## ADR-076 - Use one grammar evaluator with explicit schema adapters
+
+- Date: 2026-07-31.
+- Decision: validate all 26 M50 finite rows with one standard-library-only
+  semantic core and explicit adapters for the M31--M46 metadata generations.
+  Fix the reviewer budget at 1,000 source lines, 300 seconds, and 128 MiB peak
+  working set. Keep M85 and M86 as separately implemented endpoint checks.
+- Rationale: all 17,515 selected certificate sources use the same public
+  descriptor and primitive-exit grammar, while their JSON field placement
+  differs. Duplicating 16 arithmetic evaluators would enlarge the trusted
+  base without adding mathematical independence. Explicit adapters make the
+  field differences reviewable and leave the arithmetic reconstruction
+  singular.
+- Consequence: M91 closes the 24-row semantic coverage gap under the stated
+  resource budget. Collision buckets are compared as unordered equivalence
+  classes. The \(m=27,28\) five-coordinate repairs retain their actual cap-72
+  and cap-88 baselines rather than being coerced to adjacent predecessors.
+  In-process `tracemalloc` is rejected by NR-059; external peak-working-set
+  sampling is the recorded resource method. The outcome is `EMPIRICAL`
+  finite evidence and does not change any theorem status.

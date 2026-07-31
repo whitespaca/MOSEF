@@ -25,11 +25,11 @@ descriptor 목록만 받고 그 구성과 encoding, compact modular 평가,
 열거, cap 탐색, support-signature normalization, collision refinement,
 certificate 생성과 hash 계산은 offline 증명 비용이며 알고리즘 advice나
 숨겨진 online 입력이 아니다. 인증서는 각 threshold에 대해 인접한
-predecessor collision과 이를 분리하는 repair를 기록한다. generator
-code를 import하지 않는 두 표준 라이브러리 checker가 신뢰 기반을
-줄인다. 548줄 checker는 대표 \(m=29\) 행을 재구성하고, 624줄 streaming
-checker는 3,299개 packed signature만 유지하면서 10,880,102개 평가로
-마지막 \(m=34\) 행을 검증한다. 별도로 같은 정확한 문법의 모든
+  predecessor collision과 이를 분리하는 repair를 기록한다. 987줄
+  표준 라이브러리 checker는 generator와 project import 없이 16개 동결
+  source에서 26행 전체를 재구성한다. 28,245,185개 certificate 평가와
+  7,520,669개 raw-mask 평가를 수행했고 측정 peak는 29.15 MiB였다.
+  별도로 같은 정확한 문법의 모든
 polynomial numeric cap이 결국 실패함을 증명하고, 감사된 경계 아래의
 compact-gap 비단사 장벽을 제시한다. 이 인증서는 작은 유한 범위와 한
 selector족에만 적용되며 balanced factor를 인식하지 않고, \(m>34\)나
@@ -71,23 +71,23 @@ unit-only continuation을 건너뛰기 전에 처리한다.
 평가한다. generator, 등록 schema, 독립 checker, publication projection은
 서로 다른 artifact이다.
 
-대표적인 \(m=29\) 행에는 clean-room semantic 경로가 있다.
-548줄 checker는 Python 표준 라이브러리만 사용한다. balanced 소수
-685개를 독립적으로 sieve하고, 각 인증서 source를 공개 descriptor
-문법과 대조하며, 여덟 primitive 출구를 다시 계산한다. cyclotomic
-root가 아니면 유한체 나눗셈으로 cofactor를 평가하고, simple root에서는
-정확한 항등식 \(F=\Phi C\)를 미분하여
-\(C(g)=F'(g)/\Phi'(g)\)를 사용한다. 등록된 \(m=29\) 좌표는 모두 root가
-아니므로 인증서 근거는 단위 나눗셈 분기만 사용한다. 미분 분기는
-별도의 작은 exact vector로 simple-root 경계에서 검사한다. generator,
-프로젝트 수론 구현, 기존 checker를 import하지 않는다.
+이제 26행 전체에 clean-room semantic 경로가 있다. 987줄 checker는
+Python 표준 라이브러리만 사용한다. balanced 모집단 원소 12,245개를
+독립 sieve하고, 선택 source 17,515개를 공개 descriptor 문법과
+대조하며, prime마다 packed signature 하나만 유지해 28,245,185개
+coordinate 평가를 stream한다. 길이 16--25에서는 raw predecessor
+partition 전체를 재구성하고, 길이 26--34에서는 선택 subcertificate와
+모든 raw descriptor의 양방향으로 정확한 collision을 증명한다. 유한
+pair-cover 전수 검사가 9개 등록 repair 최소값을 복구하며, 길이 27과
+28에서는 실제 cap-72와 cap-88 baseline을 유지한다.
 
-마지막 \(m=34\) 행도 같은 no-project-import 경계를 사용한다.
-3,299개 packed signature만 유지하면서 3,298개 좌표를 3,299개 소수에
-대해 stream하고, tracked pair에서 cap-200 descriptor 전체와 새
-cap-201 primitive coordinate 81,112개를 검사한다. 이 범위의
-\(p\ge92683>201^2+1\)은 모든 cofactor denominator가 nonzero임을
-보이므로 등록 근거는 단위 나눗셈만 사용한다.
+cyclotomic root가 아니면 유한체 나눗셈으로 cofactor를 평가하고,
+simple root에서는 정확한 항등식 \(F=\Phi C\)를 미분하여
+\(C(g)=F'(g)/\Phi'(g)\)를 사용한다. 미분 분기는 별도의 작은 exact
+vector로 검사한다. generator, project 수론 module, 기존 checker를
+import하지 않는다. 별도 구현된 대표 및 끝점 checker는 \(m=29\)와
+\(m=34\)의 differential 경로로 유지한다. 전체 행 재구성은
+\texttt{EMPIRICAL} 유한 감사 근거이며 정리의 상태나 범위를 바꾸지 않는다.
 
 \section{Signature 판정}
 
@@ -342,16 +342,17 @@ python scripts/generate_m50_finite_threshold_summary.py --check
 python scripts/check_m50_finite_threshold_summary.py
 python scripts/check_m85_m41_semantic_certificate.py
 python scripts/check_m86_m46_streaming_certificate.py
+python scripts/check_m91_all_rows_semantic_certificate.py
 \end{verbatim}
 기초 M31--M46 schema, generator, differential checker, 명령, toolchain,
 row hash, 선택된 cross-language vector는 \path{schemas}, \path{scripts},
 \path{research/experiments}에 보존된다.
 앞의 두 명령은 26개 행 projection과 frozen source integrity를
-검증한다. 세 번째와 네 번째 명령은 M41과 M46의 더 깊은 독립 semantic
-경로다. M41의 여덟 mutation 및 clean-room test는 hash를 다시 계산한 모집단,
-descriptor, primitive-vector 변경과 별도의 simple-root 경계 vector를
-포함한다. M46 경로는 아홉 test와 3,299-slot streaming invariant를
-추가한다. 나머지 24개 행을 독립 검증한다고 주장하지 않는다.
+검증한다. 세 번째와 네 번째 명령은 M41과 M46의 별도 구현 semantic
+경로를 보존한다. 다섯 번째 명령은 같은 공개 문법에서 26행 전체를
+재구성하고 모든 등록 source digest를 검사하며, 987줄, 155.31초,
+29.15 MiB의 측정 reviewer bound 아래 11개 clean-room 및 mutation
+test를 통과했다.
 
 archival monograph \archivepaper{}는 전체 전이 chronology와 완전 증명을
 보존한다. claim 장부는 \path{research/CLAIMS.md}, 기계 검증되는 논문

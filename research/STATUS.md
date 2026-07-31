@@ -1,5 +1,103 @@
 # Research Status
 
+## M91 outcome
+
+- Date: 2026-07-31.
+- Branch: `research/20260731-m91-cleanroom-inventory`.
+- Base: M90 squash merge
+  `28bd51c27c92e739af56d350688d1241f7daddfe`.
+- Completed milestone: M91, a bounded table-wide clean-room semantic path for
+  every frozen finite threshold row.
+- `scripts/check_m91_all_rows_semantic_certificate.py` has 987 lines and uses
+  only the Python standard library. It imports no M31--M50 generator, project
+  number-theory module, differential verifier, or M85/M86 checker. An AST test
+  enforces the import set and 1,000-line budget.
+- The checker binds 26 rows to the exact 16 registered source-file digests,
+  independently reconstructs 12,245 balanced-prime population entries and
+  the shared descriptor grammar, and recomputes 17,515 selected packed
+  certificate coordinates through 28,245,185 coordinate/prime evaluations.
+  Every frozen signature list agrees and is injective.
+- Lengths 16--25 receive complete raw cap-1 partition reconstruction.
+  Lengths 26--34 receive the subcertificate/raw-persistence collision
+  sandwich and exhaustive new-coordinate pair-cover validation. The certified
+  repair minima are \(2,5,5,1,2,1,1,1,1\). Lengths 27 and 28 correctly use
+  cap 72 and cap 88 as the five-coordinate repair baselines rather than the
+  adjacent failing caps 86 and 103.
+- The measured reviewer run passed with 7,520,669 raw mask evaluations in
+  155.31 seconds and 29.15 MiB peak working set. This is inside the declared
+  1,000-line, 300-second, and 128-MiB budget. An in-process `tracemalloc`
+  attempt exceeded 600 seconds and is preserved as NR-059; it is not counted
+  as semantic evidence.
+- Eleven targeted tests passed in 83.41 seconds. They cover the complete
+  reconstruction, import/line boundary, descriptor counts, balanced
+  population endpoints, source grammar, the small simple-root derivative
+  branch, and rehashed mutations of packed signatures, predecessor buckets,
+  exhaustive repair patterns, source paths, and M50 cap projection. The final
+  complete repository suite passed with 372 tests and 593 subtests in
+  345.40 seconds.
+- `EMP-062` records the result as `EMPIRICAL`. No theorem status changes.
+  The complete logic is in
+  `research/proofs/M91-all-row-semantic-certificate.md`, the measured run in
+  `research/experiments/EXP-0062-m91-all-row-semantic-checker.md`, and the
+  16-source format inventory in
+  `research/reviews/2026-07-31-m91-cleanroom-inventory.md`.
+- The English and Korean archival manuscripts and finite focused papers now
+  describe the all-row trust boundary. M85/M86 remain separately implemented
+  endpoint checks. M82 accounts for 271 ledger claims as 21 focused and 250
+  archive-only; its summary SHA-256 is
+  `6f1795065ce574fad0e221325b0c3e17e23b6615c077261a9f9e3ee3332eae80`.
+  M83 retains six inspected sources, seven synchronized rows, and no priority
+  claim; its file SHA-256 is
+  `d1b0dc841b50e9509a945a90697907fcdf3bf1f8b92c4aa248d9d0b2f53f511d`.
+- Eight manuscripts built with XeLaTeX: archival English/Korean 127/56 pages,
+  promise English/Korean 6/5, cyclotomic English/Korean 5/5, and finite
+  English/Korean 7/6. All 217 pages had extractable text; 11 changed pages
+  were rendered and visually inspected without clipping, overlap, or missing
+  Korean glyphs. Final logs contain zero selected undefined-reference,
+  undefined-citation, missing-character, overfull, underfull, LaTeX, package,
+  or rerun warnings. PDF SHA-256 values are archival EN
+  `79206dcaea4ce5d6c1e2b72cd4860a6ee8d7135f75bfc972f78451f8ef38ef12`,
+  archival KO
+  `dd28d6dda5a9f6c7f10b19a6c7cd5acc24e59c972dea7cb0eedcf3955789dd24`,
+  promise EN
+  `00adcc2b43ef0b83fd9bc6b12996c4c1cf681ce4c70b554cfce51b223a5598c6`,
+  promise KO
+  `158998bfb7b2d0fbbb9b246be835ea521cadb39b631459d91a3af95df70e0ab4`,
+  cyclotomic EN
+  `1ba9a51a151c2630901cff47c201323e4c26654eda14e0bc1130c675c39026a3`,
+  cyclotomic KO
+  `01e80848a4c479bffa1032fbc0ddd2741d716381d6bf4127612ccb5975e30d87`,
+  finite EN
+  `797307a3fccca18f1a42c7d3b22a0c851dcf7289bab77a3574467b0433b87cc8`,
+  and finite KO
+  `85ec796f7eb5e78c801a05dcf343b30fe10490199ca7fd9f0e8a0920093bf457`.
+- Scope: M91 closes the executable semantic gap only for the frozen
+  \(9\le m\le34\) rows of one exact selector family. It is not a promise
+  recognizer, evidence for \(m>34\), an asymptotic threshold law, a minimum
+  over other selectors, formal proof-assistant verification, external peer
+  review, or a general factoring result. General classical polynomial-time
+  integer factoring remains open. M92 is active and will formalize the finite
+  repair step as a pair-cover certificate theorem with compact witnesses.
+
+### M91 Korean summary
+
+M91은 M85와 M86이 남긴 24개 행의 clean-room 공백을 닫았다. 987줄
+표준 라이브러리 checker는 generator, project 수론 module, 기존 checker를
+import하지 않고 16개 동결 source에서 \(m=9\ldots34\)의 26행 전체를
+재구성한다. balanced 모집단 원소 12,245개, 선택 좌표 17,515개,
+certificate 평가 28,245,185개, raw mask 평가 7,520,669개를 검사했고,
+모든 packed signature와 predecessor bucket 및 9개 repair 최소값이
+일치했다. 특히 \(m=27,28\)의 5좌표 복구는 인접 cap이 아니라 실제
+cap-72와 cap-88 baseline에서 검증했다. 측정 실행은 155.31초와
+29.15 MiB peak working set으로 1,000줄·300초·128 MiB 예산을 통과했다.
+11개 targeted test도 83.41초에 통과했고, 전체 회귀는 345.40초에
+372개 테스트와 593개 하위 테스트를 통과했다. 결과는 `EMP-062`
+`EMPIRICAL`이며 정리 상태를 바꾸지 않는다. 이는 한 selector family의
+동결 유한 행에 대한 근거일 뿐 \(m>34\), promise recognizer, 점근 cap
+법칙, 다른 selector의 최소성 또는 일반 고전 다항시간 정수분해를
+뜻하지 않는다. M92는 이 유한 repair 검사를 pair-cover 인증서 정리로
+형식화한다.
+
 ## M90 outcome
 
 - Date: 2026-07-31.

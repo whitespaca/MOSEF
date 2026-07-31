@@ -277,3 +277,4 @@ the evidence and scope remain authoritative in the full claims ledger.
 | EMP-059 | EMPIRICAL | Standard-bit-length and frozen-certificate migration audit | `research/experiments/EXP-0059-m81-bitlength-audit.md` |
 | EMP-060 | EMPIRICAL | Independent semantic reconstruction of the M41 finite certificate | `research/experiments/EXP-0060-m85-independent-semantic-checker.md` |
 | EMP-061 | EMPIRICAL | Streaming clean-room reconstruction of the M46 finite certificate | `research/experiments/EXP-0061-m86-streaming-m46-semantic-checker.md` |
+| EMP-062 | EMPIRICAL | Table-wide clean-room reconstruction of all 26 finite certificate rows | `research/experiments/EXP-0062-m91-all-row-semantic-checker.md` |

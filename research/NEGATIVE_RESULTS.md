@@ -1367,3 +1367,21 @@
 - Scope: an additive-one parameter repair changes exact indexing but not a
   polynomial-versus-superpolynomial asymptotic class. It proves no new
   separator, promise recognizer, UCSS, or general factoring algorithm.
+
+## NR-059 - In-process allocation tracing exceeds the M91 reviewer budget
+
+- Date: 2026-07-31.
+- Status: reproducible negative tooling result; no mathematical claim is
+  refuted.
+- Hypothesis tested: Python `tracemalloc` can measure the complete M91
+  table-wide semantic checker without making the reviewer path exceed its
+  300-second wall-time budget.
+- Exact obstruction: the traced execution did not complete before the
+  600-second command ceiling. The same semantic path completed in 155.31
+  seconds under external Windows peak-working-set sampling.
+- Consequence: M91 uses the low-overhead external measurement, which recorded
+  29.15 MiB peak working set. The timed-out trace is not counted as semantic
+  evidence, a passing test, or a certificate failure.
+- Scope: this is a measurement-method result on the recorded Windows/Python
+  environment. It says nothing about the finite theorem, asymptotic
+  complexity, promise recognition, or general factoring.
