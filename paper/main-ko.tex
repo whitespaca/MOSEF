@@ -1987,6 +1987,51 @@ test가 통과했다. 측정 실행은 155.31초와 peak working set
 29.15 MiB를 사용했다. 이는 \(m=34\)까지의 정확한 selector에 대한 유한
 근거이며 recognizer, 점근 정리 또는 일반 인수분해 결과가 아니다.
 
+\claimstatus{DEF-048}{DEFINITION}.
+유한 분할 \(\Pi=\{B_i\}\)에 대해 미분리 universe와 한 binary
+coordinate의 coverage를
+\[
+ U(\Pi)=\bigcup_i\{\{x,y\}:x,y\in B_i,\ x\ne y\},\qquad
+ C(h)=\{\{x,y\}\in U(\Pi):h(x)\ne h(y)\}
+\]
+로 정의한다. repair number는 coverage type의 합집합이 \(U(\Pi)\)가
+되게 하는 이용 가능한 coordinate의 최소 개수이다.
+
+\claimstatus{THM-021}{PROVED}.
+binary coordinate가 \(\Pi\)의 모든 block을 singleton으로 정제하는
+것과 coverage type이 \(U(\Pi)\)를 덮는 것은 동치이다. 선택한 \(k\)개
+type이 universe를 덮고 각각이 다른 어떤 이용 가능한 type도 덮지
+않는 private pair를 가지면 정확한 repair number는 \(k\)이다.
+
+실제로 같은 원래 block의 두 원소는 모든 추가 coordinate가 같은 bit를
+줄 때와 그때에만 함께 남으므로 동치가 따른다. 선택 type은 상계
+\(k\)를 준다. 모든 cover는 각 private pair를 유일하게 덮는 type을
+포함해야 하므로 \(k\)개 모두가 강제되어 같은 하계를 준다. tracked
+원소가 \(b\)개, 미분리 쌍이 \(q\)개, 완전 type이 \(t\)개, 선택 type이
+\(k\)개이고 label bit 합이 \(\lambda\)이면 explicit verifier는
+\[
+ O(tb+tq+kq+kt+\lambda)
+\]
+bit operation과 \(O(t(b+q)+\lambda)\) bit 공간을 사용한다. 외부에서
+재구성한 type 목록의 완전성은 별도 전제이며, 아홉 적용은 이 전제에
+EMP-062를 사용한다.
+
+\claimstatus{REF-061}{REFUTED}.
+일반 하계 \(\lceil\log_2(\max_i|B_i|)\rceil\)만으로는 모든 정확한
+repair 최소값을 인증하지 못한다. 길이 27과 28의 6-prime bucket에서는
+이 하계가 3뿐이지만, private pair가 이용 가능한 type 5개를 각각
+강제한다.
+
+\claimstatus{EMP-063}{EMPIRICAL}.
+EXP-0063은 아홉 compact 인증서를 동결 M38--M46 source digest에
+결합한다. tracked prime 28개, 미분리 쌍 41개, 완전 coverage type
+19개, private pair 19개와 정확한 최소값
+\(2,5,5,1,2,1,1,1,1\)을 담는다. abstract payload는 745 bit이고,
+핵심 인증서 ledger는 397 bit test이며 중복 확인은 82개 subset을
+열거한다. 11개 test는 semantic mutation과 M91 경로에 대한 raw
+coverage differential equality를 포함한다. 이 유한 적용은
+\(m=34\)를 넘거나 일반 인수분해 주장을 지지하지 않는다.
+
 \subsection{THM-019와 BAR-040의 증명}
 
 두 공개 cap의 정확한 동치분할은 비자명 bucket을 보존하므로 두 공식을

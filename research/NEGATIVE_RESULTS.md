@@ -1385,3 +1385,24 @@
 - Scope: this is a measurement-method result on the recorded Windows/Python
   environment. It says nothing about the finite theorem, asymptotic
   complexity, promise recognition, or general factoring.
+
+## NR-060 - Bucket cardinality does not certify the five-coordinate repairs
+
+- Date: 2026-07-31.
+- Status: exact finite lower-bound shortcut refuted; the underlying
+  information-theoretic bound remains valid.
+- Hypothesis tested: the generic lower bound
+  \(\lceil\log_2(\max_i|B_i|)\rceil\) is sufficient to certify every exact
+  incremental repair minimum in M38--M46.
+- Smallest registered obstruction: the M39 and M40 repair baselines each
+  contain one six-prime bucket. Arbitrary binary labels require at least
+  \(\lceil\log_2 6\rceil=3\) coordinates, but the complete available
+  coverage-type families have exact minimum five.
+- Stronger witness: in both instances all five selected coverage types have
+  a private pair covered by no other available type. Hence every repair must
+  contain all five types, while their union covers all 15 pairs.
+- Consequence: M92 uses the private-pair lower certificate rather than
+  presenting the cardinality bound as exact.
+- Scope: this refutes only sufficiency of the generic lower bound for these
+  frozen coordinate families. It does not refute the bound, claim a result
+  for other selector families, or imply anything about general factoring.

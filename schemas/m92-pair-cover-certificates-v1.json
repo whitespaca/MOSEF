@@ -1,0 +1,789 @@
+{
+  "claim_ids": [
+    "DEF-048",
+    "THM-021",
+    "EMP-063"
+  ],
+  "complement_rule": "binary patterns are canonicalized with their bitwise complement",
+  "experiment_id": "EXP-0063",
+  "instances": [
+    {
+      "base_cap": 70,
+      "collision_buckets": [
+        [
+          7187,
+          7229,
+          7649
+        ]
+      ],
+      "coverage_types": [
+        {
+          "coverage_mask_hex": "5",
+          "pattern": [
+            0,
+            1,
+            0
+          ],
+          "type_id": "T0"
+        },
+        {
+          "coverage_mask_hex": "6",
+          "pattern": [
+            0,
+            0,
+            1
+          ],
+          "type_id": "T1"
+        }
+      ],
+      "input_length": 26,
+      "minimum_coordinate_count": 2,
+      "pair_count": 3,
+      "private_pair_lower_witness": [
+        {
+          "pair": [
+            7187,
+            7229
+          ],
+          "pair_index": 0,
+          "type_id": "T0"
+        },
+        {
+          "pair": [
+            7187,
+            7649
+          ],
+          "pair_index": 1,
+          "type_id": "T1"
+        }
+      ],
+      "repair_cap": 71,
+      "repair_sources": [
+        "phi4:7:71:65:cofactor",
+        "phi4:19:71:50:cofactor"
+      ],
+      "semantic_anchor": "EMP-062",
+      "source_file_bytes": 64959,
+      "source_path": "schemas/m38-length-26-cap-v1.json",
+      "source_sha256": "68f7e9b710be7960b78c11e4bef06119f00d75a6df2074ed8976f211e6b32a97",
+      "tracked_prime_count": 3,
+      "upper_witness": [
+        "T0",
+        "T1"
+      ],
+      "verification_cost": {
+        "abstract_certificate_payload_bits": 57,
+        "bucket_label_bits": 39,
+        "certificate_verifier_bit_tests": 16,
+        "defense_mask_bit_tests": 12,
+        "defense_subset_count": 4,
+        "mask_storage_bits": 6,
+        "pattern_pair_tests": 6,
+        "pattern_storage_bits": 6,
+        "private_pair_index_bits": 4,
+        "private_type_tests": 4,
+        "selected_type_index_bits": 2,
+        "upper_mask_bit_tests": 6
+      }
+    },
+    {
+      "base_cap": 72,
+      "collision_buckets": [
+        [
+          9463,
+          9791,
+          10607,
+          10939,
+          11087,
+          11213
+        ]
+      ],
+      "coverage_types": [
+        {
+          "coverage_mask_hex": "001f",
+          "pattern": [
+            0,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "type_id": "T0"
+        },
+        {
+          "coverage_mask_hex": "01e1",
+          "pattern": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "type_id": "T1"
+        },
+        {
+          "coverage_mask_hex": "3244",
+          "pattern": [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "type_id": "T2"
+        },
+        {
+          "coverage_mask_hex": "5488",
+          "pattern": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "type_id": "T3"
+        },
+        {
+          "coverage_mask_hex": "6910",
+          "pattern": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "type_id": "T4"
+        }
+      ],
+      "input_length": 27,
+      "minimum_coordinate_count": 5,
+      "pair_count": 15,
+      "private_pair_lower_witness": [
+        {
+          "pair": [
+            9463,
+            10607
+          ],
+          "pair_index": 1,
+          "type_id": "T0"
+        },
+        {
+          "pair": [
+            9791,
+            10607
+          ],
+          "pair_index": 5,
+          "type_id": "T1"
+        },
+        {
+          "pair": [
+            10607,
+            10939
+          ],
+          "pair_index": 9,
+          "type_id": "T2"
+        },
+        {
+          "pair": [
+            10607,
+            11087
+          ],
+          "pair_index": 10,
+          "type_id": "T3"
+        },
+        {
+          "pair": [
+            10607,
+            11213
+          ],
+          "pair_index": 11,
+          "type_id": "T4"
+        }
+      ],
+      "repair_cap": 87,
+      "repair_sources": [
+        "phi4:11:15:73:second_stage",
+        "phi4:15:87:83:cofactor",
+        "phi4:63:75:24:cofactor",
+        "phi6:35:75:46:cofactor",
+        "phi6:53:81:78:cofactor"
+      ],
+      "semantic_anchor": "EMP-062",
+      "source_file_bytes": 87400,
+      "source_path": "schemas/m39-length-27-cap-v1.json",
+      "source_sha256": "252126eeb4de40e6c8940d23516419e8f6f4b11dbebe8a84bd8d2cdcf59757cd",
+      "tracked_prime_count": 6,
+      "upper_witness": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "verification_cost": {
+        "abstract_certificate_payload_bits": 224,
+        "bucket_label_bits": 84,
+        "certificate_verifier_bit_tests": 175,
+        "defense_mask_bit_tests": 1200,
+        "defense_subset_count": 32,
+        "mask_storage_bits": 75,
+        "pattern_pair_tests": 75,
+        "pattern_storage_bits": 30,
+        "private_pair_index_bits": 20,
+        "private_type_tests": 25,
+        "selected_type_index_bits": 15,
+        "upper_mask_bit_tests": 75
+      }
+    },
+    {
+      "base_cap": 88,
+      "collision_buckets": [
+        [
+          11867,
+          12791,
+          13633,
+          13967,
+          14051,
+          15559
+        ]
+      ],
+      "coverage_types": [
+        {
+          "coverage_mask_hex": "01e1",
+          "pattern": [
+            0,
+            1,
+            0,
+            0,
+            0,
+            0
+          ],
+          "type_id": "T0"
+        },
+        {
+          "coverage_mask_hex": "0e22",
+          "pattern": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          "type_id": "T1"
+        },
+        {
+          "coverage_mask_hex": "3244",
+          "pattern": [
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          "type_id": "T2"
+        },
+        {
+          "coverage_mask_hex": "5488",
+          "pattern": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0
+          ],
+          "type_id": "T3"
+        },
+        {
+          "coverage_mask_hex": "6910",
+          "pattern": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "type_id": "T4"
+        }
+      ],
+      "input_length": 28,
+      "minimum_coordinate_count": 5,
+      "pair_count": 15,
+      "private_pair_lower_witness": [
+        {
+          "pair": [
+            11867,
+            12791
+          ],
+          "pair_index": 0,
+          "type_id": "T0"
+        },
+        {
+          "pair": [
+            11867,
+            13633
+          ],
+          "pair_index": 1,
+          "type_id": "T1"
+        },
+        {
+          "pair": [
+            11867,
+            13967
+          ],
+          "pair_index": 2,
+          "type_id": "T2"
+        },
+        {
+          "pair": [
+            11867,
+            14051
+          ],
+          "pair_index": 3,
+          "type_id": "T3"
+        },
+        {
+          "pair": [
+            11867,
+            15559
+          ],
+          "pair_index": 4,
+          "type_id": "T4"
+        }
+      ],
+      "repair_cap": 104,
+      "repair_sources": [
+        "phi4:95:35:7:cofactor",
+        "phi6:59:75:92:cofactor",
+        "phi4:55:27:97:cofactor",
+        "phi4:31:43:91:cofactor",
+        "phi4:15:99:104:cofactor"
+      ],
+      "semantic_anchor": "EMP-062",
+      "source_file_bytes": 151358,
+      "source_path": "schemas/m40-length-28-cap-v1.json",
+      "source_sha256": "7f45ad32c1abb3d09d0b47c4659b2e3555af7126fa534b786b5a0d0504ed4414",
+      "tracked_prime_count": 6,
+      "upper_witness": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "verification_cost": {
+        "abstract_certificate_payload_bits": 224,
+        "bucket_label_bits": 84,
+        "certificate_verifier_bit_tests": 175,
+        "defense_mask_bit_tests": 1200,
+        "defense_subset_count": 32,
+        "mask_storage_bits": 75,
+        "pattern_pair_tests": 75,
+        "pattern_storage_bits": 30,
+        "private_pair_index_bits": 20,
+        "private_type_tests": 25,
+        "selected_type_index_bits": 15,
+        "upper_mask_bit_tests": 75
+      }
+    },
+    {
+      "base_cap": 102,
+      "collision_buckets": [
+        [
+          18979,
+          21031
+        ]
+      ],
+      "coverage_types": [
+        {
+          "coverage_mask_hex": "1",
+          "pattern": [
+            0,
+            1
+          ],
+          "type_id": "T0"
+        }
+      ],
+      "input_length": 29,
+      "minimum_coordinate_count": 1,
+      "pair_count": 1,
+      "private_pair_lower_witness": [
+        {
+          "pair": [
+            18979,
+            21031
+          ],
+          "pair_index": 0,
+          "type_id": "T0"
+        }
+      ],
+      "repair_cap": 103,
+      "repair_sources": [
+        "phi4:87:95:103:cofactor"
+      ],
+      "semantic_anchor": "EMP-062",
+      "source_file_bytes": 312632,
+      "source_path": "schemas/m41-length-29-cap-v1.json",
+      "source_sha256": "99ca4b60f7dc1f77204ccf675bf874ef0650c97c85d47a75c6380314c63669d3",
+      "tracked_prime_count": 2,
+      "upper_witness": [
+        "T0"
+      ],
+      "verification_cost": {
+        "abstract_certificate_payload_bits": 33,
+        "bucket_label_bits": 30,
+        "certificate_verifier_bit_tests": 3,
+        "defense_mask_bit_tests": 1,
+        "defense_subset_count": 2,
+        "mask_storage_bits": 1,
+        "pattern_pair_tests": 1,
+        "pattern_storage_bits": 2,
+        "private_pair_index_bits": 0,
+        "private_type_tests": 1,
+        "selected_type_index_bits": 0,
+        "upper_mask_bit_tests": 1
+      }
+    },
+    {
+      "base_cap": 122,
+      "collision_buckets": [
+        [
+          28591,
+          29209,
+          29387
+        ]
+      ],
+      "coverage_types": [
+        {
+          "coverage_mask_hex": "3",
+          "pattern": [
+            0,
+            1,
+            1
+          ],
+          "type_id": "T0"
+        },
+        {
+          "coverage_mask_hex": "6",
+          "pattern": [
+            0,
+            0,
+            1
+          ],
+          "type_id": "T1"
+        }
+      ],
+      "input_length": 30,
+      "minimum_coordinate_count": 2,
+      "pair_count": 3,
+      "private_pair_lower_witness": [
+        {
+          "pair": [
+            28591,
+            29209
+          ],
+          "pair_index": 0,
+          "type_id": "T0"
+        },
+        {
+          "pair": [
+            29209,
+            29387
+          ],
+          "pair_index": 2,
+          "type_id": "T1"
+        }
+      ],
+      "repair_cap": 123,
+      "repair_sources": [
+        "phi4:123:59:87:cofactor",
+        "phi4:79:123:54:cofactor"
+      ],
+      "semantic_anchor": "EMP-062",
+      "source_file_bytes": 645507,
+      "source_path": "schemas/m42-length-30-cap-v1.json",
+      "source_sha256": "cd6ca83c68b901a8b9f9572724e33e71d847d0399192691c1868ebdf7982ea9a",
+      "tracked_prime_count": 3,
+      "upper_witness": [
+        "T0",
+        "T1"
+      ],
+      "verification_cost": {
+        "abstract_certificate_payload_bits": 63,
+        "bucket_label_bits": 45,
+        "certificate_verifier_bit_tests": 16,
+        "defense_mask_bit_tests": 12,
+        "defense_subset_count": 4,
+        "mask_storage_bits": 6,
+        "pattern_pair_tests": 6,
+        "pattern_storage_bits": 6,
+        "private_pair_index_bits": 4,
+        "private_type_tests": 4,
+        "selected_type_index_bits": 2,
+        "upper_mask_bit_tests": 6
+      }
+    },
+    {
+      "base_cap": 143,
+      "collision_buckets": [
+        [
+          37483,
+          44963
+        ]
+      ],
+      "coverage_types": [
+        {
+          "coverage_mask_hex": "1",
+          "pattern": [
+            0,
+            1
+          ],
+          "type_id": "T0"
+        }
+      ],
+      "input_length": 31,
+      "minimum_coordinate_count": 1,
+      "pair_count": 1,
+      "private_pair_lower_witness": [
+        {
+          "pair": [
+            37483,
+            44963
+          ],
+          "pair_index": 0,
+          "type_id": "T0"
+        }
+      ],
+      "repair_cap": 144,
+      "repair_sources": [
+        "phi6:11:105:144:cofactor"
+      ],
+      "semantic_anchor": "EMP-062",
+      "source_file_bytes": 1181235,
+      "source_path": "schemas/m43-length-31-cap-v1.json",
+      "source_sha256": "d333d0cebe6c79e2c7a02629be8c3c6a2ea84cb651e184a4cd3a08d1bef969db",
+      "tracked_prime_count": 2,
+      "upper_witness": [
+        "T0"
+      ],
+      "verification_cost": {
+        "abstract_certificate_payload_bits": 35,
+        "bucket_label_bits": 32,
+        "certificate_verifier_bit_tests": 3,
+        "defense_mask_bit_tests": 1,
+        "defense_subset_count": 2,
+        "mask_storage_bits": 1,
+        "pattern_pair_tests": 1,
+        "pattern_storage_bits": 2,
+        "private_pair_index_bits": 0,
+        "private_type_tests": 1,
+        "selected_type_index_bits": 0,
+        "upper_mask_bit_tests": 1
+      }
+    },
+    {
+      "base_cap": 166,
+      "collision_buckets": [
+        [
+          59699,
+          63463
+        ]
+      ],
+      "coverage_types": [
+        {
+          "coverage_mask_hex": "1",
+          "pattern": [
+            0,
+            1
+          ],
+          "type_id": "T0"
+        }
+      ],
+      "input_length": 32,
+      "minimum_coordinate_count": 1,
+      "pair_count": 1,
+      "private_pair_lower_witness": [
+        {
+          "pair": [
+            59699,
+            63463
+          ],
+          "pair_index": 0,
+          "type_id": "T0"
+        }
+      ],
+      "repair_cap": 167,
+      "repair_sources": [
+        "phi4:167:119:93:cofactor"
+      ],
+      "semantic_anchor": "EMP-062",
+      "source_file_bytes": 586937,
+      "source_path": "schemas/m44-length-32-cap-v1.json",
+      "source_sha256": "a05de0bf7941d2c44bf0d5d79488f90f467c33cb5a8ec986ca5de0aa5f39aa21",
+      "tracked_prime_count": 2,
+      "upper_witness": [
+        "T0"
+      ],
+      "verification_cost": {
+        "abstract_certificate_payload_bits": 35,
+        "bucket_label_bits": 32,
+        "certificate_verifier_bit_tests": 3,
+        "defense_mask_bit_tests": 1,
+        "defense_subset_count": 2,
+        "mask_storage_bits": 1,
+        "pattern_pair_tests": 1,
+        "pattern_storage_bits": 2,
+        "private_pair_index_bits": 0,
+        "private_type_tests": 1,
+        "selected_type_index_bits": 0,
+        "upper_mask_bit_tests": 1
+      }
+    },
+    {
+      "base_cap": 194,
+      "collision_buckets": [
+        [
+          80309,
+          92671
+        ]
+      ],
+      "coverage_types": [
+        {
+          "coverage_mask_hex": "1",
+          "pattern": [
+            0,
+            1
+          ],
+          "type_id": "T0"
+        }
+      ],
+      "input_length": 33,
+      "minimum_coordinate_count": 1,
+      "pair_count": 1,
+      "private_pair_lower_witness": [
+        {
+          "pair": [
+            80309,
+            92671
+          ],
+          "pair_index": 0,
+          "type_id": "T0"
+        }
+      ],
+      "repair_cap": 195,
+      "repair_sources": [
+        "phi4:195:91:20:cofactor"
+      ],
+      "semantic_anchor": "EMP-062",
+      "source_file_bytes": 1045830,
+      "source_path": "schemas/m45-length-33-cap-v1.json",
+      "source_sha256": "a9ba5df141ecefdf9c7a946bd5bf7f17dd44c5748b843385f6e1f0165e311cd2",
+      "tracked_prime_count": 2,
+      "upper_witness": [
+        "T0"
+      ],
+      "verification_cost": {
+        "abstract_certificate_payload_bits": 37,
+        "bucket_label_bits": 34,
+        "certificate_verifier_bit_tests": 3,
+        "defense_mask_bit_tests": 1,
+        "defense_subset_count": 2,
+        "mask_storage_bits": 1,
+        "pattern_pair_tests": 1,
+        "pattern_storage_bits": 2,
+        "private_pair_index_bits": 0,
+        "private_type_tests": 1,
+        "selected_type_index_bits": 0,
+        "upper_mask_bit_tests": 1
+      }
+    },
+    {
+      "base_cap": 200,
+      "collision_buckets": [
+        [
+          97927,
+          99527
+        ]
+      ],
+      "coverage_types": [
+        {
+          "coverage_mask_hex": "1",
+          "pattern": [
+            0,
+            1
+          ],
+          "type_id": "T0"
+        }
+      ],
+      "input_length": 34,
+      "minimum_coordinate_count": 1,
+      "pair_count": 1,
+      "private_pair_lower_witness": [
+        {
+          "pair": [
+            97927,
+            99527
+          ],
+          "pair_index": 0,
+          "type_id": "T0"
+        }
+      ],
+      "repair_cap": 201,
+      "repair_sources": [
+        "phi6:149:201:45:cofactor"
+      ],
+      "semantic_anchor": "EMP-062",
+      "source_file_bytes": 1863647,
+      "source_path": "schemas/m46-length-34-cap-v1.json",
+      "source_sha256": "34942d674d0451b219bde70fc65909ef3baa6516b08d61df36bf6ea91e8cde61",
+      "tracked_prime_count": 2,
+      "upper_witness": [
+        "T0"
+      ],
+      "verification_cost": {
+        "abstract_certificate_payload_bits": 37,
+        "bucket_label_bits": 34,
+        "certificate_verifier_bit_tests": 3,
+        "defense_mask_bit_tests": 1,
+        "defense_subset_count": 2,
+        "mask_storage_bits": 1,
+        "pattern_pair_tests": 1,
+        "pattern_storage_bits": 2,
+        "private_pair_index_bits": 0,
+        "private_type_tests": 1,
+        "selected_type_index_bits": 0,
+        "upper_mask_bit_tests": 1
+      }
+    }
+  ],
+  "pair_order": "bucket order, then increasing left index, then increasing right index",
+  "schema_version": "1.0.0",
+  "semantic_dependency": {
+    "claim_id": "EMP-062",
+    "scope": "exhaustiveness of each frozen raw-coordinate coverage type"
+  },
+  "status": "PASS",
+  "summary_sha256": "3bf4b744d30d31f5e52725ca9cb70302bc4654ab1e7cfbe1707448392dbc19b0",
+  "totals": {
+    "abstract_certificate_payload_bits": 745,
+    "certificate_verifier_bit_tests": 397,
+    "coverage_type_count": 19,
+    "defense_mask_bit_tests": 2429,
+    "defense_subset_count": 82,
+    "instance_count": 9,
+    "minimum_coordinate_count": 19,
+    "pair_count": 41,
+    "pattern_pair_tests": 167,
+    "private_type_tests": 63,
+    "source_file_bytes": 5939505,
+    "tracked_prime_count": 28
+  }
+}

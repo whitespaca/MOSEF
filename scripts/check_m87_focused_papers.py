@@ -39,6 +39,7 @@ EXPECTED_CLAIMS = {
     ),
     "finite-certificates": (
         "BAR-024",
+        "THM-021",
         "THM-004",
         "THM-005",
         "THM-014",
@@ -282,7 +283,7 @@ def main() -> int:
     )
     print(
         "M87 focused-paper editorial checker: PASS "
-        f"({len(reports)} papers, 24 cost rows, 21 bilingual claim IDs; "
+        f"({len(reports)} papers, 24 cost rows, 22 bilingual claim IDs; "
         f"abstract words: {counts})"
     )
     return 0

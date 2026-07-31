@@ -186,14 +186,14 @@
     "research/literature/M83-primary-source-search.md": "989bb97f5c7c203af3cf68b5fe76eb48af7bbd0dfc880ebc54dfb5ad2d8edce2",
     "research/reviews/2026-07-31-m83-source-scope-review.md": "31e2d06c0ba7bbdefbf4a79c52e3154b4e7623f9f9ca07ac29beb086df29c104",
     "paper/references.bib": "71626c54fb84356438677bc65066206ab1aa664dfeb90c7423392f10ade69460",
-    "paper/main.tex": "50d2fab3953c8dce139ff6b895ff76badf3164119bed0bd84bfbe7728231646e",
-    "paper/main-ko.tex": "3ecef779c127afb2b05a82a4be3d9cdcc107bfcf55dfea888cdbe676582a4023",
+    "paper/main.tex": "106e579945c93fa303dfa952f7d116664c9efd1bb35f2be349fdc9cfea915020",
+    "paper/main-ko.tex": "472bb2f85d977c39310b79a5140463266e000130e845913b485852a79e8f4af4",
     "paper/focused/promise-factorization-en.tex": "2edf7fb97855f0c9d018a1c41024b46590a0d455b8b47821c6a98ffda1c05eea",
     "paper/focused/promise-factorization-ko.tex": "cf9b0ebe3f2ebef36beb65f1795d61460064fcc6dd946851dfd500065e71d709",
     "paper/focused/cyclotomic-extraction-en.tex": "7c0bc3f0f67139c51058011446fcc7dd797b527821f63f970998490c72ca429b",
     "paper/focused/cyclotomic-extraction-ko.tex": "9574618e6eb8074c4f2043a60ebcc5e84c94665812949b9c78d637f550800315",
-    "paper/focused/finite-certificates-en.tex": "6b9f61fe5f76e8f443fc44c6978f1ed3c3d18101934daabbe7f6cc88d2ae4b81",
-    "paper/focused/finite-certificates-ko.tex": "a8ac1a23ac58a9c2605a72cf2957a18401c986e8d66c26949b3f783a4be74e3c"
+    "paper/focused/finite-certificates-en.tex": "da1c602722a15021106405d28123c1f60e5796d388b663e555d30fd23d208baf",
+    "paper/focused/finite-certificates-ko.tex": "8e2835128b8aa2a4d52ee9d10e7cef67a5e1888f72a3cd1f50234b2a0cff95c0"
   },
   "scope": {
     "general_classical_polynomial_time_factoring": "OPEN",
@@ -201,5 +201,5 @@
     "priority_claims_made": false,
     "finite_certificate_max_input_length": 34
   },
-  "audit_summary_sha256": "a81522499757cc733ef8347ec2cc3ed464663ea5474373c500ae99097dce9098"
+  "audit_summary_sha256": "eaacf6034da4deb6c3acaddef52aac36cbc591b79c147483759cb27aaa176335"
 }

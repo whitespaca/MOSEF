@@ -157,6 +157,7 @@ EXPECTED_CLAIMS = {
     ),
     "finite-certificates": (
         "BAR-024",
+        "THM-021",
         "THM-004",
         "THM-005",
         "THM-014",
@@ -189,6 +190,8 @@ EXPECTED_COMMANDS = {
         "python scripts/check_m85_m41_semantic_certificate.py",
         "python scripts/check_m86_m46_streaming_certificate.py",
         "python scripts/check_m91_all_rows_semantic_certificate.py",
+        "python scripts/check_m92_pair_cover_certificate.py",
+        "python -m pytest -p no:cacheprovider tests/test_m92_pair_cover_certificate.py -q",
     ),
 }
 

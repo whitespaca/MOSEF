@@ -22,6 +22,9 @@ python scripts/check_m88_reader_labels.py
 python scripts/check_m89_appendix_boundaries.py
 python scripts/check_m90_finite_chronology.py
 python scripts/check_m91_all_rows_semantic_certificate.py
+python scripts/run_m92_pair_cover_audit.py
+python scripts/generate_m92_pair_cover_schema.py
+python scripts/check_m92_pair_cover_certificate.py
 python scripts/check_publication.py
 ```
 
@@ -62,6 +65,7 @@ pytest -p no:cacheprovider tests/test_m88_reader_labels.py -q
 pytest -p no:cacheprovider tests/test_m89_appendix_boundaries.py -q
 pytest -p no:cacheprovider tests/test_m90_finite_chronology.py -q
 pytest -p no:cacheprovider tests/test_m91_all_rows_semantic_certificate.py -q
+pytest -p no:cacheprovider tests/test_m92_pair_cover_certificate.py -q
 ```
 
 These commands recompute registered masks, identities, collision or
@@ -89,6 +93,14 @@ generator, project number-theory module, or earlier checker. Its measured
 reviewer path performs 28,245,185 selected-coordinate and 7,520,669 raw-mask
 evaluations in 155.31 seconds with 29.15 MiB peak working set. The accepted
 budget is 1,000 source lines, 300 seconds, and 128 MiB.
+
+The M92 commands build and independently check the compact combinatorial
+layer over the nine certified repairs. The 412-line standard-library checker
+imports neither its generator nor M91. It validates exact source digests,
+coverage masks, covering upper witnesses, private-pair lower witnesses, and
+the explicit bit-cost ledger. The registered abstract payload is 745 bits;
+source hashing/parsing is separately charged over 5,939,505 bytes. The
+targeted tests use M91 only as a differential raw-coverage oracle.
 
 The M87 commands are editorial integrity checks rather than semantic
 certificate reconstruction. They enforce one four-row cost ledger before

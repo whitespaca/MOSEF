@@ -63,6 +63,11 @@ anchors, and state their own exclusions.
   importing project code. Its 16-source inventory and measured reviewer bound
   are in `research/reviews/2026-07-31-m91-cleanroom-inventory.md` and
   `research/experiments/EXP-0062-m91-all-row-semantic-checker.md`.
+- M92 quotients the nine repair searches to 19 exact pair-coverage types and
+  certifies their minima with covering upper witnesses and private-pair lower
+  witnesses. The proof and source-bound execution record are
+  `research/proofs/THM-021-pair-cover-certificate.md` and
+  `research/experiments/EXP-0063-m92-pair-cover-certificates.md`.
 
 ## Reproduction
 
@@ -80,6 +85,8 @@ python scripts/check_m90_finite_chronology.py
 pytest -p no:cacheprovider tests/test_m90_finite_chronology.py -q
 python scripts/check_m91_all_rows_semantic_certificate.py
 pytest -p no:cacheprovider tests/test_m91_all_rows_semantic_certificate.py -q
+python scripts/check_m92_pair_cover_certificate.py
+pytest -p no:cacheprovider tests/test_m92_pair_cover_certificate.py -q
 ```
 
 Compile the six papers from the repository root with XeLaTeX:

@@ -16,6 +16,7 @@ Its priorities are adopted in the following bounded sequence.
 | 9 | Move milestone chronology, commands, hashes, and archive links out of the mathematical narrative | M89 | DONE |
 | 10 | Keep representative finite cases in main and move the full threshold chronology to an appendix | M90 | DONE |
 | 11 | Extend the independent semantic trust path from two endpoint rows to the complete frozen finite table | M91 | DONE |
+| 12 | Replace opaque repair-minimum search with compact proof-carrying pair-cover witnesses | M92 | DONE |
 
 M81 treats the definition defect as a falsification-first repair. M82 keeps
 the archival monograph authoritative while projecting exactly seven
@@ -112,3 +113,12 @@ project arithmetic code. The measured run completes in 155.31 seconds and
 29.15 MiB peak working set, and 11 tests reject rehashed semantic mutations.
 The result is registered as `EMP-062` `EMPIRICAL`; it changes no theorem
 status and supplies no evidence beyond the finite \(m\le34\) window.
+
+M92 extracts the repair-minimum logic into the unconditional finite
+pair-cover theorem THM-021. Nine source-bound instances contain 19 complete
+coverage types, a covering upper witness, and one private-pair lower witness
+per selected type. The 745-bit abstract payload is checked by an independent
+412-line standard-library program, with raw-type exhaustiveness explicitly
+dependent on EMP-062 rather than silently promoted. The cardinality shortcut
+that gives only three coordinates for the two six-prime buckets is preserved
+as NR-060; private pairs prove the exact value five.

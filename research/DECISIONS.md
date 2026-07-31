@@ -1473,3 +1473,21 @@
   In-process `tracemalloc` is rejected by NR-059; external peak-working-set
   sampling is the recorded resource method. The outcome is `EMPIRICAL`
   finite evidence and does not change any theorem status.
+
+## ADR-077 - Certify repair minima with coverage types and private pairs
+
+- Date: 2026-07-31.
+- Decision: quotient raw binary coordinates by identical pair-coverage masks,
+  record one canonical pattern per nonzero type, and certify each exact
+  minimum with both a covering upper witness and one private-pair lower
+  witness per selected type. Bind the complete finite type lists to EMP-062
+  and the exact M38--M46 source digests.
+- Rationale: the nine repair instances have at most 15 unresolved pairs and
+  five coverage types. Every selected type has a private pair, giving a
+  polynomial certificate whose lower direction is directly reviewable. The
+  generic cardinality bound is not exact at lengths 27 and 28.
+- Consequence: the abstract portfolio is 745 bits and its core verifier
+  ledger is 397 bit tests. The independent checker also exhausts 82 subsets
+  as bounded defense in depth, but that exponential path is not part of the
+  theorem's asymptotic verifier. Source hashing/parsing remains a separately
+  charged 5,939,505-byte provenance layer.

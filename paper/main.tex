@@ -3524,6 +3524,50 @@ minima. Eleven clean-room and mutation tests pass. The measured run used
 for the exact selector through \(m=34\), not a recognizer, asymptotic theorem,
 or general-factoring result.
 
+\claimstatus{DEF-048}{DEFINITION}. For a finite partition
+\(\Pi=\{B_i\}\), define the unresolved universe and one binary coordinate's
+coverage by
+\[
+ U(\Pi)=\bigcup_i\{\{x,y\}:x,y\in B_i,\ x\ne y\},\qquad
+ C(h)=\{\{x,y\}\in U(\Pi):h(x)\ne h(y)\}.
+\]
+The repair number is the least number of available coordinate coverage types
+whose union is \(U(\Pi)\).
+
+\claimstatus{THM-021}{PROVED}. Binary coordinates refine every block of
+\(\Pi\) to singletons if and only if their coverage types cover
+\(U(\Pi)\). If \(k\) selected types cover the universe and each selected type
+has a private pair covered by no other available type, then the exact repair
+number is \(k\).
+
+Indeed, two elements in one original block remain together precisely when
+every added coordinate agrees on them, proving the equivalence. The selected
+types give an upper bound \(k\). Every cover must contain the unique type
+that covers each private pair, so it contains all \(k\) types and the lower
+bound agrees. For \(b\) tracked elements, \(q\) unresolved pairs, \(t\)
+complete types, \(k\) selected types, and label-bit total \(\lambda\), the
+explicit verifier uses
+\[
+ O(tb+tq+kq+kt+\lambda)
+\]
+bit operations and \(O(t(b+q)+\lambda)\) bits. Completeness of an externally
+reconstructed type list is a separate premise; the nine applications use
+EMP-062 for that premise.
+
+\claimstatus{REF-061}{REFUTED}. The generic lower bound
+\(\lceil\log_2(\max_i|B_i|)\rceil\) does not certify every exact repair
+minimum. At lengths 27 and 28 it gives only three for a six-prime bucket,
+whereas five available types are individually forced by private pairs.
+
+\claimstatus{EMP-063}{EMPIRICAL}. EXP-0063 binds nine compact certificates
+to the frozen M38--M46 source digests. They contain 28 tracked primes, 41
+unresolved pairs, 19 complete coverage types, 19 private pairs, and exact
+minima \(2,5,5,1,2,1,1,1,1\). The abstract payload is 745 bits; the core
+certificate ledger is 397 bit tests, and a redundant check enumerates 82
+subsets. Eleven tests include semantic mutations and raw-coverage
+differential equality with the M91 path. This finite application does not
+extend beyond \(m=34\) or support a general factoring claim.
+
 Appendix \ref{proof:THM-019-BAR-040} gives the complete finite proof.
 
 \section{Polynomial numeric-cap support barrier}

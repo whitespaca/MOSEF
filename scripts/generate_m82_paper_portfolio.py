@@ -70,6 +70,7 @@ PAPERS: tuple[dict[str, Any], ...] = (
         "korean": "paper/focused/finite-certificates-ko.tex",
         "representative_claims": [
             "BAR-024",
+            "THM-021",
             "THM-004",
             "THM-005",
             "THM-014",

@@ -125,6 +125,59 @@ signatures, giving the lower bounds.  No factor recognizer follows: the
 signatures are proof objects indexed by the enumerated primes.
 \end{claimproof}
 
+\readerclaim{Definition}{Finite pair-cover repair}
+{\texttt{DEF-048: DEFINITION}}
+For a finite partition \(\Pi=\{B_i\}\), let
+\[
+ U(\Pi)=\bigcup_i\{\{x,y\}:x,y\in B_i,\ x\ne y\}.
+\]
+A binary coordinate covers the pairs on which its bits differ.  Its
+coverage type is this subset of \(U(\Pi)\), and the repair number is the
+least number of available types whose union is \(U(\Pi)\).
+
+\readerclaim{Theorem}{Private-pair repair certificate}
+{\claimstatus{THM-021}{PROVED}}
+A coordinate set refines every block of \(\Pi\) to singletons if and only if
+its coverage types cover \(U(\Pi)\).  Suppose \(k\) selected types cover the
+universe and each has a private pair covered by no other available type.
+Then the exact repair number is \(k\).
+
+\begin{claimproof}
+Two elements of one original block remain together precisely when every
+added coordinate agrees on them.  Thus singleton refinement is equivalent
+to pair coverage.  The selected types give the upper bound \(k\).  A cover
+must include the unique type that covers each private pair, so it must
+include all \(k\) selected types, giving the matching lower bound.
+
+For \(b\) tracked elements, \(q=\sum_i\binom{|B_i|}{2}\) pairs, \(t\)
+complete coverage types, \(k\) selected types, and label-bit total
+\(\lambda\), explicit patterns and masks give verifier cost
+\[
+ O(tb+tq+kq+kt+\lambda)
+\]
+bit operations and \(O(t(b+q)+\lambda)\) bits.  Completeness of an external
+type list is a separate premise.
+\end{claimproof}
+
+\readerclaim{Refuted shortcut}{Cardinality alone is not exact}
+{\texttt{REF-061: REFUTED}}
+At each of lengths 27 and 28 the repair baseline has six tracked primes, so
+the generic bound is only \(\lceil\log_2 6\rceil=3\).  The complete available
+families instead have five forced private-pair types.  The generic bound is
+valid but does not certify these exact minima.
+
+\readerclaim{Finite audit}{Nine compact repair witnesses}
+{\texttt{EMP-063: EMPIRICAL}}
+The source-bound schema covers lengths 26--34 with 28 tracked primes, 41
+unresolved pairs, 19 complete types, 19 private pairs, and exact minima
+\[
+ 2,5,5,1,2,1,1,1,1.
+\]
+Its abstract combinatorial payload is 745 bits and the core certificate
+ledger is 397 bit tests.  Eleven tests include rehashed mutations and a raw
+coverage differential against the independent all-row semantic path.
+Exhaustiveness of the frozen raw type lists depends on EMP-062.
+
 \section{Initial and widened finite theorems}
 
 \readerclaim{Finite certificate}{Base cap through length 15}
@@ -360,6 +413,8 @@ python scripts/check_m50_finite_threshold_summary.py
 python scripts/check_m85_m41_semantic_certificate.py
 python scripts/check_m86_m46_streaming_certificate.py
 python scripts/check_m91_all_rows_semantic_certificate.py
+python scripts/check_m92_pair_cover_certificate.py
+python -m pytest -p no:cacheprovider tests/test_m92_pair_cover_certificate.py -q
 \end{verbatim}
 The underlying M31--M46 schemas, generators, differential checkers, commands,
 toolchains, row hashes, and selected cross-language vectors remain under
@@ -370,6 +425,9 @@ paths for M41 and M46.  The fifth reconstructs all 26 rows from the shared
 public grammar, checks every registered source digest, and passed 11
 clean-room and mutation tests under a 987-line, 155.31-second, and
 29.15-MiB measured reviewer bound.
+The sixth command checks the 745-bit pair-cover portfolio independently;
+the seventh includes the complete raw-coverage differential against the
+all-row path.
 
 The archival monograph \archivepaper{} retains the complete transition
 chronology and full proofs.  The claim ledger is

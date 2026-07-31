@@ -120,6 +120,60 @@ factor이다. 좌표별로 적용하면 동치와 bucket count가 나온다.
 recognizer가 아니다.
 \end{claimproof}
 
+\readerclaim{정의}{유한 pair-cover repair}
+{\texttt{DEF-048: DEFINITION}}
+유한 분할 \(\Pi=\{B_i\}\)에 대해
+\[
+ U(\Pi)=\bigcup_i\{\{x,y\}:x,y\in B_i,\ x\ne y\}
+\]
+라 하자. binary coordinate는 bit가 다른 쌍을 덮는다. 이
+\(U(\Pi)\)의 부분집합을 coverage type이라 하고, repair number는
+합집합이 \(U(\Pi)\)가 되는 이용 가능한 type의 최소 개수이다.
+
+\readerclaim{정리}{Private-pair repair 인증서}
+{\claimstatus{THM-021}{PROVED}}
+coordinate 집합이 \(\Pi\)의 모든 block을 singleton으로 정제하는
+것과 coverage type이 \(U(\Pi)\)를 덮는 것은 동치이다. 선택한 \(k\)개
+type이 universe를 덮고 각각이 다른 어떤 이용 가능한 type도 덮지
+않는 private pair를 가지면 정확한 repair number는 \(k\)이다.
+
+\begin{claimproof}
+같은 원래 block의 두 원소는 모든 추가 coordinate가 같은 bit를 줄
+때와 그때에만 함께 남는다. 따라서 singleton 정제와 pair cover가
+동치이다. 선택 type은 상계 \(k\)를 준다. 어떤 cover도 각 private
+pair를 유일하게 덮는 type을 포함해야 하므로 \(k\)개 모두가 강제되어
+같은 하계를 준다.
+
+tracked 원소가 \(b\)개, 쌍이
+\(q=\sum_i\binom{|B_i|}{2}\)개, 완전 coverage type이 \(t\)개, 선택
+type이 \(k\)개이고 label bit 합이 \(\lambda\)이면 explicit pattern과
+mask verifier의 비용은
+\[
+ O(tb+tq+kq+kt+\lambda)
+\]
+bit operation이고 공간은 \(O(t(b+q)+\lambda)\) bit이다. 외부 type
+목록의 완전성은 별도 전제이다.
+\end{claimproof}
+
+\readerclaim{반박된 지름길}{Cardinality만으로는 정확하지 않다}
+{\texttt{REF-061: REFUTED}}
+길이 27과 28의 repair baseline은 각각 tracked prime이 6개이므로 일반
+하계는 \(\lceil\log_2 6\rceil=3\)뿐이다. 그러나 완전한 이용 가능
+family에는 private pair가 강제하는 type이 5개 있다. 일반 하계는
+유효하지만 이 정확한 최소값을 인증하지 못한다.
+
+\readerclaim{유한 감사}{아홉 compact repair 증인}
+{\texttt{EMP-063: EMPIRICAL}}
+source-bound schema는 길이 26--34에서 tracked prime 28개, 미분리 쌍
+41개, 완전 type 19개, private pair 19개와 정확한 최소값
+\[
+ 2,5,5,1,2,1,1,1,1
+\]
+을 담는다. abstract 조합론 payload는 745 bit이고 핵심 인증서
+ledger는 397 bit test이다. 11개 test는 rehashed mutation과 독립
+all-row semantic 경로에 대한 raw coverage differential을 포함한다.
+동결 raw type 목록의 완전성은 EMP-062에 의존한다.
+
 \section{초기 및 확장 유한 정리}
 
 \readerclaim{유한 인증서}{길이 15까지의 base cap}
@@ -343,6 +397,8 @@ python scripts/check_m50_finite_threshold_summary.py
 python scripts/check_m85_m41_semantic_certificate.py
 python scripts/check_m86_m46_streaming_certificate.py
 python scripts/check_m91_all_rows_semantic_certificate.py
+python scripts/check_m92_pair_cover_certificate.py
+python -m pytest -p no:cacheprovider tests/test_m92_pair_cover_certificate.py -q
 \end{verbatim}
 기초 M31--M46 schema, generator, differential checker, 명령, toolchain,
 row hash, 선택된 cross-language vector는 \path{schemas}, \path{scripts},
@@ -353,6 +409,9 @@ row hash, 선택된 cross-language vector는 \path{schemas}, \path{scripts},
 재구성하고 모든 등록 source digest를 검사하며, 987줄, 155.31초,
 29.15 MiB의 측정 reviewer bound 아래 11개 clean-room 및 mutation
 test를 통과했다.
+여섯 번째 명령은 745-bit pair-cover portfolio를 독립 검사하고,
+일곱 번째 명령은 all-row 경로에 대한 완전 raw-coverage differential을
+포함한다.
 
 archival monograph \archivepaper{}는 전체 전이 chronology와 완전 증명을
 보존한다. claim 장부는 \path{research/CLAIMS.md}, 기계 검증되는 논문
