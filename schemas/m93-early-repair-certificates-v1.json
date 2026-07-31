@@ -1,0 +1,846 @@
+{
+  "claim_ids": [
+    "DEF-049",
+    "THM-022",
+    "REF-062",
+    "EMP-064"
+  ],
+  "complement_rule": "binary patterns are canonicalized with their bitwise complement",
+  "experiment_id": "EXP-0064",
+  "finite_summary": {
+    "file_sha256": "2f9974d45a350f65694bd048bf67dae4b27a90493b07ecd895c251d102aab75b",
+    "path": "schemas/m50-finite-threshold-summary-v1.json",
+    "summary_sha256": "1fb6185f73b4bc2243dc2f339c1e823d7c849acd7bf33ef5f288af4baa9d00b3"
+  },
+  "instances": [
+    {
+      "base_cap": 18,
+      "collision_buckets": [
+        [
+          191,
+          227,
+          233
+        ]
+      ],
+      "coverage_types": [
+        {
+          "coverage_mask_hex": "3",
+          "pattern": [
+            0,
+            1,
+            1
+          ],
+          "representative_source": "phi4:3:19:5:second_stage",
+          "type_id": "T0"
+        },
+        {
+          "coverage_mask_hex": "5",
+          "pattern": [
+            0,
+            1,
+            0
+          ],
+          "representative_source": "phi4:11:19:13:cofactor",
+          "type_id": "T1"
+        },
+        {
+          "coverage_mask_hex": "6",
+          "pattern": [
+            0,
+            0,
+            1
+          ],
+          "representative_source": "phi4:11:19:2:cofactor",
+          "type_id": "T2"
+        }
+      ],
+      "input_length": 16,
+      "lower_witness": {
+        "kind": "cardinality",
+        "lower_bound": 2,
+        "maximum_bucket_size": 3
+      },
+      "minimum_coordinate_count": 2,
+      "pair_count": 3,
+      "repair_cap": 19,
+      "source_file_bytes": 15147,
+      "source_path": "schemas/m32-widened-selector-cap-v1.json",
+      "source_sha256": "24f506ce7cb7ad9b10f8150f064441dbc1450f7402c72a6d228a363834eb9203",
+      "tracked_prime_count": 3,
+      "upper_witness": [
+        "T0",
+        "T1"
+      ],
+      "verification_cost": {
+        "abstract_certificate_payload_bits": 50,
+        "bucket_label_bits": 24,
+        "certificate_verifier_bit_tests": 16,
+        "defense_mask_bit_tests": 36,
+        "defense_subset_count": 8,
+        "descriptor_prime_evaluations": 495,
+        "lower_witness_bit_tests": 1,
+        "lower_witness_payload_bits": 4,
+        "mask_storage_bits": 9,
+        "new_descriptor_count": 165,
+        "pattern_pair_tests": 9,
+        "pattern_storage_bits": 9,
+        "raw_coordinate_tests": 3960,
+        "selected_type_index_bits": 4,
+        "upper_mask_bit_tests": 6
+      }
+    },
+    {
+      "base_cap": 18,
+      "collision_buckets": [
+        [
+          277,
+          317
+        ],
+        [
+          263,
+          349
+        ]
+      ],
+      "coverage_types": [
+        {
+          "coverage_mask_hex": "1",
+          "pattern": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "representative_source": "phi4:19:11:3:cofactor",
+          "type_id": "T0"
+        },
+        {
+          "coverage_mask_hex": "2",
+          "pattern": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "representative_source": "phi4:7:15:19:cofactor",
+          "type_id": "T1"
+        }
+      ],
+      "input_length": 17,
+      "lower_witness": {
+        "entries": [
+          {
+            "pair": [
+              277,
+              317
+            ],
+            "pair_index": 0,
+            "type_id": "T0"
+          },
+          {
+            "pair": [
+              263,
+              349
+            ],
+            "pair_index": 1,
+            "type_id": "T1"
+          }
+        ],
+        "kind": "private_pairs",
+        "lower_bound": 2
+      },
+      "minimum_coordinate_count": 2,
+      "pair_count": 2,
+      "repair_cap": 19,
+      "source_file_bytes": 15147,
+      "source_path": "schemas/m32-widened-selector-cap-v1.json",
+      "source_sha256": "24f506ce7cb7ad9b10f8150f064441dbc1450f7402c72a6d228a363834eb9203",
+      "tracked_prime_count": 4,
+      "upper_witness": [
+        "T0",
+        "T1"
+      ],
+      "verification_cost": {
+        "abstract_certificate_payload_bits": 54,
+        "bucket_label_bits": 36,
+        "certificate_verifier_bit_tests": 12,
+        "defense_mask_bit_tests": 8,
+        "defense_subset_count": 4,
+        "descriptor_prime_evaluations": 660,
+        "lower_witness_bit_tests": 4,
+        "lower_witness_payload_bits": 4,
+        "mask_storage_bits": 4,
+        "new_descriptor_count": 165,
+        "pattern_pair_tests": 4,
+        "pattern_storage_bits": 8,
+        "raw_coordinate_tests": 5280,
+        "selected_type_index_bits": 2,
+        "upper_mask_bit_tests": 4
+      }
+    },
+    {
+      "base_cap": 26,
+      "collision_buckets": [
+        [
+          503,
+          509
+        ]
+      ],
+      "coverage_types": [
+        {
+          "coverage_mask_hex": "1",
+          "pattern": [
+            0,
+            1
+          ],
+          "representative_source": "phi4:27:19:27:cofactor",
+          "type_id": "T0"
+        }
+      ],
+      "input_length": 18,
+      "lower_witness": {
+        "entries": [
+          {
+            "pair": [
+              503,
+              509
+            ],
+            "pair_index": 0,
+            "type_id": "T0"
+          }
+        ],
+        "kind": "private_pairs",
+        "lower_bound": 1
+      },
+      "minimum_coordinate_count": 1,
+      "pair_count": 1,
+      "repair_cap": 27,
+      "source_file_bytes": 15147,
+      "source_path": "schemas/m32-widened-selector-cap-v1.json",
+      "source_sha256": "24f506ce7cb7ad9b10f8150f064441dbc1450f7402c72a6d228a363834eb9203",
+      "tracked_prime_count": 2,
+      "upper_witness": [
+        "T0"
+      ],
+      "verification_cost": {
+        "abstract_certificate_payload_bits": 21,
+        "bucket_label_bits": 18,
+        "certificate_verifier_bit_tests": 3,
+        "defense_mask_bit_tests": 1,
+        "defense_subset_count": 2,
+        "descriptor_prime_evaluations": 924,
+        "lower_witness_bit_tests": 1,
+        "lower_witness_payload_bits": 0,
+        "mask_storage_bits": 1,
+        "new_descriptor_count": 462,
+        "pattern_pair_tests": 1,
+        "pattern_storage_bits": 2,
+        "raw_coordinate_tests": 7392,
+        "selected_type_index_bits": 0,
+        "upper_mask_bit_tests": 1
+      }
+    },
+    {
+      "base_cap": 26,
+      "collision_buckets": [
+        [
+          569,
+          719
+        ]
+      ],
+      "coverage_types": [
+        {
+          "coverage_mask_hex": "1",
+          "pattern": [
+            0,
+            1
+          ],
+          "representative_source": "phi4:11:15:27:cofactor",
+          "type_id": "T0"
+        }
+      ],
+      "input_length": 19,
+      "lower_witness": {
+        "entries": [
+          {
+            "pair": [
+              569,
+              719
+            ],
+            "pair_index": 0,
+            "type_id": "T0"
+          }
+        ],
+        "kind": "private_pairs",
+        "lower_bound": 1
+      },
+      "minimum_coordinate_count": 1,
+      "pair_count": 1,
+      "repair_cap": 27,
+      "source_file_bytes": 15147,
+      "source_path": "schemas/m32-widened-selector-cap-v1.json",
+      "source_sha256": "24f506ce7cb7ad9b10f8150f064441dbc1450f7402c72a6d228a363834eb9203",
+      "tracked_prime_count": 2,
+      "upper_witness": [
+        "T0"
+      ],
+      "verification_cost": {
+        "abstract_certificate_payload_bits": 23,
+        "bucket_label_bits": 20,
+        "certificate_verifier_bit_tests": 3,
+        "defense_mask_bit_tests": 1,
+        "defense_subset_count": 2,
+        "descriptor_prime_evaluations": 924,
+        "lower_witness_bit_tests": 1,
+        "lower_witness_payload_bits": 0,
+        "mask_storage_bits": 1,
+        "new_descriptor_count": 462,
+        "pattern_pair_tests": 1,
+        "pattern_storage_bits": 2,
+        "raw_coordinate_tests": 7392,
+        "selected_type_index_bits": 0,
+        "upper_mask_bit_tests": 1
+      }
+    },
+    {
+      "base_cap": 30,
+      "collision_buckets": [
+        [
+          809,
+          827
+        ]
+      ],
+      "coverage_types": [
+        {
+          "coverage_mask_hex": "1",
+          "pattern": [
+            0,
+            1
+          ],
+          "representative_source": "phi4:23:31:21:cofactor",
+          "type_id": "T0"
+        }
+      ],
+      "input_length": 20,
+      "lower_witness": {
+        "entries": [
+          {
+            "pair": [
+              809,
+              827
+            ],
+            "pair_index": 0,
+            "type_id": "T0"
+          }
+        ],
+        "kind": "private_pairs",
+        "lower_bound": 1
+      },
+      "minimum_coordinate_count": 1,
+      "pair_count": 1,
+      "repair_cap": 31,
+      "source_file_bytes": 15147,
+      "source_path": "schemas/m32-widened-selector-cap-v1.json",
+      "source_sha256": "24f506ce7cb7ad9b10f8150f064441dbc1450f7402c72a6d228a363834eb9203",
+      "tracked_prime_count": 2,
+      "upper_witness": [
+        "T0"
+      ],
+      "verification_cost": {
+        "abstract_certificate_payload_bits": 23,
+        "bucket_label_bits": 20,
+        "certificate_verifier_bit_tests": 3,
+        "defense_mask_bit_tests": 1,
+        "defense_subset_count": 2,
+        "descriptor_prime_evaluations": 974,
+        "lower_witness_bit_tests": 1,
+        "lower_witness_payload_bits": 0,
+        "mask_storage_bits": 1,
+        "new_descriptor_count": 487,
+        "pattern_pair_tests": 1,
+        "pattern_storage_bits": 2,
+        "raw_coordinate_tests": 7792,
+        "selected_type_index_bits": 0,
+        "upper_mask_bit_tests": 1
+      }
+    },
+    {
+      "base_cap": 32,
+      "collision_buckets": [
+        [
+          1031,
+          1231,
+          1319,
+          1433
+        ]
+      ],
+      "coverage_types": [
+        {
+          "coverage_mask_hex": "07",
+          "pattern": [
+            0,
+            1,
+            1,
+            1
+          ],
+          "representative_source": "phi6:17:33:15:cofactor",
+          "type_id": "T0"
+        },
+        {
+          "coverage_mask_hex": "2a",
+          "pattern": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "representative_source": "phi6:5:33:27:cofactor",
+          "type_id": "T1"
+        },
+        {
+          "coverage_mask_hex": "34",
+          "pattern": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "representative_source": "phi6:23:33:14:cofactor",
+          "type_id": "T2"
+        }
+      ],
+      "input_length": 21,
+      "lower_witness": {
+        "entries": [
+          {
+            "pair": [
+              1031,
+              1231
+            ],
+            "pair_index": 0,
+            "type_id": "T0"
+          },
+          {
+            "pair": [
+              1231,
+              1319
+            ],
+            "pair_index": 3,
+            "type_id": "T1"
+          },
+          {
+            "pair": [
+              1231,
+              1433
+            ],
+            "pair_index": 4,
+            "type_id": "T2"
+          }
+        ],
+        "kind": "private_pairs",
+        "lower_bound": 3
+      },
+      "minimum_coordinate_count": 3,
+      "pair_count": 6,
+      "repair_cap": 33,
+      "source_file_bytes": 6411,
+      "source_path": "schemas/m33-linear-cap-recurrence-v1.json",
+      "source_sha256": "5947cc85d8664fcb1433d7d748a7d7be0be81098c49ddd433cc0645313c77b80",
+      "tracked_prime_count": 4,
+      "upper_witness": [
+        "T0",
+        "T1",
+        "T2"
+      ],
+      "verification_cost": {
+        "abstract_certificate_payload_bits": 95,
+        "bucket_label_bits": 44,
+        "certificate_verifier_bit_tests": 45,
+        "defense_mask_bit_tests": 72,
+        "defense_subset_count": 8,
+        "descriptor_prime_evaluations": 964,
+        "lower_witness_bit_tests": 9,
+        "lower_witness_payload_bits": 15,
+        "mask_storage_bits": 18,
+        "new_descriptor_count": 241,
+        "pattern_pair_tests": 18,
+        "pattern_storage_bits": 12,
+        "raw_coordinate_tests": 7712,
+        "selected_type_index_bits": 6,
+        "upper_mask_bit_tests": 18
+      }
+    },
+    {
+      "base_cap": 38,
+      "collision_buckets": [
+        [
+          1481,
+          1571
+        ]
+      ],
+      "coverage_types": [
+        {
+          "coverage_mask_hex": "1",
+          "pattern": [
+            0,
+            1
+          ],
+          "representative_source": "phi4:39:23:16:cofactor",
+          "type_id": "T0"
+        }
+      ],
+      "input_length": 22,
+      "lower_witness": {
+        "entries": [
+          {
+            "pair": [
+              1481,
+              1571
+            ],
+            "pair_index": 0,
+            "type_id": "T0"
+          }
+        ],
+        "kind": "private_pairs",
+        "lower_bound": 1
+      },
+      "minimum_coordinate_count": 1,
+      "pair_count": 1,
+      "repair_cap": 39,
+      "source_file_bytes": 10415,
+      "source_path": "schemas/m34-next-envelope-v1.json",
+      "source_sha256": "36bd038cd325dc4bb151ffd366b1d47ed670f4ef4b7871343e14624d52fc2968",
+      "tracked_prime_count": 2,
+      "upper_witness": [
+        "T0"
+      ],
+      "verification_cost": {
+        "abstract_certificate_payload_bits": 25,
+        "bucket_label_bits": 22,
+        "certificate_verifier_bit_tests": 3,
+        "defense_mask_bit_tests": 1,
+        "defense_subset_count": 2,
+        "descriptor_prime_evaluations": 2040,
+        "lower_witness_bit_tests": 1,
+        "lower_witness_payload_bits": 0,
+        "mask_storage_bits": 1,
+        "new_descriptor_count": 1020,
+        "pattern_pair_tests": 1,
+        "pattern_storage_bits": 2,
+        "raw_coordinate_tests": 16320,
+        "selected_type_index_bits": 0,
+        "upper_mask_bit_tests": 1
+      }
+    },
+    {
+      "base_cap": 46,
+      "collision_buckets": [
+        [
+          2411,
+          2777
+        ]
+      ],
+      "coverage_types": [
+        {
+          "coverage_mask_hex": "1",
+          "pattern": [
+            0,
+            1
+          ],
+          "representative_source": "phi6:47:45:11:cofactor",
+          "type_id": "T0"
+        }
+      ],
+      "input_length": 23,
+      "lower_witness": {
+        "entries": [
+          {
+            "pair": [
+              2411,
+              2777
+            ],
+            "pair_index": 0,
+            "type_id": "T0"
+          }
+        ],
+        "kind": "private_pairs",
+        "lower_bound": 1
+      },
+      "minimum_coordinate_count": 1,
+      "pair_count": 1,
+      "repair_cap": 47,
+      "source_file_bytes": 12941,
+      "source_path": "schemas/m35-next-envelope-v1.json",
+      "source_sha256": "65f97c06c59b60bbf649fdb7146a59c51ab33f7002445344a168be88a3ad459e",
+      "tracked_prime_count": 2,
+      "upper_witness": [
+        "T0"
+      ],
+      "verification_cost": {
+        "abstract_certificate_payload_bits": 27,
+        "bucket_label_bits": 24,
+        "certificate_verifier_bit_tests": 3,
+        "defense_mask_bit_tests": 1,
+        "defense_subset_count": 2,
+        "descriptor_prime_evaluations": 3092,
+        "lower_witness_bit_tests": 1,
+        "lower_witness_payload_bits": 0,
+        "mask_storage_bits": 1,
+        "new_descriptor_count": 1546,
+        "pattern_pair_tests": 1,
+        "pattern_storage_bits": 2,
+        "raw_coordinate_tests": 24736,
+        "selected_type_index_bits": 0,
+        "upper_mask_bit_tests": 1
+      }
+    },
+    {
+      "base_cap": 50,
+      "collision_buckets": [
+        [
+          3049,
+          3643,
+          3863,
+          4057
+        ]
+      ],
+      "coverage_types": [
+        {
+          "coverage_mask_hex": "07",
+          "pattern": [
+            0,
+            1,
+            1,
+            1
+          ],
+          "representative_source": "phi6:23:39:51:cofactor",
+          "type_id": "T0"
+        },
+        {
+          "coverage_mask_hex": "19",
+          "pattern": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "representative_source": "phi4:51:23:42:cofactor",
+          "type_id": "T1"
+        },
+        {
+          "coverage_mask_hex": "2a",
+          "pattern": [
+            0,
+            0,
+            1,
+            0
+          ],
+          "representative_source": "phi4:43:51:49:cofactor",
+          "type_id": "T2"
+        },
+        {
+          "coverage_mask_hex": "34",
+          "pattern": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "representative_source": "phi4:43:51:23:cofactor",
+          "type_id": "T3"
+        }
+      ],
+      "input_length": 24,
+      "lower_witness": {
+        "entries": [
+          {
+            "type_ids": [
+              "T0",
+              "T1"
+            ],
+            "uncovered_pair": [
+              3863,
+              4057
+            ],
+            "uncovered_pair_index": 5
+          },
+          {
+            "type_ids": [
+              "T0",
+              "T2"
+            ],
+            "uncovered_pair": [
+              3643,
+              4057
+            ],
+            "uncovered_pair_index": 4
+          },
+          {
+            "type_ids": [
+              "T0",
+              "T3"
+            ],
+            "uncovered_pair": [
+              3643,
+              3863
+            ],
+            "uncovered_pair_index": 3
+          },
+          {
+            "type_ids": [
+              "T1",
+              "T2"
+            ],
+            "uncovered_pair": [
+              3049,
+              4057
+            ],
+            "uncovered_pair_index": 2
+          },
+          {
+            "type_ids": [
+              "T1",
+              "T3"
+            ],
+            "uncovered_pair": [
+              3049,
+              3863
+            ],
+            "uncovered_pair_index": 1
+          },
+          {
+            "type_ids": [
+              "T2",
+              "T3"
+            ],
+            "uncovered_pair": [
+              3049,
+              3643
+            ],
+            "uncovered_pair_index": 0
+          }
+        ],
+        "kind": "subset_obstructions",
+        "lower_bound": 3,
+        "subset_size": 2
+      },
+      "minimum_coordinate_count": 3,
+      "pair_count": 6,
+      "repair_cap": 51,
+      "source_file_bytes": 15142,
+      "source_path": "schemas/m36-distinct-cap-v1.json",
+      "source_sha256": "3709d2e2a35212103ad838f83a25152e996cb33b9b5786d9642935a8d2ccfbcb",
+      "tracked_prime_count": 4,
+      "upper_witness": [
+        "T0",
+        "T1",
+        "T2"
+      ],
+      "verification_cost": {
+        "abstract_certificate_payload_bits": 136,
+        "bucket_label_bits": 48,
+        "certificate_verifier_bit_tests": 54,
+        "defense_mask_bit_tests": 192,
+        "defense_subset_count": 16,
+        "descriptor_prime_evaluations": 7184,
+        "lower_witness_bit_tests": 12,
+        "lower_witness_payload_bits": 42,
+        "mask_storage_bits": 24,
+        "new_descriptor_count": 1796,
+        "pattern_pair_tests": 24,
+        "pattern_storage_bits": 16,
+        "raw_coordinate_tests": 57472,
+        "selected_type_index_bits": 6,
+        "upper_mask_bit_tests": 18
+      }
+    },
+    {
+      "base_cap": 64,
+      "collision_buckets": [
+        [
+          5011,
+          5179
+        ]
+      ],
+      "coverage_types": [
+        {
+          "coverage_mask_hex": "1",
+          "pattern": [
+            0,
+            1
+          ],
+          "representative_source": "phi4:19:43:65:cofactor",
+          "type_id": "T0"
+        }
+      ],
+      "input_length": 25,
+      "lower_witness": {
+        "entries": [
+          {
+            "pair": [
+              5011,
+              5179
+            ],
+            "pair_index": 0,
+            "type_id": "T0"
+          }
+        ],
+        "kind": "private_pairs",
+        "lower_bound": 1
+      },
+      "minimum_coordinate_count": 1,
+      "pair_count": 1,
+      "repair_cap": 65,
+      "source_file_bytes": 23598,
+      "source_path": "schemas/m37-length-25-cap-v1.json",
+      "source_sha256": "d85d081243f5ae32b38405e35e8921ff3378ccd5bbb19c63eb135b79c4b61524",
+      "tracked_prime_count": 2,
+      "upper_witness": [
+        "T0"
+      ],
+      "verification_cost": {
+        "abstract_certificate_payload_bits": 29,
+        "bucket_label_bits": 26,
+        "certificate_verifier_bit_tests": 3,
+        "defense_mask_bit_tests": 1,
+        "defense_subset_count": 2,
+        "descriptor_prime_evaluations": 2108,
+        "lower_witness_bit_tests": 1,
+        "lower_witness_payload_bits": 0,
+        "mask_storage_bits": 1,
+        "new_descriptor_count": 1054,
+        "pattern_pair_tests": 1,
+        "pattern_storage_bits": 2,
+        "raw_coordinate_tests": 16864,
+        "selected_type_index_bits": 0,
+        "upper_mask_bit_tests": 1
+      }
+    }
+  ],
+  "lower_witness_rules": {
+    "cardinality": "ceil(log2(maximum bucket size))",
+    "private_pairs": "one pair covered by exactly one selected type",
+    "subset_obstructions": "one explicit uncovered pair for every (k-1)-type subset"
+  },
+  "pair_order": "bucket order, then increasing left index, then increasing right index",
+  "schema_version": "1.0.0",
+  "status": "PASS",
+  "summary_sha256": "77c8ae289277875815e7744b37456627f619fc601d4fb2ccca35031b7f248aae",
+  "totals": {
+    "abstract_certificate_payload_bits": 483,
+    "certificate_verifier_bit_tests": 145,
+    "coverage_type_count": 18,
+    "defense_mask_bit_tests": 314,
+    "defense_subset_count": 48,
+    "descriptor_prime_evaluations": 19365,
+    "instance_count": 10,
+    "lower_witness_bit_tests": 32,
+    "minimum_coordinate_count": 16,
+    "new_descriptor_count": 7398,
+    "pair_count": 23,
+    "pattern_pair_tests": 61,
+    "raw_coordinate_tests": 154920,
+    "source_file_bytes": 144242,
+    "tracked_prime_count": 27,
+    "upper_mask_bit_tests": 52
+  }
+}

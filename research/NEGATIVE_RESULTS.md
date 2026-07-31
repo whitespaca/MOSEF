@@ -1406,3 +1406,27 @@
 - Scope: this refutes only sufficiency of the generic lower bound for these
   frozen coordinate families. It does not refute the bound, claim a result
   for other selector families, or imply anything about general factoring.
+
+## NR-061 - Private pairs do not certify every exact finite repair minimum
+
+- Date: 2026-07-31.
+- Status: exact finite lower-certificate hypothesis refuted as `REF-062`;
+  `THM-021` itself remains valid.
+- Hypothesis tested: every minimum cover of a complete finite binary
+  coverage-type system has a selected realization in which each selected type
+  owns a pair covered by no other available type.
+- Smallest registered obstruction: at length 16 the complete masks are
+  \(3,5,6\) on a three-pair universe. The exact cover minimum is two, but each
+  bit position is covered by two of the three available types, so no type has
+  a private pair.
+- Stronger obstruction: at length 24 the complete masks are
+  \(07,19,2a,34\) on six pairs. The exact minimum is three and no selected type
+  has a private pair. Every one of the six two-type subsets instead has an
+  explicit uncovered pair, which supplies the exact lower bound through
+  THM-022.
+- Consequence: private pairs remain compact exact certificates for 17 of the
+  19 frozen repair transitions, but the early portfolio must also admit
+  cardinality and subset-obstruction witnesses.
+- Scope: this refutes completeness of one lower-certificate form, not the
+  pair-cover equivalence, the private-pair theorem under its hypotheses, or
+  any factoring algorithm.

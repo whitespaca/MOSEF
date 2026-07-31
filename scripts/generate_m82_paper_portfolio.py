@@ -71,6 +71,7 @@ PAPERS: tuple[dict[str, Any], ...] = (
         "representative_claims": [
             "BAR-024",
             "THM-021",
+            "THM-022",
             "THM-004",
             "THM-005",
             "THM-014",

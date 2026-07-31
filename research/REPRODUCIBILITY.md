@@ -25,6 +25,9 @@ python scripts/check_m91_all_rows_semantic_certificate.py
 python scripts/run_m92_pair_cover_audit.py
 python scripts/generate_m92_pair_cover_schema.py
 python scripts/check_m92_pair_cover_certificate.py
+python scripts/run_m93_early_repair_audit.py
+python scripts/generate_m93_early_repair_schema.py
+python scripts/check_m93_early_repair_certificate.py
 python scripts/check_publication.py
 ```
 
@@ -66,6 +69,7 @@ pytest -p no:cacheprovider tests/test_m89_appendix_boundaries.py -q
 pytest -p no:cacheprovider tests/test_m90_finite_chronology.py -q
 pytest -p no:cacheprovider tests/test_m91_all_rows_semantic_certificate.py -q
 pytest -p no:cacheprovider tests/test_m92_pair_cover_certificate.py -q
+pytest -p no:cacheprovider tests/test_m93_early_repair_certificate.py -q
 ```
 
 These commands recompute registered masks, identities, collision or
@@ -102,21 +106,28 @@ the explicit bit-cost ledger. The registered abstract payload is 745 bits;
 source hashing/parsing is separately charged over 5,939,505 bytes. The
 targeted tests use M91 only as a differential raw-coverage oracle.
 
+The M93 commands independently reconstruct the ten early transition type
+systems at lengths 16--25. The 679-line production checker imports neither
+the generator nor M91; it evaluates 154,920 primitive coordinates, validates
+private-pair, cardinality, and subset-obstruction lower witnesses, and checks
+the 483-bit abstract payload. The targeted suite loads M91 only for complete
+raw-type and evaluation-count differential comparison.
+
 The M87 commands are editorial integrity checks rather than semantic
 certificate reconstruction. They enforce one four-row cost ledger before
 section 1 of each focused manuscript, a reproducible 200--300 lexical-token
-abstract interval, and exact bilingual parity for the 21 representative claim
+abstract interval, and exact bilingual parity for the 23 representative claim
 IDs and statuses.
 
 The M88 commands validate the reader-facing layer over those same claims.
 They require one compact heading per claim, exactly five localized label
 families in each language, stable claim order, visible `PROVED` metadata, and
-the exact 21-ID bilingual map. Passing does not promote a claim or create a
+the exact 23-ID bilingual map. Passing does not promote a claim or create a
 second numbering authority.
 
 The M89 commands validate the boundary between mathematical narrative and
 repository audit material. They fix the order of 34 main sections, require 12
-labeled appendices, and preserve exact bilingual registries containing 32
+labeled appendices, and preserve exact bilingual registries containing 42
 commands, 38 repository paths, and 14 inspected-source anchors. They also
 reject commands, paths, experiment IDs, hashes, and internal milestone tokens
 in the main body. Passing is an editorial integrity result; it neither

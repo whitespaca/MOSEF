@@ -3568,6 +3568,50 @@ subsets. Eleven tests include semantic mutations and raw-coverage
 differential equality with the M91 path. This finite application does not
 extend beyond \(m=34\) or support a general factoring claim.
 
+\claimstatus{DEF-049}{DEFINITION}. An exact finite repair portfolio contains
+a covering \(k\)-type upper witness and one lower witness: private pairs, an
+exact bucket-cardinality bound, or an explicit uncovered pair for every
+\((k-1)\)-type subset of the complete available family.
+
+\claimstatus{THM-022}{PROVED}. Suppose \(k\) complete coverage types cover
+\(U(\Pi)\), and every \(S\in\binom{T}{k-1}\) has a recorded pair outside
+\(\bigcup_{a\in S}a\). Then the exact repair number is \(k\). The upper
+witness proves at most \(k\). No \((k-1)\)-type set covers; any smaller cover
+could be padded to \(k-1\) types and would contradict its obstruction, so
+the lower bound is \(k\). Independently, a block of size \(b_{\max}\)
+requires at least \(\lceil\log_2b_{\max}\rceil\) binary coordinates.
+
+With \(e=\binom{t}{k-1}\), the subset-obstruction verifier uses
+\[
+ O(tb+tq+kq+e(k-1)+\lambda)
+\]
+bit operations and payload polynomial in the explicit \(e\)-entry witness.
+This is not a claim that \(e\) is polynomial in an external asymptotic input
+length. Completeness of \(T\) remains an explicit premise.
+
+\claimstatus{REF-062}{REFUTED}. Private-pair witnesses do not certify every
+exact finite repair. At \(m=16\), the complete masks \(3,5,6\) have exact
+minimum two but no private pair; the three-point cardinality bound is exact.
+At \(m=24\), the masks \(07,19,2a,34\) have exact minimum three and no
+private pair. Cardinality gives only two, while explicit uncovered pairs for
+all six two-type subsets prove the exact lower bound. This does not refute
+THM-021 under its stated hypothesis.
+
+\claimstatus{EMP-064}{EMPIRICAL}. EXP-0064 independently reconstructs the
+ten early repairs at \(16\le m\le25\). It evaluates 7,398 newly admitted
+descriptors at 27 tracked primes through 19,365 descriptor/prime evaluations
+and 154,920 primitive-coordinate tests. The resulting 23 pairs and 18
+complete coverage types have exact minima
+\[
+ 2,2,1,1,1,3,1,1,3,1.
+\]
+Eight instances use private pairs, \(m=16\) uses cardinality, and \(m=24\)
+uses six subset obstructions. The abstract payload is 483 bits and the core
+ledger is 145 bit tests. Fourteen tests include seven rehashed mutations and
+complete raw-type/count differential equality with M91. Together with
+EXP-0063, all 19 frozen repairs through \(m=34\) now have exact compact
+certificates; no asymptotic or general-factoring conclusion follows.
+
 Appendix \ref{proof:THM-019-BAR-040} gives the complete finite proof.
 
 \section{Polynomial numeric-cap support barrier}

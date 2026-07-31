@@ -1491,3 +1491,23 @@
   as bounded defense in depth, but that exponential path is not part of the
   theorem's asymptotic verifier. Source hashing/parsing remains a separately
   charged 5,939,505-byte provenance layer.
+
+## ADR-078 - Use a portfolio of lower witnesses for early repairs
+
+- Date: 2026-07-31.
+- Decision: retain private-pair lower witnesses where they exist, use the
+  information-theoretic bucket-cardinality bound when it exactly matches the
+  upper witness, and otherwise enumerate one uncovered pair for every
+  \((k-1)\)-type subset. Require an independently reconstructed complete type
+  list for private-pair and subset-obstruction claims.
+- Rationale: the early length-16 and length-24 type systems have exact minimum
+  covers but no private pair for any selected type. Cardinality is exact at
+  length 16 but gives only two below the length-24 minimum three. The six
+  two-type subsets at length 24 are small enough to expose directly without
+  treating brute-force search as a proof object.
+- Consequence: THM-022 gives a general finite subset-obstruction certificate,
+  while REF-062 and NR-061 preserve the boundary of the private-pair
+  criterion. The M93 production checker independently evaluates 154,920 raw
+  primitive coordinates and checks a 483-bit abstract portfolio. The result
+  remains finite and selector-specific and does not change the OPEN status of
+  general classical polynomial-time factoring.
