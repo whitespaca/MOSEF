@@ -272,9 +272,13 @@ noninjective. Charging the mandatory distinct-level packing
 is also eventually noninjective. Deduplicating high-weight charges by their
 GCD gap removes the subset exponent and expands this uniform range to
 \(c<1/2\). The endpoint \(c=1/2\) remains open.
-Deterministic bounded searches and independent Python, Rust, and C\#
-implementations audit these statements but are not used as proofs. No general
-polynomial-time classical factoring algorithm or lower bound is claimed.
+A 987-line standard-library checker independently reconstructs all 26 frozen
+finite-selector rows from 16 source artifacts under a measured
+155.31-second, 29.15-MiB bound; this is finite empirical audit evidence, not
+an asymptotic inference. Deterministic bounded searches and independent
+Python, Rust, and C\# implementations audit these statements but are not used
+as proofs. No general polynomial-time classical factoring algorithm or lower
+bound is claimed.
 \end{abstract}
 
 \section{Introduction and contributions}
@@ -3509,6 +3513,16 @@ slots. It checks all 704,261 cap-200 descriptors on the predecessor pair and
 all 81,112 newly admitted cap-201 primitive coordinates. Nine clean-room and
 mutation tests pass. This is finite M46-only evidence, not an asymptotic or
 general-factoring result.
+
+\claimstatus{EMP-062}{EMPIRICAL}. EXP-0062 adds a 987-line
+standard-library-only checker with no project imports. It reconstructs all 26
+frozen M50 rows from 16 source artifacts: 12,245 population entries, 17,515
+selected coordinates, 28,245,185 certificate evaluations, 7,520,669 raw mask
+evaluations, the exact predecessor buckets, and all nine certified repair
+minima. Eleven clean-room and mutation tests pass. The measured run used
+155.31 seconds and 29.15 MiB peak working set. This remains finite evidence
+for the exact selector through \(m=34\), not a recognizer, asymptotic theorem,
+or general-factoring result.
 
 Appendix \ref{proof:THM-019-BAR-040} gives the complete finite proof.
 

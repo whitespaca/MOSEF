@@ -59,6 +59,10 @@ anchors, and state their own exclusions.
   reviewer-prioritized cases and all seven focused claim IDs; the complete
   row audit is
   `research/reviews/2026-07-31-m90-finite-chronology-editorial-audit.md`.
+- M91 reconstructs all 26 finite rows from the shared public grammar without
+  importing project code. Its 16-source inventory and measured reviewer bound
+  are in `research/reviews/2026-07-31-m91-cleanroom-inventory.md` and
+  `research/experiments/EXP-0062-m91-all-row-semantic-checker.md`.
 
 ## Reproduction
 
@@ -74,6 +78,8 @@ python scripts/check_m89_appendix_boundaries.py
 pytest -p no:cacheprovider tests/test_m89_appendix_boundaries.py -q
 python scripts/check_m90_finite_chronology.py
 pytest -p no:cacheprovider tests/test_m90_finite_chronology.py -q
+python scripts/check_m91_all_rows_semantic_certificate.py
+pytest -p no:cacheprovider tests/test_m91_all_rows_semantic_certificate.py -q
 ```
 
 Compile the six papers from the repository root with XeLaTeX:

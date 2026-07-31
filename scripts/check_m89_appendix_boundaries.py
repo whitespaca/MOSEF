@@ -188,6 +188,7 @@ EXPECTED_COMMANDS = {
         "python scripts/check_m50_finite_threshold_summary.py",
         "python scripts/check_m85_m41_semantic_certificate.py",
         "python scripts/check_m86_m46_streaming_certificate.py",
+        "python scripts/check_m91_all_rows_semantic_certificate.py",
     ),
 }
 

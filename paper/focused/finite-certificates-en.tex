@@ -25,12 +25,12 @@ compact modular evaluations, every GCD and inversion branch, extraction, and
 output.  Population enumeration, cap search, support-signature normalization,
 collision refinement, certificate generation, and hashing are offline proof
 costs and are not algorithmic advice or hidden online inputs.  The
-certificate records an adjacent predecessor collision and a separating
-repair for each threshold.  Two standard-library checkers reduce the trusted
-computing base without importing generator code: a 548-line checker
-reconstructs the representative \(m=29\) row, and a 624-line streaming
-checker verifies the final \(m=34\) row through 10,880,102 evaluations while
-retaining 3,299 packed signatures.  Separately, we prove that every
+  certificate records an adjacent predecessor collision and a separating
+  repair for each threshold.  A 987-line standard-library checker reduces the
+  trusted computing base without generator or project imports: it reconstructs
+  all 26 rows from 16 frozen sources through 28,245,185 certificate and
+  7,520,669 raw-mask evaluations, within a measured 29.15 MiB peak.
+  Separately, we prove that every
 polynomial numeric cap in this exact grammar eventually fails and establish
 compact-gap noninjectivity barriers below the audited boundary.  These
 certificates concern a small finite range and one selector family; they do
@@ -75,24 +75,24 @@ the online algorithm evaluates its full public GCD list.  The generator,
 registered schemas, independent checkers, and publication projection remain
 distinct artifacts.
 
-The representative \(m=29\) row has a clean-room semantic path.
-The 548-line checker uses only the Python standard library.  It independently
-sieves all 685 balanced primes, validates every certificate source against
-the public descriptor grammar, and recomputes the eight primitive exits.
-Away from a cyclotomic root it evaluates the cofactor by finite-field
-division; at a simple root it differentiates the exact identity
-\(F=\Phi C\), giving \(C(g)=F'(g)/\Phi'(g)\).  Every registered \(m=29\)
-coordinate is away from a root, so the certificate evidence uses only the
-unit-division branch.  A separate exact small vector tests the derivative
-branch at a simple root.  No generator, project number-theory implementation,
-or prior checker is imported.
+All 26 rows now share a clean-room semantic path.  The 987-line checker uses
+only the Python standard library.  It independently sieves 12,245 balanced
+population entries, validates 17,515 selected sources against the public
+descriptor grammar, and streams 28,245,185 coordinate evaluations into one
+packed signature per prime.  It reconstructs the complete raw predecessor
+partition at lengths 16--25; at lengths 26--34 it sandwiches each exact
+collision between a selected subcertificate and every raw descriptor.
+An exhaustive finite pair-cover computation recovers the nine registered
+repair minima, keeping the cap-72 and cap-88 baselines at lengths 27 and 28.
 
-The final \(m=34\) row uses the same no-project-import boundary.
-It streams all 3,298 coordinates across 3,299 primes while retaining only
-3,299 packed signatures, checks every cap-200 descriptor on the tracked pair,
-and checks all 81,112 newly admitted cap-201 primitive coordinates.  This
-range \(p\ge92683>201^2+1\) makes every cofactor denominator nonzero, so its
-registered evidence uses unit division only.
+Away from a cyclotomic root the checker evaluates the cofactor by finite-field
+division; at a simple root it differentiates the exact identity
+\(F=\Phi C\), giving \(C(g)=F'(g)/\Phi'(g)\).  A separate exact small vector
+tests that derivative branch.  No generator, project number-theory module,
+or earlier checker is imported.  Separately implemented representative and
+endpoint checkers remain as differential paths at \(m=29\) and \(m=34\).
+The table-wide reconstruction is \texttt{EMPIRICAL} finite audit evidence;
+it changes no theorem status or scope.
 
 \section{Signature criterion}
 
@@ -359,17 +359,17 @@ python scripts/generate_m50_finite_threshold_summary.py --check
 python scripts/check_m50_finite_threshold_summary.py
 python scripts/check_m85_m41_semantic_certificate.py
 python scripts/check_m86_m46_streaming_certificate.py
+python scripts/check_m91_all_rows_semantic_certificate.py
 \end{verbatim}
 The underlying M31--M46 schemas, generators, differential checkers, commands,
 toolchains, row hashes, and selected cross-language vectors remain under
 \path{schemas}, \path{scripts}, and \path{research/experiments}.
 The first two commands validate the 26-row projection and frozen-source
-integrity.  The third and fourth are deeper independent semantic paths for
-M41 and M46;
-eight mutation and clean-room tests include rehashed population, descriptor,
-and primitive-vector changes plus the separate simple-root boundary vector.
-The M46 path adds nine tests and a 3,299-slot streaming invariant.  They do
-not independently validate the other 24 rows.
+integrity.  The third and fourth retain separately implemented semantic
+paths for M41 and M46.  The fifth reconstructs all 26 rows from the shared
+public grammar, checks every registered source digest, and passed 11
+clean-room and mutation tests under a 987-line, 155.31-second, and
+29.15-MiB measured reviewer bound.
 
 The archival monograph \archivepaper{} retains the complete transition
 chronology and full proofs.  The claim ledger is
