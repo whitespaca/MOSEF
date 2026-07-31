@@ -115,8 +115,8 @@ O(B(k)\log B(k)+\log R(k)).
 Binary powering, GCD, exact
 preprocessing, and the \(O(m)\)-node factor tree therefore give expected
 \(\poly(m)\) bit cost.  Every output is a checked proper divisor, so the
-algorithm is always correct.  The fully expanded branch and recursion proof
-is archived at \path{research/proofs/THM-001-semismooth-promise.md}.
+algorithm is always correct.  The fully expanded branch and recursion
+artifact is indexed in Appendix~\ref{app:promise-reproduction}.
 \end{claimproof}
 
 Freshness cannot be dropped: for \(N=51\), base \(2\), and
@@ -226,8 +226,8 @@ CRT therefore gives probability
 \]
 Fresh parameters give the geometric tail.  Binary Lucas evaluation uses
 the exponent's polynomial bit length, and the preprocessing and recursion
-argument is the one used for THM-001.  The full proof is
-\path{research/proofs/THM-002-nonsplit-lucas-promise.md}.
+argument is the one used for THM-001.  The full proof artifact is indexed in
+Appendix~\ref{app:promise-reproduction}.
 \end{claimproof}
 
 \section{Bounded total wrappers}
@@ -260,9 +260,7 @@ between recursive nodes, therefore gives
 \]
 Outside the promises only totality and no-wrong-factor correctness survive;
 \texttt{UNRESOLVED} does not decide membership. The complete proof and exact
-reference API are in
-\path{research/proofs/M84-bounded-total-promise-wrappers.md} and
-\path{python/mosef_reference/promise_wrappers.py}.
+reference API are indexed in Appendix~\ref{app:promise-reproduction}.
 
 \section{A common-schedule limitation}
 
@@ -313,7 +311,10 @@ pair bound of BAR-003 proves the conclusion.  This is not a lower bound for
 all compact representations or adaptive schedules.
 \end{claimproof}
 
-\section{Primary-source positioning}
+\appendix
+
+\section{Primary-source positioning audit}
+\label{app:promise-source-positioning}
 
 \paragraph{M83-R01: Pollard \(p-1\).}
 Pollard's published procedure supplies the classical smooth-\(p-1\)
@@ -344,6 +345,18 @@ Failure to locate an identical formulation in this bounded audit is not
 evidence of novelty or priority.
 
 \section{Reproduction, limitations, and archival map}
+\label{app:promise-reproduction}
+
+\paragraph{Proof and implementation archive.}
+The expanded proof and executable anchors are listed below.
+\par\smallskip
+\noindent\begin{minipage}{\linewidth}
+\raggedright\small
+\path{research/proofs/THM-001-semismooth-promise.md}\\
+\path{research/proofs/THM-002-nonsplit-lucas-promise.md}\\
+\path{research/proofs/M84-bounded-total-promise-wrappers.md}\\
+\path{python/mosef_reference/promise_wrappers.py}
+\end{minipage}
 
 The deterministic finite audits supporting the two probability proofs are
 rerun by

@@ -1405,3 +1405,27 @@
   rendered headings to wrap existing `PROVED` metadata, and rejects missing,
   reordered, renamed, or unwrapped claims. Reader labels are editorial
   descriptions only; `research/CLAIMS.md` remains authoritative.
+
+## ADR-074 - Make the focused-paper narrative boundary executable
+
+- Date: 2026-07-31.
+- Decision: every focused English/Korean manuscript has exactly one
+  `\appendix` boundary followed by a primary-source-positioning appendix and
+  a reproduction/limitations/archive appendix. Keep the mathematical section
+  order and all representative claim IDs before that boundary. Require raw
+  reproduction commands, repository paths, experiment IDs, file hashes, and
+  internal milestone tokens to occur only after it.
+- Rationale: the supplied review asked that repository chronology and
+  reproducibility detail stop interrupting the mathematical narrative, but
+  moving prose by editorial judgment alone could silently lose an audit
+  anchor. A fixed bilingual registry makes both sides of the split
+  independently testable: the main body is free of repository-internal
+  mechanics, while the appendices remain complete enough to reproduce and
+  audit every focused result.
+- Consequence: `scripts/check_m89_appendix_boundaries.py` freezes 34 main
+  sections, 12 appendices, 32 commands, 38 paths, 14 source anchors, and the
+  21-ID bilingual claim map. It also requires a limitation statement in every
+  paper and rejects main-body leakage or appendix anchor loss. The boundary
+  is editorial only; it changes no claim status, proof, cost model, or
+  experiment. M90 may move the complete finite threshold chronology within
+  the finite-paper appendix, but may not alter its 26 registered rows.

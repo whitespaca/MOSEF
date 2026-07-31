@@ -104,7 +104,7 @@ unit의 절반 이하이다. proper nonunit은 이미 약수를 준다. 따라�
 새로운 표본은 기하 꼬리와 거의 확실한 종료를 준다. 지수 비트 길이는
 \(O(B(k)\log B(k)+\log R(k))\)이고 인수분해 재귀 트리의 노드 수는
 \(O(m)\)이므로 기대 비용은 \(\poly(m)\)이다. 완전한 branch 및 재귀
-증명은 \path{research/proofs/THM-001-semismooth-promise.md}에 있다.
+artifact는 부록~\ref{app:promise-reproduction}에 색인되어 있다.
 \end{claimproof}
 
 고정 밑으로 바꾸면 정리가 깨진다. \(N=51\), \(a=2\),
@@ -206,8 +206,8 @@ C_q(d)\le(3q-9)/4
 \frac{p-1}{2p}\frac{q-C_q(d)}q>\frac1{12}
 \]
 이다. 새로운 매개변수, 이진 Lucas 평가, 전처리와 재귀는 기하 꼬리와
-다항 기대 비용을 준다. 완전한 증명은
-\path{research/proofs/THM-002-nonsplit-lucas-promise.md}에 있다.
+다항 기대 비용을 준다. 완전한 증명 artifact는
+부록~\ref{app:promise-reproduction}에 색인되어 있다.
 \end{claimproof}
 
 \section{유한 예산 total wrapper}
@@ -237,13 +237,7 @@ C_q(d)\le(3q-9)/4
 \]
 를 준다. 약속 밖에서는 totality와 no-wrong-factor 정확성만 남는다.
 \texttt{UNRESOLVED}는 membership 판정이 아니다. 전체 증명과 실행
-의미론은 다음 파일에 있다.
-\par\smallskip
-\noindent\begin{minipage}{\linewidth}
-\raggedright\small
-\path{research/proofs/M84-bounded-total-promise-wrappers.md}\\
-\path{python/mosef_reference/promise_wrappers.py}
-\end{minipage}
+의미론은 부록~\ref{app:promise-reproduction}에 색인되어 있다.
 
 \section{공통 schedule의 한계}
 
@@ -289,7 +283,10 @@ nonzero signature에 닿는 쌍을 세면 첫 부등식이 나온다. 각 \(d\)�
 이는 모든 compact 표현이나 adaptive schedule의 하한이 아니다.
 \end{claimproof}
 
-\section{1차 문헌 포지셔닝}
+\appendix
+
+\section{1차 문헌 포지셔닝 감사}
+\label{app:promise-source-positioning}
 
 \paragraph{M83-R01: Pollard \(p-1\).}
 Pollard의 출판 절차는 unit 및 full-collision 분기를 포함한 고전적
@@ -316,7 +313,19 @@ signature 단사성 자체를 새로운 조합론 개념으로 주장하지 않�
 등록된 M83 행렬은 전체 1차 문헌 비교를 보존한다. 이 제한 감사에서
 동일한 정식화를 찾지 못한 사실은 독창성이나 우선권의 증거가 아니다.
 
-\section{재현성과 한계}
+\section{재현성, 한계 및 아카이브 지도}
+\label{app:promise-reproduction}
+
+\paragraph{증명 및 구현 아카이브.}
+확장된 증명과 실행 anchor는 다음과 같다.
+\par\smallskip
+\noindent\begin{minipage}{\linewidth}
+\raggedright\small
+\path{research/proofs/THM-001-semismooth-promise.md}\\
+\path{research/proofs/THM-002-nonsplit-lucas-promise.md}\\
+\path{research/proofs/M84-bounded-total-promise-wrappers.md}\\
+\path{python/mosef_reference/promise_wrappers.py}
+\end{minipage}
 
 \begin{verbatim}
 python scripts/run_m3_semismooth_search.py
@@ -326,13 +335,21 @@ python scripts/check_m7_nonsplit_differential.py
 python scripts/check_m84_promise_wrappers.py
 python -m unittest discover -s tests -p test_promise_wrappers.py
 \end{verbatim}
-EXP-0003과 EXP-0006의 실험 기록은 \path{research/experiments}에 있다.
+실험 기록은 다음 두 파일이다.
+\par\smallskip
+\noindent\begin{minipage}{\linewidth}
+\raggedright\small
+\path{research/experiments/EXP-0003-m3-semismooth-search.md}\\
+\path{research/experiments/EXP-0006-m7-nonsplit-lucas.md}
+\end{minipage}
 실험은 유한 산술과 branch를 검사하며 확률 하한의 증명을 대체하지 않는다.
 
-archival monograph는 전체 증명, 반례, 비용 장부, 부정 결과, claim
-의존성을 보존하고 M82 projection은 집중 논문 배치를 검증한다. 약속
-membership은 여전히 인식되지 않고 입력 밀도 정리도 없으며, 일반
-고전적 다항시간 인수분해 문제는 열린 상태이다.
+전체 증명, 반례, 비용 장부, 부정 결과, claim 의존성은
+\archivepaper{}, \path{research/CLAIMS.md},
+\path{research/NEGATIVE_RESULTS.md}에 보존된다. 기계 검증되는 투영은
+\path{schemas/m82-paper-portfolio-v1.json}이다. 약속 membership은
+여전히 인식되지 않고 입력 밀도 정리도 없으며, 일반 고전적 다항시간
+인수분해 문제는 열린 상태이다.
 
 \bibliographystyle{plain}
 \small

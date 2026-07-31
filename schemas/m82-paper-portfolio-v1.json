@@ -1169,12 +1169,12 @@
     "paper/main-ko.tex": "371880a36a2d71f03ae33d0b13a975510ec1fde958464d6907be33d6195be02b",
     "paper/focused/preamble-en.tex": "304f253eed82f323bc765aa5fa5095fa4e1989be6d34c8f80a6358240b7b6a90",
     "paper/focused/preamble-ko.tex": "480b7a8bce03672a83d48d8fc6d0efa73a2b4d327eacccd40384c67a3496c544",
-    "paper/focused/promise-factorization-en.tex": "ee4ba5521ac3de4bf7df151a2feb60b157af78741b234ee75b307fb29a1a0e5c",
-    "paper/focused/promise-factorization-ko.tex": "22c905e732e27b85e093999453e80e5ea0dbf86437cd2c4e3bf7f61ee28dde43",
-    "paper/focused/cyclotomic-extraction-en.tex": "186fa8b45a777ba42ead544c81b4544a1668cc2d6913cb0904d66400c7c6d4bc",
-    "paper/focused/cyclotomic-extraction-ko.tex": "0d5248c572b63591ad5a4d833b078aae4e01e8cfc9f611e8ddc3171359705a2a",
-    "paper/focused/finite-certificates-en.tex": "b5aaa7a902aabbe417dc333aa9a5dff14377c857ff5a91748130b65b211a0c26",
-    "paper/focused/finite-certificates-ko.tex": "078faa9ce9c028e84428542150cfc097a9e280b2e3802932ada4a2c011dd80d8"
+    "paper/focused/promise-factorization-en.tex": "2edf7fb97855f0c9d018a1c41024b46590a0d455b8b47821c6a98ffda1c05eea",
+    "paper/focused/promise-factorization-ko.tex": "cf9b0ebe3f2ebef36beb65f1795d61460064fcc6dd946851dfd500065e71d709",
+    "paper/focused/cyclotomic-extraction-en.tex": "7c0bc3f0f67139c51058011446fcc7dd797b527821f63f970998490c72ca429b",
+    "paper/focused/cyclotomic-extraction-ko.tex": "9574618e6eb8074c4f2043a60ebcc5e84c94665812949b9c78d637f550800315",
+    "paper/focused/finite-certificates-en.tex": "bd2ccc6cfe5489f2a751ef497a5e9fc1ae1a993c3cce440afccb4c0ecf49e1ba",
+    "paper/focused/finite-certificates-ko.tex": "562f3f33fd4c83a40d59c5dbc360f0c52719317ec919974dd12ac7a93bfdbeed"
   },
   "scope": {
     "general_classical_polynomial_time_factoring": "OPEN",
@@ -1182,5 +1182,5 @@
     "archival_monograph_retained": true,
     "finite_certificates_extend_through_input_length": 34
   },
-  "portfolio_summary_sha256": "29e50a466e5ba7e0d88f4fd6c8aa4450d5843887535452a74eb1bdadc4db9449"
+  "portfolio_summary_sha256": "e11189195fbdc904ffc0d5217555072555db1149de67f21bf66f4cafda16e6f8"
 }

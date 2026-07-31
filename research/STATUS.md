@@ -1,5 +1,80 @@
 # Research Status
 
+## M89 outcome
+
+- Date: 2026-07-31.
+- Branch: `research/20260731-m89-appendix-boundaries`.
+- Base: M88 squash merge
+  `28083cfae472ab8775ab1957f9842aea42b88516`.
+- Completed milestone: M89, an explicit narrative-versus-audit boundary for
+  all six focused manuscripts.
+- Each manuscript now has exactly two appendices. Primary-source positioning
+  is isolated in the first appendix, while reproduction commands, proof and
+  experiment paths, internal milestone chronology, limitations, and archival
+  cross-links are isolated in the second. All 34 mathematical main sections
+  retain their former order, and all 21 bilingual claim IDs remain in the
+  main narrative with visible `PROVED` status.
+- `scripts/check_m89_appendix_boundaries.py` independently fixes the six main
+  section orders, 12 appendix headings and labels, 32 reproduction commands,
+  38 repository paths, 14 citation anchors, claim locations, limitation
+  markers, and bilingual equality. It rejects any audit token moved back into
+  the main narrative or any registered anchor lost from an appendix.
+- Twelve targeted tests passed: one current-state test and 11 mutations for a
+  missing boundary, command/path/milestone leakage, main-section reordering,
+  claim relocation, command/path/citation loss, limitation loss, and
+  bilingual path drift. The complete suite passed with 348 tests and 593
+  subtests in 258.56 seconds.
+- M82 and M83 were regenerated from the final sources. M82 accounts for all
+  270 claims as 21 focused and 249 archival-only claims; its canonical
+  summary SHA-256 is
+  `e11189195fbdc904ffc0d5217555072555db1149de67f21bf66f4cafda16e6f8`.
+  M83 retains six inspected sources, seven synchronized rows, and no priority
+  claim; its audit SHA-256 is
+  `f53cc75e6b39e49bc53f488dd4401efb250d3ae7a54cdde11cece397ef487ac2`.
+- Verification passed: foundation and Korean-appendix checks; current M50,
+  M82, M83, M84, M87, M88, and M89 generators or independent checkers;
+  bilingual publication consistency; targeted and full Python tests;
+  compileall; Ruff; mypy over 31 source files and both M89 files in strict
+  mode; Rust formatting, warning-denied Clippy, and 36 tests; and the C#
+  Release build with zero warnings and errors.
+- All six focused papers built with XeLaTeX and were reviewed page by page:
+  promise English/Korean 6/5 pages, cyclotomic English/Korean 5/5 pages, and
+  finite English/Korean 6/6 pages. Final logs contain zero selected undefined
+  reference/citation, missing-glyph, overfull, underfull, LaTeX, package, or
+  rerun warnings. PDF SHA-256 values are promise EN
+  `31f761983b8d77a1ecbc98c9de8b9d56e57db0a2f8120482471f80433a41038b`,
+  promise KO
+  `8c94f656cdf253d7850e73687cb5a63fa74efeb1133d56a887e19325ac44a720`,
+  cyclotomic EN
+  `f8d02e325c89cd31ec4d2b3612133c767bd3627fbfae1e70317ce8b97926fb66`,
+  cyclotomic KO
+  `4eeef81fc123b366f15105edfcd3ac2bc58e741ec37efc10cc5d13dd6c4c13dc`,
+  finite EN
+  `b2ad126c639eda78ab6e18522a42b7986e8ddfdc508b9d4f33b7d011c6c373f8`,
+  and finite KO
+  `f364d06581f711bd382e3134af79d17c0942d7499604bfee4f35698c3feb3427`.
+- Scope: M89 is an editorial and auditability result. It changes no
+  authoritative statement, proof status, experiment result, cost model, or
+  promise. General classical polynomial-time integer factoring remains open.
+  M90 is active and will retain only the five reviewer-prioritized finite
+  cases in the main certificate narrative while preserving the complete
+  26-row chronology in a machine-checked bilingual appendix.
+
+### M89 Korean summary
+
+M89는 세 집중 논문의 영문·국문 원고 모두에 명시적인 부록 경계를
+도입했다. 34개 수학 본문 절과 21개 `PROVED` 주장의 순서는 유지하고,
+1차 문헌 포지셔닝은 부록 A로, 재현 명령·증명/실험 경로·내부 마일스톤
+연혁·한계·아카이브 연결은 부록 B로 분리했다. 독립 검사기는 12개 부록,
+32개 명령, 38개 경로, 14개 문헌 앵커와 영문·국문 동등성을 고정하며,
+11종 변이로 본문 누출과 앵커 손실을 거부한다. 전체 348개 테스트와
+Rust/C# 및 출판 게이트가 통과했고, 여섯 PDF의 모든 페이지에서 잘림,
+겹침, 한글 글리프 누락을 확인하지 못했다. 이는 편집·감사 가능성
+개선일 뿐 수학적 주장을 승격하지 않으며, 일반 고전 다항시간
+정수분해는 여전히 열린 문제다. 다음 M90은 유한 인증서 본문에는
+심사 의견이 지정한 다섯 대표 사례만 남기고 26행 전체 연혁을 검증
+가능한 영문·국문 부록으로 옮긴다.
+
 ## M88 outcome
 
 - Date: 2026-07-31.
