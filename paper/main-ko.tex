@@ -149,10 +149,11 @@ private-pair 실패 두 개는 \(K_3/K_4\) coverer incidence를 가지며,
 하나의 정확한 \(t-1\) repair 정리와 verifier 작업 감소 없는 56-bit
 payload 압축을 준다. 19개 repair 전체의 정확한 coverer slot은
 loop-only 12개, looped-clique 5개, loopless-clique 2개이고 통합 구조
-payload는 1,228 bit가 아니라 1,063 bit이다. 여덟 non-template
-perturbation에서는 equal-size residual cover/matching witness가 다섯 exact
-repair를 43 framed bit로 인증하지만, 세 gap은 matching과 rank two가
-universal exact solver가 아님을 보인다.
+payload는 1,228 bit가 아니라 1,063 bit이다. equality witness는 여덟
+non-template perturbation 중 다섯 개를 인증한다. 이어
+augmenting-path/alternating-reachability constructor가 여섯 bipartite
+target을 풀며, triangle-plus-pendant equality와 \(C_5\) gap은
+bipartiteness가 충분조건이지 필요조건은 아님을 보인다.
 이 양성 결과는 인수분해에 의존하는 유한 약속 정리이다. 일반 고전적
 다항 시간 정수분해 알고리즘이나 모든 다항 selector의 하한은 주장하지
 않는다.
@@ -2222,6 +2223,54 @@ residual cover/matching number 합은 12와 9, full repair number 합은
 28이고, 다섯 exact witness는 43 framed bit와 21 narrow test를
 사용한다. 15개 deterministic/mutation test가 통과했다. 이들은
 synthetic finite system이며 새로 열거한 selector output이 아니다.
+
+\claimstatus{DEF-053}{DEFINITION}. 강제 loop를 제거한 뒤 bipartite
+residual constructor는 \(H\)를 two-color하고 unmatched \(L\)에서
+unmatched \(R\)로 가는 augmenting path를 반복해서 flip한다. 이어
+alternating reachability \(Z_L\cup Z_R\)를 구하고 terminal matching
+\(M\)과
+\[
+ C=(L\setminus Z_L)\cup(R\cap Z_R)
+\]
+를 출력한다.
+
+\claimstatus{THM-026}{PROVED}. 명시적 bipartite residual graph에서 이
+constructor는
+\[
+ |M|=|C|=\nu(H)=\tau(H),\qquad
+ \rho(T,U)=|F|+|M|
+\]
+을 준다. 더 큰 matching이 있다면 \(M\)과의 symmetric difference에
+augmenting path가 있다. 종료 시 unmatched right vertex에는
+alternating path로 도달할 수 없다. 각 matching edge의 두 endpoint는
+함께 도달하거나 함께 도달하지 않으므로 \(C\)는 각 matching edge에서
+정확히 한 endpoint를 담는다. uncovered edge는 nonmatching
+\(L\to R\) 또는 matching \(R\to L\) traversal과 모순이다.
+
+constructor는 \(O(t(t+q))\) indexed operation과 보수적으로
+\[
+ O(tb+2tq+t+q+\lambda+t(t+q)(\ell_t+\ell_q))
+\]
+bit operation 및 source binding을 사용한다. checkable output은
+\(\ell_k+k(\ell_t+\ell_q)\) bit이다. polynomiality는 explicit
+graph/type-system input에 대한 것이며 factor-independent complete-type
+constructor는 제공하지 않는다.
+
+\claimstatus{REF-066}{REFUTED}. bipartiteness는 matching equality의
+필요조건이 아니다. triangle에 pendant edge 하나를 붙인 graph는
+non-bipartite이지만 크기 2 matching과 크기 2 cover를 가지므로
+\(\nu=\tau=2\)이다. 반면 \(C_5\)는 \(\nu=2<3=\tau\)이므로
+non-bipartite equality는 자동이 아니다.
+
+\claimstatus{EMP-068}{EMPIRICAL}. EXP-0068은 여덟 synthetic target
+graph를 동결 M95 seed에 결속한다. 여섯 개는 bipartite이고 열 번의
+augmentation과 열여섯 번의 search로 풀린다. triangle-plus-pendant는
+non-bipartite equality 하나, \(C_5\)는 gap 하나를 보존한다.
+cover/matching number 합은 15/14, full repair 합은 21이고 여섯 output은
+88 framed bit와 48 narrow test를 사용한다. 좌우 각 세 vertex 이하의
+simple bipartite graph 689개와 parallel-edge/isolate regression을 포함한
+test 19개가 통과했다. bounded exact enumeration은 실험 방어일 뿐이며
+deleted-column target은 새로 열거한 selector output이 아니다.
 
 \subsection{THM-019와 BAR-040의 증명}
 

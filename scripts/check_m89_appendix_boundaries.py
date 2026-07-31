@@ -162,6 +162,7 @@ EXPECTED_CLAIMS = {
         "THM-023",
         "THM-024",
         "THM-025",
+        "THM-026",
         "THM-004",
         "THM-005",
         "THM-014",
@@ -204,6 +205,8 @@ EXPECTED_COMMANDS = {
         "pytest -p no:cacheprovider tests/test_m95_coverer_graph_certificate.py -q",
         "python scripts/check_m96_matching_certificate.py",
         "pytest -p no:cacheprovider tests/test_m96_matching_certificate.py -q",
+        "python scripts/check_m97_bipartite_cover.py",
+        "pytest -p no:cacheprovider tests/test_m97_bipartite_cover.py -q",
     ),
 }
 

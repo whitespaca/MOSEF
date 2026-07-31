@@ -35,6 +35,7 @@ PAPER_CLAIMS = {
         "THM-023",
         "THM-024",
         "THM-025",
+        "THM-026",
         "THM-004",
         "THM-005",
         "THM-014",
@@ -75,6 +76,10 @@ READER_LABELS = {
     "THM-025": {
         "en": ("Theorem", "Matching-equality repair certificate"),
         "ko": ("정리", "Matching-equality repair 인증서"),
+    },
+    "THM-026": {
+        "en": ("Theorem", "Constructive bipartite repair"),
+        "ko": ("정리", "Constructive bipartite repair"),
     },
     "BAR-002": {
         "en": (

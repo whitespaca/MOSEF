@@ -1569,3 +1569,26 @@
 - Consequence: THM-025 is a certificate-verification theorem, not an
   algorithm for finding equality witnesses or solving arbitrary vertex
   cover. EXP-0067 is synthetic and inherits only its seed slots from EMP-066.
+
+## ADR-082 - Construct bipartite witnesses and charge the explicit input
+
+- Date: 2026-07-31.
+- Decision: on a two-colored residual coverer graph, repeatedly find and flip
+  one augmenting path until none remains, then construct the minimum cover by
+  alternating reachability. Emit the cover and matching as a checkable
+  `THM-025` output rather than accepting either as advice.
+- Rationale: the augmenting-path lemma and reachability construction give a
+  complete restricted-class algorithm with a direct proof and no
+  vertex-subset enumeration. The single-path implementation is simpler to
+  audit than a faster batching implementation and already gives
+  \(O(t(t+q))\) indexed operations.
+- Input-model decision: state polynomiality only in the explicit
+  graph/type-system representation and separately charge graph
+  reconstruction and source binding. No step asserts that hidden-factor
+  complete types can be constructed from the integer input.
+- Boundary decision: retain triangle-plus-pendant as a non-bipartite equality
+  case and \(C_5\) as a non-bipartite gap. Bipartiteness is sufficient for
+  construction, not necessary for certificate existence.
+- Consequence: THM-026 discharges M97 for the bipartite restricted class.
+  EXP-0068 remains synthetic and source-bound; the next extension must expose
+  any non-bipartite parameter dependence rather than hide it as polynomial.

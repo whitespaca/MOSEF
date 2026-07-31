@@ -298,3 +298,7 @@ the evidence and scope remain authoritative in the full claims ledger.
 | THM-025 | PROVED | Equal-size residual cover and matching certify exact repair | `research/proofs/THM-025-matching-equality-repair-certificate.md` |
 | REF-065 | REFUTED | Matching is universally tight on residual coverer graphs | `research/NEGATIVE_RESULTS.md` NR-064 |
 | EMP-067 | EMPIRICAL | Eight synthetic non-template matching perturbations | `research/experiments/EXP-0067-m96-matching-certificates.md` |
+| DEF-053 | DEFINITION | Augmenting-path and alternating-reachability bipartite constructor | `research/proofs/THM-026-constructive-bipartite-repair.md` |
+| THM-026 | PROVED | Explicit bipartite residual graphs have constructible exact repairs | `research/proofs/THM-026-constructive-bipartite-repair.md` |
+| REF-066 | REFUTED | Matching equality requires a bipartite residual graph | `research/NEGATIVE_RESULTS.md` NR-065 |
+| EMP-068 | EMPIRICAL | Eight synthetic bipartite and odd-cycle boundary targets | `research/experiments/EXP-0068-m97-bipartite-cover.md` |

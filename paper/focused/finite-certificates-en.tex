@@ -32,9 +32,10 @@ costs and are not algorithmic advice or hidden online inputs.  The
   7,520,669 raw-mask evaluations, within a measured 29.15 MiB peak.
   All 19 repairs are 12 loop-only, five looped-clique, and two
   loopless-clique coverer graphs; unified certificates use 1,063 bits and 520
-  tests.  On eight non-template perturbations, equal-size cover/matching
-  witnesses certify five exact repairs in 43 framed bits, while three gaps
-  show that matching and rank two are not universal exact solvers.
+  tests.  Equality witnesses certify five of eight non-template
+  perturbations.  An augmenting-path and alternating-reachability constructor
+  then solves six bipartite targets; triangle-plus-pendant equality and a
+  \(C_5\) gap show that bipartiteness is sufficient, not necessary.
   Separately, we prove that every
 polynomial numeric cap in this exact grammar eventually fails and establish
 compact-gap noninjectivity barriers below the audited boundary.  These
@@ -365,6 +366,53 @@ full repair sum is 28.  The five framed witnesses use 43 bits and 21 narrow
 tests.  Fifteen tests bind the seed, reconstruct all cases, and reject
 mutations.  These systems are not newly enumerated selector outputs.
 
+\readerclaim{Definition}{Bipartite residual constructor}
+{\texttt{DEF-053: DEFINITION}}
+After forced loops are removed, two-color the residual graph, augment a
+matching until no augmenting path remains, and output the cover
+\[
+ (L\setminus Z_L)\cup(R\cap Z_R)
+\]
+from alternating reachability out of unmatched left vertices.
+
+\readerclaim{Theorem}{Constructive bipartite repair}
+{\claimstatus{THM-026}{PROVED}}
+On an explicit bipartite residual graph the constructor outputs \(M,C\)
+with
+\[
+ |M|=|C|=\nu(H)=\tau(H),\qquad
+ \rho(T,U)=|F|+|M|.
+\]
+\begin{claimproof}
+If a larger matching existed, its symmetric difference with the terminal
+matching would contain an augmenting path.  In the alternating-reachability
+construction, no unmatched right vertex is reached; every matching edge has
+both endpoints reached or neither, so the displayed cover selects exactly
+one endpoint per matching edge.  An uncovered edge would contradict either
+the nonmatching \(L\to R\) traversal or matched \(R\to L\) traversal.
+The algorithm uses \(O(t(t+q))\) indexed operations and conservatively
+\[
+ O(tb+2tq+t+q+\lambda+t(t+q)(\ell_t+\ell_q))
+\]
+bit operations plus source binding.  Polynomiality is in the explicit
+graph/type-system input; no factor-independent type constructor is supplied.
+\end{claimproof}
+
+\readerclaim{Refuted necessity}{Equality requires bipartiteness}
+{\texttt{REF-066: REFUTED}}
+A triangle with one pendant edge is non-bipartite but has
+\(\nu=\tau=2\).  By contrast \(C_5\) has \(\nu=2<3=\tau\), so
+non-bipartite equality is possible but not automatic.
+
+\readerclaim{Finite audit}{Constructed bipartite target graphs}
+{\texttt{EMP-068: EMPIRICAL}}
+Six of eight source-bound synthetic targets are bipartite and are solved
+with ten augmentations and sixteen searches.  Across all targets the
+cover/matching sums are 15/14 and full repairs sum to 21.  The six outputs
+use 88 framed bits and 48 narrow tests.  Nineteen tests include all 689 simple
+bipartite graphs through three vertices per side and a parallel-edge/isolate
+regression.  Bounded exact enumeration is defense, not the constructor.
+
 \section{Initial and widened finite theorems}
 
 \readerclaim{Finite certificate}{Base cap through length 15}
@@ -610,6 +658,8 @@ python scripts/check_m95_coverer_graph_certificate.py
 pytest -p no:cacheprovider tests/test_m95_coverer_graph_certificate.py -q
 python scripts/check_m96_matching_certificate.py
 pytest -p no:cacheprovider tests/test_m96_matching_certificate.py -q
+python scripts/check_m97_bipartite_cover.py
+pytest -p no:cacheprovider tests/test_m97_bipartite_cover.py -q
 \end{verbatim}
 The underlying M31--M46 schemas, generators, differential checkers, commands,
 toolchains, row hashes, and selected cross-language vectors remain under

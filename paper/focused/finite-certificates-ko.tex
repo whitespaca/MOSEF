@@ -31,9 +31,10 @@ certificate 생성과 hash 계산은 offline 증명 비용이며 알고리즘 ad
   7,520,669개 raw-mask 평가를 수행했고 측정 peak는 29.15 MiB였다.
   repair 19개는 loop-only 12개, looped-clique 5개, loopless-clique
   2개 coverer graph이다. 통합 인증서는 1,063 bit와 520 test를
-  사용한다. 여덟 non-template perturbation에서는 equal-size
-  cover/matching witness가 다섯 exact repair를 43 framed bit로
-  인증하지만, 세 gap은 matching과 rank two가 universal exact solver가
+  사용한다. equality witness는 여덟 non-template perturbation 중
+  다섯 개를 인증한다. 이어 augmenting-path/alternating-reachability
+  constructor가 여섯 bipartite target을 풀며, triangle-plus-pendant
+  equality와 \(C_5\) gap은 bipartiteness가 충분조건이지 필요조건은
   아님을 보인다.
   별도로 같은 정확한 문법의 모든
 polynomial numeric cap이 결국 실패함을 증명하고, 감사된 경계 아래의
@@ -367,6 +368,56 @@ certificate를 갖고 세 개는 gap을 갖는다. residual cover/matching
 mutation을 거부한다. 이 system들은 새로 열거한 selector output이
 아니다.
 
+\readerclaim{정의}{Bipartite residual constructor}
+{\texttt{DEF-053: DEFINITION}}
+강제 loop를 제거한 뒤 residual graph를 two-color하고 augmenting path가
+없을 때까지 matching을 증가시킨다. unmatched left vertex에서의
+alternating reachability로
+\[
+ (L\setminus Z_L)\cup(R\cap Z_R)
+\]
+cover를 출력한다.
+
+\readerclaim{정리}{Constructive bipartite repair}
+{\claimstatus{THM-026}{PROVED}}
+명시적 bipartite residual graph에서 constructor는
+\[
+ |M|=|C|=\nu(H)=\tau(H),\qquad
+ \rho(T,U)=|F|+|M|
+\]
+인 \(M,C\)를 출력한다.
+\begin{claimproof}
+더 큰 matching이 있다면 terminal matching과의 symmetric difference에
+augmenting path가 존재한다. alternating reachability에서는 unmatched
+right vertex에 도달하지 않고, 각 matching edge의 두 endpoint는 함께
+도달하거나 함께 도달하지 않으므로 표시한 cover는 각 matching edge에서
+정확히 한 endpoint를 선택한다. uncovered edge는 nonmatching
+\(L\to R\) 또는 matched \(R\to L\) traversal과 모순이다.
+알고리즘은 \(O(t(t+q))\) indexed operation과 보수적으로
+\[
+ O(tb+2tq+t+q+\lambda+t(t+q)(\ell_t+\ell_q))
+\]
+bit operation 및 source binding을 사용한다. polynomiality는 explicit
+graph/type-system input에 대한 것이며 factor-independent type
+constructor는 제공하지 않는다.
+\end{claimproof}
+
+\readerclaim{반박된 필요조건}{Equality에는 bipartiteness가 필요하다}
+{\texttt{REF-066: REFUTED}}
+triangle에 pendant edge 하나를 붙인 graph는 non-bipartite이지만
+\(\nu=\tau=2\)이다. 반면 \(C_5\)는 \(\nu=2<3=\tau\)이므로
+non-bipartite equality는 가능하지만 자동은 아니다.
+
+\readerclaim{유한 감사}{구성된 bipartite target graph}
+{\texttt{EMP-068: EMPIRICAL}}
+source-bound synthetic target 여덟 개 중 여섯 개가 bipartite이고,
+열 번의 augmentation과 열여섯 번의 search로 풀린다. 전체 target의
+cover/matching 합은 15/14, full repair 합은 21이다. 여섯 output은 88
+framed bit와 48 narrow test를 사용한다. 좌우 각 세 vertex 이하의 simple
+bipartite graph 689개와 parallel-edge/isolate regression을 포함한 test
+19개가 통과한다. bounded exact enumeration은 방어이고 constructor가
+아니다.
+
 \section{초기 및 확장 유한 정리}
 
 \readerclaim{유한 인증서}{길이 15까지의 base cap}
@@ -600,6 +651,8 @@ python scripts/check_m95_coverer_graph_certificate.py
 pytest -p no:cacheprovider tests/test_m95_coverer_graph_certificate.py -q
 python scripts/check_m96_matching_certificate.py
 pytest -p no:cacheprovider tests/test_m96_matching_certificate.py -q
+python scripts/check_m97_bipartite_cover.py
+pytest -p no:cacheprovider tests/test_m97_bipartite_cover.py -q
 \end{verbatim}
 기초 M31--M46 schema, generator, differential checker, 명령, toolchain,
 row hash, 선택된 cross-language vector는 \path{schemas}, \path{scripts},
